@@ -1,0 +1,571 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="15.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProjectGuid>{5E068DC1-D369-4002-A8F9-78BF879266B2}</ProjectGuid>
+    <OutputType>WinExe</OutputType>
+    <RootNamespace>ZenHandler</RootNamespace>
+    <AssemblyName>ZenHandler</AssemblyName>
+    <TargetFrameworkVersion>v4.8</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+    <AutoGenerateBindingRedirects>true</AutoGenerateBindingRedirects>
+    <Deterministic>true</Deterministic>
+    <PublishUrl>게시\</PublishUrl>
+    <Install>true</Install>
+    <InstallFrom>Disk</InstallFrom>
+    <UpdateEnabled>false</UpdateEnabled>
+    <UpdateMode>Foreground</UpdateMode>
+    <UpdateInterval>7</UpdateInterval>
+    <UpdateIntervalUnits>Days</UpdateIntervalUnits>
+    <UpdatePeriodically>false</UpdatePeriodically>
+    <UpdateRequired>false</UpdateRequired>
+    <MapFileExtensions>true</MapFileExtensions>
+    <ApplicationRevision>0</ApplicationRevision>
+    <ApplicationVersion>1.0.0.%2a</ApplicationVersion>
+    <IsWebBootstrapper>false</IsWebBootstrapper>
+    <UseApplicationTrust>false</UseApplicationTrust>
+    <BootstrapperEnabled>true</BootstrapperEnabled>
+    <TargetFrameworkProfile />
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <PlatformTarget>x64</PlatformTarget>
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>..\Output\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+    <Prefer32Bit>false</Prefer32Bit>
+    <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <PlatformTarget>x64</PlatformTarget>
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>..\Output\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+    <Prefer32Bit>false</Prefer32Bit>
+    <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="BouncyCastle.Cryptography, Version=2.0.0.0, Culture=neutral, PublicKeyToken=072edcf4a5328938, processorArchitecture=MSIL">
+      <HintPath>..\packages\BouncyCastle.Cryptography.2.3.1\lib\net461\BouncyCastle.Cryptography.dll</HintPath>
+    </Reference>
+    <Reference Include="CsvHelper, Version=33.0.0.0, Culture=neutral, PublicKeyToken=8c4959082be5c823, processorArchitecture=MSIL">
+      <HintPath>..\packages\CsvHelper.33.0.1\lib\net48\CsvHelper.dll</HintPath>
+    </Reference>
+    <Reference Include="Enums.NET, Version=4.0.0.0, Culture=neutral, PublicKeyToken=7ea1c1650d506225, processorArchitecture=MSIL">
+      <HintPath>..\packages\Enums.NET.4.0.1\lib\net45\Enums.NET.dll</HintPath>
+    </Reference>
+    <Reference Include="EPPlus, Version=7.2.1.0, Culture=neutral, PublicKeyToken=ea159fdaa78159a1, processorArchitecture=MSIL">
+      <HintPath>..\packages\EPPlus.7.2.1\lib\net462\EPPlus.dll</HintPath>
+    </Reference>
+    <Reference Include="EPPlus.Interfaces, Version=6.1.1.0, Culture=neutral, PublicKeyToken=a694d7f3b0907a61, processorArchitecture=MSIL">
+      <HintPath>..\packages\EPPlus.Interfaces.6.1.1\lib\net462\EPPlus.Interfaces.dll</HintPath>
+    </Reference>
+    <Reference Include="EPPlus.System.Drawing, Version=6.1.1.0, Culture=neutral, PublicKeyToken=2308d35469c9bac0, processorArchitecture=MSIL">
+      <HintPath>..\packages\EPPlus.System.Drawing.6.1.1\lib\net462\EPPlus.System.Drawing.dll</HintPath>
+    </Reference>
+    <Reference Include="ICSharpCode.SharpZipLib, Version=1.4.2.13, Culture=neutral, PublicKeyToken=1b03e6acf1164f73, processorArchitecture=MSIL">
+      <HintPath>..\packages\SharpZipLib.1.4.2\lib\netstandard2.0\ICSharpCode.SharpZipLib.dll</HintPath>
+    </Reference>
+    <Reference Include="LgitLibrary, Version=1.0.9155.41529, Culture=neutral, processorArchitecture=AMD64">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>bin\Debug\LgitLibrary.dll</HintPath>
+    </Reference>
+    <Reference Include="Matrox.MatroxImagingLibrary, Version=10.10.614.1, Culture=neutral, PublicKeyToken=5a83d419d44a9d98, processorArchitecture=AMD64">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\Output\Debug\Matrox.MatroxImagingLibrary.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.Bcl.AsyncInterfaces, Version=8.0.0.0, Culture=neutral, PublicKeyToken=cc7b13ffcd2ddd51, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.Bcl.AsyncInterfaces.8.0.0\lib\net462\Microsoft.Bcl.AsyncInterfaces.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.Bcl.HashCode, Version=1.0.0.0, Culture=neutral, PublicKeyToken=cc7b13ffcd2ddd51, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.Bcl.HashCode.1.1.1\lib\net461\Microsoft.Bcl.HashCode.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.IO.RecyclableMemoryStream, Version=3.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.IO.RecyclableMemoryStream.3.0.0\lib\netstandard2.0\Microsoft.IO.RecyclableMemoryStream.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.Office.Interop.Excel, Version=15.0.0.0, Culture=neutral, PublicKeyToken=71e9bce111e9429c, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.Office.Interop.Excel.15.0.4795.1001\lib\net20\Microsoft.Office.Interop.Excel.dll</HintPath>
+      <EmbedInteropTypes>True</EmbedInteropTypes>
+    </Reference>
+    <Reference Include="Microsoft.VisualBasic" />
+    <Reference Include="Newtonsoft.Json, Version=13.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
+      <HintPath>..\packages\Newtonsoft.Json.13.0.3\lib\net45\Newtonsoft.Json.dll</HintPath>
+    </Reference>
+    <Reference Include="OpenCvSharp, Version=1.0.0.0, Culture=neutral, PublicKeyToken=6adad1e807fea099, processorArchitecture=MSIL">
+      <HintPath>..\packages\OpenCvSharp4.4.5.2.20210404\lib\net461\OpenCvSharp.dll</HintPath>
+    </Reference>
+    <Reference Include="OpenCvSharp.Extensions, Version=1.0.0.0, Culture=neutral, PublicKeyToken=6adad1e807fea099, processorArchitecture=MSIL">
+      <HintPath>..\packages\OpenCvSharp4.4.5.2.20210404\lib\net461\OpenCvSharp.Extensions.dll</HintPath>
+    </Reference>
+    <Reference Include="PresentationCore" />
+    <Reference Include="ReaLTaiizor, Version=3.8.1.1, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\ReaLTaiizor.3.8.1.1\lib\net48\ReaLTaiizor.dll</HintPath>
+    </Reference>
+    <Reference Include="SixLabors.Fonts, Version=1.0.0.0, Culture=neutral, PublicKeyToken=d998eea7b14cab13, processorArchitecture=MSIL">
+      <HintPath>..\packages\SixLabors.Fonts.1.0.1\lib\netstandard2.0\SixLabors.Fonts.dll</HintPath>
+    </Reference>
+    <Reference Include="SixLabors.ImageSharp, Version=2.0.0.0, Culture=neutral, PublicKeyToken=d998eea7b14cab13, processorArchitecture=MSIL">
+      <HintPath>..\packages\SixLabors.ImageSharp.2.1.9\lib\net472\SixLabors.ImageSharp.dll</HintPath>
+    </Reference>
+    <Reference Include="System" />
+    <Reference Include="System.Buffers, Version=4.0.3.0, Culture=neutral, PublicKeyToken=cc7b13ffcd2ddd51, processorArchitecture=MSIL">
+      <HintPath>..\packages\System.Buffers.4.5.1\lib\net461\System.Buffers.dll</HintPath>
+    </Reference>
+    <Reference Include="System.ComponentModel.Annotations, Version=4.2.1.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
+      <HintPath>..\packages\System.ComponentModel.Annotations.5.0.0\lib\net461\System.ComponentModel.Annotations.dll</HintPath>
+    </Reference>
+    <Reference Include="System.ComponentModel.DataAnnotations" />
+    <Reference Include="System.configuration" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Design" />
+    <Reference Include="System.Drawing.Common, Version=4.0.0.2, Culture=neutral, PublicKeyToken=cc7b13ffcd2ddd51, processorArchitecture=MSIL">
+      <HintPath>..\packages\System.Drawing.Common.5.0.2\lib\net461\System.Drawing.Common.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Memory, Version=4.0.1.2, Culture=neutral, PublicKeyToken=cc7b13ffcd2ddd51, processorArchitecture=MSIL">
+      <HintPath>..\packages\System.Memory.4.5.5\lib\net461\System.Memory.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Numerics" />
+    <Reference Include="System.Numerics.Vectors, Version=4.1.4.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
+      <HintPath>..\packages\System.Numerics.Vectors.4.5.0\lib\net46\System.Numerics.Vectors.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Runtime.CompilerServices.Unsafe, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
+      <HintPath>..\packages\System.Runtime.CompilerServices.Unsafe.6.0.0\lib\net461\System.Runtime.CompilerServices.Unsafe.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Security" />
+    <Reference Include="System.Security.Cryptography.Pkcs, Version=8.0.0.1, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
+      <HintPath>..\packages\System.Security.Cryptography.Pkcs.8.0.1\lib\net462\System.Security.Cryptography.Pkcs.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Security.Cryptography.Xml, Version=8.0.0.2, Culture=neutral, PublicKeyToken=cc7b13ffcd2ddd51, processorArchitecture=MSIL">
+      <HintPath>..\packages\System.Security.Cryptography.Xml.8.0.2\lib\net462\System.Security.Cryptography.Xml.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Text.Encoding.CodePages, Version=5.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
+      <HintPath>..\packages\System.Text.Encoding.CodePages.5.0.0\lib\net461\System.Text.Encoding.CodePages.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Threading.Tasks.Extensions, Version=4.2.0.1, Culture=neutral, PublicKeyToken=cc7b13ffcd2ddd51, processorArchitecture=MSIL">
+      <HintPath>..\packages\System.Threading.Tasks.Extensions.4.5.4\lib\net461\System.Threading.Tasks.Extensions.dll</HintPath>
+    </Reference>
+    <Reference Include="System.ValueTuple, Version=4.0.3.0, Culture=neutral, PublicKeyToken=cc7b13ffcd2ddd51, processorArchitecture=MSIL">
+      <HintPath>..\packages\System.ValueTuple.4.5.0\lib\net47\System.ValueTuple.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Deployment" />
+    <Reference Include="System.Drawing" />
+    <Reference Include="System.Net.Http" />
+    <Reference Include="System.Windows.Forms" />
+    <Reference Include="System.Xml" />
+    <Reference Include="Tommy, Version=3.1.2.0, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>bin\Debug\Tommy.dll</HintPath>
+    </Reference>
+    <Reference Include="YamlDotNet, Version=16.0.0.0, Culture=neutral, PublicKeyToken=ec19458f3c15af5e, processorArchitecture=MSIL">
+      <HintPath>..\packages\YamlDotNet.16.3.0\lib\net47\YamlDotNet.dll</HintPath>
+    </Reference>
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="Controls\TeachingGridView.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="Data\CEEpromData.cs" />
+    <Compile Include="Data\CMesData.cs" />
+    <Compile Include="Data\csvData.cs" />
+    <Compile Include="Data\DataManageClass.cs" />
+    <Compile Include="Data\IoData.cs" />
+    <Compile Include="Data\TaskWork.cs" />
+    <Compile Include="Data\TeachingData.cs" />
+    <Compile Include="Data\WorkData.cs" />
+    <Compile Include="Data\YamlAlarmData.cs" />
+    <Compile Include="Data\YamlConfigData.cs" />
+    <Compile Include="Data\YamlImageData.cs" />
+    <Compile Include="Data\YamlManager.cs" />
+    <Compile Include="Data\YamlRecipe.cs" />
+    <Compile Include="Data\YamlSecGemData.cs" />
+    <Compile Include="Data\YamlTaskData.cs" />
+    <Compile Include="Data\YamlTeachingData.cs" />
+    <Compile Include="DIoControl.cs" />
+    <Compile Include="DioDefine.cs" />
+    <Compile Include="Dlg\IdlePopupForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Dlg\IdlePopupForm.Designer.cs">
+      <DependentUpon>IdlePopupForm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Dlg\LogControl.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Dlg\LogControl.designer.cs">
+      <DependentUpon>LogControl.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Dlg\AlarmControl.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Dlg\AlarmControl.designer.cs">
+      <DependentUpon>AlarmControl.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Dlg\CamControl.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Dlg\CamControl.designer.cs">
+      <DependentUpon>CamControl.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Dlg\ConfigControl.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Dlg\ConfigControl.designer.cs">
+      <DependentUpon>ConfigControl.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Dlg\IoControl.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Dlg\IoControl.Designer.cs">
+      <DependentUpon>IoControl.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Dlg\CCdControl.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Dlg\CCdControl.designer.cs">
+      <DependentUpon>CCdControl.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Dlg\MainControl.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Dlg\MainControl.designer.cs">
+      <DependentUpon>MainControl.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Dlg\ManualLens.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Dlg\ManualLens.Designer.cs">
+      <DependentUpon>ManualLens.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Dlg\ManualTransfer.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Dlg\ManualTransfer.Designer.cs">
+      <DependentUpon>ManualTransfer.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Dlg\OperationPanel.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Dlg\OperationPanel.Designer.cs">
+      <DependentUpon>OperationPanel.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Dlg\ProductionInfo.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Dlg\ProductionInfo.Designer.cs">
+      <DependentUpon>ProductionInfo.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Dlg\RecipePopup.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Dlg\RecipePopup.Designer.cs">
+      <DependentUpon>RecipePopup.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Dlg\SocketStateInfo.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Dlg\SocketStateInfo.Designer.cs">
+      <DependentUpon>SocketStateInfo.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Dlg\TabMenuForm.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Dlg\TabMenuForm.Designer.cs">
+      <DependentUpon>TabMenuForm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Dlg\ManualControl.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Dlg\ManualControl.designer.cs">
+      <DependentUpon>ManualControl.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Dlg\TeachingControl.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Dlg\TeachingControl.designer.cs">
+      <DependentUpon>TeachingControl.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Dlg\TeachingLens.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Dlg\TeachingLens.Designer.cs">
+      <DependentUpon>TeachingLens.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Dlg\TeachingTransfer.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Dlg\TeachingTransfer.Designer.cs">
+      <DependentUpon>TeachingTransfer.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Dlg\TrayStateInfo.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Dlg\TrayStateInfo.Designer.cs">
+      <DependentUpon>TrayStateInfo.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Ezterm\AXA.cs" />
+    <Compile Include="Ezterm\AXC.cs" />
+    <Compile Include="Ezterm\AXD.cs" />
+    <Compile Include="Ezterm\AXDev.cs" />
+    <Compile Include="Ezterm\AXHD.cs" />
+    <Compile Include="Ezterm\AXHS.cs" />
+    <Compile Include="Ezterm\AXL.cs" />
+    <Compile Include="Ezterm\AXM.cs" />
+    <Compile Include="FThread\AutoRunthread.cs" />
+    <Compile Include="FThread\BaseThread.cs" />
+    <Compile Include="FThread\CamGrabThread.cs" />
+    <Compile Include="FThread\CcdColorThread.cs" />
+    <Compile Include="FThread\CcdGrabThread.cs" />
+    <Compile Include="FThread\DIoThread.cs" />
+    <Compile Include="FThread\ImageGrabThread.cs" />
+    <Compile Include="FThread\ManualThread.cs" />
+    <Compile Include="FThread\MotorAutoThread.cs" />
+    <Compile Include="FThread\MotorManualThread.cs" />
+    <Compile Include="InputForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="InputForm.designer.cs">
+      <DependentUpon>InputForm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="KeyBoardForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="KeyBoardForm.Designer.cs">
+      <DependentUpon>KeyBoardForm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="KeyMessageFilter.cs" />
+    <Compile Include="Laon\CLaonGrabberClass.cs" />
+    <Compile Include="Lgit\ACMISCommon.cs" />
+    <Compile Include="MotionControl\IOController.cs" />
+    <Compile Include="Machine\LiftModule.cs" />
+    <Compile Include="Machine\MagazineHandler.cs" />
+    <Compile Include="MotionControl\MotionManager.cs" />
+    <Compile Include="MotionControl\MotorAxis.cs" />
+    <Compile Include="MotionControl\MotorController.cs" />
+    <Compile Include="MotionControl\MotorSet.cs" />
+    <Compile Include="Machine\TransferMachine.cs" />
+    <Compile Include="MainForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="MainForm.Designer.cs">
+      <DependentUpon>MainForm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="FThread\TimeThread.cs" />
+    <Compile Include="Globalo.cs" />
+    <Compile Include="LogDefine.cs" />
+    <Compile Include="MessagePopUpForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="MessagePopUpForm.Designer.cs">
+      <DependentUpon>MessagePopUpForm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="MotorAxisold.cs" />
+    <Compile Include="MotorControl.cs" />
+    <Compile Include="MotorDefine.cs" />
+    <Compile Include="NumPadForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="NumPadForm.Designer.cs">
+      <DependentUpon>NumPadForm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Process\LiftFlow.cs" />
+    <Compile Include="Process\ManualProcess.cs" />
+    <Compile Include="Process\PcbProcess.cs" />
+    <Compile Include="Process\ProcessManager.cs" />
+    <Compile Include="Process\ReadyProcess.cs" />
+    <Compile Include="Process\TransferFlow.cs" />
+    <Compile Include="Program.cs" />
+    <Compile Include="ProgramState.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Properties\Resources.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Resources.resx</DependentUpon>
+    </Compile>
+    <Compile Include="Serial\SerialCommunicator.cs" />
+    <Compile Include="Serial\SerialPortManager.cs" />
+    <Compile Include="TcpSocket\packetData.cs" />
+    <Compile Include="TcpSocket\TcpManager.cs" />
+    <Compile Include="TcpSocket\TcpServer.cs" />
+    <Compile Include="ThreadControl.cs" />
+    <Compile Include="FThread\LogThread.cs" />
+    <Compile Include="Ubisam\Constants.cs" />
+    <Compile Include="Ubisam\DriverHelper.cs" />
+    <Compile Include="Vision.cs" />
+    <EmbeddedResource Include="Dlg\IdlePopupForm.resx">
+      <DependentUpon>IdlePopupForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Dlg\LogControl.resx">
+      <DependentUpon>LogControl.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Dlg\AlarmControl.resx">
+      <DependentUpon>AlarmControl.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Dlg\CamControl.resx">
+      <DependentUpon>CamControl.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Dlg\ConfigControl.resx">
+      <DependentUpon>ConfigControl.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Dlg\IoControl.resx">
+      <DependentUpon>IoControl.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Dlg\CCdControl.resx">
+      <DependentUpon>CCdControl.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Dlg\MainControl.resx">
+      <DependentUpon>MainControl.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Dlg\ManualLens.resx">
+      <DependentUpon>ManualLens.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Dlg\ManualTransfer.resx">
+      <DependentUpon>ManualTransfer.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Dlg\OperationPanel.resx">
+      <DependentUpon>OperationPanel.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Dlg\ProductionInfo.resx">
+      <DependentUpon>ProductionInfo.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Dlg\RecipePopup.resx">
+      <DependentUpon>RecipePopup.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Dlg\SocketStateInfo.resx">
+      <DependentUpon>SocketStateInfo.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Dlg\TabMenuForm.resx">
+      <DependentUpon>TabMenuForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Dlg\ManualControl.resx">
+      <DependentUpon>ManualControl.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Dlg\TeachingControl.resx">
+      <DependentUpon>TeachingControl.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Dlg\TeachingLens.resx">
+      <DependentUpon>TeachingLens.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Dlg\TeachingTransfer.resx">
+      <DependentUpon>TeachingTransfer.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Dlg\TrayStateInfo.resx">
+      <DependentUpon>TrayStateInfo.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="InputForm.resx">
+      <DependentUpon>InputForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="KeyBoardForm.resx">
+      <DependentUpon>KeyBoardForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="MainForm.resx">
+      <DependentUpon>MainForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="MessagePopUpForm.resx">
+      <DependentUpon>MessagePopUpForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="NumPadForm.resx">
+      <DependentUpon>NumPadForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Properties\Resources.resx">
+      <Generator>ResXFileCodeGenerator</Generator>
+      <SubType>Designer</SubType>
+      <LastGenOutput>Resources.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
+    <None Include="packages.config" />
+    <None Include="Properties\Settings.settings">
+      <Generator>SettingsSingleFileGenerator</Generator>
+      <LastGenOutput>Settings.Designer.cs</LastGenOutput>
+    </None>
+    <Compile Include="Properties\Settings.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DependentUpon>Settings.settings</DependentUpon>
+      <DesignTimeSharedInput>True</DesignTimeSharedInput>
+    </Compile>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="App.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="icon\error.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="icon\info.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="icon\warning.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <WCFMetadata Include="Connected Services\" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="icon\question.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="icon\mainTitle.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="icon\svg-bullhorn.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="icon\Manual.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="icon\Teaching.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="icon\Ccd.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="icon\Io.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="icon\Light.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="icon\Config.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="icon\Alarm.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="icon\Desktop.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="icon\Exit.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <BootstrapperPackage Include=".NETFramework,Version=v4.7.2">
+      <Visible>False</Visible>
+      <ProductName>Microsoft .NET Framework 4.7.2%28x86 및 x64%29</ProductName>
+      <Install>true</Install>
+    </BootstrapperPackage>
+    <BootstrapperPackage Include="Microsoft.Net.Framework.3.5.SP1">
+      <Visible>False</Visible>
+      <ProductName>.NET Framework 3.5 SP1</ProductName>
+      <Install>false</Install>
+    </BootstrapperPackage>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="icon\log.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="icon\RightTop_logo.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="icon\RightTop_logo2.png" />
+  </ItemGroup>
+  <ItemGroup />
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+</Project>
