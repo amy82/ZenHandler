@@ -46,8 +46,8 @@ namespace ZenHandler.MotionControl
         public abstract void MovingStop();
 
 
-        
 
+        
         public virtual bool SingleAxisMove(MotorAxis nAxis, double dPos, AXT_MOTION_ABSREL nAbsFlag, bool bWait = false)
         {
             if (ProgramState.ON_LINE_MOTOR == false)

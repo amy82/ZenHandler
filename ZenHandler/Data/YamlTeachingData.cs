@@ -10,6 +10,11 @@ using YamlDotNet.Core.Events;
 
 namespace ZenHandler.Data
 {
+    public enum eTeachPosName : int
+    {
+        WAIT_POS = 0, LEFT_TRAY_LOAD_POS, RIGHT_TRAY_LOAD_POS, SOCKET_POS1, SOCKET_POS2, SOCKET_POS3, SOCKET_POS4
+    };
+    
     public class TeachingPos
     {
         public string Name { get; set; }

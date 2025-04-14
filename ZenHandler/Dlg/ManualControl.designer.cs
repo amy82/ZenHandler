@@ -81,6 +81,7 @@
             this.Controls.Add(this.TeachingTitleLabel);
             this.Name = "ManualControl";
             this.Size = new System.Drawing.Size(770, 1018);
+            this.VisibleChanged += new System.EventHandler(this.ManualControl_VisibleChanged);
             this.ResumeLayout(false);
 
         }

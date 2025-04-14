@@ -437,7 +437,10 @@ namespace ZenHandler.MotionControl
         public double GetEncoderPos()
         {
             double dPos = 0.0;
-
+            if (ProgramState.ON_LINE_MOTOR == false)
+            {
+                return dPos;
+            }
             if (this.Type == MotorDefine.eMotorType.LINEAR)
             {
                 //리니어,서보

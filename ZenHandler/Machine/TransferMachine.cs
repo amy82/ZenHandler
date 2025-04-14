@@ -42,6 +42,48 @@ namespace ZenHandler.Machine
             //transferThread = new FThread.TransferThread();
             //TransferX.ServoOn();
         }
+        public bool ChkXYMotorPos(Data.eTeachPosName teachingPos)
+        {
+            bool bRtn = false;
+
+            double dXPos = 0.0;
+            double dYPos = 0.0;
+            double currentXPos = 0.0;
+            double currentYPos = 0.0;
+
+
+            dXPos = Globalo.yamlManager.teachingDataYaml.teachingHandlerData.TransferMachine.Teaching[(int)teachingPos].Pos[0];
+            dYPos = Globalo.yamlManager.teachingDataYaml.teachingHandlerData.TransferMachine.Teaching[(int)teachingPos].Pos[1];
+            
+
+            currentXPos = TransferX.GetEncoderPos();
+            currentYPos = TransferY.GetEncoderPos();
+            if (dXPos == currentXPos && dYPos == currentYPos)
+            {
+                bRtn = true;
+            }
+
+            return bRtn;
+        }
+        public bool ChkZMotorPos(Data.eTeachPosName teachingPos)
+        {
+            bool bRtn = false;
+
+            double dZPos = 0.0;
+            double currentZPos = 0.0;
+
+
+            dZPos = Globalo.yamlManager.teachingDataYaml.teachingHandlerData.TransferMachine.Teaching[(int)teachingPos].Pos[2];
+
+
+            currentZPos = TransferZ.GetEncoderPos();
+            if (dZPos == currentZPos)
+            {
+                bRtn = true;
+            }
+
+            return bRtn;
+        }
         public bool GetLensGripState(bool bFlag)
         {
             int lModuleNo = 0;
@@ -68,7 +110,7 @@ namespace ZenHandler.Machine
             return false;
 
         }
-        public bool LensGripOn(bool bFlag, bool bWait = false)
+        public bool LensGripOn(int index, bool bFlag, bool bWait = false)
         {
             int lModuleNo = 0;
             int lOffset = 0;
@@ -301,7 +343,7 @@ namespace ZenHandler.Machine
             return isSuccess;
         }
 
-        public void TransFer_XY_Move()
+        public bool TransFer_XY_Move(Data.eTeachPosName teachingPos)
         {
             MotionControl.MotorAxis[] multiAxis = { TransferX, TransferY };
 
@@ -316,6 +358,25 @@ namespace ZenHandler.Machine
             {
 
             }
+
+            return bRtn;
+        }
+        public bool TransFer_Z_Move(Data.eTeachPosName teachingPos)
+        {
+
+            double dPos = 0.0;
+
+            bool bRtn = SingleAxisMove(TransferZ, dPos, AXT_MOTION_ABSREL.POS_ABS_MODE);
+            if (bRtn)
+            {
+
+            }
+            else
+            {
+
+            }
+
+            return bRtn;
         }
         public async Task MoveMotorAndWaitAsync()
         {

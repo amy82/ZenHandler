@@ -49,7 +49,7 @@ namespace ZenHandler.Dlg
             setInterface();
 
             manualBtnTab = eManualBtn.TransferTab;
-            TeachingBtnChange(manualBtnTab);
+            //TeachingBtnChange(manualBtnTab);
         }
         private void Form_Paint(object sender, PaintEventArgs e)
         {
@@ -111,6 +111,19 @@ namespace ZenHandler.Dlg
         private void BTN_TEACH_LENS_Click(object sender, EventArgs e)
         {
             TeachingBtnChange(eManualBtn.lensTab);
+        }
+
+        private void ManualControl_VisibleChanged(object sender, EventArgs e)
+        {
+            if (this.Visible)
+            {
+                TeachingBtnChange(manualBtnTab);
+            }
+            else
+            {
+                manualTransfer.Visible = false;
+                manualTransfer.hidePanel();
+            }
         }
     }
 }
