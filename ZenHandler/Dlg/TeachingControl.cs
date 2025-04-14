@@ -62,7 +62,7 @@ namespace ZenHandler.Dlg
             MachineControl.Clear();
 
             transferTeach = new TeachingTransfer();
-
+            TeachCurrentTab = eTeachingBtn.TransferTab;
             CurrentTab = transferTeach;
             MachineControl.Add(transferTeach);
 
@@ -90,7 +90,7 @@ namespace ZenHandler.Dlg
 
             changeSpeedNo(0);
 
-            TeachingBtnChange(eTeachingBtn.pcbTab);
+            TeachingBtnChange(TeachCurrentTab);
         }
         private void Form_Paint(object sender, PaintEventArgs e)
         {
@@ -239,7 +239,7 @@ namespace ZenHandler.Dlg
                 JogTimer.Stop();
             }
 
-            if (TeachCurrentTab == eTeachingBtn.pcbTab)
+            if (TeachCurrentTab == eTeachingBtn.TransferTab)
             {
                 teachingLens.hidePanel();
                 transferTeach.showPanel();
@@ -295,7 +295,7 @@ namespace ZenHandler.Dlg
             
         }
 
-        private void BTN_TEACH_MOVE_MINUS_Click(object sender, EventArgs e)
+        private async void BTN_TEACH_MOVE_MINUS_Click(object sender, EventArgs e)
         {
             if (ProgramState.ON_LINE_MOTOR == false)
             {
@@ -305,42 +305,13 @@ namespace ZenHandler.Dlg
 
             if (TeachCurrentTab == eTeachingBtn.TransferTab)
             {
-                transferTeach.MotorRelMove(dMovePos);
+                bool result = await transferTeach.MotorRelMove(dMovePos);
             }
 
-
-
-            //if (CurrentTab == transferTeach)
-            //{
-            //    //Globalo.motionManager.transferMachine.MotorAxes[transferTeach.SelectAxisIndex].       
-            //    // TODO: 조그 움직이는 함수 정해야된다.
-            //}
-            //else if (CurrentTab == teachingLens)
-            //{
-
-            //}
-
-
-            //if (TeachCurrentTab == eTeachingBtn.pcbTab)
-            //{
-            //    if (transferTeach.SelectAxisIndex < 0)
-            //    {
-            //        return;
-            //    }
-            //    motorControl.PcbMotorAxis[transferTeach.SelectAxisIndex].MoveFromAbsRel(dMovePos, false);
-            //}
-            //else if (TeachCurrentTab == eTeachingBtn.lensTab)
-            //{
-            //    if (teachingLens.SelectLensAxis < 0)
-            //    {
-            //        return;
-            //    }
-            //    motorControl.LensMotorAxis[teachingLens.SelectLensAxis].MoveFromAbsRel(dMovePos, false);
-            //}
             
         }
 
-        private void BTN_TEACH_MOVE_PLUS_Click(object sender, EventArgs e)
+        private async void BTN_TEACH_MOVE_PLUS_Click(object sender, EventArgs e)
         {
             if (ProgramState.ON_LINE_MOTOR == false)
             {
@@ -349,34 +320,10 @@ namespace ZenHandler.Dlg
             double dMovePos = double.Parse(LABEL_TEACH_MOVE_VALUE.Text);
 
             if (CurrentTab == transferTeach)
-            {
-                //Globalo.motionManager.transferMachine.MotorRelMove(dMovePos);
-                //transferTeach.move
-                //Globalo.motionManager.transferMachine.MotorAxes[transferTeach.SelectAxisIndex].       
-                // TODO: 조그 움직이는 함수 정해야된다.
+            {   
+                bool result = await transferTeach.MotorRelMove(dMovePos);
             }
-            else if (CurrentTab == teachingLens)
-            {
-
-            }
-
-            //if (TeachCurrentTab == eTeachingBtn.pcbTab)
-            //{
-            //    if (transferTeach.SelectAxisIndex < 0)
-            //    {
-            //        return;
-            //    }
-            //    motorControl.PcbMotorAxis[transferTeach.SelectAxisIndex].MoveFromAbsRel(dMovePos, true);
-            //}
-            //else if (TeachCurrentTab == eTeachingBtn.lensTab)
-            //{
-            //    if (teachingLens.SelectLensAxis < 0)
-            //    {
-            //        return;
-            //    }
-            //    motorControl.LensMotorAxis[teachingLens.SelectLensAxis].MoveFromAbsRel(dMovePos, true);
-            //}
-
+            
         }
 
         private void LABEL_TEACH_MOVE_VALUE_Click(object sender, EventArgs e)
@@ -436,32 +383,25 @@ namespace ZenHandler.Dlg
                     break;
             }
         }
-        private void BTN_TEACH_JOG_MINUS_MouseDown(object sender, MouseEventArgs e)
+
+        private async void BTN_TEACH_JOG_MINUS_MouseDown(object sender, MouseEventArgs e)
         {
-            if (transferTeach.SelectAxisIndex < 0)
-            {
-                return;
-            }
-            if (teachingLens.SelectLensAxis < 0)
-            {
-                return;
-            }
             m_bJogNegDir = true;
-            //motorControl.PcbMotorAxis[m_nSelectAxis].JogMove(-1, m_dJogSpeed);
+
+            if (ProgramState.ON_LINE_MOTOR == false)
+            {
+                return;
+            }
+            if (CurrentTab == transferTeach)
+            {
+                bool result = await transferTeach.MotorJogMove(-1, m_dJogSpeed);
+            }
         }
 
-        private void BTN_TEACH_JOG_MINUS_MouseUp(object sender, MouseEventArgs e)
+        private  void BTN_TEACH_JOG_MINUS_MouseUp(object sender, MouseEventArgs e)
         {
-            if (transferTeach.SelectAxisIndex < 0)
-            {
-                return;
-            }
-            if (teachingLens.SelectLensAxis < 0)
-            {
-                return;
-            }
+            transferTeach.MotorJogStop();
             m_bJogNegDir = false;
-            //motorControl.PcbMotorAxis[m_nSelectAxis].JogStop();
         }
 
         private void BTN_TEACH_SPEED_LOW_Click(object sender, EventArgs e)
@@ -479,45 +419,30 @@ namespace ZenHandler.Dlg
             changeSpeedNo(2);
         }
 
-        private void BTN_TEACH_JOG_PLUS_MouseDown(object sender, MouseEventArgs e)
+        private async void BTN_TEACH_JOG_PLUS_MouseDown(object sender, MouseEventArgs e)
         {
-            if (transferTeach.SelectAxisIndex < 0)
+            if (ProgramState.ON_LINE_MOTOR == false)
             {
                 return;
             }
-            if (teachingLens.SelectLensAxis < 0)
+            if (CurrentTab == transferTeach)
             {
-                return;
+                bool result = await transferTeach.MotorJogMove(1, m_dJogSpeed);
             }
             m_bJogPosDir = true;
-            //eLogSender("CTeachingControl", LogDefine.enLogLevel.Info, "Jog Plus Move Press");
-            //motorControl.PcbMotorAxis[m_nSelectAxis].JogMove(1, m_dJogSpeed);
         }
 
         private void BTN_TEACH_JOG_PLUS_MouseUp(object sender, MouseEventArgs e)
         {
-            if (transferTeach.SelectAxisIndex < 0)
-            {
-                return;
-            }
-            if (teachingLens.SelectLensAxis < 0)
-            {
-                return;
-            }
             m_bJogPosDir = false;
-            //eLogSender("CTeachingControl", LogDefine.enLogLevel.Info, "Jog Plus Move Stop");
-            //motorControl.PcbMotorAxis[m_nSelectAxis].JogStop();
+            transferTeach.MotorJogStop();
         }
 
         private void BTN_TEACH_JOG_STOP_Click(object sender, EventArgs e)
         {
-            if (transferTeach.SelectAxisIndex < 0)
+            if (TeachCurrentTab == eTeachingBtn.TransferTab)
             {
-                return;
-            }
-            if (TeachCurrentTab == eTeachingBtn.pcbTab)
-            {
-                motorControl.PcbMotorAxis[transferTeach.SelectAxisIndex].JogStop();
+                //motorControl.PcbMotorAxis[transferTeach.SelectAxisIndex].JogStop();
             }
             else if (TeachCurrentTab == eTeachingBtn.lensTab)
             {
@@ -525,7 +450,7 @@ namespace ZenHandler.Dlg
                 {
                     return;
                 }
-                motorControl.LensMotorAxis[teachingLens.SelectLensAxis].JogStop();
+
             }
                 
         }

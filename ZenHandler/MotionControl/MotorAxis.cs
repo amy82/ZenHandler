@@ -27,9 +27,9 @@ namespace ZenHandler.MotionControl
         public double CommnadPos { get; protected set; }        //현재 위치 AxmStatusGetCmdPos : STEPING
         public double ActualPos { get; protected set; }         //현재 위치 AxmStatusGetActPos : LINEAR , SERVO
         public double CommandVelocity { get; protected set; }   //지정한 축의 구동 속도 AxmStatusReadVel
-        public int Velocity { get; set; }                       //속도 = Move 속도 , Jog 속도 나눠야 될 수도
-        public int Acceleration { get; protected set; }         //가속
-        public int Deceleration { get; protected set; }         //감속
+        public double Velocity { get; set; }                       //속도 = Move 속도 , Jog 속도 나눠야 될 수도
+        public double Acceleration { get; set; }         //가속
+        public double Deceleration { get; set; }         //감속
         public int Resolution { get; protected set; }
         public bool OrgState { get; protected set; }             //원점 상태
         public bool RunState { get; protected set; }             //동작 상태
@@ -163,6 +163,101 @@ namespace ZenHandler.MotionControl
             return false;
         }
 
+        public void MotorPropertySet(double speed , double acc , double dec)
+        {
+            if (speed < 1)
+            {
+                speed = 1;
+            }
+
+            if (acc < 0.1)
+            {
+                acc = 0.1;
+            }
+            if (acc > 3.0)
+            {
+                acc = 3.0;
+            }
+            if (dec < 0.1)
+            {
+                dec = 0.1;
+            }
+            if (dec > 3.0)
+            {
+                dec = 3.0;
+            }
+            this.Velocity = speed;
+
+            this.Acceleration = acc;
+            this.Deceleration = dec;
+        }
+        public bool JogMove(int direction, double Speed)
+        {
+            //Speed = 0.1 , 0.5 , 1.0 Low , Mid , High
+            Console.WriteLine($"방향 {direction}으로 조그 이동");
+            double dVel = 0.0;
+            double dAcc = 0.0;
+            double dDec = 0.0;
+            uint dwRetVal = 0;
+            double dJogSpeed = 0.0;
+
+            //MOTOR_JOG_LOW = 0.1
+            //MOTOR_JOG_MID = 0.5
+
+            //MOTOR_JOG_HIGH = 1.0
+
+            string str = "";
+
+            if (this.GetAmpFault() == true)    //알람 신호 입력 상태 확인
+            {
+                str = $"{this.Name} Motor ServoAlarm occurs";
+                return false;
+            }
+            if (this.GetAmpEnable() == false)      //Servo-On 상태 확인
+            {
+                str = $"{this.Name} Motor Servo Off State";
+                return false;
+            }
+            if (this.GetStopAxis() == false)      //정지 상태 확인
+            {
+                str = $"{this.Name} Motor Stop status check failed";
+                return false;
+            }
+            if (this.OrgState == false)
+            {
+                str = $"{this.Name} Failed to check for return to origin";
+                return false;
+            }
+
+            if (direction == 1)
+            {
+                dJogSpeed = (this.Velocity * this.Resolution) * Speed;        //Speed = 0.1 , 0.5 , 1.0
+            }
+            else
+            {
+                dJogSpeed = Math.Abs((this.Velocity * this.Resolution) * Speed) * -1;
+            }
+
+            if (MotionControl.MotorSet.MOTOR_ACC_TYPE_SEC)
+            {
+                dAcc = this.Acceleration;      //! 가속 
+                dDec = this.Deceleration;      //! 감속
+            }
+            else
+            {
+                dAcc = this.Acceleration * (9.8 * 1000 * this.Resolution);      //! 가속 
+                dDec = this.Deceleration * (9.8 * 1000 * this.Resolution);      //! 감속
+            }
+
+            dwRetVal = CAXM.AxmMoveVel(this.m_lAxisNo, dJogSpeed, dAcc, dDec);
+
+            if (dwRetVal != (uint)AXT_FUNC_RESULT.AXT_RT_SUCCESS)
+            {
+                return false;
+            }
+
+            return true;
+        }
         //-----------------------------------------------------------------------------
         //
         //	지정 축을 절대 구동 또는 상대 구동으로 이동한다. 
@@ -195,9 +290,9 @@ namespace ZenHandler.MotionControl
                 str = $"{this.Name} Failed to check for return to origin";
                 return false;
             }
-
-
-
+            ///////
+            /////
+            ////
             if (nAbsFlag == AXT_MOTION_ABSREL.POS_ABS_MODE)
             {
                 dCurrPos = this.GetEncoderPos();

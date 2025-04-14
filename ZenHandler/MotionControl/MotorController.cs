@@ -46,53 +46,7 @@ namespace ZenHandler.MotionControl
         public abstract void MovingStop();
 
 
-        public virtual bool JogMove(MotorAxis nAxis, int direction, int Speed)
-        {
-            //Speed = 0.1 , 0.5 , 1.0 Low , Mid , High
-            Console.WriteLine($"방향 {direction}으로 조그 이동");
-            double dVel = 0.0;
-            double dAcc = 0.0;
-            double dDec = 0.0;
-            uint dwRetVal = 0;
-            double dJogSpeed = 0.0;
-            //MOTOR_JOG_LOW = 0.1
-            //MOTOR_JOG_MID = 0.5
-
-            //MOTOR_JOG_HIGH = 1.0
-            if (nAxis.GetAmpFault() == true)
-            {
-                return false;
-            }
-
-            if (direction == 1)
-            {
-                dJogSpeed = (nAxis.Velocity * nAxis.Resolution) * Speed;
-            }
-            else
-            {
-                dJogSpeed = Math.Abs((nAxis.Velocity * nAxis.Resolution) * Speed) * -1;
-            }
-
-            if (MotionControl.MotorSet.MOTOR_ACC_TYPE_SEC)
-            {
-                dAcc = nAxis.Acceleration;      //! 가속 
-                dDec = nAxis.Deceleration;      //! 감속
-            }
-            else
-            {
-                dAcc = nAxis.Acceleration * (9.8 * 1000 * nAxis.Resolution);      //! 가속 
-                dDec = nAxis.Deceleration * (9.8 * 1000 * nAxis.Resolution);      //! 감속
-            }
-
-            dwRetVal = CAXM.AxmMoveVel(nAxis.m_lAxisNo, (dJogSpeed * direction), dAcc, dDec);
-            
-            if (dwRetVal != (uint)AXT_FUNC_RESULT.AXT_RT_SUCCESS)
-            {
-                return false;
-            }
-
-            return true;
-        }
+        
 
         public virtual bool SingleAxisMove(MotorAxis nAxis, double dPos, AXT_MOTION_ABSREL nAbsFlag, bool bWait = false)
         {

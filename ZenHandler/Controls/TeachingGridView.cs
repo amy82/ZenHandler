@@ -108,36 +108,6 @@ namespace ZenHandler.Controls
                 }
                 
             }
-            //    for (j = 0; j < MotorControl.PCB_UNIT_COUNT; j++)
-            //    {
-            //        cellValue = TeachGridView.Rows[i].Cells[j + 1].Value.ToString();
-
-            //        if (double.TryParse(cellValue, out doubleValue))
-            //        {
-            //            switch (i)
-            //            {
-
-            //                case 6: //속도(mm/s)
-            //                    Globalo.dataManage.teachingData.PcbMotorData.dMotorVel[j] = (int)doubleValue;
-
-            //                    break;
-            //                case 7: //가속도(sec)
-            //                    Globalo.dataManage.teachingData.PcbMotorData.dMotorAcc[j] = doubleValue;
-
-            //                    break;
-            //                case 8: //WaitPos
-            //                case 9: //alignPos
-            //                case 10: //LaserPos
-            //                case 11: //ChartPos
-            //                case 12: //OcPos
-            //                    Globalo.dataManage.teachingData.PcbTeachData[i - 8].dPos[j] = doubleValue;
-
-            //                    break;
-            //            }
-            //        }
-            //    }
-            // }
-
             return tempData;
         }
         public void ShowTeachingData()
