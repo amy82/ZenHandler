@@ -21,8 +21,14 @@ namespace ZenHandler.Machine
         }
         public override void MovingStop()
         {
-            this.cts?.Cancel();
-            this.motorBreak = true; //MovingStop
+            if (cts != null && !cts.IsCancellationRequested)
+            {
+                cts.Cancel();
+            }
+            //TransferZ.motorBreak = true;          //예제코드
+
+            //TransferZ.Stop();                 //예제코드
+
         }
         public override void MoveToPosition(int position)
         {

@@ -50,7 +50,7 @@ namespace ZenHandler.Dlg
         private List<UserControl> MachineControl = new List<UserControl>();
 
 
-        private enum eTeachingBtn : int
+        public enum eTeachingBtn : int
         {
             TransferTab = 0, MagazineTab , LiftTab , pcbTab, lensTab
         };
@@ -305,20 +305,20 @@ namespace ZenHandler.Dlg
 
             if (TeachCurrentTab == eTeachingBtn.TransferTab)
             {
-                //Globalo.motionManager.transferMachine.SingleAxisMove(
+                transferTeach.MotorRelMove(dMovePos);
             }
 
 
 
-            if (CurrentTab == transferTeach)
-            {
-                //Globalo.motionManager.transferMachine.MotorAxes[transferTeach.SelectAxisIndex].       
-                // TODO: 조그 움직이는 함수 정해야된다.
-            }
-            else if (CurrentTab == teachingLens)
-            {
+            //if (CurrentTab == transferTeach)
+            //{
+            //    //Globalo.motionManager.transferMachine.MotorAxes[transferTeach.SelectAxisIndex].       
+            //    // TODO: 조그 움직이는 함수 정해야된다.
+            //}
+            //else if (CurrentTab == teachingLens)
+            //{
 
-            }
+            //}
 
 
             //if (TeachCurrentTab == eTeachingBtn.pcbTab)
@@ -350,6 +350,8 @@ namespace ZenHandler.Dlg
 
             if (CurrentTab == transferTeach)
             {
+                //Globalo.motionManager.transferMachine.MotorRelMove(dMovePos);
+                //transferTeach.move
                 //Globalo.motionManager.transferMachine.MotorAxes[transferTeach.SelectAxisIndex].       
                 // TODO: 조그 움직이는 함수 정해야된다.
             }
@@ -434,36 +436,6 @@ namespace ZenHandler.Dlg
                     break;
             }
         }
-        //private void BTN_TEACH_PCB_X_Click(object sender, EventArgs e)
-        //{
-        //    changeMotorNo((int)MotorDefine.eMotorAxis.MOTOR_PCB_X);  //BTN 1
-        //}
-
-        //private void BTN_TEACH_PCB_Y_Click(object sender, EventArgs e)
-        //{
-        //    changeMotorNo((int)MotorDefine.eMotorAxis.MOTOR_PCB_Y);  //BTN 2
-        //}
-
-        //private void BTN_TEACH_PCB_Z_Click(object sender, EventArgs e)
-        //{
-        //    changeMotorNo((int)MotorDefine.eMotorAxis.MOTOR_PCB_Z);  //BTN 3
-        //}
-
-        //private void BTN_TEACH_PCB_TH_Click(object sender, EventArgs e)
-        //{
-        //    changeMotorNo((int)MotorDefine.eMotorAxis.MOTOR_PCB_TH);  //BTN 4
-        //}
-
-        //private void BTN_TEACH_PCB_TX_Click(object sender, EventArgs e)
-        //{
-        //    changeMotorNo((int)MotorDefine.eMotorAxis.MOTOR_PCB_TX);  //BTN 5
-        //}
-
-        //private void BTN_TEACH_PCB_TY_Click(object sender, EventArgs e)
-        //{
-        //    changeMotorNo((int)MotorDefine.eMotorAxis.MOTOR_PCB_TY);  //BTN 6
-        //}
-
         private void BTN_TEACH_JOG_MINUS_MouseDown(object sender, MouseEventArgs e)
         {
             if (transferTeach.SelectAxisIndex < 0)

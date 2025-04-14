@@ -12,12 +12,12 @@ namespace ZenHandler.MotionControl
     {
         protected FThread.MotorAutoThread motorAutoThread;
         protected FThread.MotorManualThread motorManualThread;
-        protected bool motorBreak;      //while 빠져 나오는 용도
+        
 
         public Process.ProcessManager processManager;
         public string MachineName { get; protected set; }
         protected CancellationTokenSource cts;
-        protected bool isMotorBusy = false; //실행중 체크용 플래그
+        ////protected bool isMotorBusy = false; //실행중 체크용 플래그
         //abstract : 추상 메서드
         //반드시 자식 클래스에 구현해야 함, 내용없이 선언가능, 강제 특정 메서드 오버라이딩 유도
         //추상 클래스 안에서만 사용가능 (abstract class)
@@ -34,7 +34,7 @@ namespace ZenHandler.MotionControl
             motorManualThread = new FThread.MotorManualThread(this);
 
             processManager = new Process.ProcessManager();
-            motorBreak = false;     //init
+            
             cts = new CancellationTokenSource();
         }
 
@@ -45,7 +45,6 @@ namespace ZenHandler.MotionControl
         public abstract bool IsMoving();
         public abstract void MovingStop();
 
-        
 
         public virtual bool JogMove(MotorAxis nAxis, int direction, int Speed)
         {
@@ -99,13 +98,13 @@ namespace ZenHandler.MotionControl
         {
             if (ProgramState.ON_LINE_MOTOR == false)
             {
-                motorBreak = false;
+                nAxis.motorBreak = false;
 
                 if (Program.NORINDA_MODE == true)
                 {
                     while (bWait)
                     {
-                        if (motorBreak) break;
+                        if (nAxis.motorBreak) break;
                         Console.WriteLine($"SingleAxisMove");
                         Thread.Sleep(1000);
                     }
@@ -118,8 +117,8 @@ namespace ZenHandler.MotionControl
             double dAcc = 0.0;
             double dDec = 0.0;
             string str = "";
-            motorBreak = false;
-            isMotorBusy = true;
+            nAxis.motorBreak = false;
+            nAxis.isMotorBusy = true;
 
             
             if (nAxis.GetAmpFault() == true)    //알람 신호 입력 상태 확인
@@ -210,7 +209,7 @@ namespace ZenHandler.MotionControl
 
                 while (bWait)
                 {
-                    if (motorBreak) break;
+                    if (nAxis.motorBreak) break;
                     //위치 도착 확인 , 정지 확인
 
                     switch (step)
@@ -254,7 +253,7 @@ namespace ZenHandler.MotionControl
                     Thread.Sleep(10);
                 }
             }
-            isMotorBusy = false;
+            nAxis.isMotorBusy = false;
             return isSuccess;
         }
         public virtual bool MultiAxisMove(MotorAxis[] multiAxis, double[] dMultiPos, bool bWait = false)
@@ -264,8 +263,8 @@ namespace ZenHandler.MotionControl
                 return true;
             }
             
-            motorBreak = false;
-            isMotorBusy = true;
+            
+            
 
             bool isSuccess = false;
             int multiCnt = multiAxis.Count();
@@ -284,6 +283,9 @@ namespace ZenHandler.MotionControl
 
             for (i = 0, nMotorCount = 0; i < multiCnt; i++)
             {
+                multiAxis[i].isMotorBusy = true;
+                multiAxis[i].motorBreak = false;
+
                 if (multiAxis[i].GetAmpFault() == true)    //알람 신호 입력 상태 확인
                 {
                     str = $"{multiAxis[i].Name} Motor ServoAlarm occurs";
@@ -375,7 +377,11 @@ namespace ZenHandler.MotionControl
                 int SkipChk = 0;
                 while (bWait)
                 {
-                    if (motorBreak) break;
+                    for (i = 0; i < multiCnt; i++)
+                    {
+                        if (multiAxis[i].motorBreak) break;
+                    }
+                        
                     //위치 도착 확인 , 정지 확인
 
                     switch (step)
@@ -405,6 +411,7 @@ namespace ZenHandler.MotionControl
                                 if ((multiAxis[i].GetEncoderPos() - dMultiPos[i]) < MotionControl.MotorSet.ENCORDER_GAP)
                                 {
                                     SkipChk++;
+                                    multiAxis[i].isMotorBusy = false;
                                 }
                             }
                             if (SkipChk == multiCnt)
@@ -439,7 +446,7 @@ namespace ZenHandler.MotionControl
                     Thread.Sleep(10);
                 }
             }
-            isMotorBusy = false;
+            
             return isSuccess;
         }
     }

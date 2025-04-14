@@ -100,8 +100,13 @@ namespace ZenHandler.Dlg
 
 
         }
-        
-        
+
+        public bool MotorRelMove(double dPos)
+        {
+            //await MoveFromAbsRel(Globalo.motionManager.transferMachine.MotorAxes[SelectAxisIndex], dPos);
+            //Globalo.motionManager.transferMachine.MotorAxes[SelectAxisIndex].
+            return true;
+        }
 
         private void BTN_TEACH_SERVO_ON_Click(object sender, EventArgs e)
         {

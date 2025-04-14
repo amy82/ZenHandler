@@ -130,21 +130,26 @@ namespace ZenHandler.Machine
             }
             return isSuccess;
         }
+
         public override void MovingStop()
         {
             if (cts != null && !cts.IsCancellationRequested)
             {
                 cts.Cancel();
             }
-            this.motorBreak = true; //MovingStop
+            TransferX.motorBreak = true;
+            TransferY.motorBreak = true;
+            TransferZ.motorBreak = true;
 
             TransferX.Stop();
             TransferY.Stop();
             TransferZ.Stop();
         }
+
+        
         public async Task<bool> MoveFromAbsRel(MotionControl.MotorAxis motorAxis, double dRelPos)
         {
-            if (this.isMotorBusy == true)
+            if (motorAxis.isMotorBusy == true)
             {
                 //Console.WriteLine("모터 작업이 이미 실행 중입니다. 기다려 주세요.");
                 Globalo.LogPrint("ManualControl", $"모터 작업이 이미 실행 중입니다. 기다려 주세요.");
@@ -229,9 +234,7 @@ namespace ZenHandler.Machine
             //bool acccc = cts.Token.CanBeCanceled;               //최초 true CancellationTokenSource**에서 취소가 가능한 상태인지
             //CancellationTokenSource가 Cancel()을 호출하거나 Dispose()가 호출되기 전까지 true 상태를 유지합니다.
 
-
-
-            if (this.isMotorBusy == true)
+            if (TransferX.isMotorBusy == true)
             {
                 //Console.WriteLine("모터 작업이 이미 실행 중입니다. 기다려 주세요.");
                 Globalo.LogPrint("ManualControl", $"모터 작업이 이미 실행 중입니다. 기다려 주세요.");
@@ -268,7 +271,6 @@ namespace ZenHandler.Machine
                         //}
                         // 작업 정상 종료
                     }
-
                     Globalo.LogPrint("ManualControl", $"[TASK] TransFer_X_Move End");
                 }, token);
             }
