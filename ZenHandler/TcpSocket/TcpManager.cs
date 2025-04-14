@@ -292,7 +292,7 @@ namespace ZenHandler.TcpSocket
                 {
                     Globalo.LogPrint("ManualControl", $"[{Globalo.dataManage.mesData.m_sMesPPID}] Recipe Load Fail");
                 }
-                Globalo.mMainPanel.ShowRecipeName();
+                Globalo.productionInfo.ShowRecipeName();
 
                 TcpSocket.EquipmentData sendEqipData = new TcpSocket.EquipmentData();
                 sendEqipData.Command = "APS_RECIPE_ACK";
@@ -310,7 +310,7 @@ namespace ZenHandler.TcpSocket
                     {
                         
                     }
-                    Globalo.mMainPanel.ShowModelName();
+                    Globalo.productionInfo.ShowModelName();
                     sendEqipData.Command = "APS_MODEL_ACK";
                 }
                 else

@@ -239,7 +239,7 @@ namespace ZenHandler.Dlg
             //GRID
             int i = 0;
             //InDataGridView.SelectionChanged += new EventHandler(InGridSelectionChanged);
-            int[] inGridWid = new int[]{ 40, 260, 60 };
+            int[] inGridWid = new int[]{ 40, 255, 60 };
             //this.Controls.Add(InDataGridView);
             dGridWidth = inGridWid[0] + inGridWid[1] + inGridWid[2];
             
@@ -306,7 +306,7 @@ namespace ZenHandler.Dlg
             int i = 0;
             //GIRD
             //OutDataGridView.SelectionChanged += new EventHandler(OutGridSelectionChanged);
-            int[] outGridWid = new int[] { 40, 260, 60 };
+            int[] outGridWid = new int[] { 40, 255, 60 };
             OutDataGridView.ColumnCount = 3;
             OutDataGridView.RowCount = 32;
 

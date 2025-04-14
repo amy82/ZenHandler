@@ -48,8 +48,6 @@
             this.checkBox_BcrGo = new System.Windows.Forms.CheckBox();
             this.checkBox_IdleReportPass = new System.Windows.Forms.CheckBox();
             this.label3 = new System.Windows.Forms.Label();
-            this.BTN_MANUAL_PCB = new System.Windows.Forms.Button();
-            this.BTN_MANUAL_LENS = new System.Windows.Forms.Button();
             this.ManualPanel.SuspendLayout();
             this.groupBox3.SuspendLayout();
             this.groupBox1.SuspendLayout();
@@ -74,7 +72,7 @@
             this.ManualPanel.Controls.Add(this.groupBox2);
             this.ManualPanel.Location = new System.Drawing.Point(21, 97);
             this.ManualPanel.Name = "ManualPanel";
-            this.ManualPanel.Size = new System.Drawing.Size(909, 737);
+            this.ManualPanel.Size = new System.Drawing.Size(725, 737);
             this.ManualPanel.TabIndex = 4;
             // 
             // groupBox3
@@ -148,7 +146,7 @@
             this.BTN_CONFIG_SAVE.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.BTN_CONFIG_SAVE.Font = new System.Drawing.Font("나눔고딕", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.BTN_CONFIG_SAVE.ForeColor = System.Drawing.Color.White;
-            this.BTN_CONFIG_SAVE.Location = new System.Drawing.Point(755, 656);
+            this.BTN_CONFIG_SAVE.Location = new System.Drawing.Point(551, 660);
             this.BTN_CONFIG_SAVE.Name = "BTN_CONFIG_SAVE";
             this.BTN_CONFIG_SAVE.Size = new System.Drawing.Size(122, 53);
             this.BTN_CONFIG_SAVE.TabIndex = 28;
@@ -164,7 +162,7 @@
             this.groupBox1.Controls.Add(this.poisonComboBox_BcrPort);
             this.groupBox1.Controls.Add(this.label_Config_Bcr);
             this.groupBox1.Controls.Add(this.label1);
-            this.groupBox1.Location = new System.Drawing.Point(363, 21);
+            this.groupBox1.Location = new System.Drawing.Point(375, 21);
             this.groupBox1.Name = "groupBox1";
             this.groupBox1.Size = new System.Drawing.Size(298, 297);
             this.groupBox1.TabIndex = 46;
@@ -244,7 +242,7 @@
             this.groupBox2.Controls.Add(this.checkBox_BcrGo);
             this.groupBox2.Controls.Add(this.checkBox_IdleReportPass);
             this.groupBox2.Controls.Add(this.label3);
-            this.groupBox2.Location = new System.Drawing.Point(363, 341);
+            this.groupBox2.Location = new System.Drawing.Point(375, 340);
             this.groupBox2.Name = "groupBox2";
             this.groupBox2.Size = new System.Drawing.Size(298, 297);
             this.groupBox2.TabIndex = 45;
@@ -330,46 +328,14 @@
             this.label3.Text = "운전 설정";
             this.label3.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
-            // BTN_MANUAL_PCB
-            // 
-            this.BTN_MANUAL_PCB.BackColor = System.Drawing.Color.Tan;
-            this.BTN_MANUAL_PCB.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.BTN_MANUAL_PCB.Font = new System.Drawing.Font("Microsoft Sans Serif", 11F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(129)));
-            this.BTN_MANUAL_PCB.ForeColor = System.Drawing.Color.White;
-            this.BTN_MANUAL_PCB.Location = new System.Drawing.Point(776, 16);
-            this.BTN_MANUAL_PCB.Name = "BTN_MANUAL_PCB";
-            this.BTN_MANUAL_PCB.Size = new System.Drawing.Size(154, 44);
-            this.BTN_MANUAL_PCB.TabIndex = 30;
-            this.BTN_MANUAL_PCB.Text = "PCB";
-            this.BTN_MANUAL_PCB.UseVisualStyleBackColor = false;
-            this.BTN_MANUAL_PCB.Visible = false;
-            this.BTN_MANUAL_PCB.Click += new System.EventHandler(this.BTN_MANUAL_PCB_Click);
-            // 
-            // BTN_MANUAL_LENS
-            // 
-            this.BTN_MANUAL_LENS.BackColor = System.Drawing.Color.Tan;
-            this.BTN_MANUAL_LENS.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.BTN_MANUAL_LENS.Font = new System.Drawing.Font("Microsoft Sans Serif", 11F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(129)));
-            this.BTN_MANUAL_LENS.ForeColor = System.Drawing.Color.White;
-            this.BTN_MANUAL_LENS.Location = new System.Drawing.Point(744, 16);
-            this.BTN_MANUAL_LENS.Name = "BTN_MANUAL_LENS";
-            this.BTN_MANUAL_LENS.Size = new System.Drawing.Size(154, 44);
-            this.BTN_MANUAL_LENS.TabIndex = 31;
-            this.BTN_MANUAL_LENS.Text = "LENS";
-            this.BTN_MANUAL_LENS.UseVisualStyleBackColor = false;
-            this.BTN_MANUAL_LENS.Visible = false;
-            this.BTN_MANUAL_LENS.Click += new System.EventHandler(this.BTN_MANUAL_LENS_Click);
-            // 
             // ConfigControl
             // 
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.None;
             this.BackColor = System.Drawing.Color.DeepSkyBlue;
-            this.Controls.Add(this.BTN_MANUAL_LENS);
-            this.Controls.Add(this.BTN_MANUAL_PCB);
             this.Controls.Add(this.ManualPanel);
             this.Controls.Add(this.ManualTitleLabel);
             this.Name = "ConfigControl";
-            this.Size = new System.Drawing.Size(955, 938);
+            this.Size = new System.Drawing.Size(770, 1000);
             this.VisibleChanged += new System.EventHandler(this.ConfigControl_VisibleChanged);
             this.ManualPanel.ResumeLayout(false);
             this.groupBox3.ResumeLayout(false);
@@ -383,8 +349,6 @@
 
         private System.Windows.Forms.Label ManualTitleLabel;
         private System.Windows.Forms.Panel ManualPanel;
-        private System.Windows.Forms.Button BTN_MANUAL_PCB;
-        private System.Windows.Forms.Button BTN_MANUAL_LENS;
         private System.Windows.Forms.GroupBox groupBox2;
         private System.Windows.Forms.Button BTN_CONFIG_SAVE;
         private System.Windows.Forms.Label label3;

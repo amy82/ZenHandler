@@ -88,5 +88,30 @@ namespace ZenHandler.Dlg
 
             PinCountInfoSet();
         }
+
+        public void ShowModelName()
+        {
+            if (Globalo.yamlManager.secsGemDataYaml.MesData.SecGemData.CurrentModelName.Length < 1)
+            {
+                return;
+            }
+            textBox_Model.Text = Globalo.yamlManager.secsGemDataYaml.MesData.SecGemData.CurrentModelName;
+        }
+        public void ShowRecipeName()
+        {
+            if (Globalo.dataManage.mesData.m_sMesPPID.Length < 1)
+            {
+                return;
+            }
+
+            textBox_Recipe.Text = Globalo.dataManage.mesData.m_sMesPPID;
+        }
+
+        private void BTN_MAIN_RECIPE_VEW_Click(object sender, EventArgs e)
+        {
+            string selectedItem = textBox_Recipe.Text;
+            RecipePopup recipePopup = new RecipePopup(selectedItem);
+            recipePopup.ShowDialog();
+        }
     }
 }

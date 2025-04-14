@@ -29,8 +29,6 @@
         private void InitializeComponent()
         {
             this.ManualTitleLabel = new System.Windows.Forms.Label();
-            this.BTN_MANUAL_PCB = new System.Windows.Forms.Button();
-            this.BTN_MANUAL_LENS = new System.Windows.Forms.Button();
             this.groupBox3 = new System.Windows.Forms.GroupBox();
             this.label3 = new System.Windows.Forms.Label();
             this.textBox_SensorIni = new System.Windows.Forms.TextBox();
@@ -59,36 +57,6 @@
             this.ManualTitleLabel.TabIndex = 2;
             this.ManualTitleLabel.Text = "| LOG";
             this.ManualTitleLabel.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            // 
-            // BTN_MANUAL_PCB
-            // 
-            this.BTN_MANUAL_PCB.BackColor = System.Drawing.Color.Tan;
-            this.BTN_MANUAL_PCB.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.BTN_MANUAL_PCB.Font = new System.Drawing.Font("Microsoft Sans Serif", 11F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(129)));
-            this.BTN_MANUAL_PCB.ForeColor = System.Drawing.Color.White;
-            this.BTN_MANUAL_PCB.Location = new System.Drawing.Point(579, 14);
-            this.BTN_MANUAL_PCB.Name = "BTN_MANUAL_PCB";
-            this.BTN_MANUAL_PCB.Size = new System.Drawing.Size(154, 44);
-            this.BTN_MANUAL_PCB.TabIndex = 30;
-            this.BTN_MANUAL_PCB.Text = "PCB";
-            this.BTN_MANUAL_PCB.UseVisualStyleBackColor = false;
-            this.BTN_MANUAL_PCB.Visible = false;
-            this.BTN_MANUAL_PCB.Click += new System.EventHandler(this.BTN_MANUAL_PCB_Click);
-            // 
-            // BTN_MANUAL_LENS
-            // 
-            this.BTN_MANUAL_LENS.BackColor = System.Drawing.Color.Tan;
-            this.BTN_MANUAL_LENS.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.BTN_MANUAL_LENS.Font = new System.Drawing.Font("Microsoft Sans Serif", 11F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(129)));
-            this.BTN_MANUAL_LENS.ForeColor = System.Drawing.Color.White;
-            this.BTN_MANUAL_LENS.Location = new System.Drawing.Point(542, 19);
-            this.BTN_MANUAL_LENS.Name = "BTN_MANUAL_LENS";
-            this.BTN_MANUAL_LENS.Size = new System.Drawing.Size(154, 44);
-            this.BTN_MANUAL_LENS.TabIndex = 31;
-            this.BTN_MANUAL_LENS.Text = "LENS";
-            this.BTN_MANUAL_LENS.UseVisualStyleBackColor = false;
-            this.BTN_MANUAL_LENS.Visible = false;
-            this.BTN_MANUAL_LENS.Click += new System.EventHandler(this.BTN_MANUAL_LENS_Click);
             // 
             // groupBox3
             // 
@@ -244,7 +212,7 @@
             // 
             this.label_LogTitle.AutoSize = true;
             this.label_LogTitle.Font = new System.Drawing.Font("나눔고딕", 8.999999F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(129)));
-            this.label_LogTitle.Location = new System.Drawing.Point(37, 597);
+            this.label_LogTitle.Location = new System.Drawing.Point(37, 636);
             this.label_LogTitle.Name = "label_LogTitle";
             this.label_LogTitle.Size = new System.Drawing.Size(68, 14);
             this.label_LogTitle.TabIndex = 39;
@@ -257,10 +225,10 @@
             this.listBox_Log.FormattingEnabled = true;
             this.listBox_Log.HorizontalScrollbar = true;
             this.listBox_Log.ItemHeight = 15;
-            this.listBox_Log.Location = new System.Drawing.Point(40, 618);
+            this.listBox_Log.Location = new System.Drawing.Point(40, 659);
             this.listBox_Log.Margin = new System.Windows.Forms.Padding(0);
             this.listBox_Log.Name = "listBox_Log";
-            this.listBox_Log.Size = new System.Drawing.Size(656, 289);
+            this.listBox_Log.Size = new System.Drawing.Size(692, 289);
             this.listBox_Log.TabIndex = 40;
             // 
             // LogControl
@@ -272,11 +240,9 @@
             this.Controls.Add(this.groupBox3);
             this.Controls.Add(this.groupBox2);
             this.Controls.Add(this.groupBox1);
-            this.Controls.Add(this.BTN_MANUAL_LENS);
-            this.Controls.Add(this.BTN_MANUAL_PCB);
             this.Controls.Add(this.ManualTitleLabel);
             this.Name = "LogControl";
-            this.Size = new System.Drawing.Size(769, 920);
+            this.Size = new System.Drawing.Size(770, 1000);
             this.VisibleChanged += new System.EventHandler(this.AlarmControl_VisibleChanged);
             this.groupBox3.ResumeLayout(false);
             this.groupBox3.PerformLayout();
@@ -292,8 +258,6 @@
         #endregion
 
         private System.Windows.Forms.Label ManualTitleLabel;
-        private System.Windows.Forms.Button BTN_MANUAL_PCB;
-        private System.Windows.Forms.Button BTN_MANUAL_LENS;
         private System.Windows.Forms.GroupBox groupBox3;
         private System.Windows.Forms.Label label3;
         private System.Windows.Forms.TextBox textBox_SensorIni;

@@ -130,10 +130,6 @@ namespace ZenHandler.Dlg
         
         private void ManualBtnChange(eManualBtn index)
         {
-            BTN_MANUAL_PCB.BackColor = ColorTranslator.FromHtml("#E1E0DF");
-            BTN_MANUAL_LENS.BackColor = ColorTranslator.FromHtml("#E1E0DF");
-
-            
 
             //if (index == eManualBtn.pcbTab)
             //{
@@ -148,16 +144,6 @@ namespace ZenHandler.Dlg
             //    manualPcb.Visible = false;
             //}
         }
-        private void BTN_MANUAL_PCB_Click(object sender, EventArgs e)
-        {
-            ManualBtnChange(eManualBtn.pcbTab);
-        }
-
-        private void BTN_MANUAL_LENS_Click(object sender, EventArgs e)
-        {
-            ManualBtnChange(eManualBtn.lensTab);
-        }
-
         private void BTN_CONFIG_SAVE_Click(object sender, EventArgs e)
         {
             //Save

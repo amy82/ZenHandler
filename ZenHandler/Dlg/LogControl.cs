@@ -81,23 +81,6 @@ namespace ZenHandler.Dlg
             textBox_EquipLog.Text = Data.CPath.BASE_LOG_EQUIP_PATH;
             textBox_SensorIni.Text = Data.CPath.SENSOR_INI_DIR;
         }
-        private void ManualBtnChange(eManualBtn index)
-        {
-            BTN_MANUAL_PCB.BackColor = ColorTranslator.FromHtml("#E1E0DF");
-            BTN_MANUAL_LENS.BackColor = ColorTranslator.FromHtml("#E1E0DF");
-
-
-        }
-        private void BTN_MANUAL_PCB_Click(object sender, EventArgs e)
-        {
-            ManualBtnChange(eManualBtn.pcbTab);
-        }
-
-        private void BTN_MANUAL_LENS_Click(object sender, EventArgs e)
-        {
-            ManualBtnChange(eManualBtn.lensTab);
-        }
-
         private void AlarmControl_VisibleChanged(object sender, EventArgs e)
         {
             if (this.Visible)
