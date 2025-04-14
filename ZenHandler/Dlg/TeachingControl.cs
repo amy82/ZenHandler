@@ -21,6 +21,11 @@ namespace ZenHandler.Dlg
 
 
         private TeachingTransfer transferTeach;
+
+        //liftTeach
+        //socketTeach
+
+
         private TeachingLens teachingLens;
 
 
@@ -47,7 +52,7 @@ namespace ZenHandler.Dlg
 
         private enum eTeachingBtn : int
         {
-            pcbTab = 0, lensTab
+            TransferTab = 0, MagazineTab , LiftTab , pcbTab, lensTab
         };
 
         private Timer JogTimer;
@@ -168,54 +173,36 @@ namespace ZenHandler.Dlg
         }
         private void JogTimer_Tick(object sender, EventArgs e)
         {
-            if (TeachCurrentTab == eTeachingBtn.pcbTab)
+            if (TeachCurrentTab == eTeachingBtn.TransferTab)
             {
                 if (m_bJogPosDir == true)
                 {
-                    motorControl.PcbMotorAxis[transferTeach.SelectAxisIndex].JogMove(1, m_dJogSpeed);
+                    //motorControl.PcbMotorAxis[transferTeach.SelectAxisIndex].JogMove(1, m_dJogSpeed);
                 }
                 else if (m_bJogPosDir == false && m_bJogPosRunCheck == true)
                 {
-                    motorControl.PcbMotorAxis[transferTeach.SelectAxisIndex].JogStop();
+                    //motorControl.PcbMotorAxis[transferTeach.SelectAxisIndex].JogStop();
                 }
+
                 m_bJogPosRunCheck = m_bJogPosDir;
+
                 if (m_bJogNegDir == true)
                 {
-                    motorControl.PcbMotorAxis[transferTeach.SelectAxisIndex].JogMove(-1, m_dJogSpeed);
+                    //motorControl.PcbMotorAxis[transferTeach.SelectAxisIndex].JogMove(-1, m_dJogSpeed);
                 }
                 else if (m_bJogNegDir == false && m_bJogNegRunCheck == true)
                 {
-                    motorControl.PcbMotorAxis[transferTeach.SelectAxisIndex].JogStop();
+                    //motorControl.PcbMotorAxis[transferTeach.SelectAxisIndex].JogStop();
                 }
             }
             else if (TeachCurrentTab == eTeachingBtn.lensTab)
             {
-                if (m_bJogPosDir == true)
-                {
-                    motorControl.LensMotorAxis[teachingLens.SelectLensAxis].JogMove(1, m_dJogSpeed);
-                }
-                else if (m_bJogPosDir == false && m_bJogPosRunCheck == true)
-                {
-                    motorControl.LensMotorAxis[teachingLens.SelectLensAxis].JogStop();
-                }
-                m_bJogPosRunCheck = m_bJogPosDir;
-                if (m_bJogNegDir == true)
-                {
-                    motorControl.LensMotorAxis[teachingLens.SelectLensAxis].JogMove(-1, m_dJogSpeed);
-                }
-                else if (m_bJogNegDir == false && m_bJogNegRunCheck == true)
-                {
-                    motorControl.LensMotorAxis[teachingLens.SelectLensAxis].JogStop();
-                }
+
             }
                 
             
             m_bJogNegRunCheck = m_bJogNegDir;
         }
-
-
-
-        
 
         private void TeachingControl_Load(object sender, EventArgs e)
         {
@@ -315,6 +302,13 @@ namespace ZenHandler.Dlg
                 return;
             }
             double dMovePos = double.Parse(LABEL_TEACH_MOVE_VALUE.Text);
+
+            if (TeachCurrentTab == eTeachingBtn.TransferTab)
+            {
+                //Globalo.motionManager.transferMachine.SingleAxisMove(
+            }
+
+
 
             if (CurrentTab == transferTeach)
             {
@@ -579,7 +573,7 @@ namespace ZenHandler.Dlg
 
             TeachCurrentTab = index;
 
-            if (TeachCurrentTab == eTeachingBtn.pcbTab)
+            if (TeachCurrentTab == eTeachingBtn.TransferTab)
             {
                 BTN_TEACH_TRANSFER.BackColor = ColorTranslator.FromHtml("#FFB230");
                 transferTeach.Visible = true;
@@ -600,12 +594,12 @@ namespace ZenHandler.Dlg
         }
         private void BTN_TEACH_PCB_Click(object sender, EventArgs e)
         {
-            TeachingBtnChange(eTeachingBtn.pcbTab);
+            TeachingBtnChange(eTeachingBtn.TransferTab);
         }
 
         private void BTN_TEACH_LENS_Click(object sender, EventArgs e)
         {
-            TeachingBtnChange(eTeachingBtn.lensTab);
+            //TeachingBtnChange(eTeachingBtn.lensTab);
         }
     }
 }

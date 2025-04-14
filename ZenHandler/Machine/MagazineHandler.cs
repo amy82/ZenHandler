@@ -30,7 +30,7 @@ namespace ZenHandler.Machine
         {
             Console.WriteLine($"매거진 {position} 위치로 이동");
         }
-        public override bool JogMove(int direction, int Speed)  //virtual
+        public override bool JogMove(MotionControl.MotorAxis nAxis, int direction, int Speed)  //virtual
         {
             Console.WriteLine($"커스텀 조그 이동: 속도 조절 후 방향 {direction}");
             return true;
