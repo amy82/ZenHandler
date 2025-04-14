@@ -42,6 +42,48 @@ namespace ZenHandler.Machine
             //transferThread = new FThread.TransferThread();
             //TransferX.ServoOn();
         }
+        public bool ChkXYMotorPos(Data.eTeachPosName teachingPos)
+        {
+            bool bRtn = false;
+
+            double dXPos = 0.0;
+            double dYPos = 0.0;
+            double currentXPos = 0.0;
+            double currentYPos = 0.0;
+
+
+            dXPos = Globalo.yamlManager.teachingDataYaml.teachingHandlerData.TransferMachine.Teaching[(int)teachingPos].Pos[0];
+            dYPos = Globalo.yamlManager.teachingDataYaml.teachingHandlerData.TransferMachine.Teaching[(int)teachingPos].Pos[1];
+            
+
+            currentXPos = TransferX.GetEncoderPos();
+            currentYPos = TransferY.GetEncoderPos();
+            if (dXPos == currentXPos && dYPos == currentYPos)
+            {
+                bRtn = true;
+            }
+
+            return bRtn;
+        }
+        public bool ChkZMotorPos(Data.eTeachPosName teachingPos)
+        {
+            bool bRtn = false;
+
+            double dZPos = 0.0;
+            double currentZPos = 0.0;
+
+
+            dZPos = Globalo.yamlManager.teachingDataYaml.teachingHandlerData.TransferMachine.Teaching[(int)teachingPos].Pos[2];
+
+
+            currentZPos = TransferZ.GetEncoderPos();
+            if (dZPos == currentZPos)
+            {
+                bRtn = true;
+            }
+
+            return bRtn;
+        }
         public bool GetLensGripState(bool bFlag)
         {
             int lModuleNo = 0;
@@ -68,7 +110,7 @@ namespace ZenHandler.Machine
             return false;
 
         }
-        public bool LensGripOn(bool bFlag, bool bWait = false)
+        public bool LensGripOn(int index, bool bFlag, bool bWait = false)
         {
             int lModuleNo = 0;
             int lOffset = 0;
@@ -85,7 +127,6 @@ namespace ZenHandler.Machine
                 uFlagHigh = (uint)DioDefine.DIO_OUT_ADDR.LENS_GRIP_BACK;
                 uFlagLow = (uint)DioDefine.DIO_OUT_ADDR.LENS_GRIP_FOR;
             }
-
 
             bool Rtn = Globalo.motionManager.ioController.DioWriteOutportByte(lModuleNo, lOffset, uFlagHigh, uFlagLow);
             if (Rtn == false)
@@ -131,19 +172,103 @@ namespace ZenHandler.Machine
             }
             return isSuccess;
         }
+
+        
         public override void MovingStop()
         {
             if (cts != null && !cts.IsCancellationRequested)
             {
                 cts.Cancel();
             }
-            this.motorBreak = true; //MovingStop
+            TransferX.motorBreak = true;
+            TransferY.motorBreak = true;
+            TransferZ.motorBreak = true;
 
             TransferX.Stop();
             TransferY.Stop();
             TransferZ.Stop();
         }
 
+        
+        public async Task<bool> MoveFromAbsRel(MotionControl.MotorAxis motorAxis, double dRelPos)
+        {
+            if (motorAxis.isMotorBusy == true)
+            {
+                //Console.WriteLine("모터 작업이 이미 실행 중입니다. 기다려 주세요.");
+                Globalo.LogPrint("ManualControl", $"모터 작업이 이미 실행 중입니다. 기다려 주세요.");
+                return false;
+            }
+            cts?.Dispose();
+            cts = new CancellationTokenSource();
+            CancellationToken token = cts.Token;
+
+            int i = 0;
+
+            double dPos = 0.0;
+
+            dPos = dRelPos;
+            if (dPos > 10.0)
+            {
+                dPos = 10.0;
+            }
+
+            if (dPos < -10.0)
+            {
+                dPos = -10.0;
+            }
+
+            bool bRtn = false;
+
+            bool isSuccess = false;
+            try
+            {
+                await Task.Run(() =>
+                {
+
+                    isSuccess = SingleAxisMove(motorAxis, dPos, AXT_MOTION_ABSREL.POS_REL_MODE, true);       //<--위치 확인 while 이 안에 넣어도 될듯
+
+                    if (bRtn)
+                    {
+                        //while (bRtn)
+                        //{
+                        //    if (cts.Token.IsCancellationRequested)
+                        //    {
+                        //        //Console.WriteLine("취소 요청 감지됨");
+                        //        Globalo.LogPrint("ManualControl", $"취소 요청 감지됨");
+                        //        cts.Token.ThrowIfCancellationRequested(); // 예외 던지기 (catch로 감) 취소 요청 시 예외 발생
+                        //    }
+                        //    break;
+                        //}
+                        // 작업 정상 종료
+                    }
+
+                    Globalo.LogPrint("ManualControl", $"[TASK] TransFer_X_Move End");
+                }, token);
+            }
+            catch (OperationCanceledException)
+            {
+                bRtn = false;
+                //Console.WriteLine($"모터 작업이 취소되었습니다: {i}");
+                Globalo.LogPrint("ManualControl", $"모터 작업이 취소되었습니다: {i}");
+                isSuccess = false;
+            }
+            catch (Exception ex)
+            {
+                // 그 외 예외 처리
+                //Console.WriteLine($"모터 이동 실패: {ex.Message}");
+                Globalo.LogPrint("ManualControl", $"모터 이동 실패: {ex.Message}");
+                isSuccess = false;
+            }
+            finally
+            {
+                // 리소스 정리
+                cts?.Dispose();  // cts가 null이 아닐 때만 Dispose 호출
+                ////cts = null;      // cts를 null로 설정하여 다음 작업에서 새로 생성할 수 있게
+            }
+
+            Globalo.LogPrint("ManualControl", $"[FUNCTION] MoveFromAbsRel End");
+            return isSuccess;
+        }
         public async Task<bool> TransFer_X_Move(int nPos, double offset)
         {
             //bool aaaaa = cts.Token.IsCancellationRequested;     //최초 false 이 속성은 취소 요청이 발생했는지 여부 Cancel()을 호출하거나,
@@ -152,9 +277,7 @@ namespace ZenHandler.Machine
             //bool acccc = cts.Token.CanBeCanceled;               //최초 true CancellationTokenSource**에서 취소가 가능한 상태인지
             //CancellationTokenSource가 Cancel()을 호출하거나 Dispose()가 호출되기 전까지 true 상태를 유지합니다.
 
-
-
-            if (this.isMotorBusy == true)
+            if (TransferX.isMotorBusy == true)
             {
                 //Console.WriteLine("모터 작업이 이미 실행 중입니다. 기다려 주세요.");
                 Globalo.LogPrint("ManualControl", $"모터 작업이 이미 실행 중입니다. 기다려 주세요.");
@@ -175,7 +298,7 @@ namespace ZenHandler.Machine
                 await Task.Run(() =>
                 {
 
-                    isSuccess = SingleAxisMove(TransferX, dPos, true);       //<--위치 확인 while 이 안에 넣어도 될듯
+                    isSuccess = SingleAxisMove(TransferX, dPos, AXT_MOTION_ABSREL.POS_ABS_MODE, true);       //<--위치 확인 while 이 안에 넣어도 될듯
 
                     if (bRtn)
                     {
@@ -191,7 +314,6 @@ namespace ZenHandler.Machine
                         //}
                         // 작업 정상 종료
                     }
-
                     Globalo.LogPrint("ManualControl", $"[TASK] TransFer_X_Move End");
                 }, token);
             }
@@ -221,7 +343,7 @@ namespace ZenHandler.Machine
             return isSuccess;
         }
 
-        public void TransFer_XY_Move()
+        public bool TransFer_XY_Move(Data.eTeachPosName teachingPos)
         {
             MotionControl.MotorAxis[] multiAxis = { TransferX, TransferY };
 
@@ -236,6 +358,25 @@ namespace ZenHandler.Machine
             {
 
             }
+
+            return bRtn;
+        }
+        public bool TransFer_Z_Move(Data.eTeachPosName teachingPos)
+        {
+
+            double dPos = 0.0;
+
+            bool bRtn = SingleAxisMove(TransferZ, dPos, AXT_MOTION_ABSREL.POS_ABS_MODE);
+            if (bRtn)
+            {
+
+            }
+            else
+            {
+
+            }
+
+            return bRtn;
         }
         public async Task MoveMotorAndWaitAsync()
         {

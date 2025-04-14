@@ -5,6 +5,7 @@ using System.Data;
 using System.Drawing;
 using System.Linq;
 using System.Text;
+using System.Threading;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 
@@ -18,16 +19,17 @@ namespace ZenHandler.Dlg
         private string ColorDefaultBtn = "#C3A279";
         private string ColorSelecttBtn = "#4C4743";
 
+        protected CancellationTokenSource cts;
         public int SelectAxisIndex = -1;        //선택 모터 순서
         //
         public TeachingTransfer()
         {
             InitializeComponent();
-
+            cts = new CancellationTokenSource();
 
             //Custom Teaching Grid Add
             //
-            int[] inGridWid = new int[] { 100, 80, 80, 80};         //Grid Width
+            int[] inGridWid = new int[] { 110, 80, 80, 80};         //Grid Width
 
             myTeachingGrid = new Controls.TeachingGridView(
                 Globalo.motionManager.transferMachine.MotorAxes, 
@@ -100,8 +102,92 @@ namespace ZenHandler.Dlg
 
 
         }
-        
-        
+        public void MotorJogStop()
+        {
+            Globalo.motionManager.transferMachine.MotorAxes[SelectAxisIndex].Stop();
+        }
+        public async Task<bool> MotorJogMove(int nDic, double dSpeed)
+        {
+            cts?.Dispose();
+            cts = new CancellationTokenSource();
+            CancellationToken token = cts.Token;
+            bool bRtn = false;
+
+            bool isSuccess = false;
+            try
+            {
+                await Task.Run(() =>
+                {
+                    //g_clSysData.m_dMotorSpeed[m_nUnit][m_nSelectAxis] * g_clSysData.m_dMotorResol[m_nUnit][m_nSelectAxis] * m_dJogSpeed
+
+                    isSuccess = Globalo.motionManager.transferMachine.MotorAxes[SelectAxisIndex].JogMove(nDic, dSpeed);
+
+                    Globalo.LogPrint("ManualControl", $"[TASK] MotorRelMove End");
+                }, token);
+            }
+            catch (OperationCanceledException)
+            {
+                bRtn = false;
+                Globalo.LogPrint("ManualControl", $"모터 작업이 취소되었습니다");
+                isSuccess = false;
+            }
+            catch (Exception ex)
+            {
+                // 그 외 예외 처리
+                Globalo.LogPrint("ManualControl", $"모터 이동 실패: {ex.Message}");
+                isSuccess = false;
+            }
+            finally
+            {
+                // 리소스 정리
+                cts?.Dispose();  // cts가 null이 아닐 때만 Dispose 호출
+                ////cts = null;      // cts를 null로 설정하여 다음 작업에서 새로 생성할 수 있게
+            }
+
+            Globalo.LogPrint("ManualControl", $"[FUNCTION] MotorJogMove End");
+            return isSuccess;
+        }
+
+        public async Task<bool> MotorRelMove(double dPos)
+        {
+            cts?.Dispose();
+            cts = new CancellationTokenSource();
+            CancellationToken token = cts.Token;
+            bool bRtn = false;
+
+            bool isSuccess = false;
+            try
+            {
+                await Task.Run(() =>
+                {
+
+                    isSuccess = Globalo.motionManager.transferMachine.MotorAxes[SelectAxisIndex].MoveAxis(AXT_MOTION_ABSREL.POS_REL_MODE, dPos, 5.0, false);
+
+                    Globalo.LogPrint("ManualControl", $"[TASK] MotorRelMove End");
+                }, token);
+            }
+            catch (OperationCanceledException)
+            {
+                bRtn = false;
+                Globalo.LogPrint("ManualControl", $"모터 작업이 취소되었습니다");
+                isSuccess = false;
+            }
+            catch (Exception ex)
+            {
+                // 그 외 예외 처리
+                Globalo.LogPrint("ManualControl", $"모터 이동 실패: {ex.Message}");
+                isSuccess = false;
+            }
+            finally
+            {
+                // 리소스 정리
+                cts?.Dispose();  // cts가 null이 아닐 때만 Dispose 호출
+                ////cts = null;      // cts를 null로 설정하여 다음 작업에서 새로 생성할 수 있게
+            }
+
+            Globalo.LogPrint("ManualControl", $"[FUNCTION] MoveFromAbsRel End");
+            return isSuccess;
+        }
 
         private void BTN_TEACH_SERVO_ON_Click(object sender, EventArgs e)
         {
@@ -136,6 +222,17 @@ namespace ZenHandler.Dlg
         private void BTN_TEACH_DATA_SAVE_Click(object sender, EventArgs e)
         {
             Globalo.yamlManager.teachingDataYaml.teachingHandlerData.TransferMachine = myTeachingGrid.GetTeachData();
+
+            //Motor Speed 적용
+            int length = Globalo.yamlManager.teachingDataYaml.teachingHandlerData.TransferMachine.Speed.Count;
+
+            for (int i = 0; i < length; i++)
+            {
+                Globalo.motionManager.transferMachine.MotorAxes[i].MotorPropertySet(
+                    Globalo.yamlManager.teachingDataYaml.teachingHandlerData.TransferMachine.Speed[i],
+                     Globalo.yamlManager.teachingDataYaml.teachingHandlerData.TransferMachine.Accel[i],
+                      Globalo.yamlManager.teachingDataYaml.teachingHandlerData.TransferMachine.Decel[i]);
+            }
 
             Globalo.yamlManager.teachingDataYaml.SaveTeaching();
         }

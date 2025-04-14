@@ -14,18 +14,23 @@ namespace ZenHandler.Dlg
     public partial class ManualControl : UserControl
     {
         public event delLogSender eLogSender;       //외부에서 호출할때 사용
-        private eTeachingBtn TeachCurrentTab;
 
-        private enum eTeachingBtn : int
+        private eManualBtn manualBtnTab;
+
+        private ManualTransfer manualTransfer;
+
+
+
+        public enum eManualBtn : int
         {
-            pcbTab = 0, lensTab
+            TransferTab = 0, MagazineTab, LiftTab, pcbTab, lensTab
         };
-
         public ManualControl(int _w , int _h)
         {
             InitializeComponent();
 
-            //teachingPcb = new TeachingPcb();
+            manualTransfer = new ManualTransfer();
+
             //teachingLens = new TeachingLens();
             this.Paint += new PaintEventHandler(Form_Paint);
 
@@ -34,15 +39,17 @@ namespace ZenHandler.Dlg
             this.Height = _h;
 
 
-            //teachingPcb.Visible = false;
+            manualTransfer.Visible = false;
             //teachingLens.Visible = false;
-            //TeachingPanel.Controls.Add(teachingPcb);
+            this.Controls.Add(manualTransfer);
             //TeachingPanel.Controls.Add(teachingLens);
 
+            //
+            manualTransfer.Location = new System.Drawing.Point(0, 89);
             setInterface();
 
-
-            TeachingBtnChange(eTeachingBtn.pcbTab);
+            manualBtnTab = eManualBtn.TransferTab;
+            //TeachingBtnChange(manualBtnTab);
         }
         private void Form_Paint(object sender, PaintEventArgs e)
         {
@@ -70,40 +77,53 @@ namespace ZenHandler.Dlg
             BTN_TEACH_LENS.FlatAppearance.BorderColor = ColorTranslator.FromHtml("#BBBBBB");
 
         }
-        private void TeachingBtnChange(eTeachingBtn index)
+        private void TeachingBtnChange(eManualBtn index)
         {
             BTN_TEACH_PCB.BackColor = ColorTranslator.FromHtml("#E1E0DF");
             BTN_TEACH_LENS.BackColor = ColorTranslator.FromHtml("#E1E0DF");
 
-            TeachCurrentTab = index;
+            manualBtnTab = index;
 
-            if (TeachCurrentTab == eTeachingBtn.pcbTab)
+            if (manualBtnTab == eManualBtn.TransferTab)
             {
                 BTN_TEACH_PCB.BackColor = ColorTranslator.FromHtml("#FFB230");
-                //teachingPcb.Visible = true;
+                manualTransfer.Visible = true;
                 //teachingLens.Visible = false;
 
                 //teachingLens.hidePanel();
-                //teachingPcb.showPanel();
+                manualTransfer.showPanel();
             }
             else
             {
                 BTN_TEACH_LENS.BackColor = ColorTranslator.FromHtml("#FFB230");
                 //teachingLens.Visible = true;
-                //teachingPcb.Visible = false;
+                manualTransfer.Visible = false;
 
-                //teachingPcb.hidePanel();
+                manualTransfer.hidePanel();
                 //teachingLens.showPanel();
             }
         }
         private void BTN_TEACH_PCB_Click(object sender, EventArgs e)
         {
-            TeachingBtnChange(eTeachingBtn.pcbTab);
+            TeachingBtnChange(eManualBtn.TransferTab);
         }
 
         private void BTN_TEACH_LENS_Click(object sender, EventArgs e)
         {
-            TeachingBtnChange(eTeachingBtn.lensTab);
+            TeachingBtnChange(eManualBtn.lensTab);
+        }
+
+        private void ManualControl_VisibleChanged(object sender, EventArgs e)
+        {
+            if (this.Visible)
+            {
+                TeachingBtnChange(manualBtnTab);
+            }
+            else
+            {
+                manualTransfer.Visible = false;
+                manualTransfer.hidePanel();
+            }
         }
     }
 }

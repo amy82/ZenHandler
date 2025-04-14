@@ -108,36 +108,6 @@ namespace ZenHandler.Controls
                 }
                 
             }
-            //    for (j = 0; j < MotorControl.PCB_UNIT_COUNT; j++)
-            //    {
-            //        cellValue = TeachGridView.Rows[i].Cells[j + 1].Value.ToString();
-
-            //        if (double.TryParse(cellValue, out doubleValue))
-            //        {
-            //            switch (i)
-            //            {
-
-            //                case 6: //속도(mm/s)
-            //                    Globalo.dataManage.teachingData.PcbMotorData.dMotorVel[j] = (int)doubleValue;
-
-            //                    break;
-            //                case 7: //가속도(sec)
-            //                    Globalo.dataManage.teachingData.PcbMotorData.dMotorAcc[j] = doubleValue;
-
-            //                    break;
-            //                case 8: //WaitPos
-            //                case 9: //alignPos
-            //                case 10: //LaserPos
-            //                case 11: //ChartPos
-            //                case 12: //OcPos
-            //                    Globalo.dataManage.teachingData.PcbTeachData[i - 8].dPos[j] = doubleValue;
-
-            //                    break;
-            //            }
-            //        }
-            //    }
-            // }
-
             return tempData;
         }
         public void ShowTeachingData()
@@ -245,9 +215,13 @@ namespace ZenHandler.Controls
                 this.Rows[i].DefaultCellStyle.SelectionBackColor = this.DefaultCellStyle.BackColor;
                 this.Rows[i].DefaultCellStyle.SelectionForeColor = this.DefaultCellStyle.ForeColor;
             }
+            string posName = "";
             for (i = 0; i < TeachingPosCount; i++)
             {
-                this.Rows[i + (nGridSensorRowCount + nGridSpeedRowCount - 1)].SetValues(Globalo.motionManager.transferMachine.TeachingPos[i]);
+                //posName = Globalo.motionManager.transferMachine.TeachingPos[i];
+                posName = teachingData.Teaching[i].Name;
+
+                this.Rows[i + (nGridSensorRowCount + nGridSpeedRowCount - 1)].SetValues(posName);
             }
 
 

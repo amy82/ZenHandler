@@ -56,20 +56,20 @@ namespace ZenHandler.Dlg
             this.groupTeachPcb.Controls.Add(this.BTN_TEACH_TRANSFER_X);
             this.groupTeachPcb.Location = new System.Drawing.Point(8, 3);
             this.groupTeachPcb.Name = "groupTeachPcb";
-            this.groupTeachPcb.Size = new System.Drawing.Size(756, 650);
+            this.groupTeachPcb.Size = new System.Drawing.Size(756, 694);
             this.groupTeachPcb.TabIndex = 45;
             this.groupTeachPcb.TabStop = false;
             // 
             // BTN_TEACH_DATA_SAVE
             // 
-            this.BTN_TEACH_DATA_SAVE.BackColor = System.Drawing.Color.PeachPuff;
+            this.BTN_TEACH_DATA_SAVE.BackColor = System.Drawing.Color.Tan;
             this.BTN_TEACH_DATA_SAVE.FlatAppearance.BorderSize = 0;
             this.BTN_TEACH_DATA_SAVE.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.BTN_TEACH_DATA_SAVE.Font = new System.Drawing.Font("나눔고딕 ExtraBold", 11.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(129)));
             this.BTN_TEACH_DATA_SAVE.ForeColor = System.Drawing.Color.White;
-            this.BTN_TEACH_DATA_SAVE.Location = new System.Drawing.Point(631, 539);
+            this.BTN_TEACH_DATA_SAVE.Location = new System.Drawing.Point(619, 616);
             this.BTN_TEACH_DATA_SAVE.Name = "BTN_TEACH_DATA_SAVE";
-            this.BTN_TEACH_DATA_SAVE.Size = new System.Drawing.Size(105, 40);
+            this.BTN_TEACH_DATA_SAVE.Size = new System.Drawing.Size(117, 48);
             this.BTN_TEACH_DATA_SAVE.TabIndex = 34;
             this.BTN_TEACH_DATA_SAVE.Text = "SAVE";
             this.BTN_TEACH_DATA_SAVE.UseVisualStyleBackColor = false;
@@ -195,7 +195,7 @@ namespace ZenHandler.Dlg
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.Controls.Add(this.groupTeachPcb);
             this.Name = "TeachingTransfer";
-            this.Size = new System.Drawing.Size(770, 670);
+            this.Size = new System.Drawing.Size(770, 700);
             this.groupTeachPcb.ResumeLayout(false);
             this.ResumeLayout(false);
 

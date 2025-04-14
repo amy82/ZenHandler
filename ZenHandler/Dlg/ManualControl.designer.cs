@@ -49,9 +49,9 @@
             this.BTN_TEACH_LENS.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.BTN_TEACH_LENS.Font = new System.Drawing.Font("나눔고딕 ExtraBold", 11F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(129)));
             this.BTN_TEACH_LENS.ForeColor = System.Drawing.Color.White;
-            this.BTN_TEACH_LENS.Location = new System.Drawing.Point(777, 16);
+            this.BTN_TEACH_LENS.Location = new System.Drawing.Point(677, 14);
             this.BTN_TEACH_LENS.Name = "BTN_TEACH_LENS";
-            this.BTN_TEACH_LENS.Size = new System.Drawing.Size(154, 44);
+            this.BTN_TEACH_LENS.Size = new System.Drawing.Size(87, 44);
             this.BTN_TEACH_LENS.TabIndex = 34;
             this.BTN_TEACH_LENS.Text = "LENS";
             this.BTN_TEACH_LENS.UseVisualStyleBackColor = false;
@@ -63,9 +63,9 @@
             this.BTN_TEACH_PCB.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.BTN_TEACH_PCB.Font = new System.Drawing.Font("나눔고딕 ExtraBold", 11F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(129)));
             this.BTN_TEACH_PCB.ForeColor = System.Drawing.Color.White;
-            this.BTN_TEACH_PCB.Location = new System.Drawing.Point(616, 16);
+            this.BTN_TEACH_PCB.Location = new System.Drawing.Point(584, 14);
             this.BTN_TEACH_PCB.Name = "BTN_TEACH_PCB";
-            this.BTN_TEACH_PCB.Size = new System.Drawing.Size(154, 44);
+            this.BTN_TEACH_PCB.Size = new System.Drawing.Size(87, 44);
             this.BTN_TEACH_PCB.TabIndex = 33;
             this.BTN_TEACH_PCB.Text = "PCB";
             this.BTN_TEACH_PCB.UseVisualStyleBackColor = false;
@@ -80,7 +80,8 @@
             this.Controls.Add(this.BTN_TEACH_PCB);
             this.Controls.Add(this.TeachingTitleLabel);
             this.Name = "ManualControl";
-            this.Size = new System.Drawing.Size(955, 1018);
+            this.Size = new System.Drawing.Size(770, 1018);
+            this.VisibleChanged += new System.EventHandler(this.ManualControl_VisibleChanged);
             this.ResumeLayout(false);
 
         }
