@@ -152,7 +152,7 @@
             this.Controls.Add(this.BTN_MANUAL_PCB);
             this.Controls.Add(this.ManualTitleLabel);
             this.Name = "AlarmControl";
-            this.Size = new System.Drawing.Size(771, 986);
+            this.Size = new System.Drawing.Size(770, 986);
             this.VisibleChanged += new System.EventHandler(this.AlarmControl_VisibleChanged);
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView_Alarm)).EndInit();
             this.ResumeLayout(false);
