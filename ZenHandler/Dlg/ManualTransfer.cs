@@ -18,7 +18,7 @@ namespace ZenHandler.Dlg
         private DateTime startTime;
         private Timer ManualTimer;
 
-        private Button[] MotorBtnArr = new Button[10];
+        private Button[] MotorBtnArr = new Button[4];
         private Button[] IoBtnArr = new Button[2];
         public ManualTransfer()
         {
@@ -36,19 +36,13 @@ namespace ZenHandler.Dlg
         private void ManualPcbUiSet()
         {
             int i = 0;
-            MotorBtnArr[0] = BTN_MANUAL_WAIT_POS_XY;
-            MotorBtnArr[1] = BTN_MANUAL_LOAD_POS_XY;
-            MotorBtnArr[2] = BTN_MANUAL_LASER_POS_XY;
-            MotorBtnArr[3] = BTN_MANUAL_OC_POS_XY;
-            MotorBtnArr[4] = BTN_MANUAL_CHART_POS_XY;
-            MotorBtnArr[5] = BTN_MANUAL_WAIT_POS_Z;
-            MotorBtnArr[6] = BTN_MANUAL_LOAD_POS_Z;
-            MotorBtnArr[7] = BTN_MANUAL_LASER_POS_Z;
-            MotorBtnArr[8] = BTN_MANUAL_OC_POS_Z;
-            MotorBtnArr[9] = BTN_MANUAL_CHART_POS_Z;
+            MotorBtnArr[0] = BTN_MANUAL_TRANSFER_WAIT_POS_XY;
+            MotorBtnArr[1] = BTN_MANUAL_TRANSFER_LEFT_LOAD_POS_XY;
+            MotorBtnArr[2] = BTN_MANUAL_TRANSFER_WAIT_POS_Z;
+            MotorBtnArr[3] = BTN_MANUAL_TRANSFER_LEFT_LOAD_POS_Z;
 
-            IoBtnArr[0] = BTN_MANUAL_VACUUM_ON;
-            IoBtnArr[1] = BTN_MANUAL_VACUUM_OFF;
+            IoBtnArr[0] = BTN_MANUAL_TRANSFER_LOAD_VACUUM_ON1;
+            IoBtnArr[1] = BTN_MANUAL_TRANSFER_LOAD_VACUUM_OFF1;
 
             for (i = 0; i < MotorBtnArr.Length; i++)
             {
@@ -167,6 +161,8 @@ namespace ZenHandler.Dlg
             MovePos = (int)Data.TeachingData.eTeachPosName.WAIT_POS;
             double[] dOffsetPos = { 0.0, 0.0, 0.0 };
 
+
+
             bool bRtn = false;// Globalo.motorControl.Pcb_Motor_XYT_Move(MovePos, dOffsetPos);
             if (bRtn)
             {
@@ -206,7 +202,18 @@ namespace ZenHandler.Dlg
                 ManualTimer.Start();
             }
         }
+        public void showPanel()
+        {
+            if (ProgramState.ON_LINE_MOTOR == true)
+            {
+                //TeachingTimer.Start();
+            }
 
-        
+        }
+        public void hidePanel()
+        {
+            //TeachingTimer.Stop();
+        }
+
     }
 }

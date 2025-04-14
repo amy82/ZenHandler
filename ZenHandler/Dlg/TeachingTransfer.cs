@@ -29,7 +29,7 @@ namespace ZenHandler.Dlg
 
             //Custom Teaching Grid Add
             //
-            int[] inGridWid = new int[] { 100, 80, 80, 80};         //Grid Width
+            int[] inGridWid = new int[] { 110, 80, 80, 80};         //Grid Width
 
             myTeachingGrid = new Controls.TeachingGridView(
                 Globalo.motionManager.transferMachine.MotorAxes, 

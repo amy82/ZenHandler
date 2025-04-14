@@ -215,9 +215,13 @@ namespace ZenHandler.Controls
                 this.Rows[i].DefaultCellStyle.SelectionBackColor = this.DefaultCellStyle.BackColor;
                 this.Rows[i].DefaultCellStyle.SelectionForeColor = this.DefaultCellStyle.ForeColor;
             }
+            string posName = "";
             for (i = 0; i < TeachingPosCount; i++)
             {
-                this.Rows[i + (nGridSensorRowCount + nGridSpeedRowCount - 1)].SetValues(Globalo.motionManager.transferMachine.TeachingPos[i]);
+                //posName = Globalo.motionManager.transferMachine.TeachingPos[i];
+                posName = teachingData.Teaching[i].Name;
+
+                this.Rows[i + (nGridSensorRowCount + nGridSpeedRowCount - 1)].SetValues(posName);
             }
 
 
