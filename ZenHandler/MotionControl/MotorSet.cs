@@ -9,7 +9,7 @@ namespace ZenHandler.MotionControl
     public static class MotorSet
     {
 
-        public const int MAX_MOTOR_COUNT = 6;
+        public const int MAX_MOTOR_COUNT = 6;       //<-이 수로 아진 모터 세팅
 
         //
         public static int MOTOR_MOVE_TIMEOUT = 20000;   //20s
@@ -69,8 +69,9 @@ namespace ZenHandler.MotionControl
             MotorDefine.eMotorType.LINEAR
 
         };
+        
+        public static int[] MOTOR_MAX_SPEED = { 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100 };
 
-        public static int[] MOTOR_MAX_SPEED = { 100, 100, 10, 5, 5, 5 };
         public static double[] OrgFirstVel = { 20000.0, 10000.0, 5000.0, 3000.0, 3000.0, 3000.0 };
         public static double[] OrgSecondVel = { 5000.0, 7000.0, 2000.0, 1000.0, 1000.0, 1000.0 };
         public static double[] OrgThirdVel = { 2000.0, 2000.0, 500.0, 500.0, 500.0, 500.0 };

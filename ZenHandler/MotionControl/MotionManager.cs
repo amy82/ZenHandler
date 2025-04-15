@@ -74,11 +74,12 @@ namespace ZenHandler.MotionControl
         {
             int lBoardCount = 0;
             int i = 0;
+            int SetTotalMotorCnt = MotorSet.MAX_MOTOR_COUNT;
             // ※ [CAUTION] 아래와 다른 Mot파일(모션 설정파일)을 사용할 경우 경로를 변경하십시요.
             //String szFilePath = "C:\\Program Files\\EzSoftware RM\\EzSoftware\\MotionDefault.mot";
             //++ AXL(AjineXtek Library)을 사용가능하게 하고 장착된 보드들을 초기화합니다.
 
-            
+
 
             CAXL.AxlGetBoardCount(ref lBoardCount);
 
@@ -92,9 +93,11 @@ namespace ZenHandler.MotionControl
             //++ 유효한 전체 모션축수를 반환합니다.
 
             CAXM.AxmInfoGetAxisCount(ref m_lAxisCounts);
-            if (m_lAxisCounts < MotorSet.MAX_MOTOR_COUNT)
+
+            
+            if (m_lAxisCounts < SetTotalMotorCnt)
             {
-                Globalo.LogPrint("", $"Motor drive number mismatch[{m_lAxisCounts}/{MotorSet.MAX_MOTOR_COUNT}]", Globalo.eMessageName.M_ERROR);
+                Globalo.LogPrint("", $"Motor drive number mismatch[{m_lAxisCounts}/{SetTotalMotorCnt}]", Globalo.eMessageName.M_ERROR);
                 return false;
             }
 
@@ -135,7 +138,7 @@ namespace ZenHandler.MotionControl
             string logstr = "";
 
 
-            for (i = 0; i < MotorSet.MAX_MOTOR_COUNT; i++)
+            for (i = 0; i < MotorSet.MAX_MOTOR_COUNT; i++)          //Axl_Axisconfig
             {
                 if (i == -1)
                 {
@@ -240,105 +243,102 @@ namespace ZenHandler.MotionControl
                     Globalo.LogPrint("axm", logstr, Globalo.eMessageName.M_ERROR);
                     //eLogSender("CAxlMotion", $"[{sMotorName}]모터 최고 속도 설정 실패", Globalo.eMessageName.M_ERROR);
                 }
-                switch (nMotorType)
+
+                if (nMotorType == MotorDefine.eMotorType.LINEAR)
                 {
-                    case MotorDefine.eMotorType.LINEAR:     //LINEAR
-                        duRetCode = CAXM.AxmSignalSetInpos(nUseAxis, (uint)AXT_MOTION_LEVEL_MODE.HIGH);
-                        if (duRetCode != (uint)AXT_FUNC_RESULT.AXT_RT_SUCCESS)
-                        {
-                            logstr = "[LINEAR] AxmSignalSetInpos Fail";
-                            Globalo.LogPrint("axm", logstr, Globalo.eMessageName.M_ERROR);
-                            //eLogSender("CAxlMotion", $"[{sMotorName}]모터 Inposition 설정 실패", Globalo.eMessageName.M_ERROR);
-                        }
-                        duRetCode = CAXM.AxmSignalSetStop(nUseAxis, (uint)AXT_MOTION_STOPMODE.EMERGENCY_STOP, (uint)AXT_MOTION_LEVEL_MODE.LOW);
-                        if (duRetCode != (uint)AXT_FUNC_RESULT.AXT_RT_SUCCESS)
-                        {
-                            logstr = "[LINEAR] AxmSignalSetStop Fail";
-                            Globalo.LogPrint("axm", logstr, Globalo.eMessageName.M_ERROR);
-                            //eLogSender("CAxlMotion", $"[{sMotorName}]모터 비상 정지 설정 실패", Globalo.eMessageName.M_ERROR);
-                        }
+                    duRetCode = CAXM.AxmSignalSetInpos(nUseAxis, (uint)AXT_MOTION_LEVEL_MODE.HIGH);
+                    if (duRetCode != (uint)AXT_FUNC_RESULT.AXT_RT_SUCCESS)
+                    {
+                        logstr = "[LINEAR] AxmSignalSetInpos Fail";
+                        Globalo.LogPrint("axm", logstr, Globalo.eMessageName.M_ERROR);
+                        //eLogSender("CAxlMotion", $"[{sMotorName}]모터 Inposition 설정 실패", Globalo.eMessageName.M_ERROR);
+                    }
+                    duRetCode = CAXM.AxmSignalSetStop(nUseAxis, (uint)AXT_MOTION_STOPMODE.EMERGENCY_STOP, (uint)AXT_MOTION_LEVEL_MODE.LOW);
+                    if (duRetCode != (uint)AXT_FUNC_RESULT.AXT_RT_SUCCESS)
+                    {
+                        logstr = "[LINEAR] AxmSignalSetStop Fail";
+                        Globalo.LogPrint("axm", logstr, Globalo.eMessageName.M_ERROR);
+                        //eLogSender("CAxlMotion", $"[{sMotorName}]모터 비상 정지 설정 실패", Globalo.eMessageName.M_ERROR);
+                    }
+                    duRetCode = CAXM.AxmSignalSetLimit(nUseAxis, (uint)AXT_MOTION_STOPMODE.EMERGENCY_STOP, (uint)AXT_MOTION_LEVEL_MODE.HIGH, (uint)AXT_MOTION_LEVEL_MODE.HIGH);
+                    if (duRetCode != (uint)AXT_FUNC_RESULT.AXT_RT_SUCCESS)
+                    {
+                        logstr = "[LINEAR] AxmSignalSetLimit Fail";
+                        Globalo.LogPrint("axm", logstr, Globalo.eMessageName.M_ERROR);
+                        //eLogSender("CAxlMotion", $"[{sMotorName}]모터 Limit 감지 정지 설정 실패", Globalo.eMessageName.M_ERROR);
+                    }
+
+                    duRetCode = CAXM.AxmSignalSetServoAlarm(nUseAxis, (uint)AXT_MOTION_LEVEL_MODE.HIGH);
+                    if (duRetCode != (uint)AXT_FUNC_RESULT.AXT_RT_SUCCESS)
+                    {
+                        logstr = "[LINEAR] AxmSignalSetServoAlarm Fail";
+                        Globalo.LogPrint("axm", logstr, Globalo.eMessageName.M_ERROR);
+                        //eLogSender("CAxlMotion", $"[{sMotorName}]모터 SERVER Alarm 감지 설정 실패", Globalo.eMessageName.M_ERROR);
+                    }
+                }
+                else if (nMotorType == MotorDefine.eMotorType.STEPING)
+                {
+                    duRetCode = CAXM.AxmSignalSetInpos(nUseAxis, (uint)AXT_MOTION_LEVEL_MODE.UNUSED);
+                    if (duRetCode != (uint)AXT_FUNC_RESULT.AXT_RT_SUCCESS)
+                    {
+                        logstr = "[STEPING] AxmSignalSetServoAlarm Fail";
+                        Globalo.LogPrint("axm", logstr, Globalo.eMessageName.M_ERROR);
+                        //eLogSender("CAxlMotion", $"[{sMotorName}]모터 Inposition 설정 실패", Globalo.eMessageName.M_ERROR);
+                    }
+                    duRetCode = CAXM.AxmMotSetPulseOutMethod(nUseAxis, (uint)AXT_MOTION_PULSE_OUTPUT.TwoCcwCwHigh);
+                    if (duRetCode != (uint)AXT_FUNC_RESULT.AXT_RT_SUCCESS)
+                    {
+                        logstr = "[STEPING] AxmMotSetPulseOutMethod Fail";
+                        Globalo.LogPrint("axm", logstr, Globalo.eMessageName.M_ERROR);
+                        //eLogSender("CAxlMotion", $"[{sMotorName}]모터 CW/CCW 설정 실패", Globalo.eMessageName.M_ERROR);
+                    }
+                    duRetCode = CAXM.AxmSignalSetStop(nUseAxis, (uint)AXT_MOTION_STOPMODE.EMERGENCY_STOP, (uint)AXT_MOTION_LEVEL_MODE.HIGH);
+                    if (duRetCode != (uint)AXT_FUNC_RESULT.AXT_RT_SUCCESS)
+                    {
+                        logstr = "[STEPING] AxmSignalSetStop Fail";
+                        Globalo.LogPrint("axm", logstr, Globalo.eMessageName.M_ERROR);
+                        //_stprintf_s
+                    }
+                    //pcb z만 high , high
+
+                    if (nUseAxis == 0)      //(int)MotorSet.eMotorList.PCB_Z)
+                    {
                         duRetCode = CAXM.AxmSignalSetLimit(nUseAxis, (uint)AXT_MOTION_STOPMODE.EMERGENCY_STOP, (uint)AXT_MOTION_LEVEL_MODE.HIGH, (uint)AXT_MOTION_LEVEL_MODE.HIGH);
-                        if (duRetCode != (uint)AXT_FUNC_RESULT.AXT_RT_SUCCESS)
-                        {
-                            logstr = "[LINEAR] AxmSignalSetLimit Fail";
-                            Globalo.LogPrint("axm", logstr, Globalo.eMessageName.M_ERROR);
-                            //eLogSender("CAxlMotion", $"[{sMotorName}]모터 Limit 감지 정지 설정 실패", Globalo.eMessageName.M_ERROR);
-                        }
+                    }
+                    else
+                    {
+                        duRetCode = CAXM.AxmSignalSetLimit(nUseAxis, (uint)AXT_MOTION_STOPMODE.EMERGENCY_STOP, (uint)AXT_MOTION_LEVEL_MODE.LOW, (uint)AXT_MOTION_LEVEL_MODE.LOW);
+                    }
 
-                        duRetCode = CAXM.AxmSignalSetServoAlarm(nUseAxis, (uint)AXT_MOTION_LEVEL_MODE.HIGH);
-                        if (duRetCode != (uint)AXT_FUNC_RESULT.AXT_RT_SUCCESS)
-                        {
-                            logstr = "[LINEAR] AxmSignalSetServoAlarm Fail";
-                            Globalo.LogPrint("axm", logstr, Globalo.eMessageName.M_ERROR);
-                            //eLogSender("CAxlMotion", $"[{sMotorName}]모터 SERVER Alarm 감지 설정 실패", Globalo.eMessageName.M_ERROR);
-                        }
-                        break;
-                    //
-                    //
-                    //Steping
-                    //
-                    case MotorDefine.eMotorType.STEPING:
-                        duRetCode = CAXM.AxmSignalSetInpos(nUseAxis, (uint)AXT_MOTION_LEVEL_MODE.UNUSED);
-                        if (duRetCode != (uint)AXT_FUNC_RESULT.AXT_RT_SUCCESS)
-                        {
-                            logstr = "[STEPING] AxmSignalSetServoAlarm Fail";
-                            Globalo.LogPrint("axm", logstr, Globalo.eMessageName.M_ERROR);
-                            //eLogSender("CAxlMotion", $"[{sMotorName}]모터 Inposition 설정 실패", Globalo.eMessageName.M_ERROR);
-                        }
-                        duRetCode = CAXM.AxmMotSetPulseOutMethod(nUseAxis, (uint)AXT_MOTION_PULSE_OUTPUT.TwoCcwCwHigh);
-                        if (duRetCode != (uint)AXT_FUNC_RESULT.AXT_RT_SUCCESS)
-                        {
-                            logstr = "[STEPING] AxmMotSetPulseOutMethod Fail";
-                            Globalo.LogPrint("axm", logstr, Globalo.eMessageName.M_ERROR);
-                            //eLogSender("CAxlMotion", $"[{sMotorName}]모터 CW/CCW 설정 실패", Globalo.eMessageName.M_ERROR);
-                        }
-                        duRetCode = CAXM.AxmSignalSetStop(nUseAxis, (uint)AXT_MOTION_STOPMODE.EMERGENCY_STOP, (uint)AXT_MOTION_LEVEL_MODE.HIGH);
-                        if (duRetCode != (uint)AXT_FUNC_RESULT.AXT_RT_SUCCESS)
-                        {
-                            logstr = "[STEPING] AxmSignalSetStop Fail";
-                            Globalo.LogPrint("axm", logstr, Globalo.eMessageName.M_ERROR);
-                            //_stprintf_s
-                        }
-                        //pcb z만 high , high
-                        if (nUseAxis == 0)//(int)MotorSet.eMotorList.PCB_Z)
-                        {
-                            duRetCode = CAXM.AxmSignalSetLimit(nUseAxis, (uint)AXT_MOTION_STOPMODE.EMERGENCY_STOP, (uint)AXT_MOTION_LEVEL_MODE.HIGH, (uint)AXT_MOTION_LEVEL_MODE.HIGH);
-                        }
-                        else
-                        {
-                            duRetCode = CAXM.AxmSignalSetLimit(nUseAxis, (uint)AXT_MOTION_STOPMODE.EMERGENCY_STOP, (uint)AXT_MOTION_LEVEL_MODE.LOW, (uint)AXT_MOTION_LEVEL_MODE.LOW);
-                        }
-
-                        if (duRetCode != (uint)AXT_FUNC_RESULT.AXT_RT_SUCCESS)
-                        {
-                            logstr = "[STEPING] AxmSignalSetLimit Fail";
-                            Globalo.LogPrint("axm", logstr, Globalo.eMessageName.M_ERROR);
-                            //eLogSender("CAxlMotion", $"[{sMotorName}]모터 비상 정지 설정 실패", Globalo.eMessageName.M_ERROR);
-                        }
-                        duRetCode = CAXM.AxmMotSetEncInputMethod(nUseAxis, (uint)AXT_MOTION_EXTERNAL_COUNTER_INPUT.ObverseSqr4Mode);
-                        if (duRetCode != (uint)AXT_FUNC_RESULT.AXT_RT_SUCCESS)
-                        {
-                            logstr = "[STEPING] AxmMotSetEncInputMethod Fail";
-                            Globalo.LogPrint("axm", logstr, Globalo.eMessageName.M_ERROR);
-                            //eLogSender("CAxlMotion", $"[{sMotorName}]모터 4체배 설정 실패", Globalo.eMessageName.M_ERROR);
-                        }
-                        duRetCode = CAXM.AxmSignalSetServoOnLevel(nUseAxis, (uint)AXT_MOTION_LEVEL_MODE.HIGH);
-                        if (duRetCode != (uint)AXT_FUNC_RESULT.AXT_RT_SUCCESS)
-                        {
-                            logstr = "[STEPING] AxmSignalSetServoOnLevel Fail";
-                            Globalo.LogPrint("axm", logstr, Globalo.eMessageName.M_ERROR);
-                            //eLogSender("CAxlMotion", $"[{sMotorName}]모터 Servo On Level 설정 실패", Globalo.eMessageName.M_ERROR);
-                        }
-                        duRetCode = CAXM.AxmSignalSetServoAlarm(nUseAxis, (uint)AXT_MOTION_LEVEL_MODE.HIGH);
-                        if (duRetCode != (uint)AXT_FUNC_RESULT.AXT_RT_SUCCESS)
-                        {
-                            logstr = "[STEPING] AxmSignalSetServoAlarm Fail";
-                            Globalo.LogPrint("axm", logstr, Globalo.eMessageName.M_ERROR);
-                            //eLogSender("CAxlMotion", $"[{sMotorName}]모터 SERVER Alarm 감지 설정 실패", Globalo.eMessageName.M_ERROR);
-                        }
-
-                        break;
-                }//switch end
+                    if (duRetCode != (uint)AXT_FUNC_RESULT.AXT_RT_SUCCESS)
+                    {
+                        logstr = "[STEPING] AxmSignalSetLimit Fail";
+                        Globalo.LogPrint("axm", logstr, Globalo.eMessageName.M_ERROR);
+                        //eLogSender("CAxlMotion", $"[{sMotorName}]모터 비상 정지 설정 실패", Globalo.eMessageName.M_ERROR);
+                    }
+                    duRetCode = CAXM.AxmMotSetEncInputMethod(nUseAxis, (uint)AXT_MOTION_EXTERNAL_COUNTER_INPUT.ObverseSqr4Mode);
+                    if (duRetCode != (uint)AXT_FUNC_RESULT.AXT_RT_SUCCESS)
+                    {
+                        logstr = "[STEPING] AxmMotSetEncInputMethod Fail";
+                        Globalo.LogPrint("axm", logstr, Globalo.eMessageName.M_ERROR);
+                        //eLogSender("CAxlMotion", $"[{sMotorName}]모터 4체배 설정 실패", Globalo.eMessageName.M_ERROR);
+                    }
+                    duRetCode = CAXM.AxmSignalSetServoOnLevel(nUseAxis, (uint)AXT_MOTION_LEVEL_MODE.HIGH);
+                    if (duRetCode != (uint)AXT_FUNC_RESULT.AXT_RT_SUCCESS)
+                    {
+                        logstr = "[STEPING] AxmSignalSetServoOnLevel Fail";
+                        Globalo.LogPrint("axm", logstr, Globalo.eMessageName.M_ERROR);
+                        //eLogSender("CAxlMotion", $"[{sMotorName}]모터 Servo On Level 설정 실패", Globalo.eMessageName.M_ERROR);
+                    }
+                    duRetCode = CAXM.AxmSignalSetServoAlarm(nUseAxis, (uint)AXT_MOTION_LEVEL_MODE.HIGH);
+                    if (duRetCode != (uint)AXT_FUNC_RESULT.AXT_RT_SUCCESS)
+                    {
+                        logstr = "[STEPING] AxmSignalSetServoAlarm Fail";
+                        Globalo.LogPrint("axm", logstr, Globalo.eMessageName.M_ERROR);
+                        //eLogSender("CAxlMotion", $"[{sMotorName}]모터 SERVER Alarm 감지 설정 실패", Globalo.eMessageName.M_ERROR);
+                    }
+                }
+                
             }//for end
             return 0;
         }
@@ -349,7 +349,7 @@ namespace ZenHandler.MotionControl
             int i = 0;
             double dDecel = 0.0;
 
-            for (i = 0; i < MotorSet.MAX_MOTOR_COUNT; i++)
+            for (i = 0; i < MotorSet.MAX_MOTOR_COUNT; i++)      //AmpDisableAll
             {
                 if (i == -1)
                 {
@@ -368,7 +368,7 @@ namespace ZenHandler.MotionControl
 
             Thread.Sleep(500);
 
-            for (i = 0; i < MotorSet.MAX_MOTOR_COUNT; i++)
+            for (i = 0; i < MotorSet.MAX_MOTOR_COUNT; i++)      //AmpDisableAll
             {
                 if (i == -1)
                 {
@@ -385,7 +385,7 @@ namespace ZenHandler.MotionControl
         {
             int i;
             // 모든 모터를 정지한다.
-            for (i = 0; i < MotorSet.MAX_MOTOR_COUNT; i++)
+            for (i = 0; i < MotorSet.MAX_MOTOR_COUNT; i++)      //Axl_Close
             {
                 if (i == -1)
                 {

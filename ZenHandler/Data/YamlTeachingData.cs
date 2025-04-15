@@ -26,7 +26,6 @@ namespace ZenHandler.Data
         public List<double> Accel { get; set; }
         public List<double> Decel { get; set; }
         public List<double> Resolution { get; set; }
-        public List<double> MaxSpeed { get; set; }
         public List<TeachingPos> Teaching { get; set; }
     }
 

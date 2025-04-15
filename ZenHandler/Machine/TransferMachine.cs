@@ -38,9 +38,9 @@ namespace ZenHandler.Machine
 
             MotorAxes = new MotionControl.MotorAxis[] { TransferX, TransferY, TransferZ };
 
-            TransferX.setMotorParameter(10.0, 0.1, 0.1, 1000.0, 50.0);     //초기 셋 다른 곳에서 다시 해줘야될 듯
-            TransferY.setMotorParameter(10.0, 0.1, 0.1, 1000.0, 50.0);
-            TransferZ.setMotorParameter(10.0, 0.1, 0.1, 1000.0, 50.0);
+            TransferX.setMotorParameter(10.0, 0.1, 0.1, 1000.0);     //초기 셋 다른 곳에서 다시 해줘야될 듯
+            TransferY.setMotorParameter(10.0, 0.1, 0.1, 1000.0);
+            TransferZ.setMotorParameter(10.0, 0.1, 0.1, 1000.0);
 
             this.MachineName = this.GetType().Name;
 
@@ -54,8 +54,7 @@ namespace ZenHandler.Machine
                 Globalo.yamlManager.teachingDataYaml.handler.TransferMachine.Speed[i],
                 Globalo.yamlManager.teachingDataYaml.handler.TransferMachine.Accel[i],
                 Globalo.yamlManager.teachingDataYaml.handler.TransferMachine.Decel[i],
-                Globalo.yamlManager.teachingDataYaml.handler.TransferMachine.Resolution[i],
-                Globalo.yamlManager.teachingDataYaml.handler.TransferMachine.MaxSpeed[i]);
+                Globalo.yamlManager.teachingDataYaml.handler.TransferMachine.Resolution[i]);
             }
 
 

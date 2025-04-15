@@ -31,7 +31,6 @@ namespace ZenHandler.MotionControl
         public double Acceleration { get; set; }                    //가속
         public double Deceleration { get; set; }                    //감속
         public double Resolution { get; protected set; }
-        public double MaxSpeed { get; protected set; }                 //1000
         //
         //
         public double CommnadPos { get; protected set; }            //현재 위치 AxmStatusGetCmdPos : STEPING
@@ -62,7 +61,7 @@ namespace ZenHandler.MotionControl
             isMotorBusy = false;
         }
         
-        public virtual void setMotorParameter(double vel , double acc , double dec , double resol , double maxSpeed)
+        public virtual void setMotorParameter(double vel , double acc , double dec , double resol )
         {
             if (vel < 10)
             {
@@ -94,7 +93,6 @@ namespace ZenHandler.MotionControl
             Acceleration = acc;
             Deceleration = dec;
             Resolution = resol;
-            MaxSpeed = maxSpeed;
         }
 
 

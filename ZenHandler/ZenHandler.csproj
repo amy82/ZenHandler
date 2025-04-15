@@ -358,7 +358,6 @@
     <Compile Include="MessagePopUpForm.Designer.cs">
       <DependentUpon>MessagePopUpForm.cs</DependentUpon>
     </Compile>
-    <Compile Include="MotorAxisold.cs" />
     <Compile Include="MotorDefine.cs" />
     <Compile Include="NumPadForm.cs">
       <SubType>Form</SubType>

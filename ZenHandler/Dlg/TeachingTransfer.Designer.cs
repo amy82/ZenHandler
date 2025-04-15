@@ -39,13 +39,17 @@ namespace ZenHandler.Dlg
             this.BTN_TEACH_SERVO_RESET = new System.Windows.Forms.Button();
             this.BTN_TEACH_TRANSFER_Z = new System.Windows.Forms.Button();
             this.BTN_TEACH_TRANSFER_X = new System.Windows.Forms.Button();
+            this.LABEL_TEACH_ROSOLUTION_VALUE = new System.Windows.Forms.Label();
+            this.label_Resolution = new System.Windows.Forms.Label();
             this.groupTeachPcb.SuspendLayout();
             this.SuspendLayout();
             // 
             // groupTeachPcb
             // 
             this.groupTeachPcb.BackColor = System.Drawing.Color.White;
+            this.groupTeachPcb.Controls.Add(this.LABEL_TEACH_ROSOLUTION_VALUE);
             this.groupTeachPcb.Controls.Add(this.BTN_TEACH_DATA_SAVE);
+            this.groupTeachPcb.Controls.Add(this.label_Resolution);
             this.groupTeachPcb.Controls.Add(this.label4);
             this.groupTeachPcb.Controls.Add(this.label3);
             this.groupTeachPcb.Controls.Add(this.BTN_TEACH_TRANSFER_Y);
@@ -189,6 +193,33 @@ namespace ZenHandler.Dlg
             this.BTN_TEACH_TRANSFER_X.UseVisualStyleBackColor = false;
             this.BTN_TEACH_TRANSFER_X.Click += new System.EventHandler(this.BTN_TEACH_PCB_X_Click);
             // 
+            // LABEL_TEACH_ROSOLUTION_VALUE
+            // 
+            this.LABEL_TEACH_ROSOLUTION_VALUE.BackColor = System.Drawing.SystemColors.Window;
+            this.LABEL_TEACH_ROSOLUTION_VALUE.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.LABEL_TEACH_ROSOLUTION_VALUE.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.LABEL_TEACH_ROSOLUTION_VALUE.Font = new System.Drawing.Font("나눔고딕 ExtraBold", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(129)));
+            this.LABEL_TEACH_ROSOLUTION_VALUE.ForeColor = System.Drawing.Color.DimGray;
+            this.LABEL_TEACH_ROSOLUTION_VALUE.Location = new System.Drawing.Point(619, 561);
+            this.LABEL_TEACH_ROSOLUTION_VALUE.Name = "LABEL_TEACH_ROSOLUTION_VALUE";
+            this.LABEL_TEACH_ROSOLUTION_VALUE.Size = new System.Drawing.Size(117, 37);
+            this.LABEL_TEACH_ROSOLUTION_VALUE.TabIndex = 47;
+            this.LABEL_TEACH_ROSOLUTION_VALUE.Text = "2.0";
+            this.LABEL_TEACH_ROSOLUTION_VALUE.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            this.LABEL_TEACH_ROSOLUTION_VALUE.Click += new System.EventHandler(this.LABEL_TEACH_ROSOLUTION_VALUE_Click);
+            // 
+            // label_Resolution
+            // 
+            this.label_Resolution.BackColor = System.Drawing.Color.Gray;
+            this.label_Resolution.Font = new System.Drawing.Font("나눔고딕", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(129)));
+            this.label_Resolution.ForeColor = System.Drawing.Color.WhiteSmoke;
+            this.label_Resolution.Location = new System.Drawing.Point(619, 534);
+            this.label_Resolution.Name = "label_Resolution";
+            this.label_Resolution.Size = new System.Drawing.Size(117, 23);
+            this.label_Resolution.TabIndex = 46;
+            this.label_Resolution.Text = "Resolution";
+            this.label_Resolution.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            // 
             // TeachingTransfer
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 12F);
@@ -212,5 +243,7 @@ namespace ZenHandler.Dlg
         private System.Windows.Forms.Label label4;
         private System.Windows.Forms.Label label3;
         private System.Windows.Forms.Button BTN_TEACH_DATA_SAVE;
+        public System.Windows.Forms.Label LABEL_TEACH_ROSOLUTION_VALUE;
+        private System.Windows.Forms.Label label_Resolution;
     }
 }
