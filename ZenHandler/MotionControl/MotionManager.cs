@@ -37,7 +37,11 @@ namespace ZenHandler.MotionControl
         }
         public void AllMotorStop()
         {
-            transferMachine.MovingStop();
+            if (ProgramState.ON_LINE_MOTOR)
+            {
+                transferMachine.MovingStop();
+            }
+           
         }
         public void MotionClose()
         {

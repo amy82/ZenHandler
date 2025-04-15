@@ -51,6 +51,10 @@ namespace ZenHandler.Dlg
             manualBtnTab = eManualBtn.TransferTab;
             //TeachingBtnChange(manualBtnTab);
         }
+        public void ManualDlgStop()
+        {
+            manualTransfer.bManualStopKey = true;       //수동 모터 이동 중 빠져나오게
+        }
         private void Form_Paint(object sender, PaintEventArgs e)
         {
             int lineStartY = TeachingTitleLabel.Location.Y + Globalo.TabLineY;

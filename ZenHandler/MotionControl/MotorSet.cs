@@ -11,6 +11,7 @@ namespace ZenHandler.MotionControl
 
         public const int MAX_MOTOR_COUNT = 6;
         public static int MOTOR_MOVE_TIMEOUT = 20000;   //20s
+        public static int MOTOR_MANUAL_MOVE_TIMEOUT = 10000;   //10s
         public static int IO_TIMEOUT = 3000;   //3s
         public static double ENCORDER_GAP = 0.03;
         public static bool MOTOR_ACC_TYPE_SEC = true;

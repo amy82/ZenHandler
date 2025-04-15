@@ -38,14 +38,12 @@ namespace ZenHandler
             this.MainTitlepictureBox = new System.Windows.Forms.PictureBox();
             this.MainTitleLabel = new System.Windows.Forms.Label();
             this.LeftPanel = new System.Windows.Forms.Panel();
-            this.labelGuide = new System.Windows.Forms.Label();
             this.CenterPanel = new System.Windows.Forms.Panel();
             this.tableLayoutPanel1 = new System.Windows.Forms.TableLayoutPanel();
             this.RightPanel = new System.Windows.Forms.Panel();
             this.BottomPanel = new System.Windows.Forms.Panel();
             this.TopPanel.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.MainTitlepictureBox)).BeginInit();
-            this.LeftPanel.SuspendLayout();
             this.tableLayoutPanel1.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -146,28 +144,12 @@ namespace ZenHandler
             // LeftPanel
             // 
             this.LeftPanel.BackColor = System.Drawing.Color.Turquoise;
-            this.LeftPanel.Controls.Add(this.labelGuide);
             this.LeftPanel.Dock = System.Windows.Forms.DockStyle.Fill;
             this.LeftPanel.Location = new System.Drawing.Point(0, 60);
             this.LeftPanel.Margin = new System.Windows.Forms.Padding(0);
             this.LeftPanel.Name = "LeftPanel";
             this.LeftPanel.Size = new System.Drawing.Size(1000, 715);
             this.LeftPanel.TabIndex = 1;
-            // 
-            // labelGuide
-            // 
-            this.labelGuide.Anchor = System.Windows.Forms.AnchorStyles.None;
-            this.labelGuide.BackColor = System.Drawing.Color.Bisque;
-            this.labelGuide.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.labelGuide.Font = new System.Drawing.Font("Microsoft Sans Serif", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(129)));
-            this.labelGuide.ForeColor = System.Drawing.Color.Black;
-            this.labelGuide.Location = new System.Drawing.Point(417, 492);
-            this.labelGuide.Name = "labelGuide";
-            this.labelGuide.Size = new System.Drawing.Size(260, 41);
-            this.labelGuide.TabIndex = 6;
-            this.labelGuide.Text = "설비 정지 상태입니다.";
-            this.labelGuide.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
-            this.labelGuide.Visible = false;
             // 
             // CenterPanel
             // 
@@ -238,7 +220,6 @@ namespace ZenHandler
             this.TopPanel.ResumeLayout(false);
             this.TopPanel.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.MainTitlepictureBox)).EndInit();
-            this.LeftPanel.ResumeLayout(false);
             this.tableLayoutPanel1.ResumeLayout(false);
             this.ResumeLayout(false);
 
@@ -251,7 +232,6 @@ namespace ZenHandler
         private System.Windows.Forms.Panel CenterPanel;
         private System.Windows.Forms.Label MainTitleLabel;
         private System.Windows.Forms.PictureBox MainTitlepictureBox;
-        private System.Windows.Forms.Label labelGuide;
         private System.Windows.Forms.Button BTN_TOP_MES;
         private System.Windows.Forms.Button BTN_TOP_CLIENT;
         private System.Windows.Forms.Button BTN_TOP_CCD;

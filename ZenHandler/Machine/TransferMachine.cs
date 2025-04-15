@@ -576,7 +576,9 @@ namespace ZenHandler.Machine
 
                 while (bWait)
                 {
-                    //if (motorBreak) break;
+                    if (multiAxis[0].motorBreak) break;
+                    if (multiAxis[1].motorBreak) break;
+                    if (multiAxis[2].motorBreak) break;
                     //위치 도착 확인 , 정지 확인
 
                     switch (step)
@@ -668,7 +670,7 @@ namespace ZenHandler.Machine
 
                 while (bWait)
                 {
-                    //if (motorBreak) break;
+                    if (TransferZ.motorBreak) break;
                     //위치 도착 확인 , 정지 확인
 
                     switch (step)
