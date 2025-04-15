@@ -242,12 +242,6 @@
     <Compile Include="Dlg\MainControl.designer.cs">
       <DependentUpon>MainControl.cs</DependentUpon>
     </Compile>
-    <Compile Include="Dlg\ManualLens.cs">
-      <SubType>UserControl</SubType>
-    </Compile>
-    <Compile Include="Dlg\ManualLens.Designer.cs">
-      <DependentUpon>ManualLens.cs</DependentUpon>
-    </Compile>
     <Compile Include="Dlg\ManualTransfer.cs">
       <SubType>UserControl</SubType>
     </Compile>
@@ -295,12 +289,6 @@
     </Compile>
     <Compile Include="Dlg\TeachingControl.designer.cs">
       <DependentUpon>TeachingControl.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Dlg\TeachingLens.cs">
-      <SubType>UserControl</SubType>
-    </Compile>
-    <Compile Include="Dlg\TeachingLens.Designer.cs">
-      <DependentUpon>TeachingLens.cs</DependentUpon>
     </Compile>
     <Compile Include="Dlg\TeachingTransfer.cs">
       <SubType>UserControl</SubType>
@@ -371,7 +359,6 @@
       <DependentUpon>MessagePopUpForm.cs</DependentUpon>
     </Compile>
     <Compile Include="MotorAxisold.cs" />
-    <Compile Include="MotorControl.cs" />
     <Compile Include="MotorDefine.cs" />
     <Compile Include="NumPadForm.cs">
       <SubType>Form</SubType>
@@ -427,9 +414,6 @@
     <EmbeddedResource Include="Dlg\MainControl.resx">
       <DependentUpon>MainControl.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Dlg\ManualLens.resx">
-      <DependentUpon>ManualLens.cs</DependentUpon>
-    </EmbeddedResource>
     <EmbeddedResource Include="Dlg\ManualTransfer.resx">
       <DependentUpon>ManualTransfer.cs</DependentUpon>
     </EmbeddedResource>
@@ -453,9 +437,6 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Dlg\TeachingControl.resx">
       <DependentUpon>TeachingControl.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Dlg\TeachingLens.resx">
-      <DependentUpon>TeachingLens.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Dlg\TeachingTransfer.resx">
       <DependentUpon>TeachingTransfer.cs</DependentUpon>

@@ -11,7 +11,7 @@ namespace ZenHandler
 {
     public class DIoControl
     {
-        public event delLogSender eLogSender;       //외부에서 호출할때 사용
+        //public event delLogSender eLogSender;       //외부에서 호출할때 사용
 
         
         public bool mDioThreadRun = true;
@@ -118,13 +118,13 @@ namespace ZenHandler
                                     }
                                     if (i % 2 == 0)
                                     {
-                                        eLogSender("Diocontrols",strData);
+                                        //eLogSender("Diocontrols",strData);
                                         //inTxt.Text = strData;
                                         //inIndexTxt.Text = (mdata.dCurReadModuleCh + 1).ToString() + " / " + nInModuleCount.ToString();
                                     }
                                     else
                                     {
-                                        eLogSender("Diocontrols", strData);
+                                        //eLogSender("Diocontrols", strData);
                                         //OutTxt.Text = strData;
                                         //OutIndexTxt.Text = (mdata.dCurOutModuleCh + 1).ToString() + " / " + nOutModuleCount.ToString();
                                     }
@@ -141,7 +141,7 @@ namespace ZenHandler
                     else
                     {
                         //MessageBox.Show("Module not exist.");
-                        eLogSender("Diocontrols", "Dio Module Open not exist");
+                        //eLogSender("Diocontrols", "Dio Module Open not exist");
                         return false;
                     }
                 }

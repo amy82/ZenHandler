@@ -211,7 +211,6 @@ namespace ZenHandler.MotionControl
         {
             //Speed = 0.1 , 0.5 , 1.0 Low , Mid , High
             Console.WriteLine($"방향 {direction}으로 조그 이동");
-            double dVel = 0.0;
             double dAcc = 0.0;
             double dDec = 0.0;
             uint dwRetVal = 0;

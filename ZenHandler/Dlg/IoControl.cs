@@ -29,8 +29,9 @@ namespace ZenHandler.Dlg
         uint[] m_dwPrevDIn = new uint[] { 0, 0, 0, 0, 0 };
         uint[] m_dwPrevDOut = new uint[] { 0, 0, 0, 0, 0 };
 
-        int MaxInModuleCount;
-        int MaxOutModuleCount;
+        int MaxInModuleCount = 0;
+        int MaxOutModuleCount = 0;
+
         public List<int> InModuleChannel = new List<int>();
         public List<int> OutModuleChannel = new List<int>();
         //

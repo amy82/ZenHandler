@@ -13,7 +13,7 @@ namespace ZenHandler.Dlg
 {
     public partial class ManualControl : UserControl
     {
-        public event delLogSender eLogSender;       //외부에서 호출할때 사용
+        //public event delLogSender eLogSender;       //외부에서 호출할때 사용
 
         private eManualBtn manualBtnTab;
 

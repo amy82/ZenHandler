@@ -506,8 +506,6 @@ namespace ZenHandler.Machine
             }
             double dPos = 0.0;
            // dPos = Globalo.dataManage.teachingData.PcbTeachData[nPos].dPos[TransferX.m_lAxisNo] + offset;
-            bool bRtn = false;
-
 
             bool isSuccess = false;
             try
@@ -646,7 +644,7 @@ namespace ZenHandler.Machine
                     Thread.Sleep(10);
                 }
             }
-            return bRtn;
+            return isSuccess;
         }
         public bool TransFer_Z_Move(Data.eTeachPosName ePos, bool bWait = false)
         {
@@ -715,7 +713,7 @@ namespace ZenHandler.Machine
                 }
             }
             
-            return bRtn;
+            return isSuccess;
         }
         public async Task MoveMotorAndWaitAsync()
         {

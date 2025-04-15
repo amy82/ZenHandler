@@ -13,8 +13,8 @@ namespace ZenHandler.Dlg
 {
     public partial class TeachingControl : UserControl
     {
-        private MotorControl motorControl;
-        public event delLogSender eLogSender;       //외부에서 호출할때 사용
+        //private MotorControl motorControl;
+        //public event delLogSender eLogSender;       //외부에서 호출할때 사용
 
 
         private eTeachingBtn TeachCurrentTab;
@@ -26,7 +26,7 @@ namespace ZenHandler.Dlg
         //socketTeach
 
 
-        private TeachingLens teachingLens;
+        //private TeachingLens teachingLens;
 
 
         private double m_dJogSpeed = 0.1;
@@ -66,7 +66,7 @@ namespace ZenHandler.Dlg
             CurrentTab = transferTeach;
             MachineControl.Add(transferTeach);
 
-            teachingLens = new TeachingLens();
+            //teachingLens = new TeachingLens();
 
             
             this.Paint += new PaintEventHandler(Form_Paint);
@@ -81,9 +81,9 @@ namespace ZenHandler.Dlg
 
 
             transferTeach.Visible = false;
-            teachingLens.Visible = false;
+            //teachingLens.Visible = false;
             this.Controls.Add(transferTeach);
-            this.Controls.Add(teachingLens);
+            //this.Controls.Add(teachingLens);
 
             transferTeach.Location = new System.Drawing.Point(this.TeachingPanel.Location.X, this.TeachingPanel.Location.Y);
             setInterface();
@@ -241,13 +241,13 @@ namespace ZenHandler.Dlg
 
             if (TeachCurrentTab == eTeachingBtn.TransferTab)
             {
-                teachingLens.hidePanel();
+                //teachingLens.hidePanel();
                 transferTeach.showPanel();
             }
             else if (TeachCurrentTab == eTeachingBtn.lensTab)
             {
                 transferTeach.hidePanel();
-                teachingLens.showPanel();
+                //teachingLens.showPanel();
                 //teachingLens.Show();
 
             }
@@ -255,45 +255,8 @@ namespace ZenHandler.Dlg
 
         }
 
-        private void BTN_TEACH_SERVO_ON_Click(object sender, EventArgs e)
-        {
-            if (TeachCurrentTab == eTeachingBtn.pcbTab)
-            {
-                motorControl.PcbMotorAxis[transferTeach.SelectAxisIndex].AmpEnable();
-            }
-            else if (TeachCurrentTab == eTeachingBtn.lensTab)
-            {
-                motorControl.LensMotorAxis[teachingLens.SelectLensAxis].AmpEnable();
-            }
-                
-        }
+        
 
-        private void BTN_TEACH_SERVO_OFF_Click(object sender, EventArgs e)
-        {
-            if (TeachCurrentTab == eTeachingBtn.pcbTab)
-            {
-                motorControl.PcbMotorAxis[transferTeach.SelectAxisIndex].AmpDisable();
-            }
-            else if (TeachCurrentTab == eTeachingBtn.lensTab)
-            {
-                motorControl.LensMotorAxis[teachingLens.SelectLensAxis].AmpDisable();
-            }
-            
-        }
-
-        private void BTN_TEACH_SERVO_RESET_Click(object sender, EventArgs e)
-        {
-            if (TeachCurrentTab == eTeachingBtn.pcbTab)
-            {
-                motorControl.PcbMotorAxis[transferTeach.SelectAxisIndex].AmpFaultReset();
-            }
-            else if (TeachCurrentTab == eTeachingBtn.lensTab)
-            {
-                motorControl.LensMotorAxis[teachingLens.SelectLensAxis].AmpFaultReset();
-            }
-            
-            
-        }
 
         private async void BTN_TEACH_MOVE_MINUS_Click(object sender, EventArgs e)
         {
@@ -446,10 +409,7 @@ namespace ZenHandler.Dlg
             }
             else if (TeachCurrentTab == eTeachingBtn.lensTab)
             {
-                if (teachingLens.SelectLensAxis < 0)
-                {
-                    return;
-                }
+
 
             }
                 
@@ -474,19 +434,19 @@ namespace ZenHandler.Dlg
             {
                 BTN_TEACH_TRANSFER.BackColor = ColorTranslator.FromHtml("#FFB230");
                 transferTeach.Visible = true;
-                teachingLens.Visible = false;
+                //teachingLens.Visible = false;
 
-                teachingLens.hidePanel();
+                //teachingLens.hidePanel();
                 transferTeach.showPanel();
             }
             else
             {
                 BTN_TEACH_LENS.BackColor = ColorTranslator.FromHtml("#FFB230");
-                teachingLens.Visible = true;
+                //teachingLens.Visible = true;
                 transferTeach.Visible = false;
 
                 transferTeach.hidePanel();
-                teachingLens.showPanel();
+                //teachingLens.showPanel();
             }
         }
         private void BTN_TEACH_PCB_Click(object sender, EventArgs e)

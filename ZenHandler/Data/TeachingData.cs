@@ -49,7 +49,7 @@ namespace ZenHandler.Data
         public string[] TEACH_POS_NAME = { "WAIT_POS", "LOAD_POS", "LASER_POS", "OC_POS", "CHART_POS" };
 
         
-        public event delLogSender eLogSender;       //외부에서 호출할때 사용
+        //public event delLogSender eLogSender;       //외부에서 호출할때 사용
         public TeachingData()
         {
             

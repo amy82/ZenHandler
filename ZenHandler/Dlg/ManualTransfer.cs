@@ -14,9 +14,7 @@ namespace ZenHandler.Dlg
     public partial class ManualTransfer : UserControl
     {
         public bool bManualStopKey;
-        private int MoveMotorCount;
-        private int MovePos;
-        private int[] MoveMotors;
+        //private int MovePos;
         
         private System.Windows.Forms.Timer ManualTimer;
 
@@ -37,8 +35,6 @@ namespace ZenHandler.Dlg
             bManualStopKey = false;
             cts = new CancellationTokenSource();
             isMoving = false;
-            MoveMotorCount = 0;
-            MoveMotors = new int[MotorControl.PCB_UNIT_COUNT];
             ManualTimer = new System.Windows.Forms.Timer();
             ManualTimer.Interval = 300; // 1초 (1000밀리초) 간격 설정
             ManualTimer.Tick += new EventHandler(Manual_Timer_Tick);
@@ -759,22 +755,6 @@ namespace ZenHandler.Dlg
                 BTN_MANUAL_TRANSFER_SOCKET1_POS_Z.BackColor = ColorTranslator.FromHtml(ButtonColor.MANUAL_BTN_ON);
             }
 
-
-            //DateTime currentTime = DateTime.Now;
-            //TimeSpan elapsedTime = currentTime - startTime;         // 경과 시간 계산
-
-            //if (elapsedTime.Seconds > 30)
-            //{
-            //    Globalo.LogPrint("ManualControl", "[INFO] 모터 이동 시간 초과");
-            //    //ManualTimer.Stop();
-            //}
-
-            //if (Globalo.motorControl.GetStopMultiAxis(MotorControl.eUnit.PCB_UNIT, MoveMotorCount, MoveMotors) &&
-            //    Globalo.motorControl.GetMultiAxisPosCheck(MotorControl.eUnit.PCB_UNIT, MoveMotorCount, MoveMotors, MovePos))
-            //{
-            //    ManualTimer.Stop();
-            //    Globalo.LogPrint("ManualControl", "[INFO] 모터 이동 완료");
-            //}
 
         }
     }

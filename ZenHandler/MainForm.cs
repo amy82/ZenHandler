@@ -26,8 +26,6 @@ namespace ZenHandler  //ApsMotionControl
         public const int ProductionHeight = 100;
         public const int LogViewHeight = 350;
         
-        private bool ReadyBtnOn = false;
-        
         private int testNum = 0;
         public KeyMessageFilter keyMessageFilter;
 
@@ -258,12 +256,12 @@ namespace ZenHandler  //ApsMotionControl
         }
         private void MainUiSet()
         {
-            int i = 0;
+            //int i = 0;
 
-            int MainBtnWGap = 4;
+            //int MainBtnWGap = 4;
             int MainBtnHGap = 2;
             //int MainBtnStartX = 1;
-            int BtnPosX = 0;
+            //int BtnPosX = 0;
 
 
             //-----------------------------------------------
@@ -440,7 +438,7 @@ namespace ZenHandler  //ApsMotionControl
             //
 
             //Globalo.threadControl.autoRunthread.eLogSender -= eLogPrint;
-            Globalo.mLaonGrabberClass.eLogSender -= eLogPrint;
+            //Globalo.mLaonGrabberClass.eLogSender -= eLogPrint;
             Globalo.mLaonGrabberClass.Dispose();
 
             //foreach (var thread in System.Diagnostics.Process.GetCurrentProcess().Threads)

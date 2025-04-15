@@ -23,7 +23,7 @@ namespace ZenHandler.Dlg
         {
             InitializeComponent();
 
-            int i = 0;
+            //int i = 0;
             RunBtnArr[0] = BTN_MAIN_ORIGIN1;
             RunBtnArr[1] = BTN_MAIN_READY1;
             RunBtnArr[2] = BTN_MAIN_PAUSE1;
@@ -32,7 +32,7 @@ namespace ZenHandler.Dlg
 
 
             int MainBtnStartGap = 1;
-            int MainBtnStartYGap = 2;
+            //int MainBtnStartYGap = 2;
 
             int BtnPosX = MainBtnStartGap;
 

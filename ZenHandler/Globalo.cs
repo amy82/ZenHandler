@@ -39,9 +39,6 @@ namespace ZenHandler
         public static MotionControl.MotionManager motionManager;
         public static Vision vision = new Vision();
 
-        ///public static MotorControl motorControl = new MotorControl();
-        //public static DIoControl dIoControl = new DIoControl();
-
         //우측 메뉴 Form
         public static Dlg.TabMenuForm tabMenuForm;
 

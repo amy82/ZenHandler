@@ -111,7 +111,6 @@ namespace ZenHandler.Dlg
             cts?.Dispose();
             cts = new CancellationTokenSource();
             CancellationToken token = cts.Token;
-            bool bRtn = false;
 
             bool isSuccess = false;
             try
@@ -127,7 +126,6 @@ namespace ZenHandler.Dlg
             }
             catch (OperationCanceledException)
             {
-                bRtn = false;
                 Globalo.LogPrint("ManualControl", $"모터 작업이 취소되었습니다");
                 isSuccess = false;
             }
@@ -153,7 +151,6 @@ namespace ZenHandler.Dlg
             cts?.Dispose();
             cts = new CancellationTokenSource();
             CancellationToken token = cts.Token;
-            bool bRtn = false;
 
             bool isSuccess = false;
             try
@@ -168,7 +165,6 @@ namespace ZenHandler.Dlg
             }
             catch (OperationCanceledException)
             {
-                bRtn = false;
                 Globalo.LogPrint("ManualControl", $"모터 작업이 취소되었습니다");
                 isSuccess = false;
             }

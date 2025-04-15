@@ -114,7 +114,7 @@ namespace ZenHandler.Controls
         {
             int i = 0;
             int j = 0;
-            double dpos = 0.0;
+            //double dpos = 0.0;
             string formattedValue = "";
 
             for (i = 0; i < motorList.Length; i++)
@@ -154,7 +154,6 @@ namespace ZenHandler.Controls
 
             nGridRowCount += TeachingPosCount;
 
-            //this.ColumnCount = MotorControl.PCB_UNIT_COUNT + 1;
             this.ColumnCount = motorList.Length + 1;
             this.EnableHeadersVisualStyles = false;
             this.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.DisableResizing; //사이즈 조절 막기
