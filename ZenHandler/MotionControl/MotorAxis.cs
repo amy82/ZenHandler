@@ -286,6 +286,7 @@ namespace ZenHandler.MotionControl
             double dAcc = 0.0;
             double dDec = 0.0;
             string str = "";
+
             if (this.GetAmpFault() == true)    //알람 신호 입력 상태 확인
             {
                 str = $"{this.Name} Motor ServoAlarm occurs";

@@ -44,6 +44,7 @@ namespace ZenHandler
 
 
         public static bool ON_LINE_MOTOR = false;    //true
+
         //public static bool ON_LINE_GRABBER = false;      //true
 
     }

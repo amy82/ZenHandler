@@ -126,6 +126,7 @@ namespace ZenHandler.Controls
                 formattedValue = teachingData.Decel[i].ToString(PointFormat);
                 this[1 + i, selectStartRow + 2].Value = formattedValue;
             }
+
             for (i = 0; i < teachingData.Teaching.Count; i++)
             {
                 for (j = 0; j < teachingData.Teaching[i].Pos.Count; j++)

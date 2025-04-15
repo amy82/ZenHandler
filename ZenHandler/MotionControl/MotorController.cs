@@ -216,10 +216,6 @@ namespace ZenHandler.MotionControl
             {
                 return true;
             }
-            
-            
-            
-
             bool isSuccess = false;
             int multiCnt = multiAxis.Count();
             int i = 0;

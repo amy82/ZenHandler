@@ -51,17 +51,21 @@ namespace ZenHandler.Machine
             for (i = 0; i < MotorAxes.Length; i++)
             {
                 MotorAxes[i].setMotorParameter(
-                Globalo.yamlManager.teachingDataYaml.teachingHandlerData.TransferMachine.Speed[i],
-                Globalo.yamlManager.teachingDataYaml.teachingHandlerData.TransferMachine.Accel[i],
-                Globalo.yamlManager.teachingDataYaml.teachingHandlerData.TransferMachine.Decel[i],
-                Globalo.yamlManager.teachingDataYaml.teachingHandlerData.TransferMachine.Resolution[i],
-                Globalo.yamlManager.teachingDataYaml.teachingHandlerData.TransferMachine.MaxSpeed[i]);
+                Globalo.yamlManager.teachingDataYaml.handler.TransferMachine.Speed[i],
+                Globalo.yamlManager.teachingDataYaml.handler.TransferMachine.Accel[i],
+                Globalo.yamlManager.teachingDataYaml.handler.TransferMachine.Decel[i],
+                Globalo.yamlManager.teachingDataYaml.handler.TransferMachine.Resolution[i],
+                Globalo.yamlManager.teachingDataYaml.handler.TransferMachine.MaxSpeed[i]);
             }
 
 
         }
         public bool ChkXYMotorPos(Data.eTeachPosName teachingPos)
         {
+            if (ProgramState.ON_LINE_MOTOR == false)
+            {
+                return true;
+            }
             bool bRtn = false;
 
             double dXPos = 0.0;
@@ -70,8 +74,8 @@ namespace ZenHandler.Machine
             double currentYPos = 0.0;
 
 
-            dXPos = Globalo.yamlManager.teachingDataYaml.teachingHandlerData.TransferMachine.Teaching[(int)teachingPos].Pos[0];
-            dYPos = Globalo.yamlManager.teachingDataYaml.teachingHandlerData.TransferMachine.Teaching[(int)teachingPos].Pos[1];
+            dXPos = Globalo.yamlManager.teachingDataYaml.handler.TransferMachine.Teaching[(int)teachingPos].Pos[0];
+            dYPos = Globalo.yamlManager.teachingDataYaml.handler.TransferMachine.Teaching[(int)teachingPos].Pos[1];
             
 
             currentXPos = TransferX.GetEncoderPos();
@@ -85,13 +89,17 @@ namespace ZenHandler.Machine
         }
         public bool ChkZMotorPos(Data.eTeachPosName teachingPos)
         {
+            if (ProgramState.ON_LINE_MOTOR == false)
+            {
+                return true;
+            }
             bool bRtn = false;
 
             double dZPos = 0.0;
             double currentZPos = 0.0;
 
 
-            dZPos = Globalo.yamlManager.teachingDataYaml.teachingHandlerData.TransferMachine.Teaching[(int)teachingPos].Pos[2];
+            dZPos = Globalo.yamlManager.teachingDataYaml.handler.TransferMachine.Teaching[(int)teachingPos].Pos[2];
 
 
             currentZPos = TransferZ.GetEncoderPos();
@@ -104,6 +112,10 @@ namespace ZenHandler.Machine
         }
         public bool GetLensGripState(bool bFlag)
         {
+            if (ProgramState.ON_LINE_MOTOR == false)
+            {
+                return true;
+            }
             int lModuleNo = 0;
             int lOffset = 0;
 
@@ -128,8 +140,12 @@ namespace ZenHandler.Machine
             return false;
 
         }
-        public bool GetVacuumState(int index, bool bFlag)
+        public bool GetLoadVacuumState(int index, bool bFlag)
         {
+            if (ProgramState.ON_LINE_MOTOR == false)
+            {
+                return true;
+            }
             int lModuleNo = 0;
             int lOffset = 0;
 
@@ -153,8 +169,42 @@ namespace ZenHandler.Machine
             }
             return false;
         }
-        public bool VacuumOn(int index, bool bFlag, bool bWait = false)
+        public bool GetUnLoadVacuumState(int index, bool bFlag)
         {
+            if (ProgramState.ON_LINE_MOTOR == false)
+            {
+                return true;
+            }
+            int lModuleNo = 0;
+            int lOffset = 0;
+
+            uint uFlagHigh = 0;
+            uint upValue = Globalo.motionManager.ioController.m_dwDInDict[lModuleNo][lOffset];
+            if (bFlag)
+            {
+                uFlagHigh = upValue & (uint)DioDefine.DIO_IN_ADDR.IN_VACUUM_ON;
+                if (uFlagHigh == 1)
+                {
+                    return true;
+                }
+            }
+            else
+            {
+                uFlagHigh = upValue & (uint)DioDefine.DIO_IN_ADDR.IN_VACUUM_ON;
+                if (uFlagHigh == 0)
+                {
+                    return true;
+                }
+            }
+            return false;
+        }
+        
+        public bool LoadVacuumOn(int index, bool bFlag, bool bWait = false)
+        {
+            if (ProgramState.ON_LINE_MOTOR == false)
+            {
+                return true;
+            }
             int lModuleNo = 0;
             int lOffset = 0;
             uint uFlagHigh = 0;
@@ -195,7 +245,73 @@ namespace ZenHandler.Machine
                     int nTimeTick = 0;
                     while (bWait)
                     {
-                        Rtn = GetVacuumState(index, bFlag);
+                        Rtn = GetLoadVacuumState(index, bFlag);
+                        if (Rtn == true)
+                        {
+                            isSuccess = true;
+                            break;
+                        }
+
+                        nTimeTick = Environment.TickCount;
+                        if (Environment.TickCount - nTimeTick > MotionControl.MotorSet.IO_TIMEOUT)
+                        {
+                            isSuccess = false;
+                            break;
+                        }
+
+                        Thread.Sleep(10);
+                    }
+                }
+            }
+            return isSuccess;
+        }
+        public bool UnLoadVacuumOn(int index, bool bFlag, bool bWait = false)
+        {
+            if (ProgramState.ON_LINE_MOTOR == false)
+            {
+                return true;
+            }
+            int lModuleNo = 0;
+            int lOffset = 0;
+            uint uFlagHigh = 0;
+            uint uFlagLow = 0;
+
+            if (bFlag)
+            {
+                uFlagHigh = (uint)DioDefine.DIO_OUT_ADDR.VACUUM_ON;
+                uFlagLow = (uint)DioDefine.DIO_OUT_ADDR.VACUUM_OFF;
+            }
+            else
+            {
+                uFlagHigh = (uint)DioDefine.DIO_OUT_ADDR.VACUUM_OFF;
+                uFlagLow = (uint)DioDefine.DIO_OUT_ADDR.VACUUM_ON;
+            }
+
+            bool Rtn = Globalo.motionManager.ioController.DioWriteOutportByte(lModuleNo, lOffset, uFlagHigh, uFlagLow);
+            if (Rtn == false)
+            {
+                //LENS GRIP 동작 
+                return false;
+            }
+
+            bool isSuccess = false;
+
+            if (bWait == false)
+            {
+                return true;
+            }
+            else
+            {
+                if (bWait == false)
+                {
+                    return false;
+                }
+                else
+                {
+                    int nTimeTick = 0;
+                    while (bWait)
+                    {
+                        Rtn = GetUnLoadVacuumState(index, bFlag);
                         if (Rtn == true)
                         {
                             isSuccess = true;
@@ -217,6 +333,10 @@ namespace ZenHandler.Machine
         }
         public bool LensGripOn(int index, bool bFlag, bool bWait = false)
         {
+            if (ProgramState.ON_LINE_MOTOR == false)
+            {
+                return true;
+            }
             int lModuleNo = 0;
             int lOffset = 0;
             uint uFlagHigh = 0;
@@ -347,7 +467,7 @@ namespace ZenHandler.Machine
                         // 작업 정상 종료
                     }
 
-                    Globalo.LogPrint("ManualControl", $"[TASK] TransFer_X_Move End");
+                    Globalo.LogPrint("ManualControl", $"[TASK] TransFer X Move End");
                 }, token);
             }
             catch (OperationCanceledException)
@@ -374,81 +494,41 @@ namespace ZenHandler.Machine
             Globalo.LogPrint("ManualControl", $"[FUNCTION] MoveFromAbsRel End");
             return isSuccess;
         }
-        public async Task<bool> TransFer_X_Move(int nPos, double offset)
+
+        //public async Task<bool> TransFer_X_Move(int nPos, double offset)
+
+        public bool TransFer_X_Move(Data.eTeachPosName teachingPos)//int nPos, double offset)
         {
-            //bool aaaaa = cts.Token.IsCancellationRequested;     //최초 false 이 속성은 취소 요청이 발생했는지 여부 Cancel()을 호출하거나,
-            //Token.ThrowIfCancellationRequested()가 호출되면 true로 
-
-            //bool acccc = cts.Token.CanBeCanceled;               //최초 true CancellationTokenSource**에서 취소가 가능한 상태인지
-            //CancellationTokenSource가 Cancel()을 호출하거나 Dispose()가 호출되기 전까지 true 상태를 유지합니다.
-
             if (TransferX.isMotorBusy == true)
             {
-                //Console.WriteLine("모터 작업이 이미 실행 중입니다. 기다려 주세요.");
                 Globalo.LogPrint("ManualControl", $"모터 작업이 이미 실행 중입니다. 기다려 주세요.");
                 return false;
             }
-            cts?.Dispose();
-            cts = new CancellationTokenSource();
-            CancellationToken token = cts.Token;
-
             double dPos = 0.0;
-            int i = 0;
-            dPos = Globalo.dataManage.teachingData.PcbTeachData[nPos].dPos[TransferX.m_lAxisNo] + offset;
+           // dPos = Globalo.dataManage.teachingData.PcbTeachData[nPos].dPos[TransferX.m_lAxisNo] + offset;
             bool bRtn = false;
+
 
             bool isSuccess = false;
             try
             {
-                await Task.Run(() =>
-                {
-
-                    isSuccess = SingleAxisMove(TransferX, dPos, AXT_MOTION_ABSREL.POS_ABS_MODE, true);       //<--위치 확인 while 이 안에 넣어도 될듯
-
-                    if (bRtn)
-                    {
-                        //while (bRtn)
-                        //{
-                        //    if (cts.Token.IsCancellationRequested)
-                        //    {
-                        //        //Console.WriteLine("취소 요청 감지됨");
-                        //        Globalo.LogPrint("ManualControl", $"취소 요청 감지됨");
-                        //        cts.Token.ThrowIfCancellationRequested(); // 예외 던지기 (catch로 감) 취소 요청 시 예외 발생
-                        //    }
-                        //    break;
-                        //}
-                        // 작업 정상 종료
-                    }
-                    Globalo.LogPrint("ManualControl", $"[TASK] TransFer_X_Move End");
-                }, token);
-            }
-            catch (OperationCanceledException)
-            {
-                bRtn = false;
-                //Console.WriteLine($"모터 작업이 취소되었습니다: {i}");
-                Globalo.LogPrint("ManualControl", $"모터 작업이 취소되었습니다: {i}");
-                isSuccess = false;
-                //MessageBox.Show("모터 작업이 취소되었습니다");
+                isSuccess = SingleAxisMove(TransferX, dPos, AXT_MOTION_ABSREL.POS_ABS_MODE, true);       //<--위치 확인 while 이 안에 넣어도 될듯
+                
             }
             catch (Exception ex)
             {
-                // 그 외 예외 처리
-                //Console.WriteLine($"모터 이동 실패: {ex.Message}");
                 Globalo.LogPrint("ManualControl", $"모터 이동 실패: {ex.Message}");
                 isSuccess = false;
             }
             finally
             {
-                // 리소스 정리
-                cts?.Dispose();  // cts가 null이 아닐 때만 Dispose 호출
-                ////cts = null;      // cts를 null로 설정하여 다음 작업에서 새로 생성할 수 있게
             }
- 
-            Globalo.LogPrint("ManualControl", $"[FUNCTION] TransFer_X_Move End");
+            Globalo.LogPrint("ManualControl", $"[TRANSFER] X AXIS Move End");
+
             return isSuccess;
         }
 
-        public bool TransFer_XY_Move(Data.eTeachPosName teachingPos)
+        public bool TransFer_XY_Move(Data.eTeachPosName ePos, bool bWait = false)
         {
             MotionControl.MotorAxis[] multiAxis = { TransferX, TransferY };
             string logStr = "";
@@ -466,34 +546,164 @@ namespace ZenHandler.Machine
                 return false;
             }
 
+
+            dMultiPos[0] = Globalo.yamlManager.teachingDataYaml.handler.TransferMachine.Teaching[(int)ePos].Pos[0];     //x Axis
+            dMultiPos[1] = Globalo.yamlManager.teachingDataYaml.handler.TransferMachine.Teaching[(int)ePos].Pos[1];      //y Axis
+
             bRtn = MultiAxisMove(multiAxis, dMultiPos);
-            if (bRtn)
-            {
-                logStr = $"Transfer XY축 {Data.eTeachPosName.WAIT_POS.ToString() } 이동 완료";
-            }
-            else
+            if (bRtn == false)
             {
                 logStr = $"Transfer XY축 {Data.eTeachPosName.WAIT_POS.ToString() } 이동 실패";
+                Globalo.LogPrint("ManualControl", logStr);
             }
+            bool isSuccess = false;
 
-            Globalo.LogPrint("ManualControl", logStr);
+
+            if (bWait)
+            {
+                //이동 위치 확인 
+                int step = 100;
+                int nTimeTick = 0;
+
+                while (bWait)
+                {
+                    //if (motorBreak) break;
+                    //위치 도착 확인 , 정지 확인
+
+                    switch (step)
+                    {
+                        case 100:
+                            if (multiAxis[0].GetStopAxis() == true)
+                            {
+                                Console.WriteLine($"{multiAxis[0].Name } Axis Stop Check");
+                                step = 150;
+                            }
+                            nTimeTick = Environment.TickCount;
+                            break;
+                        case 150:
+                            if (multiAxis[1].GetStopAxis() == true)
+                            {
+                                Console.WriteLine($"{multiAxis[1].Name } Axis Stop Check");
+                                step = 200;
+                            }
+                            nTimeTick = Environment.TickCount;
+                            break;
+                        case 200:
+                            if ((multiAxis[0].GetEncoderPos() - dMultiPos[0]) < MotionControl.MotorSet.ENCORDER_GAP)
+                            {
+                                isSuccess = true;
+                                Console.WriteLine($"{multiAxis[0].Name } Axis {ePos.ToString()} Move Check");
+                                step = 250;
+                            }
+                            break;
+                        case 250:
+                            if ((multiAxis[1].GetEncoderPos() - dMultiPos[1]) < MotionControl.MotorSet.ENCORDER_GAP)
+                            {
+                                isSuccess = true;
+                                Console.WriteLine($"{multiAxis[1].Name } Axis {ePos.ToString()} Move Check");
+                                step = 1000;
+                            }
+                            break;
+                        default:
+                            break;
+                    }
+                    if (step >= 1000)
+                    {
+                        break;
+                    }
+                    if (Environment.TickCount - nTimeTick > MotionControl.MotorSet.MOTOR_MOVE_TIMEOUT)
+                    {
+                        if (step == 100)        //정지 실패
+                        {
+                            Console.WriteLine($"{multiAxis[0].Name } Axis Stop Timeout");
+                        }
+                        else if (step == 150)      //정지 실패
+                        {
+                            Console.WriteLine($"{multiAxis[1].Name } Axis Stop Timeout");
+                        }
+                        else if (step == 200)   //위치 이동 실패
+                        {
+                            Console.WriteLine($"{multiAxis[0].Name } Axis {ePos.ToString()} Move Timeout");
+                        }
+                        else if (step == 250)   //위치 이동 실패
+                        {
+                            Console.WriteLine($"{multiAxis[1].Name } Axis {ePos.ToString()} Move Timeout");
+                        }
+                        isSuccess = false;
+                        break;
+                    }
+                    Thread.Sleep(10);
+                }
+            }
             return bRtn;
         }
-        public bool TransFer_Z_Move(Data.eTeachPosName teachingPos)
+        public bool TransFer_Z_Move(Data.eTeachPosName ePos, bool bWait = false)
         {
-
-            double dPos = 0.0;
+            string logStr = "";
+            double dPos = Globalo.yamlManager.teachingDataYaml.handler.TransferMachine.Teaching[(int)ePos].Pos[2];     //z Axis
 
             bool bRtn = SingleAxisMove(TransferZ, dPos, AXT_MOTION_ABSREL.POS_ABS_MODE);
-            if (bRtn)
-            {
 
-            }
-            else
+            if (bRtn == false)
             {
-
+                logStr = $"Transfer XY axis {ePos.ToString() } 이동 실패";
+                return false;
             }
 
+            bool isSuccess = false;
+            if (bWait)
+            {
+                //이동 위치 확인 
+                int step = 100;
+                int nTimeTick = 0;
+
+                while (bWait)
+                {
+                    //if (motorBreak) break;
+                    //위치 도착 확인 , 정지 확인
+
+                    switch (step)
+                    {
+                        case 100:
+                            if (TransferZ.GetStopAxis() == true)
+                            {
+                                Console.WriteLine($"{TransferZ.Name } Axis Stop Check");
+                                step = 200;
+                            }
+                            nTimeTick = Environment.TickCount;
+                            break;
+                        case 200:
+                            if ((TransferZ.GetEncoderPos() - dPos) < MotionControl.MotorSet.ENCORDER_GAP)
+                            {
+                                isSuccess = true;
+                                Console.WriteLine($"{TransferZ.Name } Axis {ePos.ToString()} Move Check");
+                                step = 1000;
+                            }
+                            break;
+                        default:
+                            break;
+                    }
+                    if (step >= 1000)
+                    {
+                        break;
+                    }
+                    if (Environment.TickCount - nTimeTick > MotionControl.MotorSet.MOTOR_MOVE_TIMEOUT)
+                    {
+                        if (step == 100)        //정지 실패
+                        {
+                            Console.WriteLine($"{TransferZ.Name } Axis Stop Timeout");
+                        }
+                        else if (step == 200)   //위치 이동 실패
+                        {
+                            Console.WriteLine($"{TransferZ.Name } Axis {ePos.ToString()} Move Timeout");
+                        }
+                        isSuccess = false;
+                        break;
+                    }
+                    Thread.Sleep(10);
+                }
+            }
+            
             return bRtn;
         }
         public async Task MoveMotorAndWaitAsync()
@@ -545,8 +755,7 @@ namespace ZenHandler.Machine
 
             }
         }
-
-
+        
         public void SingleMoveToPosition(int position)
         {
             int i = 0;
@@ -568,9 +777,7 @@ namespace ZenHandler.Machine
 
                 */
             }
-
-            //this.MultiAxisMove(0);
-
+            
 
             //if (this->MoveAxisMulti(nUnit, 3, nAxis, dPos) == false)
 

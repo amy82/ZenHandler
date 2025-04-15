@@ -62,7 +62,7 @@ namespace ZenHandler.Data
     }
     public class TeachingDataYaml
     {
-        public HandlerTeachingData teachingHandlerData;
+        public HandlerTeachingData handler;
 
         public bool LoadTeaching()
         {
@@ -72,9 +72,9 @@ namespace ZenHandler.Data
                 if (!File.Exists(filePath))
                     return false;
 
-                teachingHandlerData = Data.YamlManager.LoadYaml<HandlerTeachingData>(filePath);
+                handler = Data.YamlManager.LoadYaml<HandlerTeachingData>(filePath);
 
-                if (teachingHandlerData == null)
+                if (handler == null)
                 {
                     Globalo.LogPrint("TeachingDataYaml", "TEACHING DATA LOAD FAIL", Globalo.eMessageName.M_ERROR);
                     return false;
@@ -99,7 +99,7 @@ namespace ZenHandler.Data
                     return false;
 
                 //Data.YamlManager.SaveYaml(filePath, teachingHandlerData);
-                SaveFlowYaml(filePath, teachingHandlerData);
+                SaveFlowYaml(filePath, handler);
                 return true;
             }
             catch (Exception ex)

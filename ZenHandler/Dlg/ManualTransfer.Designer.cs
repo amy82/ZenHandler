@@ -393,6 +393,7 @@ namespace ZenHandler.Dlg
             this.BTN_MANUAL_TRANSFER_UNLOAD_VACUUM_OFF4.TabIndex = 43;
             this.BTN_MANUAL_TRANSFER_UNLOAD_VACUUM_OFF4.Text = "OFF";
             this.BTN_MANUAL_TRANSFER_UNLOAD_VACUUM_OFF4.UseVisualStyleBackColor = false;
+            this.BTN_MANUAL_TRANSFER_UNLOAD_VACUUM_OFF4.Click += new System.EventHandler(this.BTN_MANUAL_TRANSFER_UNLOAD_VACUUM_OFF4_Click);
             // 
             // BTN_MANUAL_TRANSFER_UNLOAD_VACUUM_ON4
             // 
@@ -406,6 +407,7 @@ namespace ZenHandler.Dlg
             this.BTN_MANUAL_TRANSFER_UNLOAD_VACUUM_ON4.TabIndex = 42;
             this.BTN_MANUAL_TRANSFER_UNLOAD_VACUUM_ON4.Text = "ON";
             this.BTN_MANUAL_TRANSFER_UNLOAD_VACUUM_ON4.UseVisualStyleBackColor = false;
+            this.BTN_MANUAL_TRANSFER_UNLOAD_VACUUM_ON4.Click += new System.EventHandler(this.BTN_MANUAL_TRANSFER_UNLOAD_VACUUM_ON4_Click);
             // 
             // BTN_MANUAL_TRANSFER_UNLOAD_VACUUM_OFF3
             // 
@@ -419,6 +421,7 @@ namespace ZenHandler.Dlg
             this.BTN_MANUAL_TRANSFER_UNLOAD_VACUUM_OFF3.TabIndex = 41;
             this.BTN_MANUAL_TRANSFER_UNLOAD_VACUUM_OFF3.Text = "OFF";
             this.BTN_MANUAL_TRANSFER_UNLOAD_VACUUM_OFF3.UseVisualStyleBackColor = false;
+            this.BTN_MANUAL_TRANSFER_UNLOAD_VACUUM_OFF3.Click += new System.EventHandler(this.BTN_MANUAL_TRANSFER_UNLOAD_VACUUM_OFF3_Click);
             // 
             // BTN_MANUAL_TRANSFER_UNLOAD_VACUUM_ON3
             // 
@@ -432,6 +435,7 @@ namespace ZenHandler.Dlg
             this.BTN_MANUAL_TRANSFER_UNLOAD_VACUUM_ON3.TabIndex = 40;
             this.BTN_MANUAL_TRANSFER_UNLOAD_VACUUM_ON3.Text = "ON";
             this.BTN_MANUAL_TRANSFER_UNLOAD_VACUUM_ON3.UseVisualStyleBackColor = false;
+            this.BTN_MANUAL_TRANSFER_UNLOAD_VACUUM_ON3.Click += new System.EventHandler(this.BTN_MANUAL_TRANSFER_UNLOAD_VACUUM_ON3_Click);
             // 
             // BTN_MANUAL_TRANSFER_UNLOAD_VACUUM_OFF2
             // 
@@ -445,6 +449,7 @@ namespace ZenHandler.Dlg
             this.BTN_MANUAL_TRANSFER_UNLOAD_VACUUM_OFF2.TabIndex = 39;
             this.BTN_MANUAL_TRANSFER_UNLOAD_VACUUM_OFF2.Text = "OFF";
             this.BTN_MANUAL_TRANSFER_UNLOAD_VACUUM_OFF2.UseVisualStyleBackColor = false;
+            this.BTN_MANUAL_TRANSFER_UNLOAD_VACUUM_OFF2.Click += new System.EventHandler(this.BTN_MANUAL_TRANSFER_UNLOAD_VACUUM_OFF2_Click);
             // 
             // BTN_MANUAL_TRANSFER_UNLOAD_VACUUM_ON2
             // 
@@ -458,6 +463,7 @@ namespace ZenHandler.Dlg
             this.BTN_MANUAL_TRANSFER_UNLOAD_VACUUM_ON2.TabIndex = 38;
             this.BTN_MANUAL_TRANSFER_UNLOAD_VACUUM_ON2.Text = "ON";
             this.BTN_MANUAL_TRANSFER_UNLOAD_VACUUM_ON2.UseVisualStyleBackColor = false;
+            this.BTN_MANUAL_TRANSFER_UNLOAD_VACUUM_ON2.Click += new System.EventHandler(this.BTN_MANUAL_TRANSFER_UNLOAD_VACUUM_ON2_Click);
             // 
             // BTN_MANUAL_TRANSFER_UNLOAD_VACUUM_OFF1
             // 
@@ -471,6 +477,7 @@ namespace ZenHandler.Dlg
             this.BTN_MANUAL_TRANSFER_UNLOAD_VACUUM_OFF1.TabIndex = 37;
             this.BTN_MANUAL_TRANSFER_UNLOAD_VACUUM_OFF1.Text = "OFF";
             this.BTN_MANUAL_TRANSFER_UNLOAD_VACUUM_OFF1.UseVisualStyleBackColor = false;
+            this.BTN_MANUAL_TRANSFER_UNLOAD_VACUUM_OFF1.Click += new System.EventHandler(this.BTN_MANUAL_TRANSFER_UNLOAD_VACUUM_OFF1_Click);
             // 
             // BTN_MANUAL_TRANSFER_UNLOAD_VACUUM_ON1
             // 
@@ -484,6 +491,7 @@ namespace ZenHandler.Dlg
             this.BTN_MANUAL_TRANSFER_UNLOAD_VACUUM_ON1.TabIndex = 36;
             this.BTN_MANUAL_TRANSFER_UNLOAD_VACUUM_ON1.Text = "ON";
             this.BTN_MANUAL_TRANSFER_UNLOAD_VACUUM_ON1.UseVisualStyleBackColor = false;
+            this.BTN_MANUAL_TRANSFER_UNLOAD_VACUUM_ON1.Click += new System.EventHandler(this.BTN_MANUAL_TRANSFER_UNLOAD_VACUUM_ON1_Click);
             // 
             // BTN_MANUAL_TRANSFER_LOAD_VACUUM_OFF4
             // 
