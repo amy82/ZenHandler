@@ -125,7 +125,12 @@ namespace ZenHandler  //ApsMotionControl
             //
             if (ProgramState.ON_LINE_MOTOR)
             {
-                Globalo.motionManager.MotionInit();
+                bool rtn = Globalo.motionManager.MotionInit();
+                if(rtn == false)
+                {
+                    //Motor Set Fail!!
+                    MessageBox.Show("Motor Set Fail!!");
+                }
             }
             //if (ProgramState.ON_LINE_MIL)
             //{
@@ -398,6 +403,7 @@ namespace ZenHandler  //ApsMotionControl
         public void FuncExit()
         {
             Globalo.threadControl.AllClose();
+            Globalo.motionManager.ioController.Close();
             //Time Thread End
             //oGlobal.mDioControl.DioEnd();
 

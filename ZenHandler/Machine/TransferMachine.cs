@@ -20,9 +20,11 @@ namespace ZenHandler.Machine
 
 
         public string[] axisName = { "TransferX", "TransferY", "TransferZ" };
+
+        public static double[] MOTOR_MAX_SPEED = { 100.0, 100.0, 100.0};
         public MotorDefine.eMotorType[] motorType = { MotorDefine.eMotorType.LINEAR, MotorDefine.eMotorType.LINEAR, MotorDefine.eMotorType.LINEAR };
-        //public string[] TeachingPos = { "Wait", "Load", "UnLoad" };
-        
+        public AXT_MOTION_LEVEL_MODE[] AXT_SET_LIMIT = { AXT_MOTION_LEVEL_MODE.LOW, AXT_MOTION_LEVEL_MODE.HIGH, AXT_MOTION_LEVEL_MODE.LOW };
+        public AXT_MOTION_LEVEL_MODE[] AXT_SET_SERVO_ALARM = { AXT_MOTION_LEVEL_MODE.HIGH, AXT_MOTION_LEVEL_MODE.HIGH, AXT_MOTION_LEVEL_MODE.LOW };
 
         public string processName = "tttt";
 
@@ -32,11 +34,12 @@ namespace ZenHandler.Machine
 
         public TransferMachine()//: base("Machine")
         {
-            TransferX = new MotionControl.MotorAxis((int)MotionControl.MotorSet.eMotorList.TRANSFER_X, axisName[0], motorType[0]);
-            TransferY = new MotionControl.MotorAxis((int)MotionControl.MotorSet.eMotorList.TRANSFER_Y, axisName[1], motorType[1]);
-            TransferZ = new MotionControl.MotorAxis((int)MotionControl.MotorSet.eMotorList.TRANSFER_Z, axisName[2], motorType[2]);
+            TransferX = new MotionControl.MotorAxis((int)MotionControl.MotorSet.eMotorList.TRANSFER_X, axisName[0], motorType[0], MOTOR_MAX_SPEED[0], AXT_SET_LIMIT[0], AXT_SET_SERVO_ALARM[0]);
+            TransferY = new MotionControl.MotorAxis((int)MotionControl.MotorSet.eMotorList.TRANSFER_Y, axisName[1], motorType[1], MOTOR_MAX_SPEED[1], AXT_SET_LIMIT[1], AXT_SET_SERVO_ALARM[1]);
+            TransferZ = new MotionControl.MotorAxis((int)MotionControl.MotorSet.eMotorList.TRANSFER_Z, axisName[2], motorType[2], MOTOR_MAX_SPEED[2], AXT_SET_LIMIT[2], AXT_SET_SERVO_ALARM[2]);
 
             MotorAxes = new MotionControl.MotorAxis[] { TransferX, TransferY, TransferZ };
+            MotorCnt = MotorAxes.Length;
 
             TransferX.setMotorParameter(10.0, 0.1, 0.1, 1000.0);     //초기 셋 다른 곳에서 다시 해줘야될 듯
             TransferY.setMotorParameter(10.0, 0.1, 0.1, 1000.0);
@@ -404,9 +407,9 @@ namespace ZenHandler.Machine
             {
                 cts.Cancel();
             }
-            TransferX.motorBreak = true;
-            TransferY.motorBreak = true;
-            TransferZ.motorBreak = true;
+            TransferX.MotorBreak = true;
+            TransferY.MotorBreak = true;
+            TransferZ.MotorBreak = true;
 
             TransferX.Stop();
             TransferY.Stop();
@@ -416,7 +419,7 @@ namespace ZenHandler.Machine
         
         public async Task<bool> MoveFromAbsRel(MotionControl.MotorAxis motorAxis, double dRelPos)
         {
-            if (motorAxis.isMotorBusy == true)
+            if (motorAxis.IsMotorBusy == true)
             {
                 //Console.WriteLine("모터 작업이 이미 실행 중입니다. 기다려 주세요.");
                 Globalo.LogPrint("ManualControl", $"모터 작업이 이미 실행 중입니다. 기다려 주세요.");
@@ -498,7 +501,7 @@ namespace ZenHandler.Machine
 
         public bool TransFer_X_Move(Data.eTeachPosName teachingPos)//int nPos, double offset)
         {
-            if (TransferX.isMotorBusy == true)
+            if (TransferX.IsMotorBusy == true)
             {
                 Globalo.LogPrint("ManualControl", $"모터 작업이 이미 실행 중입니다. 기다려 주세요.");
                 return false;
@@ -573,9 +576,9 @@ namespace ZenHandler.Machine
 
                 while (bWait)
                 {
-                    if (multiAxis[0].motorBreak) break;
-                    if (multiAxis[1].motorBreak) break;
-                    if (multiAxis[2].motorBreak) break;
+                    if (multiAxis[0].MotorBreak) break;
+                    if (multiAxis[1].MotorBreak) break;
+                    if (multiAxis[2].MotorBreak) break;
                     //위치 도착 확인 , 정지 확인
 
                     switch (step)
@@ -667,7 +670,7 @@ namespace ZenHandler.Machine
 
                 while (bWait)
                 {
-                    if (TransferZ.motorBreak) break;
+                    if (TransferZ.MotorBreak) break;
                     //위치 도착 확인 , 정지 확인
 
                     switch (step)

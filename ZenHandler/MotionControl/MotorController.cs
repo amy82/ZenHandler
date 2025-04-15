@@ -52,13 +52,13 @@ namespace ZenHandler.MotionControl
         {
             if (ProgramState.ON_LINE_MOTOR == false)
             {
-                nAxis.motorBreak = false;
+                nAxis.MotorBreak = false;
 
                 if (Program.NORINDA_MODE == true)
                 {
                     while (bWait)
                     {
-                        if (nAxis.motorBreak) break;
+                        if (nAxis.MotorBreak) break;
                         Console.WriteLine($"SingleAxisMove");
                         Thread.Sleep(1000);
                     }
@@ -71,8 +71,8 @@ namespace ZenHandler.MotionControl
             double dAcc = 0.0;
             double dDec = 0.0;
             string str = "";
-            nAxis.motorBreak = false;
-            nAxis.isMotorBusy = true;
+            nAxis.MotorBreak = false;
+            nAxis.IsMotorBusy = true;
 
             
             if (nAxis.GetAmpFault() == true)    //알람 신호 입력 상태 확인
@@ -163,7 +163,7 @@ namespace ZenHandler.MotionControl
 
                 while (bWait)
                 {
-                    if (nAxis.motorBreak) break;
+                    if (nAxis.MotorBreak) break;
                     //위치 도착 확인 , 정지 확인
 
                     switch (step)
@@ -207,7 +207,7 @@ namespace ZenHandler.MotionControl
                     Thread.Sleep(10);
                 }
             }
-            nAxis.isMotorBusy = false;
+            nAxis.IsMotorBusy = false;
             return isSuccess;
         }
         public virtual bool MultiAxisMove(MotorAxis[] multiAxis, double[] dMultiPos, bool bWait = false)
@@ -233,8 +233,8 @@ namespace ZenHandler.MotionControl
 
             for (i = 0, nMotorCount = 0; i < multiCnt; i++)
             {
-                multiAxis[i].isMotorBusy = true;
-                multiAxis[i].motorBreak = false;
+                multiAxis[i].IsMotorBusy = true;
+                multiAxis[i].MotorBreak = false;
 
                 if (multiAxis[i].GetAmpFault() == true)    //알람 신호 입력 상태 확인
                 {
@@ -329,7 +329,7 @@ namespace ZenHandler.MotionControl
                 {
                     for (i = 0; i < multiCnt; i++)
                     {
-                        if (multiAxis[i].motorBreak) break;
+                        if (multiAxis[i].MotorBreak) break;
                     }
                         
                     //위치 도착 확인 , 정지 확인
@@ -361,7 +361,7 @@ namespace ZenHandler.MotionControl
                                 if ((multiAxis[i].GetEncoderPos() - dMultiPos[i]) < MotionControl.MotorSet.ENCORDER_GAP)
                                 {
                                     SkipChk++;
-                                    multiAxis[i].isMotorBusy = false;
+                                    multiAxis[i].IsMotorBusy = false;
                                 }
                             }
                             if (SkipChk == multiCnt)
