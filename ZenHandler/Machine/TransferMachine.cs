@@ -38,9 +38,9 @@ namespace ZenHandler.Machine
 
             MotorAxes = new MotionControl.MotorAxis[] { TransferX, TransferY, TransferZ };
 
-            TransferX.setMotorParameter(10.0, 0.1, 0.1, 1000.0, 500.0);     //초기 셋 다른 곳에서 다시 해줘야될 듯
-            TransferY.setMotorParameter(10.0, 0.1, 0.1, 1000.0, 500.0);
-            TransferZ.setMotorParameter(10.0, 0.1, 0.1, 1000.0, 500.0);
+            TransferX.setMotorParameter(10.0, 0.1, 0.1, 1000.0, 50.0);     //초기 셋 다른 곳에서 다시 해줘야될 듯
+            TransferY.setMotorParameter(10.0, 0.1, 0.1, 1000.0, 50.0);
+            TransferZ.setMotorParameter(10.0, 0.1, 0.1, 1000.0, 50.0);
 
             this.MachineName = this.GetType().Name;
 

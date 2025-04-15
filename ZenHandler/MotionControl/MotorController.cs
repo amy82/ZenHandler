@@ -222,11 +222,11 @@ namespace ZenHandler.MotionControl
             string str = "";
 
 
-            int[] dMultiAxis = new int[MotionControl.MotorSet.MAX_MOTOR_COUNT];
-            double[] dMultiCurrPos = new double[MotionControl.MotorSet.MAX_MOTOR_COUNT];
-            double[] dMultiVel = new double[MotionControl.MotorSet.MAX_MOTOR_COUNT];
-            double[] dMultiAcc = new double[MotionControl.MotorSet.MAX_MOTOR_COUNT];
-            double[] dMultiDec = new double[MotionControl.MotorSet.MAX_MOTOR_COUNT];
+            int[] dMultiAxis = new int[multiCnt];
+            double[] dMultiCurrPos = new double[multiCnt];
+            double[] dMultiVel = new double[multiCnt];
+            double[] dMultiAcc = new double[multiCnt];
+            double[] dMultiDec = new double[multiCnt];
 
             int nMotorCount = 0;
 

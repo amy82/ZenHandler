@@ -34,7 +34,7 @@ namespace ZenHandler  //ApsMotionControl
         public MainForm()
         {
             InitializeComponent();
-
+            //this.TopMost = true;
             keyMessageFilter = new KeyMessageFilter();
             Application.AddMessageFilter(keyMessageFilter);
 
@@ -83,60 +83,19 @@ namespace ZenHandler  //ApsMotionControl
             Globalo.trayStateInfo = new Dlg.TrayStateInfo();
             Globalo.socketStateInfo = new Dlg.SocketStateInfo();
             Globalo.tabMenuForm = new Dlg.TabMenuForm(RightPanel.Width, RightPanel.Height);
-
             
-
-            
-
-
-
-
-            //this.TopMost = true;
-
-            
-
-            
-
-           
-            
-            
-            
-            //Globalo.LogPrint("ManualControl", "gggggggggggg");
-            //
-            //int dLeftTopPanelW = LeftPanel.Width;
-           // int dLeftTopPanelH = CamHeight;
-
             
             this.RightPanel.Controls.Add(Globalo.tabMenuForm);
 
 
 
             
-            
-            //Globalo.camControl = new Dlg.CamControl(dLeftTopPanelW, dLeftTopPanelH);
-            //BTN_TOP_LOG.Width = parentW;
-            // BTN_TOP_LOG.Height = parentTopH - 1;
             BTN_TOP_LOG.Location = new System.Drawing.Point(this.TopPanel.Width - BTN_TOP_LOG.Width, 0);
             BTN_TOP_LOG.BackColor = ColorTranslator.FromHtml("#ED6C44");
 
-            //Globalo.dataManage.teachingData.eLogSender += eLogPrint;
-            //Globalo.motorControl.eLogSender += eLogPrint;
-            //Globalo.dIoControl.eLogSender += eLogPrint;
-            // 다이얼로그
-            //
-            //mTeachPanel = new Dlg.TeachingControl();
-            //mManualPanel = new Dlg.ManualControl();
-            // Thread Main
-            //
-
-            //Globalo.threadControl.autoRunthread.eLogSender += eLogPrint;
-            //Globalo.threadControl.ccdColorThread.eLogSender += eLogPrint;
-
-
-            //Globalo.mLaonGrabberClass.eLogSender += eLogPrint;
-
 
             Globalo.threadControl.AllThreadStart();
+
             ///Data Load
             //
 
@@ -158,9 +117,9 @@ namespace ZenHandler  //ApsMotionControl
 
 
 
-                //string fileName = string.Format(@"{0}\iomap.xlsx", Application.StartupPath); //file path
-                //Globalo.dataManage.ioData.ReadExcelData(fileName);
-                //Globalo.dataManage.ioData.ReadEpplusData(fileName);
+            //string fileName = string.Format(@"{0}\iomap.xlsx", Application.StartupPath); //file path
+            //Globalo.dataManage.ioData.ReadExcelData(fileName);
+            //Globalo.dataManage.ioData.ReadEpplusData(fileName);
 
 
             //모터 초기화
@@ -169,41 +128,25 @@ namespace ZenHandler  //ApsMotionControl
             {
                 Globalo.motionManager.MotionInit();
             }
-
-            //Globalo.mLaonGrabberClass.M_GrabDllLoadComplete = false;
-            
-
-            //int LaonType = (int)Globalo.BOARDTYPE.BOARD_TYPE_LAON;
-            //Globalo.mLaonGrabberClass.M_GrabDllLoadComplete = Globalo.GrabberDll.dllLoad(LaonType);
-            //if (Globalo.mLaonGrabberClass.M_GrabDllLoadComplete)
+            //if (ProgramState.ON_LINE_MIL)
             //{
-            //    Globalo.mLaonGrabberClass.SetUnit(0);
-            //    Globalo.mLaonGrabberClass.UiconfigLoad();       //init pg Start
-            //    Globalo.mLaonGrabberClass.SelectSensor();
-            //    Globalo.mLaonGrabberClass.AllocImageBuff();
-
-            //    Globalo.vision.UISet(Globalo.camControl.CcdPanel.Width, Globalo.camControl.CcdPanel.Height);
+            //    InitMilLib();
             //}
 
-            if (ProgramState.ON_LINE_MIL)
-            {
-                InitMilLib();
-            }
-
-            if (ProgramState.ON_LINE_OPENCV_IMAGE)
-            {
-                Globalo.threadControl.imageGrabThread.RawInit();
-                Globalo.threadControl.imageGrabThread.Start();
-            }
-            else if (ProgramState.ON_LINE_MIL)
-            {
-                Globalo.threadControl.ccdColorThread.Start();
-                Globalo.threadControl.ccdGrabThread.Start();
-                if (ProgramState.ON_LINE_CAM)
-                {
-                    Globalo.threadControl.camGrabThread.Start();
-                }
-            }
+            //if (ProgramState.ON_LINE_OPENCV_IMAGE)
+            //{
+            //    Globalo.threadControl.imageGrabThread.RawInit();
+            //    Globalo.threadControl.imageGrabThread.Start();
+            //}
+            //else if (ProgramState.ON_LINE_MIL)
+            //{
+            //    Globalo.threadControl.ccdColorThread.Start();
+            //    Globalo.threadControl.ccdGrabThread.Start();
+            //    if (ProgramState.ON_LINE_CAM)
+            //    {
+            //        Globalo.threadControl.camGrabThread.Start();
+            //    }
+            //}
 
 
             //Globalo.mTeachPanel.eLogSender += eLogPrint;

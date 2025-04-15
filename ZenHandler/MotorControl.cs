@@ -12,54 +12,54 @@ namespace ZenHandler
     {
         public event delLogSender eLogSender;       //외부에서 호출할때 사용
 
-        public bool bConnected = false;
-        public const int MAX_MOTOR_COUNT = 11;
+        //public bool bConnected = false;
+        //public const int MAX_MOTOR_COUNT = 11;
 
-        public const int PCB_UNIT_COUNT = (int)ePcbMotor.PCB_TY + 1;
-        public const int LENS_UNIT_COUNT = MAX_MOTOR_COUNT - PCB_UNIT_COUNT;
+        //public const int PCB_UNIT_COUNT = (int)ePcbMotor.PCB_TY + 1;
+        //public const int LENS_UNIT_COUNT = MAX_MOTOR_COUNT - PCB_UNIT_COUNT;
 
-        public MotorAxisold[] PcbMotorAxis = new MotorAxisold[PCB_UNIT_COUNT];
-        public MotorAxisold[] LensMotorAxis = new MotorAxisold[LENS_UNIT_COUNT];
-        public enum eUnit : int
-        {
-            PCB_UNIT = 0,
-            LENS_UNIT,
-        };
-        public enum eUnit_Name : int
-        {
-            PCB_AXIS = 0, LENS_AXIS, MAX_UNIT_COUNT
-        };
-        public enum ePcbMotor : int
-        {
-            PCB_X = 0, PCB_Y, PCB_Z, PCB_TH, PCB_TX, PCB_TY, MAX_PCB_MOTOR_COUNT
-        };
-        public enum eLensMotor : int
-        {
-            LENS_X = 0,LENS_Y, LENS_TY, LENS_TX, LENS_Z, MAX_LENS_MOTOR_COUNT
-        };
-        public string[] PCB_MOTOR_NAME = { "PCB X", "PCB Y", "PCB Z", "PCB TH", "PCB TX", "PCB TY"};
-        public string[] LENS_MOTOR_NAME = { "LENS X", "LENS Y", "LENS TY" , "LENS TX", "LENS Z"};
-        public const double ENCORDER_GAP = 1.0;
+        //public MotorAxisold[] PcbMotorAxis = new MotorAxisold[PCB_UNIT_COUNT];
+        //public MotorAxisold[] LensMotorAxis = new MotorAxisold[LENS_UNIT_COUNT];
+        //public enum eUnit : int
+        //{
+        //    PCB_UNIT = 0,
+        //    LENS_UNIT,
+        //};
+        //public enum eUnit_Name : int
+        //{
+        //    PCB_AXIS = 0, LENS_AXIS, MAX_UNIT_COUNT
+        //};
+        //public enum ePcbMotor : int
+        //{
+        //    PCB_X = 0, PCB_Y, PCB_Z, PCB_TH, PCB_TX, PCB_TY, MAX_PCB_MOTOR_COUNT
+        //};
+        //public enum eLensMotor : int
+        //{
+        //    LENS_X = 0,LENS_Y, LENS_TY, LENS_TX, LENS_Z, MAX_LENS_MOTOR_COUNT
+        //};
+        //public string[] PCB_MOTOR_NAME = { "PCB X", "PCB Y", "PCB Z", "PCB TH", "PCB TX", "PCB TY"};
+        //public string[] LENS_MOTOR_NAME = { "LENS X", "LENS Y", "LENS TY" , "LENS TX", "LENS Z"};
+        //public const double ENCORDER_GAP = 1.0;
 
-        public AXT_MOTION_HOME_DETECT[] MOTOR_HOME_SENSOR = { 
-            AXT_MOTION_HOME_DETECT.HomeSensor, AXT_MOTION_HOME_DETECT.HomeSensor, AXT_MOTION_HOME_DETECT.NegEndLimit, AXT_MOTION_HOME_DETECT.HomeSensor, AXT_MOTION_HOME_DETECT.HomeSensor, AXT_MOTION_HOME_DETECT.HomeSensor
-        , AXT_MOTION_HOME_DETECT.HomeSensor, AXT_MOTION_HOME_DETECT.HomeSensor, AXT_MOTION_HOME_DETECT.HomeSensor, AXT_MOTION_HOME_DETECT.HomeSensor, AXT_MOTION_HOME_DETECT.PosEndLimit};
+        //public AXT_MOTION_HOME_DETECT[] MOTOR_HOME_SENSOR = { 
+        //    AXT_MOTION_HOME_DETECT.HomeSensor, AXT_MOTION_HOME_DETECT.HomeSensor, AXT_MOTION_HOME_DETECT.NegEndLimit, AXT_MOTION_HOME_DETECT.HomeSensor, AXT_MOTION_HOME_DETECT.HomeSensor, AXT_MOTION_HOME_DETECT.HomeSensor
+        //, AXT_MOTION_HOME_DETECT.HomeSensor, AXT_MOTION_HOME_DETECT.HomeSensor, AXT_MOTION_HOME_DETECT.HomeSensor, AXT_MOTION_HOME_DETECT.HomeSensor, AXT_MOTION_HOME_DETECT.PosEndLimit};
 
-        public AXT_MOTION_MOVE_DIR[] MOTOR_HOME_DIR = { AXT_MOTION_MOVE_DIR.DIR_CCW, AXT_MOTION_MOVE_DIR.DIR_CCW, AXT_MOTION_MOVE_DIR.DIR_CCW, AXT_MOTION_MOVE_DIR.DIR_CW, AXT_MOTION_MOVE_DIR.DIR_CCW, AXT_MOTION_MOVE_DIR.DIR_CCW
-        , AXT_MOTION_MOVE_DIR.DIR_CW, AXT_MOTION_MOVE_DIR.DIR_CCW, AXT_MOTION_MOVE_DIR.DIR_CCW, AXT_MOTION_MOVE_DIR.DIR_CCW, AXT_MOTION_MOVE_DIR.DIR_CW};
+        //public AXT_MOTION_MOVE_DIR[] MOTOR_HOME_DIR = { AXT_MOTION_MOVE_DIR.DIR_CCW, AXT_MOTION_MOVE_DIR.DIR_CCW, AXT_MOTION_MOVE_DIR.DIR_CCW, AXT_MOTION_MOVE_DIR.DIR_CW, AXT_MOTION_MOVE_DIR.DIR_CCW, AXT_MOTION_MOVE_DIR.DIR_CCW
+        //, AXT_MOTION_MOVE_DIR.DIR_CW, AXT_MOTION_MOVE_DIR.DIR_CCW, AXT_MOTION_MOVE_DIR.DIR_CCW, AXT_MOTION_MOVE_DIR.DIR_CCW, AXT_MOTION_MOVE_DIR.DIR_CW};
 
-        public MotorDefine.eMotorType[] PCB_MOTOR_TYPE = { MotorDefine.eMotorType.LINEAR, MotorDefine.eMotorType.LINEAR, MotorDefine.eMotorType.STEPING, MotorDefine.eMotorType.STEPING, MotorDefine.eMotorType.STEPING, MotorDefine.eMotorType.STEPING};
+        //public MotorDefine.eMotorType[] PCB_MOTOR_TYPE = { MotorDefine.eMotorType.LINEAR, MotorDefine.eMotorType.LINEAR, MotorDefine.eMotorType.STEPING, MotorDefine.eMotorType.STEPING, MotorDefine.eMotorType.STEPING, MotorDefine.eMotorType.STEPING};
 
-        public MotorDefine.eMotorType[] LENS_MOTOR_TYPE = {MotorDefine.eMotorType.LINEAR, MotorDefine.eMotorType.LINEAR, MotorDefine.eMotorType.STEPING, MotorDefine.eMotorType.STEPING, MotorDefine.eMotorType.STEPING};
-        public int[] PCB_MOTOR_MAX_SPEED = { 100, 100, 10, 5, 5, 5};
-        public int[] LENS_MOTOR_MAX_SPEED = { 100, 100, 10, 5, 5 };
+        //public MotorDefine.eMotorType[] LENS_MOTOR_TYPE = {MotorDefine.eMotorType.LINEAR, MotorDefine.eMotorType.LINEAR, MotorDefine.eMotorType.STEPING, MotorDefine.eMotorType.STEPING, MotorDefine.eMotorType.STEPING};
+        //public int[] PCB_MOTOR_MAX_SPEED = { 100, 100, 10, 5, 5, 5};
+        //public int[] LENS_MOTOR_MAX_SPEED = { 100, 100, 10, 5, 5 };
 
-        public double[] OrgFirstVel = { 20000.0, 10000.0, 5000.0, 3000.0, 3000.0, 3000.0, 20000.0, 10000.0, 3000.0, 3000.0, 5000.0};
-        public double[] OrgSecondVel = { 5000.0, 7000.0, 2000.0, 1000.0, 1000.0, 1000.0, 5000.0, 7000.0, 1000.0, 1000.0, 2000.0 };
-        public double[] OrgThirdVel = { 2000.0, 2000.0, 500.0, 500.0, 500.0, 500.0,     2000.0, 2000.0, 500.0, 500.0, 500.0 };
-        public double[] OrgLastVel = { 100.0, 100.0, 50.0, 50.0, 50.0, 50.0, 100.0, 50.0, 50.0, 50.0, 50.0 };
-        public double[] OrgAccFirst = { 0.3, 0.3, 0.3, 0.3, 0.3, 0.3, 0.3, 0.3, 0.3, 0.3, 0.3 };
-        public double[] OrgAccSecond = { 0.3, 0.3, 0.3, 0.3, 0.3, 0.3, 0.3, 0.3, 0.3, 0.3, 0.3 };
+        //public double[] OrgFirstVel = { 20000.0, 10000.0, 5000.0, 3000.0, 3000.0, 3000.0, 20000.0, 10000.0, 3000.0, 3000.0, 5000.0};
+        //public double[] OrgSecondVel = { 5000.0, 7000.0, 2000.0, 1000.0, 1000.0, 1000.0, 5000.0, 7000.0, 1000.0, 1000.0, 2000.0 };
+        //public double[] OrgThirdVel = { 2000.0, 2000.0, 500.0, 500.0, 500.0, 500.0,     2000.0, 2000.0, 500.0, 500.0, 500.0 };
+        //public double[] OrgLastVel = { 100.0, 100.0, 50.0, 50.0, 50.0, 50.0, 100.0, 50.0, 50.0, 50.0, 50.0 };
+        //public double[] OrgAccFirst = { 0.3, 0.3, 0.3, 0.3, 0.3, 0.3, 0.3, 0.3, 0.3, 0.3, 0.3 };
+        //public double[] OrgAccSecond = { 0.3, 0.3, 0.3, 0.3, 0.3, 0.3, 0.3, 0.3, 0.3, 0.3, 0.3 };
 
 
         public int m_lAxisCounts = 0;                          // 제어 가능한 축갯수 선언 및 초기화
@@ -108,24 +108,24 @@ namespace ZenHandler
             // ※ [CAUTION] 아래와 다른 Mot파일(모션 설정파일)을 사용할 경우 경로를 변경하십시요.
             //String szFilePath = "C:\\Program Files\\EzSoftware RM\\EzSoftware\\MotionDefault.mot";
             //++ AXL(AjineXtek Library)을 사용가능하게 하고 장착된 보드들을 초기화합니다.
-            if (CAXL.AxlOpen(7) == (uint)AXT_FUNC_RESULT.AXT_RT_SUCCESS)
-            {
-                //초기화 성공
-                bConnected = true;
-            }
-            else
-            {
-                //MessageBox.Show("Motion Intialize Fail..!!");
-                eLogSender("CAxlMotion", "Motion Intialize Fail..!!", Globalo.eMessageName.M_ERROR);
-                return false;
-            }
-            CAXL.AxlGetBoardCount(ref lBoardCount);
-            if (lBoardCount < 1)
-            {
-                //MessageBox.Show("모션 보드 인식을 실패");
-                eLogSender("CAxlMotion", $"모션 보드 인식을 실패", Globalo.eMessageName.M_ERROR);
-                return false;
-            }
+            //if (CAXL.AxlOpen(7) == (uint)AXT_FUNC_RESULT.AXT_RT_SUCCESS)
+            //{
+            //    //초기화 성공
+            //    bConnected = true;
+            //}
+            //else
+            //{
+            //    //MessageBox.Show("Motion Intialize Fail..!!");
+            //    eLogSender("CAxlMotion", "Motion Intialize Fail..!!", Globalo.eMessageName.M_ERROR);
+            //    return false;
+            //}
+            //CAXL.AxlGetBoardCount(ref lBoardCount);
+            //if (lBoardCount < 1)
+            //{
+            //    //MessageBox.Show("모션 보드 인식을 실패");
+            //    eLogSender("CAxlMotion", $"모션 보드 인식을 실패", Globalo.eMessageName.M_ERROR);
+            //    return false;
+            //}
             //보드개수 확인 AxlGetBoardCount
             //++ 지정한 Mot파일의 설정값들로 모션보드의 설정값들을 일괄변경 적용합니다.
             //if (CAXM.AxmMotLoadParaAll(szFilePath) != (uint)AXT_FUNC_RESULT.AXT_RT_SUCCESS)
@@ -136,14 +136,14 @@ namespace ZenHandler
             AmpDisableAll();
 
             bool bAxlInit = true;
-            for (i = 0; i < (int)eUnit_Name.MAX_UNIT_COUNT; i++)
-            {
-                if (Axl_Axisconfig(i) != 1)
-                {
-                    //fail
-                    bAxlInit = false;
-                }
-            }
+            ////for (i = 0; i < (int)eUnit_Name.MAX_UNIT_COUNT; i++)
+            ////{
+            ////    if (Axl_Axisconfig(i) != 1)
+            ////    {
+            ////        //fail
+            ////        bAxlInit = false;
+            ////    }
+            ////}
             
 
 
