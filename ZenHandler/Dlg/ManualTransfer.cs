@@ -5,6 +5,7 @@ using System.Data;
 using System.Drawing;
 using System.Linq;
 using System.Text;
+using System.Threading;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 
@@ -16,7 +17,7 @@ namespace ZenHandler.Dlg
         private int MovePos;
         private int[] MoveMotors;
         private DateTime startTime;
-        private Timer ManualTimer;
+        private System.Windows.Forms.Timer ManualTimer;
 
         private Button[] MotorBtnArr = new Button[4];
 
@@ -26,14 +27,18 @@ namespace ZenHandler.Dlg
         private Button[] UnLoadVacuumOnBtnArr = new Button[4];
         private Button[] UnLoadVacuumOffBtnArr = new Button[4];
 
+        protected CancellationTokenSource cts;
+        private bool isMoving;
 
         public ManualTransfer()
         {
             InitializeComponent();
 
+            cts = new CancellationTokenSource();
+            isMoving = false;
             MoveMotorCount = 0;
             MoveMotors = new int[MotorControl.PCB_UNIT_COUNT];
-            ManualTimer = new Timer();
+            ManualTimer = new System.Windows.Forms.Timer();
             ManualTimer.Interval = 300; // 1초 (1000밀리초) 간격 설정
             ManualTimer.Tick += new EventHandler(Manual_Timer_Tick);
 
@@ -244,8 +249,7 @@ namespace ZenHandler.Dlg
                 ManualTimer.Start();
             }
         }
-
-
+        
         private void BTN_MANUAL_VACUUM_ON_Click_1(object sender, EventArgs e)
         {
             if (ProgramState.CurrentState == OperationState.AutoRunning)
@@ -262,6 +266,7 @@ namespace ZenHandler.Dlg
             Globalo.motionManager.transferMachine.LoadVacuumOn(0, true);
             Globalo.LogPrint("ManualControl", "[TRANSFER] #1 LOAD PICKER VACUUM ON");
         }
+
         private void BTN_MANUAL_VACUUM_OFF_Click_1(object sender, EventArgs e)
         {
             if (ProgramState.CurrentState == OperationState.AutoRunning)
@@ -278,8 +283,14 @@ namespace ZenHandler.Dlg
 
             Globalo.LogPrint("ManualControl", "[TRANSFER] #1 LOAD PICKER VACUUM OFF");
         }
-        private void BTN_MANUAL_WAIT_POS_XY_Click_1(object sender, EventArgs e)
+
+        private async void BTN_MANUAL_WAIT_POS_XY_Click_1(object sender, EventArgs e)
         {
+            cts?.Dispose();
+            cts = new CancellationTokenSource();
+            CancellationToken token = cts.Token;
+
+
             if (ProgramState.CurrentState == OperationState.AutoRunning)
             {
                 Globalo.LogPrint("ManualControl", "[INFO] 자동 운전 중 사용 불가", Globalo.eMessageName.M_WARNING);
@@ -290,11 +301,61 @@ namespace ZenHandler.Dlg
                 Globalo.LogPrint("ManualControl", "[INFO] 일시 정지 중 사용 불가", Globalo.eMessageName.M_WARNING);
                 return;
             }
-            Data.eTeachPosName ePos = Data.eTeachPosName.WAIT_POS;
-            string logstr = $"[MANUAL] TRANSFER XY AXIS {ePos.ToString()} Move";
-            Globalo.LogPrint("", logstr);
+            if (isMoving)
+            {
+                Console.WriteLine("motor running...");
+                return;
+            }
 
-            bool bRtn = Globalo.motionManager.transferMachine.TransFer_XY_Move(ePos);
+            isMoving = true;
+            Data.eTeachPosName ePos = Data.eTeachPosName.WAIT_POS;
+
+            string logstr = $"[MANUAL] TRANSFER XY AXIS {ePos.ToString()} Move";
+
+            Globalo.LogPrint("", logstr);
+            try
+            {
+                Task<bool> motorTask = Task.Run(() =>
+                {
+                    Console.WriteLine(" ------------------> TransFer_XY_Move");
+                    Globalo.motionManager.transferMachine.TransFer_XY_Move(ePos, false);
+
+                    while (true)
+                    {
+                        Globalo.motionManager.transferMachine.ChkXYMotorPos(ePos);
+
+                        Thread.Sleep(100);
+                    }
+                    return true;
+                }, cts.Token);
+
+                bool result = await motorTask;
+
+
+                if (result)
+                {
+                    Console.WriteLine("okok");
+                }
+                else
+                {
+                    Console.WriteLine("xxxxx");
+                }
+            }
+            catch (OperationCanceledException)
+            {
+                Globalo.LogPrint("ManualControl", $"모터 작업이 취소되었습니다");
+            }
+            catch (Exception ex)
+            {
+                // 그 외 예외 처리
+                Globalo.LogPrint("ManualControl", $"모터 이동 실패: {ex.Message}");
+            }
+
+
+
+            
+
+            isMoving = false;
         }
 
         private void BTN_MANUAL_WAIT_POS_Z_Click_1(object sender, EventArgs e)

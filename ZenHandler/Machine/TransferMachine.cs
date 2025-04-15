@@ -530,13 +530,18 @@ namespace ZenHandler.Machine
 
         public bool TransFer_XY_Move(Data.eTeachPosName ePos, bool bWait = false)
         {
+            if (ProgramState.ON_LINE_MOTOR == false)
+            {
+                Thread.Sleep(3000);
+                return true;
+            }
             MotionControl.MotorAxis[] multiAxis = { TransferX, TransferY };
             string logStr = "";
             double[] dMultiPos = { 0.0, 0.0 };
             bool bRtn = false;
 
 
-            bRtn = TransFer_Z_Move(Data.eTeachPosName.WAIT_POS);
+            bRtn = TransFer_Z_Move(Data.eTeachPosName.WAIT_POS, true);
 
             if (bRtn == false)
             {
@@ -546,16 +551,20 @@ namespace ZenHandler.Machine
                 return false;
             }
 
-
             dMultiPos[0] = Globalo.yamlManager.teachingDataYaml.handler.TransferMachine.Teaching[(int)ePos].Pos[0];     //x Axis
             dMultiPos[1] = Globalo.yamlManager.teachingDataYaml.handler.TransferMachine.Teaching[(int)ePos].Pos[1];      //y Axis
 
+
             bRtn = MultiAxisMove(multiAxis, dMultiPos);
+
+
             if (bRtn == false)
             {
                 logStr = $"Transfer XY축 {Data.eTeachPosName.WAIT_POS.ToString() } 이동 실패";
+
                 Globalo.LogPrint("ManualControl", logStr);
             }
+
             bool isSuccess = false;
 
 
@@ -646,7 +655,7 @@ namespace ZenHandler.Machine
 
             if (bRtn == false)
             {
-                logStr = $"Transfer XY axis {ePos.ToString() } 이동 실패";
+                logStr = $"Transfer Z axis {ePos.ToString() } 이동 실패";
                 return false;
             }
 
