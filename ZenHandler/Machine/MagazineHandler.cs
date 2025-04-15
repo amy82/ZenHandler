@@ -10,16 +10,22 @@ namespace ZenHandler.Machine
     {
         private MotionControl.MotorAxis MagazineY;
         private MotionControl.MotorAxis MagazineZ;
+
+        public MotorDefine.eMotorType[] motorType = { MotorDefine.eMotorType.LINEAR, MotorDefine.eMotorType.LINEAR };
+
         public MagazineHandler()// : base("MagazineHandler")
         {
-            MagazineY = new MotionControl.MotorAxis((int)MotorControl.ePcbMotor.PCB_TX, "MagazineY");
-            MagazineZ = new MotionControl.MotorAxis((int)MotorControl.ePcbMotor.PCB_TY, "MagazineZ");
+            MagazineY = new MotionControl.MotorAxis((int)MotorControl.ePcbMotor.PCB_TX, "MagazineY", motorType[0]);
+            MagazineZ = new MotionControl.MotorAxis((int)MotorControl.ePcbMotor.PCB_TY, "MagazineZ", motorType[1]);
 
             this.MachineName = this.GetType().Name;
         }
         public override bool IsMoving()
         {
             return true;
+        }
+        public override void MotorDataSet()
+        {
         }
         public override void MovingStop()
         {

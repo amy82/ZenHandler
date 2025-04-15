@@ -44,10 +44,10 @@ namespace ZenHandler.MotionControl
         public abstract void AutoRun();
         public abstract bool IsMoving();
         public abstract void MovingStop();
+        public abstract void MotorDataSet();
 
 
 
-        
         public virtual bool SingleAxisMove(MotorAxis nAxis, double dPos, AXT_MOTION_ABSREL nAbsFlag, bool bWait = false)
         {
             if (ProgramState.ON_LINE_MOTOR == false)

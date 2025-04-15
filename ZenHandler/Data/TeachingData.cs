@@ -98,7 +98,7 @@ namespace ZenHandler.Data
             int j = 0;
             TomlNode node2;
             //eLogSender("TeachingData", "Teaching Data Load");
-            using (StreamReader reader = File.OpenText("Teach.toml"))//CPath.BASE_DATA_PATH + "\\Teach.toml"))
+            using (StreamReader reader = File.OpenText("Teach.toml"))
             {
                 // Parse the table
                 TomlTable table = TOML.Parse(reader);

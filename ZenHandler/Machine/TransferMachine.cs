@@ -20,6 +20,7 @@ namespace ZenHandler.Machine
 
 
         public string[] axisName = { "TransferX", "TransferY", "TransferZ" };
+        public MotorDefine.eMotorType[] motorType = { MotorDefine.eMotorType.LINEAR, MotorDefine.eMotorType.LINEAR, MotorDefine.eMotorType.LINEAR };
         public string[] TeachingPos = { "Wait", "Load", "UnLoad" };
         
 
@@ -31,16 +32,33 @@ namespace ZenHandler.Machine
 
         public TransferMachine()//: base("Machine")
         {
-            TransferX = new MotionControl.MotorAxis((int)MotionControl.MotorSet.eMotorList.TRANSFER_X, axisName[0]);
-            TransferY = new MotionControl.MotorAxis((int)MotionControl.MotorSet.eMotorList.TRANSFER_Y, axisName[1]);
-            TransferZ = new MotionControl.MotorAxis((int)MotionControl.MotorSet.eMotorList.TRANSFER_Z, axisName[2]);
+            TransferX = new MotionControl.MotorAxis((int)MotionControl.MotorSet.eMotorList.TRANSFER_X, axisName[0], motorType[0]);
+            TransferY = new MotionControl.MotorAxis((int)MotionControl.MotorSet.eMotorList.TRANSFER_Y, axisName[1], motorType[1]);
+            TransferZ = new MotionControl.MotorAxis((int)MotionControl.MotorSet.eMotorList.TRANSFER_Z, axisName[2], motorType[2]);
 
             MotorAxes = new MotionControl.MotorAxis[] { TransferX, TransferY, TransferZ };
 
+            TransferX.setMotorParameter(10.0, 0.1, 0.1, 1000.0, 500.0);     //초기 셋 다른 곳에서 다시 해줘야될 듯
+            TransferY.setMotorParameter(10.0, 0.1, 0.1, 1000.0, 500.0);
+            TransferZ.setMotorParameter(10.0, 0.1, 0.1, 1000.0, 500.0);
+
             this.MachineName = this.GetType().Name;
 
-            //transferThread = new FThread.TransferThread();
-            //TransferX.ServoOn();
+        }
+        public override void MotorDataSet()
+        {
+            int i = 0;
+            for (i = 0; i < MotorAxes.Length; i++)
+            {
+                MotorAxes[i].setMotorParameter(
+                Globalo.yamlManager.teachingDataYaml.teachingHandlerData.TransferMachine.Speed[i],
+                Globalo.yamlManager.teachingDataYaml.teachingHandlerData.TransferMachine.Accel[i],
+                Globalo.yamlManager.teachingDataYaml.teachingHandlerData.TransferMachine.Decel[i],
+                Globalo.yamlManager.teachingDataYaml.teachingHandlerData.TransferMachine.Resolution[i],
+                Globalo.yamlManager.teachingDataYaml.teachingHandlerData.TransferMachine.MaxSpeed[i]);
+            }
+
+
         }
         public bool ChkXYMotorPos(Data.eTeachPosName teachingPos)
         {

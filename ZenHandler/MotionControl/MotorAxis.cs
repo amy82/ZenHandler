@@ -20,25 +20,31 @@ namespace ZenHandler.MotionControl
     public class MotorAxis
     {
         //MotorController
-        //
+        //Firset Set
         public int m_lAxisNo { get; protected set; } = 0;            // 축 번호 MOTOR_PCB_X = 0, MOTOR_PCB_Y,
         public string Name { get; protected set; } = "";
         public MotorDefine.eMotorType Type { get; protected set; }                 //LINEAR, STEPING
-        public double CommnadPos { get; protected set; }        //현재 위치 AxmStatusGetCmdPos : STEPING
-        public double ActualPos { get; protected set; }         //현재 위치 AxmStatusGetActPos : LINEAR , SERVO
-        public double CommandVelocity { get; protected set; }   //지정한 축의 구동 속도 AxmStatusReadVel
-        public double Velocity { get; set; }                       //속도 = Move 속도 , Jog 속도 나눠야 될 수도
-        public double Acceleration { get; set; }         //가속
-        public double Deceleration { get; set; }         //감속
-        public int Resolution { get; protected set; }
-        public bool OrgState { get; protected set; }             //원점 상태
-        public bool RunState { get; protected set; }             //동작 상태
+        
+        //
+        //Second Set
+        public double Velocity { get; protected set; }                        //속도 = Move 속도 , Jog 속도 나눠야 될 수도
+        public double Acceleration { get; protected set; }                    //가속
+        public double Deceleration { get; protected set; }                    //감속
+        public double Resolution { get; protected set; }
+        public double MaxSpeed { get; protected set; }                 //1000
         //
         //
-        public int MaxSpeed { get; protected set; }             //1000
-        public int HomeMoveDir { get; protected set; }          //DIR_CW= 0x1, 시계방향/ DIR_CCW= 0x0, 반시계방향
-        public int HomeDetect { get; protected set; }           //HomeSensor, PosEndLimit, NegEndLimit
-
+        public double CommnadPos { get; protected set; }            //현재 위치 AxmStatusGetCmdPos : STEPING
+        public double ActualPos { get; protected set; }             //현재 위치 AxmStatusGetActPos : LINEAR , SERVO
+        public double CommandVelocity { get; protected set; }       //지정한 축의 구동 속도 AxmStatusReadVel
+        public bool OrgState { get; protected set; }                //원점 상태
+        public bool RunState { get; protected set; }                //동작 상태
+        //
+        //
+        public int HomeMoveDir { get; protected set; }              //DIR_CW= 0x1, 시계방향/ DIR_CCW= 0x0, 반시계방향
+        public int HomeDetect { get; protected set; }               //HomeSensor, PosEndLimit, NegEndLimit
+        //
+        //
         public bool isMotorBusy;        //실행중 체크용 플래그
         public bool motorBreak;         //while 빠져 나오는 용도
         // dwAbsRelMode : (0)POS_ABS_MODE - 현재 위치와 상관없이 지정한 위치로 절대좌표 이동합니다.
@@ -47,13 +53,23 @@ namespace ZenHandler.MotionControl
 
 
 
-        public MotorAxis(int axisNumber, string name)
+        public MotorAxis(int axisNumber, string name, MotorDefine.eMotorType type)
         {
             this.m_lAxisNo = axisNumber;
             this.Name = name;
+            this.Type = Type;
             motorBreak = false;     //init
             isMotorBusy = false;
         }
+        public virtual void setMotorParameter(double vel , double acc , double dec , double resol , double maxSpeed)
+        {
+            Velocity = vel;
+            Acceleration = acc;
+            Deceleration = dec;
+            Resolution = resol;
+            MaxSpeed = maxSpeed;
+        }
+
 
         public virtual void ServoOn()
         {

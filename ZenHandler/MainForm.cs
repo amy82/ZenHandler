@@ -47,6 +47,7 @@ namespace ZenHandler  //ApsMotionControl
             int dRightPanelH = CenterPanel.Height;
 
 
+
             Globalo.threadControl = new ThreadControl();    //<--log Thread 생성후 로그 출력 가능
             Globalo.mAlarmPanel = new Dlg.AlarmControl(dRightPanelW, dRightPanelH);
 
@@ -54,6 +55,8 @@ namespace ZenHandler  //ApsMotionControl
             Globalo.yamlManager.secsGemDataYaml.MesLoad();
             Globalo.yamlManager.secsGemDataYaml.SensorIniLoad();
             Globalo.yamlManager.teachingDataYaml.LoadTeaching();
+
+
             Globalo.yamlManager.configDataLoad();
             Globalo.yamlManager.TaskDataLoad();
             Globalo.yamlManager.imageDataLoad();

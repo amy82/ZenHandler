@@ -25,6 +25,8 @@ namespace ZenHandler.Data
         public List<double> Speed { get; set; }
         public List<double> Accel { get; set; }
         public List<double> Decel { get; set; }
+        public List<double> Resolution { get; set; }
+        public List<double> MaxSpeed { get; set; }
         public List<TeachingPos> Teaching { get; set; }
     }
 
@@ -64,7 +66,7 @@ namespace ZenHandler.Data
 
         public bool LoadTeaching()
         {
-            string filePath = Path.Combine(CPath.BASE_DATA_PATH, CPath.yamlTeachingData);
+            string filePath = Path.Combine(CPath.BASE_ENV_PATH, CPath.yamlTeachingData);
             try
             {
                 if (!File.Exists(filePath))
@@ -90,7 +92,7 @@ namespace ZenHandler.Data
 
         public bool SaveTeaching()
         {
-            string filePath = Path.Combine(CPath.BASE_DATA_PATH, CPath.yamlTeachingData);
+            string filePath = Path.Combine(CPath.BASE_ENV_PATH, CPath.yamlTeachingData);
             try
             {
                 if (!File.Exists(filePath))

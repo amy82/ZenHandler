@@ -19,6 +19,9 @@ namespace ZenHandler.Machine
 
             return true;
         }
+        public override void MotorDataSet()
+        {
+        }
         public override void MovingStop()
         {
             if (cts != null && !cts.IsCancellationRequested)
