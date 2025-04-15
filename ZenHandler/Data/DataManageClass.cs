@@ -9,7 +9,7 @@ namespace ZenHandler.Data
     public class DataManageClass
     {
         public TeachingData teachingData = new TeachingData();
-        //public IoData ioData = new IoData();
+        public IoData ioData = new IoData();
         //public WorkData workData = new WorkData();
         public TaskWork TaskWork = new TaskWork();
         public CMesData mesData = new CMesData();

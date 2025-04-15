@@ -15,16 +15,11 @@ namespace ZenHandler.Data
     public class IoData
     {
         public DataTable dataTable = new DataTable();
-
-        //public Excel.Application application = null;
-        //public Excel.Workbook workbook = null;
-        //public Excel.Worksheet worksheet = null;
-        //public Excel.Range range = null;
-
         public IoData()
         {
 
         }
+
         public void ReadEpplusData(string fileName)
         {
             // Excel 패키지의 라이센스 설정
@@ -76,8 +71,8 @@ namespace ZenHandler.Data
                 //}
             }
         }
-        //public void ReadExcelData(string fileName)
-        //{
+        public void ReadExcelData(string fileName)
+        {
         //    application = new Excel.Application();
         //    application.DisplayAlerts = false;  // 알림 비활성화
 
@@ -186,24 +181,6 @@ namespace ZenHandler.Data
 
         //    // 모든 Excel 프로세스 종료
 
-        //}
-        //private void DeleteObject(object obj)
-        //{
-        //    try
-        //    {
-        //        System.Runtime.InteropServices.Marshal.ReleaseComObject(obj);
-        //        obj = null;
-        //    }
-        //    catch (Exception ex)
-        //    {
-        //        obj = null;
-        //        MessageBox.Show("메모리 할당을 해제하는 중 문제가 발생하였습니다." + ex.ToString(), "경고!");
-        //    }
-        //    finally
-        //    {
-        //        GC.Collect();
-        //        GC.WaitForPendingFinalizers();
-        //    }
-        //}
+        }
     }
 }

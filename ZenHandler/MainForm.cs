@@ -63,6 +63,9 @@ namespace ZenHandler  //ApsMotionControl
             Globalo.motionManager = new MotionControl.MotionManager();
             Globalo.motionManager.AllMotorParameterSet();
 
+            string fileName = string.Format(@"{0}\iomap.xlsx", Application.StartupPath); //file path
+            Globalo.dataManage.ioData.ReadEpplusData(fileName);
+
             // KeyEvent 이벤트 핸들러 추가
             //keyMessageFilter.KeyEvent += KeyMessageFilter_KeyEvent;
             Globalo.mlogControl = new Dlg.LogControl(dRightPanelW, dRightPanelH);
@@ -115,9 +118,7 @@ namespace ZenHandler  //ApsMotionControl
 
 
 
-            //string fileName = string.Format(@"{0}\iomap.xlsx", Application.StartupPath); //file path
-            //Globalo.dataManage.ioData.ReadExcelData(fileName);
-            //Globalo.dataManage.ioData.ReadEpplusData(fileName);
+            
 
 
             //모터 초기화
