@@ -22,7 +22,7 @@ namespace ZenHandler
             IN_LENS_GRIP_BACK = 0x80,          //8
             //
             IN_LENS_GRIP_FOR = 0x01,           //9
-            TEMP10 = 0x02,
+            IN_VACUUM_ON = 0x02,
             TEMP11 = 0x04,
             TEMP12 = 0x08,                  //12
             TEMP13 = 0x10,
@@ -59,8 +59,8 @@ namespace ZenHandler
             BUZZER3 = 0x40,
             BUZZER4 = 0x80,                 //8
             //
-            TEMP09 = 0x01,                  //9
-            TEMP10 = 0x02,
+            VACUUM_ON = 0x01,                  //9
+            VACUUM_OFF = 0x02,
             TEMP11 = 0x04,
             LENS_GRIP_BACK = 0x08,          //12
             LENS_GRIP_FOR = 0x10,

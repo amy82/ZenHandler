@@ -29,6 +29,12 @@ namespace ZenHandler.MotionControl
             transferMachine = new Machine.TransferMachine();        //TODO: motor , io 모두 설정되고나서 해야될수도
             liftModule = new Machine.LiftModule();
         }
+
+        public void AllMotorParameterSet()
+        {
+            transferMachine.MotorDataSet();
+            liftModule.MotorDataSet();
+        }
         public void AllMotorStop()
         {
             transferMachine.MovingStop();

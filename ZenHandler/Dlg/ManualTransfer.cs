@@ -186,11 +186,10 @@ namespace ZenHandler.Dlg
                 return;
             }
 
-            Globalo.motionManager.transferMachine.LensGripOn(0, true);
+            Globalo.motionManager.transferMachine.VacuumOn(0, true);
 
-            //Globalo.dIoControl.DioWriteOutportByte(1, 0, (uint)DioDefine.DIO_OUT_ADDR.LENS_GRIP_FOR, (uint)DioDefine.DIO_OUT_ADDR.LENS_GRIP_BACK);
 
-            //public bool DioWriteOutportByte(int nIndex, int nOffset, uint uOnAddr, uint uOffAddr)
+            Globalo.LogPrint("ManualControl", "[TRANSFER] #1 LOAD PICKER VACUUM ON");
         }
         private void BTN_MANUAL_VACUUM_OFF_Click_1(object sender, EventArgs e)
         {
@@ -204,8 +203,9 @@ namespace ZenHandler.Dlg
                 Globalo.LogPrint("ManualControl", "[INFO] 일시 정지 중 사용 불가", Globalo.eMessageName.M_WARNING);
                 return;
             }
-            Globalo.motionManager.transferMachine.LensGripOn(0, false);
-            //Globalo.dIoControl.DioWriteOutportByte(1, 0, (uint)DioDefine.DIO_OUT_ADDR.LENS_GRIP_BACK, (uint)DioDefine.DIO_OUT_ADDR.LENS_GRIP_FOR);
+            Globalo.motionManager.transferMachine.VacuumOn(0, false);
+
+            Globalo.LogPrint("ManualControl", "[TRANSFER] #1 LOAD PICKER VACUUM OFF");
         }
         private void BTN_MANUAL_WAIT_POS_XY_Click_1(object sender, EventArgs e)
         {
@@ -219,8 +219,10 @@ namespace ZenHandler.Dlg
                 Globalo.LogPrint("ManualControl", "[INFO] 일시 정지 중 사용 불가", Globalo.eMessageName.M_WARNING);
                 return;
             }
-
             Data.eTeachPosName ePos = Data.eTeachPosName.WAIT_POS;
+            string logstr = $"[MANUAL] TRANSFER XY AXIS {ePos.ToString()} Move";
+            Globalo.LogPrint("", logstr);
+
             bool bRtn = Globalo.motionManager.transferMachine.TransFer_XY_Move(ePos);
         }
 
@@ -238,7 +240,8 @@ namespace ZenHandler.Dlg
             }
 
             Data.eTeachPosName ePos = Data.eTeachPosName.WAIT_POS;
-
+            string logstr = $"[MANUAL] TRANSFER Z AXIS {ePos.ToString()} Move";
+            Globalo.LogPrint("", logstr);
             bool bRtn = Globalo.motionManager.transferMachine.TransFer_Z_Move(ePos);
         }
         public void showPanel()
@@ -279,6 +282,10 @@ namespace ZenHandler.Dlg
                 return;
             }
             Data.eTeachPosName ePos = Data.eTeachPosName.LEFT_TRAY_LOAD_POS;
+
+            string logstr = $"[MANUAL] TRANSFER XY AXIS {ePos.ToString()} Move";
+            Globalo.LogPrint("", logstr);
+
             bool bRtn = Globalo.motionManager.transferMachine.TransFer_XY_Move(ePos);
         }
 
@@ -295,6 +302,10 @@ namespace ZenHandler.Dlg
                 return;
             }
             Data.eTeachPosName ePos = Data.eTeachPosName.RIGHT_TRAY_LOAD_POS;
+
+            string logstr = $"[MANUAL] TRANSFER XY AXIS {ePos.ToString()} Move";
+            Globalo.LogPrint("", logstr);
+
             bool bRtn = Globalo.motionManager.transferMachine.TransFer_XY_Move(ePos);
         }
 
@@ -311,6 +322,11 @@ namespace ZenHandler.Dlg
                 return;
             }
             Data.eTeachPosName ePos = Data.eTeachPosName.SOCKET_POS1;
+
+            string logstr = $"[MANUAL] TRANSFER XY AXIS {ePos.ToString()} Move";
+            Globalo.LogPrint("", logstr);
+
+
             bool bRtn = Globalo.motionManager.transferMachine.TransFer_XY_Move(ePos);
         }
 
@@ -327,6 +343,10 @@ namespace ZenHandler.Dlg
                 return;
             }
             Data.eTeachPosName ePos = Data.eTeachPosName.SOCKET_POS2;
+
+            string logstr = $"[MANUAL] TRANSFER XY AXIS {ePos.ToString()} Move";
+            Globalo.LogPrint("", logstr);
+
             bool bRtn = Globalo.motionManager.transferMachine.TransFer_XY_Move(ePos);
         }
 
@@ -343,6 +363,11 @@ namespace ZenHandler.Dlg
                 return;
             }
             Data.eTeachPosName ePos = Data.eTeachPosName.SOCKET_POS3;
+
+            string logstr = $"[MANUAL] TRANSFER XY AXIS {ePos.ToString()} Move";
+            Globalo.LogPrint("", logstr);
+
+
             bool bRtn = Globalo.motionManager.transferMachine.TransFer_XY_Move(ePos);
         }
 
@@ -359,6 +384,10 @@ namespace ZenHandler.Dlg
                 return;
             }
             Data.eTeachPosName ePos = Data.eTeachPosName.SOCKET_POS4;
+
+            string logstr = $"[MANUAL] TRANSFER XY AXIS {ePos.ToString()} Move";
+            Globalo.LogPrint("", logstr);
+
             bool bRtn = Globalo.motionManager.transferMachine.TransFer_XY_Move(ePos);
         }
 
@@ -376,6 +405,9 @@ namespace ZenHandler.Dlg
             }
 
             Data.eTeachPosName ePos = Data.eTeachPosName.LEFT_TRAY_LOAD_POS;
+
+            string logstr = $"[MANUAL] TRANSFER Z AXIS {ePos.ToString()} Move";
+            Globalo.LogPrint("", logstr);
 
             bool bRtn = Globalo.motionManager.transferMachine.TransFer_Z_Move(ePos);
         }
@@ -395,6 +427,9 @@ namespace ZenHandler.Dlg
 
             Data.eTeachPosName ePos = Data.eTeachPosName.RIGHT_TRAY_LOAD_POS;
 
+            string logstr = $"[MANUAL] TRANSFER Z AXIS {ePos.ToString()} Move";
+            Globalo.LogPrint("", logstr);
+
             bool bRtn = Globalo.motionManager.transferMachine.TransFer_Z_Move(ePos);
         }
 
@@ -412,6 +447,9 @@ namespace ZenHandler.Dlg
             }
 
             Data.eTeachPosName ePos = Data.eTeachPosName.SOCKET_POS1;
+
+            string logstr = $"[MANUAL] TRANSFER Z AXIS {ePos.ToString()} Move";
+            Globalo.LogPrint("", logstr);
 
             bool bRtn = Globalo.motionManager.transferMachine.TransFer_Z_Move(ePos);
         }
@@ -431,6 +469,9 @@ namespace ZenHandler.Dlg
 
             Data.eTeachPosName ePos = Data.eTeachPosName.SOCKET_POS2;
 
+            string logstr = $"[MANUAL] TRANSFER Z AXIS {ePos.ToString()} Move";
+            Globalo.LogPrint("", logstr);
+
             bool bRtn = Globalo.motionManager.transferMachine.TransFer_Z_Move(ePos);
         }
 
@@ -448,6 +489,9 @@ namespace ZenHandler.Dlg
             }
 
             Data.eTeachPosName ePos = Data.eTeachPosName.SOCKET_POS3;
+
+            string logstr = $"[MANUAL] TRANSFER Z AXIS {ePos.ToString()} Move";
+            Globalo.LogPrint("", logstr);
 
             bool bRtn = Globalo.motionManager.transferMachine.TransFer_Z_Move(ePos);
         }
@@ -467,37 +511,110 @@ namespace ZenHandler.Dlg
 
             Data.eTeachPosName ePos = Data.eTeachPosName.SOCKET_POS4;
 
+            string logstr = $"[MANUAL] TRANSFER Z AXIS {ePos.ToString()} Move";
+            Globalo.LogPrint("", logstr);
+
             bool bRtn = Globalo.motionManager.transferMachine.TransFer_Z_Move(ePos);
         }
 
         private void BTN_MANUAL_TRANSFER_LOAD_VACUUM_ON2_Click(object sender, EventArgs e)
         {
-            Globalo.motionManager.transferMachine.LensGripOn(1, true);
+            if (ProgramState.CurrentState == OperationState.AutoRunning)
+            {
+                Globalo.LogPrint("ManualControl", "[INFO] 자동 운전 중 사용 불가", Globalo.eMessageName.M_WARNING);
+                return;
+            }
+            if (ProgramState.CurrentState == OperationState.Paused)
+            {
+                Globalo.LogPrint("ManualControl", "[INFO] 일시 정지 중 사용 불가", Globalo.eMessageName.M_WARNING);
+                return;
+            }
+            Globalo.motionManager.transferMachine.VacuumOn(1, true);
+
+
+            Globalo.LogPrint("ManualControl", "[TRANSFER] #2 LOAD PICKER VACUUM ON");
         }
 
         private void BTN_MANUAL_TRANSFER_LOAD_VACUUM_ON3_Click(object sender, EventArgs e)
         {
-            Globalo.motionManager.transferMachine.LensGripOn(2, true);
+            if (ProgramState.CurrentState == OperationState.AutoRunning)
+            {
+                Globalo.LogPrint("ManualControl", "[INFO] 자동 운전 중 사용 불가", Globalo.eMessageName.M_WARNING);
+                return;
+            }
+            if (ProgramState.CurrentState == OperationState.Paused)
+            {
+                Globalo.LogPrint("ManualControl", "[INFO] 일시 정지 중 사용 불가", Globalo.eMessageName.M_WARNING);
+                return;
+            }
+            Globalo.motionManager.transferMachine.VacuumOn(2, true);
+
+            Globalo.LogPrint("ManualControl", "[TRANSFER] #3 LOAD PICKER VACUUM ON");
         }
 
         private void BTN_MANUAL_TRANSFER_LOAD_VACUUM_ON4_Click(object sender, EventArgs e)
         {
-            Globalo.motionManager.transferMachine.LensGripOn(3, true);
+            if (ProgramState.CurrentState == OperationState.AutoRunning)
+            {
+                Globalo.LogPrint("ManualControl", "[INFO] 자동 운전 중 사용 불가", Globalo.eMessageName.M_WARNING);
+                return;
+            }
+            if (ProgramState.CurrentState == OperationState.Paused)
+            {
+                Globalo.LogPrint("ManualControl", "[INFO] 일시 정지 중 사용 불가", Globalo.eMessageName.M_WARNING);
+                return;
+            }
+            Globalo.motionManager.transferMachine.VacuumOn(3, true);
+            Globalo.LogPrint("ManualControl", "[TRANSFER] #4 LOAD PICKER VACUUM ON");
         }
 
         private void BTN_MANUAL_TRANSFER_LOAD_VACUUM_OFF2_Click(object sender, EventArgs e)
         {
-            Globalo.motionManager.transferMachine.LensGripOn(1, false);
+            if (ProgramState.CurrentState == OperationState.AutoRunning)
+            {
+                Globalo.LogPrint("ManualControl", "[INFO] 자동 운전 중 사용 불가", Globalo.eMessageName.M_WARNING);
+                return;
+            }
+            if (ProgramState.CurrentState == OperationState.Paused)
+            {
+                Globalo.LogPrint("ManualControl", "[INFO] 일시 정지 중 사용 불가", Globalo.eMessageName.M_WARNING);
+                return;
+            }
+            Globalo.motionManager.transferMachine.VacuumOn(1, false);
+
+            Globalo.LogPrint("ManualControl", "[TRANSFER] #2 LOAD PICKER VACUUM OFF");
         }
 
         private void BTN_MANUAL_TRANSFER_LOAD_VACUUM_OFF3_Click(object sender, EventArgs e)
         {
-            Globalo.motionManager.transferMachine.LensGripOn(2, false);
+            if (ProgramState.CurrentState == OperationState.AutoRunning)
+            {
+                Globalo.LogPrint("ManualControl", "[INFO] 자동 운전 중 사용 불가", Globalo.eMessageName.M_WARNING);
+                return;
+            }
+            if (ProgramState.CurrentState == OperationState.Paused)
+            {
+                Globalo.LogPrint("ManualControl", "[INFO] 일시 정지 중 사용 불가", Globalo.eMessageName.M_WARNING);
+                return;
+            }
+            Globalo.motionManager.transferMachine.VacuumOn(2, false);
+            Globalo.LogPrint("ManualControl", "[TRANSFER] #3 LOAD PICKER VACUUM OFF");
         }
 
         private void BTN_MANUAL_TRANSFER_LOAD_VACUUM_OFF4_Click(object sender, EventArgs e)
         {
-            Globalo.motionManager.transferMachine.LensGripOn(3, false);
+            if (ProgramState.CurrentState == OperationState.AutoRunning)
+            {
+                Globalo.LogPrint("ManualControl", "[INFO] 자동 운전 중 사용 불가", Globalo.eMessageName.M_WARNING);
+                return;
+            }
+            if (ProgramState.CurrentState == OperationState.Paused)
+            {
+                Globalo.LogPrint("ManualControl", "[INFO] 일시 정지 중 사용 불가", Globalo.eMessageName.M_WARNING);
+                return;
+            }
+            Globalo.motionManager.transferMachine.VacuumOn(3, false);
+            Globalo.LogPrint("ManualControl", "[TRANSFER] #4 LOAD PICKER VACUUM OFF");
         }
     }
 }

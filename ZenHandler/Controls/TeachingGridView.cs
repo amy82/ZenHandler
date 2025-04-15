@@ -50,11 +50,11 @@ namespace ZenHandler.Controls
 
             changeMotorNo(0);
         }
-        public Data.TeachingDataList GetTeachData()
+        public Data.TeachingDataList GetTeachData(Data.TeachingDataList tData)
         {
             int i = 0;
             int j = 0;
-            Data.TeachingDataList tempData = new Data.TeachingDataList();
+            Data.TeachingDataList tempData = tData;// new Data.TeachingDataList();
             tempData.Speed = new List<double>();
             tempData.Accel = new List<double>();
             tempData.Decel = new List<double>();

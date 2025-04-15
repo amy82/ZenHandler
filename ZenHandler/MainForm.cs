@@ -63,6 +63,7 @@ namespace ZenHandler  //ApsMotionControl
             Globalo.yamlManager.RecipeYamlListLoad();
 
             Globalo.motionManager = new MotionControl.MotionManager();
+            Globalo.motionManager.AllMotorParameterSet();
 
             // KeyEvent 이벤트 핸들러 추가
             //keyMessageFilter.KeyEvent += KeyMessageFilter_KeyEvent;

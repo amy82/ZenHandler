@@ -51,7 +51,7 @@ namespace ZenHandler.MotionControl
         public static double MaxLimitAccDec = 3.0;
         public static double MinLimitAccDec = 0.1;
 
-        public static double MaxLimitSpeed = 1.0;
-        public static double MinLimitspeed = 1000.0;
+        public static double MaxLimitSpeed = 1000.0;
+        public static double MinLimitspeed = 10.0;
     }
 }

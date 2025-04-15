@@ -27,9 +27,9 @@ namespace ZenHandler.MotionControl
         
         //
         //Second Set
-        public double Velocity { get; protected set; }                        //속도 = Move 속도 , Jog 속도 나눠야 될 수도
-        public double Acceleration { get; protected set; }                    //가속
-        public double Deceleration { get; protected set; }                    //감속
+        public double Velocity { get; set; }                        //속도 = Move 속도 , Jog 속도 나눠야 될 수도
+        public double Acceleration { get; set; }                    //가속
+        public double Deceleration { get; set; }                    //감속
         public double Resolution { get; protected set; }
         public double MaxSpeed { get; protected set; }                 //1000
         //
@@ -61,8 +61,35 @@ namespace ZenHandler.MotionControl
             motorBreak = false;     //init
             isMotorBusy = false;
         }
+        
         public virtual void setMotorParameter(double vel , double acc , double dec , double resol , double maxSpeed)
         {
+            if (vel < 10)
+            {
+                vel = 10;
+            }
+
+            if (acc < 0.1)
+            {
+                acc = 0.1;
+            }
+            if (acc > 3.0)
+            {
+                acc = 3.0;
+            }
+            if (dec < 0.1)
+            {
+                dec = 0.1;
+            }
+            if (dec > 3.0)
+            {
+                dec = 3.0;
+            }
+
+            if (resol < 1000.0)
+            {
+                resol = 1000.0;
+            }
             Velocity = vel;
             Acceleration = acc;
             Deceleration = dec;
@@ -179,34 +206,7 @@ namespace ZenHandler.MotionControl
             return false;
         }
 
-        public void MotorPropertySet(double speed , double acc , double dec)
-        {
-            if (speed < 1)
-            {
-                speed = 1;
-            }
-
-            if (acc < 0.1)
-            {
-                acc = 0.1;
-            }
-            if (acc > 3.0)
-            {
-                acc = 3.0;
-            }
-            if (dec < 0.1)
-            {
-                dec = 0.1;
-            }
-            if (dec > 3.0)
-            {
-                dec = 3.0;
-            }
-            this.Velocity = speed;
-
-            this.Acceleration = acc;
-            this.Deceleration = dec;
-        }
+        
         public bool JogMove(int direction, double Speed)
         {
             //Speed = 0.1 , 0.5 , 1.0 Low , Mid , High

@@ -221,19 +221,22 @@ namespace ZenHandler.Dlg
 
         private void BTN_TEACH_DATA_SAVE_Click(object sender, EventArgs e)
         {
-            Globalo.yamlManager.teachingDataYaml.teachingHandlerData.TransferMachine = myTeachingGrid.GetTeachData();
+            Globalo.yamlManager.teachingDataYaml.teachingHandlerData.TransferMachine = myTeachingGrid.GetTeachData(Globalo.yamlManager.teachingDataYaml.teachingHandlerData.TransferMachine);
 
             //Motor Speed 적용
-            int length = Globalo.yamlManager.teachingDataYaml.teachingHandlerData.TransferMachine.Speed.Count;
+            //int length = Globalo.yamlManager.teachingDataYaml.teachingHandlerData.TransferMachine.Speed.Count;
+            int length = Globalo.motionManager.transferMachine.MotorAxes.Length;
+
+
 
             for (int i = 0; i < length; i++)
             {
-                Globalo.motionManager.transferMachine.MotorAxes[i].MotorPropertySet(
-                    Globalo.yamlManager.teachingDataYaml.teachingHandlerData.TransferMachine.Speed[i],
-                     Globalo.yamlManager.teachingDataYaml.teachingHandlerData.TransferMachine.Accel[i],
-                      Globalo.yamlManager.teachingDataYaml.teachingHandlerData.TransferMachine.Decel[i]);
+                Globalo.motionManager.transferMachine.MotorAxes[i].Velocity = Globalo.yamlManager.teachingDataYaml.teachingHandlerData.TransferMachine.Speed[i];
+                Globalo.motionManager.transferMachine.MotorAxes[i].Acceleration = Globalo.yamlManager.teachingDataYaml.teachingHandlerData.TransferMachine.Accel[i];
+                Globalo.motionManager.transferMachine.MotorAxes[i].Deceleration = Globalo.yamlManager.teachingDataYaml.teachingHandlerData.TransferMachine.Decel[i];
             }
 
+            Globalo.LogPrint("", "[TEACH] TRANSFER UNIT SAVE"); 
             Globalo.yamlManager.teachingDataYaml.SaveTeaching();
         }
     }
