@@ -9,7 +9,7 @@ namespace ZenHandler.MotionControl
     public static class MotorSet
     {
 
-        public const int MAX_MOTOR_COUNT = 6;       //<-이 수로 아진 모터 세팅
+        public const int MAX_MOTOR_COUNT = 3;//6;       //<-이 수로 아진 모터 세팅
 
         //
         public static int MOTOR_MOVE_TIMEOUT = 20000;   //20s

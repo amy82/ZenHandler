@@ -50,6 +50,17 @@ namespace ZenHandler.Controls
 
             changeMotorNo(0);
         }
+        public void MotorStateRun(bool bFlag)
+        {
+            if(bFlag)
+            {
+                TeachingTimer.Start();
+            }
+            else
+            {
+                TeachingTimer.Stop();
+            }
+        }
         public Data.TeachingDataList GetTeachData(Data.TeachingDataList tData)
         {
             int i = 0;

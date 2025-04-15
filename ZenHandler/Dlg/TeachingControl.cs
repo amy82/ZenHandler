@@ -268,7 +268,7 @@ namespace ZenHandler.Dlg
 
             if (TeachCurrentTab == eTeachingBtn.TransferTab)
             {
-                bool result = await transferTeach.MotorRelMove(dMovePos);
+                bool result = await transferTeach.MotorRelMove(dMovePos * -1);
             }
 
             
@@ -282,7 +282,7 @@ namespace ZenHandler.Dlg
             }
             double dMovePos = double.Parse(LABEL_TEACH_MOVE_VALUE.Text);
 
-            if (CurrentTab == transferTeach)
+            if (TeachCurrentTab == eTeachingBtn.TransferTab)
             {   
                 bool result = await transferTeach.MotorRelMove(dMovePos);
             }

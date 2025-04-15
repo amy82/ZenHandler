@@ -56,7 +56,7 @@ namespace ZenHandler.MotionControl
         {
             this.m_lAxisNo = axisNumber;
             this.Name = name;
-            this.Type = Type;
+            this.Type = type;
             motorBreak = false;     //init
             isMotorBusy = false;
         }
@@ -236,11 +236,11 @@ namespace ZenHandler.MotionControl
                 str = $"{this.Name} Motor Stop status check failed";
                 return false;
             }
-            if (this.OrgState == false)
-            {
-                str = $"{this.Name} Failed to check for return to origin";
-                return false;
-            }
+            //if (this.OrgState == false)       //조그라서 빠져도 될듯 
+            //{
+            //    str = $"{this.Name} Failed to check for return to origin";
+            //    return false;
+            //}
 
             if (direction == 1)
             {
@@ -299,11 +299,11 @@ namespace ZenHandler.MotionControl
                 str = $"{this.Name} Motor Stop status check failed";
                 return false;
             }
-            if (this.OrgState == false)
-            {
-                str = $"{this.Name} Failed to check for return to origin";
-                return false;
-            }
+            //if (this.OrgState == false)       //TODO: + , - 움직이는 거라서 원점 체크 빼도될듯 
+            //{
+            //    str = $"{this.Name} Failed to check for return to origin";
+            //    return false;
+            //}
             ///////
             /////
             ////

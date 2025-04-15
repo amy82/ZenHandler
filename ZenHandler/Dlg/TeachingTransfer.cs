@@ -78,13 +78,14 @@ namespace ZenHandler.Dlg
         {
             if (ProgramState.ON_LINE_MOTOR == true)
             {
-                //TeachingTimer.Start();
+                myTeachingGrid.MotorStateRun(true);
             }
             myTeachingGrid.ShowTeachingData();
             TeachResolution(Globalo.yamlManager.teachingDataYaml.handler.TransferMachine.Resolution[SelectAxisIndex].ToString("0.0##"));
         }
         public void hidePanel()
         {
+            myTeachingGrid.MotorStateRun(false);
             //TeachingTimer.Stop();
         }
 
@@ -127,7 +128,6 @@ namespace ZenHandler.Dlg
             {
                 await Task.Run(() =>
                 {
-                    //g_clSysData.m_dMotorSpeed[m_nUnit][m_nSelectAxis] * g_clSysData.m_dMotorResol[m_nUnit][m_nSelectAxis] * m_dJogSpeed
 
                     isSuccess = Globalo.motionManager.transferMachine.MotorAxes[SelectAxisIndex].JogMove(nDic, dSpeed);
 

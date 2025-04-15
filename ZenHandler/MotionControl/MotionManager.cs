@@ -137,7 +137,7 @@ namespace ZenHandler.MotionControl
             string[] motorNames = Enum.GetNames(typeof(MotorSet.eMotorList));
             string logstr = "";
 
-
+            double[] resolList = { 2000.0, 2000.0, 10000.0 };
             for (i = 0; i < MotorSet.MAX_MOTOR_COUNT; i++)          //Axl_Axisconfig
             {
                 if (i == -1)
@@ -148,6 +148,7 @@ namespace ZenHandler.MotionControl
                 sMotorName = motorNames[nUseAxis];
                 nMotorType = MotorSet.MOTOR_TYPE[i];
                 nMaxSpeed = MotorSet.MOTOR_MAX_SPEED[i];
+                dResol = resolList[i];
 
 
 
@@ -244,7 +245,7 @@ namespace ZenHandler.MotionControl
                     //eLogSender("CAxlMotion", $"[{sMotorName}]모터 최고 속도 설정 실패", Globalo.eMessageName.M_ERROR);
                 }
 
-                if (nMotorType == MotorDefine.eMotorType.LINEAR)
+                if (nMotorType == MotorDefine.eMotorType.LINEAR) 
                 {
                     duRetCode = CAXM.AxmSignalSetInpos(nUseAxis, (uint)AXT_MOTION_LEVEL_MODE.HIGH);
                     if (duRetCode != (uint)AXT_FUNC_RESULT.AXT_RT_SUCCESS)
@@ -260,15 +261,32 @@ namespace ZenHandler.MotionControl
                         Globalo.LogPrint("axm", logstr, Globalo.eMessageName.M_ERROR);
                         //eLogSender("CAxlMotion", $"[{sMotorName}]모터 비상 정지 설정 실패", Globalo.eMessageName.M_ERROR);
                     }
-                    duRetCode = CAXM.AxmSignalSetLimit(nUseAxis, (uint)AXT_MOTION_STOPMODE.EMERGENCY_STOP, (uint)AXT_MOTION_LEVEL_MODE.HIGH, (uint)AXT_MOTION_LEVEL_MODE.HIGH);
+
+                    if(i == 0 || i == 2)
+                    {
+                        duRetCode = CAXM.AxmSignalSetLimit(nUseAxis, (uint)AXT_MOTION_STOPMODE.EMERGENCY_STOP, (uint)AXT_MOTION_LEVEL_MODE.LOW, (uint)AXT_MOTION_LEVEL_MODE.LOW);
+                    }
+                    else
+                    {
+                        duRetCode = CAXM.AxmSignalSetLimit(nUseAxis, (uint)AXT_MOTION_STOPMODE.EMERGENCY_STOP, (uint)AXT_MOTION_LEVEL_MODE.HIGH, (uint)AXT_MOTION_LEVEL_MODE.HIGH);
+                    }
+                    
+
+
                     if (duRetCode != (uint)AXT_FUNC_RESULT.AXT_RT_SUCCESS)
                     {
                         logstr = "[LINEAR] AxmSignalSetLimit Fail";
                         Globalo.LogPrint("axm", logstr, Globalo.eMessageName.M_ERROR);
                         //eLogSender("CAxlMotion", $"[{sMotorName}]모터 Limit 감지 정지 설정 실패", Globalo.eMessageName.M_ERROR);
                     }
-
-                    duRetCode = CAXM.AxmSignalSetServoAlarm(nUseAxis, (uint)AXT_MOTION_LEVEL_MODE.HIGH);
+                    if (i == 2)
+                    {
+                        duRetCode = CAXM.AxmSignalSetServoAlarm(nUseAxis, (uint)AXT_MOTION_LEVEL_MODE.LOW);
+                    }
+                    else
+                    {
+                        duRetCode = CAXM.AxmSignalSetServoAlarm(nUseAxis, (uint)AXT_MOTION_LEVEL_MODE.HIGH);
+                    }
                     if (duRetCode != (uint)AXT_FUNC_RESULT.AXT_RT_SUCCESS)
                     {
                         logstr = "[LINEAR] AxmSignalSetServoAlarm Fail";

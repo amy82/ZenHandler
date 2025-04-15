@@ -91,7 +91,7 @@ namespace ZenHandler
             }
             if (ProgramState.ON_LINE_MOTOR)
             {
-                dIoThread.Close();
+                //dIoThread.Close();
             }
             manualThread.Close();
         }
