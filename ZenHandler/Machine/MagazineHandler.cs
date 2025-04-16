@@ -15,10 +15,15 @@ namespace ZenHandler.Machine
         public MotorDefine.eMotorType[] motorType = { MotorDefine.eMotorType.LINEAR, MotorDefine.eMotorType.LINEAR };
         public AXT_MOTION_LEVEL_MODE[] AXT_SET_LIMIT = { AXT_MOTION_LEVEL_MODE.LOW, AXT_MOTION_LEVEL_MODE.LOW };
         public AXT_MOTION_LEVEL_MODE[] AXT_SET_SERVO_ALARM = { AXT_MOTION_LEVEL_MODE.LOW, AXT_MOTION_LEVEL_MODE.LOW };
+
+
+        public double[] OrgFirstVel = { 5000.0, 5000.0 };
+        public double[] OrgSecondVel = { 2500.0, 2500.0 };
+        public double[] OrgThirdVel = { 500.0, 500.0 };
         public MagazineHandler()// : base("MagazineHandler")
         {
-            MagazineY = new MotionControl.MotorAxis((int)MotionControl.MotorSet.eMotorList.L_IN_LIFT, "MagazineY", motorType[0], MOTOR_MAX_SPEED[0], AXT_SET_LIMIT[0], AXT_SET_SERVO_ALARM[0]);
-            MagazineZ = new MotionControl.MotorAxis((int)MotionControl.MotorSet.eMotorList.L_OUT_LIFT, "MagazineZ", motorType[1], MOTOR_MAX_SPEED[1], AXT_SET_LIMIT[1], AXT_SET_SERVO_ALARM[1]);
+            MagazineY = new MotionControl.MotorAxis((int)MotionControl.MotorSet.eMotorList.L_IN_LIFT, "MagazineY", motorType[0], MOTOR_MAX_SPEED[0], AXT_SET_LIMIT[0], AXT_SET_SERVO_ALARM[0], OrgFirstVel[0], OrgSecondVel[0], OrgThirdVel[0]);
+            MagazineZ = new MotionControl.MotorAxis((int)MotionControl.MotorSet.eMotorList.L_OUT_LIFT, "MagazineZ", motorType[1], MOTOR_MAX_SPEED[1], AXT_SET_LIMIT[1], AXT_SET_SERVO_ALARM[1], OrgFirstVel[1], OrgSecondVel[1], OrgThirdVel[1]);
 
             //TransferX = new MotionControl.MotorAxis((int)MotionControl.MotorSet.eMotorList.TRANSFER_X, axisName[0], motorType[0]);
             this.MachineName = this.GetType().Name;

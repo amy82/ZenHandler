@@ -23,6 +23,7 @@ namespace ZenHandler.Process
 
             //bool bRtn = false;
             //int nLensAxis = 0;
+            uint duState = 0;
             bool m_bHomeProc = true;
             bool m_bHomeError = false;
             //double dAcc = 0.3;
@@ -46,12 +47,14 @@ namespace ZenHandler.Process
                     break;
                 case 1060:
                     //실린더 전체 상승
+                    nRetStep = 1070;
                     break;
                 case 1070:
                     //실린더 전체 상승 확인
+                    nRetStep = 1080;
                     break;
                 case 1080:
-
+                    nRetStep = 1090;
                     break;
                 case 1090:
                     //z축 Limit 이동
@@ -209,26 +212,15 @@ namespace ZenHandler.Process
                     }
                     break;
                 case 1190:
-
+                    nRetStep = 1200;
                     break;
                 case 1200:
-
-                    break;
-                case 1210:
-
-                    break;
-                case 1220:
-
-                    break;
-                case 1230:
-
-                    break;
-                case 1240:
-
+                    nRetStep = 1250;
                     break;
                 case 1250:
                     szLog = $"[ORIGIN] Transfer X/Y/Z Limit 위치 이동 완료 [STEP : {nStep}]";
                     Globalo.LogPrint("ManualControl", szLog);
+                    nRetStep = 1260;
                     break;
                 case 1260:
                     bRtn = true;
@@ -258,12 +250,10 @@ namespace ZenHandler.Process
                         
                         duRetCode = CAXM.AxmHomeSetVel(
                             Globalo.motionManager.transferMachine.MotorAxes[i].m_lAxisNo,
-                            Globalo.motorControl.OrgFirstVel[i],    //
-                            Globalo.motorControl.OrgSecondVel[i],
-                            Globalo.motorControl.OrgThirdVel[i], 
-                            50.0,   //LastVel
-                            0.3, //Acc Firset
-                            0.3);//Acc Second
+                            Globalo.motionManager.transferMachine.MotorAxes[i].FirstVel,
+                            Globalo.motionManager.transferMachine.MotorAxes[i].SecondVel,
+                            Globalo.motionManager.transferMachine.MotorAxes[i].ThirdVel,
+                            50.0,  0.3, 0.3);//LastVel, Acc Firset, Acc Second
 
 
                         if (duRetCode != (uint)AXT_FUNC_RESULT.AXT_RT_SUCCESS)
@@ -282,25 +272,81 @@ namespace ZenHandler.Process
                         break;
                     }
 
-                    nRetStep = 1190;
+                    nRetStep = 1270;
                     break;
                 case 1270:
+                    bRtn = true;
+                    for (int i = 0; i < Globalo.motionManager.transferMachine.MotorAxes.Length; i++)
+                    {
+                        duRetCode = CAXM.AxmHomeSetStart(Globalo.motionManager.transferMachine.MotorAxes[i].m_lAxisNo);
 
+                        if (duRetCode != (uint)AXT_FUNC_RESULT.AXT_RT_SUCCESS)
+                        {
+                            bRtn = false;
+                            szLog = $"[ORIGIN] {Globalo.motionManager.transferMachine.MotorAxes[i].Name} AxmHomeSetStart Fail [STEP : {nStep}]";
+                            Globalo.LogPrint("PcbProcess", szLog);
+                        }
+                    }
+                    if (bRtn == false)
+                    {
+                        szLog = $"[ORIGIN] 원점 시작 실패 [STEP : {nStep}]";
+                        Globalo.LogPrint("PcbProcess", szLog);
+                        nRetStep *= -1;
+                        break;
+                    }
+
+                    nRetStep = 1280;
                     break;
                 case 1280:
-
+                    nRetStep = 1290;
                     break;
                 case 1290:
-
+                    m_bHomeProc = true;
+                    m_bHomeError = false;
+                    for (int i = 0; i < Globalo.motionManager.transferMachine.MotorAxes.Length; i++)
+                    {
+                        CAXM.AxmHomeGetResult(Globalo.motionManager.transferMachine.MotorAxes[i].m_lAxisNo, ref duState);
+                        if (duState == (uint)AXT_MOTION_HOME_RESULT.HOME_SUCCESS)
+                        {
+                            //원점 완료
+                            Globalo.motionManager.transferMachine.MotorAxes[i].OrgState = true;
+                        }
+                        else if (duState == (uint)AXT_MOTION_HOME_RESULT.HOME_SEARCHING)
+                        {
+                            //검색중
+                            m_bHomeProc = false;
+                        }
+                        else if (duState == (uint)AXT_MOTION_HOME_RESULT.HOME_ERR_AMP_FAULT || duState == (uint)AXT_MOTION_HOME_RESULT.HOME_ERR_NOT_DETECT ||
+                            duState == (uint)AXT_MOTION_HOME_RESULT.HOME_ERR_NEG_LIMIT || duState == (uint)AXT_MOTION_HOME_RESULT.HOME_ERR_POS_LIMIT ||
+                            duState == (uint)AXT_MOTION_HOME_RESULT.HOME_ERR_UNKNOWN)
+                        {
+                            //fail
+                            m_bHomeError = true;
+                            szLog = $"[ORIGIN] {Globalo.motionManager.transferMachine.MotorAxes[i].Name} HOME 동작 ERROR [STEP : {nStep}]";
+                            Globalo.LogPrint("PcbProcess", szLog);
+                        }
+                    }
+                    if (m_bHomeError == true)
+                    {
+                        nRetStep *= -1;
+                        break;
+                    }
+                    if (m_bHomeProc == true)
+                    {
+                        nRetStep = 1300;
+                    }
                     break;
                 case 1300:
-
+                    nRetStep = 1400;
+                    break;
+                case 1400:
+                    
+                    nRetStep = 1900;
                     break;
 
-
                 case 1900:
-                    Thread.Sleep(5000);
-                    //원점 복귀 완료
+                    szLog = $"[ORIGIN] TRANSFER UNIT 전체 원점 위치 이동 완료 [STEP : {nStep}]";
+                    Globalo.LogPrint("ManualControl", szLog, Globalo.eMessageName.M_INFO);
                     nRetStep = 2000;
                     break;
                 default:

@@ -26,7 +26,9 @@ namespace ZenHandler.MotionControl
         public MotorDefine.eMotorType Type { get; protected set; }                 //LINEAR, STEPING
         public AXT_MOTION_LEVEL_MODE AxtSetServoAlarm { get; protected set; }  //AxmSignalSetServoAlarm
         public AXT_MOTION_LEVEL_MODE AxtSetLimit { get; protected set; }  //AxmSignalSetLimit
-
+        public double FirstVel { get; protected set; } = 0.0;
+        public double SecondVel { get; protected set; } = 0.0;
+        public double ThirdVel { get; protected set; } = 0.0;
         //
         //Second Set
         public double Velocity { get; set; }                        //속도 = Move 속도 , Jog 속도 나눠야 될 수도
@@ -55,7 +57,8 @@ namespace ZenHandler.MotionControl
 
 
 
-        public MotorAxis(int axisNumber, string name, MotorDefine.eMotorType type, double maxSpeed, AXT_MOTION_LEVEL_MODE limit, AXT_MOTION_LEVEL_MODE alarm)
+        public MotorAxis(int axisNumber, string name, MotorDefine.eMotorType type, double maxSpeed, AXT_MOTION_LEVEL_MODE limit, AXT_MOTION_LEVEL_MODE alarm,
+            double firstvel , double secondvel , double thirdvel)
         {
             this.m_lAxisNo = axisNumber;
             this.Name = name;
@@ -63,6 +66,9 @@ namespace ZenHandler.MotionControl
             this.MaxSpeed = maxSpeed;
             this.AxtSetLimit = limit;
             this.AxtSetServoAlarm = alarm;
+            this.FirstVel = firstvel;
+            this.SecondVel = secondvel;
+            this.ThirdVel = thirdvel;
 
             this.MotorBreak = false;     //init
             this.IsMotorBusy = false;

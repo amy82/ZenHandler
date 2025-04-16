@@ -38,9 +38,9 @@ namespace ZenHandler.Machine
 
         public TransferMachine()//: base("Machine")
         {
-            TransferX = new MotionControl.MotorAxis((int)MotionControl.MotorSet.eMotorList.TRANSFER_X, axisName[0], motorType[0], MOTOR_MAX_SPEED[0], AXT_SET_LIMIT[0], AXT_SET_SERVO_ALARM[0]);
-            TransferY = new MotionControl.MotorAxis((int)MotionControl.MotorSet.eMotorList.TRANSFER_Y, axisName[1], motorType[1], MOTOR_MAX_SPEED[1], AXT_SET_LIMIT[1], AXT_SET_SERVO_ALARM[1]);
-            TransferZ = new MotionControl.MotorAxis((int)MotionControl.MotorSet.eMotorList.TRANSFER_Z, axisName[2], motorType[2], MOTOR_MAX_SPEED[2], AXT_SET_LIMIT[2], AXT_SET_SERVO_ALARM[2]);
+            TransferX = new MotionControl.MotorAxis((int)MotionControl.MotorSet.eMotorList.TRANSFER_X, axisName[0], motorType[0], MOTOR_MAX_SPEED[0], AXT_SET_LIMIT[0], AXT_SET_SERVO_ALARM[0], OrgFirstVel[0], OrgSecondVel[0], OrgThirdVel[0]);
+            TransferY = new MotionControl.MotorAxis((int)MotionControl.MotorSet.eMotorList.TRANSFER_Y, axisName[1], motorType[1], MOTOR_MAX_SPEED[1], AXT_SET_LIMIT[1], AXT_SET_SERVO_ALARM[1], OrgFirstVel[1], OrgSecondVel[1], OrgThirdVel[1]);
+            TransferZ = new MotionControl.MotorAxis((int)MotionControl.MotorSet.eMotorList.TRANSFER_Z, axisName[2], motorType[2], MOTOR_MAX_SPEED[2], AXT_SET_LIMIT[2], AXT_SET_SERVO_ALARM[2], OrgFirstVel[2], OrgSecondVel[2], OrgThirdVel[2]);
 
             MotorAxes = new MotionControl.MotorAxis[] { TransferX, TransferY, TransferZ };
             MotorCnt = MotorAxes.Length;
