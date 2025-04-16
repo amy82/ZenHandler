@@ -13,8 +13,8 @@ namespace ZenHandler.MotionControl
         protected FThread.MotorAutoThread motorAutoThread;
         protected FThread.MotorManualThread motorManualThread;
         
-
         public Process.ProcessManager processManager;
+
         public string MachineName { get; protected set; }
         protected CancellationTokenSource cts;
         ////protected bool isMotorBusy = false; //실행중 체크용 플래그
@@ -30,8 +30,8 @@ namespace ZenHandler.MotionControl
 
         public MotorController()//string name
         {
-            //motorAutoThread = new FThread.MotorAutoThread(this);
-            //motorManualThread = new FThread.MotorManualThread(this);
+            motorAutoThread = new FThread.MotorAutoThread(this);        //TODO: MotorAutoThread 쓰레드 종료하는 거 추가해야된다.
+            motorManualThread = new FThread.MotorManualThread(this);
 
             processManager = new Process.ProcessManager();
             
@@ -209,6 +209,27 @@ namespace ZenHandler.MotionControl
             }
             nAxis.IsMotorBusy = false;
             return isSuccess;
+        }
+        public virtual bool MoveAxisLimit(MotorAxis nAxis, double dVel, double dAcc, AXT_MOTION_HOME_DETECT Detect, AXT_MOTION_EDGE Edge, AXT_MOTION_STOPMODE StopMode, bool bWait = false)
+        {
+            uint duRetCode = 0;
+
+            double DVel = 0.0;
+            double DAcc = 0.0;
+
+
+            DVel = dVel * nAxis.Resolution;
+
+            duRetCode = CAXM.AxmMoveSignalSearch(nAxis.m_lAxisNo, DVel, DAcc, (int)Detect, (int)Edge, (int)StopMode);
+
+            if (duRetCode != (uint)AXT_FUNC_RESULT.AXT_RT_SUCCESS)
+            {
+
+                Console.WriteLine("MotorControl", $"AxmMoveSignalSearch return error[Code:{duRetCode}]", Globalo.eMessageName.M_ERROR);
+
+                return false;
+            }
+            return true;
         }
         public virtual bool MultiAxisMove(MotorAxis[] multiAxis, double[] dMultiPos, bool bWait = false)
         {

@@ -12,9 +12,9 @@ namespace ZenHandler.Machine
     {
         public int MotorCnt { get; private set; } = 3;
 
-        private MotionControl.MotorAxis TransferX;
-        private MotionControl.MotorAxis TransferY;
-        private MotionControl.MotorAxis TransferZ;
+        public MotionControl.MotorAxis TransferX;
+        public MotionControl.MotorAxis TransferY;
+        public MotionControl.MotorAxis TransferZ;
 
         public MotionControl.MotorAxis[] MotorAxes; // 배열 선언
 
@@ -25,6 +25,10 @@ namespace ZenHandler.Machine
         public MotorDefine.eMotorType[] motorType = { MotorDefine.eMotorType.LINEAR, MotorDefine.eMotorType.LINEAR, MotorDefine.eMotorType.LINEAR };
         public AXT_MOTION_LEVEL_MODE[] AXT_SET_LIMIT = { AXT_MOTION_LEVEL_MODE.LOW, AXT_MOTION_LEVEL_MODE.HIGH, AXT_MOTION_LEVEL_MODE.LOW };
         public AXT_MOTION_LEVEL_MODE[] AXT_SET_SERVO_ALARM = { AXT_MOTION_LEVEL_MODE.HIGH, AXT_MOTION_LEVEL_MODE.HIGH, AXT_MOTION_LEVEL_MODE.LOW };
+
+        public double[] OrgFirstVel = { 10000.0, 10000.0, 5000.0 };
+        public double[] OrgSecondVel = { 5000.0, 5000.0, 2500.0 };
+        public double[] OrgThirdVel = { 1000.0, 1000.0, 500.0 };
 
         public string processName = "tttt";
 
@@ -46,9 +50,6 @@ namespace ZenHandler.Machine
             TransferZ.setMotorParameter(10.0, 0.1, 0.1, 1000.0);
 
             this.MachineName = this.GetType().Name;
-
-            motorAutoThread = new FThread.MotorAutoThread(this);
-
         }
         public override void MotorDataSet()
         {
@@ -755,22 +756,7 @@ namespace ZenHandler.Machine
 
             Console.WriteLine($"MoveMotorAndWaitAsync End 위치: {i}");
         }
-        public void TransFer_XYZ_Move()
-        {
-            MotionControl.MotorAxis[] multiAxis = { TransferX, TransferY, TransferZ };
-            double[] dMultiPos = { 0.0, 0.0 };
 
-            bool bRtn = MultiAxisMove(multiAxis, dMultiPos);
-            if (bRtn)
-            {
-
-            }
-            else
-            {
-
-            }
-        }
-        
         public void SingleMoveToPosition(int position)
         {
             int i = 0;
@@ -796,8 +782,6 @@ namespace ZenHandler.Machine
         {
             if (motorAutoThread.GetThreadRun() == true)
             {
-                Console.WriteLine($"=====> 모터 동작 중입니다.");
-
                 //motorAutoThread.Stop();
                 return;
             }
@@ -806,14 +790,15 @@ namespace ZenHandler.Machine
 
             motorAutoThread.m_nStartStep = motorAutoThread.m_nCurrentStep;
             motorAutoThread.m_nEndStep = 2000;
+
             bool rtn = motorAutoThread.Start();
             if(rtn)
             {
-                Console.WriteLine($"모터 동작 성공.");
+                Console.WriteLine($"[ORIGIN] Transfer Origin Start");
             }
             else
             {
-                Console.WriteLine($"모터 동작 실패.");
+                Console.WriteLine($"[ORIGIN] Transfer Origin Start Fail");
             }
 
         }
