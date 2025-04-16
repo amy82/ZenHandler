@@ -303,6 +303,7 @@ namespace ZenHandler.Dlg
                     logstr = $"[MANUAL] TRANSFER XY AXIS {ePos.ToString()} Move Fail";
                     Globalo.LogPrint("", logstr);
                 }
+
                 bManualStopKey = false;
                 isMovingTransfer = false;
             }

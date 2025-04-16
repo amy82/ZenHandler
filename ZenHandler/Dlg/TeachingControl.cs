@@ -13,7 +13,6 @@ namespace ZenHandler.Dlg
 {
     public partial class TeachingControl : UserControl
     {
-        public event EventHandler LanguageChanged;
         private eTeachingBtn TeachCurrentTab;
         private TeachingTransfer transferTeach;
 

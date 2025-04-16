@@ -17,6 +17,7 @@ namespace ZenHandler.FThread
         public MotorAutoThread(MotionControl.MotorController _parent)
         {
             this.parent = _parent;
+            this.name = "MotorAutoThread";
         }
         private void TransferFlow()
         {

@@ -47,6 +47,8 @@ namespace ZenHandler.Machine
 
             this.MachineName = this.GetType().Name;
 
+            motorAutoThread = new FThread.MotorAutoThread(this);
+
         }
         public override void MotorDataSet()
         {
@@ -772,33 +774,6 @@ namespace ZenHandler.Machine
         public void SingleMoveToPosition(int position)
         {
             int i = 0;
-            //GetAmpFault 확인
-
-            //GetAmpEnable 확인
-
-
-            for (i = 0; i < 3; i++)
-            {
-                /*
-                    nAxis[0] = MOTOR_PCB_X;
-	                nAxis[1] = MOTOR_PCB_Y;
-	                nAxis[2] = MOTOR_PCB_TH;
-
-	                dPos[0] = g_clModelData[nUnit].m_stTeachData[nPosi].dPos[MOTOR_PCB_X] + dOffsetX;
-	                dPos[1] = g_clModelData[nUnit].m_stTeachData[nPosi].dPos[MOTOR_PCB_Y] + dOffsetY;
-	                dPos[2] = g_clModelData[nUnit].m_stTeachData[nPosi].dPos[MOTOR_PCB_TH] + dOffsetTh;
-
-                */
-            }
-            
-
-            //if (this->MoveAxisMulti(nUnit, 3, nAxis, dPos) == false)
-
-            //if (bWait == true)
-            //      while(1)
-
-            //duRetCode = CAXM.AxmMoveMultiPos((int)m_lMoveMultiAxesCount, m_lMoveMultiAxes, dMultiPos, dMultiVel, dMultiAcc, dMultiDec);
-            //duRetCode = CAXM.AxmMoveStartMultiPos((int)m_lMoveMultiAxesCount, m_lMoveMultiAxes, dMultiPos, dMultiVel, dMultiAcc, dMultiDec);
         }
 
 
@@ -819,18 +794,18 @@ namespace ZenHandler.Machine
         
         public override void OriginRun()
         {
+            if (motorAutoThread.GetThreadRun() == true)
+            {
+                Console.WriteLine($"=====> 모터 동작 중입니다.");
+
+                //motorAutoThread.Stop();
+                return;
+            }
+
             motorAutoThread.m_nCurrentStep = 1000;
 
             motorAutoThread.m_nStartStep = motorAutoThread.m_nCurrentStep;
             motorAutoThread.m_nEndStep = 2000;
-
-            if (motorAutoThread.GetThreadRun() == true)
-            {
-                Console.WriteLine($"모터 동작 중입니다.");
-
-                motorAutoThread.Stop();
-                Thread.Sleep(300);
-            }
             bool rtn = motorAutoThread.Start();
             if(rtn)
             {

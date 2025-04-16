@@ -302,6 +302,12 @@
     <Compile Include="Dlg\TrayStateInfo.Designer.cs">
       <DependentUpon>TrayStateInfo.cs</DependentUpon>
     </Compile>
+    <Compile Include="Dlg\UnitControl.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Dlg\UnitControl.Designer.cs">
+      <DependentUpon>UnitControl.cs</DependentUpon>
+    </Compile>
     <Compile Include="Event\EventManager.cs" />
     <Compile Include="Ezterm\AXA.cs" />
     <Compile Include="Ezterm\AXC.cs" />
@@ -463,6 +469,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Dlg\TrayStateInfo.resx">
       <DependentUpon>TrayStateInfo.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Dlg\UnitControl.resx">
+      <DependentUpon>UnitControl.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="InputForm.resx">
       <DependentUpon>InputForm.cs</DependentUpon>

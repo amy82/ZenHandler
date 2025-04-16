@@ -30,8 +30,8 @@ namespace ZenHandler.MotionControl
 
         public MotorController()//string name
         {
-            motorAutoThread = new FThread.MotorAutoThread(this);
-            motorManualThread = new FThread.MotorManualThread(this);
+            //motorAutoThread = new FThread.MotorAutoThread(this);
+            //motorManualThread = new FThread.MotorManualThread(this);
 
             processManager = new Process.ProcessManager();
             

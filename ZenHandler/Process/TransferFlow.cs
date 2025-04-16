@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using System.Threading;
 using System.Threading.Tasks;
 
 namespace ZenHandler.Process
@@ -29,10 +30,11 @@ namespace ZenHandler.Process
             switch (nStep)
             {
                 case 1000:
-                    nRetStep = 9000;
+                    Console.WriteLine("[ORIGIN] TRANSFER START");
+                    nRetStep = 1900;
                     break;
                 case 1900:
-
+                    Thread.Sleep(5000);
                     //원점 복귀 완료
                     nRetStep = 2000;
                     break;
