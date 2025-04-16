@@ -59,7 +59,9 @@ namespace ZenHandler  //ApsMotionControl
             Globalo.yamlManager.secsGemDataYaml.MesLoad();
             Globalo.yamlManager.secsGemDataYaml.SensorIniLoad();
 
-            Globalo.yamlManager.teachData.LoadTeaching();
+            string className = typeof(Machine.TransferMachine).Name;
+
+            Globalo.yamlManager.teachData.LoadTeaching(className);
 
 
             Globalo.yamlManager.configDataLoad();

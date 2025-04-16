@@ -35,19 +35,61 @@ namespace ZenHandler.Data
         public TeachingDataList MagazineHandler { get; set; } = new TeachingDataList();//teachingMagazineUnit.yaml
         public TeachingDataList LiftMachine { get; set; } = new TeachingDataList();//teachingLIftUnit.yaml
     }
+    public class TeachingConfig
+    {
+        public List<double> Speed { get; set; }
+        public List<double> Accel { get; set; }
+        public List<double> Decel { get; set; }
+        public List<double> Resolution { get; set; }
+        public List<TeachingPos> Teaching { get; set; }
 
+        public bool LoadTeach(string fileName)      //티칭 분리
+        {
+            string filePath = Path.Combine(CPath.BASE_ENV_PATH, fileName);
+            try
+            {
+                if (!File.Exists(filePath))
+                    return false;
+
+                var Loaded = Data.YamlManager.LoadYaml<TeachingConfig>(filePath);
+
+                if (Loaded == null)
+                {
+                    Globalo.LogPrint("TeachingDataYaml", "TEACHING DATA LOAD FAIL", Globalo.eMessageName.M_ERROR);
+                    return false;
+                }
+                // 값 복사
+                this.Speed = Loaded.Speed;
+                this.Accel = Loaded.Accel;
+                this.Decel = Loaded.Decel;
+                this.Resolution = Loaded.Resolution;
+                this.Teaching = Loaded.Teaching;
+
+                Globalo.LogPrint("TeachingDataYaml", "TEACHING DATA LOAD COMPLETE!");
+                return true;
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine($"Error loading MesLoad: {ex.Message}");
+                return false;
+            }
+        }
+
+    }
     // Flow 스타일 시퀀스를 위한 커스텀 TypeConverter
-    
+
     public class TeachingDataYaml
     {
         public HandlerTeachingData handler;
+        
         public TeachingDataYaml()
         {
 
         }
+        
         public bool LoadTeaching(string fileName = "teachingData")
         {
-            string filePath = Path.Combine(CPath.BASE_ENV_PATH, fileName + ".yaml");    //CPath.yamlTeachingData);
+            string filePath = Path.Combine(CPath.BASE_ENV_PATH, "Teaching_"+fileName + ".yaml");    //CPath.yamlTeachingData);
             try
             {
                 if (!File.Exists(filePath))

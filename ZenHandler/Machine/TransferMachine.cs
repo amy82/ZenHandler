@@ -34,11 +34,13 @@ namespace ZenHandler.Machine
         public double[] OrgThirdVel = { 5000.0, 5000.0, 2500.0 };
 
         //TODO: 필요한 티칭 위치도 여기서 정하는게 나을까?
-        public string[] TeachingPos = { "WAIT_POS", "LEFT_LOAD_POS", "LEFT_UNLOAD_POS", "SOCKET_A1", "SOCKET_A2", "SOCKET_B1", "SOCKET_B2" };
         public enum eTeachingPosList : int
         {
             WAIT_POS = 0, LEFT_LOAD_POS, LEFT_UNLOAD_POS, SOCKET_A1, SOCKET_A2, SOCKET_B1, SOCKET_B2, TOTAL_TRANSFER_TEACHING_COUNT
         };
+
+        // public Dictionary<string, Data.TeachingConfig> machineConfigs = new Dictionary<string, Data.TeachingConfig>();
+        public Data.TeachingConfig teachingConfig = new Data.TeachingConfig();
         public string processName = "tttt";
         
 
