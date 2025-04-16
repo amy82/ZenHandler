@@ -10,7 +10,7 @@ namespace ZenHandler
     static class Program
     {
         public const string VERSION_INFO = "1.0.0.1";
-        public const string BUILD_DATE = "25-04-09";
+        public const string BUILD_DATE = "25-04-16";        //16:00
 
         public static bool NORINDA_MODE = true;    //TODO: 배포전 변경해야된다.
         [STAThread]
@@ -39,3 +39,4 @@ namespace ZenHandler
         }
     }
 }
+//250417 home end 07:23

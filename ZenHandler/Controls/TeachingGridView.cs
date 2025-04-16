@@ -50,11 +50,22 @@ namespace ZenHandler.Controls
 
             changeMotorNo(0);
         }
-        public Data.TeachingDataList GetTeachData()
+        public void MotorStateRun(bool bFlag)
+        {
+            if(bFlag)
+            {
+                TeachingTimer.Start();
+            }
+            else
+            {
+                TeachingTimer.Stop();
+            }
+        }
+        public Data.TeachingDataList GetTeachData(Data.TeachingDataList tData)
         {
             int i = 0;
             int j = 0;
-            Data.TeachingDataList tempData = new Data.TeachingDataList();
+            Data.TeachingDataList tempData = tData;// new Data.TeachingDataList();
             tempData.Speed = new List<double>();
             tempData.Accel = new List<double>();
             tempData.Decel = new List<double>();
@@ -80,19 +91,14 @@ namespace ZenHandler.Controls
                         {
                             case 6: //속도
                                 tempData.Speed.Add(doubleValue);
-                                //Globalo.yamlManager.teachingDataYaml.teachingHandlerData.TransferMachine.Set[0].X = doubleValue;
                                 break;
                             case 7: //가속도
                                 tempData.Accel.Add(doubleValue);
-                                //Globalo.yamlManager.teachingDataYaml.teachingHandlerData.TransferMachine.Set[1].X = doubleValue;
                                 break;
                             case 8: //감속도
                                 tempData.Decel.Add(doubleValue);
-                                //Globalo.yamlManager.teachingDataYaml.teachingHandlerData.TransferMachine.Set[2].X = doubleValue;
                                 break;
                             default:
-                                //tempData.Teaching.Add(new Data.TeachingPos { Name = "", Pos = new double{ 0.1, 0.1 } });
-                                
                                 posTemp.Name = this.Rows[i].Cells[0].Value.ToString();
                                 posTemp.Pos.Add(doubleValue);
 
@@ -114,7 +120,7 @@ namespace ZenHandler.Controls
         {
             int i = 0;
             int j = 0;
-            double dpos = 0.0;
+            //double dpos = 0.0;
             string formattedValue = "";
 
             for (i = 0; i < motorList.Length; i++)
@@ -126,6 +132,7 @@ namespace ZenHandler.Controls
                 formattedValue = teachingData.Decel[i].ToString(PointFormat);
                 this[1 + i, selectStartRow + 2].Value = formattedValue;
             }
+
             for (i = 0; i < teachingData.Teaching.Count; i++)
             {
                 for (j = 0; j < teachingData.Teaching[i].Pos.Count; j++)
@@ -153,7 +160,6 @@ namespace ZenHandler.Controls
 
             nGridRowCount += TeachingPosCount;
 
-            //this.ColumnCount = MotorControl.PCB_UNIT_COUNT + 1;
             this.ColumnCount = motorList.Length + 1;
             this.EnableHeadersVisualStyles = false;
             this.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.DisableResizing; //사이즈 조절 막기
@@ -336,6 +342,10 @@ namespace ZenHandler.Controls
                 string cellStr = this.Rows[nGridRowCount - 1].Cells[SelectAxisIndex + 1].Value.ToString();
                 this[SelectAxisIndex + 1, e.RowIndex].Value = cellStr;
 
+            }
+            if (nRow == -1 && nCol > 0)
+            {
+                ///changeMotorNo(nCol - 1);    //2번째부터 시작이라서 -1 , 바깥 축선택 에 전달이 안돼서 주석처리
             }
         }
         private void TeachGrid_CellClick(object sender, DataGridViewCellEventArgs e)

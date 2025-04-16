@@ -12,6 +12,7 @@ namespace ZenHandler
         {
             LINEAR,
             STEPING,
+            LINEAR_STEP     //PCB Z 모터 세팅은 리니어로 , 구동은 AxmStatusGetCmdPos로
         };
 
         public enum eMotorAxis : int

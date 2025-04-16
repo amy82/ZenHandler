@@ -20,50 +20,116 @@ namespace ZenHandler.MotionControl
     public class MotorAxis
     {
         //MotorController
-        //
+        //Firset Set
         public int m_lAxisNo { get; protected set; } = 0;            // 축 번호 MOTOR_PCB_X = 0, MOTOR_PCB_Y,
         public string Name { get; protected set; } = "";
         public MotorDefine.eMotorType Type { get; protected set; }                 //LINEAR, STEPING
-        public double CommnadPos { get; protected set; }        //현재 위치 AxmStatusGetCmdPos : STEPING
-        public double ActualPos { get; protected set; }         //현재 위치 AxmStatusGetActPos : LINEAR , SERVO
-        public double CommandVelocity { get; protected set; }   //지정한 축의 구동 속도 AxmStatusReadVel
-        public double Velocity { get; set; }                       //속도 = Move 속도 , Jog 속도 나눠야 될 수도
-        public double Acceleration { get; set; }         //가속
-        public double Deceleration { get; set; }         //감속
-        public int Resolution { get; protected set; }
-        public bool OrgState { get; protected set; }             //원점 상태
-        public bool RunState { get; protected set; }             //동작 상태
+        public AXT_MOTION_LEVEL_MODE AxtSetServoAlarm { get; protected set; }  //AxmSignalSetServoAlarm
+        public AXT_MOTION_LEVEL_MODE AxtSetLimit { get; protected set; }  //AxmSignalSetLimit
+        public double FirstVel { get; protected set; } = 0.0;
+        public double SecondVel { get; protected set; } = 0.0;
+        public double ThirdVel { get; protected set; } = 0.0;
+        //
+        //Second Set
+        public double Velocity { get; set; }                        //속도 = Move 속도 , Jog 속도 나눠야 될 수도
+        public double Acceleration { get; set; }                    //가속
+        public double Deceleration { get; set; }                    //감속
+        public double Resolution { get; protected set; }
+        public double MaxSpeed { get; protected set; }
         //
         //
-        public int MaxSpeed { get; protected set; }             //1000
-        public int HomeMoveDir { get; protected set; }          //DIR_CW= 0x1, 시계방향/ DIR_CCW= 0x0, 반시계방향
-        public int HomeDetect { get; protected set; }           //HomeSensor, PosEndLimit, NegEndLimit
-
-        public bool isMotorBusy;        //실행중 체크용 플래그
-        public bool motorBreak;         //while 빠져 나오는 용도
+        public double CommnadPos { get; protected set; }            //현재 위치 AxmStatusGetCmdPos : STEPING
+        public double ActualPos { get; protected set; }             //현재 위치 AxmStatusGetActPos : LINEAR , SERVO
+        public double CommandVelocity { get; protected set; }       //지정한 축의 구동 속도 AxmStatusReadVel
+        public bool OrgState { get; set; }                //원점 상태
+        public bool RunState { get; protected set; }                //동작 상태
+        //
+        //
+        public AXT_MOTION_MOVE_DIR HomeMoveDir { get; protected set; }              //DIR_CW= 0x1, 시계방향/ DIR_CCW= 0x0, 반시계방향
+        public AXT_MOTION_HOME_DETECT HomeDetect { get; protected set; }               //HomeSensor, PosEndLimit, NegEndLimit
+        //
+        //
+        public bool IsMotorBusy;        //실행중 체크용 플래그
+        public bool MotorBreak;         //while 빠져 나오는 용도
         // dwAbsRelMode : (0)POS_ABS_MODE - 현재 위치와 상관없이 지정한 위치로 절대좌표 이동합니다.
         //                (1)POS_REL_MODE - 현재 위치에서 지정한 양만큼 상대좌표 이동합니다.
         //(uint)AXT_MOTION_ABSREL.POS_ABS_MODE / POS_REL_MODE
 
 
-
-        public MotorAxis(int axisNumber, string name)
+        public MotorAxis(int axisNumber, string name, MotorDefine.eMotorType type, double maxSpeed, AXT_MOTION_LEVEL_MODE limit, AXT_MOTION_LEVEL_MODE alarm,
+            double firstvel , double secondvel , double thirdvel,
+            AXT_MOTION_HOME_DETECT homeDetect , AXT_MOTION_MOVE_DIR homeDir)
         {
             this.m_lAxisNo = axisNumber;
             this.Name = name;
-            motorBreak = false;     //init
-            isMotorBusy = false;
+            this.Type = type;
+            this.MaxSpeed = maxSpeed;
+            this.AxtSetLimit = limit;
+            this.AxtSetServoAlarm = alarm;
+            this.FirstVel = firstvel;
+            this.SecondVel = secondvel;
+            this.ThirdVel = thirdvel;
+            this.HomeDetect = homeDetect;
+            this.HomeMoveDir = homeDir;
+
+            this.MotorBreak = false;     //init
+            this.IsMotorBusy = false;
         }
+        
+        public virtual void setMotorParameter(double vel , double acc , double dec , double resol )
+        {
+            if (vel < 10)
+            {
+                vel = 10;
+            }
+
+            if (acc < 0.1)
+            {
+                acc = 0.1;
+            }
+            if (acc > 3.0)
+            {
+                acc = 3.0;
+            }
+            if (dec < 0.1)
+            {
+                dec = 0.1;
+            }
+            if (dec > 3.0)
+            {
+                dec = 3.0;
+            }
+
+            if (resol < 1000.0)
+            {
+                resol = 1000.0;
+            }
+            Velocity = vel;
+            Acceleration = acc;
+            Deceleration = dec;
+            Resolution = resol;
+        }
+
 
         public virtual void ServoOn()
         {
-            uint duOnOff = 1;
-            CAXM.AxmSignalServoOn(m_lAxisNo, duOnOff);
+            CAXM.AxmSignalServoOn(m_lAxisNo, (uint)AXT_USE.ENABLE);
         }
         public virtual void ServoOff()
         {
-            uint duOnOff = 0;
-            CAXM.AxmSignalServoOn(m_lAxisNo, duOnOff);
+            CAXM.AxmSignalServoOn(m_lAxisNo, (uint)AXT_USE.DISABLE);
+        }
+        public virtual void ServoAlarmReset(int dOnOff)
+        {
+            if (dOnOff == 0)
+            {
+                CAXM.AxmSignalServoAlarmReset(m_lAxisNo, (uint)AXT_USE.DISABLE);
+            }
+            else
+            {
+                CAXM.AxmSignalServoAlarmReset(m_lAxisNo, (uint)AXT_USE.ENABLE);
+            }
+            
         }
         public virtual void Stop(int type = 0)
         {
@@ -123,12 +189,6 @@ namespace ZenHandler.MotionControl
             CAXM.AxmMoveStop(this.m_lAxisNo, this.Deceleration);
             CAXM.AxmSignalServoOn(this.m_lAxisNo, (uint)AXT_USE.DISABLE);
 
-            //Thread.Sleep(300);
-            //if (MOTOR_TYPE[nAxis] == STEPING)
-            //{
-            //AxmSignalServoAlarmReset(nUseAxis, ENABLE);
-            //}
-
             return true;
         }
         public virtual bool GetServoState()
@@ -163,39 +223,11 @@ namespace ZenHandler.MotionControl
             return false;
         }
 
-        public void MotorPropertySet(double speed , double acc , double dec)
-        {
-            if (speed < 1)
-            {
-                speed = 1;
-            }
-
-            if (acc < 0.1)
-            {
-                acc = 0.1;
-            }
-            if (acc > 3.0)
-            {
-                acc = 3.0;
-            }
-            if (dec < 0.1)
-            {
-                dec = 0.1;
-            }
-            if (dec > 3.0)
-            {
-                dec = 3.0;
-            }
-            this.Velocity = speed;
-
-            this.Acceleration = acc;
-            this.Deceleration = dec;
-        }
+        
         public bool JogMove(int direction, double Speed)
         {
             //Speed = 0.1 , 0.5 , 1.0 Low , Mid , High
             Console.WriteLine($"방향 {direction}으로 조그 이동");
-            double dVel = 0.0;
             double dAcc = 0.0;
             double dDec = 0.0;
             uint dwRetVal = 0;
@@ -223,11 +255,11 @@ namespace ZenHandler.MotionControl
                 str = $"{this.Name} Motor Stop status check failed";
                 return false;
             }
-            if (this.OrgState == false)
-            {
-                str = $"{this.Name} Failed to check for return to origin";
-                return false;
-            }
+            //if (this.OrgState == false)       //조그라서 빠져도 될듯 
+            //{
+            //    str = $"{this.Name} Failed to check for return to origin";
+            //    return false;
+            //}
 
             if (direction == 1)
             {
@@ -270,6 +302,7 @@ namespace ZenHandler.MotionControl
             double dAcc = 0.0;
             double dDec = 0.0;
             string str = "";
+
             if (this.GetAmpFault() == true)    //알람 신호 입력 상태 확인
             {
                 str = $"{this.Name} Motor ServoAlarm occurs";
@@ -285,11 +318,11 @@ namespace ZenHandler.MotionControl
                 str = $"{this.Name} Motor Stop status check failed";
                 return false;
             }
-            if (this.OrgState == false)
-            {
-                str = $"{this.Name} Failed to check for return to origin";
-                return false;
-            }
+            //if (this.OrgState == false)       //TODO: + , - 움직이는 거라서 원점 체크 빼도될듯 
+            //{
+            //    str = $"{this.Name} Failed to check for return to origin";
+            //    return false;
+            //}
             ///////
             /////
             ////
@@ -358,7 +391,7 @@ namespace ZenHandler.MotionControl
 
                 while (bWait)
                 {
-                    if (motorBreak) break;
+                    if (MotorBreak) break;
                     //위치 도착 확인 , 정지 확인
 
                     switch (step)
@@ -402,7 +435,7 @@ namespace ZenHandler.MotionControl
                     Thread.Sleep(10);
                 }
             }
-            isMotorBusy = false;
+            IsMotorBusy = false;
             return isSuccess;
         }
         public bool GetPosiSensor()

@@ -52,6 +52,7 @@ namespace ZenHandler.Dlg
             this.BTN_MAIN_STOP1.Text = "STOP";
             this.BTN_MAIN_STOP1.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageAboveText;
             this.BTN_MAIN_STOP1.UseVisualStyleBackColor = false;
+            this.BTN_MAIN_STOP1.Click += new System.EventHandler(this.BTN_MAIN_STOP1_Click);
             // 
             // BTN_MAIN_PAUSE1
             // 
@@ -68,6 +69,7 @@ namespace ZenHandler.Dlg
             this.BTN_MAIN_PAUSE1.Text = "PAUSE";
             this.BTN_MAIN_PAUSE1.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageAboveText;
             this.BTN_MAIN_PAUSE1.UseVisualStyleBackColor = false;
+            this.BTN_MAIN_PAUSE1.Click += new System.EventHandler(this.BTN_MAIN_PAUSE1_Click);
             // 
             // BTN_MAIN_READY1
             // 
@@ -84,6 +86,7 @@ namespace ZenHandler.Dlg
             this.BTN_MAIN_READY1.Text = "READY";
             this.BTN_MAIN_READY1.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageAboveText;
             this.BTN_MAIN_READY1.UseVisualStyleBackColor = false;
+            this.BTN_MAIN_READY1.Click += new System.EventHandler(this.BTN_MAIN_READY1_Click);
             // 
             // BTN_MAIN_ORIGIN1
             // 
@@ -101,6 +104,7 @@ namespace ZenHandler.Dlg
             this.BTN_MAIN_ORIGIN1.Text = "ORIGIN";
             this.BTN_MAIN_ORIGIN1.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageAboveText;
             this.BTN_MAIN_ORIGIN1.UseVisualStyleBackColor = false;
+            this.BTN_MAIN_ORIGIN1.Click += new System.EventHandler(this.BTN_MAIN_ORIGIN1_Click);
             // 
             // ManualTitleLabel
             // 
@@ -128,6 +132,7 @@ namespace ZenHandler.Dlg
             this.BTN_MAIN_START1.Text = "START";
             this.BTN_MAIN_START1.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageAboveText;
             this.BTN_MAIN_START1.UseVisualStyleBackColor = false;
+            this.BTN_MAIN_START1.Click += new System.EventHandler(this.BTN_MAIN_START1_Click);
             // 
             // OperationPanel
             // 

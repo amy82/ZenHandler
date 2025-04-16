@@ -13,7 +13,7 @@ namespace ZenHandler.Dlg
 {
     public partial class ManualControl : UserControl
     {
-        public event delLogSender eLogSender;       //외부에서 호출할때 사용
+        //public event delLogSender eLogSender;       //외부에서 호출할때 사용
 
         private eManualBtn manualBtnTab;
 
@@ -50,6 +50,10 @@ namespace ZenHandler.Dlg
 
             manualBtnTab = eManualBtn.TransferTab;
             //TeachingBtnChange(manualBtnTab);
+        }
+        public void ManualDlgStop()
+        {
+            manualTransfer.bManualStopKey = true;       //수동 모터 이동 중 빠져나오게
         }
         private void Form_Paint(object sender, PaintEventArgs e)
         {

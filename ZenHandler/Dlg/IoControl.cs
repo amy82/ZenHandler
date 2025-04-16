@@ -16,21 +16,22 @@ namespace ZenHandler.Dlg
         //public event delLogSender eLogSender;       //외부에서 호출할때 사용
 
         //타이머
-        System.Windows.Forms.Timer mIoTimer;
-        int dGridWidth = 280;
+        private System.Windows.Forms.Timer mIoTimer;
+        private int dGridWidth = 280;
 
-        int dRowHeaderHeight = 30;
-        int dRowHeight = 24;
-        int dInGridHeight = 0;
-        int dOutGridHeight = 0;
+        private int dRowHeaderHeight = 30;
+        private int dRowHeight = 24;
+        private int dInGridHeight = 0;
+        private int dOutGridHeight = 0;
 
-        int mOldInSelectedRow = -1;
+        private int mOldInSelectedRow = -1;
         //int mOldOutSelectedRow = -1;
-        uint[] m_dwPrevDIn = new uint[] { 0, 0, 0, 0, 0 };
-        uint[] m_dwPrevDOut = new uint[] { 0, 0, 0, 0, 0 };
+        private uint[] m_dwPrevDIn = new uint[] { 0, 0, 0, 0, 0 };
+        private uint[] m_dwPrevDOut = new uint[] { 0, 0, 0, 0, 0 };
 
-        int MaxInModuleCount;
-        int MaxOutModuleCount;
+        private int MaxInModuleCount = 0;
+        private int MaxOutModuleCount = 0;
+
         public List<int> InModuleChannel = new List<int>();
         public List<int> OutModuleChannel = new List<int>();
         //
@@ -47,31 +48,35 @@ namespace ZenHandler.Dlg
             this.Height = _h;
 
 
-            //MaxInModuleCount = Globalo.motionManager.ioController.m_dwDInDict.Count;
-            //Console.WriteLine($"In 모듈 개수: {MaxInModuleCount}");
-            //foreach (var entry in Globalo.motionManager.ioController.m_dwDInDict)
-            //{
-            //    InModuleChannel.Add(entry.Key);
-            //    //Console.WriteLine($"Key: {entry.Key}, 배열 크기: {entry.Value.Length}");
-            //}
+            MaxInModuleCount = Globalo.motionManager.ioController.m_dwDInDict.Count;
 
-            ////MaxOutModuleCount = Globalo.motionManager.ioController.m_dwDOutDict.Count;
-            //foreach (var entry in Globalo.motionManager.ioController.m_dwDOutDict)
-            //{
-            //    OutModuleChannel.Add(entry.Key);
-            //}
 
-            
+            Console.WriteLine($"In 모듈 개수: {MaxInModuleCount}");
+
+
+
+
+            foreach (var entry in Globalo.motionManager.ioController.m_dwDInDict)
+            {
+                InModuleChannel.Add(entry.Key);
+                //Console.WriteLine($"Key: {entry.Key}, 배열 크기: {entry.Value.Length}");
+            }
+
+            foreach (var entry in Globalo.motionManager.ioController.m_dwDOutDict)
+            {
+                OutModuleChannel.Add(entry.Key);
+            }
+
+
             setInterface();
         }
         private void Form_Paint(object sender, PaintEventArgs e)
         {
             int lineStartY = DioTitleLabel.Location.Y + 60;
-            // Graphics 객체 가져오기
             Graphics g = e.Graphics;
 
             // Pen 객체 생성 (색상과 두께 설정)
-            Color color = Color.FromArgb(175, 175, 175);//Color.FromArgb(151, 149, 145);
+            Color color = Color.FromArgb(175, 175, 175);
             Pen pen = new Pen(color, 1);
 
             // 라인 그리기 (시작점과 끝점 설정)
@@ -85,26 +90,13 @@ namespace ZenHandler.Dlg
 
             DioTitleLabel.ForeColor = ColorTranslator.FromHtml("#6F6F6F");
 
-            //IOTitleLabel.Text = "IO";
-            //IOTitleLabel.ForeColor = Color.Khaki;
-            //IOTitleLabel.BackColor = Color.Maroon;
-            //IOTitleLabel.Font = new Font("Microsoft Sans Serif", 15, FontStyle.Regular);
-            //IOTitleLabel.Width = this.Width;
-            //IOTitleLabel.Height = 45;
-            //IOTitleLabel.Location = new Point(0, 0);
-
             ControlSet();
             InGridDraw();
             OutGridDraw();
-            ButtonEventSet();
 
             mIoTimer = new System.Windows.Forms.Timer();
             mIoTimer.Interval = 100;
             mIoTimer.Tick += new EventHandler(update);
-            //mIoTimer.Start();
-            //Thread Start
-            //Thread t1 = new Thread(new ThreadStart(update));
-            //t1.Start();
         }
         private void IoDisplay(object sender, System.EventArgs e)
         {
@@ -121,10 +113,6 @@ namespace ZenHandler.Dlg
             {
                 mIoTimer.Stop();
             }
-            else
-            {
-
-            }
             
         }
 
@@ -134,56 +122,9 @@ namespace ZenHandler.Dlg
             BTN_IO_IN_NEXT.Text = "▶";
             BTN_IO_OUT_PREV.Text = "◀";
             BTN_IO_OUT_NEXT.Text = "▶";
-            //MODULE NAME
-            //this.Controls.Add(inTxt);
-            //inTxt.Location = new Point(0, 8);
-            //inTxt.Size = new Size(150, 30);
-            //BUTTON
-            //this.Controls.Add(mInLeftButton);
-            //this.Controls.Add(mInRightButton);
-            //this.Controls.Add(inIndexTxt);
 
-            //mInLeftButton.Location = new Point(0, 50);
-            //mInRightButton.Location = new Point(bBtnWidth + 10, 50);
-            //mInLeftButton.Size = new Size(bBtnWidth, bBtnHeight);
-            //mInRightButton.Size = new Size(bBtnWidth, bBtnHeight);
-
-
-
-            //inIndexTxt.Location = new Point(0, 120);
-
-            //OUT MODULE NAME
-            //this.Controls.Add(OutTxt);
-            //OutTxt.Location = new Point(dButtonGap + dGridStartX + dGridGap + dGridWidth * 2, 8);
-            //OutTxt.Size = new Size(150, 30);
-            //OutTxt.Focus();// = false;
-            //BUTTON
-            //this.Controls.Add(mOutLeftButton);
-            //this.Controls.Add(mOutRightButton);
-            //this.Controls.Add(OutIndexTxt);
-            //mOutLeftButton.Location = new Point(dButtonGap + dGridStartX + dGridGap + dGridWidth * 2, 50);
-            //mOutRightButton.Location = new Point(dButtonGap + dGridStartX + dGridGap + dGridWidth * 2 + bBtnWidth + 10, 50);
-            //mOutLeftButton.Size = new Size(bBtnWidth, bBtnHeight);
-            //mOutRightButton.Size = new Size(bBtnWidth, bBtnHeight);
-
-
-            //OutIndexTxt.Location = new Point(dButtonGap + dGridStartX + dGridGap + dGridWidth * 2, 120);
         }
-        public void ButtonEventSet()
-        {
-            //버튼 이벤트 설정
-            //
-            //BTN_IO_IN_PREV.Name = "InL";
-            //BTN_IO_IN_NEXT.Name = "InR";
-            //BTN_IO_IN_PREV.Click += BtnClick_ModuleBtn;
-            //BTN_IO_IN_NEXT.Click += BtnClick_ModuleBtn;
 
-            //BTN_IO_OUT_PREV.Name = "OutL";
-            //BTN_IO_OUT_NEXT.Name = "OutR";
-            //BTN_IO_OUT_PREV.Click += BtnClick_ModuleBtn;
-            //BTN_IO_OUT_NEXT.Click += BtnClick_ModuleBtn;
-        }
-        
         void OutGridSelectionChanged(object sender, EventArgs e)
         {
             if (OutDataGridView.CurrentCell != null)
@@ -206,7 +147,6 @@ namespace ZenHandler.Dlg
 
 
                 mOldInSelectedRow = OutDataGridView.CurrentCell.RowIndex;
-                //OutDataGridView[2, OutDataGridView.CurrentCell.RowIndex].Selected = false;
             }
         }
         void InGridSelectionChanged(object sender, EventArgs e)
@@ -215,10 +155,8 @@ namespace ZenHandler.Dlg
             {
                 if (InDataGridView.CurrentCell.RowIndex < 0)
                 {
-                    //InDataGridView.CurrentCell.Selected = false;
                     return;
                 }
-                //InDataGridView.CurrentCell.Selected = false;
                 if(mOldInSelectedRow > -1)
                 {
                     InDataGridView.Rows[mOldInSelectedRow].Cells[0].Style.SelectionBackColor = Color.White;
@@ -231,7 +169,6 @@ namespace ZenHandler.Dlg
 
 
                 mOldInSelectedRow = InDataGridView.CurrentCell.RowIndex;
-                //songsDataGridView[2, songsDataGridView.CurrentCell.RowIndex].Selected = false;
             }
         }
         public void InGridDraw()
@@ -239,7 +176,7 @@ namespace ZenHandler.Dlg
             //GRID
             int i = 0;
             //InDataGridView.SelectionChanged += new EventHandler(InGridSelectionChanged);
-            int[] inGridWid = new int[]{ 40, 260, 60 };
+            int[] inGridWid = new int[]{ 40, 255, 60 };
             //this.Controls.Add(InDataGridView);
             dGridWidth = inGridWid[0] + inGridWid[1] + inGridWid[2];
             
@@ -272,7 +209,7 @@ namespace ZenHandler.Dlg
             InDataGridView.ColumnHeadersDefaultCellStyle.ForeColor = Color.Black;
             InDataGridView.ColumnHeadersDefaultCellStyle.Font = new Font(InDataGridView.Font, FontStyle.Bold);
             InDataGridView.Columns[0].Name = "NO";
-            InDataGridView.Columns[1].Name = "IN IO NAME";
+            InDataGridView.Columns[1].Name = "IN NAME";
             InDataGridView.Columns[2].Name = "SIGNAL";
 
 
@@ -284,10 +221,6 @@ namespace ZenHandler.Dlg
                 InDataGridView.Columns[i].SortMode = DataGridViewColumnSortMode.NotSortable;
 
                 InDataGridView.Columns[i].Width = inGridWid[i];
-                //    //songsDataGridView.Rows.Add((i + 1).ToString(), "", "");
-                //    string kkk = DataTable.Rows[i][0].ToString();
-                //    songsDataGridView.Rows[i].SetValues((i + 1).ToString(), kkk, "");
-                //    songsDataGridView.Rows[i].DefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleCenter;
             }
             InDataGridView.ColumnHeadersHeight = dRowHeaderHeight;// dRowHeight;
             //InDataGridView.RowTemplate.Height = dRowHeaderHeight;
@@ -306,7 +239,7 @@ namespace ZenHandler.Dlg
             int i = 0;
             //GIRD
             //OutDataGridView.SelectionChanged += new EventHandler(OutGridSelectionChanged);
-            int[] outGridWid = new int[] { 40, 260, 60 };
+            int[] outGridWid = new int[] { 40, 255, 60 };
             OutDataGridView.ColumnCount = 3;
             OutDataGridView.RowCount = 32;
 
@@ -339,7 +272,7 @@ namespace ZenHandler.Dlg
             OutDataGridView.ColumnHeadersDefaultCellStyle.Font = new Font(OutDataGridView.Font, FontStyle.Bold);
 
             OutDataGridView.Columns[0].Name = "NO";
-            OutDataGridView.Columns[1].Name = "OUT IO NAME";
+            OutDataGridView.Columns[1].Name = "OUT NAME";
             OutDataGridView.Columns[2].Name = "Signal";
 
             OutGridContentChange(dCurOutModuleCh);
@@ -349,10 +282,6 @@ namespace ZenHandler.Dlg
                 OutDataGridView.Columns[i].Width = outGridWid[i];
                 OutDataGridView.Columns[i].SortMode = DataGridViewColumnSortMode.NotSortable;
                 OutDataGridView.Columns[i].Resizable = DataGridViewTriState.False;
-                //    string kkk = DataTable.Rows[i][1].ToString();
-                //    //OutDataGridView.Rows.Add((i + 1).ToString(), "", "");
-                //    OutDataGridView.Rows[i].SetValues((i + 1).ToString(), kkk, "");
-                //    OutDataGridView.Rows[i].DefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleCenter;
             }
 
             OutDataGridView.ColumnHeadersHeight = dRowHeaderHeight;
@@ -370,7 +299,6 @@ namespace ZenHandler.Dlg
         }
         public void update(object sender , System.EventArgs e)
         {
-            //if (Globalo.motorControl.bConnected == false)
             if (Globalo.motionManager.bConnected == false)
             {
                 return;
@@ -378,9 +306,6 @@ namespace ZenHandler.Dlg
             uint uFlagHigh = 0;
             int nIndex = 0;
 
-
-            //AxdiReadInportDword
-            //uint upIn = Globalo.dIoControl.m_dwDIn[Globalo.dIoControl.dCurReadModuleCh];
 
             int InCh = InModuleChannel[dCurReadModuleCh];
             
@@ -397,8 +322,6 @@ namespace ZenHandler.Dlg
                     uFlagHigh = upIn & 0x01;
                     if (uFlagHigh == 1)
                     {
-                        // songsDataGridView.Columns[0].
-                        // oGlobal.Maindata.songsDataGridView.Rows[nIndex].DefaultCellStyle.BackColor = System.Drawing.Color.Yellow;
                         InDataGridView[2, nIndex].Style.BackColor = System.Drawing.Color.Yellow;
                     }
                     else
@@ -408,20 +331,11 @@ namespace ZenHandler.Dlg
                     upIn = upIn >> 1;
                 }
             }
-            //OUTPUT
-           // CAXD.AxdoReadOutportDword(0, 0, ref oGlobal.mDioControl.m_dwDIn[oGlobal.Maindata.dCurOutModuleCh]);
-
 
             int i = 0;
-            //int moutIndex = 0;
-            //uint mtempOut = 0;
             int OutCh = OutModuleChannel[dCurOutModuleCh];
-            //for (i = 0; i < 4; i++)
             for (i = 0; i < Globalo.motionManager.ioController.m_dwDOutDict[OutCh].Length; i++)
             {
-                //CAXD.AxdoReadOutportByte(1, i, ref Globalo.dIoControl.m_dwDOut[Globalo.dIoControl.dCurReadModuleCh, i]);
-                // uint upOut = Globalo.dIoControl.m_dwDOut[Globalo.dIoControl.dCurOutModuleCh, i];
-                
                 uint upOut = Globalo.motionManager.ioController.m_dwDOutDict[OutCh][i];
 
                 if (upOut != m_dwPrevDOut[i])
@@ -430,7 +344,7 @@ namespace ZenHandler.Dlg
                     for (nIndex = 0; nIndex < 8; nIndex++)
                     {
                         int nRow = (nIndex + 0);
-                        if ((upOut & 0x01) == 0x01)//if (uFlagHigh == 1)
+                        if ((upOut & 0x01) == 0x01)
                         {
                             OutDataGridView[2, (nRow + (i * 8))].Style.BackColor = System.Drawing.Color.Yellow;
                         }
@@ -451,11 +365,9 @@ namespace ZenHandler.Dlg
             {
                 return;
             }
-            //if (Globalo.motorControl.bConnected == false)
 
             if (Globalo.motionManager.bConnected == false)
             {
-                //MessageBox.Show("not Connected.");
                 return;
             }
             
@@ -465,12 +377,11 @@ namespace ZenHandler.Dlg
             int mOffset = (e.RowIndex) / 8;
             int outIndex = (e.RowIndex) % 8;
 
-            uint dwPivot =  0x01;//0x00000001;
+            uint dwPivot =  0x01;
 
             int OutCh = OutModuleChannel[dCurOutModuleCh];
-            //uint upOut = Globalo.motionManager.m_dwDOutDict[OutCh][i];
-            //uint dOut = Globalo.dIoControl.m_dwDOut[Globalo.dIoControl.dCurOutModuleCh , mOffset];
             int subCnt = Globalo.motionManager.ioController.m_dwDOutDict[OutCh].Length;
+
             if(mOffset >= subCnt)
             {
                 return;     //16채널짜리라서 0,1만 offset 접근 가능
@@ -481,7 +392,7 @@ namespace ZenHandler.Dlg
             if (Grid.Name == "OutDataGridView")
             {
                 //OUT IO
-                dwPivot = dwPivot << outIndex;// (e.RowIndex);
+                dwPivot = dwPivot << outIndex;
                 if ((dOut & dwPivot) == dwPivot)
                 {
                     dOut &= ~dwPivot;
@@ -490,10 +401,7 @@ namespace ZenHandler.Dlg
                 {
                     dOut |= dwPivot;
                 }
-                //CAXD.AxdoWriteOutportByte(1, mOffset, dOut);
                 CAXD.AxdoWriteOutportByte(OutCh, mOffset, dOut);
-                //Globalo.dIoControl.m_dwDOut[Globalo.dIoControl.dCurOutModuleCh , mOffset] = dOut;
-
                 Globalo.motionManager.ioController.m_dwDOutDict[OutCh][mOffset] = dOut;
             }
         }
@@ -501,19 +409,18 @@ namespace ZenHandler.Dlg
         {
             for (int i = 0; i < 32; i++)
             {
-                //string str = Globalo.dataManage.ioData.dataTable.Rows[i + (32 * index)][0].ToString();
-                //InDataGridView.Rows[i].SetValues((i + 1).ToString(), str, "");
-                //InDataGridView.Rows[i].DefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleCenter;
+                string str = Globalo.dataManage.ioData.dataTable.Rows[i + (32 * index)][0].ToString();
+                InDataGridView.Rows[i].SetValues((i + 1).ToString(), str, "");
+                InDataGridView.Rows[i].DefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleCenter;
             }
         }
         public void OutGridContentChange(int index)
         {
             for (int i = 0; i < 32; i++)
             {
-                //string str = Globalo.dataManage.ioData.dataTable.Rows[i + (32 * index)][1].ToString();
-                //OutDataGridView.Rows[i].SetValues((i + 1).ToString(), str, "");
-                //OutDataGridView.Rows[i].DefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleCenter;
-
+                string str = Globalo.dataManage.ioData.dataTable.Rows[i + (32 * index)][1].ToString();
+                OutDataGridView.Rows[i].SetValues((i + 1).ToString(), str, "");
+                OutDataGridView.Rows[i].DefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleCenter;
             }
         }
 
@@ -523,20 +430,17 @@ namespace ZenHandler.Dlg
             {
                 dCurReadModuleCh--;
             }
-            //InIndexLabel.Text = (Globalo.dIoControl.dCurReadModuleCh+1).ToString() + " / " + Globalo.dIoControl.nInModuleCount.ToString();
             InIndexLabel.Text = (dCurReadModuleCh+1).ToString() + " / " + MaxInModuleCount.ToString();
             InGridContentChange(dCurReadModuleCh);
         }
 
         private void BTN_IO_IN_NEXT_Click(object sender, EventArgs e)
         {
-            //if (Globalo.dIoControl.dCurReadModuleCh < Globalo.dIoControl.nInModuleCount - 1)
             if (dCurReadModuleCh < MaxInModuleCount - 1)
             {
                 dCurReadModuleCh++;
             }
 
-            //InIndexLabel.Text = (Globalo.dIoControl.dCurReadModuleCh+1).ToString() + " / " + Globalo.dIoControl.nInModuleCount.ToString();
             InIndexLabel.Text = (dCurReadModuleCh+1).ToString() + " / " + MaxInModuleCount.ToString();
             //
             InGridContentChange(dCurReadModuleCh);
@@ -549,7 +453,6 @@ namespace ZenHandler.Dlg
                 dCurOutModuleCh--;
             }
 
-            //OutIndexLabel.Text = (Globalo.dIoControl.dCurOutModuleCh + 1).ToString() + " / " + Globalo.dIoControl.nOutModuleCount.ToString();
             OutIndexLabel.Text = (dCurOutModuleCh + 1).ToString() + " / " + MaxOutModuleCount.ToString();
             OutGridContentChange(dCurOutModuleCh);
 
@@ -557,12 +460,10 @@ namespace ZenHandler.Dlg
 
         private void BTN_IO_OUT_NEXT_Click(object sender, EventArgs e)
         {
-            //if (Globalo.dIoControl.dCurOutModuleCh < Globalo.dIoControl.nOutModuleCount - 1)
             if (dCurOutModuleCh < MaxOutModuleCount - 1)
             {
                 dCurOutModuleCh++;
             }
-            //OutIndexLabel.Text = (Globalo.dIoControl.dCurOutModuleCh + 1).ToString() + " / " + Globalo.dIoControl.nOutModuleCount.ToString();
             OutIndexLabel.Text = (dCurOutModuleCh + 1).ToString() + " / " + MaxOutModuleCount.ToString();
             OutGridContentChange(dCurOutModuleCh);
         }

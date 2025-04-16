@@ -22,7 +22,7 @@ namespace ZenHandler
             IN_LENS_GRIP_BACK = 0x80,          //8
             //
             IN_LENS_GRIP_FOR = 0x01,           //9
-            TEMP10 = 0x02,
+            IN_VACUUM_ON = 0x02,
             TEMP11 = 0x04,
             TEMP12 = 0x08,                  //12
             TEMP13 = 0x10,
@@ -54,12 +54,12 @@ namespace ZenHandler
             TOWER_LAMP_G = 0x02,
             TOWER_LAMP_R = 0x04,
             TOWER_BUZZER = 0x08,            //4
-            BUZZER1 = 0x10,
-            BUZZER2 = 0x20,
-            BUZZER3 = 0x40,
-            BUZZER4 = 0x80,                 //8
+            TEMP5 = 0x10,
+            TEMP6 = 0x20,
+            VACUUM_ON = 0x40,
+            VACUUM_OFF = 0x80,                 //8
             //
-            TEMP09 = 0x01,                  //9
+            TEMP9 = 0x01,                  //9
             TEMP10 = 0x02,
             TEMP11 = 0x04,
             LENS_GRIP_BACK = 0x08,          //12
@@ -77,10 +77,10 @@ namespace ZenHandler
             TEMP23 = 0x40,
             TEMP24 = 0x80,                  //24
             //
-            TEMP25 = 0x01,                  //25
-            TEMP26 = 0x02,
-            TEMP27 = 0x04,
-            TEMP28 = 0x08,                  //28
+            BUZZER1 = 0x01,                  //25
+            BUZZER2 = 0x02,
+            BUZZER3 = 0x04,
+            BUZZER4 = 0x08,                  //28
             TEMP29 = 0x10,
             TEMP30 = 0x20,
             EPOXY_ON = 0x40,

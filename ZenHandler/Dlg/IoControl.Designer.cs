@@ -44,19 +44,19 @@
             // InDataGridView
             // 
             this.InDataGridView.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.InDataGridView.Location = new System.Drawing.Point(78, 99);
+            this.InDataGridView.Location = new System.Drawing.Point(21, 99);
             this.InDataGridView.Name = "InDataGridView";
             this.InDataGridView.RowTemplate.Height = 23;
-            this.InDataGridView.Size = new System.Drawing.Size(336, 730);
+            this.InDataGridView.Size = new System.Drawing.Size(359, 730);
             this.InDataGridView.TabIndex = 3;
             // 
             // OutDataGridView
             // 
             this.OutDataGridView.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.OutDataGridView.Location = new System.Drawing.Point(510, 99);
+            this.OutDataGridView.Location = new System.Drawing.Point(396, 99);
             this.OutDataGridView.Name = "OutDataGridView";
             this.OutDataGridView.RowTemplate.Height = 23;
-            this.OutDataGridView.Size = new System.Drawing.Size(336, 730);
+            this.OutDataGridView.Size = new System.Drawing.Size(354, 730);
             this.OutDataGridView.TabIndex = 4;
             // 
             // BTN_IO_IN_PREV
@@ -65,7 +65,7 @@
             this.BTN_IO_IN_PREV.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.BTN_IO_IN_PREV.Font = new System.Drawing.Font("나눔고딕 ExtraBold", 11F, System.Drawing.FontStyle.Bold);
             this.BTN_IO_IN_PREV.ForeColor = System.Drawing.Color.White;
-            this.BTN_IO_IN_PREV.Location = new System.Drawing.Point(125, 921);
+            this.BTN_IO_IN_PREV.Location = new System.Drawing.Point(63, 922);
             this.BTN_IO_IN_PREV.Name = "BTN_IO_IN_PREV";
             this.BTN_IO_IN_PREV.Size = new System.Drawing.Size(85, 56);
             this.BTN_IO_IN_PREV.TabIndex = 5;
@@ -79,7 +79,7 @@
             this.BTN_IO_IN_NEXT.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.BTN_IO_IN_NEXT.Font = new System.Drawing.Font("나눔고딕 ExtraBold", 11F, System.Drawing.FontStyle.Bold);
             this.BTN_IO_IN_NEXT.ForeColor = System.Drawing.Color.White;
-            this.BTN_IO_IN_NEXT.Location = new System.Drawing.Point(292, 921);
+            this.BTN_IO_IN_NEXT.Location = new System.Drawing.Point(232, 922);
             this.BTN_IO_IN_NEXT.Name = "BTN_IO_IN_NEXT";
             this.BTN_IO_IN_NEXT.Size = new System.Drawing.Size(85, 56);
             this.BTN_IO_IN_NEXT.TabIndex = 6;
@@ -93,7 +93,7 @@
             this.BTN_IO_OUT_NEXT.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.BTN_IO_OUT_NEXT.Font = new System.Drawing.Font("나눔고딕 ExtraBold", 11F, System.Drawing.FontStyle.Bold);
             this.BTN_IO_OUT_NEXT.ForeColor = System.Drawing.Color.White;
-            this.BTN_IO_OUT_NEXT.Location = new System.Drawing.Point(721, 921);
+            this.BTN_IO_OUT_NEXT.Location = new System.Drawing.Point(601, 922);
             this.BTN_IO_OUT_NEXT.Name = "BTN_IO_OUT_NEXT";
             this.BTN_IO_OUT_NEXT.Size = new System.Drawing.Size(85, 56);
             this.BTN_IO_OUT_NEXT.TabIndex = 8;
@@ -107,7 +107,7 @@
             this.BTN_IO_OUT_PREV.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.BTN_IO_OUT_PREV.Font = new System.Drawing.Font("나눔고딕 ExtraBold", 11F, System.Drawing.FontStyle.Bold);
             this.BTN_IO_OUT_PREV.ForeColor = System.Drawing.Color.White;
-            this.BTN_IO_OUT_PREV.Location = new System.Drawing.Point(554, 921);
+            this.BTN_IO_OUT_PREV.Location = new System.Drawing.Point(432, 922);
             this.BTN_IO_OUT_PREV.Name = "BTN_IO_OUT_PREV";
             this.BTN_IO_OUT_PREV.Size = new System.Drawing.Size(85, 56);
             this.BTN_IO_OUT_PREV.TabIndex = 7;
@@ -120,9 +120,9 @@
             this.InIndexLabel.BackColor = System.Drawing.Color.White;
             this.InIndexLabel.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.InIndexLabel.Font = new System.Drawing.Font("굴림", 14.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(129)));
-            this.InIndexLabel.Location = new System.Drawing.Point(210, 922);
+            this.InIndexLabel.Location = new System.Drawing.Point(149, 922);
             this.InIndexLabel.Name = "InIndexLabel";
-            this.InIndexLabel.Size = new System.Drawing.Size(82, 55);
+            this.InIndexLabel.Size = new System.Drawing.Size(82, 56);
             this.InIndexLabel.TabIndex = 9;
             this.InIndexLabel.Text = "1 / 1";
             this.InIndexLabel.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
@@ -132,9 +132,9 @@
             this.OutIndexLabel.BackColor = System.Drawing.Color.White;
             this.OutIndexLabel.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.OutIndexLabel.Font = new System.Drawing.Font("굴림", 14.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(129)));
-            this.OutIndexLabel.Location = new System.Drawing.Point(639, 922);
+            this.OutIndexLabel.Location = new System.Drawing.Point(518, 922);
             this.OutIndexLabel.Name = "OutIndexLabel";
-            this.OutIndexLabel.Size = new System.Drawing.Size(82, 55);
+            this.OutIndexLabel.Size = new System.Drawing.Size(82, 56);
             this.OutIndexLabel.TabIndex = 10;
             this.OutIndexLabel.Text = "1 / 1";
             this.OutIndexLabel.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
@@ -164,7 +164,7 @@
             this.Controls.Add(this.OutDataGridView);
             this.Controls.Add(this.InDataGridView);
             this.Name = "IoControl";
-            this.Size = new System.Drawing.Size(955, 1020);
+            this.Size = new System.Drawing.Size(770, 1000);
             this.Load += new System.EventHandler(this.IoControl_Load);
             this.VisibleChanged += new System.EventHandler(this.IoControl_VisibleChanged);
             ((System.ComponentModel.ISupportInitialize)(this.InDataGridView)).EndInit();

@@ -14,7 +14,7 @@ namespace ZenHandler
 {
     public class CLaonGrabberClass : IDisposable
     {
-        public event delLogSender eLogSender;       //외부에서 호출할때 사용
+        //public event delLogSender eLogSender;       //외부에서 호출할때 사용
 
         private int m_nUnit = 0;
 
@@ -171,7 +171,7 @@ namespace ZenHandler
             }
             Globalo.GrabberDll.mCloseBoard();
             //closeDevice
-            eLogSender("GrabberDll", $"[CCD]Laon Close");
+            //eLogSender("GrabberDll", $"[CCD]Laon Close");
             m_nCurrentCcdState = (int)CCD_GRAB_MODE.CCD_GRAB_STOP;
             UiconfigLoad();         //CloseDevice
             return true;
@@ -183,7 +183,7 @@ namespace ZenHandler
                 //stopGrab
                 Globalo.GrabberDll.mGrabStop();
             }
-            eLogSender("GrabberDll", $"[CCD]Laon Stop");
+            //eLogSender("GrabberDll", $"[CCD]Laon Stop");
             m_nCurrentCcdState = (int)CCD_GRAB_MODE.CCD_GRAB_STOP;
             return true;
         }
@@ -194,12 +194,12 @@ namespace ZenHandler
             {
                 //ok
                 m_nCurrentCcdState = (int)CCD_GRAB_MODE.CCD_GRAB_LIVE;
-                eLogSender("GrabberDll", $"[CCD]Laon Start Ok");
+                //eLogSender("GrabberDll", $"[CCD]Laon Start Ok");
             }
             else
             {
                 //fail
-                eLogSender("GrabberDll", $"[CCD]Laon Start Fail");
+                //eLogSender("GrabberDll", $"[CCD]Laon Start Fail");
                 return false;
             }
             
@@ -224,11 +224,11 @@ namespace ZenHandler
             if(nErrorCode > 0)
             {
                 //error
-                eLogSender("GrabberDll",  $"[CCD] Laon Err:" + nErrorCode.ToString());
+                //eLogSender("GrabberDll",  $"[CCD] Laon Err:" + nErrorCode.ToString());
                 return nErrorCode;
             }
             M_bOpen = true;
-            eLogSender("GrabberDll", $"[CCD] Laon Open Ok");
+            //eLogSender("GrabberDll", $"[CCD] Laon Open Ok");
             return 0;
         }
         public void UiconfigSave(string iniName)
@@ -284,7 +284,7 @@ namespace ZenHandler
             catch (Exception ex)
             {
                 Console.WriteLine($"UiconfigLoad 처리 중 예외 발생: {ex.Message}");
-                eLogSender("GrabberDll", $"[CCD] UiconfigLoad Load Fail");
+                //eLogSender("GrabberDll", $"[CCD] UiconfigLoad Load Fail");
             }
             
         }
@@ -297,7 +297,7 @@ namespace ZenHandler
 
             logstr = $"Width:{m_nWidth} Height {m_nHeight} ";
 
-            eLogSender("GrabberDll", logstr);
+            //eLogSender("GrabberDll", logstr);
             nFrameRawSize = Globalo.GrabberDll.mGetFrameRawSize(); 
             nBmpSize = Globalo.GrabberDll.mGetFrameBMPSize();
 

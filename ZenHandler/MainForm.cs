@@ -10,6 +10,7 @@ using System.Diagnostics;
 using System.Windows.Forms;
 using System.IO;
 using System.Threading;
+using System.Globalization;
 
 namespace ZenHandler  //ApsMotionControl
 {
@@ -26,17 +27,20 @@ namespace ZenHandler  //ApsMotionControl
         public const int ProductionHeight = 100;
         public const int LogViewHeight = 350;
         
-        private bool ReadyBtnOn = false;
-        
         private int testNum = 0;
         public KeyMessageFilter keyMessageFilter;
 
         public MainForm()
         {
             InitializeComponent();
-
+            //this.TopMost = true;
             keyMessageFilter = new KeyMessageFilter();
             Application.AddMessageFilter(keyMessageFilter);
+
+            
+            Event.EventManager.LanguageChanged += OnLanguageChanged;
+
+
 
             this.Size = new System.Drawing.Size(PG_WIDTH, PG_HEIGHT);
             this.Padding = new Padding(0); // 부모 컨트롤의 여백 제거
@@ -47,24 +51,46 @@ namespace ZenHandler  //ApsMotionControl
             int dRightPanelH = CenterPanel.Height;
 
 
+
             Globalo.threadControl = new ThreadControl();    //<--log Thread 생성후 로그 출력 가능
             Globalo.mAlarmPanel = new Dlg.AlarmControl(dRightPanelW, dRightPanelH);
 
             Globalo.yamlManager.AlarmLoad();
             Globalo.yamlManager.secsGemDataYaml.MesLoad();
             Globalo.yamlManager.secsGemDataYaml.SensorIniLoad();
-            Globalo.yamlManager.teachingDataYaml.LoadTeaching();
+
+            string className = typeof(Machine.TransferMachine).Name;
+
+            Globalo.yamlManager.teachData.LoadTeaching(className);
+
+
             Globalo.yamlManager.configDataLoad();
             Globalo.yamlManager.TaskDataLoad();
             Globalo.yamlManager.imageDataLoad();
             Globalo.yamlManager.RecipeYamlListLoad();
 
             Globalo.motionManager = new MotionControl.MotionManager();
+            Globalo.motionManager.AllMotorParameterSet();
+
+            string fileName = string.Format(@"{0}\iomap.xlsx", Application.StartupPath); //file path
+            Globalo.dataManage.ioData.ReadEpplusData(fileName);
 
             // KeyEvent 이벤트 핸들러 추가
             //keyMessageFilter.KeyEvent += KeyMessageFilter_KeyEvent;
             Globalo.mlogControl = new Dlg.LogControl(dRightPanelW, dRightPanelH);
 
+
+            //모터 초기화
+            //
+            if (ProgramState.ON_LINE_MOTOR)
+            {
+                bool rtn = Globalo.motionManager.MotionInit();
+                if (rtn == false)
+                {
+                    //Motor Set Fail!!
+                    MessageBox.Show("Motor Set Fail!!");
+                }
+            }
 
 
             Globalo.mMainPanel = new Dlg.MainControl(dRightPanelW, dRightPanelH);
@@ -74,65 +100,25 @@ namespace ZenHandler  //ApsMotionControl
             Globalo.mConfigPanel = new Dlg.ConfigControl(dRightPanelW, dRightPanelH);
             
             Globalo.mioPanel = new Dlg.IoControl(dRightPanelW, dRightPanelH);
+
             Globalo.operationPanel = new Dlg.OperationPanel();
             Globalo.productionInfo = new Dlg.ProductionInfo();
             Globalo.trayStateInfo = new Dlg.TrayStateInfo();
             Globalo.socketStateInfo = new Dlg.SocketStateInfo();
             Globalo.tabMenuForm = new Dlg.TabMenuForm(RightPanel.Width, RightPanel.Height);
-
             
-
-            
-
-
-
-
-            //this.TopMost = true;
-
-            
-
-            
-
-           
-            
-            
-            
-            //Globalo.LogPrint("ManualControl", "gggggggggggg");
-            //
-            //int dLeftTopPanelW = LeftPanel.Width;
-           // int dLeftTopPanelH = CamHeight;
-
             
             this.RightPanel.Controls.Add(Globalo.tabMenuForm);
 
 
 
             
-            
-            //Globalo.camControl = new Dlg.CamControl(dLeftTopPanelW, dLeftTopPanelH);
-            //BTN_TOP_LOG.Width = parentW;
-            // BTN_TOP_LOG.Height = parentTopH - 1;
             BTN_TOP_LOG.Location = new System.Drawing.Point(this.TopPanel.Width - BTN_TOP_LOG.Width, 0);
             BTN_TOP_LOG.BackColor = ColorTranslator.FromHtml("#ED6C44");
 
-            //Globalo.dataManage.teachingData.eLogSender += eLogPrint;
-            //Globalo.motorControl.eLogSender += eLogPrint;
-            //Globalo.dIoControl.eLogSender += eLogPrint;
-            // 다이얼로그
-            //
-            //mTeachPanel = new Dlg.TeachingControl();
-            //mManualPanel = new Dlg.ManualControl();
-            // Thread Main
-            //
-
-            //Globalo.threadControl.autoRunthread.eLogSender += eLogPrint;
-            //Globalo.threadControl.ccdColorThread.eLogSender += eLogPrint;
-
-
-            //Globalo.mLaonGrabberClass.eLogSender += eLogPrint;
-
 
             Globalo.threadControl.AllThreadStart();
+
             ///Data Load
             //
 
@@ -154,52 +140,29 @@ namespace ZenHandler  //ApsMotionControl
 
 
 
-                //string fileName = string.Format(@"{0}\iomap.xlsx", Application.StartupPath); //file path
-                //Globalo.dataManage.ioData.ReadExcelData(fileName);
-                //Globalo.dataManage.ioData.ReadEpplusData(fileName);
-
-
-            //모터 초기화
-            //
-            if (ProgramState.ON_LINE_MOTOR)
-            {
-                Globalo.motionManager.MotionInit();
-            }
-
-            //Globalo.mLaonGrabberClass.M_GrabDllLoadComplete = false;
             
 
-            //int LaonType = (int)Globalo.BOARDTYPE.BOARD_TYPE_LAON;
-            //Globalo.mLaonGrabberClass.M_GrabDllLoadComplete = Globalo.GrabberDll.dllLoad(LaonType);
-            //if (Globalo.mLaonGrabberClass.M_GrabDllLoadComplete)
-            //{
-            //    Globalo.mLaonGrabberClass.SetUnit(0);
-            //    Globalo.mLaonGrabberClass.UiconfigLoad();       //init pg Start
-            //    Globalo.mLaonGrabberClass.SelectSensor();
-            //    Globalo.mLaonGrabberClass.AllocImageBuff();
 
-            //    Globalo.vision.UISet(Globalo.camControl.CcdPanel.Width, Globalo.camControl.CcdPanel.Height);
+            
+            //if (ProgramState.ON_LINE_MIL)
+            //{
+            //    InitMilLib();
             //}
 
-            if (ProgramState.ON_LINE_MIL)
-            {
-                InitMilLib();
-            }
-
-            if (ProgramState.ON_LINE_OPENCV_IMAGE)
-            {
-                Globalo.threadControl.imageGrabThread.RawInit();
-                Globalo.threadControl.imageGrabThread.Start();
-            }
-            else if (ProgramState.ON_LINE_MIL)
-            {
-                Globalo.threadControl.ccdColorThread.Start();
-                Globalo.threadControl.ccdGrabThread.Start();
-                if (ProgramState.ON_LINE_CAM)
-                {
-                    Globalo.threadControl.camGrabThread.Start();
-                }
-            }
+            //if (ProgramState.ON_LINE_OPENCV_IMAGE)
+            //{
+            //    Globalo.threadControl.imageGrabThread.RawInit();
+            //    Globalo.threadControl.imageGrabThread.Start();
+            //}
+            //else if (ProgramState.ON_LINE_MIL)
+            //{
+            //    Globalo.threadControl.ccdColorThread.Start();
+            //    Globalo.threadControl.ccdGrabThread.Start();
+            //    if (ProgramState.ON_LINE_CAM)
+            //    {
+            //        Globalo.threadControl.camGrabThread.Start();
+            //    }
+            //}
 
 
             //Globalo.mTeachPanel.eLogSender += eLogPrint;
@@ -240,6 +203,21 @@ namespace ZenHandler  //ApsMotionControl
             Console.WriteLine($"Right Panel Size ({RightPanel.Width},{RightPanel.Height})");
 
             Console.WriteLine($"Bottom Panel Size ({BottomPanel.Width},{BottomPanel.Height})");
+        }
+        public void SetLanguage(string langCode)
+        {
+            var ci = new CultureInfo(langCode);
+            Thread.CurrentThread.CurrentCulture = ci;
+            Thread.CurrentThread.CurrentUICulture = ci;
+
+            Event.EventManager.RaiseLanguageChanged();
+            //ApplyLocalization();
+        }
+        private void OnLanguageChanged(object sender, EventArgs e)
+        {
+            // 이벤트 처리
+            this.Text = Resource.Strings.TitleText;
+            Console.WriteLine("MainForm - OnLanguageChanged");
         }
         private async void serverStart()
         {
@@ -311,12 +289,12 @@ namespace ZenHandler  //ApsMotionControl
         }
         private void MainUiSet()
         {
-            int i = 0;
+            //int i = 0;
 
-            int MainBtnWGap = 4;
+            //int MainBtnWGap = 4;
             int MainBtnHGap = 2;
             //int MainBtnStartX = 1;
-            int BtnPosX = 0;
+            //int BtnPosX = 0;
 
 
             //-----------------------------------------------
@@ -452,6 +430,7 @@ namespace ZenHandler  //ApsMotionControl
         public void FuncExit()
         {
             Globalo.threadControl.AllClose();
+            Globalo.motionManager.ioController.Close();
             //Time Thread End
             //oGlobal.mDioControl.DioEnd();
 
@@ -493,7 +472,7 @@ namespace ZenHandler  //ApsMotionControl
             //
 
             //Globalo.threadControl.autoRunthread.eLogSender -= eLogPrint;
-            Globalo.mLaonGrabberClass.eLogSender -= eLogPrint;
+            //Globalo.mLaonGrabberClass.eLogSender -= eLogPrint;
             Globalo.mLaonGrabberClass.Dispose();
 
             //foreach (var thread in System.Diagnostics.Process.GetCurrentProcess().Threads)
@@ -572,435 +551,19 @@ namespace ZenHandler  //ApsMotionControl
 
         }
 
-        
-        /// <summary>
-        /// 자동 운전
-        /// </summary>
-        private void BTN_MAIN_START1_Click(object sender, EventArgs e)
-        {
-            if (ProgramState.CurrentState == OperationState.AutoRunning)
-            {
-                eLogPrint("MainForm", "[INFO] 자동 운전 중 사용 불가", Globalo.eMessageName.M_WARNING);
-                return;
-            }
-            if (ProgramState.CurrentState == OperationState.ManualTesting)
-            {
-                Globalo.LogPrint("ManualControl", "[INFO] MANUAL 동작 중 사용 불가", Globalo.eMessageName.M_WARNING);
-                return;
-            }
-            if (ProgramState.STATE_DRIVER_CONNECT == false )
-            {
-                Globalo.LogPrint("ManualControl", "[INFO] DRIVER 미연결 상태입니다.", Globalo.eMessageName.M_WARNING);
-                return;
-            }
-            if (ProgramState.STATE_CLINET_CONNECT == false)
-            {
-                Globalo.LogPrint("ManualControl", "[INFO] CLINET 미연결 상태입니다.", Globalo.eMessageName.M_WARNING);
-                return;
-            }
-
-            //if (ProgramState.CurrentState == OperationState.Stopped)
-            //{
-            //    Globalo.LogPrint("MainForm", "[INFO] 운전준비가 완료되지 않았습니다.", Globalo.eMessageName.M_WARNING);
-            //    return;
-            //}
-
-            string logStr = "자동운전 진행 하시겠습니까 ?";
-
-            if (ProgramState.CurrentState == OperationState.Paused)
-            {
-                if (Math.Abs(Globalo.taskWork.m_nCurrentStep) < 30000 || Math.Abs(Globalo.taskWork.m_nCurrentStep) >= 90000)
-                {
-                    eLogPrint("MainForm", "[INFO] 운전 준비 상태가 아닙니다.", Globalo.eMessageName.M_WARNING);
-                    return;
-                }
-                logStr = "자동운전 재개 하시겠습니까 ?";
-                //if (Globalo.taskWork.m_nCurrentStep >= 20000 && Globalo.taskWork.m_nCurrentStep < 30000)
-            }
-            else
-            {
-                if (Globalo.threadControl.autoRunthread.GetThreadRun() == true)
-                {
-                    eLogPrint("MainForm", "[INFO] 자동 운전 중 사용 불가", Globalo.eMessageName.M_WARNING);
-                    return;
-                }
-            }
-
-            MessagePopUpForm messagePopUp = new MessagePopUpForm("", "YES", "NO");
-            messagePopUp.MessageSet(Globalo.eMessageName.M_ASK, logStr);
-            DialogResult result = messagePopUp.ShowDialog();
-
-            if (result == DialogResult.Yes)
-            {
-                StartAutoProcess();     //자동 운전 시작
-            }
-        }
-        /// <summary>
-        /// 정지
-        /// </summary>
-        private void BTN_MAIN_STOP1_Click(object sender, EventArgs e)
-        {
-            StopAutoProcess();
-
-            if (Globalo.threadControl.manualThread.GetThreadRun() == false)
-            {
-                Globalo.LogPrint("", "[CCD] MANUAL CCD CLOSE");
-                Globalo.threadControl.manualThread.runfn(FThread.ManualThread.eManualType.M_CCD_CLOSE);// 3);
-            }
-            Globalo.LogPrint("MainForm", "[AUTO] AUTO RUN STOP.");
-
-
-            Globalo.camControl.setOverlayText("STOP", Color.Red);
-        }
-        /// <summary>
-        /// 원점 잡기
-        /// </summary>
-        private void BTN_MAIN_ORIGIN1_Click(object sender, EventArgs e)
-        {
-            if (ProgramState.CurrentState == OperationState.Originning)
-            {
-                eLogPrint("MainForm", "[INFO] 원점 동작 중 사용 불가", Globalo.eMessageName.M_WARNING);
-                return;
-            }
-            if (ProgramState.CurrentState == OperationState.AutoRunning)
-            {
-                eLogPrint("MainForm", "[INFO] 자동 운전 중 사용 불가", Globalo.eMessageName.M_WARNING);
-                return;
-            }
-            if (ProgramState.CurrentState == OperationState.Paused)
-            {
-                eLogPrint("ManualCMainFormontrol", "[INFO] 일시 정지 중 사용 불가", Globalo.eMessageName.M_WARNING);
-                return;
-            }
-
-            MessagePopUpForm messagePopUp = new MessagePopUpForm("", "YES", "NO");
-            messagePopUp.MessageSet(Globalo.eMessageName.M_ASK, "전체 원점복귀 하시겠습니까 ?");
-            DialogResult result = messagePopUp.ShowDialog();
-            if (result == DialogResult.Yes)
-            {
-                StartHomeProcess();
-            }
-            //DialogResult.Cancel
-
-
-        }
-        /// <summary>
-        /// 운전준비
-        /// </summary>
-        private void BTN_MAIN_READY1_Click(object sender, EventArgs e)
-        {
-            if (ProgramState.CurrentState == OperationState.Originning)
-            {
-                eLogPrint("MainForm", "[INFO] 원점 동작 중 사용 불가", Globalo.eMessageName.M_WARNING);
-                return;
-            }
-            if (ProgramState.CurrentState == OperationState.AutoRunning)
-            {
-                eLogPrint("MainForm", "[INFO] 자동 운전 중 사용 불가", Globalo.eMessageName.M_WARNING);
-                return;
-            }
-            if (ProgramState.CurrentState == OperationState.Preparing)
-            {
-                eLogPrint("MainForm", "[INFO] 운전 준비 중 사용 불가", Globalo.eMessageName.M_WARNING);
-                return;
-            }
-            //if (ProgramState.CurrentState == OperationState.Paused)
-            //{
-            //    eLogPrint("ManualCMainFormontrol", "[INFO] 일시 정지 중 사용 불가", Globalo.eMessageName.M_WARNING);
-            //    return;
-            //}
-
-            string logStr = "운전준비 하시겠습니까 ?";
-
-            if(ProgramState.CurrentState == OperationState.Paused)
-            {
-                if(Math.Abs(Globalo.taskWork.m_nCurrentStep) < 20000 || Math.Abs(Globalo.taskWork.m_nCurrentStep) >= 30000)
-                {
-                    eLogPrint("MainForm", "[INFO] 설비 정지 상태가 아닙니다.", Globalo.eMessageName.M_WARNING);
-                    return;
-                }
-                logStr = "운전준비 재개 하시겠습니까 ?";    //이때 스텝이 20000보다 작아야된다.
-                //if (Globalo.taskWork.m_nCurrentStep >= 20000 && Globalo.taskWork.m_nCurrentStep < 30000)
-            }
-            else
-            {
-                if (Globalo.threadControl.autoRunthread.GetThreadRun() == true)
-                {
-                    eLogPrint("MainForm", "[INFO] 자동 운전 중 사용 불가", Globalo.eMessageName.M_WARNING);
-                    return;
-                }
-            }
-            
-            MessagePopUpForm messagePopUp = new MessagePopUpForm("", "YES", "NO");
-
-            messagePopUp.MessageSet(Globalo.eMessageName.M_ASK, logStr);
-            DialogResult result = messagePopUp.ShowDialog();
-
-
-            if (result == DialogResult.Yes)
-            {
-                StartAutoReadyProcess();
-            }
-            
-        }
-        /// <summary>
-        /// 일시정지
-        /// </summary>
-        private void BTN_MAIN_PAUSE1_Click(object sender, EventArgs e)
-        {
-            if (ProgramState.CurrentState == OperationState.Stopped)
-            {
-                eLogPrint("ManualCMainFormontrol", "[INFO] 설비 정지 상태입니다.", Globalo.eMessageName.M_WARNING);
-                return;
-            }
-            if (ProgramState.CurrentState == OperationState.Paused)
-            {
-                eLogPrint("ManualCMainFormontrol", "[INFO] 일시 정지 상태입니다.", Globalo.eMessageName.M_WARNING);
-                return;
-            }
-            if (ProgramState.CurrentState == OperationState.PreparationComplete)
-            {
-                eLogPrint("ManualCMainFormontrol", "[INFO] 자동 운전 중이 아닙니다..", Globalo.eMessageName.M_WARNING);
-                return;
-            }
-            
-
-
-            PauseAutoProcess();
-        }
-
-
-        public bool StartHomeProcess()
-        {
-            //int i = 0;
-            //for (i = 0; i < MotorControl.PCB_UNIT_COUNT; i++)
-            //{
-            //    if (Globalo.motorControl.PcbMotorAxis[i].AmpEnable() == false)
-            //    {
-            //        eLogPrint("ManualCMainFormontrol", $"[ORIGIN] {Globalo.motorControl.PcbMotorAxis[i].Name} AXIS SERVO ON FAIL", Globalo.eMessageName.M_WARNING);
-            //        return false;
-            //    }
-            //    if (Globalo.motorControl.PcbMotorAxis[i].GetStopAxis() == false)
-            //    {
-            //        eLogPrint("ManualCMainFormontrol", $"[ORIGIN] {Globalo.motorControl.PcbMotorAxis[i].Name} AXIS 구동중입니다.", Globalo.eMessageName.M_WARNING);
-            //        return false;
-            //    }
-            //}
-
-            //for (i = 0; i < MotorControl.LENS_UNIT_COUNT; i++)
-            //{
-            //    if (Globalo.motorControl.LensMotorAxis[i].AmpEnable() == false)
-            //    {
-            //        eLogPrint("ManualCMainFormontrol", $"[ORIGIN] {Globalo.motorControl.LensMotorAxis[i].Name} AXIS SERVO ON FAIL", Globalo.eMessageName.M_WARNING);
-            //        return false;
-            //    }
-            //    if (Globalo.motorControl.LensMotorAxis[i].GetStopAxis() == false)
-            //    {
-            //        eLogPrint("ManualCMainFormontrol", $"[ORIGIN] {Globalo.motorControl.LensMotorAxis[i].Name} AXIS 구동중입니다.", Globalo.eMessageName.M_WARNING);
-            //        return false;
-            //    }
-            //}
-            if (Globalo.threadControl.autoRunthread.GetThreadRun() == true)
-            {
-                if (Globalo.threadControl.autoRunthread.GetThreadPause() == true)
-                {
-                    //eLogPrint("ManualCMainFormontrol", "[ORIGIN] 일시 정지 중 사용 불가", Globalo.eMessageName.M_WARNING);
-                    //g_clTaskWork[nUnit].m_nCurrentStep = abs(g_clTaskWork[nUnit].m_nCurrentStep);
-
-                    // g_clTaskWork[nUnit].m_nAutoFlag = MODE_AUTO;
-                    eLogPrint("ManualCMainFormontrol", "[ORIGIN] ORIGIN PAUSE RELEASE");
-
-                    Globalo.taskWork.m_nCurrentStep = Math.Abs(Globalo.taskWork.m_nCurrentStep);
-                    ProgramState.CurrentState = OperationState.Originning;
-                    //Globalo.threadControl.readyRunthread.Pause();
-                    return true;
-                }
-
-
-
-                eLogPrint("ManualCMainFormontrol", "[ORIGIN] 동작중 사용 불가", Globalo.eMessageName.M_WARNING);
-                return false;
-            }
-
-            Globalo.taskWork.m_nStartStep = 10000;
-            Globalo.taskWork.m_nEndStep = 20000;
-            Globalo.taskWork.m_nCurrentStep = 10000;
-
-            ProgramState.CurrentState = OperationState.Originning;
-            bool bRtn = Globalo.threadControl.autoRunthread.Start();
-            if (bRtn == false)
-            {
-                ProgramState.CurrentState = OperationState.Stopped;
-            }
-
-            eLogPrint("ManualCMainFormontrol", "[ORIGIN] ORIGIN RUN START");
-            Globalo.operationPanel.AutoButtonSet(ProgramState.CurrentState);
-
-            return true;
-        }
 
         
-        public void StartAutoReadyProcess()
-        {
-            if (Globalo.threadControl.autoRunthread.GetThreadRun() == true)
-            {
-                if (ProgramState.CurrentState == OperationState.Paused)
-                {
-                    Globalo.taskWork.m_nCurrentStep = Math.Abs(Globalo.taskWork.m_nCurrentStep);
-                    Globalo.LogPrint("MainForm", "[AUTO] AUTO RUN RESUME");
-                }
-                else
-                {
-                    Globalo.LogPrint("MainForm", "[AUTO] AUTO RUN START FAIL");
-                    return;
-                }
-            }
-            else
-            {
-                Globalo.taskWork.m_nCurrentStep = 20000;
-
-                if (Globalo.threadControl.autoRunthread.GetThreadRun() == true)
-                {
-                    Globalo.LogPrint("MainForm", "[AUTO] AUTO RUN START FAIL");
-                    return;
-                }
-                Globalo.LogPrint("MainForm", "[AUTO] AUTO RUN START");
-            }
-
-           
-            Globalo.taskWork.m_nStartStep = 20000;
-            Globalo.taskWork.m_nEndStep = 30000;
-            
-
-            ProgramState.CurrentState = OperationState.Preparing;
-
-
-            
-            bool bRtn = Globalo.threadControl.autoRunthread.Start();
-
-            if (bRtn == false)
-            {
-                Globalo.LogPrint("MainForm", "[AUTO] AUTO RUN START FAIL");
-                ProgramState.CurrentState = OperationState.Stopped;
-                return;
-
-            }
-            Globalo.operationPanel.AutoRunBtnUiTimer(1);
-
-            MainGuideTxtSet("설비 운전준비중 입니다.");
-            Globalo.operationPanel.AutoButtonSet(ProgramState.CurrentState);
-
-        }
+        
+        
         public void PaustReadyProcess()
         {
 
             Globalo.operationPanel.AutoButtonSet(ProgramState.CurrentState);
         }
-        public void PauseAutoProcess()
-        {
-            ProgramState.CurrentState = OperationState.Paused;
-            //labelGuide.Text = "설비 일시정지 상태입니다.";
-
-            if (labelGuide.InvokeRequired)
-            {
-                //labelGuide.BeginInvoke(new Action(() => labelGuide.Text = "설비 일시정지 상태입니다."));
-                labelGuide.BeginInvoke(new Action(() => MainGuideTxtSet("설비 일시정지 상태입니다.")));
-            }
-            else
-            {
-                MainGuideTxtSet("설비 일시정지 상태입니다.");
-            }
-
-            Globalo.camControl.setOverlayText("PAUS", Color.Red);         //초기화
-
-            Globalo.threadControl.autoRunthread.Pause();
-
-            Globalo.operationPanel.AutoRunTimerStop();
-
-            Globalo.operationPanel.AutoButtonSet(ProgramState.CurrentState);
-        }
-        public bool StartAutoProcess()
-        {
-            //모터 구동중 체크
-            //운전준비 체크
-            if (Globalo.threadControl.autoRunthread.GetThreadRun() == true)
-            {
-                if (ProgramState.CurrentState == OperationState.Paused)
-                {
-                    Globalo.taskWork.m_nCurrentStep = Math.Abs(Globalo.taskWork.m_nCurrentStep);
-                    Globalo.LogPrint("MainForm", "[AUTO] AUTO RUN RESUME");
-                }
-                else
-                {
-                    Globalo.LogPrint("MainForm", "[AUTO] AUTO RUN START FAIL");
-                    return false;
-                }
-            }
-            else
-            {
-                Globalo.taskWork.m_nCurrentStep = 30000;
-            }
-            //
-            //
-
-            //if (Globalo.threadControl.autoRunthread.GetThreadRun() == true)
-            //{
-            //    if (Globalo.threadControl.autoRunthread.GetThreadPause() == true)
-            //    {
-            //        Globalo.taskWork.m_nCurrentStep = Math.Abs(Globalo.taskWork.m_nCurrentStep);
-
-            //        ProgramState.CurrentState = OperationState.AutoRunning;
-
-            //        return false;
-            //    }
-            //    else
-            //    {
-
-            //        return false;
-            //    }
-            //}
-
-
-            Globalo.taskWork.m_nStartStep = 30000;
-            Globalo.taskWork.m_nEndStep = 70000;
-
-            ProgramState.CurrentState = OperationState.AutoRunning;
-            bool bRtn = Globalo.threadControl.autoRunthread.Start();
-            if (bRtn == false)
-            {
-                ProgramState.CurrentState = OperationState.Stopped;
-                return false;
-            }
-            Globalo.operationPanel.AutoRunBtnUiTimer(2, 500);
-            MainGuideTxtSet("자동 운전 중입니다.");
-            Globalo.operationPanel.AutoButtonSet(ProgramState.CurrentState);
-
-
-            Globalo.LogPrint("MainForm", "[AUTO] AUTO RUN START");
-            return true;
-        }
-
-        public void StopAutoProcess()
-        {
-            Globalo.operationPanel.AutoRunTimerStop();
-
-            ProgramState.CurrentState = OperationState.Stopped;
-
-            MainGuideTxtSet("설비 정지 상태입니다.");
-            if (Globalo.threadControl.autoRunthread.GetThreadRun() == true)
-            {
-                Globalo.threadControl.autoRunthread.Stop();
-            }
-            if (ProgramState.ON_LINE_MOTOR)
-            {
-                Globalo.motionManager.AllMotorStop();
-            }
-            Globalo.operationPanel.AutoButtonSet(ProgramState.CurrentState);
-        }
-        public void MainGuideTxtSet(string txt)
-        {
-            labelGuide.Text = txt;
-        }
+        
+        
+        
+        
         
         private void BTN_BOTTOM_LIGHT_Click(object sender, EventArgs e)
         {

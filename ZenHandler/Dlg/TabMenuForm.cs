@@ -19,7 +19,7 @@ namespace ZenHandler.Dlg
         //CCD_FORM, 
         public Button[] BtnArr = new Button[9];
 
-
+        public bool MenuChangeInterLock = false;
         private int parentW = 0;
         private int parentH = 0;
         public TabMenuForm(int _w , int _h)
@@ -36,6 +36,8 @@ namespace ZenHandler.Dlg
         }
         private void MenuButtonSet(TABFORM index)
         {
+            if (MenuChangeInterLock) return;        //모터 이동에 메뉴 이동안되는 용도로 일단 추가만
+
             int i = 0;
             Globalo.mMainPanel.Visible = false;
             Globalo.mTeachPanel.Visible = false;
@@ -266,6 +268,8 @@ namespace ZenHandler.Dlg
 
         private void BTN_RIGHT_OP_MODE_Click_1(object sender, EventArgs e)
         {
+            Globalo.MainForm.SetLanguage("es");
+
             if (ProgramState.CurrentState == OperationState.AutoRunning)
             {
                 Globalo.LogPrint("MainForm", "[INFO] 자동 운전 중 사용 불가", Globalo.eMessageName.M_WARNING);

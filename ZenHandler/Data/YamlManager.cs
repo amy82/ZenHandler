@@ -30,7 +30,7 @@ namespace ZenHandler.Data
 
         public _TaskData TaskData { get; private set; }
 
-        public TeachingDataYaml teachingDataYaml { get; set; }
+        public TeachingDataYaml teachData { get; set; }
 
 
         public YamlManager()
@@ -44,7 +44,7 @@ namespace ZenHandler.Data
                 .WithNamingConvention(CamelCaseNamingConvention.Instance)
                 .Build();
             secsGemDataYaml = new SecGemDataYaml();
-            teachingDataYaml = new TeachingDataYaml();
+            teachData = new TeachingDataYaml();
         }
         public bool RecipeYamlFileCopy(string copyPPid, string createPPid)
         {
@@ -188,7 +188,7 @@ namespace ZenHandler.Data
         
         public bool configDataSave()
         {
-            string filePath = Path.Combine(CPath.BASE_DATA_PATH, CPath.yamlFilePathConfig);
+            string filePath = Path.Combine(CPath.BASE_ENV_PATH, CPath.yamlFilePathConfig);
             try
             {
                 if (!File.Exists(filePath))
@@ -205,7 +205,7 @@ namespace ZenHandler.Data
         }
         public bool configDataLoad()
         {
-            string filePath = Path.Combine(CPath.BASE_DATA_PATH, CPath.yamlFilePathConfig);
+            string filePath = Path.Combine(CPath.BASE_ENV_PATH, CPath.yamlFilePathConfig);
             try
             {
                 if (!File.Exists(filePath))
@@ -234,7 +234,7 @@ namespace ZenHandler.Data
         }
         public bool imageDataSave()
         {
-            string filePath = Path.Combine(CPath.BASE_DATA_PATH, CPath.yamlFilePathImage);
+            string filePath = Path.Combine(CPath.BASE_ENV_PATH, CPath.yamlFilePathImage);
             try
             {
                 if (!File.Exists(filePath))
@@ -251,7 +251,7 @@ namespace ZenHandler.Data
         }
         public bool imageDataLoad()
         {
-            string filePath = Path.Combine(CPath.BASE_DATA_PATH, CPath.yamlFilePathImage);
+            string filePath = Path.Combine(CPath.BASE_ENV_PATH, CPath.yamlFilePathImage);
             try
             {
                 if (!File.Exists(filePath))
@@ -273,7 +273,7 @@ namespace ZenHandler.Data
         //
         public bool TaskDataLoad()
         {
-            string filePath = Path.Combine(CPath.BASE_DATA_PATH, CPath.yamlFilePathTask);
+            string filePath = Path.Combine(CPath.BASE_ENV_PATH, CPath.yamlFilePathTask);
             try
             {
                 if (!File.Exists(filePath))
@@ -306,7 +306,7 @@ namespace ZenHandler.Data
         }
         public bool TaskDataSave()
         {
-            string filePath = Path.Combine(CPath.BASE_DATA_PATH, CPath.yamlFilePathTask);
+            string filePath = Path.Combine(CPath.BASE_ENV_PATH, CPath.yamlFilePathTask);
             try
             {
                 if (!File.Exists(filePath))

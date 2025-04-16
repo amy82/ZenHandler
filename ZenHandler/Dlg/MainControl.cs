@@ -16,7 +16,7 @@ namespace ZenHandler.Dlg
         //public event delLogSender eLogSender;       //외부에서 호출할때 사용
         //private ManualPcb manualPcb = new ManualPcb();
         //private ManualLens manualLens = new ManualLens();
-
+        private UnitControl unitControl;
 
         private const int ResultGridRowViewCount = 25;//20;
 
@@ -42,7 +42,11 @@ namespace ZenHandler.Dlg
         public MainControl(int _w, int _h)
         {
             InitializeComponent();
-            
+
+            unitControl = new UnitControl();
+            this.Controls.Add(unitControl);
+
+            unitControl.Location = new System.Drawing.Point(0, 50);
             this.Paint += new PaintEventHandler(Form_Paint);
             
             this.Width = _w;
@@ -53,15 +57,14 @@ namespace ZenHandler.Dlg
         }
         public void RefreshMain()
         {
-            ShowModelName();
-            ShowRecipeName();
-            ShowOpid();
+            //ShowModelName();
+            //ShowRecipeName();
             //ShowVerifyResultGrid(50);
         }
         private void InitResultGrid()
         {
             //dataGridView_Result
-            //EEP_ITEM / ADDRESS / DATA_SIZE / ITEM_VALUE  값을 Table 형태로 동적으로 출력, 항목별 OK / NG 표기
+            //EEP_ITEM / ADDRESS / DATA_SIZE / ITEM_VALUE  값을 Table 형태로 동적으로 출력, 항목별 OK / NG  표기
             int i = 0;
             //int j = 0;
             // 열 추가
@@ -231,15 +234,6 @@ namespace ZenHandler.Dlg
                 RefreshMain();
             }
         }
-        public void setControlState(int communicationState , int controlState)
-        {
-           
-        }
-
-        public void ShowOpid()
-        {
-            
-        }
 
 
         public void ShowVerifyResultGrid(List<Data.MesEEpromCsvData> _Mes_DataList, List<Data.EEpromReadData> _EEp_DataList)
@@ -310,23 +304,23 @@ namespace ZenHandler.Dlg
 
             dataGridView_Result.ClearSelection();
         }
-        public void ShowModelName()
-        {
-            if (Globalo.yamlManager.secsGemDataYaml.MesData.SecGemData.CurrentModelName.Length < 1)
-            {
-                return;
-            }
-            textBox_Model.Text = Globalo.yamlManager.secsGemDataYaml.MesData.SecGemData.CurrentModelName;
-        }
-        public void ShowRecipeName()
-        {
-            if (Globalo.dataManage.mesData.m_sMesPPID.Length < 1)
-            {
-                return;
-            }
+        //public void ShowModelName()
+        //{
+        //    if (Globalo.yamlManager.secsGemDataYaml.MesData.SecGemData.CurrentModelName.Length < 1)
+        //    {
+        //        return;
+        //    }
+        //    textBox_Model.Text = Globalo.yamlManager.secsGemDataYaml.MesData.SecGemData.CurrentModelName;
+        //}
+        //public void ShowRecipeName()
+        //{
+        //    if (Globalo.dataManage.mesData.m_sMesPPID.Length < 1)
+        //    {
+        //        return;
+        //    }
 
-            textBox_Recipe.Text = Globalo.dataManage.mesData.m_sMesPPID;
-        }
+        //    textBox_Recipe.Text = Globalo.dataManage.mesData.m_sMesPPID;
+        //}
         
         private void Form_Paint(object sender, PaintEventArgs e)
         {
@@ -449,42 +443,7 @@ namespace ZenHandler.Dlg
             }
         }
 
-        private void BTN_MAIN_ABORT_LOT_Click(object sender, EventArgs e)
-        {
-            //g_pCarAABonderDlg->m_clUbiGemDlg.EventReportSendFn(ABORTED_REPORT_10712);
-            //string strData = textBox_AbortedLot.Text;
-
-            //if(strData.Length < 1)
-            //{
-            //    Globalo.LogPrint("MainControl", "LOT 입력해 주세요.", Globalo.eMessageName.M_WARNING);
-            //    return;
-            //}
-
-            //string logData = $"({strData})LOT ABORT?";
-
-            //MessagePopUpForm messagePopUp3 = new MessagePopUpForm("", "YES", "NO");
-            //messagePopUp3.MessageSet(Globalo.eMessageName.M_ASK, logData);
-
-            //DialogResult result = messagePopUp3.ShowDialog();
-            //if (result == DialogResult.Yes)
-            //{
-            //    //Globalo.ubisamForm.EventReportSendFn(Ubisam.ReportConstants.ABORTED_REPORT_10712, strData);
-            //}
-        }
-
-        private void BTN_MAIN_MATERIAL_ID_REPORT_Click(object sender, EventArgs e)
-        {
-            
-        }
 
 
-        private void BTN_MAIN_RECIPE_VIEW_Click(object sender, EventArgs e)
-        {
-            //string selectedItem = dataGridView_Recipe.Rows[SelectedRecipeRow].Cells[1].Value.ToString();
-
-            string selectedItem = textBox_Recipe.Text;
-            RecipePopup recipePopup = new RecipePopup(selectedItem);
-            recipePopup.ShowDialog();
-        }
     }
 }

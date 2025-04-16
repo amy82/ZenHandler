@@ -778,7 +778,7 @@ namespace ZenHandler.Process
                         break;
                     }
                     bRtn = true;
-                    for (i = 0; i < (int)MotorControl.ePcbMotor.MAX_PCB_MOTOR_COUNT; i++) //for (i = 0; i < MotorControl.MAX_MOTOR_COUNT; i++)
+                    for (i = 0; i < (int)MotorControl.ePcbMotor.MAX_PCB_MOTOR_COUNT; i++) 
                     {
                         duRetCode = CAXM.AxmHomeSetStart(i);
                         if (duRetCode != (uint)AXT_FUNC_RESULT.AXT_RT_SUCCESS)
@@ -871,7 +871,7 @@ namespace ZenHandler.Process
                 case 5300:
                     m_bHomeProc = true;
                     m_bHomeError = false;
-                    for (i = 0; i < (int)MotorControl.ePcbMotor.MAX_PCB_MOTOR_COUNT; i++)// for (i = 0; i < MotorControl.MAX_MOTOR_COUNT; i++)
+                    for (i = 0; i < (int)MotorControl.ePcbMotor.MAX_PCB_MOTOR_COUNT; i++)
                     {
                         CAXM.AxmHomeGetResult(i, ref duState);
                         if (duState == (uint)AXT_MOTION_HOME_RESULT.HOME_SUCCESS)
@@ -908,7 +908,7 @@ namespace ZenHandler.Process
                 case 5350:
                     m_bHomeProc = true;
                     m_bHomeError = false;
-                    for (i = 0; i < (int)MotorControl.eLensMotor.MAX_LENS_MOTOR_COUNT; i++)// for (i = 0; i < MotorControl.MAX_MOTOR_COUNT; i++)
+                    for (i = 0; i < (int)MotorControl.eLensMotor.MAX_LENS_MOTOR_COUNT; i++)
                     {
                         nLensAxis = i + (int)MotorControl.ePcbMotor.MAX_PCB_MOTOR_COUNT;
                         CAXM.AxmHomeGetResult(nLensAxis, ref duState);

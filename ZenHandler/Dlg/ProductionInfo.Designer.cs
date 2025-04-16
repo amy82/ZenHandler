@@ -31,6 +31,11 @@ namespace ZenHandler.Dlg
         {
             this.panel_ProductionInfo = new System.Windows.Forms.Panel();
             this.groupBox1 = new System.Windows.Forms.GroupBox();
+            this.BTN_MAIN_RECIPE_VEW = new System.Windows.Forms.Button();
+            this.textBox_Recipe = new System.Windows.Forms.TextBox();
+            this.textBox_Model = new System.Windows.Forms.TextBox();
+            this.label8 = new System.Windows.Forms.Label();
+            this.label7 = new System.Windows.Forms.Label();
             this.BTN_MAIN_PINCOUNT_RESET = new System.Windows.Forms.Button();
             this.label_PinCount = new System.Windows.Forms.Label();
             this.label6 = new System.Windows.Forms.Label();
@@ -60,6 +65,11 @@ namespace ZenHandler.Dlg
             // 
             // groupBox1
             // 
+            this.groupBox1.Controls.Add(this.BTN_MAIN_RECIPE_VEW);
+            this.groupBox1.Controls.Add(this.textBox_Recipe);
+            this.groupBox1.Controls.Add(this.textBox_Model);
+            this.groupBox1.Controls.Add(this.label8);
+            this.groupBox1.Controls.Add(this.label7);
             this.groupBox1.Controls.Add(this.BTN_MAIN_PINCOUNT_RESET);
             this.groupBox1.Controls.Add(this.label_PinCount);
             this.groupBox1.Controls.Add(this.label6);
@@ -82,15 +92,71 @@ namespace ZenHandler.Dlg
             this.groupBox1.TabStop = false;
             this.groupBox1.Text = " PRODUCTION INFO";
             // 
+            // BTN_MAIN_RECIPE_VEW
+            // 
+            this.BTN_MAIN_RECIPE_VEW.BackColor = System.Drawing.Color.Tan;
+            this.BTN_MAIN_RECIPE_VEW.FlatAppearance.BorderSize = 0;
+            this.BTN_MAIN_RECIPE_VEW.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.BTN_MAIN_RECIPE_VEW.Font = new System.Drawing.Font("나눔고딕", 8.999999F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(129)));
+            this.BTN_MAIN_RECIPE_VEW.Location = new System.Drawing.Point(260, 268);
+            this.BTN_MAIN_RECIPE_VEW.Name = "BTN_MAIN_RECIPE_VEW";
+            this.BTN_MAIN_RECIPE_VEW.Size = new System.Drawing.Size(66, 28);
+            this.BTN_MAIN_RECIPE_VEW.TabIndex = 39;
+            this.BTN_MAIN_RECIPE_VEW.Text = "VIEW";
+            this.BTN_MAIN_RECIPE_VEW.UseVisualStyleBackColor = false;
+            this.BTN_MAIN_RECIPE_VEW.Click += new System.EventHandler(this.BTN_MAIN_RECIPE_VEW_Click);
+            // 
+            // textBox_Recipe
+            // 
+            this.textBox_Recipe.BackColor = System.Drawing.Color.White;
+            this.textBox_Recipe.Font = new System.Drawing.Font("나눔고딕 ExtraBold", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(129)));
+            this.textBox_Recipe.Location = new System.Drawing.Point(8, 265);
+            this.textBox_Recipe.Name = "textBox_Recipe";
+            this.textBox_Recipe.ReadOnly = true;
+            this.textBox_Recipe.Size = new System.Drawing.Size(241, 26);
+            this.textBox_Recipe.TabIndex = 38;
+            this.textBox_Recipe.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
+            // 
+            // textBox_Model
+            // 
+            this.textBox_Model.BackColor = System.Drawing.Color.White;
+            this.textBox_Model.Font = new System.Drawing.Font("나눔고딕 ExtraBold", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(129)));
+            this.textBox_Model.Location = new System.Drawing.Point(8, 214);
+            this.textBox_Model.Name = "textBox_Model";
+            this.textBox_Model.ReadOnly = true;
+            this.textBox_Model.Size = new System.Drawing.Size(241, 26);
+            this.textBox_Model.TabIndex = 36;
+            this.textBox_Model.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
+            // 
+            // label8
+            // 
+            this.label8.AutoSize = true;
+            this.label8.Font = new System.Drawing.Font("나눔고딕", 8.999999F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(129)));
+            this.label8.Location = new System.Drawing.Point(10, 247);
+            this.label8.Name = "label8";
+            this.label8.Size = new System.Drawing.Size(68, 14);
+            this.label8.TabIndex = 23;
+            this.label8.Text = "RECIPE ID :";
+            // 
+            // label7
+            // 
+            this.label7.AutoSize = true;
+            this.label7.Font = new System.Drawing.Font("나눔고딕", 8.999999F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(129)));
+            this.label7.Location = new System.Drawing.Point(10, 196);
+            this.label7.Name = "label7";
+            this.label7.Size = new System.Drawing.Size(57, 14);
+            this.label7.TabIndex = 22;
+            this.label7.Text = "MODEL :";
+            // 
             // BTN_MAIN_PINCOUNT_RESET
             // 
             this.BTN_MAIN_PINCOUNT_RESET.BackColor = System.Drawing.Color.Tan;
             this.BTN_MAIN_PINCOUNT_RESET.FlatAppearance.BorderSize = 0;
             this.BTN_MAIN_PINCOUNT_RESET.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.BTN_MAIN_PINCOUNT_RESET.Font = new System.Drawing.Font("나눔고딕", 8.999999F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(129)));
-            this.BTN_MAIN_PINCOUNT_RESET.Location = new System.Drawing.Point(8, 191);
+            this.BTN_MAIN_PINCOUNT_RESET.Location = new System.Drawing.Point(141, 159);
             this.BTN_MAIN_PINCOUNT_RESET.Name = "BTN_MAIN_PINCOUNT_RESET";
-            this.BTN_MAIN_PINCOUNT_RESET.Size = new System.Drawing.Size(83, 28);
+            this.BTN_MAIN_PINCOUNT_RESET.Size = new System.Drawing.Size(66, 28);
             this.BTN_MAIN_PINCOUNT_RESET.TabIndex = 21;
             this.BTN_MAIN_PINCOUNT_RESET.Text = "RESET";
             this.BTN_MAIN_PINCOUNT_RESET.UseVisualStyleBackColor = false;
@@ -99,9 +165,9 @@ namespace ZenHandler.Dlg
             // label_PinCount
             // 
             this.label_PinCount.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.label_PinCount.Location = new System.Drawing.Point(8, 164);
+            this.label_PinCount.Location = new System.Drawing.Point(8, 159);
             this.label_PinCount.Name = "label_PinCount";
-            this.label_PinCount.Size = new System.Drawing.Size(129, 22);
+            this.label_PinCount.Size = new System.Drawing.Size(129, 28);
             this.label_PinCount.TabIndex = 20;
             this.label_PinCount.Text = "0";
             this.label_PinCount.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
@@ -110,7 +176,7 @@ namespace ZenHandler.Dlg
             // 
             this.label6.AutoSize = true;
             this.label6.Font = new System.Drawing.Font("나눔고딕", 8.999999F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(129)));
-            this.label6.Location = new System.Drawing.Point(10, 145);
+            this.label6.Location = new System.Drawing.Point(10, 142);
             this.label6.Name = "label6";
             this.label6.Size = new System.Drawing.Size(85, 14);
             this.label6.TabIndex = 19;
@@ -121,7 +187,7 @@ namespace ZenHandler.Dlg
             this.textBox_ProcessState.BackColor = System.Drawing.Color.White;
             this.textBox_ProcessState.Font = new System.Drawing.Font("맑은 고딕", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(129)));
             this.textBox_ProcessState.ImeMode = System.Windows.Forms.ImeMode.NoControl;
-            this.textBox_ProcessState.Location = new System.Drawing.Point(7, 99);
+            this.textBox_ProcessState.Location = new System.Drawing.Point(7, 95);
             this.textBox_ProcessState.Name = "textBox_ProcessState";
             this.textBox_ProcessState.ReadOnly = true;
             this.textBox_ProcessState.Size = new System.Drawing.Size(130, 33);
@@ -134,7 +200,7 @@ namespace ZenHandler.Dlg
             this.label5.AutoSize = true;
             this.label5.Font = new System.Drawing.Font("나눔고딕", 8.999999F);
             this.label5.ForeColor = System.Drawing.Color.Black;
-            this.label5.Location = new System.Drawing.Point(10, 80);
+            this.label5.Location = new System.Drawing.Point(10, 78);
             this.label5.Name = "label5";
             this.label5.Size = new System.Drawing.Size(80, 14);
             this.label5.TabIndex = 17;
@@ -147,7 +213,7 @@ namespace ZenHandler.Dlg
             this.BTN_MAIN_JUDGE_RESET.FlatAppearance.BorderSize = 0;
             this.BTN_MAIN_JUDGE_RESET.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.BTN_MAIN_JUDGE_RESET.Font = new System.Drawing.Font("나눔고딕", 8.999999F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(129)));
-            this.BTN_MAIN_JUDGE_RESET.Location = new System.Drawing.Point(888, 166);
+            this.BTN_MAIN_JUDGE_RESET.Location = new System.Drawing.Point(888, 108);
             this.BTN_MAIN_JUDGE_RESET.Name = "BTN_MAIN_JUDGE_RESET";
             this.BTN_MAIN_JUDGE_RESET.Size = new System.Drawing.Size(83, 35);
             this.BTN_MAIN_JUDGE_RESET.TabIndex = 16;
@@ -185,7 +251,7 @@ namespace ZenHandler.Dlg
             // label_production_total
             // 
             this.label_production_total.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.label_production_total.Location = new System.Drawing.Point(882, 132);
+            this.label_production_total.Location = new System.Drawing.Point(882, 74);
             this.label_production_total.Name = "label_production_total";
             this.label_production_total.Size = new System.Drawing.Size(89, 22);
             this.label_production_total.TabIndex = 5;
@@ -195,7 +261,7 @@ namespace ZenHandler.Dlg
             // label_production_ng
             // 
             this.label_production_ng.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.label_production_ng.Location = new System.Drawing.Point(882, 106);
+            this.label_production_ng.Location = new System.Drawing.Point(882, 48);
             this.label_production_ng.Name = "label_production_ng";
             this.label_production_ng.Size = new System.Drawing.Size(89, 22);
             this.label_production_ng.TabIndex = 4;
@@ -205,7 +271,7 @@ namespace ZenHandler.Dlg
             // label_production_ok
             // 
             this.label_production_ok.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.label_production_ok.Location = new System.Drawing.Point(882, 80);
+            this.label_production_ok.Location = new System.Drawing.Point(882, 22);
             this.label_production_ok.Name = "label_production_ok";
             this.label_production_ok.Size = new System.Drawing.Size(89, 22);
             this.label_production_ok.TabIndex = 3;
@@ -216,7 +282,7 @@ namespace ZenHandler.Dlg
             // 
             this.label4.AutoSize = true;
             this.label4.Font = new System.Drawing.Font("나눔고딕", 8.999999F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(129)));
-            this.label4.Location = new System.Drawing.Point(827, 135);
+            this.label4.Location = new System.Drawing.Point(827, 77);
             this.label4.Name = "label4";
             this.label4.Size = new System.Drawing.Size(52, 14);
             this.label4.TabIndex = 2;
@@ -226,7 +292,7 @@ namespace ZenHandler.Dlg
             // 
             this.label3.AutoSize = true;
             this.label3.Font = new System.Drawing.Font("나눔고딕", 8.999999F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(129)));
-            this.label3.Location = new System.Drawing.Point(827, 110);
+            this.label3.Location = new System.Drawing.Point(827, 52);
             this.label3.Name = "label3";
             this.label3.Size = new System.Drawing.Size(33, 14);
             this.label3.TabIndex = 1;
@@ -236,7 +302,7 @@ namespace ZenHandler.Dlg
             // 
             this.label2.AutoSize = true;
             this.label2.Font = new System.Drawing.Font("나눔고딕", 8.999999F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(129)));
-            this.label2.Location = new System.Drawing.Point(827, 83);
+            this.label2.Location = new System.Drawing.Point(827, 25);
             this.label2.Name = "label2";
             this.label2.Size = new System.Drawing.Size(31, 14);
             this.label2.TabIndex = 0;
@@ -274,5 +340,10 @@ namespace ZenHandler.Dlg
         private System.Windows.Forms.Label label4;
         private System.Windows.Forms.Label label3;
         private System.Windows.Forms.Label label2;
+        private System.Windows.Forms.Label label8;
+        private System.Windows.Forms.Label label7;
+        private System.Windows.Forms.TextBox textBox_Model;
+        private System.Windows.Forms.TextBox textBox_Recipe;
+        private System.Windows.Forms.Button BTN_MAIN_RECIPE_VEW;
     }
 }

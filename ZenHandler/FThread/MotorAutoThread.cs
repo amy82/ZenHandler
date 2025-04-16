@@ -17,7 +17,10 @@ namespace ZenHandler.FThread
         public MotorAutoThread(MotionControl.MotorController _parent)
         {
             this.parent = _parent;
+            this.name = "MotorAutoThread";
         }
+
+
         private void TransferFlow()
         {
             if (this.m_nCurrentStep >= 1000 && this.m_nCurrentStep < 2000)
@@ -55,12 +58,10 @@ namespace ZenHandler.FThread
         {
             if (this.m_nCurrentStep >= this.m_nStartStep && this.m_nCurrentStep < this.m_nEndStep)
             {
-                if (this.parent.MachineName == "TransferMachine")
+                if (this.parent.MachineName == "TransferMachine")       //TODO: 여기도 개선 필요 자기자신
                 {
 
-                    Console.WriteLine($"{this.parent.MachineName} {this.parent} Start");
                     TransferFlow();
-                    Console.WriteLine($"{this.parent.MachineName} Process End");
                 }
 
                 if (this.parent.MachineName == "LiftModule")
@@ -74,9 +75,7 @@ namespace ZenHandler.FThread
                     rtn = Globalo.motionManager.transferMachine.IsMoving();
 
                     Console.WriteLine($"{this.parent.MachineName} Process End: {rtn}");
-                    //PcbProcess.HomeProcess(1001);
                 }
-                this.m_nCurrentStep = 0;
             }
             else if(this.m_nCurrentStep < 0)
             {

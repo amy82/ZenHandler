@@ -32,7 +32,7 @@ namespace ZenHandler.FThread
                 if (ProgramState.CurrentState == OperationState.Stopped)
                 {
                     //Stop Auto Process
-                    Globalo.MainForm.StopAutoProcess();
+                    Globalo.operationPanel.StopAutoProcess();
                     return;
                 }
                 //// 원점 복귀
@@ -72,7 +72,7 @@ namespace ZenHandler.FThread
                 else
                 {
                     //일시 정지 요청시
-                    Globalo.MainForm.PauseAutoProcess();
+                    Globalo.operationPanel.PauseAutoProcess();
                 }
             }
             else

@@ -39,9 +39,6 @@ namespace ZenHandler
         public static MotionControl.MotionManager motionManager;
         public static Vision vision = new Vision();
 
-        ///public static MotorControl motorControl = new MotorControl();
-        //public static DIoControl dIoControl = new DIoControl();
-
         //우측 메뉴 Form
         public static Dlg.TabMenuForm tabMenuForm;
 
@@ -198,8 +195,8 @@ namespace ZenHandler
         public static readonly string BTN_OFF = "#C3A279";
 
 
-        public static readonly string MANUAL_BTN_ON = "#C3A279";
-        public static readonly string MANUAL_BTN_OFF = "#4C4743";
+        public static readonly string MANUAL_BTN_ON = "#4C4743";
+        public static readonly string MANUAL_BTN_OFF = "#C3A279"; 
         public static readonly Color BTN_START_ON = Color.BlueViolet;
     }
     public static class SecsGemData

@@ -13,8 +13,8 @@ namespace ZenHandler.MotionControl
         protected FThread.MotorAutoThread motorAutoThread;
         protected FThread.MotorManualThread motorManualThread;
         
-
         public Process.ProcessManager processManager;
+
         public string MachineName { get; protected set; }
         protected CancellationTokenSource cts;
         ////protected bool isMotorBusy = false; //실행중 체크용 플래그
@@ -30,7 +30,7 @@ namespace ZenHandler.MotionControl
 
         public MotorController()//string name
         {
-            motorAutoThread = new FThread.MotorAutoThread(this);
+            motorAutoThread = new FThread.MotorAutoThread(this);        //TODO: MotorAutoThread 쓰레드 종료하는 거 추가해야된다.
             motorManualThread = new FThread.MotorManualThread(this);
 
             processManager = new Process.ProcessManager();
@@ -39,26 +39,27 @@ namespace ZenHandler.MotionControl
         }
 
         public abstract void MoveToPosition(int position);
-        public abstract void OriginRun();
+        public abstract void RunStop();
+        public abstract bool OriginRun();
         public abstract void ReadyRun();
         public abstract void AutoRun();
         public abstract bool IsMoving();
         public abstract void MovingStop();
+        public abstract void MotorDataSet();
 
 
 
-        
         public virtual bool SingleAxisMove(MotorAxis nAxis, double dPos, AXT_MOTION_ABSREL nAbsFlag, bool bWait = false)
         {
             if (ProgramState.ON_LINE_MOTOR == false)
             {
-                nAxis.motorBreak = false;
+                nAxis.MotorBreak = false;
 
                 if (Program.NORINDA_MODE == true)
                 {
                     while (bWait)
                     {
-                        if (nAxis.motorBreak) break;
+                        if (nAxis.MotorBreak) break;
                         Console.WriteLine($"SingleAxisMove");
                         Thread.Sleep(1000);
                     }
@@ -71,8 +72,8 @@ namespace ZenHandler.MotionControl
             double dAcc = 0.0;
             double dDec = 0.0;
             string str = "";
-            nAxis.motorBreak = false;
-            nAxis.isMotorBusy = true;
+            nAxis.MotorBreak = false;
+            nAxis.IsMotorBusy = true;
 
             
             if (nAxis.GetAmpFault() == true)    //알람 신호 입력 상태 확인
@@ -163,7 +164,7 @@ namespace ZenHandler.MotionControl
 
                 while (bWait)
                 {
-                    if (nAxis.motorBreak) break;
+                    if (nAxis.MotorBreak) break;
                     //위치 도착 확인 , 정지 확인
 
                     switch (step)
@@ -207,8 +208,27 @@ namespace ZenHandler.MotionControl
                     Thread.Sleep(10);
                 }
             }
-            nAxis.isMotorBusy = false;
+            nAxis.IsMotorBusy = false;
             return isSuccess;
+        }
+        public virtual bool MoveAxisLimit(MotorAxis nAxis, double dVel, double dAcc, AXT_MOTION_HOME_DETECT Detect, AXT_MOTION_EDGE Edge, AXT_MOTION_STOPMODE StopMode, bool bWait = false)
+        {
+            uint duRetCode = 0;
+
+            double DVel = dVel * nAxis.Resolution;
+            double DAcc = dAcc;
+
+
+            duRetCode = CAXM.AxmMoveSignalSearch(nAxis.m_lAxisNo, DVel, DAcc, (int)Detect, (int)Edge, (int)StopMode);
+
+            if (duRetCode != (uint)AXT_FUNC_RESULT.AXT_RT_SUCCESS)
+            {
+
+                Console.WriteLine("MotorControl", $"AxmMoveSignalSearch return error[Code:{duRetCode}]", Globalo.eMessageName.M_ERROR);
+
+                return false;
+            }
+            return true;
         }
         public virtual bool MultiAxisMove(MotorAxis[] multiAxis, double[] dMultiPos, bool bWait = false)
         {
@@ -216,29 +236,25 @@ namespace ZenHandler.MotionControl
             {
                 return true;
             }
-            
-            
-            
-
             bool isSuccess = false;
             int multiCnt = multiAxis.Count();
             int i = 0;
             string str = "";
 
 
-            int[] dMultiAxis = new int[MotionControl.MotorSet.MAX_MOTOR_COUNT];
-            double[] dMultiCurrPos = new double[MotionControl.MotorSet.MAX_MOTOR_COUNT];
-            double[] dMultiVel = new double[MotionControl.MotorSet.MAX_MOTOR_COUNT];
-            double[] dMultiAcc = new double[MotionControl.MotorSet.MAX_MOTOR_COUNT];
-            double[] dMultiDec = new double[MotionControl.MotorSet.MAX_MOTOR_COUNT];
+            int[] dMultiAxis = new int[multiCnt];
+            double[] dMultiCurrPos = new double[multiCnt];
+            double[] dMultiVel = new double[multiCnt];
+            double[] dMultiAcc = new double[multiCnt];
+            double[] dMultiDec = new double[multiCnt];
 
             int nMotorCount = 0;
 
 
             for (i = 0, nMotorCount = 0; i < multiCnt; i++)
             {
-                multiAxis[i].isMotorBusy = true;
-                multiAxis[i].motorBreak = false;
+                multiAxis[i].IsMotorBusy = true;
+                multiAxis[i].MotorBreak = false;
 
                 if (multiAxis[i].GetAmpFault() == true)    //알람 신호 입력 상태 확인
                 {
@@ -272,12 +288,12 @@ namespace ZenHandler.MotionControl
                 //
 
                 dMultiAxis[nMotorCount] = multiAxis[i].m_lAxisNo;
-                dMultiPos[nMotorCount] *= multiAxis[i].Resolution;
+                dMultiCurrPos[nMotorCount] = dMultiPos[i] * multiAxis[i].Resolution;
 
-                if (dMultiPos[nMotorCount] > 0)
-                {
-                    dMultiPos[nMotorCount] = (int)(dMultiPos[i] + 0.5);
-                }
+                //if (dMultiCurrPos[nMotorCount] > 0)
+                //{
+                //    dMultiCurrPos[nMotorCount] = (int)(dMultiPos[i] + 0.5);
+                //}
 
                 dMultiVel[nMotorCount] = multiAxis[i].Velocity * multiAxis[i].Resolution; //이동 속도 
 
@@ -311,7 +327,7 @@ namespace ZenHandler.MotionControl
             //가속도 (가속도의 단위는 Unit/pulse를 1/1로 한경우에 PPS[Pulses/sec^2]) 배열
             //감속도(감속도의 단위는 Unit/pulse를 1/1로 한경우에 PPS[Pulses/sec^2]) 배열
 
-            uint duRetCode = CAXM.AxmMoveStartMultiPos(nMotorCount, dMultiAxis, dMultiPos, dMultiVel, dMultiAcc, dMultiDec);
+            uint duRetCode = CAXM.AxmMoveStartMultiPos(nMotorCount, dMultiAxis, dMultiCurrPos, dMultiVel, dMultiAcc, dMultiDec);
 
             if (duRetCode != (uint)AXT_FUNC_RESULT.AXT_RT_SUCCESS)
             {
@@ -333,7 +349,7 @@ namespace ZenHandler.MotionControl
                 {
                     for (i = 0; i < multiCnt; i++)
                     {
-                        if (multiAxis[i].motorBreak) break;
+                        if (multiAxis[i].MotorBreak) break;
                     }
                         
                     //위치 도착 확인 , 정지 확인
@@ -365,7 +381,7 @@ namespace ZenHandler.MotionControl
                                 if ((multiAxis[i].GetEncoderPos() - dMultiPos[i]) < MotionControl.MotorSet.ENCORDER_GAP)
                                 {
                                     SkipChk++;
-                                    multiAxis[i].isMotorBusy = false;
+                                    multiAxis[i].IsMotorBusy = false;
                                 }
                             }
                             if (SkipChk == multiCnt)

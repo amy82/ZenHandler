@@ -55,7 +55,7 @@ namespace ZenHandler.FThread
             {
                 cts = null;
                 thread = null;
-                Console.WriteLine($"{this.name} ProcessRun finally");
+                //Console.WriteLine($"{this.name} ProcessRun finally");
             }
 
 
@@ -138,12 +138,12 @@ namespace ZenHandler.FThread
         {
             if (thread != null && cts != null)
             {
-                Console.WriteLine($"{this.name} Thread Stop() #1");
+                //Console.WriteLine($"{this.name} Thread Stop() #1");
                 
                 cts.Cancel();
                 m_bPause = false;       //일시정지 해제 cts.Cancel 보다 m_bPause를 먼저하면 ThreadRun 에서 일시 정지로 빠진다.
 
-                Console.WriteLine($"{this.name} Thread Stop() #End");
+                //Console.WriteLine($"{this.name} Thread Stop() #End");
             }
         }
         public void Close()     //프로그램 종료시에만 호출
