@@ -246,6 +246,14 @@ namespace ZenHandler.Machine
                 return false;
             }
 
+            if (bFlag == false)
+            {
+                Thread.Sleep(300);
+                //off 일때 파기를 꺼줘야된다.
+                uFlagLow = (uint)DioDefine.DIO_OUT_ADDR.VACUUM_OFF;
+                Globalo.motionManager.ioController.DioWriteOutportByte(lModuleNo, lOffset, uFlagLow, false);
+                
+            }
             bool isSuccess = false;
 
             if (bWait == false)
