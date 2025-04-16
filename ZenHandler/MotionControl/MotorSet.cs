@@ -19,6 +19,7 @@ namespace ZenHandler.MotionControl
         public static bool MOTOR_ACC_TYPE_SEC = true;
 
 
+
         //EEPROM
         //
         public enum eMotorList : int        
@@ -42,7 +43,10 @@ namespace ZenHandler.MotionControl
         //eeprom == 투입 LIFT 2개 , 배출 LIFT 2개
         //aoi    == 투입 LIFT 2개 , 배출 LIFT 2개 , CAM z축 2개
         //fw     == 매거진 Z축 + Y축 2세트
-
+        public enum eJogDic : int
+        {
+            PLUS_MOVE = 1, MINUS_MOVE = -1
+        };
 
         public static AXT_MOTION_HOME_DETECT[] MOTOR_HOME_SENSOR = {
             AXT_MOTION_HOME_DETECT.HomeSensor, AXT_MOTION_HOME_DETECT.HomeSensor, AXT_MOTION_HOME_DETECT.HomeSensor,

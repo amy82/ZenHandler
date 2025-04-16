@@ -106,8 +106,6 @@ namespace ZenHandler.MotionControl
             //String szFilePath = "C:\\Program Files\\EzSoftware RM\\EzSoftware\\MotionDefault.mot";
             //++ AXL(AjineXtek Library)을 사용가능하게 하고 장착된 보드들을 초기화합니다.
 
-
-
             CAXL.AxlGetBoardCount(ref lBoardCount);
 
             if (lBoardCount < 1)
@@ -129,21 +127,6 @@ namespace ZenHandler.MotionControl
             }
 
             AmpDisableAll();
-
-
-
-            //bool bAxlInit = true;
-
-            //for (i = 0; i < (int)MotorSet.eMotorList.MAX_MOTOR_LIST_COUNT; i++)
-            //{
-            //    if (Axl_Axisconfig(i) != 0)
-            //    {
-            //        //fail
-            //        bAxlInit = false;
-            //    }
-            //}
-
-
 
             return true;
         }
@@ -623,10 +606,6 @@ namespace ZenHandler.MotionControl
                 }
                 
             }//for end
-
-
-
-
             return nFailCount;
         }
 
@@ -634,51 +613,41 @@ namespace ZenHandler.MotionControl
         public bool AmpDisableAll()
         {
             int i = 0;
-            double dDecel = 0.0;
 
-            for (i = 0; i < MotorSet.MAX_MOTOR_COUNT; i++)      //AmpDisableAll
+            int length = transferMachine.MotorAxes.Length;
+
+            for (i = 0; i < length; i++)
             {
-                if (i == -1)
+                transferMachine.MotorAxes[i].Stop();
+                transferMachine.MotorAxes[i].ServoOff();
+                if (transferMachine.MotorAxes[i].Type == MotorDefine.eMotorType.LINEAR)
                 {
-                    continue; //사용 안하는 축 번호 있을 경우
+                    transferMachine.MotorAxes[i].ServoAlarmReset(1);
                 }
-                CAXM.AxmMoveStop(i, dDecel);
-                CAXM.AxmSignalServoOn(i, (uint)AXT_USE.DISABLE);
 
-                if (MotorSet.MOTOR_TYPE[i] == MotorDefine.eMotorType.LINEAR)
-                {
-                    CAXM.AxmSignalServoAlarmReset(i, (uint)AXT_USE.ENABLE);
-                }
             }
-
-            
-
             Thread.Sleep(500);
 
-            for (i = 0; i < MotorSet.MAX_MOTOR_COUNT; i++)      //AmpDisableAll
+            length = transferMachine.MotorAxes.Length;
+            for (i = 0; i < length; i++)
             {
-                if (i == -1)
+                if (transferMachine.MotorAxes[i].Type == MotorDefine.eMotorType.LINEAR)
                 {
-                    continue; //사용 안하는 축 번호 있을 경우
-                }
-                if (MotorSet.MOTOR_TYPE[i] == MotorDefine.eMotorType.LINEAR)
-                {
-                    CAXM.AxmSignalServoAlarmReset(i, (uint)AXT_USE.DISABLE);
+                    transferMachine.MotorAxes[i].ServoAlarmReset(0);
                 }
             }
+
             return true;
         }
         private void Axl_Close()
         {
             int i;
             // 모든 모터를 정지한다.
-            for (i = 0; i < MotorSet.MAX_MOTOR_COUNT; i++)      //Axl_Close
+
+            int length = transferMachine.MotorAxes.Length;
+            for (i = 0; i < length; i++)
             {
-                if (i == -1)
-                {
-                    continue; //사용 안하는 축 번호 있을 경우
-                }
-                CAXM.AxmMoveSStop(i);
+                transferMachine.MotorAxes[i].Stop();
             }
 
             CAXL.AxlClose();

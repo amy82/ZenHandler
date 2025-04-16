@@ -68,6 +68,7 @@ namespace ZenHandler.Machine
             {
                 return true;
             }
+
             bool bRtn = false;
 
             double dXPos = 0.0;

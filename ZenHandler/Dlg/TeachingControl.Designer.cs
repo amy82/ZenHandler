@@ -53,9 +53,9 @@
             this.label2.BackColor = System.Drawing.SystemColors.Window;
             this.label2.Font = new System.Drawing.Font("나눔고딕", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(129)));
             this.label2.ForeColor = System.Drawing.Color.DimGray;
-            this.label2.Location = new System.Drawing.Point(13, 17);
+            this.label2.Location = new System.Drawing.Point(15, 17);
             this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(221, 23);
+            this.label2.Size = new System.Drawing.Size(219, 23);
             this.label2.TabIndex = 18;
             this.label2.Text = "MOTOR SPEED";
             this.label2.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
@@ -65,9 +65,9 @@
             this.label3.BackColor = System.Drawing.SystemColors.Window;
             this.label3.Font = new System.Drawing.Font("나눔고딕", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(129)));
             this.label3.ForeColor = System.Drawing.Color.DimGray;
-            this.label3.Location = new System.Drawing.Point(13, 97);
+            this.label3.Location = new System.Drawing.Point(15, 97);
             this.label3.Name = "label3";
-            this.label3.Size = new System.Drawing.Size(221, 23);
+            this.label3.Size = new System.Drawing.Size(219, 23);
             this.label3.TabIndex = 19;
             this.label3.Text = "JOG MOVE";
             this.label3.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
@@ -77,9 +77,9 @@
             this.label4.BackColor = System.Drawing.SystemColors.Window;
             this.label4.Font = new System.Drawing.Font("나눔고딕", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(129)));
             this.label4.ForeColor = System.Drawing.Color.DimGray;
-            this.label4.Location = new System.Drawing.Point(288, 17);
+            this.label4.Location = new System.Drawing.Point(291, 17);
             this.label4.Name = "label4";
-            this.label4.Size = new System.Drawing.Size(222, 23);
+            this.label4.Size = new System.Drawing.Size(219, 23);
             this.label4.TabIndex = 20;
             this.label4.Text = "VALUE MOVE";
             this.label4.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
@@ -95,7 +95,7 @@
             this.BTN_TEACH_SPEED_LOW.Name = "BTN_TEACH_SPEED_LOW";
             this.BTN_TEACH_SPEED_LOW.Size = new System.Drawing.Size(69, 43);
             this.BTN_TEACH_SPEED_LOW.TabIndex = 21;
-            this.BTN_TEACH_SPEED_LOW.Text = "LOW";
+            this.BTN_TEACH_SPEED_LOW.Text = "10%";
             this.BTN_TEACH_SPEED_LOW.UseVisualStyleBackColor = false;
             this.BTN_TEACH_SPEED_LOW.Click += new System.EventHandler(this.BTN_TEACH_SPEED_LOW_Click);
             // 
@@ -110,7 +110,7 @@
             this.BTN_TEACH_SPEED_MID.Name = "BTN_TEACH_SPEED_MID";
             this.BTN_TEACH_SPEED_MID.Size = new System.Drawing.Size(69, 43);
             this.BTN_TEACH_SPEED_MID.TabIndex = 22;
-            this.BTN_TEACH_SPEED_MID.Text = "MID";
+            this.BTN_TEACH_SPEED_MID.Text = "50%";
             this.BTN_TEACH_SPEED_MID.UseVisualStyleBackColor = false;
             this.BTN_TEACH_SPEED_MID.Click += new System.EventHandler(this.BTN_TEACH_SPEED_MID_Click);
             // 
@@ -125,7 +125,7 @@
             this.BTN_TEACH_SPEED_HIGH.Name = "BTN_TEACH_SPEED_HIGH";
             this.BTN_TEACH_SPEED_HIGH.Size = new System.Drawing.Size(69, 43);
             this.BTN_TEACH_SPEED_HIGH.TabIndex = 23;
-            this.BTN_TEACH_SPEED_HIGH.Text = "HIGH";
+            this.BTN_TEACH_SPEED_HIGH.Text = "100%";
             this.BTN_TEACH_SPEED_HIGH.UseVisualStyleBackColor = false;
             this.BTN_TEACH_SPEED_HIGH.Click += new System.EventHandler(this.BTN_TEACH_SPEED_HIGH_Click);
             // 
@@ -136,7 +136,7 @@
             this.BTN_TEACH_JOG_MINUS.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.BTN_TEACH_JOG_MINUS.Font = new System.Drawing.Font("나눔고딕", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(129)));
             this.BTN_TEACH_JOG_MINUS.ForeColor = System.Drawing.Color.White;
-            this.BTN_TEACH_JOG_MINUS.Location = new System.Drawing.Point(15, 123);
+            this.BTN_TEACH_JOG_MINUS.Location = new System.Drawing.Point(15, 122);
             this.BTN_TEACH_JOG_MINUS.Name = "BTN_TEACH_JOG_MINUS";
             this.BTN_TEACH_JOG_MINUS.Size = new System.Drawing.Size(69, 43);
             this.BTN_TEACH_JOG_MINUS.TabIndex = 24;
@@ -152,7 +152,7 @@
             this.BTN_TEACH_JOG_STOP.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.BTN_TEACH_JOG_STOP.Font = new System.Drawing.Font("나눔고딕", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(129)));
             this.BTN_TEACH_JOG_STOP.ForeColor = System.Drawing.Color.White;
-            this.BTN_TEACH_JOG_STOP.Location = new System.Drawing.Point(90, 123);
+            this.BTN_TEACH_JOG_STOP.Location = new System.Drawing.Point(90, 122);
             this.BTN_TEACH_JOG_STOP.Name = "BTN_TEACH_JOG_STOP";
             this.BTN_TEACH_JOG_STOP.Size = new System.Drawing.Size(69, 43);
             this.BTN_TEACH_JOG_STOP.TabIndex = 25;
@@ -167,7 +167,7 @@
             this.BTN_TEACH_JOG_PLUS.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.BTN_TEACH_JOG_PLUS.Font = new System.Drawing.Font("나눔고딕", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(129)));
             this.BTN_TEACH_JOG_PLUS.ForeColor = System.Drawing.Color.White;
-            this.BTN_TEACH_JOG_PLUS.Location = new System.Drawing.Point(165, 123);
+            this.BTN_TEACH_JOG_PLUS.Location = new System.Drawing.Point(165, 122);
             this.BTN_TEACH_JOG_PLUS.Name = "BTN_TEACH_JOG_PLUS";
             this.BTN_TEACH_JOG_PLUS.Size = new System.Drawing.Size(69, 43);
             this.BTN_TEACH_JOG_PLUS.TabIndex = 26;
@@ -213,9 +213,9 @@
             this.LABEL_TEACH_MOVE_VALUE.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.LABEL_TEACH_MOVE_VALUE.Font = new System.Drawing.Font("나눔고딕 ExtraBold", 15F, System.Drawing.FontStyle.Bold);
             this.LABEL_TEACH_MOVE_VALUE.ForeColor = System.Drawing.Color.DimGray;
-            this.LABEL_TEACH_MOVE_VALUE.Location = new System.Drawing.Point(366, 42);
+            this.LABEL_TEACH_MOVE_VALUE.Location = new System.Drawing.Point(361, 42);
             this.LABEL_TEACH_MOVE_VALUE.Name = "LABEL_TEACH_MOVE_VALUE";
-            this.LABEL_TEACH_MOVE_VALUE.Size = new System.Drawing.Size(69, 43);
+            this.LABEL_TEACH_MOVE_VALUE.Size = new System.Drawing.Size(78, 43);
             this.LABEL_TEACH_MOVE_VALUE.TabIndex = 29;
             this.LABEL_TEACH_MOVE_VALUE.Text = "2.0";
             this.LABEL_TEACH_MOVE_VALUE.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;

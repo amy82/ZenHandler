@@ -105,13 +105,23 @@ namespace ZenHandler.MotionControl
 
         public virtual void ServoOn()
         {
-            uint duOnOff = 1;
-            CAXM.AxmSignalServoOn(m_lAxisNo, duOnOff);
+            CAXM.AxmSignalServoOn(m_lAxisNo, (uint)AXT_USE.ENABLE);
         }
         public virtual void ServoOff()
         {
-            uint duOnOff = 0;
-            CAXM.AxmSignalServoOn(m_lAxisNo, duOnOff);
+            CAXM.AxmSignalServoOn(m_lAxisNo, (uint)AXT_USE.DISABLE);
+        }
+        public virtual void ServoAlarmReset(int dOnOff)
+        {
+            if (dOnOff == 0)
+            {
+                CAXM.AxmSignalServoAlarmReset(m_lAxisNo, (uint)AXT_USE.DISABLE);
+            }
+            else
+            {
+                CAXM.AxmSignalServoAlarmReset(m_lAxisNo, (uint)AXT_USE.ENABLE);
+            }
+            
         }
         public virtual void Stop(int type = 0)
         {
@@ -170,12 +180,6 @@ namespace ZenHandler.MotionControl
 
             CAXM.AxmMoveStop(this.m_lAxisNo, this.Deceleration);
             CAXM.AxmSignalServoOn(this.m_lAxisNo, (uint)AXT_USE.DISABLE);
-
-            //Thread.Sleep(300);
-            //if (MOTOR_TYPE[nAxis] == STEPING)
-            //{
-            //AxmSignalServoAlarmReset(nUseAxis, ENABLE);
-            //}
 
             return true;
         }

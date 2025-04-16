@@ -27,14 +27,16 @@ namespace ZenHandler.Dlg
         private Button[] UnLoadVacuumOffBtnArr = new Button[4];
 
         protected CancellationTokenSource cts;
-        private bool isMoving;
+        private bool isMovingTransfer;
 
         public ManualTransfer()
         {
             InitializeComponent();
             bManualStopKey = false;
             cts = new CancellationTokenSource();
-            isMoving = false;
+
+            isMovingTransfer = false;
+
             ManualTimer = new System.Windows.Forms.Timer();
             ManualTimer.Interval = 300; // 1초 (1000밀리초) 간격 설정
             ManualTimer.Tick += new EventHandler(Manual_Timer_Tick);
@@ -144,12 +146,22 @@ namespace ZenHandler.Dlg
         }
         private async void Manual_Z_Move(Data.eTeachPosName ePos)
         {
-            if (isMoving)
+            if (ProgramState.CurrentState == OperationState.AutoRunning)
+            {
+                Globalo.LogPrint("ManualControl", "[INFO] 자동 운전 중 사용 불가", Globalo.eMessageName.M_WARNING);
+                return;
+            }
+            if (ProgramState.CurrentState == OperationState.Paused)
+            {
+                Globalo.LogPrint("ManualControl", "[INFO] 일시 정지 중 사용 불가", Globalo.eMessageName.M_WARNING);
+                return;
+            }
+            if (isMovingTransfer)
             {
                 Console.WriteLine("Z motor running...");
                 return;
             }
-            isMoving = true;
+            isMovingTransfer = true;
 
             cts?.Dispose();
             cts = new CancellationTokenSource();
@@ -212,17 +224,28 @@ namespace ZenHandler.Dlg
                 Globalo.LogPrint("ManualControl", $"모터 이동 실패: {ex.Message}");
             }
             bManualStopKey = false;
-            isMoving = false;
+            isMovingTransfer = false;
         }
         private async void Manual_XY_Move(Data.eTeachPosName ePos)
         {
-            if (isMoving)
+            if (ProgramState.CurrentState == OperationState.AutoRunning)
+            {
+                Globalo.LogPrint("ManualControl", "[INFO] 자동 운전 중 사용 불가", Globalo.eMessageName.M_WARNING);
+                return;
+            }
+            if (ProgramState.CurrentState == OperationState.Paused)
+            {
+                Globalo.LogPrint("ManualControl", "[INFO] 일시 정지 중 사용 불가", Globalo.eMessageName.M_WARNING);
+                return;
+            }
+
+            if (isMovingTransfer)
             {
                 Console.WriteLine("XY motor running...");
                 Globalo.LogPrint("", " XY AXIS MOTOR RUNNING.", Globalo.eMessageName.M_INFO);
                 return;
             }
-            isMoving = true;
+            isMovingTransfer = true;
             
 
             cts?.Dispose();
@@ -290,43 +313,10 @@ namespace ZenHandler.Dlg
                 Globalo.LogPrint("ManualControl", $"모터 이동 실패: {ex.Message}");
             }
             bManualStopKey = false;
-            isMoving = false;
+            isMovingTransfer = false;
         }
 
-        private void BTN_MANUAL_WAIT_POS_XY_Click_1(object sender, EventArgs e)
-        {
-            if (ProgramState.CurrentState == OperationState.AutoRunning)
-            {
-                Globalo.LogPrint("ManualControl", "[INFO] 자동 운전 중 사용 불가", Globalo.eMessageName.M_WARNING);
-                return;
-            }
-            if (ProgramState.CurrentState == OperationState.Paused)
-            {
-                Globalo.LogPrint("ManualControl", "[INFO] 일시 정지 중 사용 불가", Globalo.eMessageName.M_WARNING);
-                return;
-            }
-            Data.eTeachPosName ePos = Data.eTeachPosName.WAIT_POS;
-
-            Manual_XY_Move(ePos);
-        }
-
-        private void BTN_MANUAL_WAIT_POS_Z_Click_1(object sender, EventArgs e)
-        {
-            if (ProgramState.CurrentState == OperationState.AutoRunning)
-            {
-                Globalo.LogPrint("ManualControl", "[INFO] 자동 운전 중 사용 불가", Globalo.eMessageName.M_WARNING);
-                return;
-            }
-            if (ProgramState.CurrentState == OperationState.Paused)
-            {
-                Globalo.LogPrint("ManualControl", "[INFO] 일시 정지 중 사용 불가", Globalo.eMessageName.M_WARNING);
-                return;
-            }
-
-            Data.eTeachPosName ePos = Data.eTeachPosName.WAIT_POS;
-
-            Manual_Z_Move(ePos);
-        }
+        
         public void showPanel()
         {
             if (ProgramState.ON_LINE_MOTOR == true)
@@ -352,19 +342,16 @@ namespace ZenHandler.Dlg
                 ManualTimer.Stop();
             }
         }
+        private void BTN_MANUAL_WAIT_POS_XY_Click_1(object sender, EventArgs e)
+        {
+            Data.eTeachPosName ePos = Data.eTeachPosName.WAIT_POS;
 
+            Manual_XY_Move(ePos);
+        }
+
+        
         private void BTN_MANUAL_TRANSFER_LEFT_LOAD_POS_XY_Click(object sender, EventArgs e)
         {
-            if (ProgramState.CurrentState == OperationState.AutoRunning)
-            {
-                Globalo.LogPrint("ManualControl", "[INFO] 자동 운전 중 사용 불가", Globalo.eMessageName.M_WARNING);
-                return;
-            }
-            if (ProgramState.CurrentState == OperationState.Paused)
-            {
-                Globalo.LogPrint("ManualControl", "[INFO] 일시 정지 중 사용 불가", Globalo.eMessageName.M_WARNING);
-                return;
-            }
             Data.eTeachPosName ePos = Data.eTeachPosName.LEFT_TRAY_LOAD_POS;
 
             Manual_XY_Move(ePos);
@@ -372,16 +359,6 @@ namespace ZenHandler.Dlg
 
         private void BTN_MANUAL_TRANSFER_RIGHT_LOAD_POS_XY_Click(object sender, EventArgs e)
         {
-            if (ProgramState.CurrentState == OperationState.AutoRunning)
-            {
-                Globalo.LogPrint("ManualControl", "[INFO] 자동 운전 중 사용 불가", Globalo.eMessageName.M_WARNING);
-                return;
-            }
-            if (ProgramState.CurrentState == OperationState.Paused)
-            {
-                Globalo.LogPrint("ManualControl", "[INFO] 일시 정지 중 사용 불가", Globalo.eMessageName.M_WARNING);
-                return;
-            }
             Data.eTeachPosName ePos = Data.eTeachPosName.RIGHT_TRAY_LOAD_POS;
 
             Manual_XY_Move(ePos);
@@ -389,16 +366,6 @@ namespace ZenHandler.Dlg
 
         private void BTN_MANUAL_TRANSFER_SOCKET1_POS_XY_Click(object sender, EventArgs e)
         {
-            if (ProgramState.CurrentState == OperationState.AutoRunning)
-            {
-                Globalo.LogPrint("ManualControl", "[INFO] 자동 운전 중 사용 불가", Globalo.eMessageName.M_WARNING);
-                return;
-            }
-            if (ProgramState.CurrentState == OperationState.Paused)
-            {
-                Globalo.LogPrint("ManualControl", "[INFO] 일시 정지 중 사용 불가", Globalo.eMessageName.M_WARNING);
-                return;
-            }
             Data.eTeachPosName ePos = Data.eTeachPosName.SOCKET_POS1;
 
             Manual_XY_Move(ePos);
@@ -406,16 +373,6 @@ namespace ZenHandler.Dlg
 
         private void BTN_MANUAL_TRANSFER_SOCKET2_POS_XY_Click(object sender, EventArgs e)
         {
-            if (ProgramState.CurrentState == OperationState.AutoRunning)
-            {
-                Globalo.LogPrint("ManualControl", "[INFO] 자동 운전 중 사용 불가", Globalo.eMessageName.M_WARNING);
-                return;
-            }
-            if (ProgramState.CurrentState == OperationState.Paused)
-            {
-                Globalo.LogPrint("ManualControl", "[INFO] 일시 정지 중 사용 불가", Globalo.eMessageName.M_WARNING);
-                return;
-            }
             Data.eTeachPosName ePos = Data.eTeachPosName.SOCKET_POS2;
 
             Manual_XY_Move(ePos);
@@ -423,16 +380,6 @@ namespace ZenHandler.Dlg
 
         private void BTN_MANUAL_TRANSFER_SOCKET3_POS_XY_Click(object sender, EventArgs e)
         {
-            if (ProgramState.CurrentState == OperationState.AutoRunning)
-            {
-                Globalo.LogPrint("ManualControl", "[INFO] 자동 운전 중 사용 불가", Globalo.eMessageName.M_WARNING);
-                return;
-            }
-            if (ProgramState.CurrentState == OperationState.Paused)
-            {
-                Globalo.LogPrint("ManualControl", "[INFO] 일시 정지 중 사용 불가", Globalo.eMessageName.M_WARNING);
-                return;
-            }
             Data.eTeachPosName ePos = Data.eTeachPosName.SOCKET_POS3;
 
             Manual_XY_Move(ePos);
@@ -440,34 +387,19 @@ namespace ZenHandler.Dlg
 
         private void BTN_MANUAL_TRANSFER_SOCKET4_POS_XY_Click(object sender, EventArgs e)
         {
-            if (ProgramState.CurrentState == OperationState.AutoRunning)
-            {
-                Globalo.LogPrint("ManualControl", "[INFO] 자동 운전 중 사용 불가", Globalo.eMessageName.M_WARNING);
-                return;
-            }
-            if (ProgramState.CurrentState == OperationState.Paused)
-            {
-                Globalo.LogPrint("ManualControl", "[INFO] 일시 정지 중 사용 불가", Globalo.eMessageName.M_WARNING);
-                return;
-            }
             Data.eTeachPosName ePos = Data.eTeachPosName.SOCKET_POS4;
 
             Manual_XY_Move(ePos);
         }
 
+        private void BTN_MANUAL_WAIT_POS_Z_Click_1(object sender, EventArgs e)
+        {
+            Data.eTeachPosName ePos = Data.eTeachPosName.WAIT_POS;
+
+            Manual_Z_Move(ePos);
+        }
         private void BTN_MANUAL_TRANSFER_LEFT_LOAD_POS_Z_Click(object sender, EventArgs e)
         {
-            if (ProgramState.CurrentState == OperationState.AutoRunning)
-            {
-                Globalo.LogPrint("ManualControl", "[INFO] 자동 운전 중 사용 불가", Globalo.eMessageName.M_WARNING);
-                return;
-            }
-            if (ProgramState.CurrentState == OperationState.Paused)
-            {
-                Globalo.LogPrint("ManualControl", "[INFO] 일시 정지 중 사용 불가", Globalo.eMessageName.M_WARNING);
-                return;
-            }
-
             Data.eTeachPosName ePos = Data.eTeachPosName.LEFT_TRAY_LOAD_POS;
 
             Manual_Z_Move(ePos);
@@ -475,17 +407,6 @@ namespace ZenHandler.Dlg
 
         private void BTN_MANUAL_TRANSFER_RIGHT_LOAD_POS_Z_Click(object sender, EventArgs e)
         {
-            if (ProgramState.CurrentState == OperationState.AutoRunning)
-            {
-                Globalo.LogPrint("ManualControl", "[INFO] 자동 운전 중 사용 불가", Globalo.eMessageName.M_WARNING);
-                return;
-            }
-            if (ProgramState.CurrentState == OperationState.Paused)
-            {
-                Globalo.LogPrint("ManualControl", "[INFO] 일시 정지 중 사용 불가", Globalo.eMessageName.M_WARNING);
-                return;
-            }
-
             Data.eTeachPosName ePos = Data.eTeachPosName.RIGHT_TRAY_LOAD_POS;
 
             Manual_Z_Move(ePos);
@@ -493,17 +414,6 @@ namespace ZenHandler.Dlg
 
         private void BTN_MANUAL_TRANSFER_SOCKET1_POS_Z_Click(object sender, EventArgs e)
         {
-            if (ProgramState.CurrentState == OperationState.AutoRunning)
-            {
-                Globalo.LogPrint("ManualControl", "[INFO] 자동 운전 중 사용 불가", Globalo.eMessageName.M_WARNING);
-                return;
-            }
-            if (ProgramState.CurrentState == OperationState.Paused)
-            {
-                Globalo.LogPrint("ManualControl", "[INFO] 일시 정지 중 사용 불가", Globalo.eMessageName.M_WARNING);
-                return;
-            }
-
             Data.eTeachPosName ePos = Data.eTeachPosName.SOCKET_POS1;
 
             Manual_Z_Move(ePos);
@@ -511,17 +421,6 @@ namespace ZenHandler.Dlg
 
         private void BTN_MANUAL_TRANSFER_SOCKET2_POS_Z_Click(object sender, EventArgs e)
         {
-            if (ProgramState.CurrentState == OperationState.AutoRunning)
-            {
-                Globalo.LogPrint("ManualControl", "[INFO] 자동 운전 중 사용 불가", Globalo.eMessageName.M_WARNING);
-                return;
-            }
-            if (ProgramState.CurrentState == OperationState.Paused)
-            {
-                Globalo.LogPrint("ManualControl", "[INFO] 일시 정지 중 사용 불가", Globalo.eMessageName.M_WARNING);
-                return;
-            }
-
             Data.eTeachPosName ePos = Data.eTeachPosName.SOCKET_POS2;
 
             Manual_Z_Move(ePos);
@@ -529,17 +428,6 @@ namespace ZenHandler.Dlg
 
         private void BTN_MANUAL_TRANSFER_SOCKET3_POS_Z_Click(object sender, EventArgs e)
         {
-            if (ProgramState.CurrentState == OperationState.AutoRunning)
-            {
-                Globalo.LogPrint("ManualControl", "[INFO] 자동 운전 중 사용 불가", Globalo.eMessageName.M_WARNING);
-                return;
-            }
-            if (ProgramState.CurrentState == OperationState.Paused)
-            {
-                Globalo.LogPrint("ManualControl", "[INFO] 일시 정지 중 사용 불가", Globalo.eMessageName.M_WARNING);
-                return;
-            }
-
             Data.eTeachPosName ePos = Data.eTeachPosName.SOCKET_POS3;
 
             Manual_Z_Move(ePos);
@@ -547,17 +435,6 @@ namespace ZenHandler.Dlg
 
         private void BTN_MANUAL_TRANSFER_SOCKET4_POS_Z_Click(object sender, EventArgs e)
         {
-            if (ProgramState.CurrentState == OperationState.AutoRunning)
-            {
-                Globalo.LogPrint("ManualControl", "[INFO] 자동 운전 중 사용 불가", Globalo.eMessageName.M_WARNING);
-                return;
-            }
-            if (ProgramState.CurrentState == OperationState.Paused)
-            {
-                Globalo.LogPrint("ManualControl", "[INFO] 일시 정지 중 사용 불가", Globalo.eMessageName.M_WARNING);
-                return;
-            }
-
             Data.eTeachPosName ePos = Data.eTeachPosName.SOCKET_POS4;
 
             Manual_Z_Move(ePos);

@@ -25,8 +25,8 @@ namespace ZenHandler
             InitializeComponent();
             this.CenterToScreen();
 
-            // this.teachingControl = teachingControl;
-            this.m_sVal = initValue;// this.teachingControl.LABEL_TEACH_MOVE_VALUE.Text;
+
+            this.m_sVal = initValue;
             NumberTextBox.Text = this.m_sVal;
             BTN_NUMPAD_0.Click += Num_Button_Click;
             BTN_NUMPAD_1.Click += Num_Button_Click;
