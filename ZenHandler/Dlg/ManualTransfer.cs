@@ -349,6 +349,7 @@ namespace ZenHandler.Dlg
         private void BTN_MANUAL_WAIT_POS_XY_Click_1(object sender, EventArgs e)
         {
             Data.eTeachPosName ePos = Data.eTeachPosName.WAIT_POS;
+            //Data.eTeachPosName ePos = Machine.TransferMachine.eTeachingPosList.WAIT_POS;
 
             Manual_XY_Move(ePos);
         }

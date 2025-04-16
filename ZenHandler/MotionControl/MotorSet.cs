@@ -22,11 +22,19 @@ namespace ZenHandler.MotionControl
 
         //EEPROM
         //
-        public enum eMotorList : int        
+        public enum eTransferMotorList : int        
         {
-            TRANSFER_X = 0, TRANSFER_Y, TRANSFER_Z, L_IN_LIFT, L_OUT_LIFT, R_IN_LIFT, R_OUT_LIFT, MAX_MOTOR_LIST_COUNT
+            TRANSFER_X = 0, TRANSFER_Y, TRANSFER_Z, TOTAL_TRANSFER_MOTOR_COUNT
         };
 
+        public enum eLiftMotorList : int
+        {
+            L_GANTRY_Y = 3, L_IN_LIFT, L_OUT_LIFT, R_GANTRY_Y, R_IN_LIFT, R_OUT_LIFT, TOTAL_LIFT_MOTOR_COUNT
+        };
+        public enum eSocketMotorList : int
+        {
+            CAM_Z1 = 9, CAM_Z2, TOTAL_SOCKET_MOTOR_COUNT
+        };
         //AOI
         //
         public enum eAOI_MotorList : int
@@ -47,42 +55,6 @@ namespace ZenHandler.MotionControl
         {
             PLUS_MOVE = 1, MINUS_MOVE = -1
         };
-
-        public static AXT_MOTION_HOME_DETECT[] MOTOR_HOME_SENSOR = {
-            AXT_MOTION_HOME_DETECT.HomeSensor, AXT_MOTION_HOME_DETECT.HomeSensor, AXT_MOTION_HOME_DETECT.HomeSensor,
-            AXT_MOTION_HOME_DETECT.HomeSensor, AXT_MOTION_HOME_DETECT.HomeSensor, AXT_MOTION_HOME_DETECT.HomeSensor,
-            AXT_MOTION_HOME_DETECT.HomeSensor, AXT_MOTION_HOME_DETECT.HomeSensor, AXT_MOTION_HOME_DETECT.HomeSensor,
-            AXT_MOTION_HOME_DETECT.HomeSensor, AXT_MOTION_HOME_DETECT.HomeSensor, AXT_MOTION_HOME_DETECT.HomeSensor, 
-            AXT_MOTION_HOME_DETECT.HomeSensor
-        };
-
-        public static AXT_MOTION_MOVE_DIR[] MOTOR_HOME_DIR = {
-            AXT_MOTION_MOVE_DIR.DIR_CCW, AXT_MOTION_MOVE_DIR.DIR_CCW, AXT_MOTION_MOVE_DIR.DIR_CCW,
-            AXT_MOTION_MOVE_DIR.DIR_CW, AXT_MOTION_MOVE_DIR.DIR_CCW, AXT_MOTION_MOVE_DIR.DIR_CCW,
-            AXT_MOTION_MOVE_DIR.DIR_CW, AXT_MOTION_MOVE_DIR.DIR_CCW, AXT_MOTION_MOVE_DIR.DIR_CCW,
-            AXT_MOTION_MOVE_DIR.DIR_CW, AXT_MOTION_MOVE_DIR.DIR_CCW, AXT_MOTION_MOVE_DIR.DIR_CCW,
-            AXT_MOTION_MOVE_DIR.DIR_CCW
-        };
-
-        public static MotorDefine.eMotorType[] MOTOR_TYPE =
-            {
-            MotorDefine.eMotorType.LINEAR, MotorDefine.eMotorType.LINEAR, MotorDefine.eMotorType.LINEAR,
-            MotorDefine.eMotorType.LINEAR, MotorDefine.eMotorType.LINEAR, MotorDefine.eMotorType.LINEAR,
-            MotorDefine.eMotorType.LINEAR, MotorDefine.eMotorType.LINEAR, MotorDefine.eMotorType.LINEAR,
-            MotorDefine.eMotorType.LINEAR, MotorDefine.eMotorType.LINEAR, MotorDefine.eMotorType.LINEAR,
-            MotorDefine.eMotorType.LINEAR
-
-        };
-        
-        public static int[] MOTOR_MAX_SPEED = { 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100 };
-
-        public static double[] OrgFirstVel = { 20000.0, 10000.0, 5000.0, 3000.0, 3000.0, 3000.0 };
-        public static double[] OrgSecondVel = { 5000.0, 7000.0, 2000.0, 1000.0, 1000.0, 1000.0 };
-        public static double[] OrgThirdVel = { 2000.0, 2000.0, 500.0, 500.0, 500.0, 500.0 };
-        public static double[] OrgLastVel = { 100.0, 100.0, 50.0, 50.0, 50.0, 50.0 };
-        public static double[] OrgAccFirst = { 0.3, 0.3, 0.3, 0.3, 0.3, 0.3 };
-        public static double[] OrgAccSecond = { 0.3, 0.3, 0.3, 0.3, 0.3, 0.3 };
-
 
         public static string[] TEACH_SET_MENU = { "원점상태", "ServoOn", "Alarm", "Limit(+)", "HOME", "Limit(-)", "속도(mm/s)", "가속도(sec)", "감속도(sec)" };
 

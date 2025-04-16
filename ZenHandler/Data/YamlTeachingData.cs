@@ -31,41 +31,23 @@ namespace ZenHandler.Data
 
     public class HandlerTeachingData
     {
-        public TeachingDataList TransferMachine { get; set; } = new TeachingDataList();
-        public TeachingDataList MagazineHandler { get; set; } = new TeachingDataList();
-        public TeachingDataList LiftMachine { get; set; } = new TeachingDataList();
+        public TeachingDataList TransferMachine { get; set; } = new TeachingDataList(); //teachingTransferUnit.yaml
+        public TeachingDataList MagazineHandler { get; set; } = new TeachingDataList();//teachingMagazineUnit.yaml
+        public TeachingDataList LiftMachine { get; set; } = new TeachingDataList();//teachingLIftUnit.yaml
     }
 
     // Flow 스타일 시퀀스를 위한 커스텀 TypeConverter
-    public class FlowStyleDoubleListConverter : IYamlTypeConverter
-    {
-        public bool Accepts(Type type)
-        {
-            return type == typeof(List<double>);
-        }
-
-        public object ReadYaml(IParser parser, Type type, ObjectDeserializer rootDeserializer)
-        {
-            throw new NotImplementedException("Deserialization not implemented.");
-        }
-        public void WriteYaml(IEmitter emitter, object value, Type type, ObjectSerializer serializer)
-        {
-            var list = (List<double>)value;
-            emitter.Emit(new SequenceStart(null, null, false, SequenceStyle.Flow));
-            foreach (var item in list)
-            {
-                emitter.Emit(new Scalar(null, null, item.ToString(), ScalarStyle.Any, true, false));
-            }
-            emitter.Emit(new SequenceEnd());
-        }
-    }
+    
     public class TeachingDataYaml
     {
         public HandlerTeachingData handler;
-
-        public bool LoadTeaching()
+        public TeachingDataYaml()
         {
-            string filePath = Path.Combine(CPath.BASE_ENV_PATH, CPath.yamlTeachingData);
+
+        }
+        public bool LoadTeaching(string fileName = "teachingData")
+        {
+            string filePath = Path.Combine(CPath.BASE_ENV_PATH, fileName + ".yaml");    //CPath.yamlTeachingData);
             try
             {
                 if (!File.Exists(filePath))
@@ -121,6 +103,29 @@ namespace ZenHandler.Data
             }
 
             Console.WriteLine($"YAML 저장 완료: {filePath}");
+        }
+
+        public class FlowStyleDoubleListConverter : IYamlTypeConverter
+        {
+            public bool Accepts(Type type)
+            {
+                return type == typeof(List<double>);
+            }
+
+            public object ReadYaml(IParser parser, Type type, ObjectDeserializer rootDeserializer)
+            {
+                throw new NotImplementedException("Deserialization not implemented.");
+            }
+            public void WriteYaml(IEmitter emitter, object value, Type type, ObjectSerializer serializer)
+            {
+                var list = (List<double>)value;
+                emitter.Emit(new SequenceStart(null, null, false, SequenceStyle.Flow));
+                foreach (var item in list)
+                {
+                    emitter.Emit(new Scalar(null, null, item.ToString(), ScalarStyle.Any, true, false));
+                }
+                emitter.Emit(new SequenceEnd());
+            }
         }
     }
     

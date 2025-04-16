@@ -23,12 +23,12 @@ namespace ZenHandler.Machine
         public double[] OrgThirdVel = { 500.0, 500.0 };
         public MagazineHandler()// : base("MagazineHandler")
         {
-            MagazineY = new MotionControl.MotorAxis((int)MotionControl.MotorSet.eMotorList.L_IN_LIFT, "MagazineY", motorType[0], 
+            MagazineY = new MotionControl.MotorAxis((int)MotionControl.MotorSet.eLiftMotorList.L_IN_LIFT, "MagazineY", motorType[0], 
                 MOTOR_MAX_SPEED[0], AXT_SET_LIMIT[0], AXT_SET_SERVO_ALARM[0], OrgFirstVel[0], OrgSecondVel[0], OrgThirdVel[0], MOTOR_HOME_SENSOR[0], MOTOR_HOME_DIR[0]);
 
             //
             //
-            MagazineZ = new MotionControl.MotorAxis((int)MotionControl.MotorSet.eMotorList.L_OUT_LIFT, "MagazineZ", motorType[1], 
+            MagazineZ = new MotionControl.MotorAxis((int)MotionControl.MotorSet.eLiftMotorList.L_OUT_LIFT, "MagazineZ", motorType[1], 
                 MOTOR_MAX_SPEED[1], AXT_SET_LIMIT[1], AXT_SET_SERVO_ALARM[1], OrgFirstVel[1], OrgSecondVel[1], OrgThirdVel[1], MOTOR_HOME_SENSOR[1], MOTOR_HOME_DIR[1]);
 
             //TransferX = new MotionControl.MotorAxis((int)MotionControl.MotorSet.eMotorList.TRANSFER_X, axisName[0], motorType[0]);

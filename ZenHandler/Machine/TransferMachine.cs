@@ -33,6 +33,12 @@ namespace ZenHandler.Machine
         public double[] OrgSecondVel = { 10000.0, 10000.0, 5000.0 };
         public double[] OrgThirdVel = { 5000.0, 5000.0, 2500.0 };
 
+        //TODO: 필요한 티칭 위치도 여기서 정하는게 나을까?
+        public string[] TeachingPos = { "WAIT_POS", "LEFT_LOAD_POS", "LEFT_UNLOAD_POS", "SOCKET_A1", "SOCKET_A2", "SOCKET_B1", "SOCKET_B2" };
+        public enum eTeachingPosList : int
+        {
+            WAIT_POS = 0, LEFT_LOAD_POS, LEFT_UNLOAD_POS, SOCKET_A1, SOCKET_A2, SOCKET_B1, SOCKET_B2, TOTAL_TRANSFER_TEACHING_COUNT
+        };
         public string processName = "tttt";
         
 
@@ -41,15 +47,15 @@ namespace ZenHandler.Machine
 
         public TransferMachine()//: base("Machine")
         {
-            TransferX = new MotionControl.MotorAxis((int)MotionControl.MotorSet.eMotorList.TRANSFER_X, 
+            TransferX = new MotionControl.MotorAxis((int)MotionControl.MotorSet.eTransferMotorList.TRANSFER_X, 
                 axisName[0], motorType[0], MOTOR_MAX_SPEED[0], AXT_SET_LIMIT[0], AXT_SET_SERVO_ALARM[0], OrgFirstVel[0], OrgSecondVel[0], OrgThirdVel[0],
                 MOTOR_HOME_SENSOR[0], MOTOR_HOME_DIR[0]);
             ////
-            TransferY = new MotionControl.MotorAxis((int)MotionControl.MotorSet.eMotorList.TRANSFER_Y, 
+            TransferY = new MotionControl.MotorAxis((int)MotionControl.MotorSet.eTransferMotorList.TRANSFER_Y, 
                 axisName[1], motorType[1], MOTOR_MAX_SPEED[1], AXT_SET_LIMIT[1], AXT_SET_SERVO_ALARM[1], OrgFirstVel[1], OrgSecondVel[1], OrgThirdVel[1],
                 MOTOR_HOME_SENSOR[1], MOTOR_HOME_DIR[1]);
             ////
-            TransferZ = new MotionControl.MotorAxis((int)MotionControl.MotorSet.eMotorList.TRANSFER_Z, 
+            TransferZ = new MotionControl.MotorAxis((int)MotionControl.MotorSet.eTransferMotorList.TRANSFER_Z, 
                 axisName[2], motorType[2], MOTOR_MAX_SPEED[2], AXT_SET_LIMIT[2], AXT_SET_SERVO_ALARM[2], OrgFirstVel[2], OrgSecondVel[2], OrgThirdVel[2],
                 MOTOR_HOME_SENSOR[2], MOTOR_HOME_DIR[2]);
 
