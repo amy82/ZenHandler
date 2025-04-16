@@ -78,6 +78,18 @@ namespace ZenHandler  //ApsMotionControl
             Globalo.mlogControl = new Dlg.LogControl(dRightPanelW, dRightPanelH);
 
 
+            //모터 초기화
+            //
+            if (ProgramState.ON_LINE_MOTOR)
+            {
+                bool rtn = Globalo.motionManager.MotionInit();
+                if (rtn == false)
+                {
+                    //Motor Set Fail!!
+                    MessageBox.Show("Motor Set Fail!!");
+                }
+            }
+
 
             Globalo.mMainPanel = new Dlg.MainControl(dRightPanelW, dRightPanelH);
             Globalo.mManualPanel = new Dlg.ManualControl(dRightPanelW, dRightPanelH);
@@ -86,6 +98,7 @@ namespace ZenHandler  //ApsMotionControl
             Globalo.mConfigPanel = new Dlg.ConfigControl(dRightPanelW, dRightPanelH);
             
             Globalo.mioPanel = new Dlg.IoControl(dRightPanelW, dRightPanelH);
+
             Globalo.operationPanel = new Dlg.OperationPanel();
             Globalo.productionInfo = new Dlg.ProductionInfo();
             Globalo.trayStateInfo = new Dlg.TrayStateInfo();
@@ -128,17 +141,7 @@ namespace ZenHandler  //ApsMotionControl
             
 
 
-            //모터 초기화
-            //
-            if (ProgramState.ON_LINE_MOTOR)
-            {
-                bool rtn = Globalo.motionManager.MotionInit();
-                if(rtn == false)
-                {
-                    //Motor Set Fail!!
-                    MessageBox.Show("Motor Set Fail!!");
-                }
-            }
+            
             //if (ProgramState.ON_LINE_MIL)
             //{
             //    InitMilLib();

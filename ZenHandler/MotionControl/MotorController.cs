@@ -39,6 +39,7 @@ namespace ZenHandler.MotionControl
         }
 
         public abstract void MoveToPosition(int position);
+        public abstract void RunStop();
         public abstract bool OriginRun();
         public abstract void ReadyRun();
         public abstract void AutoRun();
@@ -214,11 +215,9 @@ namespace ZenHandler.MotionControl
         {
             uint duRetCode = 0;
 
-            double DVel = 0.0;
-            double DAcc = 0.0;
+            double DVel = dVel * nAxis.Resolution;
+            double DAcc = dAcc;
 
-
-            DVel = dVel * nAxis.Resolution;
 
             duRetCode = CAXM.AxmMoveSignalSearch(nAxis.m_lAxisNo, DVel, DAcc, (int)Detect, (int)Edge, (int)StopMode);
 
@@ -289,12 +288,12 @@ namespace ZenHandler.MotionControl
                 //
 
                 dMultiAxis[nMotorCount] = multiAxis[i].m_lAxisNo;
-                dMultiPos[nMotorCount] *= multiAxis[i].Resolution;
+                dMultiCurrPos[nMotorCount] = dMultiPos[i] * multiAxis[i].Resolution;
 
-                if (dMultiPos[nMotorCount] > 0)
-                {
-                    dMultiPos[nMotorCount] = (int)(dMultiPos[i] + 0.5);
-                }
+                //if (dMultiCurrPos[nMotorCount] > 0)
+                //{
+                //    dMultiCurrPos[nMotorCount] = (int)(dMultiPos[i] + 0.5);
+                //}
 
                 dMultiVel[nMotorCount] = multiAxis[i].Velocity * multiAxis[i].Resolution; //이동 속도 
 
@@ -328,7 +327,7 @@ namespace ZenHandler.MotionControl
             //가속도 (가속도의 단위는 Unit/pulse를 1/1로 한경우에 PPS[Pulses/sec^2]) 배열
             //감속도(감속도의 단위는 Unit/pulse를 1/1로 한경우에 PPS[Pulses/sec^2]) 배열
 
-            uint duRetCode = CAXM.AxmMoveStartMultiPos(nMotorCount, dMultiAxis, dMultiPos, dMultiVel, dMultiAcc, dMultiDec);
+            uint duRetCode = CAXM.AxmMoveStartMultiPos(nMotorCount, dMultiAxis, dMultiCurrPos, dMultiVel, dMultiAcc, dMultiDec);
 
             if (duRetCode != (uint)AXT_FUNC_RESULT.AXT_RT_SUCCESS)
             {

@@ -22,6 +22,11 @@ namespace ZenHandler.Machine
         public override void MotorDataSet()
         {
         }
+        public override void RunStop()
+        {
+            motorAutoThread.Stop();
+
+        }
         public override void MovingStop()
         {
             if (cts != null && !cts.IsCancellationRequested)

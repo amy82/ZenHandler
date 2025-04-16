@@ -26,21 +26,32 @@ namespace ZenHandler.Machine
         public AXT_MOTION_LEVEL_MODE[] AXT_SET_LIMIT = { AXT_MOTION_LEVEL_MODE.LOW, AXT_MOTION_LEVEL_MODE.HIGH, AXT_MOTION_LEVEL_MODE.LOW };
         public AXT_MOTION_LEVEL_MODE[] AXT_SET_SERVO_ALARM = { AXT_MOTION_LEVEL_MODE.HIGH, AXT_MOTION_LEVEL_MODE.HIGH, AXT_MOTION_LEVEL_MODE.LOW };
 
-        public double[] OrgFirstVel = { 10000.0, 10000.0, 5000.0 };
-        public double[] OrgSecondVel = { 5000.0, 5000.0, 2500.0 };
-        public double[] OrgThirdVel = { 1000.0, 1000.0, 500.0 };
+        public static AXT_MOTION_HOME_DETECT[] MOTOR_HOME_SENSOR = {AXT_MOTION_HOME_DETECT.HomeSensor, AXT_MOTION_HOME_DETECT.HomeSensor, AXT_MOTION_HOME_DETECT.HomeSensor};
+
+        public static AXT_MOTION_MOVE_DIR[] MOTOR_HOME_DIR = {AXT_MOTION_MOVE_DIR.DIR_CCW, AXT_MOTION_MOVE_DIR.DIR_CCW, AXT_MOTION_MOVE_DIR.DIR_CW};
+        public double[] OrgFirstVel = { 20000.0, 20000.0, 20000.0 };
+        public double[] OrgSecondVel = { 10000.0, 10000.0, 5000.0 };
+        public double[] OrgThirdVel = { 5000.0, 5000.0, 2500.0 };
 
         public string processName = "tttt";
-
         
+
         //public Dio cylinder;
         //픽업 툴 4개 실린더 Dio 로 지정?
 
         public TransferMachine()//: base("Machine")
         {
-            TransferX = new MotionControl.MotorAxis((int)MotionControl.MotorSet.eMotorList.TRANSFER_X, axisName[0], motorType[0], MOTOR_MAX_SPEED[0], AXT_SET_LIMIT[0], AXT_SET_SERVO_ALARM[0], OrgFirstVel[0], OrgSecondVel[0], OrgThirdVel[0]);
-            TransferY = new MotionControl.MotorAxis((int)MotionControl.MotorSet.eMotorList.TRANSFER_Y, axisName[1], motorType[1], MOTOR_MAX_SPEED[1], AXT_SET_LIMIT[1], AXT_SET_SERVO_ALARM[1], OrgFirstVel[1], OrgSecondVel[1], OrgThirdVel[1]);
-            TransferZ = new MotionControl.MotorAxis((int)MotionControl.MotorSet.eMotorList.TRANSFER_Z, axisName[2], motorType[2], MOTOR_MAX_SPEED[2], AXT_SET_LIMIT[2], AXT_SET_SERVO_ALARM[2], OrgFirstVel[2], OrgSecondVel[2], OrgThirdVel[2]);
+            TransferX = new MotionControl.MotorAxis((int)MotionControl.MotorSet.eMotorList.TRANSFER_X, 
+                axisName[0], motorType[0], MOTOR_MAX_SPEED[0], AXT_SET_LIMIT[0], AXT_SET_SERVO_ALARM[0], OrgFirstVel[0], OrgSecondVel[0], OrgThirdVel[0],
+                MOTOR_HOME_SENSOR[0], MOTOR_HOME_DIR[0]);
+            ////
+            TransferY = new MotionControl.MotorAxis((int)MotionControl.MotorSet.eMotorList.TRANSFER_Y, 
+                axisName[1], motorType[1], MOTOR_MAX_SPEED[1], AXT_SET_LIMIT[1], AXT_SET_SERVO_ALARM[1], OrgFirstVel[1], OrgSecondVel[1], OrgThirdVel[1],
+                MOTOR_HOME_SENSOR[1], MOTOR_HOME_DIR[1]);
+            ////
+            TransferZ = new MotionControl.MotorAxis((int)MotionControl.MotorSet.eMotorList.TRANSFER_Z, 
+                axisName[2], motorType[2], MOTOR_MAX_SPEED[2], AXT_SET_LIMIT[2], AXT_SET_SERVO_ALARM[2], OrgFirstVel[2], OrgSecondVel[2], OrgThirdVel[2],
+                MOTOR_HOME_SENSOR[2], MOTOR_HOME_DIR[2]);
 
             MotorAxes = new MotionControl.MotorAxis[] { TransferX, TransferY, TransferZ };
             MotorCnt = MotorAxes.Length;
@@ -212,7 +223,7 @@ namespace ZenHandler.Machine
             {
                 return true;
             }
-            int lModuleNo = 0;
+            int lModuleNo = 1;
             int lOffset = 0;
             uint uFlagHigh = 0;
             uint uFlagLow = 0;
@@ -777,12 +788,36 @@ namespace ZenHandler.Machine
             }
             return false;
         }
-        
+        public override void RunStop()
+        {
+            motorAutoThread.Stop();
+            MovingStop();
+            Console.WriteLine($"[ORIGIN] Transfer Run Stop");
+
+        }
         public override bool OriginRun()
         {
             if (motorAutoThread.GetThreadRun() == true)
             {
                 //motorAutoThread.Stop();
+                return false;
+            }
+            bool bServoOnChk = true;
+            int length = MotorAxes.Length;
+            string szLog = "";
+            for (int i = 0; i < length; i++)
+            {
+                if(MotorAxes[i].AmpEnable() == false)
+                {
+                    bServoOnChk = false;
+                    szLog = $"[ORIGIN] {MotorAxes[i].Name} AmpEnable Fail]";
+                    Globalo.LogPrint("ManualControl", szLog);
+                    return false;
+                }
+            }
+            if(bServoOnChk == false)
+            {
+
                 return false;
             }
 

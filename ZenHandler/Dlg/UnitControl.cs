@@ -30,7 +30,7 @@ namespace ZenHandler.Dlg
 
         private void BTN_TRANSFER_UNIT_STOP_Click(object sender, EventArgs e)
         {
-
+            Globalo.motionManager.transferMachine.RunStop();
         }
 
         private void BTN_TRANSFER_UNIT_PAUSE_Click(object sender, EventArgs e)

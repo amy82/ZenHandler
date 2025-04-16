@@ -61,9 +61,7 @@ namespace ZenHandler.FThread
                 if (this.parent.MachineName == "TransferMachine")       //TODO: 여기도 개선 필요 자기자신
                 {
 
-                    Console.WriteLine($"{this.parent.MachineName} {this.parent} Start");
                     TransferFlow();
-                    Console.WriteLine($"{this.parent.MachineName} Process End");
                 }
 
                 if (this.parent.MachineName == "LiftModule")

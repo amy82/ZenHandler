@@ -45,8 +45,8 @@ namespace ZenHandler.MotionControl
         public bool RunState { get; protected set; }                //동작 상태
         //
         //
-        public int HomeMoveDir { get; protected set; }              //DIR_CW= 0x1, 시계방향/ DIR_CCW= 0x0, 반시계방향
-        public int HomeDetect { get; protected set; }               //HomeSensor, PosEndLimit, NegEndLimit
+        public AXT_MOTION_MOVE_DIR HomeMoveDir { get; protected set; }              //DIR_CW= 0x1, 시계방향/ DIR_CCW= 0x0, 반시계방향
+        public AXT_MOTION_HOME_DETECT HomeDetect { get; protected set; }               //HomeSensor, PosEndLimit, NegEndLimit
         //
         //
         public bool IsMotorBusy;        //실행중 체크용 플래그
@@ -56,9 +56,9 @@ namespace ZenHandler.MotionControl
         //(uint)AXT_MOTION_ABSREL.POS_ABS_MODE / POS_REL_MODE
 
 
-
         public MotorAxis(int axisNumber, string name, MotorDefine.eMotorType type, double maxSpeed, AXT_MOTION_LEVEL_MODE limit, AXT_MOTION_LEVEL_MODE alarm,
-            double firstvel , double secondvel , double thirdvel)
+            double firstvel , double secondvel , double thirdvel,
+            AXT_MOTION_HOME_DETECT homeDetect , AXT_MOTION_MOVE_DIR homeDir)
         {
             this.m_lAxisNo = axisNumber;
             this.Name = name;
@@ -69,6 +69,8 @@ namespace ZenHandler.MotionControl
             this.FirstVel = firstvel;
             this.SecondVel = secondvel;
             this.ThirdVel = thirdvel;
+            this.HomeDetect = homeDetect;
+            this.HomeMoveDir = homeDir;
 
             this.MotorBreak = false;     //init
             this.IsMotorBusy = false;

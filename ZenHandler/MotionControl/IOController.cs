@@ -9,8 +9,8 @@ namespace ZenHandler.MotionControl
 {
     public class IOController
     {
-        private object[] _locks; // 여러 개의 락 객체 배열
-
+        //private object[] _locks; // 여러 개의 락 객체 배열
+        private Dictionary<int, object> _locks = new Dictionary<int, object>();
         //Dio
         public int DiModuleCount = 0;
         public int DoModuleCount = 0;
@@ -115,14 +115,19 @@ namespace ZenHandler.MotionControl
                         Thread.Sleep(10);
                     }
                 }
+                foreach (int key in m_dwDOutDict.Keys)
+                {
+                    _locks[key] = new object(); // 각 인덱스에 개별 객체 할당
+                }
                 int OutCount = m_dwDOutDict.Count;
                 if (OutCount > 0)
                 {
-                    _locks = new object[OutCount]; // 배열 크기 설정
-                    for (i = 0; i < OutCount; i++)
-                    {
-                        _locks[i] = new object(); // 각 인덱스에 개별 객체 할당
-                    }
+                    //_locks = new object[OutCount]; // 배열 크기 설정
+                    //for (i = 0; i < OutCount; i++)
+                    //{
+                    //    _locks[i] = new object(); // 각 인덱스에 개별 객체 할당
+                    //}
+                    
                 }
 
                 MotionTaskRun();        //in 신호 얻기 Task

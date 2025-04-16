@@ -62,7 +62,6 @@ namespace ZenHandler.Dlg
                 //Console.WriteLine($"Key: {entry.Key}, 배열 크기: {entry.Value.Length}");
             }
 
-            //MaxOutModuleCount = Globalo.motionManager.ioController.m_dwDOutDict.Count;
             foreach (var entry in Globalo.motionManager.ioController.m_dwDOutDict)
             {
                 OutModuleChannel.Add(entry.Key);

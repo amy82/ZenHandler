@@ -70,7 +70,7 @@ namespace ZenHandler.Process
                     //SensorSet[2] = (int)AXT_MOTION_EDGE.SIGNAL_UP_EDGE;
                     //SensorSet[3] = (int)AXT_MOTION_STOPMODE.SLOWDOWN_STOP;
 
-                    dSpeed = (7 * -1);      //-1은 왼쪽 이동
+                    dSpeed = (5 * -1);      //-1은 왼쪽 이동
 
                     bRtn = Globalo.motionManager.transferMachine.MoveAxisLimit( Globalo.motionManager.transferMachine.TransferZ, dSpeed, dAcc,
                         AXT_MOTION_HOME_DETECT.NegEndLimit, AXT_MOTION_EDGE.SIGNAL_UP_EDGE, AXT_MOTION_STOPMODE.SLOWDOWN_STOP);
@@ -122,7 +122,7 @@ namespace ZenHandler.Process
                         break;
                     }
 
-                    dSpeed = (7 * -1);      //-1은 왼쪽 이동
+                    dSpeed = (10 * -1);      //-1은 왼쪽 이동
 
                     bRtn = Globalo.motionManager.transferMachine.MoveAxisLimit(Globalo.motionManager.transferMachine.TransferX, dSpeed, dAcc,
                         AXT_MOTION_HOME_DETECT.NegEndLimit, AXT_MOTION_EDGE.SIGNAL_UP_EDGE, AXT_MOTION_STOPMODE.SLOWDOWN_STOP);
@@ -148,7 +148,7 @@ namespace ZenHandler.Process
                         break;
                     }
 
-                    dSpeed = (7 * -1);      //-1은 왼쪽 이동
+                    dSpeed = (10 * -1);      //-1은 왼쪽 이동
 
                     bRtn = Globalo.motionManager.transferMachine.MoveAxisLimit(Globalo.motionManager.transferMachine.TransferY, dSpeed, dAcc,
                         AXT_MOTION_HOME_DETECT.NegEndLimit, AXT_MOTION_EDGE.SIGNAL_UP_EDGE, AXT_MOTION_STOPMODE.SLOWDOWN_STOP);

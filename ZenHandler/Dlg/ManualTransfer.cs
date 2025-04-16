@@ -28,7 +28,7 @@ namespace ZenHandler.Dlg
 
         protected CancellationTokenSource cts;
         private bool isMovingTransfer;
-
+        //TODO: 티칭 위치를 어떻게 가져올 것인가
         public ManualTransfer()
         {
             InitializeComponent();
