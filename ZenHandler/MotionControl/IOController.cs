@@ -34,7 +34,7 @@ namespace ZenHandler.MotionControl
         }
         public void Close()
         {
-            ctsMotion.Cancel();
+            ctsMotion?.Cancel();
         }
         public async void MotionTaskRun()
         {

@@ -10,6 +10,7 @@ using System.Diagnostics;
 using System.Windows.Forms;
 using System.IO;
 using System.Threading;
+using System.Globalization;
 
 namespace ZenHandler  //ApsMotionControl
 {
@@ -35,6 +36,11 @@ namespace ZenHandler  //ApsMotionControl
             //this.TopMost = true;
             keyMessageFilter = new KeyMessageFilter();
             Application.AddMessageFilter(keyMessageFilter);
+
+            
+            Event.EventManager.LanguageChanged += OnLanguageChanged;
+
+
 
             this.Size = new System.Drawing.Size(PG_WIDTH, PG_HEIGHT);
             this.Padding = new Padding(0); // 부모 컨트롤의 여백 제거
@@ -192,6 +198,21 @@ namespace ZenHandler  //ApsMotionControl
             Console.WriteLine($"Right Panel Size ({RightPanel.Width},{RightPanel.Height})");
 
             Console.WriteLine($"Bottom Panel Size ({BottomPanel.Width},{BottomPanel.Height})");
+        }
+        public void SetLanguage(string langCode)
+        {
+            var ci = new CultureInfo(langCode);
+            Thread.CurrentThread.CurrentCulture = ci;
+            Thread.CurrentThread.CurrentUICulture = ci;
+
+            Event.EventManager.RaiseLanguageChanged();
+            //ApplyLocalization();
+        }
+        private void OnLanguageChanged(object sender, EventArgs e)
+        {
+            // 이벤트 처리
+            this.Text = Resource.Strings.TitleText;
+            Console.WriteLine("MainForm - OnLanguageChanged");
         }
         private async void serverStart()
         {

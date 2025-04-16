@@ -13,6 +13,7 @@ namespace ZenHandler.Dlg
 {
     public partial class TeachingControl : UserControl
     {
+        public event EventHandler LanguageChanged;
         private eTeachingBtn TeachCurrentTab;
         private TeachingTransfer transferTeach;
 
@@ -33,7 +34,8 @@ namespace ZenHandler.Dlg
         public TeachingControl(int _w , int _h)
         {
             InitializeComponent();
-            
+
+            Event.EventManager.LanguageChanged += OnLanguageChanged;
             MachineControl.Clear();
 
 
@@ -63,6 +65,11 @@ namespace ZenHandler.Dlg
             changeSpeedNo(0);
 
             TeachingBtnChange(TeachCurrentTab);
+        }
+        private void OnLanguageChanged(object sender, EventArgs e)
+        {
+            // 이벤트 처리
+            Console.WriteLine("TeachingControl - OnLanguageChanged");
         }
         private void Form_Paint(object sender, PaintEventArgs e)
         {
