@@ -54,10 +54,10 @@ namespace ZenHandler.Machine
             for (i = 0; i < MotorAxes.Length; i++)
             {
                 MotorAxes[i].setMotorParameter(
-                Globalo.yamlManager.teachingDataYaml.handler.TransferMachine.Speed[i],
-                Globalo.yamlManager.teachingDataYaml.handler.TransferMachine.Accel[i],
-                Globalo.yamlManager.teachingDataYaml.handler.TransferMachine.Decel[i],
-                Globalo.yamlManager.teachingDataYaml.handler.TransferMachine.Resolution[i]);
+                Globalo.yamlManager.teachData.handler.TransferMachine.Speed[i],
+                Globalo.yamlManager.teachData.handler.TransferMachine.Accel[i],
+                Globalo.yamlManager.teachData.handler.TransferMachine.Decel[i],
+                Globalo.yamlManager.teachData.handler.TransferMachine.Resolution[i]);
             }
 
 
@@ -77,12 +77,13 @@ namespace ZenHandler.Machine
             double currentYPos = 0.0;
 
 
-            dXPos = Globalo.yamlManager.teachingDataYaml.handler.TransferMachine.Teaching[(int)teachingPos].Pos[0];
-            dYPos = Globalo.yamlManager.teachingDataYaml.handler.TransferMachine.Teaching[(int)teachingPos].Pos[1];
+            dXPos = Globalo.yamlManager.teachData.handler.TransferMachine.Teaching[(int)teachingPos].Pos[0];
+            dYPos = Globalo.yamlManager.teachData.handler.TransferMachine.Teaching[(int)teachingPos].Pos[1];
             
 
             currentXPos = TransferX.GetEncoderPos();
             currentYPos = TransferY.GetEncoderPos();
+
             if (dXPos == currentXPos && dYPos == currentYPos)
             {
                 bRtn = true;
@@ -102,7 +103,7 @@ namespace ZenHandler.Machine
             double currentZPos = 0.0;
 
 
-            dZPos = Globalo.yamlManager.teachingDataYaml.handler.TransferMachine.Teaching[(int)teachingPos].Pos[2];
+            dZPos = Globalo.yamlManager.teachData.handler.TransferMachine.Teaching[(int)teachingPos].Pos[2];
 
 
             currentZPos = TransferZ.GetEncoderPos();
@@ -533,16 +534,16 @@ namespace ZenHandler.Machine
         {
             if (ProgramState.ON_LINE_MOTOR == false)
             {
-                Thread.Sleep(3000);
                 return true;
             }
+
             MotionControl.MotorAxis[] multiAxis = { TransferX, TransferY };
             string logStr = "";
             double[] dMultiPos = { 0.0, 0.0 };
             bool bRtn = false;
 
 
-            bRtn = TransFer_Z_Move(Data.eTeachPosName.WAIT_POS, true);
+            bRtn = TransFer_Z_Move(Data.eTeachPosName.WAIT_POS, true);  //TODO:  ??
 
             if (bRtn == false)
             {
@@ -552,8 +553,8 @@ namespace ZenHandler.Machine
                 return false;
             }
 
-            dMultiPos[0] = Globalo.yamlManager.teachingDataYaml.handler.TransferMachine.Teaching[(int)ePos].Pos[0];     //x Axis
-            dMultiPos[1] = Globalo.yamlManager.teachingDataYaml.handler.TransferMachine.Teaching[(int)ePos].Pos[1];      //y Axis
+            dMultiPos[0] = Globalo.yamlManager.teachData.handler.TransferMachine.Teaching[(int)ePos].Pos[0];     //x Axis
+            dMultiPos[1] = Globalo.yamlManager.teachData.handler.TransferMachine.Teaching[(int)ePos].Pos[1];      //y Axis
 
 
             bRtn = MultiAxisMove(multiAxis, dMultiPos);
@@ -652,7 +653,7 @@ namespace ZenHandler.Machine
         public bool TransFer_Z_Move(Data.eTeachPosName ePos, bool bWait = false)
         {
             string logStr = "";
-            double dPos = Globalo.yamlManager.teachingDataYaml.handler.TransferMachine.Teaching[(int)ePos].Pos[2];     //z Axis
+            double dPos = Globalo.yamlManager.teachData.handler.TransferMachine.Teaching[(int)ePos].Pos[2];     //z Axis
 
             bool bRtn = SingleAxisMove(TransferZ, dPos, AXT_MOTION_ABSREL.POS_ABS_MODE);
 

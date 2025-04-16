@@ -291,7 +291,7 @@ namespace ZenHandler.Dlg
         public void StopAutoProcess()
         {
             Globalo.operationPanel.AutoRunTimerStop();
-            Globalo.mManualPanel.ManualDlgStop();
+            Globalo.mManualPanel.ManualDlgStop();               //정지하면 Manual Tab 에서 구동중인 모터 구동함수 빠져나오는 용도
 
             ProgramState.CurrentState = OperationState.Stopped;
 

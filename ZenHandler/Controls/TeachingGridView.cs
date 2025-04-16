@@ -91,19 +91,14 @@ namespace ZenHandler.Controls
                         {
                             case 6: //속도
                                 tempData.Speed.Add(doubleValue);
-                                //Globalo.yamlManager.teachingDataYaml.teachingHandlerData.TransferMachine.Set[0].X = doubleValue;
                                 break;
                             case 7: //가속도
                                 tempData.Accel.Add(doubleValue);
-                                //Globalo.yamlManager.teachingDataYaml.teachingHandlerData.TransferMachine.Set[1].X = doubleValue;
                                 break;
                             case 8: //감속도
                                 tempData.Decel.Add(doubleValue);
-                                //Globalo.yamlManager.teachingDataYaml.teachingHandlerData.TransferMachine.Set[2].X = doubleValue;
                                 break;
                             default:
-                                //tempData.Teaching.Add(new Data.TeachingPos { Name = "", Pos = new double{ 0.1, 0.1 } });
-                                
                                 posTemp.Name = this.Rows[i].Cells[0].Value.ToString();
                                 posTemp.Pos.Add(doubleValue);
 

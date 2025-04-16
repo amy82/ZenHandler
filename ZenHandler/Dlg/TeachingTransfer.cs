@@ -32,7 +32,7 @@ namespace ZenHandler.Dlg
             int[] inGridWid = new int[] { 110, 80, 80, 80};         //Grid Width
 
             myTeachingGrid = new Controls.TeachingGridView( Globalo.motionManager.transferMachine.MotorAxes, 
-                Globalo.yamlManager.teachingDataYaml.handler.TransferMachine, inGridWid);
+                Globalo.yamlManager.teachData.handler.TransferMachine, inGridWid);
 
             myTeachingGrid.Location = new System.Drawing.Point(150, 28);
             this.groupTeachPcb.Controls.Add(myTeachingGrid);
@@ -42,7 +42,7 @@ namespace ZenHandler.Dlg
 
             changeBtnMotorNo(SelectAxisIndex);
 
-            TeachResolution(Globalo.yamlManager.teachingDataYaml.handler.TransferMachine.Resolution[SelectAxisIndex].ToString("0.0##"));
+            TeachResolution(Globalo.yamlManager.teachData.handler.TransferMachine.Resolution[SelectAxisIndex].ToString("0.0##"));
         }
         public void TeachResolution(string val)
         {
@@ -81,7 +81,7 @@ namespace ZenHandler.Dlg
                 myTeachingGrid.MotorStateRun(true);
             }
             myTeachingGrid.ShowTeachingData();
-            TeachResolution(Globalo.yamlManager.teachingDataYaml.handler.TransferMachine.Resolution[SelectAxisIndex].ToString("0.0##"));
+            TeachResolution(Globalo.yamlManager.teachData.handler.TransferMachine.Resolution[SelectAxisIndex].ToString("0.0##"));
         }
         public void hidePanel()
         {
@@ -109,7 +109,7 @@ namespace ZenHandler.Dlg
 
             myTeachingGrid.changeMotorNo(SelectAxisIndex);
 
-            TeachResolution(Globalo.yamlManager.teachingDataYaml.handler.TransferMachine.Resolution[MotorNo].ToString("0.0##"));
+            TeachResolution(Globalo.yamlManager.teachData.handler.TransferMachine.Resolution[MotorNo].ToString("0.0##"));
 
 
         }
@@ -239,26 +239,24 @@ namespace ZenHandler.Dlg
 
             if (result == DialogResult.Yes)
             {
-                Globalo.yamlManager.teachingDataYaml.handler.TransferMachine = myTeachingGrid.GetTeachData(Globalo.yamlManager.teachingDataYaml.handler.TransferMachine);
+                Globalo.yamlManager.teachData.handler.TransferMachine = myTeachingGrid.GetTeachData(Globalo.yamlManager.teachData.handler.TransferMachine);
 
                 double dResol = double.Parse(LABEL_TEACH_ROSOLUTION_VALUE.Text);
 
-                Globalo.yamlManager.teachingDataYaml.handler.TransferMachine.Resolution[SelectAxisIndex] = dResol;
-
-
+                Globalo.yamlManager.teachData.handler.TransferMachine.Resolution[SelectAxisIndex] = dResol;
+                
                 //Motor Speed 적용
-                //int length = Globalo.yamlManager.teachingDataYaml.handler.TransferMachine.Speed.Count;
                 int length = Globalo.motionManager.transferMachine.MotorAxes.Length;
 
                 for (int i = 0; i < length; i++)
                 {
-                    Globalo.motionManager.transferMachine.MotorAxes[i].Velocity = Globalo.yamlManager.teachingDataYaml.handler.TransferMachine.Speed[i];
-                    Globalo.motionManager.transferMachine.MotorAxes[i].Acceleration = Globalo.yamlManager.teachingDataYaml.handler.TransferMachine.Accel[i];
-                    Globalo.motionManager.transferMachine.MotorAxes[i].Deceleration = Globalo.yamlManager.teachingDataYaml.handler.TransferMachine.Decel[i];
+                    Globalo.motionManager.transferMachine.MotorAxes[i].Velocity = Globalo.yamlManager.teachData.handler.TransferMachine.Speed[i];
+                    Globalo.motionManager.transferMachine.MotorAxes[i].Acceleration = Globalo.yamlManager.teachData.handler.TransferMachine.Accel[i];
+                    Globalo.motionManager.transferMachine.MotorAxes[i].Deceleration = Globalo.yamlManager.teachData.handler.TransferMachine.Decel[i];
                 }
 
                 Globalo.LogPrint("", "[TEACH] TRANSFER UNIT SAVE");
-                Globalo.yamlManager.teachingDataYaml.SaveTeaching();
+                Globalo.yamlManager.teachData.SaveTeaching();
             }
                 
         }

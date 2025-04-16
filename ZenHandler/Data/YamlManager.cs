@@ -30,7 +30,7 @@ namespace ZenHandler.Data
 
         public _TaskData TaskData { get; private set; }
 
-        public TeachingDataYaml teachingDataYaml { get; set; }
+        public TeachingDataYaml teachData { get; set; }
 
 
         public YamlManager()
@@ -44,7 +44,7 @@ namespace ZenHandler.Data
                 .WithNamingConvention(CamelCaseNamingConvention.Instance)
                 .Build();
             secsGemDataYaml = new SecGemDataYaml();
-            teachingDataYaml = new TeachingDataYaml();
+            teachData = new TeachingDataYaml();
         }
         public bool RecipeYamlFileCopy(string copyPPid, string createPPid)
         {

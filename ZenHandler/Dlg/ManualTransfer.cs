@@ -246,23 +246,21 @@ namespace ZenHandler.Dlg
                 return;
             }
             isMovingTransfer = true;
-            
-
-            cts?.Dispose();
-            cts = new CancellationTokenSource();
-            CancellationToken token = cts.Token;
-
-            
-            
-
             string logstr = $"[MANUAL] TRANSFER XY AXIS {ePos.ToString()} Move";
-
             Globalo.LogPrint("", logstr);
+
+            
+
             try
             {
+                cts?.Dispose();
+                cts = new CancellationTokenSource();
+                CancellationToken token = cts.Token;
+
                 Task<bool> motorTask = Task.Run(() =>
                 {
                     Console.WriteLine(" ------------------> TransFer_XY_Move");
+
                     bool rtn = Globalo.motionManager.transferMachine.TransFer_XY_Move(ePos, false);
                     bool bComplete = true;
 
@@ -270,8 +268,14 @@ namespace ZenHandler.Dlg
                     while (rtn)
                     {
                         if (bManualStopKey) break;
-                        bComplete = Globalo.motionManager.transferMachine.ChkXYMotorPos(ePos);
 
+                        bComplete = Globalo.motionManager.transferMachine.ChkXYMotorPos(ePos);
+                        if (bComplete)
+                        {
+                            //위치 확인 완료
+                            Console.WriteLine(" ===> TransFer_XY_Move Complete");
+                            break;
+                        }
                         Thread.Sleep(50);
                         if (Environment.TickCount - nTimeTick > MotionControl.MotorSet.MOTOR_MANUAL_MOVE_TIMEOUT)
                         {
@@ -291,17 +295,16 @@ namespace ZenHandler.Dlg
                 {
                     Console.WriteLine("Move okok");
                     logstr = $"[MANUAL] TRANSFER XY AXIS {ePos.ToString()} Move Complete";
+                    Globalo.LogPrint("", logstr);
                 }
                 else
                 {
                     Console.WriteLine("Move fail");
                     logstr = $"[MANUAL] TRANSFER XY AXIS {ePos.ToString()} Move Fail";
+                    Globalo.LogPrint("", logstr);
                 }
-
-
-
-
-                Globalo.LogPrint("", logstr);
+                bManualStopKey = false;
+                isMovingTransfer = false;
             }
             catch (OperationCanceledException)
             {
@@ -312,8 +315,8 @@ namespace ZenHandler.Dlg
                 // 그 외 예외 처리
                 Globalo.LogPrint("ManualControl", $"모터 이동 실패: {ex.Message}");
             }
-            bManualStopKey = false;
-            isMovingTransfer = false;
+
+            
         }
 
         
