@@ -39,7 +39,7 @@ namespace ZenHandler.MotionControl
         }
 
         public abstract void MoveToPosition(int position);
-        public abstract void OriginRun();
+        public abstract bool OriginRun();
         public abstract void ReadyRun();
         public abstract void AutoRun();
         public abstract bool IsMoving();

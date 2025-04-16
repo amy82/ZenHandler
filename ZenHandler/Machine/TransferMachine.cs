@@ -778,12 +778,12 @@ namespace ZenHandler.Machine
             return false;
         }
         
-        public override void OriginRun()
+        public override bool OriginRun()
         {
             if (motorAutoThread.GetThreadRun() == true)
             {
                 //motorAutoThread.Stop();
-                return;
+                return false;
             }
 
             motorAutoThread.m_nCurrentStep = 1000;
@@ -800,7 +800,7 @@ namespace ZenHandler.Machine
             {
                 Console.WriteLine($"[ORIGIN] Transfer Origin Start Fail");
             }
-
+            return rtn;
         }
         public override void ReadyRun()
         {

@@ -37,7 +37,7 @@ namespace ZenHandler.Machine
         {
             Console.WriteLine($"매거진 {position} 위치로 이동");
         }
-        public override void OriginRun()
+        public override bool OriginRun()
         {
             motorAutoThread.m_nCurrentStep = 1000;
 
@@ -52,6 +52,9 @@ namespace ZenHandler.Machine
                 Thread.Sleep(300);
             }
             bool rtn = motorAutoThread.Start();
+
+
+            return rtn;
         }
         public override void ReadyRun()
         {

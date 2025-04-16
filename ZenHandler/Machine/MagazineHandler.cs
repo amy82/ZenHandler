@@ -50,9 +50,10 @@ namespace ZenHandler.Machine
             Console.WriteLine($"매거진 {position} 위치로 이동");
         }
 
-        public override void OriginRun()
+        public override bool OriginRun()
         {
 
+            return false;
         }
         public override void ReadyRun()
         {

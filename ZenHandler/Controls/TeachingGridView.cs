@@ -343,6 +343,10 @@ namespace ZenHandler.Controls
                 this[SelectAxisIndex + 1, e.RowIndex].Value = cellStr;
 
             }
+            if (nRow == -1 && nCol > 0)
+            {
+                ///changeMotorNo(nCol - 1);    //2번째부터 시작이라서 -1 , 바깥 축선택 에 전달이 안돼서 주석처리
+            }
         }
         private void TeachGrid_CellClick(object sender, DataGridViewCellEventArgs e)
         {

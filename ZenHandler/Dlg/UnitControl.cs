@@ -19,7 +19,8 @@ namespace ZenHandler.Dlg
 
         private void BTN_TRANSFER_UNIT_READY_Click(object sender, EventArgs e)
         {
-            Globalo.motionManager.transferMachine.OriginRun();
+            bool bRtn = Globalo.motionManager.transferMachine.OriginRun();
+
         }
 
         private void BTN_TRANSFER_UNIT_AUTORUN_Click(object sender, EventArgs e)
