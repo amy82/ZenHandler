@@ -25,17 +25,17 @@ namespace ZenHandler.Dlg
 
         private void BTN_TRANSFER_UNIT_AUTORUN_Click(object sender, EventArgs e)
         {
-
+            Globalo.motionManager.transferMachine.AutoRun();
         }
 
         private void BTN_TRANSFER_UNIT_STOP_Click(object sender, EventArgs e)
         {
-            Globalo.motionManager.transferMachine.RunStop();
+            Globalo.motionManager.transferMachine.StopAuto();
         }
 
         private void BTN_TRANSFER_UNIT_PAUSE_Click(object sender, EventArgs e)
         {
-
+            Globalo.motionManager.transferMachine.PauseAuto();
         }
     }
 }

@@ -18,18 +18,18 @@ namespace ZenHandler.Controls
         private string PointFormat = "0.0###";
         private int selectStartRow = nGridSensorRowCount;     //모터 선택하면 색 변하는 Cell
         private int dRowSensorHeight = 25;
-        private int dRowHeight = 35;
+        private int dRowHeight = 30;
         //
         private string ColorSelecttGrid = "#E1E0DF";       //FFB230
         //
         //
         private int nGridRowCount = 0;              //Grid 총 Row / 세로 칸 수
         public int SelectAxisIndex = -1;        //선택 모터 순서
-        private Data.TeachingDataList teachingData;
+        private Data.TeachingConfig teachingData;
         private MotionControl.MotorAxis[] motorList;
         //
         //
-        public TeachingGridView(MotionControl.MotorAxis[] motorAxes , Data.TeachingDataList _teachingData, int[] _inGridWid)
+        public TeachingGridView(MotionControl.MotorAxis[] motorAxes , Data.TeachingConfig _teachingData, int[] _inGridWid)
         {
             //어떤 Machine 의 티칭정보인지
             //
@@ -61,11 +61,11 @@ namespace ZenHandler.Controls
                 TeachingTimer.Stop();
             }
         }
-        public Data.TeachingDataList GetTeachData(Data.TeachingDataList tData)
+        public Data.TeachingConfig GetTeachData(Data.TeachingConfig tData)
         {
             int i = 0;
             int j = 0;
-            Data.TeachingDataList tempData = tData;// new Data.TeachingDataList();
+            Data.TeachingConfig tempData = tData;       // new Data.TeachingDataList();
             tempData.Speed = new List<double>();
             tempData.Accel = new List<double>();
             tempData.Decel = new List<double>();

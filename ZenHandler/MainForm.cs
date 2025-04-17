@@ -61,11 +61,14 @@ namespace ZenHandler  //ApsMotionControl
 
             string className = typeof(Machine.TransferMachine).Name;
 
-            Globalo.yamlManager.teachData.LoadTeaching(className);
+            //Globalo.yamlManager.teachData.LoadTeaching(className);
 
 
             Globalo.yamlManager.configDataLoad();
-            Globalo.yamlManager.TaskDataLoad();
+            Globalo.yamlManager.taskDataYaml.TaskDataLoad();
+
+            Globalo.yamlManager.taskDataYaml.TrayDataLoad();
+
             Globalo.yamlManager.imageDataLoad();
             Globalo.yamlManager.RecipeYamlListLoad();
 
@@ -471,7 +474,6 @@ namespace ZenHandler  //ApsMotionControl
             // Thread Main
             //
 
-            //Globalo.threadControl.autoRunthread.eLogSender -= eLogPrint;
             //Globalo.mLaonGrabberClass.eLogSender -= eLogPrint;
             Globalo.mLaonGrabberClass.Dispose();
 

@@ -14,7 +14,7 @@ namespace ZenHandler.MotionControl
         protected FThread.MotorManualThread motorManualThread;
         
         public Process.ProcessManager processManager;
-
+        public OperationState RunState = OperationState.Stopped;
         public string MachineName { get; protected set; }
         protected CancellationTokenSource cts;
         ////protected bool isMotorBusy = false; //실행중 체크용 플래그
@@ -39,10 +39,13 @@ namespace ZenHandler.MotionControl
         }
 
         public abstract void MoveToPosition(int position);
-        public abstract void RunStop();
+        public abstract void StopAuto();
+        public abstract bool AutoRun();
+        public abstract void PauseAuto();
+
         public abstract bool OriginRun();
-        public abstract void ReadyRun();
-        public abstract void AutoRun();
+        public abstract bool ReadyRun();
+
         public abstract bool IsMoving();
         public abstract void MovingStop();
         public abstract void MotorDataSet();

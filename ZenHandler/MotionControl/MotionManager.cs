@@ -32,7 +32,8 @@ namespace ZenHandler.MotionControl
             liftModule = new Machine.LiftModule();
 
 
-            transferMachine.teachingConfig.LoadTeach("Teach_TransferMachine.yaml");
+            transferMachine.teachingConfig.LoadTeach(transferMachine.teachingPath);
+            magazineHandler.teachingConfig.LoadTeach(magazineHandler.teachingPath);
         }
 
         public void AllMotorParameterSet()
@@ -45,18 +46,19 @@ namespace ZenHandler.MotionControl
         {
             if (ProgramState.ON_LINE_MOTOR)
             {
-                transferMachine.MovingStop();
-                magazineHandler.MovingStop();
-                liftModule.MovingStop();
-
+                transferMachine.StopAuto();
+                magazineHandler.StopAuto();
+                liftModule.StopAuto();
             }
            
         }
+
         public void MotionClose()
         {
             Axl_Close();
             ioController.Close();
         }
+
         public bool MotionInit()
         {
             bool bAxlInit = true;

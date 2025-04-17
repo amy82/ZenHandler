@@ -72,6 +72,7 @@ namespace ZenHandler.Data
         //설정 저장 파일
         public const string yamlTeachingData = "teachingData.yaml";
         public const string yamlFilePathTask = "taskData.yaml";
+        public const string yamlFilePathTray = "trayData.yaml";
         public const string yamlFilePathSecGem = "SecGemData.yaml";
         public const string yamlFilePathConfig = "equip_config.yaml";
         public const string yamlFilePathImage = "imageData.yaml";
