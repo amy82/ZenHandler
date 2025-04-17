@@ -8,6 +8,7 @@ using System.Windows.Forms;
 
 namespace ZenHandler.Machine
 {
+
     public class TransferMachine : MotionControl.MotorController
     {
         public int MotorCnt { get; private set; } = 3;
@@ -17,6 +18,9 @@ namespace ZenHandler.Machine
         public MotionControl.MotorAxis TransferZ;
 
         public MotionControl.MotorAxis[] MotorAxes; // 배열 선언
+
+        public List<PickedProductInfo> LoadPickers { get; set; } = new List<PickedProductInfo>();
+        public List<PickedProductInfo> UnLoadPickers { get; set; } = new List<PickedProductInfo>();
 
 
         public string[] axisName = { "TransferX", "TransferY", "TransferZ" };
@@ -33,7 +37,6 @@ namespace ZenHandler.Machine
         private double[] OrgSecondVel = { 10000.0, 10000.0, 5000.0 };
         private double[] OrgThirdVel = { 5000.0, 5000.0, 2500.0 };
 
-        //TODO: 필요한 티칭 위치도 여기서 정하는게 나을까?
         public enum eTeachingPosList : int
         {
             WAIT_POS = 0,
@@ -50,9 +53,7 @@ namespace ZenHandler.Machine
         public string teachingPath = "Teach_Transfer.yaml";
         public Data.TeachingConfig teachingConfig = new Data.TeachingConfig();
 
-        public string processName = "tttt";
-        
-
+        //TODO:  픽업 상태 로드 4개 , 배출 4개 / blank , LOAD , BCR OK , PASS , NG(DEFECT 1 , 2 , 3 , 4)
         //public Dio cylinder;
         //픽업 툴 4개 실린더 Dio 로 지정?
 
@@ -80,6 +81,12 @@ namespace ZenHandler.Machine
             TransferY.setMotorParameter(10.0, 0.1, 0.1, 1000.0);
             TransferZ.setMotorParameter(10.0, 0.1, 0.1, 1000.0);
 
+
+            for (int i = 0; i < 4; i++)
+            {
+                LoadPickers.Add(new PickedProductInfo(i));
+                UnLoadPickers.Add(new PickedProductInfo(i));
+            }
             
         }
         public override void MotorDataSet()

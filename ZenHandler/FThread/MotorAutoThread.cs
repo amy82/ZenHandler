@@ -82,13 +82,11 @@ namespace ZenHandler.FThread
         {
             if (this.m_nCurrentStep >= this.m_nStartStep && this.m_nCurrentStep < this.m_nEndStep)
             {
-                if (this.parent.MachineName == "TransferMachine")       //TODO: 여기도 개선 필요 자기자신
+                if (this.parent.MachineName == Globalo.motionManager.transferMachine.GetType().Name)//"TransferMachine")       //TODO: 여기도 개선 필요 자기자신
                 {
-
                     TransferFlow();
                 }
-
-                if (this.parent.MachineName == "LiftModule")
+                else if (this.parent.MachineName == Globalo.motionManager.liftModule.GetType().Name)
                 {
                     bool rtn = Globalo.motionManager.transferMachine.IsMoving();
 
