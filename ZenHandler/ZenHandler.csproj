@@ -342,6 +342,7 @@
     <Compile Include="KeyMessageFilter.cs" />
     <Compile Include="Laon\CLaonGrabberClass.cs" />
     <Compile Include="Lgit\ACMISCommon.cs" />
+    <Compile Include="Machine\ProductState.cs" />
     <Compile Include="MotionControl\IOController.cs" />
     <Compile Include="Machine\LiftModule.cs" />
     <Compile Include="Machine\MagazineHandler.cs" />

@@ -8,6 +8,7 @@ using System.Windows.Forms;
 
 namespace ZenHandler.Machine
 {
+
     public class TransferMachine : MotionControl.MotorController
     {
         public int MotorCnt { get; private set; } = 3;
@@ -18,9 +19,12 @@ namespace ZenHandler.Machine
 
         public MotionControl.MotorAxis[] MotorAxes; // 배열 선언
 
+        public List<PickedProductInfo> LoadPickers { get; set; } = new List<PickedProductInfo>();
+        public List<PickedProductInfo> UnLoadPickers { get; set; } = new List<PickedProductInfo>();
+
 
         public string[] axisName = { "TransferX", "TransferY", "TransferZ" };
-        private static double[] MOTOR_MAX_SPEED = { 100.0, 100.0, 100.0};
+        private static double[] MOTOR_MAX_SPEED = { 200.0, 500.0, 50.0};
         private MotorDefine.eMotorType[] motorType = { MotorDefine.eMotorType.LINEAR, MotorDefine.eMotorType.LINEAR, MotorDefine.eMotorType.LINEAR };
         private AXT_MOTION_LEVEL_MODE[] AXT_SET_LIMIT = { AXT_MOTION_LEVEL_MODE.LOW, AXT_MOTION_LEVEL_MODE.HIGH, AXT_MOTION_LEVEL_MODE.LOW };
         private AXT_MOTION_LEVEL_MODE[] AXT_SET_SERVO_ALARM = { AXT_MOTION_LEVEL_MODE.HIGH, AXT_MOTION_LEVEL_MODE.HIGH, AXT_MOTION_LEVEL_MODE.LOW };
@@ -33,7 +37,6 @@ namespace ZenHandler.Machine
         private double[] OrgSecondVel = { 10000.0, 10000.0, 5000.0 };
         private double[] OrgThirdVel = { 5000.0, 5000.0, 2500.0 };
 
-        //TODO: 필요한 티칭 위치도 여기서 정하는게 나을까?
         public enum eTeachingPosList : int
         {
             WAIT_POS = 0,
@@ -50,9 +53,7 @@ namespace ZenHandler.Machine
         public string teachingPath = "Teach_Transfer.yaml";
         public Data.TeachingConfig teachingConfig = new Data.TeachingConfig();
 
-        public string processName = "tttt";
-        
-
+        //TODO:  픽업 상태 로드 4개 , 배출 4개 / blank , LOAD , BCR OK , PASS , NG(DEFECT 1 , 2 , 3 , 4)
         //public Dio cylinder;
         //픽업 툴 4개 실린더 Dio 로 지정?
 
@@ -80,6 +81,12 @@ namespace ZenHandler.Machine
             TransferY.setMotorParameter(10.0, 0.1, 0.1, 1000.0);
             TransferZ.setMotorParameter(10.0, 0.1, 0.1, 1000.0);
 
+
+            for (int i = 0; i < 4; i++)
+            {
+                LoadPickers.Add(new PickedProductInfo(i));
+                UnLoadPickers.Add(new PickedProductInfo(i));
+            }
             
         }
         public override void MotorDataSet()
@@ -623,7 +630,6 @@ namespace ZenHandler.Machine
                 {
                     if (multiAxis[0].MotorBreak) break;
                     if (multiAxis[1].MotorBreak) break;
-                    if (multiAxis[2].MotorBreak) break;
                     //위치 도착 확인 , 정지 확인
 
                     switch (step)
@@ -874,7 +880,22 @@ namespace ZenHandler.Machine
         }
         public override bool ReadyRun()
         {
-            motorAutoThread.m_nCurrentStep = 2000;
+            if (motorAutoThread.GetThreadRun() == true)
+            {
+                return false;
+            }
+
+            if (TransferX.OrgState == false || TransferY.OrgState == false || TransferZ.OrgState == false)
+            {
+                this.RunState = OperationState.Originning;
+                motorAutoThread.m_nCurrentStep = 1000;
+            }
+            else
+            {
+                this.RunState = OperationState.Preparing;
+                motorAutoThread.m_nCurrentStep = 2000;
+            }
+
             motorAutoThread.m_nEndStep = 3000;
             motorAutoThread.m_nStartStep = motorAutoThread.m_nCurrentStep;
 
@@ -886,10 +907,13 @@ namespace ZenHandler.Machine
             bool rtn = motorAutoThread.Start();
             if (rtn)
             {
+                Console.WriteLine($"[READY] Transfer Ready Start");
                 Console.WriteLine($"모터 동작 성공.");
             }
             else
             {
+                this.RunState = OperationState.Stopped;
+                Console.WriteLine($"[READY] Transfer Ready Start Fail");
                 Console.WriteLine($"모터 동작 실패.");
             }
 
@@ -904,33 +928,44 @@ namespace ZenHandler.Machine
         }
         public override bool AutoRun()
         {
+            bool rtn = true;
+            if (this.RunState != OperationState.PreparationComplete)
+            {
+                Globalo.LogPrint("MainForm", "[TRANSFER] 운전준비가 완료되지 않았습니다.", Globalo.eMessageName.M_WARNING);
+                return false;
+            }
             if (motorAutoThread.GetThreadRun() == true)
             {
                 Console.WriteLine($"모터 동작 중입니다.");
-                if (motorAutoThread.GetThreadPause())
+                if (motorAutoThread.GetThreadPause() == true)
                 {
                     motorAutoThread.m_nCurrentStep = Math.Abs(motorAutoThread.m_nCurrentStep);
                 }
-                return false;
+                else
+                {
+                    rtn = false;
+                }
             }
             else
             {
+                motorAutoThread.m_nCurrentStep = 3000;
+                motorAutoThread.m_nEndStep = 10000;
+                motorAutoThread.m_nStartStep = motorAutoThread.m_nCurrentStep;
 
+                rtn = motorAutoThread.Start();
+
+                if (rtn)
+                {
+                    Console.WriteLine($"모터 동작 성공.");
+                }
+                else
+                {
+                    Console.WriteLine($"모터 동작 실패.");
+                }
             }
 
 
-            motorAutoThread.m_nCurrentStep = 3000;
-            motorAutoThread.m_nEndStep = 10000;
-            motorAutoThread.m_nStartStep = motorAutoThread.m_nCurrentStep;
-            bool rtn = motorAutoThread.Start();
-            if (rtn)
-            {
-                Console.WriteLine($"모터 동작 성공.");
-            }
-            else
-            {
-                Console.WriteLine($"모터 동작 실패.");
-            }
+           
 
             return rtn;
         }

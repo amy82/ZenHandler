@@ -33,7 +33,31 @@ namespace ZenHandler.FThread
             }
             else if (this.m_nCurrentStep >= 3000 && this.m_nCurrentStep < 4000)
             {
-                this.m_nCurrentStep = this.parent.processManager.transferFlow.Auto_PCBLoading(this.m_nCurrentStep);
+                this.m_nCurrentStep = this.parent.processManager.transferFlow.Auto_Waiting(this.m_nCurrentStep);    //제품을 들고있는지, 왼쪽,오른쪽 TRAY 선택
+            }
+            else if (this.m_nCurrentStep >= 4000 && this.m_nCurrentStep < 5000)
+            {
+                this.m_nCurrentStep = this.parent.processManager.transferFlow.Auto_LoadInTray(this.m_nCurrentStep);       //제품 로드
+            }
+            else if (this.m_nCurrentStep >= 5000 && this.m_nCurrentStep < 6000)
+            {
+                this.m_nCurrentStep = this.parent.processManager.transferFlow.Auto_SocketInsert(this.m_nCurrentStep);     //소켓 투입
+            }
+            else if (this.m_nCurrentStep >= 6000 && this.m_nCurrentStep < 7000)
+            {
+                this.m_nCurrentStep = this.parent.processManager.transferFlow.Auto_SocketOutput(this.m_nCurrentStep);     //소켓 배출
+            }
+            else if (this.m_nCurrentStep >= 7000 && this.m_nCurrentStep < 8000)
+            {
+                this.m_nCurrentStep = this.parent.processManager.transferFlow.Auto_UnLoadInTray(this.m_nCurrentStep);     //제품 배출
+            }
+            else if (this.m_nCurrentStep >= 8000 && this.m_nCurrentStep < 9000)
+            {
+                this.m_nCurrentStep = this.parent.processManager.transferFlow.Auto_Ng_UnLoading(this.m_nCurrentStep);       //ng 배출
+            }
+            else if (this.m_nCurrentStep >= 10000 && this.m_nCurrentStep < 11000)
+            {
+                this.m_nCurrentStep = this.parent.processManager.transferFlow.Auto_Cancel(this.m_nCurrentStep);             //투입 취소
             }
         }
 
@@ -58,13 +82,11 @@ namespace ZenHandler.FThread
         {
             if (this.m_nCurrentStep >= this.m_nStartStep && this.m_nCurrentStep < this.m_nEndStep)
             {
-                if (this.parent.MachineName == "TransferMachine")       //TODO: 여기도 개선 필요 자기자신
+                if (this.parent.MachineName == Globalo.motionManager.transferMachine.GetType().Name)//"TransferMachine")       //TODO: 여기도 개선 필요 자기자신
                 {
-
                     TransferFlow();
                 }
-
-                if (this.parent.MachineName == "LiftModule")
+                else if (this.parent.MachineName == Globalo.motionManager.liftModule.GetType().Name)
                 {
                     bool rtn = Globalo.motionManager.transferMachine.IsMoving();
 

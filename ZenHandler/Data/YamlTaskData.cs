@@ -38,6 +38,7 @@ namespace ZenHandler.Data
         public _TaskData TaskData { get; private set; }
         public _TrayData TrayData { get; private set; }
 
+
         public bool TrayDataLoad()
         {
             string filePath = Path.Combine(CPath.BASE_ENV_PATH, CPath.yamlFilePathTray);       //TRAY DATA
