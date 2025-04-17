@@ -32,7 +32,8 @@ namespace ZenHandler.MotionControl
             liftModule = new Machine.LiftModule();
 
 
-            transferMachine.teachingConfig.LoadTeach("Teach_TransferMachine.yaml");
+            transferMachine.teachingConfig.LoadTeach(transferMachine.teachingPath);
+            magazineHandler.teachingConfig.LoadTeach(magazineHandler.teachingPath);
         }
 
         public void AllMotorParameterSet()

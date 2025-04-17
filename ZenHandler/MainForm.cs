@@ -61,7 +61,7 @@ namespace ZenHandler  //ApsMotionControl
 
             string className = typeof(Machine.TransferMachine).Name;
 
-            Globalo.yamlManager.teachData.LoadTeaching(className);
+            //Globalo.yamlManager.teachData.LoadTeaching(className);
 
 
             Globalo.yamlManager.configDataLoad();
