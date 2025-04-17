@@ -11,6 +11,7 @@ namespace ZenHandler.Machine
     {
         public LiftModule()// : base("LiftModule")
         {
+            this.RunState = OperationState.Stopped;
             this.MachineName = this.GetType().Name;
 
         }
@@ -22,7 +23,7 @@ namespace ZenHandler.Machine
         public override void MotorDataSet()
         {
         }
-        public override void RunStop()
+        public override void StopAuto()
         {
             motorAutoThread.Stop();
 
@@ -61,13 +62,21 @@ namespace ZenHandler.Machine
 
             return rtn;
         }
-        public override void ReadyRun()
+        public override bool ReadyRun()
         {
 
+
+            return true;
         }
-        public override void AutoRun()
+        public override void PauseAuto()
         {
-            
+
+            return;
+        }
+        public override bool AutoRun()
+        {
+
+            return true;
         }
 
     }

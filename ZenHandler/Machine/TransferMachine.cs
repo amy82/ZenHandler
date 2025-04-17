@@ -20,18 +20,18 @@ namespace ZenHandler.Machine
 
 
         public string[] axisName = { "TransferX", "TransferY", "TransferZ" };
+        private static double[] MOTOR_MAX_SPEED = { 100.0, 100.0, 100.0};
+        private MotorDefine.eMotorType[] motorType = { MotorDefine.eMotorType.LINEAR, MotorDefine.eMotorType.LINEAR, MotorDefine.eMotorType.LINEAR };
+        private AXT_MOTION_LEVEL_MODE[] AXT_SET_LIMIT = { AXT_MOTION_LEVEL_MODE.LOW, AXT_MOTION_LEVEL_MODE.HIGH, AXT_MOTION_LEVEL_MODE.LOW };
+        private AXT_MOTION_LEVEL_MODE[] AXT_SET_SERVO_ALARM = { AXT_MOTION_LEVEL_MODE.HIGH, AXT_MOTION_LEVEL_MODE.HIGH, AXT_MOTION_LEVEL_MODE.LOW };
 
-        public static double[] MOTOR_MAX_SPEED = { 100.0, 100.0, 100.0};
-        public MotorDefine.eMotorType[] motorType = { MotorDefine.eMotorType.LINEAR, MotorDefine.eMotorType.LINEAR, MotorDefine.eMotorType.LINEAR };
-        public AXT_MOTION_LEVEL_MODE[] AXT_SET_LIMIT = { AXT_MOTION_LEVEL_MODE.LOW, AXT_MOTION_LEVEL_MODE.HIGH, AXT_MOTION_LEVEL_MODE.LOW };
-        public AXT_MOTION_LEVEL_MODE[] AXT_SET_SERVO_ALARM = { AXT_MOTION_LEVEL_MODE.HIGH, AXT_MOTION_LEVEL_MODE.HIGH, AXT_MOTION_LEVEL_MODE.LOW };
+        private static AXT_MOTION_HOME_DETECT[] MOTOR_HOME_SENSOR = {AXT_MOTION_HOME_DETECT.HomeSensor, AXT_MOTION_HOME_DETECT.HomeSensor, AXT_MOTION_HOME_DETECT.HomeSensor};
 
-        public static AXT_MOTION_HOME_DETECT[] MOTOR_HOME_SENSOR = {AXT_MOTION_HOME_DETECT.HomeSensor, AXT_MOTION_HOME_DETECT.HomeSensor, AXT_MOTION_HOME_DETECT.HomeSensor};
+        private static AXT_MOTION_MOVE_DIR[] MOTOR_HOME_DIR = {AXT_MOTION_MOVE_DIR.DIR_CCW, AXT_MOTION_MOVE_DIR.DIR_CCW, AXT_MOTION_MOVE_DIR.DIR_CW};
 
-        public static AXT_MOTION_MOVE_DIR[] MOTOR_HOME_DIR = {AXT_MOTION_MOVE_DIR.DIR_CCW, AXT_MOTION_MOVE_DIR.DIR_CCW, AXT_MOTION_MOVE_DIR.DIR_CW};
-        public double[] OrgFirstVel = { 20000.0, 20000.0, 20000.0 };
-        public double[] OrgSecondVel = { 10000.0, 10000.0, 5000.0 };
-        public double[] OrgThirdVel = { 5000.0, 5000.0, 2500.0 };
+        private double[] OrgFirstVel = { 20000.0, 20000.0, 20000.0 };
+        private double[] OrgSecondVel = { 10000.0, 10000.0, 5000.0 };
+        private double[] OrgThirdVel = { 5000.0, 5000.0, 2500.0 };
 
         //TODO: 필요한 티칭 위치도 여기서 정하는게 나을까?
         public enum eTeachingPosList : int
@@ -39,13 +39,13 @@ namespace ZenHandler.Machine
             WAIT_POS = 0,
             LEFT_TRAY_LOAD_POS, LEFT_TRAY_UNLOAD_POS,
             RIGHT_TRAY_LOAD_POS, RIGHT_TRAY_UNLOAD_POS,
-            SOCKET_A1, SOCKET_A2, SOCKET_B1, SOCKET_B2, 
+            SOCKET_A1, SOCKET_A2, SOCKET_B1, SOCKET_B2, SOCKET_C1, SOCKET_C2, SOCKET_D1, SOCKET_D2,
             TOTAL_TRANSFER_TEACHING_COUNT
         };
         public string[] TeachName = { "WAIT_POS",
             "L_TRAY_LOAD_POS", "L_TRAY_UNLOAD_POS",
             "R_TRAY_LOAD_POS", "R_TRAY_UNLOAD_POS",
-            "SOCKET_A1", "SOCKET_A2", "SOCKET_B1", "SOCKET_B2" };
+            "SOCKET_A1", "SOCKET_A2", "SOCKET_B1", "SOCKET_B2","SOCKET_C1", "SOCKET_C2", "SOCKET_D1", "SOCKET_D2" };
 
         public string teachingPath = "Teach_Transfer.yaml";
         public Data.TeachingConfig teachingConfig = new Data.TeachingConfig();
@@ -58,6 +58,9 @@ namespace ZenHandler.Machine
 
         public TransferMachine()//: base("Machine")
         {
+            this.RunState = OperationState.Stopped;
+            this.MachineName = this.GetType().Name;
+
             TransferX = new MotionControl.MotorAxis((int)MotionControl.MotorSet.eTransferMotorList.TRANSFER_X, 
                 axisName[0], motorType[0], MOTOR_MAX_SPEED[0], AXT_SET_LIMIT[0], AXT_SET_SERVO_ALARM[0], OrgFirstVel[0], OrgSecondVel[0], OrgThirdVel[0],
                 MOTOR_HOME_SENSOR[0], MOTOR_HOME_DIR[0]);
@@ -77,7 +80,7 @@ namespace ZenHandler.Machine
             TransferY.setMotorParameter(10.0, 0.1, 0.1, 1000.0);
             TransferZ.setMotorParameter(10.0, 0.1, 0.1, 1000.0);
 
-            this.MachineName = this.GetType().Name;
+            
         }
         public override void MotorDataSet()
         {
@@ -814,10 +817,11 @@ namespace ZenHandler.Machine
             }
             return false;
         }
-        public override void RunStop()
+        public override void StopAuto()
         {
             motorAutoThread.Stop();
             MovingStop();
+
             Console.WriteLine($"[ORIGIN] Transfer Run Stop");
 
         }
@@ -828,9 +832,12 @@ namespace ZenHandler.Machine
                 //motorAutoThread.Stop();
                 return false;
             }
+
+
             bool bServoOnChk = true;
             int length = MotorAxes.Length;
             string szLog = "";
+            
             for (int i = 0; i < length; i++)
             {
                 if(MotorAxes[i].AmpEnable() == false)
@@ -846,58 +853,35 @@ namespace ZenHandler.Machine
 
                 return false;
             }
-
-            motorAutoThread.m_nCurrentStep = 1000;
+            this.RunState = OperationState.Originning;
+            motorAutoThread.m_nCurrentStep = 1000;          //ORG
+            motorAutoThread.m_nEndStep = 2000;
 
             motorAutoThread.m_nStartStep = motorAutoThread.m_nCurrentStep;
-            motorAutoThread.m_nEndStep = 2000;
 
             bool rtn = motorAutoThread.Start();
             if(rtn)
             {
+
                 Console.WriteLine($"[ORIGIN] Transfer Origin Start");
             }
             else
             {
+                this.RunState = OperationState.Stopped;
                 Console.WriteLine($"[ORIGIN] Transfer Origin Start Fail");
             }
             return rtn;
         }
-        public override void ReadyRun()
+        public override bool ReadyRun()
         {
             motorAutoThread.m_nCurrentStep = 2000;
-            motorAutoThread.m_nStartStep = motorAutoThread.m_nCurrentStep;
             motorAutoThread.m_nEndStep = 3000;
-
-            if (motorAutoThread.GetThreadRun() == true)
-            {
-                Console.WriteLine($"모터 동작 중입니다.");
-
-                motorAutoThread.Stop();
-                Thread.Sleep(300);
-            }
-            bool rtn = motorAutoThread.Start();
-            if (rtn)
-            {
-                Console.WriteLine($"모터 동작 성공.");
-            }
-            else
-            {
-                Console.WriteLine($"모터 동작 실패.");
-            }
-        }
-        public override void AutoRun()
-        {
-            motorAutoThread.m_nCurrentStep = 3000;
             motorAutoThread.m_nStartStep = motorAutoThread.m_nCurrentStep;
-            motorAutoThread.m_nEndStep = 10000;
 
             if (motorAutoThread.GetThreadRun() == true)
             {
                 Console.WriteLine($"모터 동작 중입니다.");
-
-                motorAutoThread.Stop();
-                Thread.Sleep(300);
+                return true;
             }
             bool rtn = motorAutoThread.Start();
             if (rtn)
@@ -908,9 +892,47 @@ namespace ZenHandler.Machine
             {
                 Console.WriteLine($"모터 동작 실패.");
             }
+
+            return rtn;
         }
+        public override void PauseAuto()
+        {
+            if (motorAutoThread.GetThreadRun() == true)
+            {
+                motorAutoThread.Pause();
+            }
+        }
+        public override bool AutoRun()
+        {
+            if (motorAutoThread.GetThreadRun() == true)
+            {
+                Console.WriteLine($"모터 동작 중입니다.");
+                if (motorAutoThread.GetThreadPause())
+                {
+                    motorAutoThread.m_nCurrentStep = Math.Abs(motorAutoThread.m_nCurrentStep);
+                }
+                return false;
+            }
+            else
+            {
+
+            }
 
 
-        //if (g_clMotorSet.MovePcbZMotor(m_nUnit, WAIT_POS, 0.0, true) == false)
+            motorAutoThread.m_nCurrentStep = 3000;
+            motorAutoThread.m_nEndStep = 10000;
+            motorAutoThread.m_nStartStep = motorAutoThread.m_nCurrentStep;
+            bool rtn = motorAutoThread.Start();
+            if (rtn)
+            {
+                Console.WriteLine($"모터 동작 성공.");
+            }
+            else
+            {
+                Console.WriteLine($"모터 동작 실패.");
+            }
+
+            return rtn;
+        }
     }
 }

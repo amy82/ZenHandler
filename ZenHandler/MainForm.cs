@@ -471,7 +471,6 @@ namespace ZenHandler  //ApsMotionControl
             // Thread Main
             //
 
-            //Globalo.threadControl.autoRunthread.eLogSender -= eLogPrint;
             //Globalo.mLaonGrabberClass.eLogSender -= eLogPrint;
             Globalo.mLaonGrabberClass.Dispose();
 

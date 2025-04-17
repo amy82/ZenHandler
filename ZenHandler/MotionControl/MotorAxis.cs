@@ -117,6 +117,7 @@ namespace ZenHandler.MotionControl
         }
         public virtual void ServoOff()
         {
+            this.OrgState = false;
             CAXM.AxmSignalServoOn(m_lAxisNo, (uint)AXT_USE.DISABLE);
         }
         public virtual void ServoAlarmReset(int dOnOff)

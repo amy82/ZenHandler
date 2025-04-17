@@ -268,18 +268,7 @@ namespace ZenHandler.Dlg
 
         private void BTN_RIGHT_OP_MODE_Click_1(object sender, EventArgs e)
         {
-            Globalo.MainForm.SetLanguage("es");
-
-            if (ProgramState.CurrentState == OperationState.AutoRunning)
-            {
-                Globalo.LogPrint("MainForm", "[INFO] 자동 운전 중 사용 불가", Globalo.eMessageName.M_WARNING);
-                return;
-            }
-            if (ProgramState.CurrentState == OperationState.Paused)
-            {
-                Globalo.LogPrint("ManualCMainFormontrol", "[INFO] 일시 정지 중 사용 불가", Globalo.eMessageName.M_WARNING);
-                return;
-            }
+            //Globalo.MainForm.SetLanguage("es");   //언어 변경
             Run_Mode_Change(ProgramState.eRunMode.OPERATOR);
         }
 

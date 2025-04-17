@@ -25,8 +25,15 @@ namespace ZenHandler
             OPERATOR , ENGINEER
         };
         // 현재 상태를 나타내는 static 변수
-        public static OperationState CurrentState { get; set; } = OperationState.Stopped;
+
+
+        public static OperationState CurrentState { get; set; } = OperationState.Stopped;       //Unit 별로 나눠야된다.
+
+
+
         public static eRunMode CurrentRunMode { get; set; } = eRunMode.OPERATOR;
+
+
 
         public static bool STATE_DRIVER_CONNECT = false;
         public static bool STATE_CLINET_CONNECT = false;

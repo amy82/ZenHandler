@@ -35,6 +35,9 @@ namespace ZenHandler.Machine
 
         public MagazineHandler()// : base("MagazineHandler")
         {
+            this.RunState = OperationState.Stopped;
+            this.MachineName = this.GetType().Name;
+
             MagazineY = new MotionControl.MotorAxis((int)MotionControl.MotorSet.eLiftMotorList.L_IN_LIFT, "MagazineY", motorType[0], 
                 MOTOR_MAX_SPEED[0], AXT_SET_LIMIT[0], AXT_SET_SERVO_ALARM[0], OrgFirstVel[0], OrgSecondVel[0], OrgThirdVel[0], MOTOR_HOME_SENSOR[0], MOTOR_HOME_DIR[0]);
 
@@ -54,7 +57,7 @@ namespace ZenHandler.Machine
         {
             return true;
         }
-        public override void RunStop()
+        public override void StopAuto()
         {
             motorAutoThread.Stop();
 
@@ -87,13 +90,18 @@ namespace ZenHandler.Machine
 
             return false;
         }
-        public override void ReadyRun()
+        public override void PauseAuto()
         {
 
+            return;
         }
-        public override void AutoRun()
+        public override bool ReadyRun()
         {
-
+            return true;
+        }
+        public override bool AutoRun()
+        {
+            return true;
         }
 
 

@@ -282,9 +282,9 @@
             this.groupBox1.Controls.Add(this.BTN_TEACH_JOG_PLUS);
             this.groupBox1.Controls.Add(this.BTN_TEACH_MOVE_MINUS);
             this.groupBox1.Controls.Add(this.label4);
-            this.groupBox1.Location = new System.Drawing.Point(3, 817);
+            this.groupBox1.Location = new System.Drawing.Point(3, 839);
             this.groupBox1.Name = "groupBox1";
-            this.groupBox1.Size = new System.Drawing.Size(764, 200);
+            this.groupBox1.Size = new System.Drawing.Size(764, 178);
             this.groupBox1.TabIndex = 35;
             this.groupBox1.TabStop = false;
             // 

@@ -93,17 +93,17 @@ namespace ZenHandler.Dlg
         }
         private void button_Ini_Select_Click(object sender, EventArgs e)
         {
-            if (ProgramState.CurrentState == OperationState.AutoRunning)
+            if (Globalo.motionManager.transferMachine.RunState == OperationState.AutoRunning)
             {
                 Globalo.LogPrint("ManualControl", "[INFO] 자동 운전 중 사용 불가", Globalo.eMessageName.M_WARNING);
                 return;
             }
-            if (ProgramState.CurrentState == OperationState.Paused)
+            if (Globalo.motionManager.transferMachine.RunState == OperationState.Paused)
             {
                 Globalo.LogPrint("ManualControl", "[INFO] 일시 정지 중 사용 불가", Globalo.eMessageName.M_WARNING);
                 return;
             }
-            if (ProgramState.CurrentState == OperationState.ManualTesting)
+            if (Globalo.motionManager.transferMachine.RunState == OperationState.ManualTesting)
             {
                 Globalo.LogPrint("ManualControl", "[INFO] MANUAL 동작 중 사용 불가", Globalo.eMessageName.M_WARNING);
                 return;
@@ -396,17 +396,17 @@ namespace ZenHandler.Dlg
 
         private void BTN_CCD_GABBER_OPEN_Click(object sender, EventArgs e)
         {
-            if (ProgramState.CurrentState == OperationState.AutoRunning)
+            if (Globalo.motionManager.transferMachine.RunState == OperationState.AutoRunning)
             {
                 Globalo.LogPrint("ManualControl", "[INFO] 자동 운전 중 사용 불가", Globalo.eMessageName.M_WARNING);
                 return;
             }
-            if (ProgramState.CurrentState == OperationState.Paused)
+            if (Globalo.motionManager.transferMachine.RunState == OperationState.Paused)
             {
                 Globalo.LogPrint("ManualControl", "[INFO] 일시 정지 중 사용 불가", Globalo.eMessageName.M_WARNING);
                 return;
             }
-            if (ProgramState.CurrentState == OperationState.ManualTesting)
+            if (Globalo.motionManager.transferMachine.RunState == OperationState.ManualTesting)
             {
                 Globalo.LogPrint("ManualControl", "[INFO] MANUAL 동작 중 사용 불가", Globalo.eMessageName.M_WARNING);
                 return;
@@ -420,17 +420,17 @@ namespace ZenHandler.Dlg
 
         private void BTN_CCD_GABBER_START_Click(object sender, EventArgs e)
         {
-            if (ProgramState.CurrentState == OperationState.AutoRunning)
+            if (Globalo.motionManager.transferMachine.RunState == OperationState.AutoRunning)
             {
                 Globalo.LogPrint("ManualControl", "[INFO] 자동 운전 중 사용 불가", Globalo.eMessageName.M_WARNING);
                 return;
             }
-            if (ProgramState.CurrentState == OperationState.Paused)
+            if (Globalo.motionManager.transferMachine.RunState == OperationState.Paused)
             {
                 Globalo.LogPrint("ManualControl", "[INFO] 일시 정지 중 사용 불가", Globalo.eMessageName.M_WARNING);
                 return;
             }
-            if (ProgramState.CurrentState == OperationState.ManualTesting)
+            if (Globalo.motionManager.transferMachine.RunState == OperationState.ManualTesting)
             {
                 Globalo.LogPrint("ManualControl", "[INFO] MANUAL 동작 중 사용 불가", Globalo.eMessageName.M_WARNING);
                 return;
@@ -440,17 +440,17 @@ namespace ZenHandler.Dlg
 
         private void BTN_CCD_GABBER_STOP_Click(object sender, EventArgs e)
         {
-            if (ProgramState.CurrentState == OperationState.AutoRunning)
+            if (Globalo.motionManager.transferMachine.RunState == OperationState.AutoRunning)
             {
                 Globalo.LogPrint("ManualControl", "[INFO] 자동 운전 중 사용 불가", Globalo.eMessageName.M_WARNING);
                 return;
             }
-            if (ProgramState.CurrentState == OperationState.Paused)
+            if (Globalo.motionManager.transferMachine.RunState == OperationState.Paused)
             {
                 Globalo.LogPrint("ManualControl", "[INFO] 일시 정지 중 사용 불가", Globalo.eMessageName.M_WARNING);
                 return;
             }
-            if (ProgramState.CurrentState == OperationState.ManualTesting)
+            if (Globalo.motionManager.transferMachine.RunState == OperationState.ManualTesting)
             {
                 Globalo.LogPrint("ManualControl", "[INFO] MANUAL 동작 중 사용 불가", Globalo.eMessageName.M_WARNING);
                 return;
@@ -460,18 +460,18 @@ namespace ZenHandler.Dlg
 
         private void BTN_CCD_GABBER_CLOSE_Click(object sender, EventArgs e)
         {
-            if (ProgramState.CurrentState == OperationState.AutoRunning)
+            if (Globalo.motionManager.transferMachine.RunState == OperationState.AutoRunning)
             {
                 Globalo.LogPrint("ManualControl", "[INFO] 자동 운전 중 사용 불가", Globalo.eMessageName.M_WARNING);
                 return;
             }
-            if (ProgramState.CurrentState == OperationState.Paused)
+            if (Globalo.motionManager.transferMachine.RunState == OperationState.Paused)
             {
                 Globalo.LogPrint("ManualControl", "[INFO] 일시 정지 중 사용 불가", Globalo.eMessageName.M_WARNING);
                 return;
             }
 
-            if (ProgramState.CurrentState == OperationState.ManualTesting)
+            if (Globalo.motionManager.transferMachine.RunState == OperationState.ManualTesting)
             {
                 Globalo.LogPrint("ManualControl", "[INFO] MANUAL 동작 중 사용 불가", Globalo.eMessageName.M_WARNING);
                 return;
@@ -486,12 +486,12 @@ namespace ZenHandler.Dlg
 
         private void BTN_CCD_BMP_LOAD_Click(object sender, EventArgs e)
         {
-            if (ProgramState.CurrentState == OperationState.AutoRunning)
+            if (Globalo.motionManager.transferMachine.RunState == OperationState.AutoRunning)
             {
                 Globalo.LogPrint("ManualControl", "[INFO] 자동 운전 중 사용 불가", Globalo.eMessageName.M_WARNING);
                 return;
             }
-            if (ProgramState.CurrentState == OperationState.Paused)
+            if (Globalo.motionManager.transferMachine.RunState == OperationState.Paused)
             {
                 Globalo.LogPrint("ManualControl", "[INFO] 일시 정지 중 사용 불가", Globalo.eMessageName.M_WARNING);
                 return;
@@ -500,12 +500,12 @@ namespace ZenHandler.Dlg
 
         private void BTN_CCD_BMP_SAVE_Click(object sender, EventArgs e)
         {
-            if (ProgramState.CurrentState == OperationState.AutoRunning)
+            if (Globalo.motionManager.transferMachine.RunState == OperationState.AutoRunning)
             {
                 Globalo.LogPrint("ManualControl", "[INFO] 자동 운전 중 사용 불가", Globalo.eMessageName.M_WARNING);
                 return;
             }
-            if (ProgramState.CurrentState == OperationState.Paused)
+            if (Globalo.motionManager.transferMachine.RunState == OperationState.Paused)
             {
                 Globalo.LogPrint("ManualControl", "[INFO] 일시 정지 중 사용 불가", Globalo.eMessageName.M_WARNING);
                 return;
@@ -514,12 +514,12 @@ namespace ZenHandler.Dlg
 
         private void BTN_CCD_RAW_LOAD_Click(object sender, EventArgs e)
         {
-            if (ProgramState.CurrentState == OperationState.AutoRunning)
+            if (Globalo.motionManager.transferMachine.RunState == OperationState.AutoRunning)
             {
                 Globalo.LogPrint("ManualControl", "[INFO] 자동 운전 중 사용 불가", Globalo.eMessageName.M_WARNING);
                 return;
             }
-            if (ProgramState.CurrentState == OperationState.Paused)
+            if (Globalo.motionManager.transferMachine.RunState == OperationState.Paused)
             {
                 Globalo.LogPrint("ManualControl", "[INFO] 일시 정지 중 사용 불가", Globalo.eMessageName.M_WARNING);
                 return;
@@ -559,12 +559,12 @@ namespace ZenHandler.Dlg
 
         private void BTN_CCD_RAW_SAVE_Click(object sender, EventArgs e)
         {
-            if (ProgramState.CurrentState == OperationState.AutoRunning)
+            if (Globalo.motionManager.transferMachine.RunState == OperationState.AutoRunning)
             {
                 Globalo.LogPrint("ManualControl", "[INFO] 자동 운전 중 사용 불가", Globalo.eMessageName.M_WARNING);
                 return;
             }
-            if (ProgramState.CurrentState == OperationState.Paused)
+            if (Globalo.motionManager.transferMachine.RunState == OperationState.Paused)
             {
                 Globalo.LogPrint("ManualControl", "[INFO] 일시 정지 중 사용 불가", Globalo.eMessageName.M_WARNING);
                 return;
@@ -717,24 +717,24 @@ namespace ZenHandler.Dlg
         }
         private void BTN_CCD_EEPROM_VERIFY_TEST_Click(object sender, EventArgs e)
         {
-            if (ProgramState.CurrentState == OperationState.AutoRunning)
+            if (Globalo.motionManager.transferMachine.RunState == OperationState.AutoRunning)
             {
                 Globalo.LogPrint("ManualControl", "[INFO] 자동 운전 중 사용 불가", Globalo.eMessageName.M_WARNING);
                 return;
             }
-            if (ProgramState.CurrentState == OperationState.Paused)
+            if (Globalo.motionManager.transferMachine.RunState == OperationState.Paused)
             {
                 Globalo.LogPrint("ManualControl", "[INFO] 일시 정지 중 사용 불가", Globalo.eMessageName.M_WARNING);
                 return;
             }
-            if (ProgramState.CurrentState == OperationState.ManualTesting)
+            if (Globalo.motionManager.transferMachine.RunState == OperationState.ManualTesting)
             {
                 Globalo.LogPrint("ManualControl", "[INFO] MANUAL 동작 중 사용 불가", Globalo.eMessageName.M_WARNING);
                 return;
             }
             if (Globalo.threadControl.manualThread.GetThreadRun() == false)
             {
-                ProgramState.CurrentState = OperationState.ManualTesting;
+                Globalo.motionManager.transferMachine.RunState = OperationState.ManualTesting;
                 Globalo.LogPrint("", "[CCD] MANUAL EEPROM VERIFY");
                 Globalo.threadControl.manualThread.runfn(FThread.ManualThread.eManualType.M_MANUAL_VERIFY);//10);
             }
@@ -862,18 +862,18 @@ namespace ZenHandler.Dlg
         }
         private void BTN_CCD_EEPROM_READ_Click(object sender, EventArgs e)
         {
-            if (ProgramState.CurrentState == OperationState.AutoRunning)
+            if (Globalo.motionManager.transferMachine.RunState == OperationState.AutoRunning)
             {
                 Globalo.LogPrint("ManualControl", "[INFO] 자동 운전 중 사용 불가", Globalo.eMessageName.M_WARNING);
                 return;
             }
-            if (ProgramState.CurrentState == OperationState.Paused)
+            if (Globalo.motionManager.transferMachine.RunState == OperationState.Paused)
             {
                 Globalo.LogPrint("ManualControl", "[INFO] 일시 정지 중 사용 불가", Globalo.eMessageName.M_WARNING);
                 return;
             }
 
-            if (ProgramState.CurrentState == OperationState.ManualTesting)
+            if (Globalo.motionManager.transferMachine.RunState == OperationState.ManualTesting)
             {
                 Globalo.LogPrint("ManualControl", "[INFO] MANUAL 동작 중 사용 불가", Globalo.eMessageName.M_WARNING);
                 return;

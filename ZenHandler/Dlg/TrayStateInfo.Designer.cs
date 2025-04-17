@@ -57,29 +57,29 @@ namespace ZenHandler.Dlg
             this.tableLayoutPanel_Load.Name = "tableLayoutPanel_Load";
             this.tableLayoutPanel_Load.RowCount = 1;
             this.tableLayoutPanel_Load.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 50F));
-            this.tableLayoutPanel_Load.Size = new System.Drawing.Size(213, 174);
+            this.tableLayoutPanel_Load.Size = new System.Drawing.Size(177, 240);
             this.tableLayoutPanel_Load.TabIndex = 13;
             // 
             // tableLayoutPanel_Unload
             // 
             this.tableLayoutPanel_Unload.ColumnCount = 1;
             this.tableLayoutPanel_Unload.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 50F));
-            this.tableLayoutPanel_Unload.Location = new System.Drawing.Point(249, 82);
+            this.tableLayoutPanel_Unload.Location = new System.Drawing.Point(620, 82);
             this.tableLayoutPanel_Unload.Name = "tableLayoutPanel_Unload";
             this.tableLayoutPanel_Unload.RowCount = 1;
             this.tableLayoutPanel_Unload.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 50F));
-            this.tableLayoutPanel_Unload.Size = new System.Drawing.Size(213, 174);
+            this.tableLayoutPanel_Unload.Size = new System.Drawing.Size(177, 240);
             this.tableLayoutPanel_Unload.TabIndex = 14;
             // 
             // tableLayoutPanel_Ng
             // 
             this.tableLayoutPanel_Ng.ColumnCount = 1;
             this.tableLayoutPanel_Ng.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 50F));
-            this.tableLayoutPanel_Ng.Location = new System.Drawing.Point(475, 82);
+            this.tableLayoutPanel_Ng.Location = new System.Drawing.Point(285, 106);
             this.tableLayoutPanel_Ng.Name = "tableLayoutPanel_Ng";
             this.tableLayoutPanel_Ng.RowCount = 1;
             this.tableLayoutPanel_Ng.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 50F));
-            this.tableLayoutPanel_Ng.Size = new System.Drawing.Size(213, 174);
+            this.tableLayoutPanel_Ng.Size = new System.Drawing.Size(150, 174);
             this.tableLayoutPanel_Ng.TabIndex = 15;
             // 
             // label1
@@ -89,9 +89,9 @@ namespace ZenHandler.Dlg
             this.label1.ForeColor = System.Drawing.SystemColors.HighlightText;
             this.label1.Location = new System.Drawing.Point(22, 58);
             this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(213, 23);
+            this.label1.Size = new System.Drawing.Size(177, 23);
             this.label1.TabIndex = 16;
-            this.label1.Text = "LOAD TRAY";
+            this.label1.Text = "#1 LOAD TRAY";
             this.label1.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
             // label2
@@ -99,11 +99,11 @@ namespace ZenHandler.Dlg
             this.label2.BackColor = System.Drawing.SystemColors.ActiveCaptionText;
             this.label2.Font = new System.Drawing.Font("나눔고딕", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(129)));
             this.label2.ForeColor = System.Drawing.SystemColors.HighlightText;
-            this.label2.Location = new System.Drawing.Point(249, 58);
+            this.label2.Location = new System.Drawing.Point(620, 58);
             this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(213, 23);
+            this.label2.Size = new System.Drawing.Size(177, 23);
             this.label2.TabIndex = 17;
-            this.label2.Text = "UNLOAD TRAY";
+            this.label2.Text = "#2 UNLOAD TRAY";
             this.label2.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
             // label3
@@ -111,9 +111,9 @@ namespace ZenHandler.Dlg
             this.label3.BackColor = System.Drawing.SystemColors.ActiveCaptionText;
             this.label3.Font = new System.Drawing.Font("나눔고딕", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(129)));
             this.label3.ForeColor = System.Drawing.SystemColors.HighlightText;
-            this.label3.Location = new System.Drawing.Point(475, 58);
+            this.label3.Location = new System.Drawing.Point(285, 82);
             this.label3.Name = "label3";
-            this.label3.Size = new System.Drawing.Size(213, 23);
+            this.label3.Size = new System.Drawing.Size(150, 23);
             this.label3.TabIndex = 18;
             this.label3.Text = "NG TRAY";
             this.label3.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;

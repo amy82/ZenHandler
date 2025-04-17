@@ -19,8 +19,8 @@ namespace ZenHandler.Dlg
 
         private TableLayoutPanel[] trayClass;
 
-        public int[] TrayColCount = { 5, 5, 7 };        //Tray 가로 개수 (투입 , 배출 , NG)
-        public int[] TrayRowCount = { 7, 7, 2 };        //Tray 세로 개수
+        public int[] TrayColCount = { 4, 4, 2 };        //Tray 가로 개수 (투입 , 배출 , NG)
+        public int[] TrayRowCount = { 11, 11, 4 };        //Tray 세로 개수
 
         public TrayStateInfo()
         {

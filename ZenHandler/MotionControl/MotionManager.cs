@@ -46,18 +46,19 @@ namespace ZenHandler.MotionControl
         {
             if (ProgramState.ON_LINE_MOTOR)
             {
-                transferMachine.MovingStop();
-                magazineHandler.MovingStop();
-                liftModule.MovingStop();
-
+                transferMachine.StopAuto();
+                magazineHandler.StopAuto();
+                liftModule.StopAuto();
             }
            
         }
+
         public void MotionClose()
         {
             Axl_Close();
             ioController.Close();
         }
+
         public bool MotionInit()
         {
             bool bAxlInit = true;

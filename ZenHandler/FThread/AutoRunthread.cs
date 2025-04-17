@@ -29,12 +29,12 @@ namespace ZenHandler.FThread
         {
             if (Globalo.taskWork.m_nCurrentStep >= Globalo.taskWork.m_nStartStep && Globalo.taskWork.m_nCurrentStep < Globalo.taskWork.m_nEndStep)
             {
-                if (ProgramState.CurrentState == OperationState.Stopped)
-                {
-                    //Stop Auto Process
-                    Globalo.operationPanel.StopAutoProcess();
-                    return;
-                }
+                //if (ProgramState.CurrentState == OperationState.Stopped)
+                //{
+                //    //Stop Auto Process
+                //    Globalo.operationPanel.StopAutoProcess();
+                //    return;
+                //}
                 //// 원점 복귀
                 //if (Globalo.taskWork.m_nCurrentStep >= 10000 && Globalo.taskWork.m_nCurrentStep < 20000)
                 //{
