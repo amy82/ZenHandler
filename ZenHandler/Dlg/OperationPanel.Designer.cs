@@ -108,14 +108,14 @@ namespace ZenHandler.Dlg
             // 
             // ManualTitleLabel
             // 
-            this.ManualTitleLabel.Font = new System.Drawing.Font("나눔고딕", 14.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(129)));
+            this.ManualTitleLabel.Font = new System.Drawing.Font("나눔고딕 ExtraBold", 12.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(129)));
             this.ManualTitleLabel.ForeColor = System.Drawing.Color.White;
-            this.ManualTitleLabel.Location = new System.Drawing.Point(22, 2);
+            this.ManualTitleLabel.Location = new System.Drawing.Point(3, 2);
             this.ManualTitleLabel.Name = "ManualTitleLabel";
-            this.ManualTitleLabel.Size = new System.Drawing.Size(127, 37);
+            this.ManualTitleLabel.Size = new System.Drawing.Size(161, 37);
             this.ManualTitleLabel.TabIndex = 11;
             this.ManualTitleLabel.Text = "| OPERATION";
-            this.ManualTitleLabel.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            this.ManualTitleLabel.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
             // BTN_MAIN_START1
             // 

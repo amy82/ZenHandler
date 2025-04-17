@@ -129,7 +129,7 @@ namespace ZenHandler.Dlg
             // 
             this.BTN_MANUAL_TRANSFER_LEFT_LOAD_POS_Z.BackColor = System.Drawing.Color.Tan;
             this.BTN_MANUAL_TRANSFER_LEFT_LOAD_POS_Z.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.BTN_MANUAL_TRANSFER_LEFT_LOAD_POS_Z.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(129)));
+            this.BTN_MANUAL_TRANSFER_LEFT_LOAD_POS_Z.Font = new System.Drawing.Font("나눔고딕 ExtraBold", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.BTN_MANUAL_TRANSFER_LEFT_LOAD_POS_Z.ForeColor = System.Drawing.Color.White;
             this.BTN_MANUAL_TRANSFER_LEFT_LOAD_POS_Z.Location = new System.Drawing.Point(179, 98);
             this.BTN_MANUAL_TRANSFER_LEFT_LOAD_POS_Z.Name = "BTN_MANUAL_TRANSFER_LEFT_LOAD_POS_Z";
@@ -143,7 +143,7 @@ namespace ZenHandler.Dlg
             // 
             this.BTN_MANUAL_TRANSFER_LEFT_LOAD_POS_XY.BackColor = System.Drawing.Color.Tan;
             this.BTN_MANUAL_TRANSFER_LEFT_LOAD_POS_XY.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.BTN_MANUAL_TRANSFER_LEFT_LOAD_POS_XY.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(129)));
+            this.BTN_MANUAL_TRANSFER_LEFT_LOAD_POS_XY.Font = new System.Drawing.Font("나눔고딕 ExtraBold", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.BTN_MANUAL_TRANSFER_LEFT_LOAD_POS_XY.ForeColor = System.Drawing.Color.White;
             this.BTN_MANUAL_TRANSFER_LEFT_LOAD_POS_XY.Location = new System.Drawing.Point(21, 98);
             this.BTN_MANUAL_TRANSFER_LEFT_LOAD_POS_XY.Name = "BTN_MANUAL_TRANSFER_LEFT_LOAD_POS_XY";
@@ -157,7 +157,7 @@ namespace ZenHandler.Dlg
             // 
             this.BTN_MANUAL_TRANSFER_WAIT_POS_Z.BackColor = System.Drawing.Color.Tan;
             this.BTN_MANUAL_TRANSFER_WAIT_POS_Z.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.BTN_MANUAL_TRANSFER_WAIT_POS_Z.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(129)));
+            this.BTN_MANUAL_TRANSFER_WAIT_POS_Z.Font = new System.Drawing.Font("나눔고딕 ExtraBold", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.BTN_MANUAL_TRANSFER_WAIT_POS_Z.ForeColor = System.Drawing.Color.White;
             this.BTN_MANUAL_TRANSFER_WAIT_POS_Z.Location = new System.Drawing.Point(179, 43);
             this.BTN_MANUAL_TRANSFER_WAIT_POS_Z.Name = "BTN_MANUAL_TRANSFER_WAIT_POS_Z";
@@ -195,7 +195,7 @@ namespace ZenHandler.Dlg
             // 
             this.BTN_MANUAL_TRANSFER_WAIT_POS_XY.BackColor = System.Drawing.Color.Tan;
             this.BTN_MANUAL_TRANSFER_WAIT_POS_XY.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.BTN_MANUAL_TRANSFER_WAIT_POS_XY.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(129)));
+            this.BTN_MANUAL_TRANSFER_WAIT_POS_XY.Font = new System.Drawing.Font("나눔고딕 ExtraBold", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.BTN_MANUAL_TRANSFER_WAIT_POS_XY.ForeColor = System.Drawing.Color.White;
             this.BTN_MANUAL_TRANSFER_WAIT_POS_XY.Location = new System.Drawing.Point(21, 43);
             this.BTN_MANUAL_TRANSFER_WAIT_POS_XY.Name = "BTN_MANUAL_TRANSFER_WAIT_POS_XY";
@@ -230,7 +230,7 @@ namespace ZenHandler.Dlg
             // 
             this.BTN_MANUAL_TRANSFER_RIGHT_UNLOAD_POS_Z.BackColor = System.Drawing.Color.Tan;
             this.BTN_MANUAL_TRANSFER_RIGHT_UNLOAD_POS_Z.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.BTN_MANUAL_TRANSFER_RIGHT_UNLOAD_POS_Z.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(129)));
+            this.BTN_MANUAL_TRANSFER_RIGHT_UNLOAD_POS_Z.Font = new System.Drawing.Font("나눔고딕 ExtraBold", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.BTN_MANUAL_TRANSFER_RIGHT_UNLOAD_POS_Z.ForeColor = System.Drawing.Color.White;
             this.BTN_MANUAL_TRANSFER_RIGHT_UNLOAD_POS_Z.Location = new System.Drawing.Point(179, 260);
             this.BTN_MANUAL_TRANSFER_RIGHT_UNLOAD_POS_Z.Name = "BTN_MANUAL_TRANSFER_RIGHT_UNLOAD_POS_Z";
@@ -244,7 +244,7 @@ namespace ZenHandler.Dlg
             // 
             this.BTN_MANUAL_TRANSFER_RIGHT_UNLOAD_POS_XY.BackColor = System.Drawing.Color.Tan;
             this.BTN_MANUAL_TRANSFER_RIGHT_UNLOAD_POS_XY.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.BTN_MANUAL_TRANSFER_RIGHT_UNLOAD_POS_XY.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(129)));
+            this.BTN_MANUAL_TRANSFER_RIGHT_UNLOAD_POS_XY.Font = new System.Drawing.Font("나눔고딕 ExtraBold", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.BTN_MANUAL_TRANSFER_RIGHT_UNLOAD_POS_XY.ForeColor = System.Drawing.Color.White;
             this.BTN_MANUAL_TRANSFER_RIGHT_UNLOAD_POS_XY.Location = new System.Drawing.Point(21, 260);
             this.BTN_MANUAL_TRANSFER_RIGHT_UNLOAD_POS_XY.Name = "BTN_MANUAL_TRANSFER_RIGHT_UNLOAD_POS_XY";
@@ -258,7 +258,7 @@ namespace ZenHandler.Dlg
             // 
             this.BTN_MANUAL_TRANSFER_LEFT_UNLOAD_POS_Z.BackColor = System.Drawing.Color.Tan;
             this.BTN_MANUAL_TRANSFER_LEFT_UNLOAD_POS_Z.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.BTN_MANUAL_TRANSFER_LEFT_UNLOAD_POS_Z.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(129)));
+            this.BTN_MANUAL_TRANSFER_LEFT_UNLOAD_POS_Z.Font = new System.Drawing.Font("나눔고딕 ExtraBold", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.BTN_MANUAL_TRANSFER_LEFT_UNLOAD_POS_Z.ForeColor = System.Drawing.Color.White;
             this.BTN_MANUAL_TRANSFER_LEFT_UNLOAD_POS_Z.Location = new System.Drawing.Point(179, 152);
             this.BTN_MANUAL_TRANSFER_LEFT_UNLOAD_POS_Z.Name = "BTN_MANUAL_TRANSFER_LEFT_UNLOAD_POS_Z";
@@ -272,7 +272,7 @@ namespace ZenHandler.Dlg
             // 
             this.BTN_MANUAL_TRANSFER_LEFT_UNLOAD_POS_XY.BackColor = System.Drawing.Color.Tan;
             this.BTN_MANUAL_TRANSFER_LEFT_UNLOAD_POS_XY.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.BTN_MANUAL_TRANSFER_LEFT_UNLOAD_POS_XY.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(129)));
+            this.BTN_MANUAL_TRANSFER_LEFT_UNLOAD_POS_XY.Font = new System.Drawing.Font("나눔고딕 ExtraBold", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.BTN_MANUAL_TRANSFER_LEFT_UNLOAD_POS_XY.ForeColor = System.Drawing.Color.White;
             this.BTN_MANUAL_TRANSFER_LEFT_UNLOAD_POS_XY.Location = new System.Drawing.Point(21, 152);
             this.BTN_MANUAL_TRANSFER_LEFT_UNLOAD_POS_XY.Name = "BTN_MANUAL_TRANSFER_LEFT_UNLOAD_POS_XY";
@@ -286,7 +286,7 @@ namespace ZenHandler.Dlg
             // 
             this.BTN_MANUAL_TRANSFER_RIGHT_LOAD_POS_Z.BackColor = System.Drawing.Color.Tan;
             this.BTN_MANUAL_TRANSFER_RIGHT_LOAD_POS_Z.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.BTN_MANUAL_TRANSFER_RIGHT_LOAD_POS_Z.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(129)));
+            this.BTN_MANUAL_TRANSFER_RIGHT_LOAD_POS_Z.Font = new System.Drawing.Font("나눔고딕 ExtraBold", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.BTN_MANUAL_TRANSFER_RIGHT_LOAD_POS_Z.ForeColor = System.Drawing.Color.White;
             this.BTN_MANUAL_TRANSFER_RIGHT_LOAD_POS_Z.Location = new System.Drawing.Point(179, 206);
             this.BTN_MANUAL_TRANSFER_RIGHT_LOAD_POS_Z.Name = "BTN_MANUAL_TRANSFER_RIGHT_LOAD_POS_Z";
@@ -300,7 +300,7 @@ namespace ZenHandler.Dlg
             // 
             this.BTN_MANUAL_TRANSFER_RIGHT_LOAD_POS_XY.BackColor = System.Drawing.Color.Tan;
             this.BTN_MANUAL_TRANSFER_RIGHT_LOAD_POS_XY.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.BTN_MANUAL_TRANSFER_RIGHT_LOAD_POS_XY.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(129)));
+            this.BTN_MANUAL_TRANSFER_RIGHT_LOAD_POS_XY.Font = new System.Drawing.Font("나눔고딕 ExtraBold", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.BTN_MANUAL_TRANSFER_RIGHT_LOAD_POS_XY.ForeColor = System.Drawing.Color.White;
             this.BTN_MANUAL_TRANSFER_RIGHT_LOAD_POS_XY.Location = new System.Drawing.Point(21, 206);
             this.BTN_MANUAL_TRANSFER_RIGHT_LOAD_POS_XY.Name = "BTN_MANUAL_TRANSFER_RIGHT_LOAD_POS_XY";
@@ -314,7 +314,7 @@ namespace ZenHandler.Dlg
             // 
             this.BTN_MANUAL_TRANSFER_SOCKET_B2_POS_Z.BackColor = System.Drawing.Color.Tan;
             this.BTN_MANUAL_TRANSFER_SOCKET_B2_POS_Z.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.BTN_MANUAL_TRANSFER_SOCKET_B2_POS_Z.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(129)));
+            this.BTN_MANUAL_TRANSFER_SOCKET_B2_POS_Z.Font = new System.Drawing.Font("나눔고딕 ExtraBold", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.BTN_MANUAL_TRANSFER_SOCKET_B2_POS_Z.ForeColor = System.Drawing.Color.White;
             this.BTN_MANUAL_TRANSFER_SOCKET_B2_POS_Z.Location = new System.Drawing.Point(177, 209);
             this.BTN_MANUAL_TRANSFER_SOCKET_B2_POS_Z.Name = "BTN_MANUAL_TRANSFER_SOCKET_B2_POS_Z";
@@ -328,7 +328,7 @@ namespace ZenHandler.Dlg
             // 
             this.BTN_MANUAL_TRANSFER_SOCKET_B2_POS_XY.BackColor = System.Drawing.Color.Tan;
             this.BTN_MANUAL_TRANSFER_SOCKET_B2_POS_XY.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.BTN_MANUAL_TRANSFER_SOCKET_B2_POS_XY.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(129)));
+            this.BTN_MANUAL_TRANSFER_SOCKET_B2_POS_XY.Font = new System.Drawing.Font("나눔고딕 ExtraBold", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.BTN_MANUAL_TRANSFER_SOCKET_B2_POS_XY.ForeColor = System.Drawing.Color.White;
             this.BTN_MANUAL_TRANSFER_SOCKET_B2_POS_XY.Location = new System.Drawing.Point(19, 209);
             this.BTN_MANUAL_TRANSFER_SOCKET_B2_POS_XY.Name = "BTN_MANUAL_TRANSFER_SOCKET_B2_POS_XY";
@@ -342,7 +342,7 @@ namespace ZenHandler.Dlg
             // 
             this.BTN_MANUAL_TRANSFER_SOCKET_B1_POS_Z.BackColor = System.Drawing.Color.Tan;
             this.BTN_MANUAL_TRANSFER_SOCKET_B1_POS_Z.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.BTN_MANUAL_TRANSFER_SOCKET_B1_POS_Z.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(129)));
+            this.BTN_MANUAL_TRANSFER_SOCKET_B1_POS_Z.Font = new System.Drawing.Font("나눔고딕 ExtraBold", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.BTN_MANUAL_TRANSFER_SOCKET_B1_POS_Z.ForeColor = System.Drawing.Color.White;
             this.BTN_MANUAL_TRANSFER_SOCKET_B1_POS_Z.Location = new System.Drawing.Point(177, 154);
             this.BTN_MANUAL_TRANSFER_SOCKET_B1_POS_Z.Name = "BTN_MANUAL_TRANSFER_SOCKET_B1_POS_Z";
@@ -356,7 +356,7 @@ namespace ZenHandler.Dlg
             // 
             this.BTN_MANUAL_TRANSFER_SOCKET_B1_POS_XY.BackColor = System.Drawing.Color.Tan;
             this.BTN_MANUAL_TRANSFER_SOCKET_B1_POS_XY.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.BTN_MANUAL_TRANSFER_SOCKET_B1_POS_XY.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(129)));
+            this.BTN_MANUAL_TRANSFER_SOCKET_B1_POS_XY.Font = new System.Drawing.Font("나눔고딕 ExtraBold", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.BTN_MANUAL_TRANSFER_SOCKET_B1_POS_XY.ForeColor = System.Drawing.Color.White;
             this.BTN_MANUAL_TRANSFER_SOCKET_B1_POS_XY.Location = new System.Drawing.Point(19, 154);
             this.BTN_MANUAL_TRANSFER_SOCKET_B1_POS_XY.Name = "BTN_MANUAL_TRANSFER_SOCKET_B1_POS_XY";
@@ -370,7 +370,7 @@ namespace ZenHandler.Dlg
             // 
             this.BTN_MANUAL_TRANSFER_SOCKET_A2_POS_Z.BackColor = System.Drawing.Color.Tan;
             this.BTN_MANUAL_TRANSFER_SOCKET_A2_POS_Z.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.BTN_MANUAL_TRANSFER_SOCKET_A2_POS_Z.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(129)));
+            this.BTN_MANUAL_TRANSFER_SOCKET_A2_POS_Z.Font = new System.Drawing.Font("나눔고딕 ExtraBold", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.BTN_MANUAL_TRANSFER_SOCKET_A2_POS_Z.ForeColor = System.Drawing.Color.White;
             this.BTN_MANUAL_TRANSFER_SOCKET_A2_POS_Z.Location = new System.Drawing.Point(177, 99);
             this.BTN_MANUAL_TRANSFER_SOCKET_A2_POS_Z.Name = "BTN_MANUAL_TRANSFER_SOCKET_A2_POS_Z";
@@ -384,7 +384,7 @@ namespace ZenHandler.Dlg
             // 
             this.BTN_MANUAL_TRANSFER_SOCKET_A2_POS_XY.BackColor = System.Drawing.Color.Tan;
             this.BTN_MANUAL_TRANSFER_SOCKET_A2_POS_XY.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.BTN_MANUAL_TRANSFER_SOCKET_A2_POS_XY.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(129)));
+            this.BTN_MANUAL_TRANSFER_SOCKET_A2_POS_XY.Font = new System.Drawing.Font("나눔고딕 ExtraBold", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.BTN_MANUAL_TRANSFER_SOCKET_A2_POS_XY.ForeColor = System.Drawing.Color.White;
             this.BTN_MANUAL_TRANSFER_SOCKET_A2_POS_XY.Location = new System.Drawing.Point(19, 99);
             this.BTN_MANUAL_TRANSFER_SOCKET_A2_POS_XY.Name = "BTN_MANUAL_TRANSFER_SOCKET_A2_POS_XY";
@@ -398,7 +398,7 @@ namespace ZenHandler.Dlg
             // 
             this.BTN_MANUAL_TRANSFER_SOCKET_A1_POS_Z.BackColor = System.Drawing.Color.Tan;
             this.BTN_MANUAL_TRANSFER_SOCKET_A1_POS_Z.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.BTN_MANUAL_TRANSFER_SOCKET_A1_POS_Z.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(129)));
+            this.BTN_MANUAL_TRANSFER_SOCKET_A1_POS_Z.Font = new System.Drawing.Font("나눔고딕 ExtraBold", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.BTN_MANUAL_TRANSFER_SOCKET_A1_POS_Z.ForeColor = System.Drawing.Color.White;
             this.BTN_MANUAL_TRANSFER_SOCKET_A1_POS_Z.Location = new System.Drawing.Point(177, 44);
             this.BTN_MANUAL_TRANSFER_SOCKET_A1_POS_Z.Name = "BTN_MANUAL_TRANSFER_SOCKET_A1_POS_Z";
@@ -412,7 +412,7 @@ namespace ZenHandler.Dlg
             // 
             this.BTN_MANUAL_TRANSFER_SOCKET_A1_POS_XY.BackColor = System.Drawing.Color.Tan;
             this.BTN_MANUAL_TRANSFER_SOCKET_A1_POS_XY.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.BTN_MANUAL_TRANSFER_SOCKET_A1_POS_XY.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(129)));
+            this.BTN_MANUAL_TRANSFER_SOCKET_A1_POS_XY.Font = new System.Drawing.Font("나눔고딕 ExtraBold", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.BTN_MANUAL_TRANSFER_SOCKET_A1_POS_XY.ForeColor = System.Drawing.Color.White;
             this.BTN_MANUAL_TRANSFER_SOCKET_A1_POS_XY.Location = new System.Drawing.Point(19, 44);
             this.BTN_MANUAL_TRANSFER_SOCKET_A1_POS_XY.Name = "BTN_MANUAL_TRANSFER_SOCKET_A1_POS_XY";
@@ -688,7 +688,7 @@ namespace ZenHandler.Dlg
             // 
             this.BTN_MANUAL_TRANSFER_SOCKET_D2_POS_Z.BackColor = System.Drawing.Color.Tan;
             this.BTN_MANUAL_TRANSFER_SOCKET_D2_POS_Z.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.BTN_MANUAL_TRANSFER_SOCKET_D2_POS_Z.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(129)));
+            this.BTN_MANUAL_TRANSFER_SOCKET_D2_POS_Z.Font = new System.Drawing.Font("나눔고딕 ExtraBold", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.BTN_MANUAL_TRANSFER_SOCKET_D2_POS_Z.ForeColor = System.Drawing.Color.White;
             this.BTN_MANUAL_TRANSFER_SOCKET_D2_POS_Z.Location = new System.Drawing.Point(177, 428);
             this.BTN_MANUAL_TRANSFER_SOCKET_D2_POS_Z.Name = "BTN_MANUAL_TRANSFER_SOCKET_D2_POS_Z";
@@ -702,7 +702,7 @@ namespace ZenHandler.Dlg
             // 
             this.BTN_MANUAL_TRANSFER_SOCKET_D1_POS_XY.BackColor = System.Drawing.Color.Tan;
             this.BTN_MANUAL_TRANSFER_SOCKET_D1_POS_XY.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.BTN_MANUAL_TRANSFER_SOCKET_D1_POS_XY.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(129)));
+            this.BTN_MANUAL_TRANSFER_SOCKET_D1_POS_XY.Font = new System.Drawing.Font("나눔고딕 ExtraBold", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.BTN_MANUAL_TRANSFER_SOCKET_D1_POS_XY.ForeColor = System.Drawing.Color.White;
             this.BTN_MANUAL_TRANSFER_SOCKET_D1_POS_XY.Location = new System.Drawing.Point(19, 373);
             this.BTN_MANUAL_TRANSFER_SOCKET_D1_POS_XY.Name = "BTN_MANUAL_TRANSFER_SOCKET_D1_POS_XY";
@@ -716,7 +716,7 @@ namespace ZenHandler.Dlg
             // 
             this.BTN_MANUAL_TRANSFER_SOCKET_D2_POS_XY.BackColor = System.Drawing.Color.Tan;
             this.BTN_MANUAL_TRANSFER_SOCKET_D2_POS_XY.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.BTN_MANUAL_TRANSFER_SOCKET_D2_POS_XY.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(129)));
+            this.BTN_MANUAL_TRANSFER_SOCKET_D2_POS_XY.Font = new System.Drawing.Font("나눔고딕 ExtraBold", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.BTN_MANUAL_TRANSFER_SOCKET_D2_POS_XY.ForeColor = System.Drawing.Color.White;
             this.BTN_MANUAL_TRANSFER_SOCKET_D2_POS_XY.Location = new System.Drawing.Point(19, 428);
             this.BTN_MANUAL_TRANSFER_SOCKET_D2_POS_XY.Name = "BTN_MANUAL_TRANSFER_SOCKET_D2_POS_XY";
@@ -730,7 +730,7 @@ namespace ZenHandler.Dlg
             // 
             this.BTN_MANUAL_TRANSFER_SOCKET_D1_POS_Z.BackColor = System.Drawing.Color.Tan;
             this.BTN_MANUAL_TRANSFER_SOCKET_D1_POS_Z.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.BTN_MANUAL_TRANSFER_SOCKET_D1_POS_Z.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(129)));
+            this.BTN_MANUAL_TRANSFER_SOCKET_D1_POS_Z.Font = new System.Drawing.Font("나눔고딕 ExtraBold", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.BTN_MANUAL_TRANSFER_SOCKET_D1_POS_Z.ForeColor = System.Drawing.Color.White;
             this.BTN_MANUAL_TRANSFER_SOCKET_D1_POS_Z.Location = new System.Drawing.Point(177, 373);
             this.BTN_MANUAL_TRANSFER_SOCKET_D1_POS_Z.Name = "BTN_MANUAL_TRANSFER_SOCKET_D1_POS_Z";
@@ -744,7 +744,7 @@ namespace ZenHandler.Dlg
             // 
             this.BTN_MANUAL_TRANSFER_SOCKET_C2_POS_Z.BackColor = System.Drawing.Color.Tan;
             this.BTN_MANUAL_TRANSFER_SOCKET_C2_POS_Z.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.BTN_MANUAL_TRANSFER_SOCKET_C2_POS_Z.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(129)));
+            this.BTN_MANUAL_TRANSFER_SOCKET_C2_POS_Z.Font = new System.Drawing.Font("나눔고딕 ExtraBold", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.BTN_MANUAL_TRANSFER_SOCKET_C2_POS_Z.ForeColor = System.Drawing.Color.White;
             this.BTN_MANUAL_TRANSFER_SOCKET_C2_POS_Z.Location = new System.Drawing.Point(177, 319);
             this.BTN_MANUAL_TRANSFER_SOCKET_C2_POS_Z.Name = "BTN_MANUAL_TRANSFER_SOCKET_C2_POS_Z";
@@ -758,7 +758,7 @@ namespace ZenHandler.Dlg
             // 
             this.BTN_MANUAL_TRANSFER_SOCKET_C1_POS_XY.BackColor = System.Drawing.Color.Tan;
             this.BTN_MANUAL_TRANSFER_SOCKET_C1_POS_XY.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.BTN_MANUAL_TRANSFER_SOCKET_C1_POS_XY.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(129)));
+            this.BTN_MANUAL_TRANSFER_SOCKET_C1_POS_XY.Font = new System.Drawing.Font("나눔고딕 ExtraBold", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.BTN_MANUAL_TRANSFER_SOCKET_C1_POS_XY.ForeColor = System.Drawing.Color.White;
             this.BTN_MANUAL_TRANSFER_SOCKET_C1_POS_XY.Location = new System.Drawing.Point(19, 264);
             this.BTN_MANUAL_TRANSFER_SOCKET_C1_POS_XY.Name = "BTN_MANUAL_TRANSFER_SOCKET_C1_POS_XY";
@@ -772,7 +772,7 @@ namespace ZenHandler.Dlg
             // 
             this.BTN_MANUAL_TRANSFER_SOCKET_C2_POS_XY.BackColor = System.Drawing.Color.Tan;
             this.BTN_MANUAL_TRANSFER_SOCKET_C2_POS_XY.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.BTN_MANUAL_TRANSFER_SOCKET_C2_POS_XY.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(129)));
+            this.BTN_MANUAL_TRANSFER_SOCKET_C2_POS_XY.Font = new System.Drawing.Font("나눔고딕 ExtraBold", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.BTN_MANUAL_TRANSFER_SOCKET_C2_POS_XY.ForeColor = System.Drawing.Color.White;
             this.BTN_MANUAL_TRANSFER_SOCKET_C2_POS_XY.Location = new System.Drawing.Point(19, 319);
             this.BTN_MANUAL_TRANSFER_SOCKET_C2_POS_XY.Name = "BTN_MANUAL_TRANSFER_SOCKET_C2_POS_XY";
@@ -786,7 +786,7 @@ namespace ZenHandler.Dlg
             // 
             this.BTN_MANUAL_TRANSFER_SOCKET_C1_POS_Z.BackColor = System.Drawing.Color.Tan;
             this.BTN_MANUAL_TRANSFER_SOCKET_C1_POS_Z.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.BTN_MANUAL_TRANSFER_SOCKET_C1_POS_Z.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(129)));
+            this.BTN_MANUAL_TRANSFER_SOCKET_C1_POS_Z.Font = new System.Drawing.Font("나눔고딕 ExtraBold", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.BTN_MANUAL_TRANSFER_SOCKET_C1_POS_Z.ForeColor = System.Drawing.Color.White;
             this.BTN_MANUAL_TRANSFER_SOCKET_C1_POS_Z.Location = new System.Drawing.Point(177, 264);
             this.BTN_MANUAL_TRANSFER_SOCKET_C1_POS_Z.Name = "BTN_MANUAL_TRANSFER_SOCKET_C1_POS_Z";

@@ -117,7 +117,22 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
-  <data name="TitleText" xml:space="preserve">
-    <value>모터 제어기</value>
+  <data name="OP_ORIGIN" xml:space="preserve">
+    <value>원점</value>
+  </data>
+  <data name="OP_READY" xml:space="preserve">
+    <value>운전준비</value>
+  </data>
+  <data name="OP_PAUSE" xml:space="preserve">
+    <value>일시정지</value>
+  </data>
+  <data name="OP_STOP" xml:space="preserve">
+    <value>정지</value>
+  </data>
+  <data name="OP_START" xml:space="preserve">
+    <value>자동운전</value>
+  </data>
+  <data name="OP_TITLE" xml:space="preserve">
+    <value>조작</value>
   </data>
 </root>

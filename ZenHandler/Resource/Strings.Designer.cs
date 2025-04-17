@@ -61,11 +61,56 @@ namespace ZenHandler.Resource {
         }
         
         /// <summary>
-        ///   ZenHandler과(와) 유사한 지역화된 문자열을 찾습니다.
+        ///   ORIGIN과(와) 유사한 지역화된 문자열을 찾습니다.
         /// </summary>
-        internal static string TitleText {
+        internal static string OP_ORIGIN {
             get {
-                return ResourceManager.GetString("TitleText", resourceCulture);
+                return ResourceManager.GetString("OP_ORIGIN", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   PAUSE과(와) 유사한 지역화된 문자열을 찾습니다.
+        /// </summary>
+        internal static string OP_PAUSE {
+            get {
+                return ResourceManager.GetString("OP_PAUSE", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   READY과(와) 유사한 지역화된 문자열을 찾습니다.
+        /// </summary>
+        internal static string OP_READY {
+            get {
+                return ResourceManager.GetString("OP_READY", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   START과(와) 유사한 지역화된 문자열을 찾습니다.
+        /// </summary>
+        internal static string OP_START {
+            get {
+                return ResourceManager.GetString("OP_START", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   STOP과(와) 유사한 지역화된 문자열을 찾습니다.
+        /// </summary>
+        internal static string OP_STOP {
+            get {
+                return ResourceManager.GetString("OP_STOP", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   OPERATION과(와) 유사한 지역화된 문자열을 찾습니다.
+        /// </summary>
+        internal static string OP_TITLE {
+            get {
+                return ResourceManager.GetString("OP_TITLE", resourceCulture);
             }
         }
     }

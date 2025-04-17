@@ -38,6 +38,7 @@ namespace ZenHandler.Dlg
         {
             ShowDriveSet();
             ShowComPort();
+            ShowLanguage();
         }
         public void GetConfigData()
         {
@@ -54,6 +55,9 @@ namespace ZenHandler.Dlg
 
             //Serial Port
             Globalo.yamlManager.configData.SerialPort.Bcr = poisonComboBox_BcrPort.Text;
+            Globalo.yamlManager.configData.DrivingSettings.Language = ComboBox_Language.Text;
+
+
         }
         public void ShowDriveSet()
         {
@@ -80,6 +84,22 @@ namespace ZenHandler.Dlg
                 poisonComboBox_BcrPort.SelectedIndex = index;
             }
         }
+        private void ShowLanguage()
+        {
+            string comData = Globalo.yamlManager.configData.DrivingSettings.Language;
+
+            int index = ComboBox_Language.Items.IndexOf(comData);
+            if (index < 0)
+            {
+                ComboBox_Language.SelectedIndex = 0;  // 첫 번째 항목 선택
+            }
+            else
+            {
+                ComboBox_Language.SelectedIndex = index;
+            }
+
+            Program.SetLanguage(comData);   //언어 변경
+        }
         public void setInterface()
         {
             int i = 0;
@@ -90,7 +110,9 @@ namespace ZenHandler.Dlg
                 poisonComboBox_BcrPort.Items.Add("COM" + (i + 1).ToString());
             }
 
-
+            ComboBox_Language.Items.Add("ko");
+            ComboBox_Language.Items.Add("en");
+            ComboBox_Language.Items.Add("es");
 
             //string selectedValue = poisonComboBox_BcrPort.SelectedItem.ToString();
 

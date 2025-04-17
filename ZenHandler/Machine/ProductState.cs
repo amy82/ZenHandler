@@ -22,17 +22,23 @@ namespace ZenHandler.Machine
         NG,         // 불량
         Unknown     // 미확인 (필요 시)
     }
-    // 트랜스퍼나 피커가 들고 있는 제품 정보
-    public class PickedProductInfo
+    public class ProductInfo
     {
         public int Index { get; set; }
         public PickedProductState State { get; set; } = PickedProductState.Blank;
         //public double[] Position { get; set; } = new double[3];
 
-        public PickedProductInfo(int index)
+        public ProductInfo() { }  // <- 이게 필요해!
+        public ProductInfo(int index)
         {
             Index = index;
         }
+    }
+    // 트랜스퍼나 피커가 들고 있는 제품 정보
+    public class PickedProduct
+    {
+        public List<ProductInfo> LoadProductInfo { get; set; } = new List<ProductInfo>();
+        public List<ProductInfo> UnLoadProductInfo { get; set; } = new List<ProductInfo>();
     }
 
     // 소켓 안에 있는 제품 상태 정보

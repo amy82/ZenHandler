@@ -402,10 +402,10 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>Strings.es.resx</DependentUpon>
     </Compile>
-    <Compile Include="Resource\Strings.kr.Designer.cs">
+    <Compile Include="Resource\Strings.ko.Designer.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
-      <DependentUpon>Strings.kr.resx</DependentUpon>
+      <DependentUpon>Strings.ko.resx</DependentUpon>
     </Compile>
     <Compile Include="Serial\SerialCommunicator.cs" />
     <Compile Include="Serial\SerialPortManager.cs" />
@@ -506,9 +506,9 @@
       <Generator>ResXFileCodeGenerator</Generator>
       <LastGenOutput>Strings.es.Designer.cs</LastGenOutput>
     </EmbeddedResource>
-    <EmbeddedResource Include="Resource\Strings.kr.resx">
+    <EmbeddedResource Include="Resource\Strings.ko.resx">
       <Generator>ResXFileCodeGenerator</Generator>
-      <LastGenOutput>Strings.kr.Designer.cs</LastGenOutput>
+      <LastGenOutput>Strings.ko.Designer.cs</LastGenOutput>
     </EmbeddedResource>
     <None Include="packages.config" />
     <None Include="Properties\Settings.settings">

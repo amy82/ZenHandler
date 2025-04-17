@@ -268,7 +268,7 @@ namespace ZenHandler.Dlg
 
         private void BTN_RIGHT_OP_MODE_Click_1(object sender, EventArgs e)
         {
-            //Globalo.MainForm.SetLanguage("es");   //언어 변경
+            
             Run_Mode_Change(ProgramState.eRunMode.OPERATOR);
         }
 

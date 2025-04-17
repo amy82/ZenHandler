@@ -19,9 +19,10 @@ namespace ZenHandler.Machine
 
         public MotionControl.MotorAxis[] MotorAxes; // 배열 선언
 
-        public List<PickedProductInfo> LoadPickers { get; set; } = new List<PickedProductInfo>();
-        public List<PickedProductInfo> UnLoadPickers { get; set; } = new List<PickedProductInfo>();
+        //public List<PickedProductInfo> LoadPickers { get; set; } = new List<PickedProductInfo>();
+        //public List<PickedProductInfo> UnLoadPickers { get; set; } = new List<PickedProductInfo>();
 
+        
 
         public string[] axisName = { "TransferX", "TransferY", "TransferZ" };
         private static double[] MOTOR_MAX_SPEED = { 200.0, 500.0, 50.0};
@@ -51,7 +52,9 @@ namespace ZenHandler.Machine
             "SOCKET_A1", "SOCKET_A2", "SOCKET_B1", "SOCKET_B2","SOCKET_C1", "SOCKET_C2", "SOCKET_D1", "SOCKET_D2" };
 
         public string teachingPath = "Teach_Transfer.yaml";
+        public string taskPath = "Task_Transfer.yaml";
         public Data.TeachingConfig teachingConfig = new Data.TeachingConfig();
+        public PickedProduct pickedProduct = new PickedProduct();
 
         //TODO:  픽업 상태 로드 4개 , 배출 4개 / blank , LOAD , BCR OK , PASS , NG(DEFECT 1 , 2 , 3 , 4)
         //public Dio cylinder;
@@ -84,10 +87,11 @@ namespace ZenHandler.Machine
 
             for (int i = 0; i < 4; i++)
             {
-                LoadPickers.Add(new PickedProductInfo(i));
-                UnLoadPickers.Add(new PickedProductInfo(i));
+                pickedProduct.LoadProductInfo.Add(new ProductInfo(i));
+                pickedProduct.UnLoadProductInfo.Add(new ProductInfo(i));
             }
-            
+            pickedProduct = Data.TaskDataYaml.TaskLoad_Transfer(taskPath);
+            //Data.TaskDataYaml.TaskSave_Transfer(pickedProduct, "Task_Transfer.yaml");
         }
         public override void MotorDataSet()
         {
