@@ -29,7 +29,7 @@ namespace ZenHandler.Dlg
             _syncContext = SynchronizationContext.Current;
             cts = new CancellationTokenSource();
 
-            int[] inGridWid = new int[] { 110, 80, 80, 80};         //Grid Width
+            int[] inGridWid = new int[] { 150, 80, 80, 80};         //Grid Width
 
             //myTeachingGrid = new Controls.TeachingGridView( Globalo.motionManager.transferMachine.MotorAxes, Globalo.yamlManager.teachData.handler.TransferMachine, inGridWid);
             myTeachingGrid = new Controls.TeachingGridView( Globalo.motionManager.transferMachine.MotorAxes, Globalo.motionManager.transferMachine.teachingConfig, inGridWid);

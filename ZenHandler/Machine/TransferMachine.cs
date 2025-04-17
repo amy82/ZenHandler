@@ -36,8 +36,16 @@ namespace ZenHandler.Machine
         //TODO: 필요한 티칭 위치도 여기서 정하는게 나을까?
         public enum eTeachingPosList : int
         {
-            WAIT_POS = 0, LEFT_LOAD_POS, LEFT_UNLOAD_POS, SOCKET_A1, SOCKET_A2, SOCKET_B1, SOCKET_B2, TOTAL_TRANSFER_TEACHING_COUNT
+            WAIT_POS = 0,
+            LEFT_TRAY_LOAD_POS, LEFT_TRAY_UNLOAD_POS,
+            RIGHT_TRAY_LOAD_POS, RIGHT_TRAY_UNLOAD_POS,
+            SOCKET_A1, SOCKET_A2, SOCKET_B1, SOCKET_B2, 
+            TOTAL_TRANSFER_TEACHING_COUNT
         };
+        public string[] TeachName = { "WAIT_POS",
+            "L_TRAY_LOAD_POS", "L_TRAY_UNLOAD_POS",
+            "R_TRAY_LOAD_POS", "R_TRAY_UNLOAD_POS",
+            "SOCKET_A1", "SOCKET_A2", "SOCKET_B1", "SOCKET_B2" };
 
         public string teachingPath = "Teach_Transfer.yaml";
         public Data.TeachingConfig teachingConfig = new Data.TeachingConfig();
@@ -79,9 +87,14 @@ namespace ZenHandler.Machine
                 MotorAxes[i].setMotorParameter(teachingConfig.Speed[i], teachingConfig.Accel[i], teachingConfig.Decel[i], teachingConfig.Resolution[i]);
             }
 
+            for (i = 0; i < teachingConfig.Teaching.Count; i++)
+            {
+                teachingConfig.Teaching[i].Name = TeachName[i];
+            }
+   
 
         }
-        public bool ChkXYMotorPos(Data.eTeachPosName teachingPos)
+        public bool ChkXYMotorPos(eTeachingPosList teachingPos)
         {
             if (ProgramState.ON_LINE_MOTOR == false)
             {
@@ -110,7 +123,7 @@ namespace ZenHandler.Machine
 
             return bRtn;
         }
-        public bool ChkZMotorPos(Data.eTeachPosName teachingPos)
+        public bool ChkZMotorPos(eTeachingPosList teachingPos)
         {
             if (ProgramState.ON_LINE_MOTOR == false)
             {
@@ -528,7 +541,7 @@ namespace ZenHandler.Machine
 
         //public async Task<bool> TransFer_X_Move(int nPos, double offset)
 
-        public bool TransFer_X_Move(Data.eTeachPosName teachingPos)//int nPos, double offset)
+        public bool TransFer_X_Move(eTeachingPosList teachingPos)//int nPos, double offset)
         {
             if (TransferX.IsMotorBusy == true)
             {
@@ -557,7 +570,7 @@ namespace ZenHandler.Machine
             return isSuccess;
         }
 
-        public bool TransFer_XY_Move(Data.eTeachPosName ePos, bool bWait = false)
+        public bool TransFer_XY_Move(eTeachingPosList ePos, bool bWait = false)
         {
             if (ProgramState.ON_LINE_MOTOR == false)
             {
@@ -570,7 +583,7 @@ namespace ZenHandler.Machine
             bool bRtn = false;
 
 
-            bRtn = TransFer_Z_Move(Data.eTeachPosName.WAIT_POS, true);  //TODO:  ??
+            bRtn = TransFer_Z_Move(eTeachingPosList.WAIT_POS, true);  //TODO:  ??
 
             if (bRtn == false)
             {
@@ -589,7 +602,7 @@ namespace ZenHandler.Machine
 
             if (bRtn == false)
             {
-                logStr = $"Transfer XY축 {Data.eTeachPosName.WAIT_POS.ToString() } 이동 실패";
+                logStr = $"Transfer XY축 {eTeachingPosList.WAIT_POS.ToString() } 이동 실패";
 
                 Globalo.LogPrint("ManualControl", logStr);
             }
@@ -677,7 +690,7 @@ namespace ZenHandler.Machine
             }
             return isSuccess;
         }
-        public bool TransFer_Z_Move(Data.eTeachPosName ePos, bool bWait = false)
+        public bool TransFer_Z_Move(eTeachingPosList ePos, bool bWait = false)
         {
             string logStr = "";
             double dPos = Globalo.motionManager.transferMachine.teachingConfig.Teaching[(int)ePos].Pos[2];     //z Axis

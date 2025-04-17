@@ -144,7 +144,7 @@ namespace ZenHandler.Dlg
 
             Globalo.motionManager.transferMachine.UnLoadVacuumOn(index, bFlag);
         }
-        private async void Manual_Z_Move(Data.eTeachPosName ePos)
+        private async void Manual_Z_Move(Machine.TransferMachine.eTeachingPosList ePos)
         {
             if (ProgramState.CurrentState == OperationState.AutoRunning)
             {
@@ -226,7 +226,7 @@ namespace ZenHandler.Dlg
             bManualStopKey = false;
             isMovingTransfer = false;
         }
-        private async void Manual_XY_Move(Data.eTeachPosName ePos)
+        private async void Manual_XY_Move(Machine.TransferMachine.eTeachingPosList ePos)
         {
             if (ProgramState.CurrentState == OperationState.AutoRunning)
             {
@@ -348,8 +348,9 @@ namespace ZenHandler.Dlg
         }
         private void BTN_MANUAL_WAIT_POS_XY_Click_1(object sender, EventArgs e)
         {
-            Data.eTeachPosName ePos = Data.eTeachPosName.WAIT_POS;
-            //Data.eTeachPosName ePos = Machine.TransferMachine.eTeachingPosList.WAIT_POS;
+            //Data.eTeachPosName ePos = Data.eTeachPosName.WAIT_POS;
+
+            Machine.TransferMachine.eTeachingPosList ePos = Machine.TransferMachine.eTeachingPosList.WAIT_POS;
 
             Manual_XY_Move(ePos);
         }
@@ -357,42 +358,42 @@ namespace ZenHandler.Dlg
         
         private void BTN_MANUAL_TRANSFER_LEFT_LOAD_POS_XY_Click(object sender, EventArgs e)
         {
-            Data.eTeachPosName ePos = Data.eTeachPosName.LEFT_TRAY_LOAD_POS;
+            Machine.TransferMachine.eTeachingPosList ePos = Machine.TransferMachine.eTeachingPosList.LEFT_TRAY_LOAD_POS;
 
             Manual_XY_Move(ePos);
         }
 
         private void BTN_MANUAL_TRANSFER_RIGHT_LOAD_POS_XY_Click(object sender, EventArgs e)
         {
-            Data.eTeachPosName ePos = Data.eTeachPosName.RIGHT_TRAY_LOAD_POS;
+            Machine.TransferMachine.eTeachingPosList ePos = Machine.TransferMachine.eTeachingPosList.RIGHT_TRAY_LOAD_POS;
 
             Manual_XY_Move(ePos);
         }
 
         private void BTN_MANUAL_TRANSFER_SOCKET1_POS_XY_Click(object sender, EventArgs e)
         {
-            Data.eTeachPosName ePos = Data.eTeachPosName.SOCKET_POS1;
+            Machine.TransferMachine.eTeachingPosList ePos = Machine.TransferMachine.eTeachingPosList.SOCKET_A1;
 
             Manual_XY_Move(ePos);
         }
 
         private void BTN_MANUAL_TRANSFER_SOCKET2_POS_XY_Click(object sender, EventArgs e)
         {
-            Data.eTeachPosName ePos = Data.eTeachPosName.SOCKET_POS2;
+            Machine.TransferMachine.eTeachingPosList ePos = Machine.TransferMachine.eTeachingPosList.SOCKET_A2;
 
             Manual_XY_Move(ePos);
         }
 
         private void BTN_MANUAL_TRANSFER_SOCKET3_POS_XY_Click(object sender, EventArgs e)
         {
-            Data.eTeachPosName ePos = Data.eTeachPosName.SOCKET_POS3;
+            Machine.TransferMachine.eTeachingPosList ePos = Machine.TransferMachine.eTeachingPosList.SOCKET_B1;
 
             Manual_XY_Move(ePos);
         }
 
         private void BTN_MANUAL_TRANSFER_SOCKET4_POS_XY_Click(object sender, EventArgs e)
         {
-            Data.eTeachPosName ePos = Data.eTeachPosName.SOCKET_POS4;
+            Machine.TransferMachine.eTeachingPosList ePos = Machine.TransferMachine.eTeachingPosList.SOCKET_B2;
 
             Manual_XY_Move(ePos);
         }
