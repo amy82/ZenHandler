@@ -20,7 +20,7 @@ namespace ZenHandler.Machine
 
 
         public string[] axisName = { "TransferX", "TransferY", "TransferZ" };
-        private static double[] MOTOR_MAX_SPEED = { 100.0, 100.0, 100.0};
+        private static double[] MOTOR_MAX_SPEED = { 200.0, 500.0, 50.0};
         private MotorDefine.eMotorType[] motorType = { MotorDefine.eMotorType.LINEAR, MotorDefine.eMotorType.LINEAR, MotorDefine.eMotorType.LINEAR };
         private AXT_MOTION_LEVEL_MODE[] AXT_SET_LIMIT = { AXT_MOTION_LEVEL_MODE.LOW, AXT_MOTION_LEVEL_MODE.HIGH, AXT_MOTION_LEVEL_MODE.LOW };
         private AXT_MOTION_LEVEL_MODE[] AXT_SET_SERVO_ALARM = { AXT_MOTION_LEVEL_MODE.HIGH, AXT_MOTION_LEVEL_MODE.HIGH, AXT_MOTION_LEVEL_MODE.LOW };
@@ -623,7 +623,6 @@ namespace ZenHandler.Machine
                 {
                     if (multiAxis[0].MotorBreak) break;
                     if (multiAxis[1].MotorBreak) break;
-                    if (multiAxis[2].MotorBreak) break;
                     //위치 도착 확인 , 정지 확인
 
                     switch (step)
@@ -890,7 +889,6 @@ namespace ZenHandler.Machine
                 motorAutoThread.m_nCurrentStep = 2000;
             }
 
-            
             motorAutoThread.m_nEndStep = 3000;
             motorAutoThread.m_nStartStep = motorAutoThread.m_nCurrentStep;
 
@@ -902,13 +900,13 @@ namespace ZenHandler.Machine
             bool rtn = motorAutoThread.Start();
             if (rtn)
             {
-                Console.WriteLine($"[ORIGIN] Transfer Ready Start");
+                Console.WriteLine($"[READY] Transfer Ready Start");
                 Console.WriteLine($"모터 동작 성공.");
             }
             else
             {
                 this.RunState = OperationState.Stopped;
-                Console.WriteLine($"[ORIGIN] Transfer Ready Start Fail");
+                Console.WriteLine($"[READY] Transfer Ready Start Fail");
                 Console.WriteLine($"모터 동작 실패.");
             }
 

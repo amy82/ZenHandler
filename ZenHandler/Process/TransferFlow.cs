@@ -38,6 +38,8 @@ namespace ZenHandler.Process
             double dSpeed = 0.0;
             double dAcc = 0.3;
             int nRetStep = nStep;
+
+            //TODO: 모터 알람뜨는지 체크해서 정지해야될듯
             switch (nStep)
             {
                 case 1000:
@@ -90,10 +92,10 @@ namespace ZenHandler.Process
                     //SensorSet[2] = (int)AXT_MOTION_EDGE.SIGNAL_UP_EDGE;
                     //SensorSet[3] = (int)AXT_MOTION_STOPMODE.SLOWDOWN_STOP;
 
-                    dSpeed = (5 * -1);      //-1은 왼쪽 이동
+                    dSpeed = (15 * -1);      //-1은 왼쪽 이동
 
                     bRtn = Globalo.motionManager.transferMachine.MoveAxisLimit(Globalo.motionManager.transferMachine.TransferZ, dSpeed, dAcc,
-                        AXT_MOTION_HOME_DETECT.NegEndLimit, AXT_MOTION_EDGE.SIGNAL_UP_EDGE, AXT_MOTION_STOPMODE.SLOWDOWN_STOP);
+                        AXT_MOTION_HOME_DETECT.NegEndLimit, AXT_MOTION_EDGE.SIGNAL_UP_EDGE, AXT_MOTION_STOPMODE.EMERGENCY_STOP);
                     if (bRtn == false)
                     {
                         szLog = $"[ORIGIN] TransferZ (-)Limit 위치 구동 실패 [STEP : {nStep}]";
@@ -145,7 +147,7 @@ namespace ZenHandler.Process
                     dSpeed = (10 * -1);      //-1은 왼쪽 이동
 
                     bRtn = Globalo.motionManager.transferMachine.MoveAxisLimit(Globalo.motionManager.transferMachine.TransferX, dSpeed, dAcc,
-                        AXT_MOTION_HOME_DETECT.NegEndLimit, AXT_MOTION_EDGE.SIGNAL_UP_EDGE, AXT_MOTION_STOPMODE.SLOWDOWN_STOP);
+                        AXT_MOTION_HOME_DETECT.NegEndLimit, AXT_MOTION_EDGE.SIGNAL_UP_EDGE, AXT_MOTION_STOPMODE.EMERGENCY_STOP);
                     if (bRtn == false)
                     {
                         szLog = $"[ORIGIN] TransferX (-)Limit 위치 구동 실패 [STEP : {nStep}]";
@@ -171,7 +173,7 @@ namespace ZenHandler.Process
                     dSpeed = (10 * -1);      //-1은 왼쪽 이동
 
                     bRtn = Globalo.motionManager.transferMachine.MoveAxisLimit(Globalo.motionManager.transferMachine.TransferY, dSpeed, dAcc,
-                        AXT_MOTION_HOME_DETECT.NegEndLimit, AXT_MOTION_EDGE.SIGNAL_UP_EDGE, AXT_MOTION_STOPMODE.SLOWDOWN_STOP);
+                        AXT_MOTION_HOME_DETECT.NegEndLimit, AXT_MOTION_EDGE.SIGNAL_UP_EDGE, AXT_MOTION_STOPMODE.EMERGENCY_STOP);
                     if (bRtn == false)
                     {
                         szLog = $"[ORIGIN] TransferY (-)Limit 위치 구동 실패 [STEP : {nStep}]";
@@ -383,7 +385,23 @@ namespace ZenHandler.Process
             switch (nStep)
             {
                 case 2000:
-                    nRetStep = 2010;
+                    DialogResult result = DialogResult.None;
+                    _syncContext.Send(_ =>
+                    {
+                        result = Globalo.MessageAskPopup("READY?!\n(SPACE KEY START)");
+                    }, null);
+                    if (result == DialogResult.Yes)
+                    {
+                        nRetStep = 2010;
+                    }
+                    else
+                    {
+                        szLog = $"[AUTO] 자동운전 일시정지[STEP : {nStep}]";
+                        Globalo.LogPrint("PcbPrecess", szLog);
+                        nRetStep *= -1;
+                        break;
+                    }
+                    
                     break;
                 case 2010:
                     nRetStep = 2020;
@@ -395,14 +413,14 @@ namespace ZenHandler.Process
                     break;
                 case 2030:
                     if (Globalo.motionManager.transferMachine.TransferZ.GetStopAxis() == true &&
-                        Globalo.motionManager.transferMachine.ChkXYMotorPos(Machine.TransferMachine.eTeachingPosList.WAIT_POS))
+                        Globalo.motionManager.transferMachine.ChkZMotorPos(Machine.TransferMachine.eTeachingPosList.WAIT_POS))
                     {
                         szLog = $"[READY] TRANSFER Z WAIT_POS 이동 완료 [STEP : {nStep}]";
                         Globalo.LogPrint("ManualControl", szLog);
                         nRetStep = 2040;
                         break;
                     }
-                    else if (Environment.TickCount - nTimeTick > 30000)
+                    else if (Environment.TickCount - nTimeTick > MotionControl.MotorSet.MOTOR_MOVE_TIMEOUT)
                     {
                         szLog = $"[READY] TRANSFER Z WAIT_POS  이동 시간 초과 [STEP : {nStep}]";
                         Globalo.LogPrint("ManualControl", szLog);
@@ -412,10 +430,26 @@ namespace ZenHandler.Process
                     
                     break;
                 case 2040:
+                    Globalo.motionManager.transferMachine.TransFer_XY_Move(Machine.TransferMachine.eTeachingPosList.WAIT_POS, true);
                     nRetStep = 2050;
                     break;
                 case 2050:
-                    nRetStep = 2060;
+                    if (Globalo.motionManager.transferMachine.TransferX.GetStopAxis() == true && Globalo.motionManager.transferMachine.TransferY.GetStopAxis() == true &&
+                        Globalo.motionManager.transferMachine.ChkXYMotorPos(Machine.TransferMachine.eTeachingPosList.WAIT_POS))
+                    {
+                        szLog = $"[READY] WAIT_POS 위치 이동 완료 [STEP : {nStep}]";
+                        Globalo.LogPrint("ManualControl", szLog);
+                        nRetStep = 2060;
+                        break;
+                    }
+                    else if (Environment.TickCount - nTimeTick > 30000)
+                    {
+                        szLog = $"[READY] WAIT_POS 위치 이동 시간 초과 [STEP : {nStep}]";
+                        Globalo.LogPrint("ManualControl", szLog);
+                        nRetStep *= -1;
+                        break;
+                    }
+                   
                     break;
                 case 2060:
                     nRetStep = 2070;
@@ -434,6 +468,8 @@ namespace ZenHandler.Process
                     break;
                 case 2900:
                     Globalo.motionManager.transferMachine.RunState = OperationState.PreparationComplete;
+                    szLog = $"[READY] TRANSFER 운전준비 완료 [STEP : {nStep}]";
+                    Globalo.LogPrint("ManualControl", szLog);
                     nRetStep = 3000;
                     break;
             }

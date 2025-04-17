@@ -56,17 +56,6 @@ namespace ZenHandler.MotionControl
         {
             if (ProgramState.ON_LINE_MOTOR == false)
             {
-                nAxis.MotorBreak = false;
-
-                if (Program.NORINDA_MODE == true)
-                {
-                    while (bWait)
-                    {
-                        if (nAxis.MotorBreak) break;
-                        Console.WriteLine($"SingleAxisMove");
-                        Thread.Sleep(1000);
-                    }
-                }
                 return true;
             }
             bool isSuccess = false;
