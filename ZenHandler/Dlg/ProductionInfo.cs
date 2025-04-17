@@ -31,8 +31,8 @@ namespace ZenHandler.Dlg
                 textBox_TopLot.Text = value;
             }   
             Globalo.dataManage.TaskWork.m_szChipID = value;
-            Globalo.yamlManager.TaskData.LotData.BarcodeData = Globalo.dataManage.TaskWork.m_szChipID;
-            Globalo.yamlManager.TaskDataSave();
+            Globalo.yamlManager.taskDataYaml.TaskData.LotData.BarcodeData = Globalo.dataManage.TaskWork.m_szChipID;
+            Globalo.yamlManager.taskDataYaml.TaskDataSave();
 
             //string sanitizedFileName = Data.CEEpromData.SanitizeFileName(value);
             //Console.WriteLine($"✅ 사용 가능한 파일명: {sanitizedFileName}");
@@ -40,14 +40,14 @@ namespace ZenHandler.Dlg
         public void PinCountInfoSet()
         {
             //Globalo.yamlManager.TaskData.PintCount > Globalo.yamlManager.configData.DrivingSettings.PinCountMax
-            string str = $"{Globalo.yamlManager.TaskData.PintCount} / {Globalo.yamlManager.configData.DrivingSettings.PinCountMax}";
+            string str = $"{Globalo.yamlManager.taskDataYaml.TaskData.PintCount} / {Globalo.yamlManager.configData.DrivingSettings.PinCountMax}";
             label_PinCount.Text = str;
         }
         public void ProductionInfoSet()
         {
-            label_production_ok.Text = Globalo.yamlManager.TaskData.ProductionInfo.OkCount.ToString();
-            label_production_ng.Text = Globalo.yamlManager.TaskData.ProductionInfo.NgCount.ToString();
-            label_production_total.Text = Globalo.yamlManager.TaskData.ProductionInfo.TotalCount.ToString();
+            label_production_ok.Text = Globalo.yamlManager.taskDataYaml.TaskData.ProductionInfo.OkCount.ToString();
+            label_production_ng.Text = Globalo.yamlManager.taskDataYaml.TaskData.ProductionInfo.NgCount.ToString();
+            label_production_total.Text = Globalo.yamlManager.taskDataYaml.TaskData.ProductionInfo.TotalCount.ToString();
             //
             //label_production_ok.Text = Globalo.dataManage.TaskWork.Judge_Total_Count.ToString();
             //label_production_ng.Text = Globalo.dataManage.TaskWork.Judge_Ok_Count.ToString();
@@ -72,10 +72,10 @@ namespace ZenHandler.Dlg
                 Globalo.dataManage.TaskWork.Judge_Ok_Count = 0;
                 Globalo.dataManage.TaskWork.Judge_Ng_Count = 0;
 
-                Globalo.yamlManager.TaskData.ProductionInfo.TotalCount = 0;
-                Globalo.yamlManager.TaskData.ProductionInfo.OkCount = 0;
-                Globalo.yamlManager.TaskData.ProductionInfo.NgCount = 0;
-                Globalo.yamlManager.TaskDataSave();
+                Globalo.yamlManager.taskDataYaml.TaskData.ProductionInfo.TotalCount = 0;
+                Globalo.yamlManager.taskDataYaml.TaskData.ProductionInfo.OkCount = 0;
+                Globalo.yamlManager.taskDataYaml.TaskData.ProductionInfo.NgCount = 0;
+                Globalo.yamlManager.taskDataYaml.TaskDataSave();
 
                 Globalo.productionInfo.ProductionInfoSet();
             }
@@ -83,8 +83,8 @@ namespace ZenHandler.Dlg
 
         private void BTN_MAIN_PINCOUNT_RESET_Click(object sender, EventArgs e)
         {
-            Globalo.yamlManager.TaskData.PintCount = 0;
-            Globalo.yamlManager.TaskDataSave();
+            Globalo.yamlManager.taskDataYaml.TaskData.PintCount = 0;
+            Globalo.yamlManager.taskDataYaml.TaskDataSave();
 
             PinCountInfoSet();
         }

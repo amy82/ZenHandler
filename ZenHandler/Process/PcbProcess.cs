@@ -57,10 +57,10 @@ namespace ZenHandler.Process
                 case 30100:
                     if (Globalo.yamlManager.configData.DrivingSettings.PinCountUse == true)
                     {
-                        if (Globalo.yamlManager.TaskData.PintCount > Globalo.yamlManager.configData.DrivingSettings.PinCountMax)
+                        if (Globalo.yamlManager.taskDataYaml.TaskData.PintCount > Globalo.yamlManager.configData.DrivingSettings.PinCountMax)
                         {
                             Globalo.tcpManager.SendAlarmReport("1010");
-                            szLog = $"[AUTO] PIN COUNT CHECK OVER: {Globalo.yamlManager.TaskData.PintCount} / {Globalo.yamlManager.configData.DrivingSettings.PinCountMax} [STEP : {nRetStep}]";
+                            szLog = $"[AUTO] PIN COUNT CHECK OVER: {Globalo.yamlManager.taskDataYaml.TaskData.PintCount} / {Globalo.yamlManager.configData.DrivingSettings.PinCountMax} [STEP : {nRetStep}]";
                             Globalo.LogPrint("LotProcess", szLog, Globalo.eMessageName.M_WARNING);
                             nRetStep = -30100;
 
@@ -68,7 +68,7 @@ namespace ZenHandler.Process
                         }
                         else
                         {
-                            szLog = $"[AUTO] PIN COUNT CHECK OK : {Globalo.yamlManager.TaskData.PintCount} / {Globalo.yamlManager.configData.DrivingSettings.PinCountMax} [STEP : {nRetStep}]";
+                            szLog = $"[AUTO] PIN COUNT CHECK OK : {Globalo.yamlManager.taskDataYaml.TaskData.PintCount} / {Globalo.yamlManager.configData.DrivingSettings.PinCountMax} [STEP : {nRetStep}]";
                             Globalo.LogPrint("LotProcess", szLog);
                             nRetStep = 30150;
                         }
@@ -79,8 +79,8 @@ namespace ZenHandler.Process
                         Globalo.LogPrint("LotProcess", szLog);
                         nRetStep = 30150;
                     }
-                    Globalo.yamlManager.TaskData.PintCount++;
-                    Globalo.yamlManager.TaskDataSave();
+                    Globalo.yamlManager.taskDataYaml.TaskData.PintCount++;
+                    Globalo.yamlManager.taskDataYaml.TaskDataSave();
 
                     _syncContext.Send(_ =>
                     {
@@ -712,22 +712,22 @@ namespace ZenHandler.Process
                     break;
                 case 69000:
 
-                    Globalo.yamlManager.TaskData.ProductionInfo.TotalCount++;
+                    Globalo.yamlManager.taskDataYaml.TaskData.ProductionInfo.TotalCount++;
 
                     _syncContext.Send(_ =>
                     {
                         if (Globalo.taskWork.m_nTestFinalResult == 1)
                         {
                             Globalo.camControl.setOverlayText("PASS", Color.Green);
-                            Globalo.yamlManager.TaskData.ProductionInfo.OkCount++;
+                            Globalo.yamlManager.taskDataYaml.TaskData.ProductionInfo.OkCount++;
                         }
                         else
                         {
                             Globalo.camControl.setOverlayText("FAIL", Color.Red);
-                            Globalo.yamlManager.TaskData.ProductionInfo.NgCount++;
+                            Globalo.yamlManager.taskDataYaml.TaskData.ProductionInfo.NgCount++;
                         }
 
-                        Globalo.yamlManager.TaskDataSave();
+                        Globalo.yamlManager.taskDataYaml.TaskDataSave();
                         Globalo.productionInfo.ProductionInfoSet();
                     }, null);
 

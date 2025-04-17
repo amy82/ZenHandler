@@ -28,7 +28,7 @@ namespace ZenHandler.Data
         public AlarmData alarmData {get; set;}
         public ImageData imageData { get; set; }
 
-        public _TaskData TaskData { get; private set; }
+        public TaskDataYaml taskDataYaml { get; set; }
 
         public TeachingDataYaml teachData { get; set; }
 
@@ -45,6 +45,7 @@ namespace ZenHandler.Data
                 .Build();
             secsGemDataYaml = new SecGemDataYaml();
             teachData = new TeachingDataYaml();
+            taskDataYaml = new TaskDataYaml();
         }
         public bool RecipeYamlFileCopy(string copyPPid, string createPPid)
         {
@@ -271,56 +272,7 @@ namespace ZenHandler.Data
             }
         }
         //
-        public bool TaskDataLoad()
-        {
-            string filePath = Path.Combine(CPath.BASE_ENV_PATH, CPath.yamlFilePathTask);
-            try
-            {
-                if (!File.Exists(filePath))
-                {
-                    TaskData = new _TaskData();
-                    TaskData.LotData = new LOTDATA();
-                    TaskData.ProductionInfo = new PRODUCTION_INFO();
-                    return false;
-                }
-                    
-
-                TaskData = LoadYaml<_TaskData>(filePath);
-                if (TaskData == null)
-                {
-                    
-                    return false;
-                }
-
-                Globalo.dataManage.TaskWork.m_szChipID = TaskData.LotData.BarcodeData;
-                Globalo.dataManage.TaskWork.Judge_Total_Count = TaskData.ProductionInfo.TotalCount;
-                Globalo.dataManage.TaskWork.Judge_Ok_Count = TaskData.ProductionInfo.OkCount;
-                Globalo.dataManage.TaskWork.Judge_Ng_Count = TaskData.ProductionInfo.NgCount;
-                return true;
-            }
-            catch (Exception ex)
-            {
-                Console.WriteLine($"Error loading TaskDataLoad: {ex.Message}");
-                return false;
-            }
-        }
-        public bool TaskDataSave()
-        {
-            string filePath = Path.Combine(CPath.BASE_ENV_PATH, CPath.yamlFilePathTask);
-            try
-            {
-                if (!File.Exists(filePath))
-                    return false;
-
-                SaveYaml(filePath, TaskData);
-                return true;
-            }
-            catch (Exception ex)
-            {
-                Console.WriteLine($"Error TaskDataSave: {ex.Message}");
-                return false;
-            }
-        }
+        
         public bool AlarmLoad()
         {
             //Alarm_2025_02_04.yaml

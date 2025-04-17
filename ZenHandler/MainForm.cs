@@ -65,7 +65,10 @@ namespace ZenHandler  //ApsMotionControl
 
 
             Globalo.yamlManager.configDataLoad();
-            Globalo.yamlManager.TaskDataLoad();
+            Globalo.yamlManager.taskDataYaml.TaskDataLoad();
+
+            Globalo.yamlManager.taskDataYaml.TrayDataLoad();
+
             Globalo.yamlManager.imageDataLoad();
             Globalo.yamlManager.RecipeYamlListLoad();
 

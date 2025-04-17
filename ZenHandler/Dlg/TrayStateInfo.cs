@@ -28,15 +28,15 @@ namespace ZenHandler.Dlg
 
         public enum LoadTraySlotState
         {
-            Empty,
-            BeforeInspection,
-            AfterInspection
+            Empty = -1,
+            BeforeInspection = 0,
+            AfterInspection = 1
         }
 
         public enum NgTraySlotState
         {
-            Empty,
-            NgInspection,
+            Empty = 0,
+            NgInspection = 1
         }
 
         private TableLayoutPanel[] trayClass;
@@ -60,6 +60,7 @@ namespace ZenHandler.Dlg
 
             LeftNgTraySlots = new NgTraySlotState[NgTrayRows, NgTrayCol];
             RightNgTraySlots = new NgTraySlotState[NgTrayRows, NgTrayCol];
+
 
             LoadTrayInitialize(true);
             NgTrayInitialize(false);
@@ -102,11 +103,13 @@ namespace ZenHandler.Dlg
                     {
                         if (index == TRAY_KIND.LOAD_TRAY_L)
                         {
-                            if (LeftTraySlots[row, col] == LoadTraySlotState.BeforeInspection)
+                            //if (LeftTraySlots[row, col] == LoadTraySlotState.BeforeInspection)
+                            if (Globalo.yamlManager.taskDataYaml.TrayData.LeftLoadTraySlots[row][col] == (int)LoadTraySlotState.BeforeInspection)
                             {
                                 panel.BackColor = Color.SkyBlue;
                             }
-                            else if (LeftTraySlots[row, col] == LoadTraySlotState.AfterInspection)
+                            //else if (LeftTraySlots[row, col] == LoadTraySlotState.AfterInspection)
+                            else if (Globalo.yamlManager.taskDataYaml.TrayData.LeftLoadTraySlots[row][col] == (int)LoadTraySlotState.AfterInspection)
                             {
                                 panel.BackColor = Color.Green;
                             }
@@ -118,11 +121,13 @@ namespace ZenHandler.Dlg
                         }
                         else if (index == TRAY_KIND.LOAD_TRAY_R)
                         {
-                            if (RightTraySlots[row, col] == LoadTraySlotState.BeforeInspection)
+                            //if (RightTraySlots[row, col] == LoadTraySlotState.BeforeInspection)
+                            if (Globalo.yamlManager.taskDataYaml.TrayData.RightLoadTraySlots[row][col] == (int)LoadTraySlotState.BeforeInspection)
                             {
                                 panel.BackColor = Color.SkyBlue;
                             }
-                            else if (RightTraySlots[row, col] == LoadTraySlotState.AfterInspection)
+                            //else if (RightTraySlots[row, col] == LoadTraySlotState.AfterInspection)
+                            else if (Globalo.yamlManager.taskDataYaml.TrayData.RightLoadTraySlots[row][col] == (int)LoadTraySlotState.AfterInspection)
                             {
                                 panel.BackColor = Color.Green;
                             }
@@ -133,7 +138,8 @@ namespace ZenHandler.Dlg
                         }
                         else if (index == TRAY_KIND.NG_TRAY_L)
                         {
-                            if (LeftNgTraySlots[row, col] == NgTraySlotState.NgInspection)
+                            //if (LeftNgTraySlots[row, col] == NgTraySlotState.NgInspection)
+                            if (Globalo.yamlManager.taskDataYaml.TrayData.LeftNgTraySlots[row][col] == (int)NgTraySlotState.NgInspection)
                             {
                                 panel.BackColor = Color.Red;
                             }
@@ -144,7 +150,8 @@ namespace ZenHandler.Dlg
                         }
                         else if (index == TRAY_KIND.NG_TRAY_R)
                         {
-                            if (RightNgTraySlots[row, col] == NgTraySlotState.NgInspection)
+                            //if (RightNgTraySlots[row, col] == NgTraySlotState.NgInspection)
+                            if (Globalo.yamlManager.taskDataYaml.TrayData.RightNgTraySlots[row][col] == (int)NgTraySlotState.NgInspection)
                             {
                                 panel.BackColor = Color.Red;
                             }
