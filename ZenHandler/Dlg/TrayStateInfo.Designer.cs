@@ -30,12 +30,14 @@ namespace ZenHandler.Dlg
         private void InitializeComponent()
         {
             this.TitleLabel = new System.Windows.Forms.Label();
-            this.tableLayoutPanel_Load = new System.Windows.Forms.TableLayoutPanel();
-            this.tableLayoutPanel_Unload = new System.Windows.Forms.TableLayoutPanel();
-            this.tableLayoutPanel_Ng = new System.Windows.Forms.TableLayoutPanel();
+            this.tableLayoutPanel_Tray_L = new System.Windows.Forms.TableLayoutPanel();
+            this.tableLayoutPanel_Tray_R = new System.Windows.Forms.TableLayoutPanel();
+            this.tableLayoutPanel_Ng_L = new System.Windows.Forms.TableLayoutPanel();
             this.label1 = new System.Windows.Forms.Label();
             this.label2 = new System.Windows.Forms.Label();
             this.label3 = new System.Windows.Forms.Label();
+            this.label4 = new System.Windows.Forms.Label();
+            this.tableLayoutPanel_Ng_R = new System.Windows.Forms.TableLayoutPanel();
             this.SuspendLayout();
             // 
             // TitleLabel
@@ -49,38 +51,38 @@ namespace ZenHandler.Dlg
             this.TitleLabel.Text = "| Tray Info";
             this.TitleLabel.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
             // 
-            // tableLayoutPanel_Load
+            // tableLayoutPanel_Tray_L
             // 
-            this.tableLayoutPanel_Load.ColumnCount = 1;
-            this.tableLayoutPanel_Load.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 50F));
-            this.tableLayoutPanel_Load.Location = new System.Drawing.Point(22, 82);
-            this.tableLayoutPanel_Load.Name = "tableLayoutPanel_Load";
-            this.tableLayoutPanel_Load.RowCount = 1;
-            this.tableLayoutPanel_Load.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 50F));
-            this.tableLayoutPanel_Load.Size = new System.Drawing.Size(177, 240);
-            this.tableLayoutPanel_Load.TabIndex = 13;
+            this.tableLayoutPanel_Tray_L.ColumnCount = 1;
+            this.tableLayoutPanel_Tray_L.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 50F));
+            this.tableLayoutPanel_Tray_L.Location = new System.Drawing.Point(22, 82);
+            this.tableLayoutPanel_Tray_L.Name = "tableLayoutPanel_Tray_L";
+            this.tableLayoutPanel_Tray_L.RowCount = 1;
+            this.tableLayoutPanel_Tray_L.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 50F));
+            this.tableLayoutPanel_Tray_L.Size = new System.Drawing.Size(177, 240);
+            this.tableLayoutPanel_Tray_L.TabIndex = 13;
             // 
-            // tableLayoutPanel_Unload
+            // tableLayoutPanel_Tray_R
             // 
-            this.tableLayoutPanel_Unload.ColumnCount = 1;
-            this.tableLayoutPanel_Unload.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 50F));
-            this.tableLayoutPanel_Unload.Location = new System.Drawing.Point(620, 82);
-            this.tableLayoutPanel_Unload.Name = "tableLayoutPanel_Unload";
-            this.tableLayoutPanel_Unload.RowCount = 1;
-            this.tableLayoutPanel_Unload.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 50F));
-            this.tableLayoutPanel_Unload.Size = new System.Drawing.Size(177, 240);
-            this.tableLayoutPanel_Unload.TabIndex = 14;
+            this.tableLayoutPanel_Tray_R.ColumnCount = 1;
+            this.tableLayoutPanel_Tray_R.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 50F));
+            this.tableLayoutPanel_Tray_R.Location = new System.Drawing.Point(620, 82);
+            this.tableLayoutPanel_Tray_R.Name = "tableLayoutPanel_Tray_R";
+            this.tableLayoutPanel_Tray_R.RowCount = 1;
+            this.tableLayoutPanel_Tray_R.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 50F));
+            this.tableLayoutPanel_Tray_R.Size = new System.Drawing.Size(177, 240);
+            this.tableLayoutPanel_Tray_R.TabIndex = 14;
             // 
-            // tableLayoutPanel_Ng
+            // tableLayoutPanel_Ng_L
             // 
-            this.tableLayoutPanel_Ng.ColumnCount = 1;
-            this.tableLayoutPanel_Ng.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 50F));
-            this.tableLayoutPanel_Ng.Location = new System.Drawing.Point(285, 106);
-            this.tableLayoutPanel_Ng.Name = "tableLayoutPanel_Ng";
-            this.tableLayoutPanel_Ng.RowCount = 1;
-            this.tableLayoutPanel_Ng.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 50F));
-            this.tableLayoutPanel_Ng.Size = new System.Drawing.Size(150, 174);
-            this.tableLayoutPanel_Ng.TabIndex = 15;
+            this.tableLayoutPanel_Ng_L.ColumnCount = 1;
+            this.tableLayoutPanel_Ng_L.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 50F));
+            this.tableLayoutPanel_Ng_L.Location = new System.Drawing.Point(270, 106);
+            this.tableLayoutPanel_Ng_L.Name = "tableLayoutPanel_Ng_L";
+            this.tableLayoutPanel_Ng_L.RowCount = 1;
+            this.tableLayoutPanel_Ng_L.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 50F));
+            this.tableLayoutPanel_Ng_L.Size = new System.Drawing.Size(122, 174);
+            this.tableLayoutPanel_Ng_L.TabIndex = 15;
             // 
             // label1
             // 
@@ -103,7 +105,7 @@ namespace ZenHandler.Dlg
             this.label2.Name = "label2";
             this.label2.Size = new System.Drawing.Size(177, 23);
             this.label2.TabIndex = 17;
-            this.label2.Text = "#2 UNLOAD TRAY";
+            this.label2.Text = "#2 LOAD TRAY";
             this.label2.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
             // label3
@@ -111,23 +113,48 @@ namespace ZenHandler.Dlg
             this.label3.BackColor = System.Drawing.SystemColors.ActiveCaptionText;
             this.label3.Font = new System.Drawing.Font("나눔고딕", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(129)));
             this.label3.ForeColor = System.Drawing.SystemColors.HighlightText;
-            this.label3.Location = new System.Drawing.Point(285, 82);
+            this.label3.Location = new System.Drawing.Point(270, 82);
             this.label3.Name = "label3";
-            this.label3.Size = new System.Drawing.Size(150, 23);
+            this.label3.Size = new System.Drawing.Size(122, 23);
             this.label3.TabIndex = 18;
             this.label3.Text = "NG TRAY";
             this.label3.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            // 
+            // label4
+            // 
+            this.label4.BackColor = System.Drawing.SystemColors.ActiveCaptionText;
+            this.label4.Font = new System.Drawing.Font("나눔고딕", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(129)));
+            this.label4.ForeColor = System.Drawing.SystemColors.HighlightText;
+            this.label4.Location = new System.Drawing.Point(416, 82);
+            this.label4.Name = "label4";
+            this.label4.Size = new System.Drawing.Size(122, 23);
+            this.label4.TabIndex = 20;
+            this.label4.Text = "NG TRAY";
+            this.label4.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            // 
+            // tableLayoutPanel_Ng_R
+            // 
+            this.tableLayoutPanel_Ng_R.ColumnCount = 1;
+            this.tableLayoutPanel_Ng_R.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 50F));
+            this.tableLayoutPanel_Ng_R.Location = new System.Drawing.Point(416, 106);
+            this.tableLayoutPanel_Ng_R.Name = "tableLayoutPanel_Ng_R";
+            this.tableLayoutPanel_Ng_R.RowCount = 1;
+            this.tableLayoutPanel_Ng_R.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 50F));
+            this.tableLayoutPanel_Ng_R.Size = new System.Drawing.Size(122, 174);
+            this.tableLayoutPanel_Ng_R.TabIndex = 19;
             // 
             // TrayStateInfo
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 12F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
+            this.Controls.Add(this.label4);
+            this.Controls.Add(this.tableLayoutPanel_Ng_R);
             this.Controls.Add(this.label3);
             this.Controls.Add(this.label2);
             this.Controls.Add(this.label1);
-            this.Controls.Add(this.tableLayoutPanel_Ng);
-            this.Controls.Add(this.tableLayoutPanel_Unload);
-            this.Controls.Add(this.tableLayoutPanel_Load);
+            this.Controls.Add(this.tableLayoutPanel_Ng_L);
+            this.Controls.Add(this.tableLayoutPanel_Tray_R);
+            this.Controls.Add(this.tableLayoutPanel_Tray_L);
             this.Controls.Add(this.TitleLabel);
             this.Name = "TrayStateInfo";
             this.Size = new System.Drawing.Size(800, 325);
@@ -139,11 +166,13 @@ namespace ZenHandler.Dlg
         #endregion
 
         private System.Windows.Forms.Label TitleLabel;
-        private System.Windows.Forms.TableLayoutPanel tableLayoutPanel_Load;
-        private System.Windows.Forms.TableLayoutPanel tableLayoutPanel_Unload;
-        private System.Windows.Forms.TableLayoutPanel tableLayoutPanel_Ng;
+        private System.Windows.Forms.TableLayoutPanel tableLayoutPanel_Tray_L;
+        private System.Windows.Forms.TableLayoutPanel tableLayoutPanel_Tray_R;
+        private System.Windows.Forms.TableLayoutPanel tableLayoutPanel_Ng_L;
         private System.Windows.Forms.Label label1;
         private System.Windows.Forms.Label label2;
         private System.Windows.Forms.Label label3;
+        private System.Windows.Forms.Label label4;
+        private System.Windows.Forms.TableLayoutPanel tableLayoutPanel_Ng_R;
     }
 }
