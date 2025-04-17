@@ -48,6 +48,8 @@
             this.checkBox_BcrGo = new System.Windows.Forms.CheckBox();
             this.checkBox_IdleReportPass = new System.Windows.Forms.CheckBox();
             this.label3 = new System.Windows.Forms.Label();
+            this.label5 = new System.Windows.Forms.Label();
+            this.ComboBox_Language = new ReaLTaiizor.Controls.PoisonComboBox();
             this.ManualPanel.SuspendLayout();
             this.groupBox3.SuspendLayout();
             this.groupBox1.SuspendLayout();
@@ -78,6 +80,8 @@
             // groupBox3
             // 
             this.groupBox3.BackColor = System.Drawing.Color.White;
+            this.groupBox3.Controls.Add(this.ComboBox_Language);
+            this.groupBox3.Controls.Add(this.label5);
             this.groupBox3.Controls.Add(this.label_CsvScanMax);
             this.groupBox3.Controls.Add(this.label4);
             this.groupBox3.Controls.Add(this.label_PinCountMax);
@@ -231,7 +235,7 @@
             this.label1.Name = "label1";
             this.label1.Size = new System.Drawing.Size(204, 23);
             this.label1.TabIndex = 26;
-            this.label1.Text = "COM PORT";
+            this.label1.Text = "COMMUNICATION";
             this.label1.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
             // groupBox2
@@ -328,6 +332,32 @@
             this.label3.Text = "운전 설정";
             this.label3.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
+            // label5
+            // 
+            this.label5.BackColor = System.Drawing.SystemColors.Window;
+            this.label5.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.label5.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.label5.Font = new System.Drawing.Font("나눔고딕", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(129)));
+            this.label5.ForeColor = System.Drawing.Color.Black;
+            this.label5.Location = new System.Drawing.Point(17, 249);
+            this.label5.Name = "label5";
+            this.label5.Size = new System.Drawing.Size(108, 29);
+            this.label5.TabIndex = 35;
+            this.label5.Text = "Language";
+            this.label5.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            // 
+            // ComboBox_Language
+            // 
+            this.ComboBox_Language.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.ComboBox_Language.ForeColor = System.Drawing.Color.Black;
+            this.ComboBox_Language.FormattingEnabled = true;
+            this.ComboBox_Language.ItemHeight = 23;
+            this.ComboBox_Language.Location = new System.Drawing.Point(131, 249);
+            this.ComboBox_Language.Name = "ComboBox_Language";
+            this.ComboBox_Language.Size = new System.Drawing.Size(153, 29);
+            this.ComboBox_Language.TabIndex = 49;
+            this.ComboBox_Language.UseSelectable = true;
+            // 
             // ConfigControl
             // 
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.None;
@@ -367,5 +397,7 @@
         public System.Windows.Forms.Label label2;
         private System.Windows.Forms.Label label_CsvScanMax;
         public System.Windows.Forms.Label label4;
+        public System.Windows.Forms.Label label5;
+        private ReaLTaiizor.Controls.PoisonComboBox ComboBox_Language;
     }
 }

@@ -134,6 +134,47 @@ namespace ZenHandler.Data
                 return false;
             }
         }
+        public static bool TaskSave_Transfer(Machine.PickedProduct data, string fileName)
+        {
+            string filePath = Path.Combine(CPath.BASE_ENV_PATH, fileName);       //LOT DATA
+            try
+            {
+                Data.YamlManager.SaveYaml(filePath, data);
+                return true;
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine($"Error TrayDataSave: {ex.Message}");
+                return false;
+            }
+
+        }
+        public static Machine.PickedProduct TaskLoad_Transfer(string fileName)
+        {
+            string filePath = Path.Combine(CPath.BASE_ENV_PATH, fileName);       //TRAY DATA
+            try
+            {
+                if (!File.Exists(filePath))
+                {
+                    return new Machine.PickedProduct();
+                }
+
+
+                Machine.PickedProduct data = Data.YamlManager.LoadYaml<Machine.PickedProduct>(filePath);
+                if (data == null)
+                {
+
+                    return new Machine.PickedProduct();
+                }
+                return data;
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine($"Error loading TaskLoad Transfer: {ex.Message}");
+                return new Machine.PickedProduct();
+            }
+        }
     }
+    
     
 }

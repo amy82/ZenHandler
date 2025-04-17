@@ -63,9 +63,18 @@ namespace ZenHandler.Resource {
         /// <summary>
         ///   ZenHandler과(와) 유사한 지역화된 문자열을 찾습니다.
         /// </summary>
-        internal static string TitleText {
+        internal static string OP_ORIGIN {
             get {
-                return ResourceManager.GetString("TitleText", resourceCulture);
+                return ResourceManager.GetString("OP_ORIGIN", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   과(와) 유사한 지역화된 문자열을 찾습니다.
+        /// </summary>
+        internal static string OP_READY {
+            get {
+                return ResourceManager.GetString("OP_READY", resourceCulture);
             }
         }
     }

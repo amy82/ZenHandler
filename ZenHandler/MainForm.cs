@@ -64,7 +64,7 @@ namespace ZenHandler  //ApsMotionControl
             //Globalo.yamlManager.teachData.LoadTeaching(className);
 
 
-            Globalo.yamlManager.configDataLoad();
+            //Globalo.yamlManager.configDataLoad();
             Globalo.yamlManager.taskDataYaml.TaskDataLoad();
 
             Globalo.yamlManager.taskDataYaml.TrayDataLoad();
@@ -207,19 +207,11 @@ namespace ZenHandler  //ApsMotionControl
 
             Console.WriteLine($"Bottom Panel Size ({BottomPanel.Width},{BottomPanel.Height})");
         }
-        public void SetLanguage(string langCode)
-        {
-            var ci = new CultureInfo(langCode);
-            Thread.CurrentThread.CurrentCulture = ci;
-            Thread.CurrentThread.CurrentUICulture = ci;
-
-            Event.EventManager.RaiseLanguageChanged();
-            //ApplyLocalization();
-        }
+        
         private void OnLanguageChanged(object sender, EventArgs e)
         {
             // 이벤트 처리
-            this.Text = Resource.Strings.TitleText;
+            this.Text = Resource.Strings.OP_ORIGIN;
             Console.WriteLine("MainForm - OnLanguageChanged");
         }
         private async void serverStart()

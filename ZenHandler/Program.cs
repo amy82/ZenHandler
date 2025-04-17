@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Globalization;
 using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
@@ -26,7 +27,10 @@ namespace ZenHandler
             {
                 if (isAppAlreadyRunning)
                 {
+                    Globalo.yamlManager.configDataLoad();
                     // 애플리케이션이 처음 실행될 때
+                    SetLanguage("es");
+
                     Application.Run(new MainForm());
                 }
                 else
@@ -36,6 +40,15 @@ namespace ZenHandler
                 }
             }
             
+        }
+        public static void SetLanguage(string langCode)
+        {
+            var ci = new CultureInfo(langCode);
+            Thread.CurrentThread.CurrentCulture = ci;
+            Thread.CurrentThread.CurrentUICulture = ci;
+
+            Event.EventManager.RaiseLanguageChanged();
+            //ApplyLocalization();
         }
     }
 }

@@ -19,6 +19,9 @@ namespace ZenHandler.Data
         public int PinCountMax { get; set; }
         public int CsvScanMonth { get; set; }
         public bool ImageGrabUse { get; set; }
+        public string Language { get; set; }
+
+
 
     }
     public class ConfigData
