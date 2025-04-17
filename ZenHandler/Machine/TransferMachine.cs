@@ -874,7 +874,23 @@ namespace ZenHandler.Machine
         }
         public override bool ReadyRun()
         {
-            motorAutoThread.m_nCurrentStep = 2000;
+            if (motorAutoThread.GetThreadRun() == true)
+            {
+                return false;
+            }
+
+            if (TransferX.OrgState == false || TransferY.OrgState == false || TransferZ.OrgState == false)
+            {
+                this.RunState = OperationState.Originning;
+                motorAutoThread.m_nCurrentStep = 1000;
+            }
+            else
+            {
+                this.RunState = OperationState.Preparing;
+                motorAutoThread.m_nCurrentStep = 2000;
+            }
+
+            
             motorAutoThread.m_nEndStep = 3000;
             motorAutoThread.m_nStartStep = motorAutoThread.m_nCurrentStep;
 
@@ -886,10 +902,13 @@ namespace ZenHandler.Machine
             bool rtn = motorAutoThread.Start();
             if (rtn)
             {
+                Console.WriteLine($"[ORIGIN] Transfer Ready Start");
                 Console.WriteLine($"모터 동작 성공.");
             }
             else
             {
+                this.RunState = OperationState.Stopped;
+                Console.WriteLine($"[ORIGIN] Transfer Ready Start Fail");
                 Console.WriteLine($"모터 동작 실패.");
             }
 
@@ -904,33 +923,44 @@ namespace ZenHandler.Machine
         }
         public override bool AutoRun()
         {
+            bool rtn = true;
+            if (this.RunState != OperationState.PreparationComplete)
+            {
+                Globalo.LogPrint("MainForm", "[TRANSFER] 운전준비가 완료되지 않았습니다.", Globalo.eMessageName.M_WARNING);
+                return false;
+            }
             if (motorAutoThread.GetThreadRun() == true)
             {
                 Console.WriteLine($"모터 동작 중입니다.");
-                if (motorAutoThread.GetThreadPause())
+                if (motorAutoThread.GetThreadPause() == true)
                 {
                     motorAutoThread.m_nCurrentStep = Math.Abs(motorAutoThread.m_nCurrentStep);
                 }
-                return false;
+                else
+                {
+                    rtn = false;
+                }
             }
             else
             {
+                motorAutoThread.m_nCurrentStep = 3000;
+                motorAutoThread.m_nEndStep = 10000;
+                motorAutoThread.m_nStartStep = motorAutoThread.m_nCurrentStep;
 
+                rtn = motorAutoThread.Start();
+
+                if (rtn)
+                {
+                    Console.WriteLine($"모터 동작 성공.");
+                }
+                else
+                {
+                    Console.WriteLine($"모터 동작 실패.");
+                }
             }
 
 
-            motorAutoThread.m_nCurrentStep = 3000;
-            motorAutoThread.m_nEndStep = 10000;
-            motorAutoThread.m_nStartStep = motorAutoThread.m_nCurrentStep;
-            bool rtn = motorAutoThread.Start();
-            if (rtn)
-            {
-                Console.WriteLine($"모터 동작 성공.");
-            }
-            else
-            {
-                Console.WriteLine($"모터 동작 실패.");
-            }
+           
 
             return rtn;
         }
