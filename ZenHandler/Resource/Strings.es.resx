@@ -117,4 +117,22 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
+  <data name="OP_ORIGIN" xml:space="preserve">
+    <value>ORIGEN</value>
+  </data>
+  <data name="OP_READY" xml:space="preserve">
+    <value>LISTO</value>
+  </data>
+  <data name="OP_PAUSE" xml:space="preserve">
+    <value>PAUSA</value>
+  </data>
+  <data name="OP_STOP" xml:space="preserve">
+    <value>PARAR</value>
+  </data>
+  <data name="OP_START" xml:space="preserve">
+    <value>INICIO</value>
+  </data>
+  <data name="OP_TITLE" xml:space="preserve">
+    <value>FUNCIONAMIENTO</value>
+  </data>
 </root>

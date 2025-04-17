@@ -211,7 +211,7 @@ namespace ZenHandler  //ApsMotionControl
         private void OnLanguageChanged(object sender, EventArgs e)
         {
             // 이벤트 처리
-            this.Text = Resource.Strings.OP_ORIGIN;
+            //this.Text = Resource.Strings.OP_ORIGIN;
             Console.WriteLine("MainForm - OnLanguageChanged");
         }
         private async void serverStart()

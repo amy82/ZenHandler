@@ -38,6 +38,7 @@ namespace ZenHandler.Dlg
         {
             ShowDriveSet();
             ShowComPort();
+            ShowLanguage();
         }
         public void GetConfigData()
         {
@@ -109,7 +110,7 @@ namespace ZenHandler.Dlg
                 poisonComboBox_BcrPort.Items.Add("COM" + (i + 1).ToString());
             }
 
-            ComboBox_Language.Items.Add("kr");
+            ComboBox_Language.Items.Add("ko");
             ComboBox_Language.Items.Add("en");
             ComboBox_Language.Items.Add("es");
 

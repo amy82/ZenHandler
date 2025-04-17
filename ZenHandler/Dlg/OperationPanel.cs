@@ -22,7 +22,7 @@ namespace ZenHandler.Dlg
         public OperationPanel()
         {
             InitializeComponent();
-
+            Event.EventManager.LanguageChanged += OnLanguageChanged;
             //int i = 0;
             RunBtnArr[0] = BTN_MAIN_ORIGIN1;
             RunBtnArr[1] = BTN_MAIN_READY1;
@@ -30,6 +30,17 @@ namespace ZenHandler.Dlg
             RunBtnArr[3] = BTN_MAIN_STOP1;
             RunBtnArr[4] = BTN_MAIN_START1;
 
+        }
+        private void OnLanguageChanged(object sender, EventArgs e)
+        {
+            // 이벤트 처리
+            Console.WriteLine("OperationPanel - OnLanguageChanged");
+            ManualTitleLabel.Text = Resource.Strings.OP_TITLE;
+            BTN_MAIN_ORIGIN1.Text = Resource.Strings.OP_ORIGIN;
+            BTN_MAIN_READY1.Text = Resource.Strings.OP_READY;
+            BTN_MAIN_PAUSE1.Text = Resource.Strings.OP_PAUSE;
+            BTN_MAIN_STOP1.Text = Resource.Strings.OP_STOP;
+            BTN_MAIN_START1.Text = Resource.Strings.OP_START;
         }
         public bool StartHomeProcess()
         {

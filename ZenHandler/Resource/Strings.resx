@@ -118,9 +118,21 @@
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
   <data name="OP_ORIGIN" xml:space="preserve">
-    <value>ZenHandler</value>
+    <value>ORIGIN</value>
   </data>
   <data name="OP_READY" xml:space="preserve">
-    <value />
+    <value>READY</value>
+  </data>
+  <data name="OP_PAUSE" xml:space="preserve">
+    <value>PAUSE</value>
+  </data>
+  <data name="OP_STOP" xml:space="preserve">
+    <value>STOP</value>
+  </data>
+  <data name="OP_START" xml:space="preserve">
+    <value>START</value>
+  </data>
+  <data name="OP_TITLE" xml:space="preserve">
+    <value>OPERATION</value>
   </data>
 </root>
