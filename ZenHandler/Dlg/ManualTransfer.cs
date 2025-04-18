@@ -116,54 +116,55 @@ namespace ZenHandler.Dlg
 
         private void ManualLoadVacuumOn(int index, bool bFlag)
         {
-            if (ProgramState.CurrentState == OperationState.AutoRunning)
+            if (Globalo.motionManager.transferMachine.RunState == OperationState.AutoRunning)
             {
                 Globalo.LogPrint("ManualControl", "[INFO] 자동 운전 중 사용 불가", Globalo.eMessageName.M_WARNING);
                 return;
             }
-            if (ProgramState.CurrentState == OperationState.Paused)
+            if (Globalo.motionManager.transferMachine.RunState == OperationState.Paused)
             {
                 Globalo.LogPrint("ManualControl", "[INFO] 일시 정지 중 사용 불가", Globalo.eMessageName.M_WARNING);
                 return;
             }
-
+            Globalo.motionManager.transferMachine.RunState = OperationState.Stopped;
             Globalo.motionManager.transferMachine.LoadVacuumOn(index, bFlag);
         }
         private void ManualUnLoadVacuumOn(int index, bool bFlag)
         {
-            if (ProgramState.CurrentState == OperationState.AutoRunning)
+            if (Globalo.motionManager.transferMachine.RunState == OperationState.AutoRunning)
             {
                 Globalo.LogPrint("ManualControl", "[INFO] 자동 운전 중 사용 불가", Globalo.eMessageName.M_WARNING);
                 return;
             }
-            if (ProgramState.CurrentState == OperationState.Paused)
+            if (Globalo.motionManager.transferMachine.RunState == OperationState.Paused)
             {
                 Globalo.LogPrint("ManualControl", "[INFO] 일시 정지 중 사용 불가", Globalo.eMessageName.M_WARNING);
                 return;
             }
-
+            Globalo.motionManager.transferMachine.RunState = OperationState.Stopped;
             Globalo.motionManager.transferMachine.UnLoadVacuumOn(index, bFlag);
         }
 
 
         private async void Manual_Z_Move(Machine.TransferMachine.eTeachingPosList ePos)
         {
-            if (ProgramState.CurrentState == OperationState.AutoRunning)
+            if (Globalo.motionManager.transferMachine.RunState == OperationState.AutoRunning)
             {
                 Globalo.LogPrint("ManualControl", "[INFO] 자동 운전 중 사용 불가", Globalo.eMessageName.M_WARNING);
                 return;
             }
-            if (ProgramState.CurrentState == OperationState.Paused)
+            if (Globalo.motionManager.transferMachine.RunState == OperationState.Paused)
             {
                 Globalo.LogPrint("ManualControl", "[INFO] 일시 정지 중 사용 불가", Globalo.eMessageName.M_WARNING);
                 return;
             }
-            if (isMovingTransfer)
+            if (isMovingTransfer || Globalo.motionManager.transferMachine.IsMoving())
             {
                 Console.WriteLine("Z motor running...");
                 return;
             }
-            isMovingTransfer = true;
+            Globalo.motionManager.transferMachine.RunState = OperationState.Stopped;
+            isMovingTransfer = true;        //<---이동후 기다리지 않으면 바로 true로 바껴서 얘로만 체크하면 위험
 
             cts?.Dispose();
             cts = new CancellationTokenSource();
@@ -180,7 +181,7 @@ namespace ZenHandler.Dlg
                 Task<bool> motorTask = Task.Run(() =>
                 {
                     Console.WriteLine(" ------------------> TransFer_Z_Move");
-                    bool rtn = Globalo.motionManager.transferMachine.TransFer_Z_Move(ePos, false);
+                    bool rtn = Globalo.motionManager.transferMachine.TransFer_Z_Move(ePos, true);
                     bool bComplete = true;
 
                     int nTimeTick = Environment.TickCount;
@@ -232,24 +233,26 @@ namespace ZenHandler.Dlg
 
         private async void Manual_XY_Move(Machine.TransferMachine.eTeachingPosList ePos)
         {
-            if (ProgramState.CurrentState == OperationState.AutoRunning)
+            if (Globalo.motionManager.transferMachine.RunState == OperationState.AutoRunning)
             {
                 Globalo.LogPrint("ManualControl", "[INFO] 자동 운전 중 사용 불가", Globalo.eMessageName.M_WARNING);
                 return;
             }
-            if (ProgramState.CurrentState == OperationState.Paused)
+            if (Globalo.motionManager.transferMachine.RunState == OperationState.Paused)
             {
                 Globalo.LogPrint("ManualControl", "[INFO] 일시 정지 중 사용 불가", Globalo.eMessageName.M_WARNING);
                 return;
             }
 
-            if (isMovingTransfer)
+            if (isMovingTransfer || Globalo.motionManager.transferMachine.IsMoving())
             {
                 Console.WriteLine("XY motor running...");
                 Globalo.LogPrint("", " XY AXIS MOTOR RUNNING.", Globalo.eMessageName.M_INFO);
                 return;
             }
-            isMovingTransfer = true;
+            Globalo.motionManager.transferMachine.RunState = OperationState.Stopped;
+
+            isMovingTransfer = true;//<---이동후 기다리지 않으면 바로 true로 바껴서 얘로만 체크하면 위험
             string logstr = $"[MANUAL] TRANSFER XY AXIS {ePos.ToString()} Move";
             Globalo.LogPrint("", logstr);
 
@@ -265,7 +268,7 @@ namespace ZenHandler.Dlg
                 {
                     Console.WriteLine(" ------------------> TransFer_XY_Move");
 
-                    bool rtn = Globalo.motionManager.transferMachine.TransFer_XY_Move(ePos, false);
+                    bool rtn = Globalo.motionManager.transferMachine.TransFer_XY_Move(ePos, true);
                     bool bComplete = true;
 
                     int nTimeTick = Environment.TickCount;

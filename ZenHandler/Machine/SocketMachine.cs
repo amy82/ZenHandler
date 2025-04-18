@@ -8,7 +8,7 @@ namespace ZenHandler.Machine
 {
     public class SocketMachine : MotionControl.MotorController
     {
-        public int MotorCnt { get; private set; } = 3;
+        public int MotorCnt { get; private set; } = 5;
 
         public MotionControl.MotorAxis FrontSocketX;    //eeprom 공정
         public MotionControl.MotorAxis BackSocketX;    //eeprom 공정

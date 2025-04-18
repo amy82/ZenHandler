@@ -98,7 +98,6 @@ namespace ZenHandler.Dlg
                 ComboBox_Language.SelectedIndex = index;
             }
 
-            Program.SetLanguage(comData);   //언어 변경
         }
         public void setInterface()
         {
@@ -175,6 +174,11 @@ namespace ZenHandler.Dlg
             Globalo.yamlManager.configDataSave();
             //
             RefreshConfig();
+
+
+            string comData = Globalo.yamlManager.configData.DrivingSettings.Language;
+
+            Program.SetLanguage(comData);   //언어 변경
         }
 
         private void button_Bcr_Connect_Click(object sender, EventArgs e)

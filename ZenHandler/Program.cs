@@ -27,10 +27,7 @@ namespace ZenHandler
             {
                 if (isAppAlreadyRunning)
                 {
-                    Globalo.yamlManager.configDataLoad();
                     // 애플리케이션이 처음 실행될 때
-                    SetLanguage("es");
-
                     Application.Run(new MainForm());
                 }
                 else
@@ -47,6 +44,10 @@ namespace ZenHandler
             Thread.CurrentThread.CurrentCulture = ci;
             Thread.CurrentThread.CurrentUICulture = ci;
 
+            if (langCode != "en-US")  // 예시로 영어를 기본 언어로 설정한 경우
+            {
+                Thread.CurrentThread.CurrentCulture = CultureInfo.InvariantCulture;
+            }
             Event.EventManager.RaiseLanguageChanged();
             //ApplyLocalization();
         }
@@ -54,3 +55,4 @@ namespace ZenHandler
 }
 //250417 home end 07:23
 //250418 home end 07:21
+//250419 home end 08:02

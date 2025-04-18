@@ -232,6 +232,11 @@ namespace ZenHandler.Dlg
             if (this.Visible)
             {
                 RefreshMain();
+                unitControl.showPanel();
+            }
+            else
+            {
+                unitControl.hidePanel();
             }
         }
 

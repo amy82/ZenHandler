@@ -368,7 +368,7 @@ namespace ZenHandler.Process
 
                 case 1900:
                     szLog = $"[ORIGIN] TRANSFER UNIT 전체 원점 위치 이동 완료 [STEP : {nStep}]";
-                    Globalo.LogPrint("ManualControl", szLog, Globalo.eMessageName.M_INFO);
+                    Globalo.LogPrint("ManualControl", szLog);
                     nRetStep = 2000;
                     break;
                 default:

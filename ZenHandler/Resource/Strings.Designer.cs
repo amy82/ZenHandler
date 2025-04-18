@@ -106,7 +106,7 @@ namespace ZenHandler.Resource {
         }
         
         /// <summary>
-        ///   OPERATION과(와) 유사한 지역화된 문자열을 찾습니다.
+        ///   | OPERATION과(와) 유사한 지역화된 문자열을 찾습니다.
         /// </summary>
         internal static string OP_TITLE {
             get {

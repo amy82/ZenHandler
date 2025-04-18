@@ -28,7 +28,7 @@ namespace ZenHandler.FThread
         }
         protected override void ThreadInit()
         {
-            ProgramState.CurrentState = OperationState.ManualTesting;
+            //ProgramState.CurrentState = OperationState.ManualTesting;
         }
         protected override void ThreadRun()
         {
@@ -77,7 +77,7 @@ namespace ZenHandler.FThread
             Console.WriteLine("ManualThread stopped safely.");
 
 
-            ProgramState.CurrentState = OperationState.Stopped;
+            //ProgramState.CurrentState = OperationState.Stopped;
         }
         //protected override void ProcessRun()
         //{

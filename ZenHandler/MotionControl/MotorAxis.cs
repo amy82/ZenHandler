@@ -42,7 +42,7 @@ namespace ZenHandler.MotionControl
         public double ActualPos { get; protected set; }             //현재 위치 AxmStatusGetActPos : LINEAR , SERVO
         public double CommandVelocity { get; protected set; }       //지정한 축의 구동 속도 AxmStatusReadVel
         public bool OrgState { get; set; }                //원점 상태
-        public bool RunState { get; protected set; }                //동작 상태
+        //public bool RunState { get; protected set; }                //동작 상태
         //
         //
         public AXT_MOTION_MOVE_DIR HomeMoveDir { get; protected set; }              //DIR_CW= 0x1, 시계방향/ DIR_CCW= 0x0, 반시계방향

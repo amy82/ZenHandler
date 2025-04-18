@@ -197,8 +197,9 @@ namespace ZenHandler
 
 
         public static readonly string MANUAL_BTN_ON = "#4C4743";
-        public static readonly string MANUAL_BTN_OFF = "#C3A279"; 
+        public static readonly string MANUAL_BTN_OFF = "#C3A279";
         public static readonly Color BTN_START_ON = Color.BlueViolet;
+        public static readonly Color BTN_START_OFF = Color.LimeGreen;
     }
     public static class SecsGemData
     {

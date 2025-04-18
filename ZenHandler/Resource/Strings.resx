@@ -133,6 +133,6 @@
     <value>START</value>
   </data>
   <data name="OP_TITLE" xml:space="preserve">
-    <value>OPERATION</value>
+    <value>| OPERATION</value>
   </data>
 </root>

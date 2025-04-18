@@ -106,6 +106,7 @@ namespace ZenHandler.FThread
             else if(this.m_nCurrentStep < 0)
             {
                 //Pause
+                Globalo.motionManager.transferMachine.RunState = OperationState.Paused;
                 this.Pause();
             }
             else

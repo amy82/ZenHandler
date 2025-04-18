@@ -54,7 +54,7 @@ namespace ZenHandler.Dlg
             // label3
             // 
             this.label3.BackColor = System.Drawing.Color.Peru;
-            this.label3.Font = new System.Drawing.Font("나눔고딕", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(129)));
+            this.label3.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(129)));
             this.label3.ForeColor = System.Drawing.Color.Black;
             this.label3.Location = new System.Drawing.Point(59, 326);
             this.label3.Name = "label3";
@@ -66,7 +66,7 @@ namespace ZenHandler.Dlg
             // label2
             // 
             this.label2.BackColor = System.Drawing.Color.Peru;
-            this.label2.Font = new System.Drawing.Font("나눔고딕", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(129)));
+            this.label2.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(129)));
             this.label2.ForeColor = System.Drawing.Color.Black;
             this.label2.Location = new System.Drawing.Point(398, 43);
             this.label2.Name = "label2";
@@ -78,7 +78,7 @@ namespace ZenHandler.Dlg
             // label1
             // 
             this.label1.BackColor = System.Drawing.Color.Peru;
-            this.label1.Font = new System.Drawing.Font("나눔고딕", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(129)));
+            this.label1.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(129)));
             this.label1.ForeColor = System.Drawing.Color.Black;
             this.label1.Location = new System.Drawing.Point(59, 43);
             this.label1.Name = "label1";
@@ -89,7 +89,7 @@ namespace ZenHandler.Dlg
             // 
             // BTN_TRANSFER_UNIT_READY
             // 
-            this.BTN_TRANSFER_UNIT_READY.BackColor = System.Drawing.Color.SkyBlue;
+            this.BTN_TRANSFER_UNIT_READY.BackColor = System.Drawing.Color.SteelBlue;
             this.BTN_TRANSFER_UNIT_READY.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.BTN_TRANSFER_UNIT_READY.Font = new System.Drawing.Font("맑은 고딕", 11.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(129)));
             this.BTN_TRANSFER_UNIT_READY.ForeColor = System.Drawing.Color.Black;
@@ -103,7 +103,7 @@ namespace ZenHandler.Dlg
             // 
             // BTN_TRANSFER_UNIT_AUTORUN
             // 
-            this.BTN_TRANSFER_UNIT_AUTORUN.BackColor = System.Drawing.Color.SkyBlue;
+            this.BTN_TRANSFER_UNIT_AUTORUN.BackColor = System.Drawing.Color.SteelBlue;
             this.BTN_TRANSFER_UNIT_AUTORUN.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.BTN_TRANSFER_UNIT_AUTORUN.Font = new System.Drawing.Font("맑은 고딕", 11.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(129)));
             this.BTN_TRANSFER_UNIT_AUTORUN.ForeColor = System.Drawing.Color.Black;
@@ -117,7 +117,7 @@ namespace ZenHandler.Dlg
             // 
             // BTN_TRANSFER_UNIT_STOP
             // 
-            this.BTN_TRANSFER_UNIT_STOP.BackColor = System.Drawing.Color.SkyBlue;
+            this.BTN_TRANSFER_UNIT_STOP.BackColor = System.Drawing.Color.SteelBlue;
             this.BTN_TRANSFER_UNIT_STOP.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.BTN_TRANSFER_UNIT_STOP.Font = new System.Drawing.Font("맑은 고딕", 11.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(129)));
             this.BTN_TRANSFER_UNIT_STOP.ForeColor = System.Drawing.Color.Black;
@@ -131,7 +131,7 @@ namespace ZenHandler.Dlg
             // 
             // BTN_TRANSFER_UNIT_PAUSE
             // 
-            this.BTN_TRANSFER_UNIT_PAUSE.BackColor = System.Drawing.Color.SkyBlue;
+            this.BTN_TRANSFER_UNIT_PAUSE.BackColor = System.Drawing.Color.SteelBlue;
             this.BTN_TRANSFER_UNIT_PAUSE.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.BTN_TRANSFER_UNIT_PAUSE.Font = new System.Drawing.Font("맑은 고딕", 11.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(129)));
             this.BTN_TRANSFER_UNIT_PAUSE.ForeColor = System.Drawing.Color.Black;
@@ -155,6 +155,7 @@ namespace ZenHandler.Dlg
             this.BTN_LIFT_UNIT_PAUSE.TabIndex = 65;
             this.BTN_LIFT_UNIT_PAUSE.Text = "PAUSE";
             this.BTN_LIFT_UNIT_PAUSE.UseVisualStyleBackColor = false;
+            this.BTN_LIFT_UNIT_PAUSE.Click += new System.EventHandler(this.BTN_LIFT_UNIT_PAUSE_Click);
             // 
             // BTN_LIFT_UNIT_STOP
             // 
@@ -168,6 +169,7 @@ namespace ZenHandler.Dlg
             this.BTN_LIFT_UNIT_STOP.TabIndex = 64;
             this.BTN_LIFT_UNIT_STOP.Text = "STOP";
             this.BTN_LIFT_UNIT_STOP.UseVisualStyleBackColor = false;
+            this.BTN_LIFT_UNIT_STOP.Click += new System.EventHandler(this.BTN_LIFT_UNIT_STOP_Click);
             // 
             // BTN_LIFT_UNIT_AUTORUN
             // 
@@ -181,6 +183,7 @@ namespace ZenHandler.Dlg
             this.BTN_LIFT_UNIT_AUTORUN.TabIndex = 63;
             this.BTN_LIFT_UNIT_AUTORUN.Text = "AUTORUN";
             this.BTN_LIFT_UNIT_AUTORUN.UseVisualStyleBackColor = false;
+            this.BTN_LIFT_UNIT_AUTORUN.Click += new System.EventHandler(this.BTN_LIFT_UNIT_AUTORUN_Click);
             // 
             // BTN_LIFT_UNIT_READY
             // 
@@ -194,6 +197,7 @@ namespace ZenHandler.Dlg
             this.BTN_LIFT_UNIT_READY.TabIndex = 62;
             this.BTN_LIFT_UNIT_READY.Text = "READY";
             this.BTN_LIFT_UNIT_READY.UseVisualStyleBackColor = false;
+            this.BTN_LIFT_UNIT_READY.Click += new System.EventHandler(this.BTN_LIFT_UNIT_READY_Click);
             // 
             // BTN_SOCKET_UNIT_PAUSE
             // 
@@ -207,6 +211,7 @@ namespace ZenHandler.Dlg
             this.BTN_SOCKET_UNIT_PAUSE.TabIndex = 69;
             this.BTN_SOCKET_UNIT_PAUSE.Text = "PAUSE";
             this.BTN_SOCKET_UNIT_PAUSE.UseVisualStyleBackColor = false;
+            this.BTN_SOCKET_UNIT_PAUSE.Click += new System.EventHandler(this.BTN_SOCKET_UNIT_PAUSE_Click);
             // 
             // BTN_SOCKET_UNIT_STOP
             // 
@@ -220,6 +225,7 @@ namespace ZenHandler.Dlg
             this.BTN_SOCKET_UNIT_STOP.TabIndex = 68;
             this.BTN_SOCKET_UNIT_STOP.Text = "STOP";
             this.BTN_SOCKET_UNIT_STOP.UseVisualStyleBackColor = false;
+            this.BTN_SOCKET_UNIT_STOP.Click += new System.EventHandler(this.BTN_SOCKET_UNIT_STOP_Click);
             // 
             // BTN_SOCKET_UNIT_AUTORUN
             // 
@@ -233,6 +239,7 @@ namespace ZenHandler.Dlg
             this.BTN_SOCKET_UNIT_AUTORUN.TabIndex = 67;
             this.BTN_SOCKET_UNIT_AUTORUN.Text = "AUTORUN";
             this.BTN_SOCKET_UNIT_AUTORUN.UseVisualStyleBackColor = false;
+            this.BTN_SOCKET_UNIT_AUTORUN.Click += new System.EventHandler(this.BTN_SOCKET_UNIT_AUTORUN_Click);
             // 
             // BTN_SOCKET_UNIT_READY
             // 
@@ -246,11 +253,12 @@ namespace ZenHandler.Dlg
             this.BTN_SOCKET_UNIT_READY.TabIndex = 66;
             this.BTN_SOCKET_UNIT_READY.Text = "READY";
             this.BTN_SOCKET_UNIT_READY.UseVisualStyleBackColor = false;
+            this.BTN_SOCKET_UNIT_READY.Click += new System.EventHandler(this.BTN_SOCKET_UNIT_READY_Click);
             // 
             // label4
             // 
             this.label4.BackColor = System.Drawing.Color.Peru;
-            this.label4.Font = new System.Drawing.Font("나눔고딕", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(129)));
+            this.label4.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(129)));
             this.label4.ForeColor = System.Drawing.Color.Black;
             this.label4.Location = new System.Drawing.Point(398, 326);
             this.label4.Name = "label4";
@@ -271,6 +279,7 @@ namespace ZenHandler.Dlg
             this.BTN_MAGAZINE_UNIT_PAUSE.TabIndex = 74;
             this.BTN_MAGAZINE_UNIT_PAUSE.Text = "PAUSE";
             this.BTN_MAGAZINE_UNIT_PAUSE.UseVisualStyleBackColor = false;
+            this.BTN_MAGAZINE_UNIT_PAUSE.Click += new System.EventHandler(this.BTN_MAGAZINE_UNIT_PAUSE_Click);
             // 
             // BTN_MAGAZINE_UNIT_STOP
             // 
@@ -284,6 +293,7 @@ namespace ZenHandler.Dlg
             this.BTN_MAGAZINE_UNIT_STOP.TabIndex = 73;
             this.BTN_MAGAZINE_UNIT_STOP.Text = "STOP";
             this.BTN_MAGAZINE_UNIT_STOP.UseVisualStyleBackColor = false;
+            this.BTN_MAGAZINE_UNIT_STOP.Click += new System.EventHandler(this.BTN_MAGAZINE_UNIT_STOP_Click);
             // 
             // BTN_MAGAZINE_UNIT_AUTORUN
             // 
@@ -297,6 +307,7 @@ namespace ZenHandler.Dlg
             this.BTN_MAGAZINE_UNIT_AUTORUN.TabIndex = 72;
             this.BTN_MAGAZINE_UNIT_AUTORUN.Text = "AUTORUN";
             this.BTN_MAGAZINE_UNIT_AUTORUN.UseVisualStyleBackColor = false;
+            this.BTN_MAGAZINE_UNIT_AUTORUN.Click += new System.EventHandler(this.BTN_MAGAZINE_UNIT_AUTORUN_Click);
             // 
             // BTN_MAGAZINE_UNIT_READY
             // 
@@ -310,6 +321,7 @@ namespace ZenHandler.Dlg
             this.BTN_MAGAZINE_UNIT_READY.TabIndex = 71;
             this.BTN_MAGAZINE_UNIT_READY.Text = "READY";
             this.BTN_MAGAZINE_UNIT_READY.UseVisualStyleBackColor = false;
+            this.BTN_MAGAZINE_UNIT_READY.Click += new System.EventHandler(this.BTN_MAGAZINE_UNIT_READY_Click);
             // 
             // UnitControl
             // 
