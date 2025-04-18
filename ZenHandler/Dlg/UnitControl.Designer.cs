@@ -155,6 +155,7 @@ namespace ZenHandler.Dlg
             this.BTN_LIFT_UNIT_PAUSE.TabIndex = 65;
             this.BTN_LIFT_UNIT_PAUSE.Text = "PAUSE";
             this.BTN_LIFT_UNIT_PAUSE.UseVisualStyleBackColor = false;
+            this.BTN_LIFT_UNIT_PAUSE.Click += new System.EventHandler(this.BTN_LIFT_UNIT_PAUSE_Click);
             // 
             // BTN_LIFT_UNIT_STOP
             // 
@@ -168,6 +169,7 @@ namespace ZenHandler.Dlg
             this.BTN_LIFT_UNIT_STOP.TabIndex = 64;
             this.BTN_LIFT_UNIT_STOP.Text = "STOP";
             this.BTN_LIFT_UNIT_STOP.UseVisualStyleBackColor = false;
+            this.BTN_LIFT_UNIT_STOP.Click += new System.EventHandler(this.BTN_LIFT_UNIT_STOP_Click);
             // 
             // BTN_LIFT_UNIT_AUTORUN
             // 
@@ -181,6 +183,7 @@ namespace ZenHandler.Dlg
             this.BTN_LIFT_UNIT_AUTORUN.TabIndex = 63;
             this.BTN_LIFT_UNIT_AUTORUN.Text = "AUTORUN";
             this.BTN_LIFT_UNIT_AUTORUN.UseVisualStyleBackColor = false;
+            this.BTN_LIFT_UNIT_AUTORUN.Click += new System.EventHandler(this.BTN_LIFT_UNIT_AUTORUN_Click);
             // 
             // BTN_LIFT_UNIT_READY
             // 
@@ -194,6 +197,7 @@ namespace ZenHandler.Dlg
             this.BTN_LIFT_UNIT_READY.TabIndex = 62;
             this.BTN_LIFT_UNIT_READY.Text = "READY";
             this.BTN_LIFT_UNIT_READY.UseVisualStyleBackColor = false;
+            this.BTN_LIFT_UNIT_READY.Click += new System.EventHandler(this.BTN_LIFT_UNIT_READY_Click);
             // 
             // BTN_SOCKET_UNIT_PAUSE
             // 
@@ -207,6 +211,7 @@ namespace ZenHandler.Dlg
             this.BTN_SOCKET_UNIT_PAUSE.TabIndex = 69;
             this.BTN_SOCKET_UNIT_PAUSE.Text = "PAUSE";
             this.BTN_SOCKET_UNIT_PAUSE.UseVisualStyleBackColor = false;
+            this.BTN_SOCKET_UNIT_PAUSE.Click += new System.EventHandler(this.BTN_SOCKET_UNIT_PAUSE_Click);
             // 
             // BTN_SOCKET_UNIT_STOP
             // 
@@ -220,6 +225,7 @@ namespace ZenHandler.Dlg
             this.BTN_SOCKET_UNIT_STOP.TabIndex = 68;
             this.BTN_SOCKET_UNIT_STOP.Text = "STOP";
             this.BTN_SOCKET_UNIT_STOP.UseVisualStyleBackColor = false;
+            this.BTN_SOCKET_UNIT_STOP.Click += new System.EventHandler(this.BTN_SOCKET_UNIT_STOP_Click);
             // 
             // BTN_SOCKET_UNIT_AUTORUN
             // 
@@ -233,6 +239,7 @@ namespace ZenHandler.Dlg
             this.BTN_SOCKET_UNIT_AUTORUN.TabIndex = 67;
             this.BTN_SOCKET_UNIT_AUTORUN.Text = "AUTORUN";
             this.BTN_SOCKET_UNIT_AUTORUN.UseVisualStyleBackColor = false;
+            this.BTN_SOCKET_UNIT_AUTORUN.Click += new System.EventHandler(this.BTN_SOCKET_UNIT_AUTORUN_Click);
             // 
             // BTN_SOCKET_UNIT_READY
             // 
@@ -246,6 +253,7 @@ namespace ZenHandler.Dlg
             this.BTN_SOCKET_UNIT_READY.TabIndex = 66;
             this.BTN_SOCKET_UNIT_READY.Text = "READY";
             this.BTN_SOCKET_UNIT_READY.UseVisualStyleBackColor = false;
+            this.BTN_SOCKET_UNIT_READY.Click += new System.EventHandler(this.BTN_SOCKET_UNIT_READY_Click);
             // 
             // label4
             // 
@@ -271,6 +279,7 @@ namespace ZenHandler.Dlg
             this.BTN_MAGAZINE_UNIT_PAUSE.TabIndex = 74;
             this.BTN_MAGAZINE_UNIT_PAUSE.Text = "PAUSE";
             this.BTN_MAGAZINE_UNIT_PAUSE.UseVisualStyleBackColor = false;
+            this.BTN_MAGAZINE_UNIT_PAUSE.Click += new System.EventHandler(this.BTN_MAGAZINE_UNIT_PAUSE_Click);
             // 
             // BTN_MAGAZINE_UNIT_STOP
             // 
@@ -284,6 +293,7 @@ namespace ZenHandler.Dlg
             this.BTN_MAGAZINE_UNIT_STOP.TabIndex = 73;
             this.BTN_MAGAZINE_UNIT_STOP.Text = "STOP";
             this.BTN_MAGAZINE_UNIT_STOP.UseVisualStyleBackColor = false;
+            this.BTN_MAGAZINE_UNIT_STOP.Click += new System.EventHandler(this.BTN_MAGAZINE_UNIT_STOP_Click);
             // 
             // BTN_MAGAZINE_UNIT_AUTORUN
             // 
@@ -297,6 +307,7 @@ namespace ZenHandler.Dlg
             this.BTN_MAGAZINE_UNIT_AUTORUN.TabIndex = 72;
             this.BTN_MAGAZINE_UNIT_AUTORUN.Text = "AUTORUN";
             this.BTN_MAGAZINE_UNIT_AUTORUN.UseVisualStyleBackColor = false;
+            this.BTN_MAGAZINE_UNIT_AUTORUN.Click += new System.EventHandler(this.BTN_MAGAZINE_UNIT_AUTORUN_Click);
             // 
             // BTN_MAGAZINE_UNIT_READY
             // 
@@ -310,6 +321,7 @@ namespace ZenHandler.Dlg
             this.BTN_MAGAZINE_UNIT_READY.TabIndex = 71;
             this.BTN_MAGAZINE_UNIT_READY.Text = "READY";
             this.BTN_MAGAZINE_UNIT_READY.UseVisualStyleBackColor = false;
+            this.BTN_MAGAZINE_UNIT_READY.Click += new System.EventHandler(this.BTN_MAGAZINE_UNIT_READY_Click);
             // 
             // UnitControl
             // 

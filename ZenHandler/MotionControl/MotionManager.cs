@@ -18,6 +18,7 @@ namespace ZenHandler.MotionControl
         public Machine.TransferMachine transferMachine;
         public Machine.MagazineHandler magazineHandler;
         public Machine.LiftMachine liftMachine;
+        public Machine.SocketMachine socketMachine;
         #region test
         //test 1
         //test 2
@@ -30,11 +31,13 @@ namespace ZenHandler.MotionControl
             transferMachine = new Machine.TransferMachine();        //TODO: motor , io 모두 설정되고나서 해야될수도
             magazineHandler = new Machine.MagazineHandler();
             liftMachine = new Machine.LiftMachine();
+            socketMachine = new Machine.SocketMachine();
 
 
             transferMachine.teachingConfig.LoadTeach(transferMachine.teachingPath);
             magazineHandler.teachingConfig.LoadTeach(magazineHandler.teachingPath);
             liftMachine.teachingConfig.LoadTeach(liftMachine.teachingPath);
+            socketMachine.teachingConfig.LoadTeach(socketMachine.teachingPath);
         }
 
         public void AllMotorParameterSet()
@@ -42,6 +45,7 @@ namespace ZenHandler.MotionControl
             transferMachine.MotorDataSet();
             magazineHandler.MotorDataSet();
             liftMachine.MotorDataSet();
+            socketMachine.MotorDataSet();
         }
         public void AllMotorStop()
         {
@@ -50,6 +54,7 @@ namespace ZenHandler.MotionControl
                 transferMachine.StopAuto();
                 magazineHandler.StopAuto();
                 liftMachine.StopAuto();
+                socketMachine.StopAuto();
             }
            
         }
