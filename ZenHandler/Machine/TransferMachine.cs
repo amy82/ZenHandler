@@ -88,7 +88,13 @@ namespace ZenHandler.Machine
             }
             pickedProduct = Data.TaskDataYaml.TaskLoad_Transfer(taskPath);
 
-            //Data.TaskDataYaml.TaskSave_Transfer(pickedProduct, "Task_Transfer.yaml");
+            //
+        }
+
+        public override bool TaskSave()
+        {
+            bool rtn = Data.TaskDataYaml.TaskSave_Transfer(pickedProduct, taskPath);
+            return rtn;
         }
         public override void MotorDataSet()
         {

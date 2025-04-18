@@ -82,9 +82,16 @@ namespace ZenHandler.Machine
             UnLoadLift_Z_R.setMotorParameter(10.0, 0.1, 0.1, 1000.0);
             Gantry_Y_R.setMotorParameter(10.0, 0.1, 0.1, 1000.0);
 
+
             trayProduct = Data.TaskDataYaml.TaskLoad_Lift(taskPath);
 
 
+        }
+
+        public override bool TaskSave()
+        {
+            bool rtn = Data.TaskDataYaml.TaskSave_Lift(trayProduct, taskPath);
+            return rtn;
         }
         public override void MotorDataSet()
         {

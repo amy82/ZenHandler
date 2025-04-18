@@ -59,14 +59,38 @@ namespace ZenHandler.Machine
         public List<List<int>> RightNgTraySlots { get; set; } = new List<List<int>>();
     }
 
-    
+
 
     //---------------------------------------------------------------------------------------------------------------------------------------------------
     //
     // MAGAZINE UNIT
     //
     //
+    public enum LayerState
+    {
+        Empty = 0,   // Tray 없음
+        Disabled,   //사용 못함
+        BeforeTest, //검사 전
+        AfterTest,  //검사 완료
+        Inspecting, //검사 중      <---하나의 tray 만 적용돼야된다.
+        Unknown     // 미확인 (필요 시)
+    }
+    public class MagazineInfo
+    {
+        public int Index { get; set; }      //위에서 부터 0
+        public LayerState State { get; set; } = LayerState.Empty;
 
+        public MagazineInfo() { }  // <- 이게 없으면 yaml 로드 안됨
+        public MagazineInfo(int index)
+        {
+            Index = index;
+        }
+    }
+    public class MagazineTray
+    {
+        MagazineInfo LeftMagazineInfo { get; set; } = new MagazineInfo();
+        MagazineInfo RightMagazineInfo { get; set; } = new MagazineInfo();
+    }
 
 
     //---------------------------------------------------------------------------------------------------------------------------------------------------

@@ -50,6 +50,7 @@ namespace ZenHandler.Machine
         public string taskPath = "Task_Magazine.yaml";
         public Data.TeachingConfig teachingConfig = new Data.TeachingConfig();
         //public LayerTray pickedProduct = new LayerTray();
+        public MagazineTray magazineTray = new MagazineTray();
 
         public MagazineHandler()// : base("MagazineHandler")
         {
@@ -61,13 +62,13 @@ namespace ZenHandler.Machine
             //private MotionControl.MotorAxis MagazineY_R;
             //private MotionControl.MotorAxis MagazineZ_R;
 
-            MagazineY_L = new MotionControl.MotorAxis((int)MotionControl.MotorSet.eTransferMotorList.TRANSFER_X,
+            MagazineY_L = new MotionControl.MotorAxis((int)MotionControl.MotorSet.eMagazineMotorList.L_MAGAZINE_Z,
                 axisName[0], motorType[0], MOTOR_MAX_SPEED[0], AXT_SET_LIMIT[0], AXT_SET_SERVO_ALARM[0], OrgFirstVel[0], OrgSecondVel[0], OrgThirdVel[0], MOTOR_HOME_SENSOR[0], MOTOR_HOME_DIR[0]);
-            MagazineZ_L = new MotionControl.MotorAxis((int)MotionControl.MotorSet.eTransferMotorList.TRANSFER_X,
-                axisName[1], motorType[10], MOTOR_MAX_SPEED[1], AXT_SET_LIMIT[1], AXT_SET_SERVO_ALARM[1], OrgFirstVel[1], OrgSecondVel[1], OrgThirdVel[1], MOTOR_HOME_SENSOR[10], MOTOR_HOME_DIR[1]);
-            MagazineY_R = new MotionControl.MotorAxis((int)MotionControl.MotorSet.eTransferMotorList.TRANSFER_X,
+            MagazineZ_L = new MotionControl.MotorAxis((int)MotionControl.MotorSet.eMagazineMotorList.L_MAGAZINE_Y,
+                axisName[1], motorType[1], MOTOR_MAX_SPEED[1], AXT_SET_LIMIT[1], AXT_SET_SERVO_ALARM[1], OrgFirstVel[1], OrgSecondVel[1], OrgThirdVel[1], MOTOR_HOME_SENSOR[1], MOTOR_HOME_DIR[1]);
+            MagazineY_R = new MotionControl.MotorAxis((int)MotionControl.MotorSet.eMagazineMotorList.R_MAGAZINE_Z,
                 axisName[2], motorType[2], MOTOR_MAX_SPEED[2], AXT_SET_LIMIT[2], AXT_SET_SERVO_ALARM[2], OrgFirstVel[2], OrgSecondVel[2], OrgThirdVel[2], MOTOR_HOME_SENSOR[2], MOTOR_HOME_DIR[2]);
-            MagazineZ_R = new MotionControl.MotorAxis((int)MotionControl.MotorSet.eTransferMotorList.TRANSFER_X,
+            MagazineZ_R = new MotionControl.MotorAxis((int)MotionControl.MotorSet.eMagazineMotorList.R_MAGAZINE_Y,
                 axisName[3], motorType[3], MOTOR_MAX_SPEED[3], AXT_SET_LIMIT[3], AXT_SET_SERVO_ALARM[3], OrgFirstVel[3], OrgSecondVel[3], OrgThirdVel[3], MOTOR_HOME_SENSOR[3], MOTOR_HOME_DIR[3]);
 
             MotorAxes = new MotionControl.MotorAxis[] { MagazineY_L, MagazineZ_L, MagazineY_R, MagazineZ_R };
@@ -80,6 +81,14 @@ namespace ZenHandler.Machine
 
 
 
+            magazineTray = Data.TaskDataYaml.TaskLoad_Magazine(taskPath);
+            
+
+        }
+        public override bool TaskSave()
+        {
+            bool rtn = Data.TaskDataYaml.TaskSave_Magazine(magazineTray, taskPath);
+            return rtn;
         }
         public override bool IsMoving()
         {
