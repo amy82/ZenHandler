@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Drawing;
+using System.Globalization;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -125,11 +126,11 @@ namespace ZenHandler.Controls
 
             for (i = 0; i < motorList.Length; i++)
             {
-                formattedValue = teachingData.Speed[i].ToString(PointFormat);
+                formattedValue = teachingData.Speed[i].ToString(PointFormat);//, CultureInfo.InvariantCulture);     //
                 this[1 + i, selectStartRow + 0].Value = formattedValue;
-                formattedValue = teachingData.Accel[i].ToString(PointFormat);
+                formattedValue = teachingData.Accel[i].ToString(PointFormat);//, CultureInfo.InvariantCulture);
                 this[1 + i, selectStartRow + 1].Value = formattedValue;
-                formattedValue = teachingData.Decel[i].ToString(PointFormat);
+                formattedValue = teachingData.Decel[i].ToString(PointFormat);//, CultureInfo.InvariantCulture);
                 this[1 + i, selectStartRow + 2].Value = formattedValue;
             }
 
@@ -137,7 +138,7 @@ namespace ZenHandler.Controls
             {
                 for (j = 0; j < teachingData.Teaching[i].Pos.Count; j++)
                 {
-                    formattedValue = teachingData.Teaching[i].Pos[j].ToString(PointFormat);
+                    formattedValue = teachingData.Teaching[i].Pos[j].ToString(PointFormat, CultureInfo.InvariantCulture);
                     this[1 + j, 9 + i].Value = formattedValue;
                 }
             }

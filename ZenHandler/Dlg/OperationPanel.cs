@@ -23,6 +23,7 @@ namespace ZenHandler.Dlg
         {
             InitializeComponent();
             Event.EventManager.LanguageChanged += OnLanguageChanged;
+            Event.EventManager.PgExitCall += OnPgExit;
             //int i = 0;
             RunBtnArr[0] = BTN_MAIN_ORIGIN1;
             RunBtnArr[1] = BTN_MAIN_READY1;
@@ -41,6 +42,13 @@ namespace ZenHandler.Dlg
             BTN_MAIN_PAUSE1.Text = Resource.Strings.OP_PAUSE;
             BTN_MAIN_STOP1.Text = Resource.Strings.OP_STOP;
             BTN_MAIN_START1.Text = Resource.Strings.OP_START;
+        }
+        private void OnPgExit(object sender, EventArgs e)
+        {
+            Console.WriteLine("OperationPanel - OnPgExit");
+            _timerRunButton.Stop();      // 타이머 중지
+            _timerRunButton.Dispose();   // 리소스 해제
+            _timerRunButton = null;
         }
         public bool StartHomeProcess()
         {
@@ -62,7 +70,23 @@ namespace ZenHandler.Dlg
             return true;
 
         }
+        public void StartAutoReadyProcess()
+        {
+            bool bRtn = false;
+            bRtn = Globalo.motionManager.transferMachine.ReadyRun();
+            if (bRtn == false)
+            {
+                Globalo.motionManager.transferMachine.StopAuto();
+                Globalo.LogPrint("ManualCMainFormontrol", "[READY] TRANSFER UNIT READY FAIL", Globalo.eMessageName.M_WARNING);
+            }
+            else
+            {
+                Globalo.LogPrint("ManualCMainFormontrol", "[READY] TRANSFER UNIT READY START");
+            }
+            //Globalo.operationPanel.AutoRunBtnUiTimer(1);
+            //Globalo.operationPanel.AutoButtonSet(ProgramState.CurrentState);
 
+        }
         public void StopAutoProcess()
         {
             Globalo.operationPanel.AutoRunTimerStop();
@@ -220,6 +244,7 @@ namespace ZenHandler.Dlg
                 return;  // 이미 타이머가 실행 중이면 실행하지 않음
             }
             isTimerRunning = true;  // 타이머 시작 시 실행 중으로 설정
+
             ReadyBtnOn = false;
             _timerRunButton = new System.Windows.Forms.Timer();
             _timerRunButton.Interval = interval;
@@ -239,21 +264,48 @@ namespace ZenHandler.Dlg
 
         private void BTN_MAIN_ORIGIN1_Click(object sender, EventArgs e)
         {
+            if (Globalo.motionManager.transferMachine.RunState == OperationState.Originning)
+            {
+                Globalo.LogPrint("MainForm", "[INFO] 원점 동작 중 사용 불가", Globalo.eMessageName.M_WARNING);
+                return;
+            }
+            if (Globalo.motionManager.transferMachine.RunState == OperationState.Preparing)
+            {
+                Globalo.LogPrint("MainForm", "[INFO] 운전 준비 중 사용 불가", Globalo.eMessageName.M_WARNING);
+                return;
+            }
+            if (Globalo.motionManager.transferMachine.RunState == OperationState.AutoRunning)
+            {
+                Globalo.LogPrint("MainForm", "[INFO] 자동 운전 중 사용 불가", Globalo.eMessageName.M_WARNING);
+                return;
+            }
+            if (Globalo.motionManager.transferMachine.RunState == OperationState.Paused)
+            {
+                Globalo.LogPrint("ManualCMainFormontrol", "[INFO] 일시 정지 중 사용 불가", Globalo.eMessageName.M_WARNING);
+                return;
+            }
+
+            MessagePopUpForm messagePopUp = new MessagePopUpForm("", "YES", "NO");
+            messagePopUp.MessageSet(Globalo.eMessageName.M_ASK, "전체 원점동작 하시겠습니까 ?");
+            DialogResult result = messagePopUp.ShowDialog();
+
+            if (result == DialogResult.Yes)
+            {
+                StartHomeProcess();
+            }
             
         }
-        public void StartAutoReadyProcess()
-        {
-            
-
-            //Globalo.operationPanel.AutoRunBtnUiTimer(1);
-            //Globalo.operationPanel.AutoButtonSet(ProgramState.CurrentState);
-
-        }
+        
         private void BTN_MAIN_READY1_Click(object sender, EventArgs e)
         {
             if (Globalo.motionManager.transferMachine.RunState == OperationState.Originning)
             {
                 Globalo.LogPrint("MainForm", "[INFO] 원점 동작 중 사용 불가", Globalo.eMessageName.M_WARNING);
+                return;
+            }
+            if (Globalo.motionManager.transferMachine.RunState == OperationState.Preparing)
+            {
+                Globalo.LogPrint("MainForm", "[INFO] 운전 준비 중 사용 불가", Globalo.eMessageName.M_WARNING);
                 return;
             }
             if (Globalo.motionManager.transferMachine.RunState == OperationState.AutoRunning)
@@ -269,27 +321,13 @@ namespace ZenHandler.Dlg
 
 
             MessagePopUpForm messagePopUp = new MessagePopUpForm("", "YES", "NO");
-            messagePopUp.MessageSet(Globalo.eMessageName.M_ASK, "전체 원점복귀 하시겠습니까 ?");
+            messagePopUp.MessageSet(Globalo.eMessageName.M_ASK, "전체 운전준비 하시겠습니까 ?");
             DialogResult result = messagePopUp.ShowDialog();
 
             if (result == DialogResult.Yes)
             {
                 StartAutoReadyProcess();
             }
-
-
-            //string logStr = "운전준비 하시겠습니까 ?";
-
-            //if (ProgramState.CurrentState == OperationState.Paused)
-            //{
-            //    if (Math.Abs(Globalo.taskWork.m_nCurrentStep) < 20000 || Math.Abs(Globalo.taskWork.m_nCurrentStep) >= 30000)
-            //    {
-            //        Globalo.LogPrint("MainForm", "[INFO] 설비 정지 상태가 아닙니다.", Globalo.eMessageName.M_WARNING);
-            //        return;
-            //    }
-            //    logStr = "운전준비 재개 하시겠습니까 ?";    //이때 스텝이 20000보다 작아야된다.
-            //    //if (Globalo.taskWork.m_nCurrentStep >= 20000 && Globalo.taskWork.m_nCurrentStep < 30000)
-            //}
         }
         public void PauseAutoProcess()
         {

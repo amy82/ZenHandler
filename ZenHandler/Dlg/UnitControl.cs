@@ -13,8 +13,6 @@ namespace ZenHandler.Dlg
     public partial class UnitControl : UserControl
     {
         private Timer blinkTimer;
-        private bool isBlinkOn = false;
-        private string currentState = "";
 
         private OperationState[] _prevState = new OperationState[4];
         private bool[] blinkFlags = new bool[4];        //0 = Transfer , 1 = socket, 2 = Lift , 3 = Magazine
@@ -24,7 +22,7 @@ namespace ZenHandler.Dlg
         private Button[] unitStopButtons;                 // 유닛 버튼 배열
         private Button[] unitPauseButtons;                 // 유닛 버튼 배열
 
-        private Color ColorDefault = Color.DarkSalmon;
+        private Color ColorDefault = Color.SteelBlue;
         private Color ColorStop = Color.Red;
         private Color ColorAutoRun = Color.Green;
         private Color ColorPause = Color.Red;
@@ -33,7 +31,7 @@ namespace ZenHandler.Dlg
         public UnitControl()
         {
             InitializeComponent();
-
+            Event.EventManager.PgExitCall += OnPgExit;
             unitReadyButtons = new Button[] { BTN_TRANSFER_UNIT_READY, BTN_SOCKET_UNIT_READY, BTN_LIFT_UNIT_READY, BTN_MAGAZINE_UNIT_READY };
             unitAutoRunButtons = new Button[] { BTN_TRANSFER_UNIT_AUTORUN, BTN_SOCKET_UNIT_AUTORUN, BTN_LIFT_UNIT_AUTORUN, BTN_MAGAZINE_UNIT_AUTORUN };
             unitStopButtons = new Button[] { BTN_TRANSFER_UNIT_STOP, BTN_SOCKET_UNIT_STOP, BTN_LIFT_UNIT_STOP, BTN_MAGAZINE_UNIT_STOP };
@@ -50,7 +48,13 @@ namespace ZenHandler.Dlg
             blinkTimer.Interval = 500; // 0.5초 간격으로 깜빡
             blinkTimer.Tick += BlinkTimer_Tick;
         }
-
+        private void OnPgExit(object sender, EventArgs e)
+        {
+            Console.WriteLine("UnitControl - OnPgExit");
+            blinkTimer.Stop();      // 타이머 중지
+            blinkTimer.Dispose();   // 리소스 해제
+            blinkTimer = null;
+        }
         public void showPanel()
         {
             blinkTimer.Start();
@@ -62,17 +66,18 @@ namespace ZenHandler.Dlg
 
         private void BlinkTimer_Tick(object sender, EventArgs e)
         {
-            if (Globalo.motionManager.transferMachine.IsMoving())
+            if (Globalo.motionManager.transferMachine.IsMoving() && (Globalo.motionManager.transferMachine.RunState == OperationState.Preparing ||
+                    Globalo.motionManager.transferMachine.RunState == OperationState.Originning))
             {
-                if (Globalo.motionManager.transferMachine.RunState == OperationState.Preparing)
-                {
-                    ReadyBlinkUnit(0);
-                }
+
+                Console.WriteLine("---ReadyBlinkUnit");
+                ReadyBlinkUnit(0);
             }
             else
             {
                 if (_prevState[0] != Globalo.motionManager.transferMachine.RunState)
                 {
+                    Console.WriteLine("---_prevState");
                     UpdateBtnUnit(0, Globalo.motionManager.transferMachine.RunState);
 
                     _prevState[0] = Globalo.motionManager.transferMachine.RunState;
@@ -141,41 +146,30 @@ namespace ZenHandler.Dlg
             if (state == OperationState.PreparationComplete)
             {
                 unitReadyButtons[index].BackColor = ColorReady;
+                unitStopButtons[index].BackColor = ColorDefault;
+                unitAutoRunButtons[index].BackColor = ColorDefault;
+                unitPauseButtons[index].BackColor = ColorDefault;
             }
             else if (state == OperationState.Stopped)
             {
-                unitStopButtons[index].BackColor = ColorReady;
+                unitStopButtons[index].BackColor = ColorStop;
+                unitReadyButtons[index].BackColor = ColorDefault;
+                unitAutoRunButtons[index].BackColor = ColorDefault;
+                unitPauseButtons[index].BackColor = ColorDefault;
             }
             else if (state == OperationState.AutoRunning)
             {
-                unitAutoRunButtons[index].BackColor = ColorReady;
+                unitAutoRunButtons[index].BackColor = ColorAutoRun;
+                unitReadyButtons[index].BackColor = ColorDefault;
+                unitStopButtons[index].BackColor = ColorDefault;
+                unitPauseButtons[index].BackColor = ColorDefault;
             }
             else if (state == OperationState.Paused)
             {
-                unitPauseButtons[index].BackColor = ColorReady;
-            }
-        }
-        private void SetButtonColor(Color color)
-        {
-            //btnStatus.BackColor = color;
-        }
-        private void SetState(string newState)
-        {
-            currentState = newState;
-
-            if (newState == "운전준비" || newState == "원점")
-            {
-                blinkTimer.Start();  // 깜빡이기 시작
-            }
-            else if (newState == "정지" || newState == "자동")
-            {
-                blinkTimer.Stop();
-                SetButtonColor(Color.LightGreen);  // 상태에 맞는 색
-            }
-            else
-            {
-                blinkTimer.Stop();
-                SetButtonColor(SystemColors.Control); // 기본 버튼 색
+                unitPauseButtons[index].BackColor = ColorPause;
+                unitReadyButtons[index].BackColor = ColorDefault;
+                unitStopButtons[index].BackColor = ColorDefault;
+                unitAutoRunButtons[index].BackColor = ColorDefault;
             }
         }
         //---------------------------------------------------------------------------------------------------------------------
@@ -188,7 +182,14 @@ namespace ZenHandler.Dlg
         private void BTN_TRANSFER_UNIT_READY_Click(object sender, EventArgs e)
         {
             bool bRtn = Globalo.motionManager.transferMachine.ReadyRun();
-
+            if(bRtn)
+            {
+                unitReadyButtons[0].BackColor = ColorReady;
+                unitStopButtons[0].BackColor = ColorDefault;
+                unitAutoRunButtons[0].BackColor = ColorDefault;
+                unitPauseButtons[0].BackColor = ColorDefault;
+            }
+            
         }
 
         private void BTN_TRANSFER_UNIT_AUTORUN_Click(object sender, EventArgs e)
@@ -199,6 +200,10 @@ namespace ZenHandler.Dlg
         private void BTN_TRANSFER_UNIT_STOP_Click(object sender, EventArgs e)
         {
             Globalo.motionManager.transferMachine.StopAuto();
+            unitStopButtons[0].BackColor = ColorStop;
+            unitReadyButtons[0].BackColor = ColorDefault;
+            unitAutoRunButtons[0].BackColor = ColorDefault;
+            unitPauseButtons[0].BackColor = ColorDefault;
         }
 
         private void BTN_TRANSFER_UNIT_PAUSE_Click(object sender, EventArgs e)

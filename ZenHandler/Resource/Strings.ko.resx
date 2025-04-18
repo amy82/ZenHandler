@@ -133,6 +133,6 @@
     <value>자동운전</value>
   </data>
   <data name="OP_TITLE" xml:space="preserve">
-    <value>조작</value>
+    <value>| 조작</value>
   </data>
 </root>

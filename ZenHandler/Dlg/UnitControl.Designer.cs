@@ -54,7 +54,7 @@ namespace ZenHandler.Dlg
             // label3
             // 
             this.label3.BackColor = System.Drawing.Color.Peru;
-            this.label3.Font = new System.Drawing.Font("나눔고딕", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(129)));
+            this.label3.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(129)));
             this.label3.ForeColor = System.Drawing.Color.Black;
             this.label3.Location = new System.Drawing.Point(59, 326);
             this.label3.Name = "label3";
@@ -66,7 +66,7 @@ namespace ZenHandler.Dlg
             // label2
             // 
             this.label2.BackColor = System.Drawing.Color.Peru;
-            this.label2.Font = new System.Drawing.Font("나눔고딕", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(129)));
+            this.label2.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(129)));
             this.label2.ForeColor = System.Drawing.Color.Black;
             this.label2.Location = new System.Drawing.Point(398, 43);
             this.label2.Name = "label2";
@@ -78,7 +78,7 @@ namespace ZenHandler.Dlg
             // label1
             // 
             this.label1.BackColor = System.Drawing.Color.Peru;
-            this.label1.Font = new System.Drawing.Font("나눔고딕", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(129)));
+            this.label1.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(129)));
             this.label1.ForeColor = System.Drawing.Color.Black;
             this.label1.Location = new System.Drawing.Point(59, 43);
             this.label1.Name = "label1";
@@ -89,7 +89,7 @@ namespace ZenHandler.Dlg
             // 
             // BTN_TRANSFER_UNIT_READY
             // 
-            this.BTN_TRANSFER_UNIT_READY.BackColor = System.Drawing.Color.SkyBlue;
+            this.BTN_TRANSFER_UNIT_READY.BackColor = System.Drawing.Color.SteelBlue;
             this.BTN_TRANSFER_UNIT_READY.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.BTN_TRANSFER_UNIT_READY.Font = new System.Drawing.Font("맑은 고딕", 11.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(129)));
             this.BTN_TRANSFER_UNIT_READY.ForeColor = System.Drawing.Color.Black;
@@ -103,7 +103,7 @@ namespace ZenHandler.Dlg
             // 
             // BTN_TRANSFER_UNIT_AUTORUN
             // 
-            this.BTN_TRANSFER_UNIT_AUTORUN.BackColor = System.Drawing.Color.SkyBlue;
+            this.BTN_TRANSFER_UNIT_AUTORUN.BackColor = System.Drawing.Color.SteelBlue;
             this.BTN_TRANSFER_UNIT_AUTORUN.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.BTN_TRANSFER_UNIT_AUTORUN.Font = new System.Drawing.Font("맑은 고딕", 11.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(129)));
             this.BTN_TRANSFER_UNIT_AUTORUN.ForeColor = System.Drawing.Color.Black;
@@ -117,7 +117,7 @@ namespace ZenHandler.Dlg
             // 
             // BTN_TRANSFER_UNIT_STOP
             // 
-            this.BTN_TRANSFER_UNIT_STOP.BackColor = System.Drawing.Color.SkyBlue;
+            this.BTN_TRANSFER_UNIT_STOP.BackColor = System.Drawing.Color.SteelBlue;
             this.BTN_TRANSFER_UNIT_STOP.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.BTN_TRANSFER_UNIT_STOP.Font = new System.Drawing.Font("맑은 고딕", 11.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(129)));
             this.BTN_TRANSFER_UNIT_STOP.ForeColor = System.Drawing.Color.Black;
@@ -131,7 +131,7 @@ namespace ZenHandler.Dlg
             // 
             // BTN_TRANSFER_UNIT_PAUSE
             // 
-            this.BTN_TRANSFER_UNIT_PAUSE.BackColor = System.Drawing.Color.SkyBlue;
+            this.BTN_TRANSFER_UNIT_PAUSE.BackColor = System.Drawing.Color.SteelBlue;
             this.BTN_TRANSFER_UNIT_PAUSE.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.BTN_TRANSFER_UNIT_PAUSE.Font = new System.Drawing.Font("맑은 고딕", 11.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(129)));
             this.BTN_TRANSFER_UNIT_PAUSE.ForeColor = System.Drawing.Color.Black;
@@ -258,7 +258,7 @@ namespace ZenHandler.Dlg
             // label4
             // 
             this.label4.BackColor = System.Drawing.Color.Peru;
-            this.label4.Font = new System.Drawing.Font("나눔고딕", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(129)));
+            this.label4.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(129)));
             this.label4.ForeColor = System.Drawing.Color.Black;
             this.label4.Location = new System.Drawing.Point(398, 326);
             this.label4.Name = "label4";

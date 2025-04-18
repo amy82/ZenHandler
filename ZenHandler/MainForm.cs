@@ -411,6 +411,7 @@ namespace ZenHandler  //ApsMotionControl
         }
         public void FuncExit()
         {
+            Event.EventManager.RaisePgExit();
             Globalo.threadControl.AllClose();
             Globalo.motionManager.ioController.Close();
             //Time Thread End

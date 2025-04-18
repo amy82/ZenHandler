@@ -687,7 +687,7 @@ namespace ZenHandler.Machine
                             if ((multiAxis[0].GetEncoderPos() - dMultiPos[0]) < MotionControl.MotorSet.ENCORDER_GAP)
                             {
                                 isSuccess = true;
-                                Console.WriteLine($"{multiAxis[0].Name } Axis {ePos.ToString()} Move Check");
+                                Console.WriteLine($"{multiAxis[0].Name } Axis {ePos.ToString()} Move Complete");
                                 step = 250;
                             }
                             break;
@@ -695,7 +695,7 @@ namespace ZenHandler.Machine
                             if ((multiAxis[1].GetEncoderPos() - dMultiPos[1]) < MotionControl.MotorSet.ENCORDER_GAP)
                             {
                                 isSuccess = true;
-                                Console.WriteLine($"{multiAxis[1].Name } Axis {ePos.ToString()} Move Check");
+                                Console.WriteLine($"{multiAxis[1].Name } Axis {ePos.ToString()} Move Complete");
                                 step = 1000;
                             }
                             break;
@@ -771,7 +771,7 @@ namespace ZenHandler.Machine
                             if ((TransferZ.GetEncoderPos() - dPos) < MotionControl.MotorSet.ENCORDER_GAP)
                             {
                                 isSuccess = true;
-                                Console.WriteLine($"{TransferZ.Name } Axis {ePos.ToString()} Move Check");
+                                Console.WriteLine($"{TransferZ.Name } Axis {ePos.ToString()} Move Complete");
                                 step = 1000;
                             }
                             break;
@@ -850,9 +850,17 @@ namespace ZenHandler.Machine
         
         public override bool IsMoving()
         {
-            if(motorAutoThread.GetThreadRun() == true)
+            if(motorAutoThread.GetThreadRun() == true )
             {
                 return true;
+            }
+
+            for (int i = 0; i < MotorAxes.Length; i++)
+            {
+                if(MotorAxes[i].GetStopAxis() == false)
+                {
+                    return true;
+                }
             }
             return false;
         }
@@ -860,7 +868,7 @@ namespace ZenHandler.Machine
         {
             motorAutoThread.Stop();
             MovingStop();
-
+            RunState = OperationState.Stopped;
             Console.WriteLine($"[ORIGIN] Transfer Run Stop");
 
         }
@@ -874,24 +882,6 @@ namespace ZenHandler.Machine
 
             string szLog = "";
 
-            //bool bServoOnChk = true;
-            //int length = MotorAxes.Length;
-            
-            //for (int i = 0; i < length; i++)
-            //{
-            //    if(MotorAxes[i].AmpEnable() == false)
-            //    {
-            //        bServoOnChk = false;
-            //        szLog = $"[ORIGIN] {MotorAxes[i].Name} AmpEnable Fail]";
-            //        Globalo.LogPrint("ManualControl", szLog);
-            //        return false;
-            //    }
-            //}
-            //if(bServoOnChk == false)
-            //{
-
-            //    return false;
-            //}
             this.RunState = OperationState.Originning;
             motorAutoThread.m_nCurrentStep = 1000;          //ORG
             motorAutoThread.m_nEndStep = 2000;
@@ -957,6 +947,7 @@ namespace ZenHandler.Machine
             if (motorAutoThread.GetThreadRun() == true)
             {
                 motorAutoThread.Pause();
+                RunState = OperationState.Paused;
             }
         }
         public override bool AutoRun()
@@ -967,12 +958,20 @@ namespace ZenHandler.Machine
                 Globalo.LogPrint("MainForm", "[TRANSFER] 운전준비가 완료되지 않았습니다.", Globalo.eMessageName.M_WARNING);
                 return false;
             }
+            if (this.RunState == OperationState.Originning || this.RunState == OperationState.Preparing)
+            {
+                Globalo.LogPrint("MainForm", "[TRANSFER] 운전준비가 완료되지 않았습니다..", Globalo.eMessageName.M_WARNING);
+                return false;
+            }
+
             if (motorAutoThread.GetThreadRun() == true)
             {
                 Console.WriteLine($"모터 동작 중입니다.");
                 if (motorAutoThread.GetThreadPause() == true)
                 {
                     motorAutoThread.m_nCurrentStep = Math.Abs(motorAutoThread.m_nCurrentStep);
+
+                    RunState = OperationState.AutoRunning;
                 }
                 else
                 {
@@ -989,6 +988,7 @@ namespace ZenHandler.Machine
 
                 if (rtn)
                 {
+                    RunState = OperationState.AutoRunning;
                     Console.WriteLine($"모터 동작 성공.");
                 }
                 else

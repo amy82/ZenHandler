@@ -56,9 +56,10 @@ namespace ZenHandler.MotionControl
                     {
                         if (ctsMotion.Token.IsCancellationRequested)    //TODO: 종료시 빠져나와야된다.
                         {
+                            break;
                             //Console.WriteLine("취소 요청 감지됨");
                             //Globalo.LogPrint("ManualControl", $"취소 요청 감지됨");
-                            ctsMotion.Token.ThrowIfCancellationRequested(); // 예외 던지기 (catch로 감) 취소 요청 시 예외 발생
+                            //ctsMotion.Token.ThrowIfCancellationRequested(); // 예외 던지기 (catch로 감) 취소 요청 시 예외 발생
                         }
                         foreach (var inModule in m_dwDInDict)
                         {

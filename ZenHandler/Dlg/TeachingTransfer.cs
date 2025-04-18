@@ -42,7 +42,7 @@ namespace ZenHandler.Dlg
 
             changeBtnMotorNo(SelectAxisIndex);
 
-            TeachResolution(Globalo.motionManager.transferMachine.teachingConfig.Resolution[SelectAxisIndex].ToString("0.0##"));
+            TeachResolution(Globalo.motionManager.transferMachine.teachingConfig.Resolution[SelectAxisIndex].ToString("0.#"));
         }
         public void TeachResolution(string val)
         {
@@ -81,7 +81,7 @@ namespace ZenHandler.Dlg
                 myTeachingGrid.MotorStateRun(true);
             }
             myTeachingGrid.ShowTeachingData();
-            TeachResolution(Globalo.motionManager.transferMachine.teachingConfig.Resolution[SelectAxisIndex].ToString("0.0##"));
+            TeachResolution(Globalo.motionManager.transferMachine.teachingConfig.Resolution[SelectAxisIndex].ToString("0.#"));
         }
         public void hidePanel()
         {
@@ -109,7 +109,7 @@ namespace ZenHandler.Dlg
 
             myTeachingGrid.changeMotorNo(SelectAxisIndex);
 
-            TeachResolution(Globalo.motionManager.transferMachine.teachingConfig.Resolution[MotorNo].ToString("0.0##"));
+            TeachResolution(Globalo.motionManager.transferMachine.teachingConfig.Resolution[MotorNo].ToString("0.#"));
 
 
         }
@@ -287,7 +287,7 @@ namespace ZenHandler.Dlg
             if (decimal.TryParse(labelValue, out decimalValue))
             {
                 // 소수점 형식으로 변환
-                string formattedValue = decimalValue.ToString("0.0##");
+                string formattedValue = decimalValue.ToString("0.#");
                 NumPadForm popupForm = new NumPadForm(formattedValue);
 
                 DialogResult dialogResult = popupForm.ShowDialog();
@@ -304,7 +304,7 @@ namespace ZenHandler.Dlg
                     {
                         dNumData = 1.0;
                     }
-                    LABEL_TEACH_ROSOLUTION_VALUE.Text = dNumData.ToString("0.0##");
+                    LABEL_TEACH_ROSOLUTION_VALUE.Text = dNumData.ToString("0.#");
                 }
                 // popupForm.Show(); // 비모달로 팝업 폼 표시
             }
