@@ -475,7 +475,7 @@ namespace ZenHandler.Dlg
             this.Controls.Add(this.splitContainer2);
             this.Controls.Add(this.splitContainer1);
             this.Name = "SocketStateInfo";
-            this.Size = new System.Drawing.Size(410, 204);
+            this.Size = new System.Drawing.Size(487, 204);
             this.splitContainer4.Panel1.ResumeLayout(false);
             this.splitContainer4.Panel2.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.splitContainer4)).EndInit();

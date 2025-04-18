@@ -19,9 +19,9 @@ namespace ZenHandler.Machine
     public enum PickedProductState
     {
         Blank = 0,   // 제품 없음    
-        BcrOk,
+        Bcr,
         Good,       // 양품
-        BcrNg,         // 불량
+        BcrNg,      // 불량
         TestNg,
         Unknown     // 미확인 (필요 시)
     }
@@ -39,6 +39,7 @@ namespace ZenHandler.Machine
         public PickedProductState State { get; set; } = PickedProductState.Blank;
 
         public ProductInfo() { }  // <- 이게 필요해!
+
         public ProductInfo(int index)
         {
             Index = index;
@@ -73,7 +74,7 @@ namespace ZenHandler.Machine
     //
     public enum LayerState
     {
-        Empty = 0,   // Tray 없음
+        Blank = 0,   // Tray 없음
         Disabled,   //사용 못함
         BeforeTest, //검사 전
         AfterTest,  //검사 완료
@@ -83,7 +84,7 @@ namespace ZenHandler.Machine
     public class MagazineInfo
     {
         public int Index { get; set; }      //위에서 부터 0
-        public LayerState State { get; set; } = LayerState.Empty;
+        public LayerState State { get; set; } = LayerState.Blank;
 
         public MagazineInfo() { }  // <- 이게 없으면 yaml 로드 안됨
         public MagazineInfo(int index)
@@ -110,7 +111,7 @@ namespace ZenHandler.Machine
         public SocketProductState State { get; set; } = SocketProductState.Blank;
         public DateTime TimeInserted { get; set; } = DateTime.Now;
 
-        public string BcrId { get; set; } = string.Empty;
+        public string BcrId { get; set; } = "Empty";
 
         public SocketProductInfo(int socketIndex)
         {

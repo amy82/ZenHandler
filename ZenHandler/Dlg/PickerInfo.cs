@@ -12,27 +12,82 @@ namespace ZenHandler.Dlg
 {
     public partial class PickerInfo : UserControl
     {
-        private int dRowHeight = 26;
-        private int nGridRowCount = 0;              //Grid 총 Row / 세로 칸 수
-
-        int PickerCount = 8;   //Load Picket 4ea + UnLoad 4ea
-        int[] inGridWid = new int[] { 80, 250, 70 };         //Grid Width
+        private int PickerCount = 8;                            //Load Picket 4ea + UnLoad 4ea
+        private int GridCol = 3;                                //picker , bcr , state
+        private int[] StartPos = new int[] { 10, 40 };          //Grid Width
+        private int[] inGridWid = new int[] { 80, 300, 70 };    //Grid Width
 
         private Controls.DefaultGridView dataGridView;
 
         public PickerInfo()
         {
             InitializeComponent();
-
-
-            SetGrid();
-            InitializePicker();
+            InitPickerGrid();
         }
-        public void SetGrid()
+
+        public void SetPickerInfo()
         {
             int i = 0;
-            dataGridView = new Controls.DefaultGridView(3, 8, inGridWid);
-            dataGridView.Location = new Point(10, 40);
+
+            for (i = 0; i < 4; i++)
+            {
+                dataGridView[1, i].Value = Globalo.motionManager.transferMachine.pickedProduct.LoadProductInfo[i].BcrLot;
+                dataGridView[1, i + 4].Value = Globalo.motionManager.transferMachine.pickedProduct.UnLoadProductInfo[i].BcrLot;
+
+                if (Globalo.motionManager.transferMachine.pickedProduct.LoadProductInfo[i].State == Machine.PickedProductState.Blank)
+                {
+                    dataGridView[2, i].Style.BackColor = Color.White;
+                }
+                else if (Globalo.motionManager.transferMachine.pickedProduct.LoadProductInfo[i].State == Machine.PickedProductState.Bcr)
+                {
+                    dataGridView[2, i].Style.BackColor = Color.Yellow;
+                }
+                else if (Globalo.motionManager.transferMachine.pickedProduct.LoadProductInfo[i].State == Machine.PickedProductState.Good)
+                {
+                    dataGridView[2, i].Style.BackColor = Color.LightGreen;
+                }
+                else
+                {
+                    dataGridView[2, i].Style.BackColor = Color.Red;
+                }
+
+
+                if (Globalo.motionManager.transferMachine.pickedProduct.UnLoadProductInfo[i].State == Machine.PickedProductState.Blank)
+                {
+                    dataGridView[2, i+4].Style.BackColor = Color.White;
+                }
+                else if (Globalo.motionManager.transferMachine.pickedProduct.UnLoadProductInfo[i].State == Machine.PickedProductState.Bcr)
+                {
+                    dataGridView[2, i + 4].Style.BackColor = Color.Yellow;
+                }
+                else if (Globalo.motionManager.transferMachine.pickedProduct.UnLoadProductInfo[i].State == Machine.PickedProductState.Good)
+                {
+                    dataGridView[2, i + 4].Style.BackColor = Color.LightGreen;
+                }
+                else
+                {
+                    dataGridView[2, i + 4].Style.BackColor = Color.Red;
+                }
+                dataGridView[2, i].Value = Globalo.motionManager.transferMachine.pickedProduct.LoadProductInfo[i].State;
+                dataGridView[2, i + 4].Value = Globalo.motionManager.transferMachine.pickedProduct.UnLoadProductInfo[i].State;
+            }
+
+            //dataGridView
+            //dataGridView[0, 0] = Picker 제일 위에칸
+
+            //dataGridView[1, (0 ~ 7)] = Lot 제일 위에칸 0 ~ 3 = Load , 4 ~ 7 = Unload
+
+            //dataGridView[2, 0] = State 제일 위에칸
+
+            //string formattedValue = "lot data";
+            //dataGridView[1, 0].Value = formattedValue;
+        }
+
+        public void InitPickerGrid()
+        {
+            int i = 0;
+            dataGridView = new Controls.DefaultGridView(GridCol, PickerCount, inGridWid);
+            dataGridView.Location = new Point(StartPos[0], StartPos[1]);
             this.Controls.Add(dataGridView);
 
             string[] title = new string[] { "Picker", "Lot", "State" };         //Grid Width
@@ -51,12 +106,8 @@ namespace ZenHandler.Dlg
                 {
                     posName = "UnLoad " + (i + 1).ToString();
                 }
-
-
                 dataGridView.Rows[i].SetValues(posName);
             }
-
-
         }
 
 
