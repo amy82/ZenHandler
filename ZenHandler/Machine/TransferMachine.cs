@@ -30,7 +30,7 @@ namespace ZenHandler.Machine
 
         private static AXT_MOTION_MOVE_DIR[] MOTOR_HOME_DIR = {AXT_MOTION_MOVE_DIR.DIR_CCW, AXT_MOTION_MOVE_DIR.DIR_CCW, AXT_MOTION_MOVE_DIR.DIR_CW};
 
-        private double[] OrgFirstVel = { 20000.0, 20000.0, 20000.0 };
+        private double[] OrgFirstVel = { 20000.0, 20000.0, 20000.0 };   //수치 조심
         private double[] OrgSecondVel = { 10000.0, 10000.0, 5000.0 };
         private double[] OrgThirdVel = { 5000.0, 5000.0, 2500.0 };
 
@@ -882,7 +882,7 @@ namespace ZenHandler.Machine
 
             string szLog = "";
 
-            this.RunState = OperationState.Originning;
+            this.RunState = OperationState.OriginRunning;
             motorAutoThread.m_nCurrentStep = 1000;          //ORG
             motorAutoThread.m_nEndStep = 2000;
 
@@ -910,7 +910,7 @@ namespace ZenHandler.Machine
 
             if (TransferX.OrgState == false || TransferY.OrgState == false || TransferZ.OrgState == false)
             {
-                this.RunState = OperationState.Originning;
+                this.RunState = OperationState.OriginRunning;
                 motorAutoThread.m_nCurrentStep = 1000;
             }
             else
@@ -958,7 +958,7 @@ namespace ZenHandler.Machine
                 Globalo.LogPrint("MainForm", "[TRANSFER] 운전준비가 완료되지 않았습니다.", Globalo.eMessageName.M_WARNING);
                 return false;
             }
-            if (this.RunState == OperationState.Originning || this.RunState == OperationState.Preparing)
+            if (this.RunState == OperationState.OriginRunning || this.RunState == OperationState.Preparing)
             {
                 Globalo.LogPrint("MainForm", "[TRANSFER] 운전준비가 완료되지 않았습니다..", Globalo.eMessageName.M_WARNING);
                 return false;

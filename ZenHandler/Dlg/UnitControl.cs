@@ -32,6 +32,7 @@ namespace ZenHandler.Dlg
         {
             InitializeComponent();
             Event.EventManager.PgExitCall += OnPgExit;
+
             unitReadyButtons = new Button[] { BTN_TRANSFER_UNIT_READY, BTN_SOCKET_UNIT_READY, BTN_LIFT_UNIT_READY, BTN_MAGAZINE_UNIT_READY };
             unitAutoRunButtons = new Button[] { BTN_TRANSFER_UNIT_AUTORUN, BTN_SOCKET_UNIT_AUTORUN, BTN_LIFT_UNIT_AUTORUN, BTN_MAGAZINE_UNIT_AUTORUN };
             unitStopButtons = new Button[] { BTN_TRANSFER_UNIT_STOP, BTN_SOCKET_UNIT_STOP, BTN_LIFT_UNIT_STOP, BTN_MAGAZINE_UNIT_STOP };
@@ -67,7 +68,7 @@ namespace ZenHandler.Dlg
         private void BlinkTimer_Tick(object sender, EventArgs e)
         {
             if (Globalo.motionManager.transferMachine.IsMoving() && (Globalo.motionManager.transferMachine.RunState == OperationState.Preparing ||
-                    Globalo.motionManager.transferMachine.RunState == OperationState.Originning))
+                    Globalo.motionManager.transferMachine.RunState == OperationState.OriginRunning))
             {
 
                 Console.WriteLine("---ReadyBlinkUnit");

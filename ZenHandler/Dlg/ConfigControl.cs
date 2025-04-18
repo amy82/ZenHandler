@@ -98,7 +98,6 @@ namespace ZenHandler.Dlg
                 ComboBox_Language.SelectedIndex = index;
             }
 
-            Program.SetLanguage(comData);   //언어 변경
         }
         public void setInterface()
         {

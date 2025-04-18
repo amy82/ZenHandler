@@ -202,12 +202,12 @@ namespace ZenHandler.Dlg
 
         private void BTN_TEACH_SERVO_OFF_Click(object sender, EventArgs e)
         {
-            if (ProgramState.CurrentState == OperationState.AutoRunning)
+            if (Globalo.motionManager.transferMachine.RunState == OperationState.AutoRunning)
             {
                 Globalo.LogPrint("ManualControl", "[INFO] 자동 운전 중 사용 불가", Globalo.eMessageName.M_WARNING);
                 return;
             }
-            if (ProgramState.CurrentState == OperationState.Paused)
+            if (Globalo.motionManager.transferMachine.RunState == OperationState.Paused)
             {
                 Globalo.LogPrint("ManualControl", "[INFO] 일시 정지 중 사용 불가", Globalo.eMessageName.M_WARNING);
                 return;

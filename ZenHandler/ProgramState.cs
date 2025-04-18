@@ -14,7 +14,8 @@ namespace ZenHandler
         Preparing,      // 운전준비중
         PreparationComplete,   //운전준비 완료
         ManualTesting,   //수동 검사 , Manualthread 진행중
-        Originning      // 원점
+        OriginRunning,      // 원점
+        OriginDone
     }
     // 글로벌 상태 변수를 관리하는 클래스 정의
     public static class ProgramState
@@ -50,7 +51,7 @@ namespace ZenHandler
 
 
 
-        public static bool ON_LINE_MOTOR = true;    //true
+        public static bool ON_LINE_MOTOR = false;    //true
 
         //public static bool ON_LINE_GRABBER = false;      //true
 

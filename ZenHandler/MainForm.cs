@@ -64,7 +64,7 @@ namespace ZenHandler  //ApsMotionControl
             //Globalo.yamlManager.teachData.LoadTeaching(className);
 
 
-            //Globalo.yamlManager.configDataLoad();
+            Globalo.yamlManager.configDataLoad();
             Globalo.yamlManager.taskDataYaml.TaskDataLoad();
 
             Globalo.yamlManager.imageDataLoad();
@@ -174,8 +174,6 @@ namespace ZenHandler  //ApsMotionControl
 
             MainUiSet();
 
-            Globalo.operationPanel.AutoButtonSet(ProgramState.CurrentState);
-
             SerialConnect();
 
             serverStart();      //SECS - GEM 연결
@@ -195,6 +193,8 @@ namespace ZenHandler  //ApsMotionControl
             //Console.WriteLine($"Center Panel Size ({CenterPanel.Width},{CenterPanel.Height})");
             //Console.WriteLine($"Right Panel Size ({RightPanel.Width},{RightPanel.Height})");
             //Console.WriteLine($"Bottom Panel Size ({BottomPanel.Width},{BottomPanel.Height})");
+
+            Program.SetLanguage(Globalo.yamlManager.configData.DrivingSettings.Language);
         }
         
         private void OnLanguageChanged(object sender, EventArgs e)
@@ -536,17 +536,6 @@ namespace ZenHandler  //ApsMotionControl
 
         
         
-        
-        public void PaustReadyProcess()
-        {
-
-            Globalo.operationPanel.AutoButtonSet(ProgramState.CurrentState);
-        }
-        
-        
-        
-        
-        
         private void BTN_BOTTOM_LIGHT_Click(object sender, EventArgs e)
         {
             //MenuButtonSet(4);
@@ -567,21 +556,21 @@ namespace ZenHandler  //ApsMotionControl
         private void BTN_TOP_CCD_Click(object sender, EventArgs e)
         {
             //CCD ON
-            if (ProgramState.CurrentState == OperationState.AutoRunning)
-            {
-                Globalo.LogPrint("ManualControl", "[INFO] 자동 운전 중 사용 불가", Globalo.eMessageName.M_WARNING);
-                return;
-            }
-            if (ProgramState.CurrentState == OperationState.ManualTesting)
-            {
-                Globalo.LogPrint("ManualControl", "[INFO] MANUAL 동작 중 사용 불가", Globalo.eMessageName.M_WARNING);
-                return;
-            }
-            if (Globalo.threadControl.manualThread.GetThreadRun() == false)
-            {
-                Globalo.LogPrint("", "[CCD] MANUAL CCD START");
-                Globalo.threadControl.manualThread.runfn(FThread.ManualThread.eManualType.M_CCD_START);//4);
-            }
+            //if (ProgramState.CurrentState == OperationState.AutoRunning)
+            //{
+            //    Globalo.LogPrint("ManualControl", "[INFO] 자동 운전 중 사용 불가", Globalo.eMessageName.M_WARNING);
+            //    return;
+            //}
+            //if (ProgramState.CurrentState == OperationState.ManualTesting)
+            //{
+            //    Globalo.LogPrint("ManualControl", "[INFO] MANUAL 동작 중 사용 불가", Globalo.eMessageName.M_WARNING);
+            //    return;
+            //}
+            //if (Globalo.threadControl.manualThread.GetThreadRun() == false)
+            //{
+            //    Globalo.LogPrint("", "[CCD] MANUAL CCD START");
+            //    Globalo.threadControl.manualThread.runfn(FThread.ManualThread.eManualType.M_CCD_START);//4);
+            //}
         }
         
         

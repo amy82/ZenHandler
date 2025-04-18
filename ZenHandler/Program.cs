@@ -27,11 +27,7 @@ namespace ZenHandler
             {
                 if (isAppAlreadyRunning)
                 {
-
-                    Globalo.yamlManager.configDataLoad();
                     // 애플리케이션이 처음 실행될 때
-                    SetLanguage("es");
-
                     Application.Run(new MainForm());
                 }
                 else
