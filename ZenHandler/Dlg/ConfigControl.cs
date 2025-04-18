@@ -113,7 +113,7 @@ namespace ZenHandler.Dlg
             ComboBox_Language.Items.Add("ko");
             ComboBox_Language.Items.Add("en");
             ComboBox_Language.Items.Add("es");
-
+            ComboBox_Language.SelectedIndex = 0;
             //string selectedValue = poisonComboBox_BcrPort.SelectedItem.ToString();
 
         }

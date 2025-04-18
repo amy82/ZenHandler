@@ -6,6 +6,11 @@ using System.Threading.Tasks;
 
 namespace ZenHandler.Machine
 {
+    //---------------------------------------------------------------------------------------------------------------------------------------------------
+    //
+    // TRANSFER UNIT
+    //
+    //
     public enum PickedProductState
     {
         Blank = 0,   // 제품 없음    
@@ -40,7 +45,35 @@ namespace ZenHandler.Machine
         public List<ProductInfo> LoadProductInfo { get; set; } = new List<ProductInfo>();
         public List<ProductInfo> UnLoadProductInfo { get; set; } = new List<ProductInfo>();
     }
+    //---------------------------------------------------------------------------------------------------------------------------------------------------
+    //
+    // LIFT UNIT
+    //
+    //
 
+    public class TrayProduct
+    {
+        public List<List<int>> LeftLoadTraySlots { get; set; } = new List<List<int>>();
+        public List<List<int>> RightLoadTraySlots { get; set; } = new List<List<int>>();
+        public List<List<int>> LeftNgTraySlots { get; set; } = new List<List<int>>();
+        public List<List<int>> RightNgTraySlots { get; set; } = new List<List<int>>();
+    }
+
+    
+
+    //---------------------------------------------------------------------------------------------------------------------------------------------------
+    //
+    // MAGAZINE UNIT
+    //
+    //
+
+
+
+    //---------------------------------------------------------------------------------------------------------------------------------------------------
+    //
+    // SOCKET UNIT
+    //
+    //
     // 소켓 안에 있는 제품 상태 정보
     public class SocketProductInfo
     {

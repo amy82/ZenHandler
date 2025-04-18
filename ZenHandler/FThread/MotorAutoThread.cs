@@ -86,7 +86,11 @@ namespace ZenHandler.FThread
                 {
                     TransferFlow();
                 }
-                else if (this.parent.MachineName == Globalo.motionManager.liftModule.GetType().Name)
+                else if (this.parent.MachineName == Globalo.motionManager.magazineHandler.GetType().Name)
+                {
+
+                }
+                else if (this.parent.MachineName == Globalo.motionManager.liftMachine.GetType().Name)
                 {
                     bool rtn = Globalo.motionManager.transferMachine.IsMoving();
 

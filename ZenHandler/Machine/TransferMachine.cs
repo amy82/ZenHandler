@@ -19,10 +19,6 @@ namespace ZenHandler.Machine
 
         public MotionControl.MotorAxis[] MotorAxes; // 배열 선언
 
-        //public List<PickedProductInfo> LoadPickers { get; set; } = new List<PickedProductInfo>();
-        //public List<PickedProductInfo> UnLoadPickers { get; set; } = new List<PickedProductInfo>();
-
-        
 
         public string[] axisName = { "TransferX", "TransferY", "TransferZ" };
         private static double[] MOTOR_MAX_SPEED = { 200.0, 500.0, 50.0};
@@ -91,6 +87,7 @@ namespace ZenHandler.Machine
                 pickedProduct.UnLoadProductInfo.Add(new ProductInfo(i));
             }
             pickedProduct = Data.TaskDataYaml.TaskLoad_Transfer(taskPath);
+
             //Data.TaskDataYaml.TaskSave_Transfer(pickedProduct, "Task_Transfer.yaml");
         }
         public override void MotorDataSet()
