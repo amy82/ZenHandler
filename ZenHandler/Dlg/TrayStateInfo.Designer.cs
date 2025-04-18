@@ -55,7 +55,7 @@ namespace ZenHandler.Dlg
             // 
             this.tableLayoutPanel_Tray_L.ColumnCount = 1;
             this.tableLayoutPanel_Tray_L.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 50F));
-            this.tableLayoutPanel_Tray_L.Location = new System.Drawing.Point(13, 82);
+            this.tableLayoutPanel_Tray_L.Location = new System.Drawing.Point(13, 66);
             this.tableLayoutPanel_Tray_L.Name = "tableLayoutPanel_Tray_L";
             this.tableLayoutPanel_Tray_L.RowCount = 1;
             this.tableLayoutPanel_Tray_L.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 50F));
@@ -66,7 +66,7 @@ namespace ZenHandler.Dlg
             // 
             this.tableLayoutPanel_Tray_R.ColumnCount = 1;
             this.tableLayoutPanel_Tray_R.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 50F));
-            this.tableLayoutPanel_Tray_R.Location = new System.Drawing.Point(431, 82);
+            this.tableLayoutPanel_Tray_R.Location = new System.Drawing.Point(430, 66);
             this.tableLayoutPanel_Tray_R.Name = "tableLayoutPanel_Tray_R";
             this.tableLayoutPanel_Tray_R.RowCount = 1;
             this.tableLayoutPanel_Tray_R.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 50F));
@@ -77,7 +77,7 @@ namespace ZenHandler.Dlg
             // 
             this.tableLayoutPanel_Ng_L.ColumnCount = 1;
             this.tableLayoutPanel_Ng_L.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 50F));
-            this.tableLayoutPanel_Ng_L.Location = new System.Drawing.Point(196, 213);
+            this.tableLayoutPanel_Ng_L.Location = new System.Drawing.Point(195, 197);
             this.tableLayoutPanel_Ng_L.Name = "tableLayoutPanel_Ng_L";
             this.tableLayoutPanel_Ng_L.RowCount = 1;
             this.tableLayoutPanel_Ng_L.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 50F));
@@ -89,7 +89,7 @@ namespace ZenHandler.Dlg
             this.label1.BackColor = System.Drawing.SystemColors.ActiveCaptionText;
             this.label1.Font = new System.Drawing.Font("나눔고딕 ExtraBold", 11.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(129)));
             this.label1.ForeColor = System.Drawing.SystemColors.HighlightText;
-            this.label1.Location = new System.Drawing.Point(13, 58);
+            this.label1.Location = new System.Drawing.Point(13, 42);
             this.label1.Name = "label1";
             this.label1.Size = new System.Drawing.Size(177, 23);
             this.label1.TabIndex = 16;
@@ -101,7 +101,7 @@ namespace ZenHandler.Dlg
             this.label2.BackColor = System.Drawing.SystemColors.ActiveCaptionText;
             this.label2.Font = new System.Drawing.Font("나눔고딕 ExtraBold", 11.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(129)));
             this.label2.ForeColor = System.Drawing.SystemColors.HighlightText;
-            this.label2.Location = new System.Drawing.Point(431, 58);
+            this.label2.Location = new System.Drawing.Point(430, 42);
             this.label2.Name = "label2";
             this.label2.Size = new System.Drawing.Size(177, 23);
             this.label2.TabIndex = 17;
@@ -113,7 +113,7 @@ namespace ZenHandler.Dlg
             this.label3.BackColor = System.Drawing.SystemColors.ActiveCaptionText;
             this.label3.Font = new System.Drawing.Font("나눔고딕 ExtraBold", 11.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(129)));
             this.label3.ForeColor = System.Drawing.SystemColors.HighlightText;
-            this.label3.Location = new System.Drawing.Point(196, 189);
+            this.label3.Location = new System.Drawing.Point(195, 173);
             this.label3.Name = "label3";
             this.label3.Size = new System.Drawing.Size(106, 23);
             this.label3.TabIndex = 18;
@@ -125,7 +125,7 @@ namespace ZenHandler.Dlg
             this.label4.BackColor = System.Drawing.SystemColors.ActiveCaptionText;
             this.label4.Font = new System.Drawing.Font("나눔고딕 ExtraBold", 11.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(129)));
             this.label4.ForeColor = System.Drawing.SystemColors.HighlightText;
-            this.label4.Location = new System.Drawing.Point(319, 189);
+            this.label4.Location = new System.Drawing.Point(319, 173);
             this.label4.Name = "label4";
             this.label4.Size = new System.Drawing.Size(106, 23);
             this.label4.TabIndex = 20;
@@ -136,7 +136,7 @@ namespace ZenHandler.Dlg
             // 
             this.tableLayoutPanel_Ng_R.ColumnCount = 1;
             this.tableLayoutPanel_Ng_R.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 50F));
-            this.tableLayoutPanel_Ng_R.Location = new System.Drawing.Point(319, 213);
+            this.tableLayoutPanel_Ng_R.Location = new System.Drawing.Point(319, 197);
             this.tableLayoutPanel_Ng_R.Name = "tableLayoutPanel_Ng_R";
             this.tableLayoutPanel_Ng_R.RowCount = 1;
             this.tableLayoutPanel_Ng_R.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 50F));
@@ -157,7 +157,7 @@ namespace ZenHandler.Dlg
             this.Controls.Add(this.tableLayoutPanel_Tray_L);
             this.Controls.Add(this.TitleLabel);
             this.Name = "TrayStateInfo";
-            this.Size = new System.Drawing.Size(618, 325);
+            this.Size = new System.Drawing.Size(618, 311);
             this.Load += new System.EventHandler(this.TrayStateInfo_Load);
             this.ResumeLayout(false);
 

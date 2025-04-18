@@ -343,6 +343,7 @@
     <Compile Include="Laon\CLaonGrabberClass.cs" />
     <Compile Include="Lgit\ACMISCommon.cs" />
     <Compile Include="Machine\ProductState.cs" />
+    <Compile Include="Machine\SocketMachine.cs" />
     <Compile Include="MotionControl\IOController.cs" />
     <Compile Include="Machine\LiftMachine.cs" />
     <Compile Include="Machine\MagazineHandler.cs" />

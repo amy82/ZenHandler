@@ -37,7 +37,7 @@ namespace ZenHandler.MotionControl
         };
         public enum eSocketMotorList : int
         {
-            CAM_Z1 = 9, CAM_Z2, TOTAL_SOCKET_MOTOR_COUNT
+            FRONT_X = 7, BACK_X, BACK_Y, CAMZ_L, CAMZ_R, TOTAL_SOCKET_MOTOR_COUNT
         };
         //AOI
         //
