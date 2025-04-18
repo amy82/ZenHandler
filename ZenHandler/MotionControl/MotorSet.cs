@@ -29,11 +29,15 @@ namespace ZenHandler.MotionControl
 
         public enum eLiftMotorList : int
         {
-            L_GANTRY_Y = 3, L_IN_LIFT, L_OUT_LIFT, R_GANTRY_Y, R_IN_LIFT, R_OUT_LIFT, TOTAL_LIFT_MOTOR_COUNT
+            LOAD_Z_L = 3, UNLOAD_Z_L, GANTRY_Y_L, LOAD_Z_R, UNLOAD_Z_R, GANTRY_Y_R, TOTAL_LIFT_MOTOR_COUNT
+        };
+        public enum eMagazineMotorList : int
+        {
+            L_MAGAZINE_Z = 3, L_MAGAZINE_Y, R_MAGAZINE_Z, R_MAGAZINE_Y, TOTAL_MAGAZINE_MOTOR_COUNT
         };
         public enum eSocketMotorList : int
         {
-            CAM_Z1 = 9, CAM_Z2, TOTAL_SOCKET_MOTOR_COUNT
+            FRONT_X = 7, BACK_X, BACK_Y, CAMZ_L, CAMZ_R, TOTAL_SOCKET_MOTOR_COUNT
         };
         //AOI
         //

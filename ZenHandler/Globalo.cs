@@ -59,6 +59,7 @@ namespace ZenHandler
         public static Dlg.OperationPanel operationPanel;
         public static Dlg.TrayStateInfo trayStateInfo;
         public static Dlg.SocketStateInfo socketStateInfo;
+        public static Dlg.PickerInfo pickerInfo;
 
         public static TcpSocket.TcpManager tcpManager;      //secs/gem connect
         public static Serial.SerialPortManager serialPortManager = new Serial.SerialPortManager();

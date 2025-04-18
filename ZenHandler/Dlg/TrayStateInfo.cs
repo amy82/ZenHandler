@@ -103,13 +103,11 @@ namespace ZenHandler.Dlg
                     {
                         if (index == TRAY_KIND.LOAD_TRAY_L)
                         {
-                            //if (LeftTraySlots[row, col] == LoadTraySlotState.BeforeInspection)
-                            if (Globalo.yamlManager.taskDataYaml.TrayData.LeftLoadTraySlots[row][col] == (int)LoadTraySlotState.BeforeInspection)
+                            if (Globalo.motionManager.liftMachine.trayProduct.LeftLoadTraySlots[row][col] == (int)LoadTraySlotState.BeforeInspection)
                             {
                                 panel.BackColor = Color.SkyBlue;
                             }
-                            //else if (LeftTraySlots[row, col] == LoadTraySlotState.AfterInspection)
-                            else if (Globalo.yamlManager.taskDataYaml.TrayData.LeftLoadTraySlots[row][col] == (int)LoadTraySlotState.AfterInspection)
+                            else if (Globalo.motionManager.liftMachine.trayProduct.LeftLoadTraySlots[row][col] == (int)LoadTraySlotState.AfterInspection)
                             {
                                 panel.BackColor = Color.Green;
                             }
@@ -121,13 +119,11 @@ namespace ZenHandler.Dlg
                         }
                         else if (index == TRAY_KIND.LOAD_TRAY_R)
                         {
-                            //if (RightTraySlots[row, col] == LoadTraySlotState.BeforeInspection)
-                            if (Globalo.yamlManager.taskDataYaml.TrayData.RightLoadTraySlots[row][col] == (int)LoadTraySlotState.BeforeInspection)
+                            if (Globalo.motionManager.liftMachine.trayProduct.RightLoadTraySlots[row][col] == (int)LoadTraySlotState.BeforeInspection)
                             {
                                 panel.BackColor = Color.SkyBlue;
                             }
-                            //else if (RightTraySlots[row, col] == LoadTraySlotState.AfterInspection)
-                            else if (Globalo.yamlManager.taskDataYaml.TrayData.RightLoadTraySlots[row][col] == (int)LoadTraySlotState.AfterInspection)
+                            else if (Globalo.motionManager.liftMachine.trayProduct.RightLoadTraySlots[row][col] == (int)LoadTraySlotState.AfterInspection)
                             {
                                 panel.BackColor = Color.Green;
                             }
@@ -138,8 +134,7 @@ namespace ZenHandler.Dlg
                         }
                         else if (index == TRAY_KIND.NG_TRAY_L)
                         {
-                            //if (LeftNgTraySlots[row, col] == NgTraySlotState.NgInspection)
-                            if (Globalo.yamlManager.taskDataYaml.TrayData.LeftNgTraySlots[row][col] == (int)NgTraySlotState.NgInspection)
+                            if (Globalo.motionManager.liftMachine.trayProduct.LeftNgTraySlots[row][col] == (int)NgTraySlotState.NgInspection)
                             {
                                 panel.BackColor = Color.Red;
                             }
@@ -150,8 +145,7 @@ namespace ZenHandler.Dlg
                         }
                         else if (index == TRAY_KIND.NG_TRAY_R)
                         {
-                            //if (RightNgTraySlots[row, col] == NgTraySlotState.NgInspection)
-                            if (Globalo.yamlManager.taskDataYaml.TrayData.RightNgTraySlots[row][col] == (int)NgTraySlotState.NgInspection)
+                            if (Globalo.motionManager.liftMachine.trayProduct.RightNgTraySlots[row][col] == (int)NgTraySlotState.NgInspection)
                             {
                                 panel.BackColor = Color.Red;
                             }

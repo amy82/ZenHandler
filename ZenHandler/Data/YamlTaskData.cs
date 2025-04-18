@@ -14,15 +14,6 @@ namespace ZenHandler.Data
         public int PintCount;
     }
 
-    public class _TrayData
-    {
-        public List<List<int>> LeftLoadTraySlots { get; set; } = new List<List<int>>();
-        public List<List<int>> RightLoadTraySlots { get; set; } = new List<List<int>>();
-        public List<List<int>> LeftNgTraySlots { get; set; } = new List<List<int>>();
-        public List<List<int>> RightNgTraySlots { get; set; } = new List<List<int>>();
-    }
-
-
     public class LOTDATA
     {
         public string BarcodeData { get; set; }
@@ -36,52 +27,6 @@ namespace ZenHandler.Data
     public class TaskDataYaml
     {
         public _TaskData TaskData { get; private set; }
-        public _TrayData TrayData { get; private set; }
-
-
-        public bool TrayDataLoad()
-        {
-            string filePath = Path.Combine(CPath.BASE_ENV_PATH, CPath.yamlFilePathTray);       //TRAY DATA
-            try
-            {
-                if (!File.Exists(filePath))
-                {
-                    TrayData = new _TrayData();
-                    return false;
-                }
-
-
-                TrayData = Data.YamlManager.LoadYaml<_TrayData>(filePath);
-                if (TaskData == null)
-                {
-
-                    return false;
-                }
-                return true;
-            }
-            catch (Exception ex)
-            {
-                Console.WriteLine($"Error loading TrayDataLoad: {ex.Message}");
-                return false;
-            }
-        }
-        public bool TrayDataSave()
-        {
-            string filePath = Path.Combine(CPath.BASE_ENV_PATH, CPath.yamlFilePathTray);       //LOT DATA
-            try
-            {
-                if (!File.Exists(filePath))
-                    return false;
-
-                Data.YamlManager.SaveYaml(filePath, TrayData);
-                return true;
-            }
-            catch (Exception ex)
-            {
-                Console.WriteLine($"Error TrayDataSave: {ex.Message}");
-                return false;
-            }
-        }
 
         public bool TaskDataLoad()
         {
@@ -134,6 +79,12 @@ namespace ZenHandler.Data
                 return false;
             }
         }
+        //--------------------------------------------------------------------------------------------------------------
+        //
+        // Transfer
+        //
+        //
+        //--------------------------------------------------------------------------------------------------------------
         public static bool TaskSave_Transfer(Machine.PickedProduct data, string fileName)
         {
             string filePath = Path.Combine(CPath.BASE_ENV_PATH, fileName);       //LOT DATA
@@ -144,7 +95,7 @@ namespace ZenHandler.Data
             }
             catch (Exception ex)
             {
-                Console.WriteLine($"Error TrayDataSave: {ex.Message}");
+                Console.WriteLine($"Error TaskDataSave: {ex.Message}");
                 return false;
             }
 
@@ -174,7 +125,107 @@ namespace ZenHandler.Data
                 return new Machine.PickedProduct();
             }
         }
-    }
-    
-    
+
+
+        //--------------------------------------------------------------------------------------------------------------
+        //
+        // Lift
+        //
+        //
+        //--------------------------------------------------------------------------------------------------------------
+        public static bool TaskSave_Lift(Machine.TrayProduct data, string fileName)
+        {
+            string filePath = Path.Combine(CPath.BASE_ENV_PATH, fileName);       //LOT DATA
+            try
+            {
+                Data.YamlManager.SaveYaml(filePath, data);
+                return true;
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine($"Error TrayDataSave: {ex.Message}");
+                return false;
+            }
+
+        }
+        public static Machine.TrayProduct TaskLoad_Lift(string fileName)
+        {
+            string filePath = Path.Combine(CPath.BASE_ENV_PATH, fileName);       //TRAY DATA
+            try
+            {
+                if (!File.Exists(filePath))
+                {
+                    return new Machine.TrayProduct();
+                }
+
+
+                Machine.TrayProduct data = Data.YamlManager.LoadYaml<Machine.TrayProduct>(filePath);
+                if (data == null)
+                {
+
+                    return new Machine.TrayProduct();
+                }
+                return data;
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine($"Error loading TaskLoad Transfer: {ex.Message}");
+                return new Machine.TrayProduct();
+            }
+        }
+
+        //--------------------------------------------------------------------------------------------------------------
+        //
+        // Magazine 
+        //
+        //
+        //--------------------------------------------------------------------------------------------------------------
+        public static bool TaskSave_Magazine(Machine.MagazineTray data, string fileName)
+        {
+            string filePath = Path.Combine(CPath.BASE_ENV_PATH, fileName);       //LOT DATA
+            try
+            {
+                Data.YamlManager.SaveYaml(filePath, data);
+                return true;
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine($"Error MagazineDataSave: {ex.Message}");
+                return false;
+            }
+
+        }
+        public static Machine.MagazineTray TaskLoad_Magazine(string fileName)
+        {
+            string filePath = Path.Combine(CPath.BASE_ENV_PATH, fileName);       //TRAY DATA
+            try
+            {
+                if (!File.Exists(filePath))
+                {
+                    return new Machine.MagazineTray();
+                }
+
+
+                Machine.MagazineTray data = Data.YamlManager.LoadYaml<Machine.MagazineTray>(filePath);
+                if (data == null)
+                {
+
+                    return new Machine.MagazineTray();
+                }
+                return data;
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine($"Error loading TaskLoad Magazine: {ex.Message}");
+                return new Machine.MagazineTray();
+            }
+        }
+
+
+        //--------------------------------------------------------------------------------------------------------------
+        //--------------------------------------------------------------------------------------------------------------
+        //--------------------------------------------------------------------------------------------------------------
+    }//end
+
+
 }

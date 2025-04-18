@@ -67,8 +67,6 @@ namespace ZenHandler  //ApsMotionControl
             //Globalo.yamlManager.configDataLoad();
             Globalo.yamlManager.taskDataYaml.TaskDataLoad();
 
-            Globalo.yamlManager.taskDataYaml.TrayDataLoad();
-
             Globalo.yamlManager.imageDataLoad();
             Globalo.yamlManager.RecipeYamlListLoad();
 
@@ -108,6 +106,7 @@ namespace ZenHandler  //ApsMotionControl
             Globalo.productionInfo = new Dlg.ProductionInfo();
             Globalo.trayStateInfo = new Dlg.TrayStateInfo();
             Globalo.socketStateInfo = new Dlg.SocketStateInfo();
+            Globalo.pickerInfo = new Dlg.PickerInfo();
             Globalo.tabMenuForm = new Dlg.TabMenuForm(RightPanel.Width, RightPanel.Height);
             
             
@@ -121,16 +120,6 @@ namespace ZenHandler  //ApsMotionControl
 
 
             Globalo.threadControl.AllThreadStart();
-
-            ///Data Load
-            //
-
-            //string excelPath = string.Format(@"{0}\30.csv", Application.StartupPath); //file path
-            //Globalo.dataManage.eepromData.ReadExcelData(excelPath);
-
-            //Globalo.dataManage.eepromData.LoadExcelData("Z23DC24327000030V3WT-13A997-A");
-
-            
 
             
             Globalo.yamlManager.vPPRecipeSpecEquip = Globalo.yamlManager.RecipeLoad(Globalo.dataManage.mesData.m_sMesPPID);         //init
@@ -198,14 +187,14 @@ namespace ZenHandler  //ApsMotionControl
             Globalo.productionInfo.ProductionInfoSet();
             Globalo.productionInfo.PinCountInfoSet();
 
+            Globalo.pickerInfo.SetPickerInfo();
 
 
-            Console.WriteLine($"Top Panel Size ({TopPanel.Width},{TopPanel.Height})");
-            Console.WriteLine($"Left Panel Size ({LeftPanel.Width},{LeftPanel.Height})");
-            Console.WriteLine($"Center Panel Size ({CenterPanel.Width},{CenterPanel.Height})");
-            Console.WriteLine($"Right Panel Size ({RightPanel.Width},{RightPanel.Height})");
-
-            Console.WriteLine($"Bottom Panel Size ({BottomPanel.Width},{BottomPanel.Height})");
+            //Console.WriteLine($"Top Panel Size ({TopPanel.Width},{TopPanel.Height})");
+            //Console.WriteLine($"Left Panel Size ({LeftPanel.Width},{LeftPanel.Height})");
+            //Console.WriteLine($"Center Panel Size ({CenterPanel.Width},{CenterPanel.Height})");
+            //Console.WriteLine($"Right Panel Size ({RightPanel.Width},{RightPanel.Height})");
+            //Console.WriteLine($"Bottom Panel Size ({BottomPanel.Width},{BottomPanel.Height})");
         }
         
         private void OnLanguageChanged(object sender, EventArgs e)
@@ -326,16 +315,14 @@ namespace ZenHandler  //ApsMotionControl
             LeftPanel.Controls.Add(Globalo.operationPanel);
             LeftPanel.Controls.Add(Globalo.trayStateInfo);
             LeftPanel.Controls.Add(Globalo.socketStateInfo);
+            LeftPanel.Controls.Add(Globalo.pickerInfo);
 
             Globalo.productionInfo.Location = new System.Drawing.Point(0, 0);
             Globalo.operationPanel.Location = new System.Drawing.Point(LeftPanel.Width - Globalo.operationPanel.Width , Globalo.productionInfo.Height + MainBtnHGap);
-
-            Globalo.trayStateInfo.Location = new System.Drawing.Point(0, Globalo.operationPanel.Location.Y + MainBtnHGap);
-            Globalo.socketStateInfo.Location = new System.Drawing.Point(0, Globalo.trayStateInfo.Location.Y +  Globalo.trayStateInfo.Height + MainBtnHGap);
-
-
-
-
+            
+            Globalo.pickerInfo.Location = new System.Drawing.Point(0, Globalo.operationPanel.Location.Y + MainBtnHGap);
+            Globalo.socketStateInfo.Location = new System.Drawing.Point(0, Globalo.pickerInfo.Location.Y + Globalo.pickerInfo.Height + MainBtnHGap);
+            Globalo.trayStateInfo.Location = new System.Drawing.Point(Globalo.socketStateInfo.Location.X + Globalo.socketStateInfo.Width+10, Globalo.pickerInfo.Location.Y + Globalo.pickerInfo.Height + MainBtnHGap);
 
             Globalo.mCCdPanel.Visible = false;
             Globalo.mConfigPanel.Visible = false;

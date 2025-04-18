@@ -49,6 +49,7 @@ namespace ZenHandler.MotionControl
         public abstract bool IsMoving();
         public abstract void MovingStop();
         public abstract void MotorDataSet();
+        public abstract bool TaskSave();
 
 
 

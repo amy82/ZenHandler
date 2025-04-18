@@ -31,6 +31,8 @@
             this.ManualTitleLabel = new System.Windows.Forms.Label();
             this.ManualPanel = new System.Windows.Forms.Panel();
             this.groupBox3 = new System.Windows.Forms.GroupBox();
+            this.ComboBox_Language = new System.Windows.Forms.ComboBox();
+            this.label5 = new System.Windows.Forms.Label();
             this.label_CsvScanMax = new System.Windows.Forms.Label();
             this.label4 = new System.Windows.Forms.Label();
             this.label_PinCountMax = new System.Windows.Forms.Label();
@@ -39,7 +41,6 @@
             this.groupBox1 = new System.Windows.Forms.GroupBox();
             this.button_Bcr_DisConnect = new System.Windows.Forms.Button();
             this.button_Bcr_Connect = new System.Windows.Forms.Button();
-            this.poisonComboBox_BcrPort = new ReaLTaiizor.Controls.PoisonComboBox();
             this.label_Config_Bcr = new System.Windows.Forms.Label();
             this.label1 = new System.Windows.Forms.Label();
             this.groupBox2 = new System.Windows.Forms.GroupBox();
@@ -48,8 +49,7 @@
             this.checkBox_BcrGo = new System.Windows.Forms.CheckBox();
             this.checkBox_IdleReportPass = new System.Windows.Forms.CheckBox();
             this.label3 = new System.Windows.Forms.Label();
-            this.label5 = new System.Windows.Forms.Label();
-            this.ComboBox_Language = new ReaLTaiizor.Controls.PoisonComboBox();
+            this.poisonComboBox_BcrPort = new System.Windows.Forms.ComboBox();
             this.ManualPanel.SuspendLayout();
             this.groupBox3.SuspendLayout();
             this.groupBox1.SuspendLayout();
@@ -91,6 +91,33 @@
             this.groupBox3.Size = new System.Drawing.Size(298, 297);
             this.groupBox3.TabIndex = 46;
             this.groupBox3.TabStop = false;
+            // 
+            // ComboBox_Language
+            // 
+            this.ComboBox_Language.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.ComboBox_Language.DropDownHeight = 120;
+            this.ComboBox_Language.Font = new System.Drawing.Font("나눔고딕", 12.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(129)));
+            this.ComboBox_Language.FormattingEnabled = true;
+            this.ComboBox_Language.IntegralHeight = false;
+            this.ComboBox_Language.ItemHeight = 20;
+            this.ComboBox_Language.Location = new System.Drawing.Point(131, 249);
+            this.ComboBox_Language.Name = "ComboBox_Language";
+            this.ComboBox_Language.Size = new System.Drawing.Size(142, 28);
+            this.ComboBox_Language.TabIndex = 50;
+            // 
+            // label5
+            // 
+            this.label5.BackColor = System.Drawing.SystemColors.Window;
+            this.label5.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.label5.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.label5.Font = new System.Drawing.Font("나눔고딕", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(129)));
+            this.label5.ForeColor = System.Drawing.Color.Black;
+            this.label5.Location = new System.Drawing.Point(17, 249);
+            this.label5.Name = "label5";
+            this.label5.Size = new System.Drawing.Size(108, 29);
+            this.label5.TabIndex = 35;
+            this.label5.Text = "Language";
+            this.label5.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
             // label_CsvScanMax
             // 
@@ -161,9 +188,9 @@
             // groupBox1
             // 
             this.groupBox1.BackColor = System.Drawing.Color.White;
+            this.groupBox1.Controls.Add(this.poisonComboBox_BcrPort);
             this.groupBox1.Controls.Add(this.button_Bcr_DisConnect);
             this.groupBox1.Controls.Add(this.button_Bcr_Connect);
-            this.groupBox1.Controls.Add(this.poisonComboBox_BcrPort);
             this.groupBox1.Controls.Add(this.label_Config_Bcr);
             this.groupBox1.Controls.Add(this.label1);
             this.groupBox1.Location = new System.Drawing.Point(375, 21);
@@ -199,18 +226,6 @@
             this.button_Bcr_Connect.Text = "CONNECT";
             this.button_Bcr_Connect.UseVisualStyleBackColor = false;
             this.button_Bcr_Connect.Click += new System.EventHandler(this.button_Bcr_Connect_Click);
-            // 
-            // poisonComboBox_BcrPort
-            // 
-            this.poisonComboBox_BcrPort.Cursor = System.Windows.Forms.Cursors.Hand;
-            this.poisonComboBox_BcrPort.ForeColor = System.Drawing.Color.Black;
-            this.poisonComboBox_BcrPort.FormattingEnabled = true;
-            this.poisonComboBox_BcrPort.ItemHeight = 23;
-            this.poisonComboBox_BcrPort.Location = new System.Drawing.Point(94, 53);
-            this.poisonComboBox_BcrPort.Name = "poisonComboBox_BcrPort";
-            this.poisonComboBox_BcrPort.Size = new System.Drawing.Size(189, 29);
-            this.poisonComboBox_BcrPort.TabIndex = 32;
-            this.poisonComboBox_BcrPort.UseSelectable = true;
             // 
             // label_Config_Bcr
             // 
@@ -332,31 +347,18 @@
             this.label3.Text = "운전 설정";
             this.label3.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
-            // label5
+            // poisonComboBox_BcrPort
             // 
-            this.label5.BackColor = System.Drawing.SystemColors.Window;
-            this.label5.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.label5.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.label5.Font = new System.Drawing.Font("나눔고딕", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(129)));
-            this.label5.ForeColor = System.Drawing.Color.Black;
-            this.label5.Location = new System.Drawing.Point(17, 249);
-            this.label5.Name = "label5";
-            this.label5.Size = new System.Drawing.Size(108, 29);
-            this.label5.TabIndex = 35;
-            this.label5.Text = "Language";
-            this.label5.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
-            // 
-            // ComboBox_Language
-            // 
-            this.ComboBox_Language.Cursor = System.Windows.Forms.Cursors.Hand;
-            this.ComboBox_Language.ForeColor = System.Drawing.Color.Black;
-            this.ComboBox_Language.FormattingEnabled = true;
-            this.ComboBox_Language.ItemHeight = 23;
-            this.ComboBox_Language.Location = new System.Drawing.Point(131, 249);
-            this.ComboBox_Language.Name = "ComboBox_Language";
-            this.ComboBox_Language.Size = new System.Drawing.Size(153, 29);
-            this.ComboBox_Language.TabIndex = 49;
-            this.ComboBox_Language.UseSelectable = true;
+            this.poisonComboBox_BcrPort.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.poisonComboBox_BcrPort.DropDownHeight = 120;
+            this.poisonComboBox_BcrPort.Font = new System.Drawing.Font("나눔고딕", 12.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(129)));
+            this.poisonComboBox_BcrPort.FormattingEnabled = true;
+            this.poisonComboBox_BcrPort.IntegralHeight = false;
+            this.poisonComboBox_BcrPort.ItemHeight = 20;
+            this.poisonComboBox_BcrPort.Location = new System.Drawing.Point(94, 53);
+            this.poisonComboBox_BcrPort.Name = "poisonComboBox_BcrPort";
+            this.poisonComboBox_BcrPort.Size = new System.Drawing.Size(189, 28);
+            this.poisonComboBox_BcrPort.TabIndex = 51;
             // 
             // ConfigControl
             // 
@@ -388,7 +390,6 @@
         private System.Windows.Forms.CheckBox checkBox_IdleReportPass;
         private System.Windows.Forms.CheckBox checkBox_BcrGo;
         private ReaLTaiizor.Controls.HopeCheckBox hopeCheckBox_PinCountUse;
-        private ReaLTaiizor.Controls.PoisonComboBox poisonComboBox_BcrPort;
         private System.Windows.Forms.Button button_Bcr_Connect;
         private System.Windows.Forms.Button button_Bcr_DisConnect;
         private ReaLTaiizor.Controls.HopeCheckBox hopeCheckBox_ImageGrabUse;
@@ -398,6 +399,7 @@
         private System.Windows.Forms.Label label_CsvScanMax;
         public System.Windows.Forms.Label label4;
         public System.Windows.Forms.Label label5;
-        private ReaLTaiizor.Controls.PoisonComboBox ComboBox_Language;
+        private System.Windows.Forms.ComboBox ComboBox_Language;
+        private System.Windows.Forms.ComboBox poisonComboBox_BcrPort;
     }
 }

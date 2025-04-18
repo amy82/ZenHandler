@@ -19,10 +19,6 @@ namespace ZenHandler.Machine
 
         public MotionControl.MotorAxis[] MotorAxes; // 배열 선언
 
-        //public List<PickedProductInfo> LoadPickers { get; set; } = new List<PickedProductInfo>();
-        //public List<PickedProductInfo> UnLoadPickers { get; set; } = new List<PickedProductInfo>();
-
-        
 
         public string[] axisName = { "TransferX", "TransferY", "TransferZ" };
         private static double[] MOTOR_MAX_SPEED = { 200.0, 500.0, 50.0};
@@ -91,7 +87,14 @@ namespace ZenHandler.Machine
                 pickedProduct.UnLoadProductInfo.Add(new ProductInfo(i));
             }
             pickedProduct = Data.TaskDataYaml.TaskLoad_Transfer(taskPath);
-            //Data.TaskDataYaml.TaskSave_Transfer(pickedProduct, "Task_Transfer.yaml");
+
+            //
+        }
+
+        public override bool TaskSave()
+        {
+            bool rtn = Data.TaskDataYaml.TaskSave_Transfer(pickedProduct, taskPath);
+            return rtn;
         }
         public override void MotorDataSet()
         {
@@ -107,6 +110,34 @@ namespace ZenHandler.Machine
             }
    
 
+        }
+        public bool SetPicker(UnitPicker Picker, PickedProductState State , int index)
+        {
+            if (Picker == UnitPicker.LOAD)
+            {
+                pickedProduct.LoadProductInfo[index].State = State;
+            }
+            else
+            {
+                pickedProduct.UnLoadProductInfo[index].State = State;
+            }
+            Data.TaskDataYaml.TaskSave_Transfer(pickedProduct, taskPath);
+            return true;
+        }
+
+        public PickedProductState GetPickerState(UnitPicker Picker, int index)
+        {
+            PickedProductState myState;
+            if (Picker == UnitPicker.LOAD)
+            {
+                myState = pickedProduct.LoadProductInfo[index].State;
+            }
+            else
+            {
+                myState = pickedProduct.UnLoadProductInfo[index].State;
+            }
+
+            return myState;
         }
         public bool ChkXYMotorPos(eTeachingPosList teachingPos)
         {
@@ -463,13 +494,11 @@ namespace ZenHandler.Machine
             {
                 cts.Cancel();
             }
-            TransferX.MotorBreak = true;
-            TransferY.MotorBreak = true;
-            TransferZ.MotorBreak = true;
-
-            TransferX.Stop();
-            TransferY.Stop();
-            TransferZ.Stop();
+            for (int i = 0; i < MotorAxes.Length; i++)
+            {
+                MotorAxes[i].MotorBreak = true;
+                MotorAxes[i].Stop();
+            }
         }
 
         
@@ -843,26 +872,26 @@ namespace ZenHandler.Machine
                 return false;
             }
 
-
-            bool bServoOnChk = true;
-            int length = MotorAxes.Length;
             string szLog = "";
-            
-            for (int i = 0; i < length; i++)
-            {
-                if(MotorAxes[i].AmpEnable() == false)
-                {
-                    bServoOnChk = false;
-                    szLog = $"[ORIGIN] {MotorAxes[i].Name} AmpEnable Fail]";
-                    Globalo.LogPrint("ManualControl", szLog);
-                    return false;
-                }
-            }
-            if(bServoOnChk == false)
-            {
 
-                return false;
-            }
+            //bool bServoOnChk = true;
+            //int length = MotorAxes.Length;
+            
+            //for (int i = 0; i < length; i++)
+            //{
+            //    if(MotorAxes[i].AmpEnable() == false)
+            //    {
+            //        bServoOnChk = false;
+            //        szLog = $"[ORIGIN] {MotorAxes[i].Name} AmpEnable Fail]";
+            //        Globalo.LogPrint("ManualControl", szLog);
+            //        return false;
+            //    }
+            //}
+            //if(bServoOnChk == false)
+            //{
+
+            //    return false;
+            //}
             this.RunState = OperationState.Originning;
             motorAutoThread.m_nCurrentStep = 1000;          //ORG
             motorAutoThread.m_nEndStep = 2000;
@@ -967,10 +996,6 @@ namespace ZenHandler.Machine
                     Console.WriteLine($"모터 동작 실패.");
                 }
             }
-
-
-           
-
             return rtn;
         }
     }

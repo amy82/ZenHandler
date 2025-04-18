@@ -173,6 +173,9 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Controls\DefaultGridView.cs">
+      <SubType>Component</SubType>
+    </Compile>
     <Compile Include="Controls\TeachingGridView.cs">
       <SubType>Component</SubType>
     </Compile>
@@ -253,6 +256,12 @@
     </Compile>
     <Compile Include="Dlg\OperationPanel.Designer.cs">
       <DependentUpon>OperationPanel.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Dlg\PickerInfo.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Dlg\PickerInfo.Designer.cs">
+      <DependentUpon>PickerInfo.cs</DependentUpon>
     </Compile>
     <Compile Include="Dlg\ProductionInfo.cs">
       <SubType>UserControl</SubType>
@@ -343,8 +352,9 @@
     <Compile Include="Laon\CLaonGrabberClass.cs" />
     <Compile Include="Lgit\ACMISCommon.cs" />
     <Compile Include="Machine\ProductState.cs" />
+    <Compile Include="Machine\SocketMachine.cs" />
     <Compile Include="MotionControl\IOController.cs" />
-    <Compile Include="Machine\LiftModule.cs" />
+    <Compile Include="Machine\LiftMachine.cs" />
     <Compile Include="Machine\MagazineHandler.cs" />
     <Compile Include="MotionControl\MotionManager.cs" />
     <Compile Include="MotionControl\MotorAxis.cs" />
@@ -446,6 +456,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Dlg\OperationPanel.resx">
       <DependentUpon>OperationPanel.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Dlg\PickerInfo.resx">
+      <DependentUpon>PickerInfo.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Dlg\ProductionInfo.resx">
       <DependentUpon>ProductionInfo.cs</DependentUpon>
