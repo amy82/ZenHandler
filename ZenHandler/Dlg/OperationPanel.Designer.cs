@@ -44,10 +44,9 @@ namespace ZenHandler.Dlg
             this.BTN_MAIN_STOP1.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.BTN_MAIN_STOP1.Font = new System.Drawing.Font("Microsoft Sans Serif", 14.25F, System.Drawing.FontStyle.Bold);
             this.BTN_MAIN_STOP1.ForeColor = System.Drawing.Color.White;
-            this.BTN_MAIN_STOP1.Image = global::ZenHandler.Properties.Resources.Alarm;
-            this.BTN_MAIN_STOP1.Location = new System.Drawing.Point(1, 245);
+            this.BTN_MAIN_STOP1.Location = new System.Drawing.Point(1, 205);
             this.BTN_MAIN_STOP1.Name = "BTN_MAIN_STOP1";
-            this.BTN_MAIN_STOP1.Size = new System.Drawing.Size(165, 71);
+            this.BTN_MAIN_STOP1.Size = new System.Drawing.Size(165, 52);
             this.BTN_MAIN_STOP1.TabIndex = 9;
             this.BTN_MAIN_STOP1.Text = "STOP";
             this.BTN_MAIN_STOP1.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageAboveText;
@@ -61,10 +60,9 @@ namespace ZenHandler.Dlg
             this.BTN_MAIN_PAUSE1.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.BTN_MAIN_PAUSE1.Font = new System.Drawing.Font("Microsoft Sans Serif", 14.25F, System.Drawing.FontStyle.Bold);
             this.BTN_MAIN_PAUSE1.ForeColor = System.Drawing.Color.White;
-            this.BTN_MAIN_PAUSE1.Image = global::ZenHandler.Properties.Resources.Manual;
-            this.BTN_MAIN_PAUSE1.Location = new System.Drawing.Point(1, 173);
+            this.BTN_MAIN_PAUSE1.Location = new System.Drawing.Point(1, 151);
             this.BTN_MAIN_PAUSE1.Name = "BTN_MAIN_PAUSE1";
-            this.BTN_MAIN_PAUSE1.Size = new System.Drawing.Size(165, 71);
+            this.BTN_MAIN_PAUSE1.Size = new System.Drawing.Size(165, 52);
             this.BTN_MAIN_PAUSE1.TabIndex = 8;
             this.BTN_MAIN_PAUSE1.Text = "PAUSE";
             this.BTN_MAIN_PAUSE1.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageAboveText;
@@ -78,10 +76,9 @@ namespace ZenHandler.Dlg
             this.BTN_MAIN_READY1.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.BTN_MAIN_READY1.Font = new System.Drawing.Font("Microsoft Sans Serif", 14.25F, System.Drawing.FontStyle.Bold);
             this.BTN_MAIN_READY1.ForeColor = System.Drawing.Color.White;
-            this.BTN_MAIN_READY1.Image = global::ZenHandler.Properties.Resources.log;
-            this.BTN_MAIN_READY1.Location = new System.Drawing.Point(1, 101);
+            this.BTN_MAIN_READY1.Location = new System.Drawing.Point(1, 97);
             this.BTN_MAIN_READY1.Name = "BTN_MAIN_READY1";
-            this.BTN_MAIN_READY1.Size = new System.Drawing.Size(165, 71);
+            this.BTN_MAIN_READY1.Size = new System.Drawing.Size(165, 52);
             this.BTN_MAIN_READY1.TabIndex = 7;
             this.BTN_MAIN_READY1.Text = "READY";
             this.BTN_MAIN_READY1.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageAboveText;
@@ -96,10 +93,9 @@ namespace ZenHandler.Dlg
             this.BTN_MAIN_ORIGIN1.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.BTN_MAIN_ORIGIN1.Font = new System.Drawing.Font("Microsoft Sans Serif", 14.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(129)));
             this.BTN_MAIN_ORIGIN1.ForeColor = System.Drawing.Color.White;
-            this.BTN_MAIN_ORIGIN1.Image = global::ZenHandler.Properties.Resources.Desktop;
             this.BTN_MAIN_ORIGIN1.Location = new System.Drawing.Point(1, 43);
             this.BTN_MAIN_ORIGIN1.Name = "BTN_MAIN_ORIGIN1";
-            this.BTN_MAIN_ORIGIN1.Size = new System.Drawing.Size(165, 57);
+            this.BTN_MAIN_ORIGIN1.Size = new System.Drawing.Size(165, 52);
             this.BTN_MAIN_ORIGIN1.TabIndex = 6;
             this.BTN_MAIN_ORIGIN1.Text = "ORIGIN";
             this.BTN_MAIN_ORIGIN1.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageAboveText;
@@ -124,10 +120,9 @@ namespace ZenHandler.Dlg
             this.BTN_MAIN_START1.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.BTN_MAIN_START1.Font = new System.Drawing.Font("Microsoft Sans Serif", 14.25F, System.Drawing.FontStyle.Bold);
             this.BTN_MAIN_START1.ForeColor = System.Drawing.Color.White;
-            this.BTN_MAIN_START1.Image = global::ZenHandler.Properties.Resources.svg_bullhorn;
-            this.BTN_MAIN_START1.Location = new System.Drawing.Point(1, 317);
+            this.BTN_MAIN_START1.Location = new System.Drawing.Point(1, 259);
             this.BTN_MAIN_START1.Name = "BTN_MAIN_START1";
-            this.BTN_MAIN_START1.Size = new System.Drawing.Size(165, 71);
+            this.BTN_MAIN_START1.Size = new System.Drawing.Size(165, 52);
             this.BTN_MAIN_START1.TabIndex = 10;
             this.BTN_MAIN_START1.Text = "START";
             this.BTN_MAIN_START1.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageAboveText;
@@ -146,7 +141,7 @@ namespace ZenHandler.Dlg
             this.Controls.Add(this.BTN_MAIN_READY1);
             this.Controls.Add(this.BTN_MAIN_ORIGIN1);
             this.Name = "OperationPanel";
-            this.Size = new System.Drawing.Size(167, 389);
+            this.Size = new System.Drawing.Size(167, 316);
             this.ResumeLayout(false);
 
         }

@@ -254,6 +254,12 @@
     <Compile Include="Dlg\OperationPanel.Designer.cs">
       <DependentUpon>OperationPanel.cs</DependentUpon>
     </Compile>
+    <Compile Include="Dlg\PickerInfo.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Dlg\PickerInfo.Designer.cs">
+      <DependentUpon>PickerInfo.cs</DependentUpon>
+    </Compile>
     <Compile Include="Dlg\ProductionInfo.cs">
       <SubType>UserControl</SubType>
     </Compile>
@@ -447,6 +453,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Dlg\OperationPanel.resx">
       <DependentUpon>OperationPanel.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Dlg\PickerInfo.resx">
+      <DependentUpon>PickerInfo.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Dlg\ProductionInfo.resx">
       <DependentUpon>ProductionInfo.cs</DependentUpon>

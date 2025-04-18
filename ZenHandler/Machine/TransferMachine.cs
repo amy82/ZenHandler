@@ -466,13 +466,11 @@ namespace ZenHandler.Machine
             {
                 cts.Cancel();
             }
-            TransferX.MotorBreak = true;
-            TransferY.MotorBreak = true;
-            TransferZ.MotorBreak = true;
-
-            TransferX.Stop();
-            TransferY.Stop();
-            TransferZ.Stop();
+            for (int i = 0; i < MotorAxes.Length; i++)
+            {
+                MotorAxes[i].MotorBreak = true;
+                MotorAxes[i].Stop();
+            }
         }
 
         
@@ -846,26 +844,26 @@ namespace ZenHandler.Machine
                 return false;
             }
 
-
-            bool bServoOnChk = true;
-            int length = MotorAxes.Length;
             string szLog = "";
-            
-            for (int i = 0; i < length; i++)
-            {
-                if(MotorAxes[i].AmpEnable() == false)
-                {
-                    bServoOnChk = false;
-                    szLog = $"[ORIGIN] {MotorAxes[i].Name} AmpEnable Fail]";
-                    Globalo.LogPrint("ManualControl", szLog);
-                    return false;
-                }
-            }
-            if(bServoOnChk == false)
-            {
 
-                return false;
-            }
+            //bool bServoOnChk = true;
+            //int length = MotorAxes.Length;
+            
+            //for (int i = 0; i < length; i++)
+            //{
+            //    if(MotorAxes[i].AmpEnable() == false)
+            //    {
+            //        bServoOnChk = false;
+            //        szLog = $"[ORIGIN] {MotorAxes[i].Name} AmpEnable Fail]";
+            //        Globalo.LogPrint("ManualControl", szLog);
+            //        return false;
+            //    }
+            //}
+            //if(bServoOnChk == false)
+            //{
+
+            //    return false;
+            //}
             this.RunState = OperationState.Originning;
             motorAutoThread.m_nCurrentStep = 1000;          //ORG
             motorAutoThread.m_nEndStep = 2000;
@@ -970,10 +968,6 @@ namespace ZenHandler.Machine
                     Console.WriteLine($"모터 동작 실패.");
                 }
             }
-
-
-           
-
             return rtn;
         }
     }

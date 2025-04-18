@@ -106,6 +106,7 @@ namespace ZenHandler  //ApsMotionControl
             Globalo.productionInfo = new Dlg.ProductionInfo();
             Globalo.trayStateInfo = new Dlg.TrayStateInfo();
             Globalo.socketStateInfo = new Dlg.SocketStateInfo();
+            Globalo.pickerInfo = new Dlg.PickerInfo();
             Globalo.tabMenuForm = new Dlg.TabMenuForm(RightPanel.Width, RightPanel.Height);
             
             
@@ -324,12 +325,14 @@ namespace ZenHandler  //ApsMotionControl
             LeftPanel.Controls.Add(Globalo.operationPanel);
             LeftPanel.Controls.Add(Globalo.trayStateInfo);
             LeftPanel.Controls.Add(Globalo.socketStateInfo);
+            LeftPanel.Controls.Add(Globalo.pickerInfo);
 
             Globalo.productionInfo.Location = new System.Drawing.Point(0, 0);
             Globalo.operationPanel.Location = new System.Drawing.Point(LeftPanel.Width - Globalo.operationPanel.Width , Globalo.productionInfo.Height + MainBtnHGap);
 
             Globalo.trayStateInfo.Location = new System.Drawing.Point(0, Globalo.operationPanel.Location.Y + MainBtnHGap);
             Globalo.socketStateInfo.Location = new System.Drawing.Point(0, Globalo.trayStateInfo.Location.Y +  Globalo.trayStateInfo.Height + MainBtnHGap);
+            Globalo.pickerInfo.Location = new System.Drawing.Point(0, Globalo.socketStateInfo.Location.Y +  Globalo.socketStateInfo.Height + MainBtnHGap);
 
 
 
