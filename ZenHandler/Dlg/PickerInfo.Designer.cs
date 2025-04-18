@@ -30,8 +30,6 @@ namespace ZenHandler.Dlg
         private void InitializeComponent()
         {
             this.TitleLabel = new System.Windows.Forms.Label();
-            this.dataGridView1 = new System.Windows.Forms.DataGridView();
-            ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).BeginInit();
             this.SuspendLayout();
             // 
             // TitleLabel
@@ -45,24 +43,13 @@ namespace ZenHandler.Dlg
             this.TitleLabel.Text = "| Picker Info";
             this.TitleLabel.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
             // 
-            // dataGridView1
-            // 
-            this.dataGridView1.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.dataGridView1.Location = new System.Drawing.Point(7, 38);
-            this.dataGridView1.Name = "dataGridView1";
-            this.dataGridView1.RowTemplate.Height = 23;
-            this.dataGridView1.Size = new System.Drawing.Size(523, 163);
-            this.dataGridView1.TabIndex = 65;
-            // 
             // PickerInfo
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 12F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.Controls.Add(this.dataGridView1);
             this.Controls.Add(this.TitleLabel);
             this.Name = "PickerInfo";
-            this.Size = new System.Drawing.Size(546, 204);
-            ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).EndInit();
+            this.Size = new System.Drawing.Size(546, 346);
             this.ResumeLayout(false);
 
         }
@@ -70,6 +57,5 @@ namespace ZenHandler.Dlg
         #endregion
 
         private System.Windows.Forms.Label TitleLabel;
-        private System.Windows.Forms.DataGridView dataGridView1;
     }
 }

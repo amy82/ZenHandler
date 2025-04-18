@@ -111,6 +111,34 @@ namespace ZenHandler.Machine
    
 
         }
+        public bool SetPicker(UnitPicker Picker, PickedProductState State , int index)
+        {
+            if (Picker == UnitPicker.LOAD)
+            {
+                pickedProduct.LoadProductInfo[index].State = State;
+            }
+            else
+            {
+                pickedProduct.UnLoadProductInfo[index].State = State;
+            }
+            Data.TaskDataYaml.TaskSave_Transfer(pickedProduct, taskPath);
+            return true;
+        }
+
+        public PickedProductState GetPickerState(UnitPicker Picker, int index)
+        {
+            PickedProductState myState;
+            if (Picker == UnitPicker.LOAD)
+            {
+                myState = pickedProduct.LoadProductInfo[index].State;
+            }
+            else
+            {
+                myState = pickedProduct.UnLoadProductInfo[index].State;
+            }
+
+            return myState;
+        }
         public bool ChkXYMotorPos(eTeachingPosList teachingPos)
         {
             if (ProgramState.ON_LINE_MOTOR == false)

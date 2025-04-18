@@ -173,6 +173,9 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Controls\DefaultGridView.cs">
+      <SubType>Component</SubType>
+    </Compile>
     <Compile Include="Controls\TeachingGridView.cs">
       <SubType>Component</SubType>
     </Compile>

@@ -11,6 +11,11 @@ namespace ZenHandler.Machine
     // TRANSFER UNIT
     //
     //
+    public enum UnitPicker
+    {
+        LOAD = 0,
+        UNLOAD
+    }
     public enum PickedProductState
     {
         Blank = 0,   // 제품 없음    
@@ -29,9 +34,9 @@ namespace ZenHandler.Machine
     }
     public class ProductInfo
     {
-        public int Index { get; set; }
+        public int Index { get; set; } = 0;
+        public string BcrLot { get; set; } = "";
         public PickedProductState State { get; set; } = PickedProductState.Blank;
-        //public double[] Position { get; set; } = new double[3];
 
         public ProductInfo() { }  // <- 이게 필요해!
         public ProductInfo(int index)

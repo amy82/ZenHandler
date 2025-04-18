@@ -14,104 +14,50 @@ namespace ZenHandler.Dlg
     {
         private int dRowHeight = 26;
         private int nGridRowCount = 0;              //Grid 총 Row / 세로 칸 수
-        int[] inGridWid = new int[] { 80, 230, 70 };         //Grid Width
+
+        int PickerCount = 8;   //Load Picket 4ea + UnLoad 4ea
+        int[] inGridWid = new int[] { 80, 250, 70 };         //Grid Width
+
+        private Controls.DefaultGridView dataGridView;
+
         public PickerInfo()
         {
             InitializeComponent();
-            InitializeGrid();
+
+
+            SetGrid();
             InitializePicker();
         }
-
-        public void InitializeGrid()
+        public void SetGrid()
         {
-            //GRID
             int i = 0;
-            int LotCount = 3;// teachingData.Teaching.Count;
-            int dGridHeight = LotCount * dRowHeight;
-            int scrollWidth = 3;// 20;
-
-
-            int dGridWidth = 0;
-            for (i = 0; i < inGridWid.Length; i++)
-            {
-                dGridWidth += inGridWid[i];
-            }
-
-            nGridRowCount += LotCount;
-
-            dataGridView1.ColumnCount = LotCount;
-            dataGridView1.EnableHeadersVisualStyles = false;
-            dataGridView1.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.DisableResizing; //사이즈 조절 막기
-            dataGridView1.RowCount = nGridRowCount;
-            dataGridView1.ColumnHeadersDefaultCellStyle.BackColor = Color.White;
-            dataGridView1.ColumnHeadersDefaultCellStyle.SelectionForeColor = Color.Yellow;
-            dataGridView1.ColumnHeadersDefaultCellStyle.Font = new Font(this.Font, FontStyle.Bold);
-            //this.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;    //마우스 사이즈 조절 막기 Height
-            //this.AutoSizeRowsMode = DataGridViewAutoSizeRowsMode.DisplayedCellsExceptHeaders;
-            dataGridView1.AllowUserToResizeRows = false;
-            dataGridView1.AutoSizeRowsMode = DataGridViewAutoSizeRowsMode.None;
-            dataGridView1.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.None;
-
-            dataGridView1.Name = "TransferTeachGrid";
-            dataGridView1.Size = new Size(dGridWidth + scrollWidth, dGridHeight + dRowHeight + 2);
-            dataGridView1.ColumnHeadersBorderStyle = DataGridViewHeaderBorderStyle.Single;
-            dataGridView1.CellBorderStyle = DataGridViewCellBorderStyle.Single;
-            dataGridView1.GridColor = Color.Black;
-            dataGridView1.RowHeadersVisible = false;
-            //dataGridView1.CellClick += TeachGrid_CellClick;
-            //dataGridView1.CellDoubleClick += TeachGrid_CellDoubleClick;
-
-
+            dataGridView = new Controls.DefaultGridView(3, 8, inGridWid);
+            dataGridView.Location = new Point(10, 40);
+            this.Controls.Add(dataGridView);
 
             string[] title = new string[] { "Picker", "Lot", "State" };         //Grid Width
-            for (i = 0; i < dataGridView1.ColumnCount; i++)
+            for (i = 0; i < dataGridView.ColumnCount; i++)
             {
-                dataGridView1.Columns[i].Name = title[i];
-                dataGridView1.Columns[i].Resizable = DataGridViewTriState.False;
-                dataGridView1.Columns[i].Width = inGridWid[i];
-                dataGridView1.Columns[i].SortMode = DataGridViewColumnSortMode.NotSortable;
-                dataGridView1.Columns[i].DefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleCenter;
+                dataGridView.Columns[i].Name = title[i];
             }
-
-
-            dataGridView1.ColumnHeadersHeight = dRowHeight;
-            for (i = 0; i < nGridRowCount; i++)
-            {
-                dataGridView1.Rows[i].Height = dRowHeight;
-            }
-
-            //for (i = 0; i < MotionControl.MotorSet.TEACH_SET_MENU.Length; i++)
-            //{
-            //    dataGridView1.Rows[i].SetValues(MotionControl.MotorSet.TEACH_SET_MENU[i]);      //원전  , home ,limit 등
-            //}
-
-            //for (i = 0; i < nGridSensorRowCount; i++)
-            //{
-            //    //row header 선택 색 변화 금지
-            //    dataGridView1.Rows[i].DefaultCellStyle.SelectionBackColor = dataGridView1.DefaultCellStyle.BackColor;
-            //    dataGridView1.Rows[i].DefaultCellStyle.SelectionForeColor = dataGridView1.DefaultCellStyle.ForeColor;
-            //}
             string posName = "";
-            for (i = 0; i < LotCount; i++)
+            for (i = 0; i < PickerCount; i++)
             {
-                posName = "Load "+(i+1).ToString();// teachingData.Teaching[i].Name;
+                if (i < 4)
+                {
+                    posName = "Load " + (i + 1).ToString();
+                }
+                else
+                {
+                    posName = "UnLoad " + (i + 1).ToString();
+                }
 
-                dataGridView1.Rows[i].SetValues(posName);
+
+                dataGridView.Rows[i].SetValues(posName);
             }
 
 
-            //dataGridView1.Rows[nGridRowCount - 1].SetValues("현재위치");
-            //dataGridView1[1, nGridRowCount - 1].Value = "0.0";
-            //dataGridView1[2, nGridRowCount - 1].Value = "0.0";
-            //dataGridView1[3, nGridRowCount - 1].Value = "0.0";
-
-            dataGridView1.ColumnHeadersDefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleCenter;
-            dataGridView1.ReadOnly = true;
-            dataGridView1.CurrentCell = null;
-            dataGridView1.MultiSelect = false;
         }
-
-
 
 
         public void InitializePicker()

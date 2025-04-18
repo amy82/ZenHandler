@@ -50,6 +50,12 @@ namespace ZenHandler.Dlg
             this.label4 = new System.Windows.Forms.Label();
             this.label3 = new System.Windows.Forms.Label();
             this.label2 = new System.Windows.Forms.Label();
+            this.label_CycleTime = new System.Windows.Forms.Label();
+            this.label_SocketUph = new System.Windows.Forms.Label();
+            this.label1_HandlerUph = new System.Windows.Forms.Label();
+            this.label_CycleTime_Val = new System.Windows.Forms.Label();
+            this.label_SocketUph_Val = new System.Windows.Forms.Label();
+            this.label_HandlerUph_Val = new System.Windows.Forms.Label();
             this.panel_ProductionInfo.SuspendLayout();
             this.groupBox1.SuspendLayout();
             this.SuspendLayout();
@@ -65,6 +71,12 @@ namespace ZenHandler.Dlg
             // 
             // groupBox1
             // 
+            this.groupBox1.Controls.Add(this.label_HandlerUph_Val);
+            this.groupBox1.Controls.Add(this.label_SocketUph_Val);
+            this.groupBox1.Controls.Add(this.label_CycleTime_Val);
+            this.groupBox1.Controls.Add(this.label1_HandlerUph);
+            this.groupBox1.Controls.Add(this.label_SocketUph);
+            this.groupBox1.Controls.Add(this.label_CycleTime);
             this.groupBox1.Controls.Add(this.BTN_MAIN_RECIPE_VEW);
             this.groupBox1.Controls.Add(this.textBox_Recipe);
             this.groupBox1.Controls.Add(this.textBox_Model);
@@ -308,6 +320,66 @@ namespace ZenHandler.Dlg
             this.label2.TabIndex = 0;
             this.label2.Text = "OK :";
             // 
+            // label_CycleTime
+            // 
+            this.label_CycleTime.AutoSize = true;
+            this.label_CycleTime.Font = new System.Drawing.Font("나눔고딕", 8.999999F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(129)));
+            this.label_CycleTime.Location = new System.Drawing.Point(757, 173);
+            this.label_CycleTime.Name = "label_CycleTime";
+            this.label_CycleTime.Size = new System.Drawing.Size(75, 14);
+            this.label_CycleTime.TabIndex = 40;
+            this.label_CycleTime.Text = "Cycle Time :";
+            // 
+            // label_SocketUph
+            // 
+            this.label_SocketUph.AutoSize = true;
+            this.label_SocketUph.Font = new System.Drawing.Font("나눔고딕", 8.999999F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(129)));
+            this.label_SocketUph.Location = new System.Drawing.Point(757, 198);
+            this.label_SocketUph.Name = "label_SocketUph";
+            this.label_SocketUph.Size = new System.Drawing.Size(88, 14);
+            this.label_SocketUph.TabIndex = 41;
+            this.label_SocketUph.Text = "SOCKET UPH :";
+            // 
+            // label1_HandlerUph
+            // 
+            this.label1_HandlerUph.AutoSize = true;
+            this.label1_HandlerUph.Font = new System.Drawing.Font("나눔고딕", 8.999999F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(129)));
+            this.label1_HandlerUph.Location = new System.Drawing.Point(757, 224);
+            this.label1_HandlerUph.Name = "label1_HandlerUph";
+            this.label1_HandlerUph.Size = new System.Drawing.Size(122, 14);
+            this.label1_HandlerUph.TabIndex = 42;
+            this.label1_HandlerUph.Text = "Handler Time(UPH) :";
+            // 
+            // label_CycleTime_Val
+            // 
+            this.label_CycleTime_Val.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.label_CycleTime_Val.Location = new System.Drawing.Point(888, 169);
+            this.label_CycleTime_Val.Name = "label_CycleTime_Val";
+            this.label_CycleTime_Val.Size = new System.Drawing.Size(89, 22);
+            this.label_CycleTime_Val.TabIndex = 43;
+            this.label_CycleTime_Val.Text = "0";
+            this.label_CycleTime_Val.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
+            // 
+            // label_SocketUph_Val
+            // 
+            this.label_SocketUph_Val.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.label_SocketUph_Val.Location = new System.Drawing.Point(888, 194);
+            this.label_SocketUph_Val.Name = "label_SocketUph_Val";
+            this.label_SocketUph_Val.Size = new System.Drawing.Size(89, 22);
+            this.label_SocketUph_Val.TabIndex = 44;
+            this.label_SocketUph_Val.Text = "0";
+            this.label_SocketUph_Val.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
+            // 
+            // label_HandlerUph_Val
+            // 
+            this.label_HandlerUph_Val.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.label_HandlerUph_Val.Location = new System.Drawing.Point(888, 219);
+            this.label_HandlerUph_Val.Name = "label_HandlerUph_Val";
+            this.label_HandlerUph_Val.Size = new System.Drawing.Size(89, 22);
+            this.label_HandlerUph_Val.TabIndex = 45;
+            this.label_HandlerUph_Val.Text = "0";
+            this.label_HandlerUph_Val.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
+            // 
             // ProductionInfo
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 12F);
@@ -345,5 +417,11 @@ namespace ZenHandler.Dlg
         private System.Windows.Forms.TextBox textBox_Model;
         private System.Windows.Forms.TextBox textBox_Recipe;
         private System.Windows.Forms.Button BTN_MAIN_RECIPE_VEW;
+        private System.Windows.Forms.Label label1_HandlerUph;
+        private System.Windows.Forms.Label label_SocketUph;
+        private System.Windows.Forms.Label label_CycleTime;
+        private System.Windows.Forms.Label label_CycleTime_Val;
+        private System.Windows.Forms.Label label_HandlerUph_Val;
+        private System.Windows.Forms.Label label_SocketUph_Val;
     }
 }

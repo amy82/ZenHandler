@@ -330,13 +330,14 @@ namespace ZenHandler  //ApsMotionControl
             Globalo.productionInfo.Location = new System.Drawing.Point(0, 0);
             Globalo.operationPanel.Location = new System.Drawing.Point(LeftPanel.Width - Globalo.operationPanel.Width , Globalo.productionInfo.Height + MainBtnHGap);
 
-            Globalo.trayStateInfo.Location = new System.Drawing.Point(0, Globalo.operationPanel.Location.Y + MainBtnHGap);
-            Globalo.socketStateInfo.Location = new System.Drawing.Point(0, Globalo.trayStateInfo.Location.Y +  Globalo.trayStateInfo.Height + MainBtnHGap);
-            Globalo.pickerInfo.Location = new System.Drawing.Point(0, Globalo.socketStateInfo.Location.Y +  Globalo.socketStateInfo.Height + MainBtnHGap);
+            //Globalo.trayStateInfo.Location = new System.Drawing.Point(0, Globalo.operationPanel.Location.Y + MainBtnHGap);
+            //Globalo.socketStateInfo.Location = new System.Drawing.Point(0, Globalo.trayStateInfo.Location.Y +  Globalo.trayStateInfo.Height + MainBtnHGap);
+            //Globalo.pickerInfo.Location = new System.Drawing.Point(0, Globalo.socketStateInfo.Location.Y +  Globalo.socketStateInfo.Height + MainBtnHGap);
 
 
-
-
+            Globalo.pickerInfo.Location = new System.Drawing.Point(0, Globalo.operationPanel.Location.Y + MainBtnHGap);
+            Globalo.socketStateInfo.Location = new System.Drawing.Point(0, Globalo.pickerInfo.Location.Y + Globalo.pickerInfo.Height + MainBtnHGap);
+            Globalo.trayStateInfo.Location = new System.Drawing.Point(Globalo.socketStateInfo.Location.X + Globalo.socketStateInfo.Width+10, Globalo.pickerInfo.Location.Y + Globalo.pickerInfo.Height + MainBtnHGap);
 
             Globalo.mCCdPanel.Visible = false;
             Globalo.mConfigPanel.Visible = false;
