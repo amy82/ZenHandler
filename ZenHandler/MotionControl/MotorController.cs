@@ -104,7 +104,7 @@ namespace ZenHandler.MotionControl
                 }
 
 
-                dMultiCurrPos[i] = multiAxis[i].GetEncoderPos();
+                dMultiCurrPos[i] = multiAxis[i].EncoderPos;
 
                 if (Math.Abs(dMultiCurrPos[i] - dMultiPos[i]) < 0.0001)
                 {
@@ -204,7 +204,7 @@ namespace ZenHandler.MotionControl
                             SkipChk = 0;
                             for (i = 0; i < multiCnt; i++)
                             {
-                                if ((multiAxis[i].GetEncoderPos() - dMultiPos[i]) < MotionControl.MotorSet.ENCORDER_GAP)
+                                if ((multiAxis[i].EncoderPos - dMultiPos[i]) < MotionControl.MotorSet.ENCORDER_GAP)
                                 {
                                     SkipChk++;
                                     multiAxis[i].IsMotorBusy = false;
@@ -293,7 +293,7 @@ namespace ZenHandler.MotionControl
 
             if (nAbsFlag == AXT_MOTION_ABSREL.POS_ABS_MODE)
             {
-                dCurrPos = nAxis.GetEncoderPos();
+                dCurrPos = nAxis.EncoderPos;
 
                 if (Math.Abs(dCurrPos - dPos) < 0.0001)
                 {
@@ -302,7 +302,7 @@ namespace ZenHandler.MotionControl
             }
             else if (nAbsFlag == AXT_MOTION_ABSREL.POS_REL_MODE)
             {
-                dPos += nAxis.GetEncoderPos();
+                dPos += nAxis.EncoderPos;
             }
             else
             {
@@ -370,7 +370,7 @@ namespace ZenHandler.MotionControl
                             nTimeTick = Environment.TickCount;
                             break;
                         case 200:
-                            if ((nAxis.GetEncoderPos() - dPos) < MotionControl.MotorSet.ENCORDER_GAP)
+                            if ((nAxis.EncoderPos - dPos) < MotionControl.MotorSet.ENCORDER_GAP)
                             {
                                 isSuccess = true;
                                 Console.WriteLine($"{nAxis.Name }Motor Move Check");

@@ -38,11 +38,15 @@ namespace ZenHandler.MotionControl
         public double MaxSpeed { get; protected set; }
         //
         //
-        public double CommnadPos { get; protected set; }            //현재 위치 AxmStatusGetCmdPos : STEPING
-        public double ActualPos { get; protected set; }             //현재 위치 AxmStatusGetActPos : LINEAR , SERVO
-        public double CommandVelocity { get; protected set; }       //지정한 축의 구동 속도 AxmStatusReadVel
+        public double EncoderPos
+        {
+            get
+            {
+                return GetEncoderPos(); // 호출 시마다 최신값 반환
+            }
+            //protected set { } // 필요하면 나중에 로직 추가 가능
+        }
         public bool OrgState { get; set; }                //원점 상태
-        //public bool RunState { get; protected set; }                //동작 상태
         //
         //
         public AXT_MOTION_MOVE_DIR HomeMoveDir { get; protected set; }              //DIR_CW= 0x1, 시계방향/ DIR_CCW= 0x0, 반시계방향
@@ -240,6 +244,17 @@ namespace ZenHandler.MotionControl
 
                 return false;
             }
+
+            if (bWait)
+            {
+                //TODO: 구현 필요 센서 감시 확인 , 특정 센서(ex) 상단감지 감지 이동 함수도 필요
+                while (bWait)
+                {
+                    if (MotorBreak) break;
+
+                    
+                }
+            }
             return true;
         }
 
@@ -355,7 +370,7 @@ namespace ZenHandler.MotionControl
             if (nAbsFlag == AXT_MOTION_ABSREL.POS_ABS_MODE)
             {
                 dVel *= 0.5;
-                dCurrPos = this.GetEncoderPos();
+                dCurrPos = this.EncoderPos;
 
                 if (Math.Abs(dCurrPos - dPos) < 0.0001)
                 {
@@ -364,7 +379,7 @@ namespace ZenHandler.MotionControl
             }
             else if (nAbsFlag == AXT_MOTION_ABSREL.POS_REL_MODE)
             {
-                dPos += this.GetEncoderPos();
+                dPos += this.EncoderPos;
             }
             else
             {
@@ -432,7 +447,7 @@ namespace ZenHandler.MotionControl
                             nTimeTick = Environment.TickCount;
                             break;
                         case 200:
-                            if ((this.GetEncoderPos() - dPos) < MotionControl.MotorSet.ENCORDER_GAP)
+                            if ((this.EncoderPos - dPos) < MotionControl.MotorSet.ENCORDER_GAP)
                             {
                                 isSuccess = true;
                                 Console.WriteLine($"{this.Name }Motor Move Check");
