@@ -244,6 +244,17 @@ namespace ZenHandler.MotionControl
 
                 return false;
             }
+
+            if (bWait)
+            {
+                //TODO: 구현 필요 센서 감시 확인 , 특정 센서(ex) 상단감지 감지 이동 함수도 필요
+                while (bWait)
+                {
+                    if (MotorBreak) break;
+
+                    
+                }
+            }
             return true;
         }
 
