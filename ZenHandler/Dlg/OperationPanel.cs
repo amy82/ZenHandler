@@ -44,8 +44,11 @@ namespace ZenHandler.Dlg
             _timerRunButton.Interval = 500;
             _timerRunButton.Tick += (s, e) => RunButtonUITimerFn(); // 실행할 함수 지정
             _timerRunButton.Start();
+
+
+            AutoButtonSet(_AllState);
         }
-        
+
         public bool StartHomeProcess()
         {
             //TRANSFER UNIT

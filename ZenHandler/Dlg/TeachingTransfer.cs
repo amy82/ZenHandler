@@ -167,8 +167,7 @@ namespace ZenHandler.Dlg
             {
                 await Task.Run(() =>
                 {
-
-                    isSuccess = Globalo.motionManager.transferMachine.MotorAxes[SelectAxisIndex].MoveAxis(AXT_MOTION_ABSREL.POS_REL_MODE, dPos, 5.0, false);
+                    isSuccess = Globalo.motionManager.transferMachine.MotorAxes[SelectAxisIndex].MoveAxis(dPos, AXT_MOTION_ABSREL.POS_REL_MODE,  false);
 
                     Globalo.LogPrint("ManualControl", $"[TASK] MotorRelMove End");
                 }, token);
@@ -191,7 +190,7 @@ namespace ZenHandler.Dlg
                 ////cts = null;      // cts를 null로 설정하여 다음 작업에서 새로 생성할 수 있게
             }
 
-            Globalo.LogPrint("ManualControl", $"[FUNCTION] MoveFromAbsRel End");
+            Globalo.LogPrint("ManualControl", $"[FUNCTION] MotorRelMove End");
             return isSuccess;
         }
 

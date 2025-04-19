@@ -76,7 +76,7 @@ namespace ZenHandler.MotionControl
             this.IsMotorBusy = false;
         }
         
-        public virtual void setMotorParameter(double vel , double acc , double dec , double resol )
+        public virtual void setMotorParameter(double vel , double acc , double dec , double resol)
         {
             if (vel < 10)
             {
@@ -223,8 +223,26 @@ namespace ZenHandler.MotionControl
             }
             return false;
         }
+        public bool MoveAxisLimit(double dVel, double dAcc, AXT_MOTION_HOME_DETECT Detect, AXT_MOTION_EDGE Edge, AXT_MOTION_STOPMODE StopMode, bool bWait = false)
+        {
+            uint duRetCode = 0;
 
-        
+            double DVel = dVel * this.Resolution;
+            double DAcc = dAcc;
+
+
+            duRetCode = CAXM.AxmMoveSignalSearch(this.m_lAxisNo, DVel, DAcc, (int)Detect, (int)Edge, (int)StopMode);
+
+            if (duRetCode != (uint)AXT_FUNC_RESULT.AXT_RT_SUCCESS)
+            {
+
+                Console.WriteLine("MotorControl", $"AxmMoveSignalSearch return error[Code:{duRetCode}]", Globalo.eMessageName.M_ERROR);
+
+                return false;
+            }
+            return true;
+        }
+
         public bool JogMove(int direction, double Speed)
         {
             //Speed = 0.1 , 0.5 , 1.0 Low , Mid , High
@@ -296,10 +314,11 @@ namespace ZenHandler.MotionControl
         //	지정 축을 절대 구동 또는 상대 구동으로 이동한다. 
         //
         //-----------------------------------------------------------------------------
-        public bool MoveAxis(AXT_MOTION_ABSREL nAbsFlag, double dPos, double dVel, bool bWait)
+        public bool MoveAxis(double dPos, AXT_MOTION_ABSREL nAbsFlag, bool bWait)
         {
             bool isSuccess = false;
             double dCurrPos = 0.0;
+            double dVel = 0.0;
             double dAcc = 0.0;
             double dDec = 0.0;
             string str = "";
@@ -319,16 +338,23 @@ namespace ZenHandler.MotionControl
                 str = $"{this.Name} Motor Stop status check failed";
                 return false;
             }
-            //if (this.OrgState == false)       //TODO: + , - 움직이는 거라서 원점 체크 빼도될듯 
-            //{
-            //    str = $"{this.Name} Failed to check for return to origin";
-            //    return false;
-            //}
-            ///////
-            /////
-            ////
             if (nAbsFlag == AXT_MOTION_ABSREL.POS_ABS_MODE)
             {
+                if (this.OrgState == false)       //TODO: + , - 움직이는 거라서 원점 체크 빼도될듯 
+                {
+                    str = $"{this.Name} Failed to check for return to origin";
+                    return false;
+                }
+            }
+            ////
+            ////
+            ////
+            ///
+            dVel = this.Velocity * this.Resolution;   //이동 속도 
+
+            if (nAbsFlag == AXT_MOTION_ABSREL.POS_ABS_MODE)
+            {
+                dVel *= 0.5;
                 dCurrPos = this.GetEncoderPos();
 
                 if (Math.Abs(dCurrPos - dPos) < 0.0001)
@@ -352,7 +378,7 @@ namespace ZenHandler.MotionControl
             {
                 dPos = (int)(dPos + 0.5);
             }
-            dVel = this.Velocity * this.Resolution;   //이동 속도 
+            
 
 
             if (MotionControl.MotorSet.MOTOR_ACC_TYPE_SEC)
@@ -372,7 +398,7 @@ namespace ZenHandler.MotionControl
             // 펄스가 출력되는 시점에서 함수를 벗어난다.
             // AxmMotSetAccelUnit(lAxisNo, 1) 일경우 dAccel -> dAccelTime , dDecel -> dDecelTime 으로 바뀐다.
 
-
+            this.IsMotorBusy = true;
             uint duRetCode = CAXM.AxmMoveStartPos(this.m_lAxisNo, dPos, dVel, dAcc, dDec);
 
             if (duRetCode != (uint)AXT_FUNC_RESULT.AXT_RT_SUCCESS)

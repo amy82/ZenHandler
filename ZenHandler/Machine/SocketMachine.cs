@@ -21,7 +21,6 @@ namespace ZenHandler.Machine
 
         public string[] axisName = { "FrontSocketX", "BackSocketX", "BackSocketY", "CAMZ_L", "CAMZ_R" };
 
-        private static double[] MOTOR_MAX_SPEED = { 200.0, 200.0, 200.0, 200.0, 200.0 };
         private MotorDefine.eMotorType[] motorType = { MotorDefine.eMotorType.LINEAR, MotorDefine.eMotorType.LINEAR, MotorDefine.eMotorType.LINEAR, MotorDefine.eMotorType.LINEAR, MotorDefine.eMotorType.LINEAR };
         private AXT_MOTION_LEVEL_MODE[] AXT_SET_LIMIT = { AXT_MOTION_LEVEL_MODE.LOW, AXT_MOTION_LEVEL_MODE.LOW, AXT_MOTION_LEVEL_MODE.LOW, AXT_MOTION_LEVEL_MODE.LOW, AXT_MOTION_LEVEL_MODE.LOW };
         private AXT_MOTION_LEVEL_MODE[] AXT_SET_SERVO_ALARM = { AXT_MOTION_LEVEL_MODE.HIGH, AXT_MOTION_LEVEL_MODE.LOW, AXT_MOTION_LEVEL_MODE.LOW, AXT_MOTION_LEVEL_MODE.LOW, AXT_MOTION_LEVEL_MODE.LOW };
@@ -30,6 +29,7 @@ namespace ZenHandler.Machine
 
         private static AXT_MOTION_MOVE_DIR[] MOTOR_HOME_DIR = { AXT_MOTION_MOVE_DIR.DIR_CW, AXT_MOTION_MOVE_DIR.DIR_CW, AXT_MOTION_MOVE_DIR.DIR_CW, AXT_MOTION_MOVE_DIR.DIR_CW, AXT_MOTION_MOVE_DIR.DIR_CW };
 
+        private static double[] MaxSpeeds = { 200.0, 200.0, 200.0, 200.0, 200.0 };
         private double[] OrgFirstVel = { 20000.0, 20000.0, 20000.0, 20000.0, 20000.0 };
         private double[] OrgSecondVel = { 10000.0, 10000.0, 10000.0, 10000.0, 10000.0 };
         private double[] OrgThirdVel = { 5000.0, 5000.0, 5000.0, 5000.0, 5000.0 };
@@ -51,35 +51,25 @@ namespace ZenHandler.Machine
         //public SocketProduct socketProduct = new SocketProduct();
         public SocketMachine()
         {
+            int i = 0;
             this.RunState = OperationState.Stopped;
             this.MachineName = this.GetType().Name;
-
-            FrontSocketX = new MotionControl.MotorAxis((int)MotionControl.MotorSet.eSocketMotorList.FRONT_X,
-                    axisName[0], motorType[0], MOTOR_MAX_SPEED[0], AXT_SET_LIMIT[0], AXT_SET_SERVO_ALARM[0], OrgFirstVel[0], OrgSecondVel[0], OrgThirdVel[0],
-                    MOTOR_HOME_SENSOR[0], MOTOR_HOME_DIR[0]);
-            BackSocketX = new MotionControl.MotorAxis((int)MotionControl.MotorSet.eSocketMotorList.BACK_X,
-                axisName[1], motorType[1], MOTOR_MAX_SPEED[1], AXT_SET_LIMIT[1], AXT_SET_SERVO_ALARM[1], OrgFirstVel[1], OrgSecondVel[1], OrgThirdVel[1],
-                MOTOR_HOME_SENSOR[1], MOTOR_HOME_DIR[1]);
-            BackSocketY = new MotionControl.MotorAxis((int)MotionControl.MotorSet.eSocketMotorList.BACK_Y,
-                axisName[2], motorType[2], MOTOR_MAX_SPEED[2], AXT_SET_LIMIT[2], AXT_SET_SERVO_ALARM[2], OrgFirstVel[2], OrgSecondVel[2], OrgThirdVel[2],
-                MOTOR_HOME_SENSOR[2], MOTOR_HOME_DIR[2]);
-            CamZ_L = new MotionControl.MotorAxis((int)MotionControl.MotorSet.eSocketMotorList.CAMZ_L,
-                axisName[3], motorType[3], MOTOR_MAX_SPEED[3], AXT_SET_LIMIT[3], AXT_SET_SERVO_ALARM[3], OrgFirstVel[3], OrgSecondVel[3], OrgThirdVel[3],
-                MOTOR_HOME_SENSOR[3], MOTOR_HOME_DIR[3]);
-            CamZ_R = new MotionControl.MotorAxis((int)MotionControl.MotorSet.eSocketMotorList.CAMZ_R,
-                axisName[4], motorType[4], MOTOR_MAX_SPEED[4], AXT_SET_LIMIT[4], AXT_SET_SERVO_ALARM[4], OrgFirstVel[4], OrgSecondVel[4], OrgThirdVel[4],
-                MOTOR_HOME_SENSOR[4], MOTOR_HOME_DIR[4]);
-
-
 
             MotorAxes = new MotionControl.MotorAxis[] { FrontSocketX, BackSocketX, BackSocketY, CamZ_L, CamZ_R };
             MotorCnt = MotorAxes.Length;
 
-            FrontSocketX.setMotorParameter(10.0, 0.1, 0.1, 1000.0);     //초기 셋 다른 곳에서 다시 해줘야될 듯
-            BackSocketX.setMotorParameter(10.0, 0.1, 0.1, 1000.0);
-            BackSocketY.setMotorParameter(10.0, 0.1, 0.1, 1000.0);
-            CamZ_L.setMotorParameter(10.0, 0.1, 0.1, 1000.0);
-            CamZ_R.setMotorParameter(10.0, 0.1, 0.1, 1000.0);
+            MotionControl.MotorSet.eSocketMotorList eList;
+            for (i = 0; i < MotorCnt; i++)
+            {
+                eList = (MotionControl.MotorSet.eSocketMotorList)i;
+                MotorAxes[i] = new MotionControl.MotorAxis((int)eList,
+                axisName[i], motorType[i], MaxSpeeds[i], AXT_SET_LIMIT[i], AXT_SET_SERVO_ALARM[i], OrgFirstVel[i], OrgSecondVel[i], OrgThirdVel[i],
+                MOTOR_HOME_SENSOR[i], MOTOR_HOME_DIR[i]);
+
+
+                //초기 셋 다른 곳에서 다시 해줘야될 듯
+                MotorAxes[i].setMotorParameter(10.0, 0.1, 0.1, 1000.0);//(double vel , double acc , double dec , double resol)
+            }
 
 
             //socketProduct = Data.TaskDataYaml.TaskLoad_Socket(taskPath);
@@ -118,15 +108,9 @@ namespace ZenHandler.Machine
                 MotorAxes[i].Stop();
             }
         }
-        public override void MoveToPosition(int position)
-        {
-            //Console.WriteLine($"Transfer name : {TransferX.Name}");
-            //Console.WriteLine($"Transfer 이동축 {position} 위치로 이동");
-        }
-
         public override bool IsMoving()
         {
-            if (motorAutoThread.GetThreadRun() == true)
+            if (AutoUnitThread.GetThreadRun() == true)
             {
                 return true;
             }
@@ -134,7 +118,7 @@ namespace ZenHandler.Machine
         }
         public override void StopAuto()
         {
-            motorAutoThread.Stop();
+            AutoUnitThread.Stop();
             MovingStop();
 
             Console.WriteLine($"[INFO] Socket Run Stop");
@@ -142,7 +126,7 @@ namespace ZenHandler.Machine
         }
         public override bool OriginRun()
         {
-            if (motorAutoThread.GetThreadRun() == true)
+            if (AutoUnitThread.GetThreadRun() == true)
             {
                 //motorAutoThread.Stop();
                 return false;
@@ -151,7 +135,7 @@ namespace ZenHandler.Machine
         }
         public override bool ReadyRun()
         {
-            if (motorAutoThread.GetThreadRun() == true)
+            if (AutoUnitThread.GetThreadRun() == true)
             {
                 return false;
             }
@@ -159,9 +143,9 @@ namespace ZenHandler.Machine
         }
         public override void PauseAuto()
         {
-            if (motorAutoThread.GetThreadRun() == true)
+            if (AutoUnitThread.GetThreadRun() == true)
             {
-                motorAutoThread.Pause();
+                AutoUnitThread.Pause();
             }
         }
         public override bool AutoRun()
