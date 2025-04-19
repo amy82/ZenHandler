@@ -217,7 +217,7 @@ namespace ZenHandler.Dlg
 
             if (TeachCurrentTab == eTeachingBtn.TransferTab)
             {   
-                bool result = await transferTeach.MotorRelMove(dMovePos);
+                bool result = await transferTeach.MotorRelMove(dMovePos);   //TODO: 머신안에 함수로 바꿔야된다.
             }
             
         }

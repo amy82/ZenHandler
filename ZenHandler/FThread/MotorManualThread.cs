@@ -23,7 +23,6 @@ namespace ZenHandler.FThread
         {
             if (this.m_nCurrentStep >= 1000 && this.m_nCurrentStep < 2000)
             {
-                //this.parent.SingleAxisMove();
             }
 
         }

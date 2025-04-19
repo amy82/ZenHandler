@@ -26,6 +26,8 @@ namespace ZenHandler.MotionControl
 
         public MotionManager()
         {
+
+            Event.EventManager.PgExitCall += OnPgExit;
             ioController = new IOController();
 
             transferMachine = new Machine.TransferMachine();        //TODO: motor , io 모두 설정되고나서 해야될수도
@@ -39,7 +41,21 @@ namespace ZenHandler.MotionControl
             liftMachine.teachingConfig.LoadTeach(liftMachine.teachingPath);
             socketMachine.teachingConfig.LoadTeach(socketMachine.teachingPath);
         }
+        private void OnPgExit(object sender, EventArgs e)
+        {
+            Console.WriteLine("MotionManager - OnPgExit");
+            transferMachine.StopAuto();
+            magazineHandler.StopAuto();
+            liftMachine.StopAuto();
+            socketMachine.StopAuto();
 
+
+            transferMachine.MachineClose();
+            magazineHandler.MachineClose();
+            liftMachine.MachineClose();
+            socketMachine.MachineClose();
+
+        }
         public void AllMotorParameterSet()
         {
             transferMachine.MotorDataSet();
@@ -81,6 +97,12 @@ namespace ZenHandler.MotionControl
                 }
                 ioController.DioInit();
 
+                //------------------------------------------------------------------------------------------------------------
+                //
+                // TRANSFER UNIT
+                //
+                //
+                //------------------------------------------------------------------------------------------------------------
                 int length = transferMachine.MotorAxes.Length;
                 for (int i = 0; i < length; i++)
                 {
@@ -90,15 +112,28 @@ namespace ZenHandler.MotionControl
                         bAxlInit = false;
                     }
                 }
+                //------------------------------------------------------------------------------------------------------------
+                //
+                // SOCKET UNIT
+                //
+                //
+                //------------------------------------------------------------------------------------------------------------
+                length = socketMachine.MotorAxes.Length;
+                //------------------------------------------------------------------------------------------------------------
+                //
+                // MAGAZINE UNIT
+                //
+                //
+                //------------------------------------------------------------------------------------------------------------
+                length = magazineHandler.MotorAxes.Length;
+                //------------------------------------------------------------------------------------------------------------
+                //
+                // LIFT UNIT
+                //
+                //
+                //------------------------------------------------------------------------------------------------------------
 
-                //Socket Machine
-
-                //Magazine Machine
-
-                //Lift Machine
-
-
-                //length = liftModule.MotorAxes.Length;
+                length = liftMachine.MotorAxes.Length;
             }
             else
             {

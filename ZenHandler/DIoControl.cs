@@ -265,29 +265,29 @@ namespace ZenHandler
                 switch (nType)
                 {
                     case 0:
-                        dwInputVal &= ~((uint)DioDefine.DIO_OUT_ADDR.BUZZER1 | (uint)DioDefine.DIO_OUT_ADDR.BUZZER2
-                                        | (uint)DioDefine.DIO_OUT_ADDR.BUZZER3 | (uint)DioDefine.DIO_OUT_ADDR.BUZZER4);     //dwInputVal BUZZER1,2,3,4를 끄다.
+                        dwInputVal &= ~((uint)DioDefine.DIO_OUT_ADDR_CH0.BUZZER1 | (uint)DioDefine.DIO_OUT_ADDR_CH0.BUZZER2
+                                        | (uint)DioDefine.DIO_OUT_ADDR_CH0.BUZZER3 | (uint)DioDefine.DIO_OUT_ADDR_CH0.BUZZER4);     //dwInputVal BUZZER1,2,3,4를 끄다.
                         break;
                     case 1:
-                        dwInputVal |= ((uint)DioDefine.DIO_OUT_ADDR.BUZZER1);                                               //dwInputVal BUZZER1 만 켜다.
-                        dwInputVal &= ~((uint)DioDefine.DIO_OUT_ADDR.BUZZER2 | 
-                            (uint)DioDefine.DIO_OUT_ADDR.BUZZER3 | (uint)DioDefine.DIO_OUT_ADDR.BUZZER4);//dwInputVal BUZZER 2,3,4를 끄다.
+                        dwInputVal |= ((uint)DioDefine.DIO_OUT_ADDR_CH0.BUZZER1);                                               //dwInputVal BUZZER1 만 켜다.
+                        dwInputVal &= ~((uint)DioDefine.DIO_OUT_ADDR_CH0.BUZZER2 | 
+                            (uint)DioDefine.DIO_OUT_ADDR_CH0.BUZZER3 | (uint)DioDefine.DIO_OUT_ADDR_CH0.BUZZER4);//dwInputVal BUZZER 2,3,4를 끄다.
                         break;
                     case 2:
-                        dwInputVal |= ((uint)DioDefine.DIO_OUT_ADDR.BUZZER2);
-                        dwInputVal &= ~((uint)DioDefine.DIO_OUT_ADDR.BUZZER1 | (uint)DioDefine.DIO_OUT_ADDR.BUZZER3 | (uint)DioDefine.DIO_OUT_ADDR.BUZZER4);
+                        dwInputVal |= ((uint)DioDefine.DIO_OUT_ADDR_CH0.BUZZER2);
+                        dwInputVal &= ~((uint)DioDefine.DIO_OUT_ADDR_CH0.BUZZER1 | (uint)DioDefine.DIO_OUT_ADDR_CH0.BUZZER3 | (uint)DioDefine.DIO_OUT_ADDR_CH0.BUZZER4);
                         break;
                     case 3:
-                        dwInputVal |= ((uint)DioDefine.DIO_OUT_ADDR.BUZZER3);
-                        dwInputVal &= ~((uint)DioDefine.DIO_OUT_ADDR.BUZZER1 | (uint)DioDefine.DIO_OUT_ADDR.BUZZER2| (uint)DioDefine.DIO_OUT_ADDR.BUZZER4);
+                        dwInputVal |= ((uint)DioDefine.DIO_OUT_ADDR_CH0.BUZZER3);
+                        dwInputVal &= ~((uint)DioDefine.DIO_OUT_ADDR_CH0.BUZZER1 | (uint)DioDefine.DIO_OUT_ADDR_CH0.BUZZER2| (uint)DioDefine.DIO_OUT_ADDR_CH0.BUZZER4);
                         break;
                     case 4:
-                        dwInputVal |= ((uint)DioDefine.DIO_OUT_ADDR.BUZZER4);
-                        dwInputVal &= ~((uint)DioDefine.DIO_OUT_ADDR.BUZZER1 | (uint)DioDefine.DIO_OUT_ADDR.BUZZER2| (uint)DioDefine.DIO_OUT_ADDR.BUZZER3);
+                        dwInputVal |= ((uint)DioDefine.DIO_OUT_ADDR_CH0.BUZZER4);
+                        dwInputVal &= ~((uint)DioDefine.DIO_OUT_ADDR_CH0.BUZZER1 | (uint)DioDefine.DIO_OUT_ADDR_CH0.BUZZER2| (uint)DioDefine.DIO_OUT_ADDR_CH0.BUZZER3);
                         break;
                     default:
-                        dwInputVal &= ~((uint)DioDefine.DIO_OUT_ADDR.BUZZER1 | (uint)DioDefine.DIO_OUT_ADDR.BUZZER2
-                                        | (uint)DioDefine.DIO_OUT_ADDR.BUZZER3 | (uint)DioDefine.DIO_OUT_ADDR.BUZZER4);       //testio에서 BUZZER1 하고 BUZZER3을 끄다.
+                        dwInputVal &= ~((uint)DioDefine.DIO_OUT_ADDR_CH0.BUZZER1 | (uint)DioDefine.DIO_OUT_ADDR_CH0.BUZZER2
+                                        | (uint)DioDefine.DIO_OUT_ADDR_CH0.BUZZER3 | (uint)DioDefine.DIO_OUT_ADDR_CH0.BUZZER4);       //testio에서 BUZZER1 하고 BUZZER3을 끄다.
                         break;
                 }
 

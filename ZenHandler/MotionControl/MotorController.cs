@@ -10,13 +10,14 @@ namespace ZenHandler.MotionControl
     //class MotionBase
     public abstract class MotorController
     {
-        protected FThread.MotorAutoThread motorAutoThread;
-        protected FThread.MotorManualThread motorManualThread;
+        protected FThread.MotorAutoThread AutoUnitThread;
+        //protected FThread.MotorManualThread motorManualThread;
         
         public Process.ProcessManager processManager;
         public OperationState RunState = OperationState.Stopped;
         public string MachineName { get; protected set; }
         protected CancellationTokenSource cts;
+
         ////protected bool isMotorBusy = false; //실행중 체크용 플래그
         //abstract : 추상 메서드
         //반드시 자식 클래스에 구현해야 함, 내용없이 선언가능, 강제 특정 메서드 오버라이딩 유도
@@ -30,15 +31,14 @@ namespace ZenHandler.MotionControl
 
         public MotorController()//string name
         {
-            motorAutoThread = new FThread.MotorAutoThread(this);        //TODO: MotorAutoThread 쓰레드 종료하는 거 추가해야된다.
-            motorManualThread = new FThread.MotorManualThread(this);
+            AutoUnitThread = new FThread.MotorAutoThread(this);        //TODO: MotorAutoThread 쓰레드 종료하는 거 추가해야된다.
+            //motorManualThread = new FThread.MotorManualThread(this);
 
             processManager = new Process.ProcessManager();
             
             cts = new CancellationTokenSource();
         }
 
-        public abstract void MoveToPosition(int position);
         public abstract void StopAuto();
         public abstract bool AutoRun();
         public abstract void PauseAuto();
@@ -52,176 +52,9 @@ namespace ZenHandler.MotionControl
         public abstract bool TaskSave();
 
 
-
-        public virtual bool SingleAxisMove(MotorAxis nAxis, double dPos, AXT_MOTION_ABSREL nAbsFlag, bool bWait = false)
+        public virtual void MachineClose()
         {
-            if (ProgramState.ON_LINE_MOTOR == false)
-            {
-                return true;
-            }
-            bool isSuccess = false;
-            double dCurrPos = 0.0;
-            double dVel = 0.0;
-            double dAcc = 0.0;
-            double dDec = 0.0;
-            string str = "";
-            nAxis.MotorBreak = false;
-            nAxis.IsMotorBusy = true;
-
-            
-            if (nAxis.GetAmpFault() == true)    //알람 신호 입력 상태 확인
-            {
-                str = $"{nAxis.Name} Motor ServoAlarm occurs";
-                return false;
-            }
-            if (nAxis.GetAmpEnable() == false)      //Servo-On 상태 확인
-            {
-                str = $"{nAxis.Name} Motor Servo Off State";
-                return false;
-            }
-            if (nAxis.GetStopAxis() == false)      //정지 상태 확인
-            {
-                str = $"{nAxis.Name} Motor Stop status check failed";
-                return false;
-            }
-            if (nAxis.OrgState == false)
-            {
-                str = $"{nAxis.Name} Failed to check for return to origin";
-                return false;
-            }
-            
-            
-
-            if (nAbsFlag == AXT_MOTION_ABSREL.POS_ABS_MODE)
-            {
-                dCurrPos = nAxis.GetEncoderPos();
-
-                if (Math.Abs(dCurrPos - dPos) < 0.0001)
-                {
-                    return true;
-                }
-            }
-            else if (nAbsFlag == AXT_MOTION_ABSREL.POS_REL_MODE)
-            {
-                dPos += nAxis.GetEncoderPos();
-            }
-            else
-            {
-                str = $"{nAxis.Name} Motor movement command error";
-                return false;
-            }
-
-            dPos *= nAxis.Resolution;
-
-            if (dPos > 0)
-            {
-                dPos = (int)(dPos + 0.5);
-            }
-            dVel = nAxis.Velocity * nAxis.Resolution;	//이동 속도 
-            
-
-            if (MotionControl.MotorSet.MOTOR_ACC_TYPE_SEC)
-            {
-                dAcc = nAxis.Acceleration;      //! 가속 
-                dDec = nAxis.Deceleration;      //! 감속
-            }
-            else
-            {
-                dAcc = nAxis.Acceleration * (9.8 * 1000 * nAxis.Resolution);      //! 가속 
-                dDec = nAxis.Deceleration * (9.8 * 1000 * nAxis.Resolution);      //! 감속
-            }
-
-            // 설정한 거리만큼 또는 위치까지 이동한다.
-            // 지정 축의 절대 좌표/ 상대좌표 로 설정된 위치까지 설정된 속도와 가속율로 구동을 한다.
-            // 속도 프로파일은 AxmMotSetProfileMode 함수에서 설정한다.
-            // 펄스가 출력되는 시점에서 함수를 벗어난다.
-            // AxmMotSetAccelUnit(lAxisNo, 1) 일경우 dAccel -> dAccelTime , dDecel -> dDecelTime 으로 바뀐다.
-
-
-            uint duRetCode = CAXM.AxmMoveStartPos(nAxis.m_lAxisNo, dPos, dVel, dAcc, dDec);
-
-            if (duRetCode != (uint)AXT_FUNC_RESULT.AXT_RT_SUCCESS)
-            {
-                Console.WriteLine($"AxmMoveStartPos return error[Code:{duRetCode}]");
-                return false;
-            }
-            if (bWait == false)
-            {
-                return true;
-            }
-            else
-            {
-                //이동 위치 확인 
-                int step = 100;
-                int nTimeTick = 0;
-
-                while (bWait)
-                {
-                    if (nAxis.MotorBreak) break;
-                    //위치 도착 확인 , 정지 확인
-
-                    switch (step)
-                    {
-                        case 100:
-                            if(nAxis.GetStopAxis() == true)
-                            {
-                                Console.WriteLine($"{nAxis.Name }Motor Stop Check");
-                                step = 200;
-                            }
-                            nTimeTick = Environment.TickCount;
-                            break;
-                        case 200:
-                            if ((nAxis.GetEncoderPos() - dPos) < MotionControl.MotorSet.ENCORDER_GAP)
-                            {
-                                isSuccess = true;
-                                Console.WriteLine($"{nAxis.Name }Motor Move Check");
-                                step = 1000;
-                            }
-                            break;
-                        default:
-                            break;
-                    }
-                    if(step >= 1000)
-                    {
-                        break;
-                    }
-                    if (Environment.TickCount - nTimeTick > MotionControl.MotorSet.MOTOR_MOVE_TIMEOUT)
-                    {
-                        if(step == 100)//정지 실패
-                        {
-                            Console.WriteLine($"{nAxis.Name }Motor Stop Timeout error[Code:{duRetCode}]");
-                        }
-                        else if (step == 200)//위치 이동 실패
-                        {
-                            Console.WriteLine($"{nAxis.Name }Motor Move Timeout error[Code:{duRetCode}]");
-                        }
-                        isSuccess = false;
-                        break;
-                    }
-                    Thread.Sleep(10);
-                }
-            }
-            nAxis.IsMotorBusy = false;
-            return isSuccess;
-        }
-        public virtual bool MoveAxisLimit(MotorAxis nAxis, double dVel, double dAcc, AXT_MOTION_HOME_DETECT Detect, AXT_MOTION_EDGE Edge, AXT_MOTION_STOPMODE StopMode, bool bWait = false)
-        {
-            uint duRetCode = 0;
-
-            double DVel = dVel * nAxis.Resolution;
-            double DAcc = dAcc;
-
-
-            duRetCode = CAXM.AxmMoveSignalSearch(nAxis.m_lAxisNo, DVel, DAcc, (int)Detect, (int)Edge, (int)StopMode);
-
-            if (duRetCode != (uint)AXT_FUNC_RESULT.AXT_RT_SUCCESS)
-            {
-
-                Console.WriteLine("MotorControl", $"AxmMoveSignalSearch return error[Code:{duRetCode}]", Globalo.eMessageName.M_ERROR);
-
-                return false;
-            }
-            return true;
+            AutoUnitThread.Close();
         }
         public virtual bool MultiAxisMove(MotorAxis[] multiAxis, double[] dMultiPos, bool bWait = false)
         {
@@ -412,5 +245,164 @@ namespace ZenHandler.MotionControl
             
             return isSuccess;
         }
+
+
+#region 확인 후 삭제 [SingleAxisMove]
+        public virtual bool SingleAxisMove(MotorAxis nAxis, double dPos, AXT_MOTION_ABSREL nAbsFlag, bool bWait = false)
+        {
+            if (ProgramState.ON_LINE_MOTOR == false)
+            {
+                return true;
+            }
+            bool isSuccess = false;
+            double dCurrPos = 0.0;
+            double dVel = 0.0;
+            double dAcc = 0.0;
+            double dDec = 0.0;
+            string str = "";
+            nAxis.MotorBreak = false;
+            nAxis.IsMotorBusy = true;
+
+
+            if (nAxis.GetAmpFault() == true)    //알람 신호 입력 상태 확인
+            {
+                str = $"{nAxis.Name} Motor ServoAlarm occurs";
+                return false;
+            }
+            if (nAxis.GetAmpEnable() == false)      //Servo-On 상태 확인
+            {
+                str = $"{nAxis.Name} Motor Servo Off State";
+                return false;
+            }
+            if (nAxis.GetStopAxis() == false)      //정지 상태 확인
+            {
+                str = $"{nAxis.Name} Motor Stop status check failed";
+                return false;
+            }
+            if (nAbsFlag == AXT_MOTION_ABSREL.POS_ABS_MODE)
+            {
+                if (nAxis.OrgState == false)        //MEMO: REL 상대 위치 이동일때는 원점 확인 필요 없을듯 , ABS = 티칭위치 이동
+                {
+                    str = $"{nAxis.Name} Failed to check for return to origin";
+                    return false;
+                }
+            }
+
+
+
+
+            if (nAbsFlag == AXT_MOTION_ABSREL.POS_ABS_MODE)
+            {
+                dCurrPos = nAxis.GetEncoderPos();
+
+                if (Math.Abs(dCurrPos - dPos) < 0.0001)
+                {
+                    return true;
+                }
+            }
+            else if (nAbsFlag == AXT_MOTION_ABSREL.POS_REL_MODE)
+            {
+                dPos += nAxis.GetEncoderPos();
+            }
+            else
+            {
+                str = $"{nAxis.Name} Motor movement command error";
+                return false;
+            }
+
+            dPos *= nAxis.Resolution;
+
+            if (dPos > 0)
+            {
+                dPos = (int)(dPos + 0.5);
+            }
+            dVel = nAxis.Velocity * nAxis.Resolution;   //이동 속도 
+
+
+            if (MotionControl.MotorSet.MOTOR_ACC_TYPE_SEC)
+            {
+                dAcc = nAxis.Acceleration;      //! 가속 
+                dDec = nAxis.Deceleration;      //! 감속
+            }
+            else
+            {
+                dAcc = nAxis.Acceleration * (9.8 * 1000 * nAxis.Resolution);      //! 가속 
+                dDec = nAxis.Deceleration * (9.8 * 1000 * nAxis.Resolution);      //! 감속
+            }
+
+            // 설정한 거리만큼 또는 위치까지 이동한다.
+            // 지정 축의 절대 좌표/ 상대좌표 로 설정된 위치까지 설정된 속도와 가속율로 구동을 한다.
+            // 속도 프로파일은 AxmMotSetProfileMode 함수에서 설정한다.
+            // 펄스가 출력되는 시점에서 함수를 벗어난다.
+            // AxmMotSetAccelUnit(lAxisNo, 1) 일경우 dAccel -> dAccelTime , dDecel -> dDecelTime 으로 바뀐다.
+
+
+            uint duRetCode = CAXM.AxmMoveStartPos(nAxis.m_lAxisNo, dPos, dVel, dAcc, dDec);
+
+            if (duRetCode != (uint)AXT_FUNC_RESULT.AXT_RT_SUCCESS)
+            {
+                Console.WriteLine($"AxmMoveStartPos return error[Code:{duRetCode}]");
+                return false;
+            }
+            if (bWait == false)
+            {
+                return true;
+            }
+            else
+            {
+                //이동 위치 확인 
+                int step = 100;
+                int nTimeTick = 0;
+
+                while (bWait)
+                {
+                    if (nAxis.MotorBreak) break;
+                    //위치 도착 확인 , 정지 확인
+
+                    switch (step)
+                    {
+                        case 100:
+                            if (nAxis.GetStopAxis() == true)
+                            {
+                                Console.WriteLine($"{nAxis.Name }Motor Stop Check");
+                                step = 200;
+                            }
+                            nTimeTick = Environment.TickCount;
+                            break;
+                        case 200:
+                            if ((nAxis.GetEncoderPos() - dPos) < MotionControl.MotorSet.ENCORDER_GAP)
+                            {
+                                isSuccess = true;
+                                Console.WriteLine($"{nAxis.Name }Motor Move Check");
+                                step = 1000;
+                            }
+                            break;
+                        default:
+                            break;
+                    }
+                    if (step >= 1000)
+                    {
+                        break;
+                    }
+                    if (Environment.TickCount - nTimeTick > MotionControl.MotorSet.MOTOR_MOVE_TIMEOUT)
+                    {
+                        if (step == 100)//정지 실패
+                        {
+                            Console.WriteLine($"{nAxis.Name }Motor Stop Timeout error[Code:{duRetCode}]");
+                        }
+                        else if (step == 200)//위치 이동 실패
+                        {
+                            Console.WriteLine($"{nAxis.Name }Motor Move Timeout error[Code:{duRetCode}]");
+                        }
+                        isSuccess = false;
+                        break;
+                    }
+                    Thread.Sleep(10);
+                }
+            }
+            nAxis.IsMotorBusy = false;
+            return isSuccess;
+        }
+        #endregion
     }
 }

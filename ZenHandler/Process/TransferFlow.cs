@@ -94,8 +94,7 @@ namespace ZenHandler.Process
 
                     dSpeed = (15 * -1);      //-1은 왼쪽 이동
 
-                    bRtn = Globalo.motionManager.transferMachine.MoveAxisLimit(Globalo.motionManager.transferMachine.TransferZ, dSpeed, dAcc,
-                        AXT_MOTION_HOME_DETECT.NegEndLimit, AXT_MOTION_EDGE.SIGNAL_UP_EDGE, AXT_MOTION_STOPMODE.EMERGENCY_STOP);
+                    bRtn = Globalo.motionManager.transferMachine.TransferZ.MoveAxisLimit(dSpeed, dAcc, AXT_MOTION_HOME_DETECT.NegEndLimit, AXT_MOTION_EDGE.SIGNAL_UP_EDGE, AXT_MOTION_STOPMODE.EMERGENCY_STOP);
                     if (bRtn == false)
                     {
                         szLog = $"[ORIGIN] TransferZ (-)Limit 위치 구동 실패 [STEP : {nStep}]";
@@ -146,8 +145,7 @@ namespace ZenHandler.Process
 
                     dSpeed = (10 * -1);      //-1은 왼쪽 이동
 
-                    bRtn = Globalo.motionManager.transferMachine.MoveAxisLimit(Globalo.motionManager.transferMachine.TransferX, dSpeed, dAcc,
-                        AXT_MOTION_HOME_DETECT.NegEndLimit, AXT_MOTION_EDGE.SIGNAL_UP_EDGE, AXT_MOTION_STOPMODE.EMERGENCY_STOP);
+                    bRtn = Globalo.motionManager.transferMachine.TransferX.MoveAxisLimit(dSpeed, dAcc, AXT_MOTION_HOME_DETECT.NegEndLimit, AXT_MOTION_EDGE.SIGNAL_UP_EDGE, AXT_MOTION_STOPMODE.EMERGENCY_STOP);
                     if (bRtn == false)
                     {
                         szLog = $"[ORIGIN] TransferX (-)Limit 위치 구동 실패 [STEP : {nStep}]";
@@ -172,8 +170,7 @@ namespace ZenHandler.Process
 
                     dSpeed = (10 * -1);      //-1은 왼쪽 이동
 
-                    bRtn = Globalo.motionManager.transferMachine.MoveAxisLimit(Globalo.motionManager.transferMachine.TransferY, dSpeed, dAcc,
-                        AXT_MOTION_HOME_DETECT.NegEndLimit, AXT_MOTION_EDGE.SIGNAL_UP_EDGE, AXT_MOTION_STOPMODE.EMERGENCY_STOP);
+                    bRtn = Globalo.motionManager.transferMachine.TransferY.MoveAxisLimit(dSpeed, dAcc, AXT_MOTION_HOME_DETECT.NegEndLimit, AXT_MOTION_EDGE.SIGNAL_UP_EDGE, AXT_MOTION_STOPMODE.EMERGENCY_STOP);
                     if (bRtn == false)
                     {
                         szLog = $"[ORIGIN] TransferY (-)Limit 위치 구동 실패 [STEP : {nStep}]";

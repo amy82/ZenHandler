@@ -54,7 +54,7 @@ namespace ZenHandler.MotionControl
                 {
                     while (true)
                     {
-                        if (ctsMotion.Token.IsCancellationRequested)    //TODO: 종료시 빠져나와야된다.
+                        if (ctsMotion.Token.IsCancellationRequested)
                         {
                             break;
                             //Console.WriteLine("취소 요청 감지됨");
