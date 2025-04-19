@@ -52,6 +52,7 @@ namespace ZenHandler.Machine
         //public LayerTray pickedProduct = new LayerTray();
         public MagazineTray magazineTray = new MagazineTray();
 
+        
         public MagazineHandler()// : base("MagazineHandler")
         {
             int i = 0;
@@ -61,11 +62,10 @@ namespace ZenHandler.Machine
             MotorAxes = new MotionControl.MotorAxis[] { MagazineY_L, MagazineZ_L, MagazineY_R, MagazineZ_R };
             MotorCnt = MotorAxes.Length;
 
-            MotionControl.MotorSet.eMagazineMotorList eList;
             for (i = 0; i < MotorCnt; i++)
             {
-                eList = (MotionControl.MotorSet.eMagazineMotorList)i;
-                MotorAxes[i] = new MotionControl.MotorAxis((int)eList,
+                int index = (int)MotionControl.MotorSet.ValidMagazineMotors[i];
+                MotorAxes[i] = new MotionControl.MotorAxis(index,
                 axisName[i], motorType[i], MaxSpeeds[i], AXT_SET_LIMIT[i], AXT_SET_SERVO_ALARM[i], OrgFirstVel[i], OrgSecondVel[i], OrgThirdVel[i],
                 MOTOR_HOME_SENSOR[i], MOTOR_HOME_DIR[i]);
 

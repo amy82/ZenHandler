@@ -63,11 +63,10 @@ namespace ZenHandler.Machine
             MotorAxes = new MotionControl.MotorAxis[] { LoadLift_Z_L, UnLoadLift_Z_L, Gantry_Y_L, LoadLift_Z_L, UnLoadLift_Z_L, Gantry_Y_L };
             MotorCnt = MotorAxes.Length;
 
-            MotionControl.MotorSet.eLiftMotorList eList;
             for (i = 0; i < MotorCnt; i++)
             {
-                eList = (MotionControl.MotorSet.eLiftMotorList)i;
-                MotorAxes[i] = new MotionControl.MotorAxis((int)eList,
+                int index = (int)MotionControl.MotorSet.ValidLiftMotors[i];
+                MotorAxes[i] = new MotionControl.MotorAxis(index,
                 axisName[i], motorType[i], MaxSpeeds[i], AXT_SET_LIMIT[i], AXT_SET_SERVO_ALARM[i], OrgFirstVel[i], OrgSecondVel[i], OrgThirdVel[i],
                 MOTOR_HOME_SENSOR[i], MOTOR_HOME_DIR[i]);
 

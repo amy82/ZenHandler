@@ -6,6 +6,7 @@ using System.Threading.Tasks;
 
 namespace ZenHandler.MotionControl
 {
+    
     public static class MotorSet
     {
 
@@ -19,21 +20,50 @@ namespace ZenHandler.MotionControl
         public static bool MOTOR_ACC_TYPE_SEC = true;
 
 
-
-        //EEPROM
-        //
+        public static readonly eTransferMotorList[] ValidTransferMotors =
+        {
+            eTransferMotorList.TRANSFER_X,
+            eTransferMotorList.TRANSFER_Y,
+            eTransferMotorList.TRANSFER_Z
+        };
         public enum eTransferMotorList : int        
         {
             TRANSFER_X = 0, TRANSFER_Y, TRANSFER_Z, TOTAL_TRANSFER_MOTOR_COUNT
         };
-
+        public static readonly eLiftMotorList[] ValidLiftMotors =
+        {
+            eLiftMotorList.LOAD_Z_L,
+            eLiftMotorList.UNLOAD_Z_L,
+            eLiftMotorList.GANTRY_Y_L,
+            eLiftMotorList.LOAD_Z_R,
+            eLiftMotorList.UNLOAD_Z_R,
+            eLiftMotorList.GANTRY_Y_R
+        };
         public enum eLiftMotorList : int
         {
             LOAD_Z_L = 3, UNLOAD_Z_L, GANTRY_Y_L, LOAD_Z_R, UNLOAD_Z_R, GANTRY_Y_R, TOTAL_LIFT_MOTOR_COUNT
         };
+
+
+        public static readonly eMagazineMotorList[] ValidMagazineMotors =
+        {
+            eMagazineMotorList.L_MAGAZINE_Z,
+            eMagazineMotorList.L_MAGAZINE_Y,
+            eMagazineMotorList.R_MAGAZINE_Z,
+            eMagazineMotorList.R_MAGAZINE_Y
+        };
         public enum eMagazineMotorList : int
         {
             L_MAGAZINE_Z = 3, L_MAGAZINE_Y, R_MAGAZINE_Z, R_MAGAZINE_Y, TOTAL_MAGAZINE_MOTOR_COUNT
+        };
+
+        public static readonly eSocketMotorList[] ValidSocketMotors =
+        {
+            eSocketMotorList.FRONT_X,
+            eSocketMotorList.BACK_X,
+            eSocketMotorList.BACK_Y,
+            eSocketMotorList.CAMZ_L,
+            eSocketMotorList.CAMZ_R
         };
         public enum eSocketMotorList : int
         {
@@ -41,17 +71,6 @@ namespace ZenHandler.MotionControl
         };
         //AOI
         //
-        public enum eAOI_MotorList : int
-        {
-            TRANSFER_X = 0, TRANSFER_Y, TRANSFER_Z, L_IN_LIFT, L_OUT_LIFT, R_IN_LIFT, R_OUT_LIFT, CAM_Z1, CAM_Z2 //MAX_MOTOR_LIST_COUNT
-        };
-
-        //FW
-        //
-        public enum eFW_MotorList : int
-        {
-            TRANSFER_X = 0, TRANSFER_Y, TRANSFER_Z, L_MAGAZINE_Z, L_MAGAZINE_Y, R_MAGAZINE_Z, R_MAGAZINE_Y, //MAX_MOTOR_LIST_COUNT
-        };
         //eeprom == 투입 LIFT 2개 , 배출 LIFT 2개
         //aoi    == 투입 LIFT 2개 , 배출 LIFT 2개 , CAM z축 2개
         //fw     == 매거진 Z축 + Y축 2세트

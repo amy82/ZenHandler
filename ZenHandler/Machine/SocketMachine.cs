@@ -58,11 +58,10 @@ namespace ZenHandler.Machine
             MotorAxes = new MotionControl.MotorAxis[] { FrontSocketX, BackSocketX, BackSocketY, CamZ_L, CamZ_R };
             MotorCnt = MotorAxes.Length;
 
-            MotionControl.MotorSet.eSocketMotorList eList;
             for (i = 0; i < MotorCnt; i++)
             {
-                eList = (MotionControl.MotorSet.eSocketMotorList)i;
-                MotorAxes[i] = new MotionControl.MotorAxis((int)eList,
+                int index = (int)MotionControl.MotorSet.ValidSocketMotors[i];
+                MotorAxes[i] = new MotionControl.MotorAxis(index,
                 axisName[i], motorType[i], MaxSpeeds[i], AXT_SET_LIMIT[i], AXT_SET_SERVO_ALARM[i], OrgFirstVel[i], OrgSecondVel[i], OrgThirdVel[i],
                 MOTOR_HOME_SENSOR[i], MOTOR_HOME_DIR[i]);
 

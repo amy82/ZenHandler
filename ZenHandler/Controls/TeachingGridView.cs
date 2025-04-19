@@ -298,7 +298,7 @@ namespace ZenHandler.Controls
                     this[i + 1, 5].Style.BackColor = Color.White;
                 }
 
-                this[i + 1, nGridRowCount - 1].Value = motorList[i].GetEncoderPos();
+                this[i + 1, nGridRowCount - 1].Value = motorList[i].EncoderPos;// GetEncoderPos();
             }
 
         }

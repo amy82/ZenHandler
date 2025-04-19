@@ -8,7 +8,7 @@ using System.Windows.Forms;
 
 namespace ZenHandler.Machine
 {
-    public enum eTransferIndex : int
+    public enum eTransfer : int
     {
         TRANSFER_X = 0, TRANSFER_Y, TRANSFER_Z
     };
@@ -21,16 +21,12 @@ namespace ZenHandler.Machine
         public MotionControl.MotorAxis TransferZ;
 
         public MotionControl.MotorAxis[] MotorAxes; // 배열 선언
-
-
         public string[] axisName = { "TransferX", "TransferY", "TransferZ" };
         
         private MotorDefine.eMotorType[] motorType = { MotorDefine.eMotorType.LINEAR, MotorDefine.eMotorType.LINEAR, MotorDefine.eMotorType.LINEAR };
         private AXT_MOTION_LEVEL_MODE[] AXT_SET_LIMIT = { AXT_MOTION_LEVEL_MODE.LOW, AXT_MOTION_LEVEL_MODE.HIGH, AXT_MOTION_LEVEL_MODE.LOW };
         private AXT_MOTION_LEVEL_MODE[] AXT_SET_SERVO_ALARM = { AXT_MOTION_LEVEL_MODE.HIGH, AXT_MOTION_LEVEL_MODE.HIGH, AXT_MOTION_LEVEL_MODE.LOW };
-
         private static AXT_MOTION_HOME_DETECT[] MOTOR_HOME_SENSOR = {AXT_MOTION_HOME_DETECT.HomeSensor, AXT_MOTION_HOME_DETECT.HomeSensor, AXT_MOTION_HOME_DETECT.HomeSensor};
-
         private static AXT_MOTION_MOVE_DIR[] MOTOR_HOME_DIR = {AXT_MOTION_MOVE_DIR.DIR_CCW, AXT_MOTION_MOVE_DIR.DIR_CCW, AXT_MOTION_MOVE_DIR.DIR_CW};
 
         private static double[] MaxSpeeds = { 200.0, 500.0, 50.0 };
@@ -69,14 +65,12 @@ namespace ZenHandler.Machine
             MotorCnt = MotorAxes.Length;
 
 
-            MotionControl.MotorSet.eTransferMotorList eList;
             for (i = 0; i < MotorCnt; i++)
             {
-                eList = (MotionControl.MotorSet.eTransferMotorList)i;
-                MotorAxes[i] = new MotionControl.MotorAxis((int)eList,
+                int index = (int)MotionControl.MotorSet.ValidTransferMotors[i];
+                MotorAxes[i] = new MotionControl.MotorAxis(index,
                 axisName[i], motorType[i], MaxSpeeds[i], AXT_SET_LIMIT[i], AXT_SET_SERVO_ALARM[i], OrgFirstVel[i], OrgSecondVel[i], OrgThirdVel[i],
                 MOTOR_HOME_SENSOR[i], MOTOR_HOME_DIR[i]);
-
 
                 //초기 셋 다른 곳에서 다시 해줘야될 듯
                 MotorAxes[i].setMotorParameter(10.0, 0.1, 0.1, 1000.0);//(double vel , double acc , double dec , double resol)
@@ -157,12 +151,12 @@ namespace ZenHandler.Machine
             double currentYPos = 0.0;
 
 
-            dXPos = Globalo.motionManager.transferMachine.teachingConfig.Teaching[(int)teachingPos].Pos[0];
-            dYPos = Globalo.motionManager.transferMachine.teachingConfig.Teaching[(int)teachingPos].Pos[1];
+            dXPos = Globalo.motionManager.transferMachine.teachingConfig.Teaching[(int)teachingPos].Pos[(int)eTransfer.TRANSFER_X];
+            dYPos = Globalo.motionManager.transferMachine.teachingConfig.Teaching[(int)teachingPos].Pos[(int)eTransfer.TRANSFER_Y];
             
 
-            currentXPos = TransferX.GetEncoderPos();
-            currentYPos = TransferY.GetEncoderPos();
+            currentXPos = TransferX.EncoderPos;
+            currentYPos = TransferY.EncoderPos;
 
             if (dXPos == currentXPos && dYPos == currentYPos)
             {
@@ -181,8 +175,8 @@ namespace ZenHandler.Machine
             double currentZPos = 0.0;
 
 
-            dZTeachingPos = Globalo.motionManager.transferMachine.teachingConfig.Teaching[(int)teachingPos].Pos[2];
-            currentZPos = TransferZ.GetEncoderPos();
+            dZTeachingPos = Globalo.motionManager.transferMachine.teachingConfig.Teaching[(int)teachingPos].Pos[(int)eTransfer.TRANSFER_Z];
+            currentZPos = TransferZ.EncoderPos;
             
             if (dZTeachingPos == currentZPos)
             {
@@ -508,7 +502,7 @@ namespace ZenHandler.Machine
                 Globalo.LogPrint("ManualControl", $"모터 작업이 이미 실행 중입니다. 기다려 주세요.");
                 return false;
             }
-            double dPos = Globalo.motionManager.transferMachine.teachingConfig.Teaching[(int)ePos].Pos[0];     //z Axis
+            double dPos = Globalo.motionManager.transferMachine.teachingConfig.Teaching[(int)ePos].Pos[(int)eTransfer.TRANSFER_X];
 
             bool isSuccess = true;
             try
@@ -532,7 +526,7 @@ namespace ZenHandler.Machine
         {
             bool isSuccess = true;
             string logStr = "";
-            double dPos = Globalo.motionManager.transferMachine.teachingConfig.Teaching[(int)ePos].Pos[2];     //z Axis
+            double dPos = Globalo.motionManager.transferMachine.teachingConfig.Teaching[(int)ePos].Pos[(int)eTransfer.TRANSFER_Z];     //z Axis
             try
             {
                 isSuccess = TransferZ.MoveAxis(dPos, AXT_MOTION_ABSREL.POS_ABS_MODE, bWait);
@@ -572,8 +566,8 @@ namespace ZenHandler.Machine
                 return false;
             }
 
-            dMultiPos[0] = Globalo.motionManager.transferMachine.teachingConfig.Teaching[(int)ePos].Pos[0];     //x Axis
-            dMultiPos[1] = Globalo.motionManager.transferMachine.teachingConfig.Teaching[(int)ePos].Pos[1];      //y Axis
+            dMultiPos[0] = Globalo.motionManager.transferMachine.teachingConfig.Teaching[(int)ePos].Pos[(int)eTransfer.TRANSFER_X];     //x Axis
+            dMultiPos[1] = Globalo.motionManager.transferMachine.teachingConfig.Teaching[(int)ePos].Pos[(int)eTransfer.TRANSFER_Y];      //y Axis
 
 
             isSuccess = MultiAxisMove(multiAxis, dMultiPos, bWait);
