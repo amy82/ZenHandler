@@ -36,7 +36,7 @@ namespace ZenHandler.FThread
                 ThreadInit();
                 while (!cts.Token.IsCancellationRequested)
                 {
-                    if (m_bPause == false)
+                    if (m_bPause == false)      //일시 정지가 아닐 때만 실행
                     {
                         ThreadRun();
                     }
@@ -47,7 +47,6 @@ namespace ZenHandler.FThread
             }
             catch (ThreadAbortException e)
             {
-                //Console.WriteLine("Thread - caught ThreadAbortException - resetting.");
                 Console.WriteLine($"{this.name} Exception message: {0}", e.Message);
                 _result = false;
             }
@@ -55,7 +54,6 @@ namespace ZenHandler.FThread
             {
                 cts = null;
                 thread = null;
-                //Console.WriteLine($"{this.name} ProcessRun finally");
             }
 
 

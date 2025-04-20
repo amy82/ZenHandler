@@ -54,6 +54,9 @@ namespace ZenHandler.Dlg
         public void ManualDlgStop()
         {
             manualTransfer.bManualStopKey = true;       //수동 모터 이동 중 빠져나오게
+            //manualSocket.bManualStopKey = true;       //수동 모터 이동 중 빠져나오게
+            //manualLift.bManualStopKey = true;       //수동 모터 이동 중 빠져나오게
+            //manualMagazine.bManualStopKey = true;       //수동 모터 이동 중 빠져나오게
         }
         private void Form_Paint(object sender, PaintEventArgs e)
         {

@@ -80,9 +80,13 @@ namespace ZenHandler.FThread
 
         protected override void ThreadRun()
         {
+            if(this.parent.RunState == OperationState.Paused)
+            {
+                return;     //TODO: 테스트 필요 Paused
+            }
             if (this.m_nCurrentStep >= this.m_nStartStep && this.m_nCurrentStep < this.m_nEndStep)
             {
-                if (this.parent.MachineName == Globalo.motionManager.transferMachine.GetType().Name)//"TransferMachine")       //TODO: 여기도 개선 필요 자기자신
+                if (this.parent.MachineName == Globalo.motionManager.transferMachine.GetType().Name)
                 {
                     TransferFlow();
                 }
@@ -96,7 +100,7 @@ namespace ZenHandler.FThread
 
                     Console.WriteLine($"{this.parent.MachineName} Process Start: {rtn}");
 
-                    LiftFlow();
+                    //LiftFlow();
 
                     rtn = Globalo.motionManager.transferMachine.IsMoving();
 

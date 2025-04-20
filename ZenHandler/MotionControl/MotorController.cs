@@ -16,7 +16,7 @@ namespace ZenHandler.MotionControl
         public Process.ProcessManager processManager;
         public OperationState RunState = OperationState.Stopped;
         public string MachineName { get; protected set; }
-        protected CancellationTokenSource cts;
+        protected CancellationTokenSource CancelToken;      //TODO: 사용안하는듯?
 
         ////protected bool isMotorBusy = false; //실행중 체크용 플래그
         //abstract : 추상 메서드
@@ -35,8 +35,8 @@ namespace ZenHandler.MotionControl
             //motorManualThread = new FThread.MotorManualThread(this);
 
             processManager = new Process.ProcessManager();
-            
-            cts = new CancellationTokenSource();
+
+            CancelToken = new CancellationTokenSource();
         }
 
         public abstract void StopAuto();

@@ -19,6 +19,7 @@ namespace ZenHandler.MotionControl
         public Machine.MagazineHandler magazineHandler;
         public Machine.LiftMachine liftMachine;
         public Machine.SocketMachine socketMachine;
+
         #region test
         //test 1
         //test 2

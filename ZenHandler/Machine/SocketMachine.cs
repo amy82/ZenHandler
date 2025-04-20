@@ -95,9 +95,9 @@ namespace ZenHandler.Machine
         }
         public override void MovingStop()
         {
-            if (cts != null && !cts.IsCancellationRequested)
+            if (CancelToken != null && !CancelToken.IsCancellationRequested)
             {
-                cts.Cancel();
+                CancelToken.Cancel();
             }
             for (int i = 0; i < MotorAxes.Length; i++)
             {
