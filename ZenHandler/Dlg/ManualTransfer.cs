@@ -26,7 +26,7 @@ namespace ZenHandler.Dlg
         private Button[] UnLoadVacuumOnBtnArr = new Button[4];
         private Button[] UnLoadVacuumOffBtnArr = new Button[4];
 
-        protected CancellationTokenSource cts;
+        protected CancellationTokenSource cts;  //TODO: <--이름 변경하고 사용가능하게
         private bool isMovingTransfer;
         //MEMO: 티칭 위치를 어떻게 가져올 것인가
         public ManualTransfer()
@@ -158,8 +158,19 @@ namespace ZenHandler.Dlg
                 Globalo.LogPrint("ManualControl", "[INFO] 일시 정지 중 사용 불가", Globalo.eMessageName.M_WARNING);
                 return;
             }
-            if (isMovingTransfer || Globalo.motionManager.transferMachine.IsMoving())
+            if (Globalo.motionManager.transferMachine.RunState == OperationState.Preparing)
             {
+                Globalo.LogPrint("ManualControl", "[INFO] 운전 준비 중 사용 불가", Globalo.eMessageName.M_WARNING);
+                return;
+            }
+            if (Globalo.motionManager.transferMachine.RunState == OperationState.OriginRunning)
+            {
+                Globalo.LogPrint("ManualControl", "[INFO] 원점 동작 중 사용 불가", Globalo.eMessageName.M_WARNING);
+                return;
+            }
+            if (isMovingTransfer == true || Globalo.motionManager.transferMachine.IsMoving())
+            {
+                Globalo.LogPrint("", "TRANSFER Z AXIS MOTOR RUNNING.", Globalo.eMessageName.M_INFO);
                 Console.WriteLine("Z motor running...");
                 return;
             }
@@ -171,7 +182,7 @@ namespace ZenHandler.Dlg
             CancellationToken token = cts.Token;
 
 
-            Globalo.LogPrint("", "모터 이동중입니다.", Globalo.eMessageName.M_INFO);
+            
 
             string logstr = $"[MANUAL] TRANSFER Z AXIS {ePos.ToString()} Move";
 
@@ -181,7 +192,7 @@ namespace ZenHandler.Dlg
                 Task<bool> motorTask = Task.Run(() =>
                 {
                     Console.WriteLine(" ------------------> TransFer_Z_Move");
-                    bool rtn = Globalo.motionManager.transferMachine.TransFer_Z_Move(ePos, true);
+                    bool rtn = Globalo.motionManager.transferMachine.TransFer_Z_Move(ePos);
                     bool bComplete = true;
 
                     int nTimeTick = Environment.TickCount;
@@ -243,11 +254,20 @@ namespace ZenHandler.Dlg
                 Globalo.LogPrint("ManualControl", "[INFO] 일시 정지 중 사용 불가", Globalo.eMessageName.M_WARNING);
                 return;
             }
-
+            if (Globalo.motionManager.transferMachine.RunState == OperationState.Preparing)
+            {
+                Globalo.LogPrint("ManualControl", "[INFO] 운전 준비 중 사용 불가", Globalo.eMessageName.M_WARNING);
+                return;
+            }
+            if (Globalo.motionManager.transferMachine.RunState == OperationState.OriginRunning)
+            {
+                Globalo.LogPrint("ManualControl", "[INFO] 원점 동작 중 사용 불가", Globalo.eMessageName.M_WARNING);
+                return;
+            }
             if (isMovingTransfer || Globalo.motionManager.transferMachine.IsMoving())
             {
                 Console.WriteLine("XY motor running...");
-                Globalo.LogPrint("", " XY AXIS MOTOR RUNNING.", Globalo.eMessageName.M_INFO);
+                Globalo.LogPrint("", "TRANSFER XY AXIS MOTOR RUNNING.", Globalo.eMessageName.M_INFO);
                 return;
             }
             Globalo.motionManager.transferMachine.RunState = OperationState.Stopped;
@@ -268,7 +288,7 @@ namespace ZenHandler.Dlg
                 {
                     Console.WriteLine(" ------------------> TransFer_XY_Move");
 
-                    bool rtn = Globalo.motionManager.transferMachine.TransFer_XY_Move(ePos, true);
+                    bool rtn = Globalo.motionManager.transferMachine.TransFer_XY_Move(ePos);
                     bool bComplete = true;
 
                     int nTimeTick = Environment.TickCount;
@@ -350,6 +370,7 @@ namespace ZenHandler.Dlg
             }
             else
             {
+                bManualStopKey = true;      //TODO: 테스트 필요 
                 ManualTimer.Stop();
             }
         }

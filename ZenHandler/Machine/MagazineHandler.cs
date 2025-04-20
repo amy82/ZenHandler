@@ -102,9 +102,9 @@ namespace ZenHandler.Machine
         }
         public override void MovingStop()
         {
-            if (cts != null && !cts.IsCancellationRequested)
+            if (CancelToken != null && !CancelToken.IsCancellationRequested)
             {
-                cts.Cancel();
+                CancelToken.Cancel();
             }
             //TransferZ.motorBreak = true;          //예제코드
 

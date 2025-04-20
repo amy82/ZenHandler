@@ -143,8 +143,6 @@ namespace ZenHandler.Machine
                 return true;
             }
 
-            bool bRtn = false;
-
             double dXPos = 0.0;
             double dYPos = 0.0;
             double currentXPos = 0.0;
@@ -160,10 +158,10 @@ namespace ZenHandler.Machine
 
             if (dXPos == currentXPos && dYPos == currentYPos)
             {
-                bRtn = true;
+                return true;
             }
 
-            return bRtn;
+            return false;
         }
         public bool ChkZMotorPos(eTeachingPosList teachingPos)
         {
@@ -484,9 +482,9 @@ namespace ZenHandler.Machine
         
         public override void MovingStop()
         {
-            if (cts != null && !cts.IsCancellationRequested)
+            if (CancelToken != null && !CancelToken.IsCancellationRequested)
             {
-                cts.Cancel();
+                CancelToken.Cancel();
             }
             for (int i = 0; i < MotorAxes.Length; i++)
             {
@@ -495,7 +493,7 @@ namespace ZenHandler.Machine
             }
         }
 
-        public bool TransFer_X_Move(eTeachingPosList ePos, bool bWait = false)
+        public bool TransFer_X_Move(eTeachingPosList ePos, bool bWait = true)
         {
             if (TransferX.IsMotorBusy == true)
             {
@@ -507,7 +505,7 @@ namespace ZenHandler.Machine
             bool isSuccess = true;
             try
             {
-                isSuccess = TransferX.MoveAxis(dPos, AXT_MOTION_ABSREL.POS_ABS_MODE, true);
+                isSuccess = TransferX.MoveAxis(dPos, AXT_MOTION_ABSREL.POS_ABS_MODE, bWait);
 
             }
             catch (Exception ex)
@@ -522,7 +520,7 @@ namespace ZenHandler.Machine
 
             return isSuccess;
         }
-        public bool TransFer_Z_Move(eTeachingPosList ePos, bool bWait = false)
+        public bool TransFer_Z_Move(eTeachingPosList ePos, bool bWait = true)
         {
             bool isSuccess = true;
             string logStr = "";
@@ -545,15 +543,15 @@ namespace ZenHandler.Machine
 
             return isSuccess;
         }
-        public bool TransFer_XY_Move(eTeachingPosList ePos, bool bWait = false)
+        public bool TransFer_XY_Move(eTeachingPosList ePos, bool bWait = true)
         {
             if (ProgramState.ON_LINE_MOTOR == false)
             {
                 return true;
             }
 
-            MotionControl.MotorAxis[] multiAxis = { TransferX, TransferY };
             string logStr = "";
+            MotionControl.MotorAxis[] multiAxis = { TransferX, TransferY };
             double[] dMultiPos = { 0.0, 0.0 };
             bool isSuccess = false;
 
@@ -574,7 +572,7 @@ namespace ZenHandler.Machine
 
             if (isSuccess == false)
             {
-                logStr = $"Transfer XY축 {eTeachingPosList.WAIT_POS.ToString() } 이동 실패";
+                logStr = $"Transfer XY축 {ePos.ToString() } 이동 실패";
 
                 Globalo.LogPrint("ManualControl", logStr);
             }
@@ -610,7 +608,6 @@ namespace ZenHandler.Machine
         {
             if (AutoUnitThread.GetThreadRun() == true)
             {
-                //AutoUnitThread.Stop();
                 return false;
             }
 
@@ -692,16 +689,12 @@ namespace ZenHandler.Machine
                 Globalo.LogPrint("MainForm", "[TRANSFER] 운전준비가 완료되지 않았습니다.", Globalo.eMessageName.M_WARNING);
                 return false;
             }
-            if (this.RunState == OperationState.OriginRunning || this.RunState == OperationState.Preparing)
-            {
-                Globalo.LogPrint("MainForm", "[TRANSFER] 운전준비가 완료되지 않았습니다..", Globalo.eMessageName.M_WARNING);
-                return false;
-            }
 
             if (AutoUnitThread.GetThreadRun() == true)
             {
                 Console.WriteLine($"모터 동작 중입니다.");
-                if (AutoUnitThread.GetThreadPause() == true)
+
+                if (AutoUnitThread.GetThreadPause() == true)        //일시 정지 상태인지 확인
                 {
                     AutoUnitThread.m_nCurrentStep = Math.Abs(AutoUnitThread.m_nCurrentStep);
 
