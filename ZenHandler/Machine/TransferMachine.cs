@@ -12,8 +12,11 @@ namespace ZenHandler.Machine
     {
         TRANSFER_X = 0, TRANSFER_Y, TRANSFER_Z
     };
+    
     public class TransferMachine : MotionControl.MotorController
     {
+        public event Action<MotionControl.MotorSet.TrayPosition> OnTrayChangedCall;
+        public MotionControl.MotorSet.TrayPosition Position;// { get; }
         public int MotorCnt { get; private set; } = 3;
 
         public MotionControl.MotorAxis TransferX;
@@ -85,6 +88,7 @@ namespace ZenHandler.Machine
 
             pickedProduct = Data.TaskDataYaml.TaskLoad_Transfer(taskPath);
 
+            Position = MotionControl.MotorSet.TrayPosition.Left;
             //
         }
 
@@ -107,6 +111,11 @@ namespace ZenHandler.Machine
             }
    
 
+        }
+        private void CheckTrayState()
+        {
+            //State = TransferUnitState.TrayEmpty;
+            OnLiftChangedCall?.Invoke(Position); // 어떤 트레이 비었는지 전달
         }
         public bool SetPicker(UnitPicker Picker, PickedProductState State , int index)
         {
