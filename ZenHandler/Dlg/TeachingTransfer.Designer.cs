@@ -284,12 +284,13 @@ namespace ZenHandler.Dlg
             // 
             // comboBox_Teach_Picker
             // 
+            this.comboBox_Teach_Picker.DrawMode = System.Windows.Forms.DrawMode.OwnerDrawVariable;
             this.comboBox_Teach_Picker.Font = new System.Drawing.Font("나눔고딕", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(129)));
             this.comboBox_Teach_Picker.FormattingEnabled = true;
-            this.comboBox_Teach_Picker.ItemHeight = 17;
+            this.comboBox_Teach_Picker.ItemHeight = 20;
             this.comboBox_Teach_Picker.Location = new System.Drawing.Point(585, 177);
             this.comboBox_Teach_Picker.Name = "comboBox_Teach_Picker";
-            this.comboBox_Teach_Picker.Size = new System.Drawing.Size(165, 25);
+            this.comboBox_Teach_Picker.Size = new System.Drawing.Size(165, 26);
             this.comboBox_Teach_Picker.TabIndex = 52;
             // 
             // TeachingTransfer
