@@ -70,21 +70,24 @@ namespace ZenHandler.Machine
         public enum eTeachingPosList : int
         {
             WAIT_POS = 0,
-            LEFT_TRAY_LOAD_POS, LEFT_TRAY_UNLOAD_POS,
-            RIGHT_TRAY_LOAD_POS, RIGHT_TRAY_UNLOAD_POS,
-            SOCKET_A1, SOCKET_A2, SOCKET_B1, SOCKET_B2, SOCKET_C1, SOCKET_C2, SOCKET_D1, SOCKET_D2,
+            LEFT_TRAY_LOAD_POS, LEFT_TRAY_UNLOAD_POS, RIGHT_TRAY_LOAD_POS, RIGHT_TRAY_UNLOAD_POS,
+            SOCKET_A_LOAD, SOCKET_A_UNLOAD, SOCKET_B_LOAD, SOCKET_B_UNLOAD, SOCKET_C_LOAD, SOCKET_C_UNLOAD, SOCKET_D_LOAD, SOCKET_D_UNLOAD,
+            NG_A_LOAD, NG_A_UNLOAD, NG_B_LOAD, NG_B_UNLOAD,
             TOTAL_TRANSFER_TEACHING_COUNT
         };
-        public string[] TeachName = { "WAIT_POS",
+        public string[] TeachName = { 
+            "WAIT_POS",
             "L_TRAY_LOAD_POS", "L_TRAY_UNLOAD_POS",
             "R_TRAY_LOAD_POS", "R_TRAY_UNLOAD_POS",
-            "SOCKET_A1", "SOCKET_A2", "SOCKET_B1", "SOCKET_B2","SOCKET_C1", "SOCKET_C2", "SOCKET_D1", "SOCKET_D2" };
+            "SOCKET_A_LOAD", "SOCKET_A_UNLOAD", "SOCKET_B_LOAD", "SOCKET_B_UNLOAD","SOCKET_C_LOAD", "SOCKET_C_UNLOAD", "SOCKET_D_LOAD", "SOCKET_D_UNLOAD",
+            "NG_A_LOAD", "NG_A_UNLOAD", "NG_B_LOAD", "NG_B_UNLOAD"};
 
         public string teachingPath = "Teach_Transfer.yaml";
         public string taskPath = "Task_Transfer.yaml";
+        public string LayoutPath = "Task_Product_Layout.yaml";
         public Data.TeachingConfig teachingConfig = new Data.TeachingConfig();
         public PickedProduct pickedProduct = new PickedProduct();
-
+        public ProductLayout productLayout = new ProductLayout();
         //TODO:  픽업 상태 로드 4개 , 배출 4개 / blank , LOAD , BCR OK , PASS , NG(DEFECT 1 , 2 , 3 , 4)
         //public Dio cylinder;
         //픽업 툴 4개 실린더 Dio 로 지정?
@@ -117,6 +120,8 @@ namespace ZenHandler.Machine
             }
 
             pickedProduct = Data.TaskDataYaml.TaskLoad_Transfer(taskPath);
+            productLayout = Data.TaskDataYaml.TaskLoad_Layout(LayoutPath);
+
 
             Position = MotionControl.MotorSet.TrayPosition.Left;
             //

@@ -30,6 +30,11 @@ namespace ZenHandler.Dlg
         private void InitializeComponent()
         {
             this.groupTeachPcb = new System.Windows.Forms.GroupBox();
+            this.comboBox_Teach_Picker = new System.Windows.Forms.ComboBox();
+            this.LABEL_TEACH_PICKER_OFFSETY_VALUE = new System.Windows.Forms.Label();
+            this.label_Picker_OffsetY = new System.Windows.Forms.Label();
+            this.LABEL_TEACH_PICKER_OFFSETX_VALUE = new System.Windows.Forms.Label();
+            this.label_Picker_OffsetX = new System.Windows.Forms.Label();
             this.LABEL_TEACH_ROSOLUTION_VALUE = new System.Windows.Forms.Label();
             this.BTN_TEACH_DATA_SAVE = new System.Windows.Forms.Button();
             this.label_Resolution = new System.Windows.Forms.Label();
@@ -41,11 +46,6 @@ namespace ZenHandler.Dlg
             this.BTN_TEACH_SERVO_RESET = new System.Windows.Forms.Button();
             this.BTN_TEACH_TRANSFER_Z = new System.Windows.Forms.Button();
             this.BTN_TEACH_TRANSFER_X = new System.Windows.Forms.Button();
-            this.LABEL_TEACH_PICKER_OFFSETX_VALUE = new System.Windows.Forms.Label();
-            this.label_Picker_OffsetX = new System.Windows.Forms.Label();
-            this.LABEL_TEACH_PICKER_OFFSETY_VALUE = new System.Windows.Forms.Label();
-            this.label_Picker_OffsetY = new System.Windows.Forms.Label();
-            this.comboBox_Teach_Picker = new System.Windows.Forms.ComboBox();
             this.groupTeachPcb.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -74,12 +74,76 @@ namespace ZenHandler.Dlg
             this.groupTeachPcb.TabIndex = 45;
             this.groupTeachPcb.TabStop = false;
             // 
+            // comboBox_Teach_Picker
+            // 
+            this.comboBox_Teach_Picker.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.comboBox_Teach_Picker.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(129)));
+            this.comboBox_Teach_Picker.FormattingEnabled = true;
+            this.comboBox_Teach_Picker.ItemHeight = 18;
+            this.comboBox_Teach_Picker.Location = new System.Drawing.Point(585, 177);
+            this.comboBox_Teach_Picker.Name = "comboBox_Teach_Picker";
+            this.comboBox_Teach_Picker.Size = new System.Drawing.Size(165, 26);
+            this.comboBox_Teach_Picker.TabIndex = 52;
+            this.comboBox_Teach_Picker.SelectedIndexChanged += new System.EventHandler(this.comboBox_Teach_Picker_SelectedIndexChanged);
+            // 
+            // LABEL_TEACH_PICKER_OFFSETY_VALUE
+            // 
+            this.LABEL_TEACH_PICKER_OFFSETY_VALUE.BackColor = System.Drawing.SystemColors.Window;
+            this.LABEL_TEACH_PICKER_OFFSETY_VALUE.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.LABEL_TEACH_PICKER_OFFSETY_VALUE.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.LABEL_TEACH_PICKER_OFFSETY_VALUE.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(129)));
+            this.LABEL_TEACH_PICKER_OFFSETY_VALUE.ForeColor = System.Drawing.Color.DimGray;
+            this.LABEL_TEACH_PICKER_OFFSETY_VALUE.Location = new System.Drawing.Point(616, 127);
+            this.LABEL_TEACH_PICKER_OFFSETY_VALUE.Name = "LABEL_TEACH_PICKER_OFFSETY_VALUE";
+            this.LABEL_TEACH_PICKER_OFFSETY_VALUE.Size = new System.Drawing.Size(117, 37);
+            this.LABEL_TEACH_PICKER_OFFSETY_VALUE.TabIndex = 51;
+            this.LABEL_TEACH_PICKER_OFFSETY_VALUE.Text = "2.0";
+            this.LABEL_TEACH_PICKER_OFFSETY_VALUE.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            // 
+            // label_Picker_OffsetY
+            // 
+            this.label_Picker_OffsetY.BackColor = System.Drawing.Color.Gray;
+            this.label_Picker_OffsetY.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(129)));
+            this.label_Picker_OffsetY.ForeColor = System.Drawing.Color.WhiteSmoke;
+            this.label_Picker_OffsetY.Location = new System.Drawing.Point(616, 100);
+            this.label_Picker_OffsetY.Name = "label_Picker_OffsetY";
+            this.label_Picker_OffsetY.Size = new System.Drawing.Size(117, 23);
+            this.label_Picker_OffsetY.TabIndex = 50;
+            this.label_Picker_OffsetY.Text = "Picker Offset Y";
+            this.label_Picker_OffsetY.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            // 
+            // LABEL_TEACH_PICKER_OFFSETX_VALUE
+            // 
+            this.LABEL_TEACH_PICKER_OFFSETX_VALUE.BackColor = System.Drawing.SystemColors.Window;
+            this.LABEL_TEACH_PICKER_OFFSETX_VALUE.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.LABEL_TEACH_PICKER_OFFSETX_VALUE.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.LABEL_TEACH_PICKER_OFFSETX_VALUE.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(129)));
+            this.LABEL_TEACH_PICKER_OFFSETX_VALUE.ForeColor = System.Drawing.Color.DimGray;
+            this.LABEL_TEACH_PICKER_OFFSETX_VALUE.Location = new System.Drawing.Point(616, 55);
+            this.LABEL_TEACH_PICKER_OFFSETX_VALUE.Name = "LABEL_TEACH_PICKER_OFFSETX_VALUE";
+            this.LABEL_TEACH_PICKER_OFFSETX_VALUE.Size = new System.Drawing.Size(117, 37);
+            this.LABEL_TEACH_PICKER_OFFSETX_VALUE.TabIndex = 49;
+            this.LABEL_TEACH_PICKER_OFFSETX_VALUE.Text = "2.0";
+            this.LABEL_TEACH_PICKER_OFFSETX_VALUE.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            // 
+            // label_Picker_OffsetX
+            // 
+            this.label_Picker_OffsetX.BackColor = System.Drawing.Color.Gray;
+            this.label_Picker_OffsetX.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(129)));
+            this.label_Picker_OffsetX.ForeColor = System.Drawing.Color.WhiteSmoke;
+            this.label_Picker_OffsetX.Location = new System.Drawing.Point(616, 28);
+            this.label_Picker_OffsetX.Name = "label_Picker_OffsetX";
+            this.label_Picker_OffsetX.Size = new System.Drawing.Size(117, 23);
+            this.label_Picker_OffsetX.TabIndex = 48;
+            this.label_Picker_OffsetX.Text = "Picker Offset X";
+            this.label_Picker_OffsetX.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            // 
             // LABEL_TEACH_ROSOLUTION_VALUE
             // 
             this.LABEL_TEACH_ROSOLUTION_VALUE.BackColor = System.Drawing.SystemColors.Window;
             this.LABEL_TEACH_ROSOLUTION_VALUE.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.LABEL_TEACH_ROSOLUTION_VALUE.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.LABEL_TEACH_ROSOLUTION_VALUE.Font = new System.Drawing.Font("나눔고딕 ExtraBold", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(129)));
+            this.LABEL_TEACH_ROSOLUTION_VALUE.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(129)));
             this.LABEL_TEACH_ROSOLUTION_VALUE.ForeColor = System.Drawing.Color.DimGray;
             this.LABEL_TEACH_ROSOLUTION_VALUE.Location = new System.Drawing.Point(17, 436);
             this.LABEL_TEACH_ROSOLUTION_VALUE.Name = "LABEL_TEACH_ROSOLUTION_VALUE";
@@ -94,7 +158,7 @@ namespace ZenHandler.Dlg
             this.BTN_TEACH_DATA_SAVE.BackColor = System.Drawing.Color.Tan;
             this.BTN_TEACH_DATA_SAVE.FlatAppearance.BorderSize = 0;
             this.BTN_TEACH_DATA_SAVE.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.BTN_TEACH_DATA_SAVE.Font = new System.Drawing.Font("나눔고딕 ExtraBold", 11.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(129)));
+            this.BTN_TEACH_DATA_SAVE.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(129)));
             this.BTN_TEACH_DATA_SAVE.ForeColor = System.Drawing.Color.White;
             this.BTN_TEACH_DATA_SAVE.Location = new System.Drawing.Point(619, 616);
             this.BTN_TEACH_DATA_SAVE.Name = "BTN_TEACH_DATA_SAVE";
@@ -107,7 +171,7 @@ namespace ZenHandler.Dlg
             // label_Resolution
             // 
             this.label_Resolution.BackColor = System.Drawing.Color.Gray;
-            this.label_Resolution.Font = new System.Drawing.Font("나눔고딕", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(129)));
+            this.label_Resolution.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(129)));
             this.label_Resolution.ForeColor = System.Drawing.Color.WhiteSmoke;
             this.label_Resolution.Location = new System.Drawing.Point(17, 409);
             this.label_Resolution.Name = "label_Resolution";
@@ -119,7 +183,7 @@ namespace ZenHandler.Dlg
             // label4
             // 
             this.label4.BackColor = System.Drawing.Color.DimGray;
-            this.label4.Font = new System.Drawing.Font("나눔고딕 ExtraBold", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(129)));
+            this.label4.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(129)));
             this.label4.ForeColor = System.Drawing.Color.White;
             this.label4.Location = new System.Drawing.Point(17, 208);
             this.label4.Name = "label4";
@@ -131,7 +195,7 @@ namespace ZenHandler.Dlg
             // label3
             // 
             this.label3.BackColor = System.Drawing.Color.DimGray;
-            this.label3.Font = new System.Drawing.Font("나눔고딕 ExtraBold", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(129)));
+            this.label3.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(129)));
             this.label3.ForeColor = System.Drawing.Color.White;
             this.label3.Location = new System.Drawing.Point(15, 28);
             this.label3.Name = "label3";
@@ -145,7 +209,7 @@ namespace ZenHandler.Dlg
             this.BTN_TEACH_TRANSFER_Y.BackColor = System.Drawing.Color.Tan;
             this.BTN_TEACH_TRANSFER_Y.FlatAppearance.BorderSize = 0;
             this.BTN_TEACH_TRANSFER_Y.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.BTN_TEACH_TRANSFER_Y.Font = new System.Drawing.Font("나눔고딕 ExtraBold", 11F, System.Drawing.FontStyle.Bold);
+            this.BTN_TEACH_TRANSFER_Y.Font = new System.Drawing.Font("Microsoft Sans Serif", 11F, System.Drawing.FontStyle.Bold);
             this.BTN_TEACH_TRANSFER_Y.ForeColor = System.Drawing.Color.White;
             this.BTN_TEACH_TRANSFER_Y.Location = new System.Drawing.Point(17, 277);
             this.BTN_TEACH_TRANSFER_Y.Name = "BTN_TEACH_TRANSFER_Y";
@@ -160,7 +224,7 @@ namespace ZenHandler.Dlg
             this.BTN_TEACH_SERVO_ON.BackColor = System.Drawing.Color.Tan;
             this.BTN_TEACH_SERVO_ON.FlatAppearance.BorderSize = 0;
             this.BTN_TEACH_SERVO_ON.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.BTN_TEACH_SERVO_ON.Font = new System.Drawing.Font("나눔고딕 ExtraBold", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(129)));
+            this.BTN_TEACH_SERVO_ON.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(129)));
             this.BTN_TEACH_SERVO_ON.ForeColor = System.Drawing.Color.White;
             this.BTN_TEACH_SERVO_ON.Location = new System.Drawing.Point(15, 54);
             this.BTN_TEACH_SERVO_ON.Name = "BTN_TEACH_SERVO_ON";
@@ -175,7 +239,7 @@ namespace ZenHandler.Dlg
             this.BTN_TEACH_SERVO_OFF.BackColor = System.Drawing.Color.Tan;
             this.BTN_TEACH_SERVO_OFF.FlatAppearance.BorderSize = 0;
             this.BTN_TEACH_SERVO_OFF.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.BTN_TEACH_SERVO_OFF.Font = new System.Drawing.Font("나눔고딕 ExtraBold", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(129)));
+            this.BTN_TEACH_SERVO_OFF.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(129)));
             this.BTN_TEACH_SERVO_OFF.ForeColor = System.Drawing.Color.White;
             this.BTN_TEACH_SERVO_OFF.Location = new System.Drawing.Point(15, 100);
             this.BTN_TEACH_SERVO_OFF.Name = "BTN_TEACH_SERVO_OFF";
@@ -190,7 +254,7 @@ namespace ZenHandler.Dlg
             this.BTN_TEACH_SERVO_RESET.BackColor = System.Drawing.Color.Tan;
             this.BTN_TEACH_SERVO_RESET.FlatAppearance.BorderSize = 0;
             this.BTN_TEACH_SERVO_RESET.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.BTN_TEACH_SERVO_RESET.Font = new System.Drawing.Font("나눔고딕 ExtraBold", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(129)));
+            this.BTN_TEACH_SERVO_RESET.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(129)));
             this.BTN_TEACH_SERVO_RESET.ForeColor = System.Drawing.Color.White;
             this.BTN_TEACH_SERVO_RESET.Location = new System.Drawing.Point(15, 146);
             this.BTN_TEACH_SERVO_RESET.Name = "BTN_TEACH_SERVO_RESET";
@@ -205,7 +269,7 @@ namespace ZenHandler.Dlg
             this.BTN_TEACH_TRANSFER_Z.BackColor = System.Drawing.Color.Tan;
             this.BTN_TEACH_TRANSFER_Z.FlatAppearance.BorderSize = 0;
             this.BTN_TEACH_TRANSFER_Z.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.BTN_TEACH_TRANSFER_Z.Font = new System.Drawing.Font("나눔고딕 ExtraBold", 11F, System.Drawing.FontStyle.Bold);
+            this.BTN_TEACH_TRANSFER_Z.Font = new System.Drawing.Font("Microsoft Sans Serif", 11F, System.Drawing.FontStyle.Bold);
             this.BTN_TEACH_TRANSFER_Z.ForeColor = System.Drawing.Color.White;
             this.BTN_TEACH_TRANSFER_Z.Location = new System.Drawing.Point(17, 320);
             this.BTN_TEACH_TRANSFER_Z.Name = "BTN_TEACH_TRANSFER_Z";
@@ -220,7 +284,7 @@ namespace ZenHandler.Dlg
             this.BTN_TEACH_TRANSFER_X.BackColor = System.Drawing.Color.Tan;
             this.BTN_TEACH_TRANSFER_X.FlatAppearance.BorderSize = 0;
             this.BTN_TEACH_TRANSFER_X.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.BTN_TEACH_TRANSFER_X.Font = new System.Drawing.Font("나눔고딕 ExtraBold", 11F, System.Drawing.FontStyle.Bold);
+            this.BTN_TEACH_TRANSFER_X.Font = new System.Drawing.Font("Microsoft Sans Serif", 11F, System.Drawing.FontStyle.Bold);
             this.BTN_TEACH_TRANSFER_X.ForeColor = System.Drawing.Color.White;
             this.BTN_TEACH_TRANSFER_X.Location = new System.Drawing.Point(17, 234);
             this.BTN_TEACH_TRANSFER_X.Name = "BTN_TEACH_TRANSFER_X";
@@ -229,69 +293,6 @@ namespace ZenHandler.Dlg
             this.BTN_TEACH_TRANSFER_X.Text = "X";
             this.BTN_TEACH_TRANSFER_X.UseVisualStyleBackColor = false;
             this.BTN_TEACH_TRANSFER_X.Click += new System.EventHandler(this.BTN_TEACH_PCB_X_Click);
-            // 
-            // LABEL_TEACH_PICKER_OFFSETX_VALUE
-            // 
-            this.LABEL_TEACH_PICKER_OFFSETX_VALUE.BackColor = System.Drawing.SystemColors.Window;
-            this.LABEL_TEACH_PICKER_OFFSETX_VALUE.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.LABEL_TEACH_PICKER_OFFSETX_VALUE.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.LABEL_TEACH_PICKER_OFFSETX_VALUE.Font = new System.Drawing.Font("나눔고딕 ExtraBold", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(129)));
-            this.LABEL_TEACH_PICKER_OFFSETX_VALUE.ForeColor = System.Drawing.Color.DimGray;
-            this.LABEL_TEACH_PICKER_OFFSETX_VALUE.Location = new System.Drawing.Point(616, 55);
-            this.LABEL_TEACH_PICKER_OFFSETX_VALUE.Name = "LABEL_TEACH_PICKER_OFFSETX_VALUE";
-            this.LABEL_TEACH_PICKER_OFFSETX_VALUE.Size = new System.Drawing.Size(117, 37);
-            this.LABEL_TEACH_PICKER_OFFSETX_VALUE.TabIndex = 49;
-            this.LABEL_TEACH_PICKER_OFFSETX_VALUE.Text = "2.0";
-            this.LABEL_TEACH_PICKER_OFFSETX_VALUE.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
-            // 
-            // label_Picker_OffsetX
-            // 
-            this.label_Picker_OffsetX.BackColor = System.Drawing.Color.Gray;
-            this.label_Picker_OffsetX.Font = new System.Drawing.Font("나눔고딕", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(129)));
-            this.label_Picker_OffsetX.ForeColor = System.Drawing.Color.WhiteSmoke;
-            this.label_Picker_OffsetX.Location = new System.Drawing.Point(616, 28);
-            this.label_Picker_OffsetX.Name = "label_Picker_OffsetX";
-            this.label_Picker_OffsetX.Size = new System.Drawing.Size(117, 23);
-            this.label_Picker_OffsetX.TabIndex = 48;
-            this.label_Picker_OffsetX.Text = "Picker Offset X";
-            this.label_Picker_OffsetX.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
-            // 
-            // LABEL_TEACH_PICKER_OFFSETY_VALUE
-            // 
-            this.LABEL_TEACH_PICKER_OFFSETY_VALUE.BackColor = System.Drawing.SystemColors.Window;
-            this.LABEL_TEACH_PICKER_OFFSETY_VALUE.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.LABEL_TEACH_PICKER_OFFSETY_VALUE.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.LABEL_TEACH_PICKER_OFFSETY_VALUE.Font = new System.Drawing.Font("나눔고딕 ExtraBold", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(129)));
-            this.LABEL_TEACH_PICKER_OFFSETY_VALUE.ForeColor = System.Drawing.Color.DimGray;
-            this.LABEL_TEACH_PICKER_OFFSETY_VALUE.Location = new System.Drawing.Point(616, 127);
-            this.LABEL_TEACH_PICKER_OFFSETY_VALUE.Name = "LABEL_TEACH_PICKER_OFFSETY_VALUE";
-            this.LABEL_TEACH_PICKER_OFFSETY_VALUE.Size = new System.Drawing.Size(117, 37);
-            this.LABEL_TEACH_PICKER_OFFSETY_VALUE.TabIndex = 51;
-            this.LABEL_TEACH_PICKER_OFFSETY_VALUE.Text = "2.0";
-            this.LABEL_TEACH_PICKER_OFFSETY_VALUE.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
-            // 
-            // label_Picker_OffsetY
-            // 
-            this.label_Picker_OffsetY.BackColor = System.Drawing.Color.Gray;
-            this.label_Picker_OffsetY.Font = new System.Drawing.Font("나눔고딕", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(129)));
-            this.label_Picker_OffsetY.ForeColor = System.Drawing.Color.WhiteSmoke;
-            this.label_Picker_OffsetY.Location = new System.Drawing.Point(616, 100);
-            this.label_Picker_OffsetY.Name = "label_Picker_OffsetY";
-            this.label_Picker_OffsetY.Size = new System.Drawing.Size(117, 23);
-            this.label_Picker_OffsetY.TabIndex = 50;
-            this.label_Picker_OffsetY.Text = "Picker Offset Y";
-            this.label_Picker_OffsetY.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
-            // 
-            // comboBox_Teach_Picker
-            // 
-            this.comboBox_Teach_Picker.DrawMode = System.Windows.Forms.DrawMode.OwnerDrawVariable;
-            this.comboBox_Teach_Picker.Font = new System.Drawing.Font("나눔고딕", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(129)));
-            this.comboBox_Teach_Picker.FormattingEnabled = true;
-            this.comboBox_Teach_Picker.ItemHeight = 20;
-            this.comboBox_Teach_Picker.Location = new System.Drawing.Point(585, 177);
-            this.comboBox_Teach_Picker.Name = "comboBox_Teach_Picker";
-            this.comboBox_Teach_Picker.Size = new System.Drawing.Size(165, 26);
-            this.comboBox_Teach_Picker.TabIndex = 52;
             // 
             // TeachingTransfer
             // 

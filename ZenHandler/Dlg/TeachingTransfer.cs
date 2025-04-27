@@ -103,8 +103,19 @@ namespace ZenHandler.Dlg
             myTeachingGrid.MotorStateRun(false);
             //TeachingTimer.Stop();
         }
+        private void comboBox_Teach_Picker_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            int index = comboBox_Teach_Picker.SelectedIndex;
+            string value = comboBox_Teach_Picker.SelectedItem.ToString();
+            Console.WriteLine($"comboBox_Teach_Picker 선택된 인덱스: {index}, 값: {value}");
 
 
+        }
+        private void changeComboBoxPickerNo(int PickerNo)
+        {
+            LABEL_TEACH_PICKER_OFFSETX_VALUE.Text = "";
+            LABEL_TEACH_PICKER_OFFSETY_VALUE.Text = "";
+        }
         private void changeBtnMotorNo(int MotorNo)
         {
             int i = 0;
@@ -236,17 +247,17 @@ namespace ZenHandler.Dlg
 
         private void BTN_TEACH_PCB_X_Click(object sender, EventArgs e)
         {
-            changeBtnMotorNo(0);   //TODO: index 확인 필요 안전장치 필요
+            changeBtnMotorNo((int)Machine.eTransfer.TRANSFER_X);
         }
 
         private void BTN_TEACH_PCB_Y_Click(object sender, EventArgs e)
         {
-            changeBtnMotorNo(1);
+            changeBtnMotorNo((int)Machine.eTransfer.TRANSFER_Y);
         }
 
         private void BTN_TEACH_PCB_Z_Click(object sender, EventArgs e)
         {
-            changeBtnMotorNo(2);
+            changeBtnMotorNo((int)Machine.eTransfer.TRANSFER_Z);
         }
 
         private void BTN_TEACH_DATA_SAVE_Click(object sender, EventArgs e)
@@ -323,5 +334,7 @@ namespace ZenHandler.Dlg
                 // popupForm.Show(); // 비모달로 팝업 폼 표시
             }
         }
+
+        
     }
 }
