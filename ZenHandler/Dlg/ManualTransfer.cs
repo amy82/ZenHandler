@@ -407,41 +407,41 @@ namespace ZenHandler.Dlg
         }
         private void BTN_MANUAL_TRANSFER_SOCKET1_POS_XY_Click(object sender, EventArgs e)
         {
-            Manual_XY_Move(Machine.TransferMachine.eTeachingPosList.SOCKET_A1);
+            Manual_XY_Move(Machine.TransferMachine.eTeachingPosList.SOCKET_A_LOAD);
         }
 
         private void BTN_MANUAL_TRANSFER_SOCKET2_POS_XY_Click(object sender, EventArgs e)
         {
-            Manual_XY_Move(Machine.TransferMachine.eTeachingPosList.SOCKET_A2);
+            Manual_XY_Move(Machine.TransferMachine.eTeachingPosList.SOCKET_A_UNLOAD);
         }
 
         private void BTN_MANUAL_TRANSFER_SOCKET3_POS_XY_Click(object sender, EventArgs e)
         {
-            Manual_XY_Move(Machine.TransferMachine.eTeachingPosList.SOCKET_B1);
+            Manual_XY_Move(Machine.TransferMachine.eTeachingPosList.SOCKET_B_LOAD);
         }
 
         private void BTN_MANUAL_TRANSFER_SOCKET4_POS_XY_Click(object sender, EventArgs e)
         {
-            Manual_XY_Move(Machine.TransferMachine.eTeachingPosList.SOCKET_B2);
+            Manual_XY_Move(Machine.TransferMachine.eTeachingPosList.SOCKET_B_UNLOAD);
         }
         private void BTN_MANUAL_TRANSFER_SOCKET_C1_POS_XY_Click(object sender, EventArgs e)
         {
-            Manual_XY_Move(Machine.TransferMachine.eTeachingPosList.SOCKET_C1);
+            Manual_XY_Move(Machine.TransferMachine.eTeachingPosList.SOCKET_C_LOAD);
         }
 
         private void BTN_MANUAL_TRANSFER_SOCKET_C2_POS_XY_Click(object sender, EventArgs e)
         {
-            Manual_XY_Move(Machine.TransferMachine.eTeachingPosList.SOCKET_C2);
+            Manual_XY_Move(Machine.TransferMachine.eTeachingPosList.SOCKET_C_UNLOAD);
         }
 
         private void BTN_MANUAL_TRANSFER_SOCKET_D1_POS_XY_Click(object sender, EventArgs e)
         {
-            Manual_XY_Move(Machine.TransferMachine.eTeachingPosList.SOCKET_D1);
+            Manual_XY_Move(Machine.TransferMachine.eTeachingPosList.SOCKET_D_LOAD);
         }
 
         private void BTN_MANUAL_TRANSFER_SOCKET_D2_POS_XY_Click(object sender, EventArgs e)
         {
-            Manual_XY_Move(Machine.TransferMachine.eTeachingPosList.SOCKET_D2);
+            Manual_XY_Move(Machine.TransferMachine.eTeachingPosList.SOCKET_D_UNLOAD);
         }
         //-------------------------------------------------------------------------------------------------------------------------------------
         //
@@ -475,41 +475,41 @@ namespace ZenHandler.Dlg
         }
         private void BTN_MANUAL_TRANSFER_SOCKET1_POS_Z_Click(object sender, EventArgs e)
         {
-            Manual_Z_Move(Machine.TransferMachine.eTeachingPosList.SOCKET_A1);
+            Manual_Z_Move(Machine.TransferMachine.eTeachingPosList.SOCKET_A_LOAD);
         }
 
         private void BTN_MANUAL_TRANSFER_SOCKET2_POS_Z_Click(object sender, EventArgs e)
         {
-            Manual_Z_Move(Machine.TransferMachine.eTeachingPosList.SOCKET_A2);
+            Manual_Z_Move(Machine.TransferMachine.eTeachingPosList.SOCKET_A_UNLOAD);
         }
 
         private void BTN_MANUAL_TRANSFER_SOCKET3_POS_Z_Click(object sender, EventArgs e)
         {
-            Manual_Z_Move(Machine.TransferMachine.eTeachingPosList.SOCKET_B1);
+            Manual_Z_Move(Machine.TransferMachine.eTeachingPosList.SOCKET_B_LOAD);
         }
 
         private void BTN_MANUAL_TRANSFER_SOCKET4_POS_Z_Click(object sender, EventArgs e)
         {
-            Manual_Z_Move(Machine.TransferMachine.eTeachingPosList.SOCKET_B2);
+            Manual_Z_Move(Machine.TransferMachine.eTeachingPosList.SOCKET_B_UNLOAD);
         }
         private void BTN_MANUAL_TRANSFER_SOCKET_C1_POS_Z_Click(object sender, EventArgs e)
         {
-            Manual_Z_Move(Machine.TransferMachine.eTeachingPosList.SOCKET_C1);
+            Manual_Z_Move(Machine.TransferMachine.eTeachingPosList.SOCKET_C_LOAD);
         }
 
         private void BTN_MANUAL_TRANSFER_SOCKET_C2_POS_Z_Click(object sender, EventArgs e)
         {
-            Manual_Z_Move(Machine.TransferMachine.eTeachingPosList.SOCKET_C2);
+            Manual_Z_Move(Machine.TransferMachine.eTeachingPosList.SOCKET_C_UNLOAD);
         }
 
         private void BTN_MANUAL_TRANSFER_SOCKET_D1_POS_Z_Click(object sender, EventArgs e)
         {
-            Manual_Z_Move(Machine.TransferMachine.eTeachingPosList.SOCKET_D1);
+            Manual_Z_Move(Machine.TransferMachine.eTeachingPosList.SOCKET_D_LOAD);
         }
 
         private void BTN_MANUAL_TRANSFER_SOCKET_D2_POS_Z_Click(object sender, EventArgs e)
         {
-            Manual_Z_Move(Machine.TransferMachine.eTeachingPosList.SOCKET_D2);
+            Manual_Z_Move(Machine.TransferMachine.eTeachingPosList.SOCKET_D_UNLOAD);
         }
 
 
@@ -680,7 +680,7 @@ namespace ZenHandler.Dlg
             {
                 BTN_MANUAL_TRANSFER_RIGHT_LOAD_POS_XY.BackColor = ColorTranslator.FromHtml(ButtonColor.MANUAL_BTN_ON);
             }
-            else if (Globalo.motionManager.transferMachine.ChkXYMotorPos(Machine.TransferMachine.eTeachingPosList.SOCKET_A1) == true)
+            else if (Globalo.motionManager.transferMachine.ChkXYMotorPos(Machine.TransferMachine.eTeachingPosList.SOCKET_A_LOAD) == true)
             {
                 BTN_MANUAL_TRANSFER_SOCKET_A1_POS_XY.BackColor = ColorTranslator.FromHtml(ButtonColor.MANUAL_BTN_ON);
             }
@@ -709,7 +709,7 @@ namespace ZenHandler.Dlg
             {
                 BTN_MANUAL_TRANSFER_RIGHT_LOAD_POS_Z.BackColor = ColorTranslator.FromHtml(ButtonColor.MANUAL_BTN_ON);
             }
-            else if (Globalo.motionManager.transferMachine.ChkZMotorPos(Machine.TransferMachine.eTeachingPosList.SOCKET_A1) == true)
+            else if (Globalo.motionManager.transferMachine.ChkZMotorPos(Machine.TransferMachine.eTeachingPosList.SOCKET_A_LOAD) == true)
             {
                 BTN_MANUAL_TRANSFER_SOCKET_A1_POS_Z.BackColor = ColorTranslator.FromHtml(ButtonColor.MANUAL_BTN_ON);
             }
