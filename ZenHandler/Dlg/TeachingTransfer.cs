@@ -43,6 +43,10 @@ namespace ZenHandler.Dlg
             changeBtnMotorNo(SelectAxisIndex);
 
             TeachResolution(Globalo.motionManager.transferMachine.teachingConfig.Resolution[SelectAxisIndex].ToString("0.#"));
+
+
+
+
         }
         public void TeachResolution(string val)
         {
@@ -72,6 +76,17 @@ namespace ZenHandler.Dlg
             BTN_TEACH_SERVO_RESET.BackColor = ColorTranslator.FromHtml(ColorDefaultBtn);
             BTN_TEACH_SERVO_RESET.ForeColor = Color.White;
 
+
+
+            comboBox_Teach_Picker.Items.Add("Load Picker #1");
+            comboBox_Teach_Picker.Items.Add("Load Picker #2");
+            comboBox_Teach_Picker.Items.Add("Load Picker #3");
+            comboBox_Teach_Picker.Items.Add("Load Picker #4");
+            comboBox_Teach_Picker.Items.Add("UnLoad Picker #1");
+            comboBox_Teach_Picker.Items.Add("UnLoad Picker #2");
+            comboBox_Teach_Picker.Items.Add("UnLoad Picker #3");
+            comboBox_Teach_Picker.Items.Add("UnLoad Picker #4");
+            comboBox_Teach_Picker.SelectedIndex = 0;  // 첫 번째 항목 선택
         }
 
         public void showPanel()

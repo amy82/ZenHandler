@@ -9,7 +9,6 @@ namespace ZenHandler.Event
     public static class EventManager
     {
         public static event EventHandler LanguageChanged;
-
         public static event EventHandler PgExitCall;        //TODO: 여기에 종료시 연결시키기
 
         public static void RaiseLanguageChanged()

@@ -12,8 +12,11 @@ namespace ZenHandler.Machine
     {
         TRANSFER_X = 0, TRANSFER_Y, TRANSFER_Z
     };
+    
     public class TransferMachine : MotionControl.MotorController
     {
+        public event Action<MotionControl.MotorSet.TrayPosition> OnTrayChangedCall;
+        public MotionControl.MotorSet.TrayPosition Position;// { get; }
         public int MotorCnt { get; private set; } = 3;
 
         public MotionControl.MotorAxis TransferX;
@@ -33,6 +36,36 @@ namespace ZenHandler.Machine
         private double[] OrgFirstVel = { 20000.0, 20000.0, 20000.0 };   //수치 조심
         private double[] OrgSecondVel = { 10000.0, 10000.0, 5000.0 };
         private double[] OrgThirdVel = { 5000.0, 5000.0, 2500.0 };
+
+        //대기위치 1개
+        //티칭위치 피커별로 로드 Tray x1: y:1 위치 하나씩 4개 * 리프트 2개 = 8개
+        //티칭위치 피커별로 배출 Tray x1: y:1 위치 하나씩 4개 * 리프트 2개 = 8개
+        //
+        //소켓
+        //eeprom - 4개 2세트
+        //aoi - 2개 2세트
+        //fw - 4개 4세트
+        //
+        //
+        //NG tray (가로4개 2Set)  피커 4개 * 2Set
+        //
+        //대기위치 1개
+        //LEFT TRAY 로드 위치 1개
+        //LEFT TRAY 배출 위치 1개
+        //RIGHT TRAY 로드 위치 1개
+        //RIGHT TRAY 배출 위치 1개
+        //소켓 n개의 세트
+        //eep - 소켓 1 투입 / 배출 2개
+        //eep - 소켓 2 투입 / 배출 2개
+        //aoi - 소켓 1 투입 / 배출 2개
+        //aoi - 소켓 2 투입 / 배출 2개
+        //fw - 소켓 8개 투입 4 + 배출 4
+        //
+        //Ng 2개
+
+        //tray 간 x축, y축 Offset
+        //Socket 간 x축, y축 Offset
+
 
         public enum eTeachingPosList : int
         {
@@ -85,6 +118,7 @@ namespace ZenHandler.Machine
 
             pickedProduct = Data.TaskDataYaml.TaskLoad_Transfer(taskPath);
 
+            Position = MotionControl.MotorSet.TrayPosition.Left;
             //
         }
 
@@ -107,6 +141,11 @@ namespace ZenHandler.Machine
             }
    
 
+        }
+        private void CheckTrayState()
+        {
+            //State = TransferUnitState.TrayEmpty;
+            //OnTrayChangedCall?.Invoke(Position); // 어떤 트레이 비었는지 전달
         }
         public bool SetPicker(UnitPicker Picker, PickedProductState State , int index)
         {

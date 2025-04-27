@@ -41,12 +41,22 @@ namespace ZenHandler.Dlg
             this.BTN_TEACH_SERVO_RESET = new System.Windows.Forms.Button();
             this.BTN_TEACH_TRANSFER_Z = new System.Windows.Forms.Button();
             this.BTN_TEACH_TRANSFER_X = new System.Windows.Forms.Button();
+            this.LABEL_TEACH_PICKER_OFFSETX_VALUE = new System.Windows.Forms.Label();
+            this.label_Picker_OffsetX = new System.Windows.Forms.Label();
+            this.LABEL_TEACH_PICKER_OFFSETY_VALUE = new System.Windows.Forms.Label();
+            this.label_Picker_OffsetY = new System.Windows.Forms.Label();
+            this.comboBox_Teach_Picker = new System.Windows.Forms.ComboBox();
             this.groupTeachPcb.SuspendLayout();
             this.SuspendLayout();
             // 
             // groupTeachPcb
             // 
             this.groupTeachPcb.BackColor = System.Drawing.Color.White;
+            this.groupTeachPcb.Controls.Add(this.comboBox_Teach_Picker);
+            this.groupTeachPcb.Controls.Add(this.LABEL_TEACH_PICKER_OFFSETY_VALUE);
+            this.groupTeachPcb.Controls.Add(this.label_Picker_OffsetY);
+            this.groupTeachPcb.Controls.Add(this.LABEL_TEACH_PICKER_OFFSETX_VALUE);
+            this.groupTeachPcb.Controls.Add(this.label_Picker_OffsetX);
             this.groupTeachPcb.Controls.Add(this.LABEL_TEACH_ROSOLUTION_VALUE);
             this.groupTeachPcb.Controls.Add(this.BTN_TEACH_DATA_SAVE);
             this.groupTeachPcb.Controls.Add(this.label_Resolution);
@@ -71,7 +81,7 @@ namespace ZenHandler.Dlg
             this.LABEL_TEACH_ROSOLUTION_VALUE.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.LABEL_TEACH_ROSOLUTION_VALUE.Font = new System.Drawing.Font("나눔고딕 ExtraBold", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(129)));
             this.LABEL_TEACH_ROSOLUTION_VALUE.ForeColor = System.Drawing.Color.DimGray;
-            this.LABEL_TEACH_ROSOLUTION_VALUE.Location = new System.Drawing.Point(619, 561);
+            this.LABEL_TEACH_ROSOLUTION_VALUE.Location = new System.Drawing.Point(17, 436);
             this.LABEL_TEACH_ROSOLUTION_VALUE.Name = "LABEL_TEACH_ROSOLUTION_VALUE";
             this.LABEL_TEACH_ROSOLUTION_VALUE.Size = new System.Drawing.Size(117, 37);
             this.LABEL_TEACH_ROSOLUTION_VALUE.TabIndex = 47;
@@ -99,7 +109,7 @@ namespace ZenHandler.Dlg
             this.label_Resolution.BackColor = System.Drawing.Color.Gray;
             this.label_Resolution.Font = new System.Drawing.Font("나눔고딕", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(129)));
             this.label_Resolution.ForeColor = System.Drawing.Color.WhiteSmoke;
-            this.label_Resolution.Location = new System.Drawing.Point(619, 534);
+            this.label_Resolution.Location = new System.Drawing.Point(17, 409);
             this.label_Resolution.Name = "label_Resolution";
             this.label_Resolution.Size = new System.Drawing.Size(117, 23);
             this.label_Resolution.TabIndex = 46;
@@ -113,7 +123,7 @@ namespace ZenHandler.Dlg
             this.label4.ForeColor = System.Drawing.Color.White;
             this.label4.Location = new System.Drawing.Point(17, 208);
             this.label4.Name = "label4";
-            this.label4.Size = new System.Drawing.Size(107, 23);
+            this.label4.Size = new System.Drawing.Size(117, 23);
             this.label4.TabIndex = 33;
             this.label4.Text = "MOTOR AXIS";
             this.label4.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
@@ -125,7 +135,7 @@ namespace ZenHandler.Dlg
             this.label3.ForeColor = System.Drawing.Color.White;
             this.label3.Location = new System.Drawing.Point(15, 28);
             this.label3.Name = "label3";
-            this.label3.Size = new System.Drawing.Size(107, 23);
+            this.label3.Size = new System.Drawing.Size(117, 23);
             this.label3.TabIndex = 32;
             this.label3.Text = "MOTOR SET";
             this.label3.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
@@ -139,7 +149,7 @@ namespace ZenHandler.Dlg
             this.BTN_TEACH_TRANSFER_Y.ForeColor = System.Drawing.Color.White;
             this.BTN_TEACH_TRANSFER_Y.Location = new System.Drawing.Point(17, 277);
             this.BTN_TEACH_TRANSFER_Y.Name = "BTN_TEACH_TRANSFER_Y";
-            this.BTN_TEACH_TRANSFER_Y.Size = new System.Drawing.Size(107, 42);
+            this.BTN_TEACH_TRANSFER_Y.Size = new System.Drawing.Size(117, 42);
             this.BTN_TEACH_TRANSFER_Y.TabIndex = 23;
             this.BTN_TEACH_TRANSFER_Y.Text = "Y";
             this.BTN_TEACH_TRANSFER_Y.UseVisualStyleBackColor = false;
@@ -154,7 +164,7 @@ namespace ZenHandler.Dlg
             this.BTN_TEACH_SERVO_ON.ForeColor = System.Drawing.Color.White;
             this.BTN_TEACH_SERVO_ON.Location = new System.Drawing.Point(15, 54);
             this.BTN_TEACH_SERVO_ON.Name = "BTN_TEACH_SERVO_ON";
-            this.BTN_TEACH_SERVO_ON.Size = new System.Drawing.Size(107, 45);
+            this.BTN_TEACH_SERVO_ON.Size = new System.Drawing.Size(117, 45);
             this.BTN_TEACH_SERVO_ON.TabIndex = 18;
             this.BTN_TEACH_SERVO_ON.Text = "SERVO ON";
             this.BTN_TEACH_SERVO_ON.UseVisualStyleBackColor = false;
@@ -169,7 +179,7 @@ namespace ZenHandler.Dlg
             this.BTN_TEACH_SERVO_OFF.ForeColor = System.Drawing.Color.White;
             this.BTN_TEACH_SERVO_OFF.Location = new System.Drawing.Point(15, 100);
             this.BTN_TEACH_SERVO_OFF.Name = "BTN_TEACH_SERVO_OFF";
-            this.BTN_TEACH_SERVO_OFF.Size = new System.Drawing.Size(107, 45);
+            this.BTN_TEACH_SERVO_OFF.Size = new System.Drawing.Size(117, 45);
             this.BTN_TEACH_SERVO_OFF.TabIndex = 19;
             this.BTN_TEACH_SERVO_OFF.Text = "SERVO OFF";
             this.BTN_TEACH_SERVO_OFF.UseVisualStyleBackColor = false;
@@ -184,7 +194,7 @@ namespace ZenHandler.Dlg
             this.BTN_TEACH_SERVO_RESET.ForeColor = System.Drawing.Color.White;
             this.BTN_TEACH_SERVO_RESET.Location = new System.Drawing.Point(15, 146);
             this.BTN_TEACH_SERVO_RESET.Name = "BTN_TEACH_SERVO_RESET";
-            this.BTN_TEACH_SERVO_RESET.Size = new System.Drawing.Size(107, 45);
+            this.BTN_TEACH_SERVO_RESET.Size = new System.Drawing.Size(117, 45);
             this.BTN_TEACH_SERVO_RESET.TabIndex = 20;
             this.BTN_TEACH_SERVO_RESET.Text = "SERVO RESET";
             this.BTN_TEACH_SERVO_RESET.UseVisualStyleBackColor = false;
@@ -199,7 +209,7 @@ namespace ZenHandler.Dlg
             this.BTN_TEACH_TRANSFER_Z.ForeColor = System.Drawing.Color.White;
             this.BTN_TEACH_TRANSFER_Z.Location = new System.Drawing.Point(17, 320);
             this.BTN_TEACH_TRANSFER_Z.Name = "BTN_TEACH_TRANSFER_Z";
-            this.BTN_TEACH_TRANSFER_Z.Size = new System.Drawing.Size(107, 42);
+            this.BTN_TEACH_TRANSFER_Z.Size = new System.Drawing.Size(117, 42);
             this.BTN_TEACH_TRANSFER_Z.TabIndex = 24;
             this.BTN_TEACH_TRANSFER_Z.Text = "Z";
             this.BTN_TEACH_TRANSFER_Z.UseVisualStyleBackColor = false;
@@ -214,11 +224,74 @@ namespace ZenHandler.Dlg
             this.BTN_TEACH_TRANSFER_X.ForeColor = System.Drawing.Color.White;
             this.BTN_TEACH_TRANSFER_X.Location = new System.Drawing.Point(17, 234);
             this.BTN_TEACH_TRANSFER_X.Name = "BTN_TEACH_TRANSFER_X";
-            this.BTN_TEACH_TRANSFER_X.Size = new System.Drawing.Size(107, 42);
+            this.BTN_TEACH_TRANSFER_X.Size = new System.Drawing.Size(117, 42);
             this.BTN_TEACH_TRANSFER_X.TabIndex = 22;
             this.BTN_TEACH_TRANSFER_X.Text = "X";
             this.BTN_TEACH_TRANSFER_X.UseVisualStyleBackColor = false;
             this.BTN_TEACH_TRANSFER_X.Click += new System.EventHandler(this.BTN_TEACH_PCB_X_Click);
+            // 
+            // LABEL_TEACH_PICKER_OFFSETX_VALUE
+            // 
+            this.LABEL_TEACH_PICKER_OFFSETX_VALUE.BackColor = System.Drawing.SystemColors.Window;
+            this.LABEL_TEACH_PICKER_OFFSETX_VALUE.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.LABEL_TEACH_PICKER_OFFSETX_VALUE.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.LABEL_TEACH_PICKER_OFFSETX_VALUE.Font = new System.Drawing.Font("나눔고딕 ExtraBold", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(129)));
+            this.LABEL_TEACH_PICKER_OFFSETX_VALUE.ForeColor = System.Drawing.Color.DimGray;
+            this.LABEL_TEACH_PICKER_OFFSETX_VALUE.Location = new System.Drawing.Point(616, 55);
+            this.LABEL_TEACH_PICKER_OFFSETX_VALUE.Name = "LABEL_TEACH_PICKER_OFFSETX_VALUE";
+            this.LABEL_TEACH_PICKER_OFFSETX_VALUE.Size = new System.Drawing.Size(117, 37);
+            this.LABEL_TEACH_PICKER_OFFSETX_VALUE.TabIndex = 49;
+            this.LABEL_TEACH_PICKER_OFFSETX_VALUE.Text = "2.0";
+            this.LABEL_TEACH_PICKER_OFFSETX_VALUE.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            // 
+            // label_Picker_OffsetX
+            // 
+            this.label_Picker_OffsetX.BackColor = System.Drawing.Color.Gray;
+            this.label_Picker_OffsetX.Font = new System.Drawing.Font("나눔고딕", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(129)));
+            this.label_Picker_OffsetX.ForeColor = System.Drawing.Color.WhiteSmoke;
+            this.label_Picker_OffsetX.Location = new System.Drawing.Point(616, 28);
+            this.label_Picker_OffsetX.Name = "label_Picker_OffsetX";
+            this.label_Picker_OffsetX.Size = new System.Drawing.Size(117, 23);
+            this.label_Picker_OffsetX.TabIndex = 48;
+            this.label_Picker_OffsetX.Text = "Picker Offset X";
+            this.label_Picker_OffsetX.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            // 
+            // LABEL_TEACH_PICKER_OFFSETY_VALUE
+            // 
+            this.LABEL_TEACH_PICKER_OFFSETY_VALUE.BackColor = System.Drawing.SystemColors.Window;
+            this.LABEL_TEACH_PICKER_OFFSETY_VALUE.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.LABEL_TEACH_PICKER_OFFSETY_VALUE.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.LABEL_TEACH_PICKER_OFFSETY_VALUE.Font = new System.Drawing.Font("나눔고딕 ExtraBold", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(129)));
+            this.LABEL_TEACH_PICKER_OFFSETY_VALUE.ForeColor = System.Drawing.Color.DimGray;
+            this.LABEL_TEACH_PICKER_OFFSETY_VALUE.Location = new System.Drawing.Point(616, 127);
+            this.LABEL_TEACH_PICKER_OFFSETY_VALUE.Name = "LABEL_TEACH_PICKER_OFFSETY_VALUE";
+            this.LABEL_TEACH_PICKER_OFFSETY_VALUE.Size = new System.Drawing.Size(117, 37);
+            this.LABEL_TEACH_PICKER_OFFSETY_VALUE.TabIndex = 51;
+            this.LABEL_TEACH_PICKER_OFFSETY_VALUE.Text = "2.0";
+            this.LABEL_TEACH_PICKER_OFFSETY_VALUE.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            // 
+            // label_Picker_OffsetY
+            // 
+            this.label_Picker_OffsetY.BackColor = System.Drawing.Color.Gray;
+            this.label_Picker_OffsetY.Font = new System.Drawing.Font("나눔고딕", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(129)));
+            this.label_Picker_OffsetY.ForeColor = System.Drawing.Color.WhiteSmoke;
+            this.label_Picker_OffsetY.Location = new System.Drawing.Point(616, 100);
+            this.label_Picker_OffsetY.Name = "label_Picker_OffsetY";
+            this.label_Picker_OffsetY.Size = new System.Drawing.Size(117, 23);
+            this.label_Picker_OffsetY.TabIndex = 50;
+            this.label_Picker_OffsetY.Text = "Picker Offset Y";
+            this.label_Picker_OffsetY.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            // 
+            // comboBox_Teach_Picker
+            // 
+            this.comboBox_Teach_Picker.DrawMode = System.Windows.Forms.DrawMode.OwnerDrawVariable;
+            this.comboBox_Teach_Picker.Font = new System.Drawing.Font("나눔고딕", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(129)));
+            this.comboBox_Teach_Picker.FormattingEnabled = true;
+            this.comboBox_Teach_Picker.ItemHeight = 20;
+            this.comboBox_Teach_Picker.Location = new System.Drawing.Point(585, 177);
+            this.comboBox_Teach_Picker.Name = "comboBox_Teach_Picker";
+            this.comboBox_Teach_Picker.Size = new System.Drawing.Size(165, 26);
+            this.comboBox_Teach_Picker.TabIndex = 52;
             // 
             // TeachingTransfer
             // 
@@ -245,5 +318,10 @@ namespace ZenHandler.Dlg
         private System.Windows.Forms.Button BTN_TEACH_DATA_SAVE;
         public System.Windows.Forms.Label LABEL_TEACH_ROSOLUTION_VALUE;
         private System.Windows.Forms.Label label_Resolution;
+        public System.Windows.Forms.Label LABEL_TEACH_PICKER_OFFSETY_VALUE;
+        private System.Windows.Forms.Label label_Picker_OffsetY;
+        public System.Windows.Forms.Label LABEL_TEACH_PICKER_OFFSETX_VALUE;
+        private System.Windows.Forms.Label label_Picker_OffsetX;
+        private System.Windows.Forms.ComboBox comboBox_Teach_Picker;
     }
 }

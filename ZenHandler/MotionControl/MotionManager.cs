@@ -8,6 +8,7 @@ using System.Windows.Forms;
 
 namespace ZenHandler.MotionControl
 {
+    
     public class MotionManager
     {
         public IOController ioController;       //io 동작
@@ -20,10 +21,15 @@ namespace ZenHandler.MotionControl
         public Machine.LiftMachine liftMachine;
         public Machine.SocketMachine socketMachine;
 
+        
+        //#region test
+        //#endregion
+
         #region test
         //test 1
         //test 2
         #endregion
+
 
         public MotionManager()
         {
@@ -36,11 +42,27 @@ namespace ZenHandler.MotionControl
             liftMachine = new Machine.LiftMachine();
             socketMachine = new Machine.SocketMachine();
 
+            transferMachine.OnTrayChangedCall += OnTrayChenge;
+
+
 
             transferMachine.teachingConfig.LoadTeach(transferMachine.teachingPath);
             magazineHandler.teachingConfig.LoadTeach(magazineHandler.teachingPath);
             liftMachine.teachingConfig.LoadTeach(liftMachine.teachingPath);
             socketMachine.teachingConfig.LoadTeach(socketMachine.teachingPath);
+        }
+        private void OnTrayChenge(MotorSet.TrayPosition position)
+        {
+            Console.WriteLine("ToLiftUnitTrayChenge");
+
+            if (position == MotorSet.TrayPosition.Left)// && leftLift.State == LiftUnitState.Idle)
+            {
+                //leftLift.StartTrayChange();
+            }
+            else if (position == MotorSet.TrayPosition.Right)// && rightLift.State == LiftUnitState.Idle)
+            {
+                //rightLift.StartTrayChange();
+            }
         }
         private void OnPgExit(object sender, EventArgs e)
         {

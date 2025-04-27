@@ -74,6 +74,11 @@ namespace ZenHandler.MotionControl
         //eeprom == 투입 LIFT 2개 , 배출 LIFT 2개
         //aoi    == 투입 LIFT 2개 , 배출 LIFT 2개 , CAM z축 2개
         //fw     == 매거진 Z축 + Y축 2세트
+        public enum TrayPosition        //LIFT , MAGAZINE 왼쪽, 오른족 구분
+        {
+            Left,
+            Right
+        }
         public enum eJogDic : int
         {
             PLUS_MOVE = 1, MINUS_MOVE = -1
