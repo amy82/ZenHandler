@@ -29,8 +29,8 @@ namespace ZenHandler.Dlg
         public enum LoadTraySlotState
         {
             Empty = -1,
-            BeforeInspection = 0,
-            AfterInspection = 1
+            BeforeTest = 0,
+            AfterTest = 1
         }
 
         public enum NgTraySlotState
@@ -74,8 +74,8 @@ namespace ZenHandler.Dlg
                 {
                     if (bFull)
                     {
-                        LeftTraySlots[y, x] = LoadTraySlotState.BeforeInspection;
-                        RightTraySlots[y, x] = LoadTraySlotState.BeforeInspection;
+                        LeftTraySlots[y, x] = LoadTraySlotState.BeforeTest;
+                        RightTraySlots[y, x] = LoadTraySlotState.BeforeTest;
                     }
                     else
                     {
@@ -103,11 +103,11 @@ namespace ZenHandler.Dlg
                     {
                         if (index == TRAY_KIND.LOAD_TRAY_L)
                         {
-                            if (Globalo.motionManager.liftMachine.trayProduct.LeftLoadTraySlots[row][col] == (int)LoadTraySlotState.BeforeInspection)
+                            if (Globalo.motionManager.liftMachine.trayProduct.LeftLoadTraySlots[row][col] == (int)LoadTraySlotState.BeforeTest)
                             {
                                 panel.BackColor = Color.SkyBlue;
                             }
-                            else if (Globalo.motionManager.liftMachine.trayProduct.LeftLoadTraySlots[row][col] == (int)LoadTraySlotState.AfterInspection)
+                            else if (Globalo.motionManager.liftMachine.trayProduct.LeftLoadTraySlots[row][col] == (int)LoadTraySlotState.AfterTest)
                             {
                                 panel.BackColor = Color.Green;
                             }
@@ -119,11 +119,11 @@ namespace ZenHandler.Dlg
                         }
                         else if (index == TRAY_KIND.LOAD_TRAY_R)
                         {
-                            if (Globalo.motionManager.liftMachine.trayProduct.RightLoadTraySlots[row][col] == (int)LoadTraySlotState.BeforeInspection)
+                            if (Globalo.motionManager.liftMachine.trayProduct.RightLoadTraySlots[row][col] == (int)LoadTraySlotState.BeforeTest)
                             {
                                 panel.BackColor = Color.SkyBlue;
                             }
-                            else if (Globalo.motionManager.liftMachine.trayProduct.RightLoadTraySlots[row][col] == (int)LoadTraySlotState.AfterInspection)
+                            else if (Globalo.motionManager.liftMachine.trayProduct.RightLoadTraySlots[row][col] == (int)LoadTraySlotState.AfterTest)
                             {
                                 panel.BackColor = Color.Green;
                             }
@@ -247,11 +247,11 @@ namespace ZenHandler.Dlg
                 
             }
 
-            SetLoadTraySlot(0, 0, TRAY_KIND.LOAD_TRAY_L, LoadTraySlotState.AfterInspection);
+            SetLoadTraySlot(0, 0, TRAY_KIND.LOAD_TRAY_L, LoadTraySlotState.AfterTest);
 
-            SetLoadTraySlot(0, 0, TRAY_KIND.LOAD_TRAY_R, LoadTraySlotState.AfterInspection);
-            SetLoadTraySlot(0, 1, TRAY_KIND.LOAD_TRAY_R, LoadTraySlotState.AfterInspection);
-            SetLoadTraySlot(0, 2, TRAY_KIND.LOAD_TRAY_R, LoadTraySlotState.AfterInspection);
+            SetLoadTraySlot(0, 0, TRAY_KIND.LOAD_TRAY_R, LoadTraySlotState.AfterTest);
+            SetLoadTraySlot(0, 1, TRAY_KIND.LOAD_TRAY_R, LoadTraySlotState.AfterTest);
+            SetLoadTraySlot(0, 2, TRAY_KIND.LOAD_TRAY_R, LoadTraySlotState.AfterTest);
 
             SetNgTraySlot(0, 0, TRAY_KIND.NG_TRAY_L, NgTraySlotState.NgInspection);
 

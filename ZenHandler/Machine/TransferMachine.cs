@@ -94,6 +94,7 @@ namespace ZenHandler.Machine
         public Data.TeachingConfig teachingConfig = new Data.TeachingConfig();
         public PickedProduct pickedProduct = new PickedProduct();
         public ProductLayout productLayout = new ProductLayout();
+
         //TODO:  픽업 상태 로드 4개 , 배출 4개 / blank , LOAD , BCR OK , PASS , NG(DEFECT 1 , 2 , 3 , 4)
         //public Dio cylinder;
         //픽업 툴 4개 실린더 Dio 로 지정?
@@ -593,7 +594,7 @@ namespace ZenHandler.Machine
 
             return isSuccess;
         }
-        public bool TransFer_XY_Move(eTeachingPosList ePos, int PickerNo = 0, double GapX = 0.0, double GapY = 0.0, double OffsetX = 0.0, double OffsetY = 0.0, bool bWait = true)  //Picket Index , Tray or Socekt or Ng , 
+        public bool TransFer_XY_Move(eTeachingPosList ePos, int PickerNo = 0, int CountX = 0, int CountY = 0,  bool bWait = true)  //Picket Index , Tray or Socekt or Ng , 
         {
             if (ProgramState.ON_LINE_MOTOR == false)
             {
@@ -603,6 +604,7 @@ namespace ZenHandler.Machine
             string logStr = "";
             MotionControl.MotorAxis[] multiAxis = { TransferX, TransferY };
             double[] dMultiPos = { 0.0, 0.0 };
+            double[] dOffsetPos = { 0.0, 0.0 };
             bool isSuccess = false;
 
             isSuccess = ChkZMotorPos(eTeachingPosList.WAIT_POS);
@@ -613,10 +615,61 @@ namespace ZenHandler.Machine
                 Globalo.LogPrint("ManualControl", logStr);
                 return false;
             }
-
+            if(PickerNo < 0 || PickerNo > 3)
+            {
+                logStr = $"Transfer Picker Index Err";
+                Globalo.LogPrint("ManualControl", logStr);
+                return false;
+            }
             dMultiPos[0] = Globalo.motionManager.transferMachine.teachingConfig.Teaching[(int)ePos].Pos[(int)eTransfer.TRANSFER_X];     //x Axis
             dMultiPos[1] = Globalo.motionManager.transferMachine.teachingConfig.Teaching[(int)ePos].Pos[(int)eTransfer.TRANSFER_Y];      //y Axis
 
+            //리비안 물류
+            //if (g_clMotorSet.MoveTransferMotorX(TRANS_ALIGN_POS, TaskWork.m_stTrayWorkPos.nTrayX[PCB_TRAY]) == false)
+            //PickerNo = 피커 번호 (0, 1, 2, 3)
+            //OffsetX = 피커별 Offset x
+            //OffsetY = 피커별 Offset y
+            //GapX = Tray , Socket , Ng 가로 간격
+            //GapY = Tray , Socket , Ng 세로 간격
+
+            //TODO: LEFT , RIGHT 각 TRAY 몇 번째 진행인지 저장돼야된다.
+
+            if (ePos == eTeachingPosList.LEFT_TRAY_BCR_POS || 
+                ePos == eTeachingPosList.RIGHT_TRAY_BCR_POS)
+            {
+                dOffsetPos[0] = (Globalo.motionManager.transferMachine.productLayout.TrayGap.GapX * CountX);
+                dOffsetPos[1] = (Globalo.motionManager.transferMachine.productLayout.TrayGap.GapY * CountY);
+            }
+            else if (ePos == eTeachingPosList.LEFT_TRAY_LOAD_POS || ePos == eTeachingPosList.RIGHT_TRAY_LOAD_POS)
+            {
+                dOffsetPos[0] = (Globalo.motionManager.transferMachine.productLayout.TrayGap.GapX * CountX) + Globalo.motionManager.transferMachine.productLayout.LoadTrayOffset[PickerNo].OffsetX;
+                dOffsetPos[1] = (Globalo.motionManager.transferMachine.productLayout.TrayGap.GapY * CountY) + Globalo.motionManager.transferMachine.productLayout.LoadTrayOffset[PickerNo].OffsetY;
+            }
+            else if (ePos == eTeachingPosList.LEFT_TRAY_UNLOAD_POS || ePos == eTeachingPosList.RIGHT_TRAY_UNLOAD_POS)
+            {
+                dOffsetPos[0] = (Globalo.motionManager.transferMachine.productLayout.TrayGap.GapX * CountX) + Globalo.motionManager.transferMachine.productLayout.UnLoadTrayOffset[PickerNo].OffsetX;
+                dOffsetPos[1] = (Globalo.motionManager.transferMachine.productLayout.TrayGap.GapY * CountY) + Globalo.motionManager.transferMachine.productLayout.UnLoadTrayOffset[PickerNo].OffsetY;
+            }
+            else if (ePos == eTeachingPosList.SOCKET_A_LOAD || ePos == eTeachingPosList.SOCKET_B_LOAD ||
+                ePos == eTeachingPosList.SOCKET_C_LOAD || ePos == eTeachingPosList.SOCKET_D_LOAD ||
+                ePos == eTeachingPosList.SOCKET_A_UNLOAD || ePos == eTeachingPosList.SOCKET_B_UNLOAD ||
+                ePos == eTeachingPosList.SOCKET_C_UNLOAD || ePos == eTeachingPosList.SOCKET_D_UNLOAD)
+            {
+                dOffsetPos[0] = 0.0;// Globalo.motionManager.transferMachine.productLayout.SocketGap.GapX; //소켓은 피커 4개 동시에 투입, 배출 이라서 필요없나?
+                dOffsetPos[1] = 0.0;//Globalo.motionManager.transferMachine.productLayout.SocketGap.GapY;
+            }
+            else if (ePos == eTeachingPosList.NG_A_LOAD)
+            {
+                dOffsetPos[0] = Globalo.motionManager.transferMachine.productLayout.NgGap.GapX;
+                dOffsetPos[1] = Globalo.motionManager.transferMachine.productLayout.NgGap.GapY;
+            }
+            else
+            {
+                dOffsetPos[0] = 0.0;
+                dOffsetPos[1] = 0.0;
+            }
+            dMultiPos[0] += dOffsetPos[0];
+            dMultiPos[1] += dOffsetPos[1];
 
             isSuccess = MultiAxisMove(multiAxis, dMultiPos, bWait);
 
