@@ -15,8 +15,6 @@ namespace ZenHandler.Dlg
     public partial class ConfigControl : UserControl
     {
         //public event delLogSender eLogSender;       //외부에서 호출할때 사용
-        //private ManualPcb manualPcb = new ManualPcb();
-        //private ManualLens manualLens = new ManualLens();
 
         private enum eManualBtn : int
         {
@@ -57,6 +55,13 @@ namespace ZenHandler.Dlg
             Globalo.yamlManager.configData.SerialPort.Bcr = poisonComboBox_BcrPort.Text;
             Globalo.yamlManager.configData.DrivingSettings.Language = ComboBox_Language.Text;
 
+            //제품 간격 - Tray , Socket
+            //label_Config_Tray_GapX_Val.Text = "0.0";
+            //label_Config_Tray_GapY_Val.Text = "0.0";
+            //label_Config_Socket_GapX_Val.Text = "0.0";
+            //label_Config_Socket_GapY_Val.Text = "0.0";
+            //label_Config_Ng_GapX_Val.Text = "0.0";
+            //label_Config_Ng_GapY_Val.Text = "0.0";
 
         }
         public void ShowDriveSet()
@@ -70,6 +75,15 @@ namespace ZenHandler.Dlg
             label_PinCountMax.Text = Globalo.yamlManager.configData.DrivingSettings.PinCountMax.ToString();
             label_CsvScanMax.Text = Globalo.yamlManager.configData.DrivingSettings.CsvScanMonth.ToString();
 
+
+
+            //Globalo.motionManager.transferMachine.teachingConfig.Resolution[SelectAxisIndex].ToString("0.#"));
+            label_Config_Tray_GapX_Val.Text = Globalo.motionManager.transferMachine.productLayout.TrayGap.GapX.ToString("0.0##");
+            label_Config_Tray_GapY_Val.Text = Globalo.motionManager.transferMachine.productLayout.TrayGap.GapY.ToString("0.0##");
+            label_Config_Socket_GapX_Val.Text = Globalo.motionManager.transferMachine.productLayout.SocketGap.GapX.ToString("0.0##");
+            label_Config_Socket_GapY_Val.Text = Globalo.motionManager.transferMachine.productLayout.SocketGap.GapY.ToString("0.0##");
+            label_Config_Ng_GapX_Val.Text = Globalo.motionManager.transferMachine.productLayout.NgGap.GapX.ToString("0.0##");
+            label_Config_Ng_GapY_Val.Text = Globalo.motionManager.transferMachine.productLayout.NgGap.GapY.ToString("0.0##");
         }
         public void ShowComPort()
         {

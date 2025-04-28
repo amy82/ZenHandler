@@ -174,14 +174,11 @@ namespace ZenHandler.Dlg
 
             if (TeachCurrentTab == eTeachingBtn.TransferTab)
             {
-                //teachingLens.hidePanel();
                 transferTeach.showPanel();
             }
             else if (TeachCurrentTab == eTeachingBtn.lensTab)
             {
                 transferTeach.hidePanel();
-                //teachingLens.showPanel();
-                //teachingLens.Show();
 
             }
 

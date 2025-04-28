@@ -80,7 +80,7 @@ namespace ZenHandler.Dlg
             this.comboBox_Teach_Picker.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(129)));
             this.comboBox_Teach_Picker.FormattingEnabled = true;
             this.comboBox_Teach_Picker.ItemHeight = 18;
-            this.comboBox_Teach_Picker.Location = new System.Drawing.Point(585, 177);
+            this.comboBox_Teach_Picker.Location = new System.Drawing.Point(585, 329);
             this.comboBox_Teach_Picker.Name = "comboBox_Teach_Picker";
             this.comboBox_Teach_Picker.Size = new System.Drawing.Size(165, 26);
             this.comboBox_Teach_Picker.TabIndex = 52;
@@ -93,9 +93,9 @@ namespace ZenHandler.Dlg
             this.LABEL_TEACH_PICKER_OFFSETY_VALUE.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.LABEL_TEACH_PICKER_OFFSETY_VALUE.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(129)));
             this.LABEL_TEACH_PICKER_OFFSETY_VALUE.ForeColor = System.Drawing.Color.DimGray;
-            this.LABEL_TEACH_PICKER_OFFSETY_VALUE.Location = new System.Drawing.Point(616, 127);
+            this.LABEL_TEACH_PICKER_OFFSETY_VALUE.Location = new System.Drawing.Point(608, 107);
             this.LABEL_TEACH_PICKER_OFFSETY_VALUE.Name = "LABEL_TEACH_PICKER_OFFSETY_VALUE";
-            this.LABEL_TEACH_PICKER_OFFSETY_VALUE.Size = new System.Drawing.Size(117, 37);
+            this.LABEL_TEACH_PICKER_OFFSETY_VALUE.Size = new System.Drawing.Size(125, 27);
             this.LABEL_TEACH_PICKER_OFFSETY_VALUE.TabIndex = 51;
             this.LABEL_TEACH_PICKER_OFFSETY_VALUE.Text = "2.0";
             this.LABEL_TEACH_PICKER_OFFSETY_VALUE.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
@@ -103,13 +103,13 @@ namespace ZenHandler.Dlg
             // label_Picker_OffsetY
             // 
             this.label_Picker_OffsetY.BackColor = System.Drawing.Color.Gray;
-            this.label_Picker_OffsetY.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(129)));
+            this.label_Picker_OffsetY.Font = new System.Drawing.Font("나눔고딕", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label_Picker_OffsetY.ForeColor = System.Drawing.Color.WhiteSmoke;
-            this.label_Picker_OffsetY.Location = new System.Drawing.Point(616, 100);
+            this.label_Picker_OffsetY.Location = new System.Drawing.Point(608, 83);
             this.label_Picker_OffsetY.Name = "label_Picker_OffsetY";
-            this.label_Picker_OffsetY.Size = new System.Drawing.Size(117, 23);
+            this.label_Picker_OffsetY.Size = new System.Drawing.Size(125, 23);
             this.label_Picker_OffsetY.TabIndex = 50;
-            this.label_Picker_OffsetY.Text = "Picker Offset Y";
+            this.label_Picker_OffsetY.Text = "Load Tray Offset Y";
             this.label_Picker_OffsetY.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
             // LABEL_TEACH_PICKER_OFFSETX_VALUE
@@ -119,9 +119,9 @@ namespace ZenHandler.Dlg
             this.LABEL_TEACH_PICKER_OFFSETX_VALUE.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.LABEL_TEACH_PICKER_OFFSETX_VALUE.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(129)));
             this.LABEL_TEACH_PICKER_OFFSETX_VALUE.ForeColor = System.Drawing.Color.DimGray;
-            this.LABEL_TEACH_PICKER_OFFSETX_VALUE.Location = new System.Drawing.Point(616, 55);
+            this.LABEL_TEACH_PICKER_OFFSETX_VALUE.Location = new System.Drawing.Point(608, 52);
             this.LABEL_TEACH_PICKER_OFFSETX_VALUE.Name = "LABEL_TEACH_PICKER_OFFSETX_VALUE";
-            this.LABEL_TEACH_PICKER_OFFSETX_VALUE.Size = new System.Drawing.Size(117, 37);
+            this.LABEL_TEACH_PICKER_OFFSETX_VALUE.Size = new System.Drawing.Size(125, 27);
             this.LABEL_TEACH_PICKER_OFFSETX_VALUE.TabIndex = 49;
             this.LABEL_TEACH_PICKER_OFFSETX_VALUE.Text = "2.0";
             this.LABEL_TEACH_PICKER_OFFSETX_VALUE.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
@@ -129,13 +129,13 @@ namespace ZenHandler.Dlg
             // label_Picker_OffsetX
             // 
             this.label_Picker_OffsetX.BackColor = System.Drawing.Color.Gray;
-            this.label_Picker_OffsetX.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(129)));
+            this.label_Picker_OffsetX.Font = new System.Drawing.Font("나눔고딕", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label_Picker_OffsetX.ForeColor = System.Drawing.Color.WhiteSmoke;
-            this.label_Picker_OffsetX.Location = new System.Drawing.Point(616, 28);
+            this.label_Picker_OffsetX.Location = new System.Drawing.Point(608, 28);
             this.label_Picker_OffsetX.Name = "label_Picker_OffsetX";
-            this.label_Picker_OffsetX.Size = new System.Drawing.Size(117, 23);
+            this.label_Picker_OffsetX.Size = new System.Drawing.Size(125, 23);
             this.label_Picker_OffsetX.TabIndex = 48;
-            this.label_Picker_OffsetX.Text = "Picker Offset X";
+            this.label_Picker_OffsetX.Text = "Load Tray Offset X";
             this.label_Picker_OffsetX.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
             // LABEL_TEACH_ROSOLUTION_VALUE

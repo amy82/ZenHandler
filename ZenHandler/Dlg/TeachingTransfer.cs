@@ -53,7 +53,6 @@ namespace ZenHandler.Dlg
 
             label_Resolution.Visible = true;
             LABEL_TEACH_ROSOLUTION_VALUE.Visible = true;
-
             LABEL_TEACH_ROSOLUTION_VALUE.Text = val;
 
         }
@@ -97,6 +96,10 @@ namespace ZenHandler.Dlg
             }
             myTeachingGrid.ShowTeachingData();
             TeachResolution(Globalo.motionManager.transferMachine.teachingConfig.Resolution[SelectAxisIndex].ToString("0.#"));
+
+
+
+
         }
         public void hidePanel()
         {
@@ -109,10 +112,13 @@ namespace ZenHandler.Dlg
             string value = comboBox_Teach_Picker.SelectedItem.ToString();
             Console.WriteLine($"comboBox_Teach_Picker 선택된 인덱스: {index}, 값: {value}");
 
-
+            changeComboBoxPickerNo(index);
         }
         private void changeComboBoxPickerNo(int PickerNo)
         {
+            //LoadPicker : 0 ~ 3
+            //UnloadPicket : 4 ~ 7
+
             LABEL_TEACH_PICKER_OFFSETX_VALUE.Text = "";
             LABEL_TEACH_PICKER_OFFSETY_VALUE.Text = "";
         }
