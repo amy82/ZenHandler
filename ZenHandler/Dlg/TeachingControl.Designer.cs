@@ -233,7 +233,7 @@
             // 
             // TeachingPanel
             // 
-            this.TeachingPanel.Location = new System.Drawing.Point(0, 89);
+            this.TeachingPanel.Location = new System.Drawing.Point(0, 84);
             this.TeachingPanel.Name = "TeachingPanel";
             this.TeachingPanel.Size = new System.Drawing.Size(186, 40);
             this.TeachingPanel.TabIndex = 32;

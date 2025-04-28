@@ -427,7 +427,7 @@ namespace ZenHandler.Process
                     
                     break;
                 case 2040:
-                    Globalo.motionManager.transferMachine.TransFer_XY_Move(Machine.TransferMachine.eTeachingPosList.WAIT_POS, true);
+                    Globalo.motionManager.transferMachine.TransFer_XY_Move(Machine.TransferMachine.eTeachingPosList.WAIT_POS);
                     nRetStep = 2050;
                     break;
                 case 2050:

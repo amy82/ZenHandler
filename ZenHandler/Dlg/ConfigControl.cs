@@ -56,12 +56,12 @@ namespace ZenHandler.Dlg
             Globalo.yamlManager.configData.DrivingSettings.Language = ComboBox_Language.Text;
 
             //제품 간격 - Tray , Socket
-            //label_Config_Tray_GapX_Val.Text = "0.0";
-            //label_Config_Tray_GapY_Val.Text = "0.0";
-            //label_Config_Socket_GapX_Val.Text = "0.0";
-            //label_Config_Socket_GapY_Val.Text = "0.0";
-            //label_Config_Ng_GapX_Val.Text = "0.0";
-            //label_Config_Ng_GapY_Val.Text = "0.0";
+            Globalo.motionManager.transferMachine.productLayout.TrayGap.GapX = double.Parse(label_Config_Tray_GapX_Val.Text);
+            Globalo.motionManager.transferMachine.productLayout.TrayGap.GapY = double.Parse(label_Config_Tray_GapY_Val.Text);
+            Globalo.motionManager.transferMachine.productLayout.SocketGap.GapX = double.Parse(label_Config_Socket_GapX_Val.Text);
+            Globalo.motionManager.transferMachine.productLayout.SocketGap.GapY = double.Parse(label_Config_Socket_GapY_Val.Text);
+            Globalo.motionManager.transferMachine.productLayout.NgGap.GapX = double.Parse(label_Config_Ng_GapX_Val.Text);
+            Globalo.motionManager.transferMachine.productLayout.NgGap.GapY = double.Parse(label_Config_Ng_GapY_Val.Text);
 
         }
         public void ShowDriveSet()
@@ -184,15 +184,16 @@ namespace ZenHandler.Dlg
             //Save
 
             GetConfigData();
-            //
             Globalo.yamlManager.configDataSave();
+            Data.TaskDataYaml.TaskSave_Layout(Globalo.motionManager.transferMachine.productLayout, Machine.TransferMachine.LayoutPath);
+            //Globalo.motionManager.transferMachine
             //
             RefreshConfig();
 
 
+            //언어 변경
             string comData = Globalo.yamlManager.configData.DrivingSettings.Language;
-
-            Program.SetLanguage(comData);   //언어 변경
+            Program.SetLanguage(comData);   
         }
 
         private void button_Bcr_Connect_Click(object sender, EventArgs e)
@@ -269,6 +270,65 @@ namespace ZenHandler.Dlg
                     label_CsvScanMax.Text = popupForm.NumPadResult;
                 }
             }
+        }
+
+        private void ProductSizeInput(Label OffsetLabel)
+        {
+            string labelValue = OffsetLabel.Text;
+            decimal decimalValue = 0;
+
+
+            if (decimal.TryParse(labelValue, out decimalValue))
+            {
+                // 소수점 형식으로 변환
+                string formattedValue = decimalValue.ToString("0.0##");
+                NumPadForm popupForm = new NumPadForm(formattedValue);
+
+                DialogResult dialogResult = popupForm.ShowDialog();
+
+
+                if (dialogResult == DialogResult.OK)
+                {
+                    double dNumData = Double.Parse(popupForm.NumPadResult);
+
+                    OffsetLabel.Text = dNumData.ToString("0.#");
+                }
+            }
+        }
+        private void label_Config_Tray_GapX_Val_Click(object sender, EventArgs e)
+        {
+            Label clickedLabel = sender as Label;
+            ProductSizeInput(clickedLabel);
+        }
+
+        private void label_Config_Tray_GapY_Val_Click(object sender, EventArgs e)
+        {
+            Label clickedLabel = sender as Label;
+            ProductSizeInput(clickedLabel);
+        }
+
+        private void label_Config_Socket_GapX_Val_Click(object sender, EventArgs e)
+        {
+            Label clickedLabel = sender as Label;
+            ProductSizeInput(clickedLabel);
+        }
+
+        private void label_Config_Socket_GapY_Val_Click(object sender, EventArgs e)
+        {
+            Label clickedLabel = sender as Label;
+            ProductSizeInput(clickedLabel);
+        }
+
+        private void label_Config_Ng_GapX_Val_Click(object sender, EventArgs e)
+        {
+            Label clickedLabel = sender as Label;
+            ProductSizeInput(clickedLabel);
+        }
+
+        private void label_Config_Ng_GapY_Val_Click(object sender, EventArgs e)
+        {
+            Label clickedLabel = sender as Label;
+            ProductSizeInput(clickedLabel);
         }
     }
 }

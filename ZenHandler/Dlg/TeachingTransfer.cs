@@ -33,7 +33,7 @@ namespace ZenHandler.Dlg
 
             myTeachingGrid = new Controls.TeachingGridView( Globalo.motionManager.transferMachine.MotorAxes, Globalo.motionManager.transferMachine.teachingConfig, inGridWid);
 
-            myTeachingGrid.Location = new System.Drawing.Point(150, 28);
+            myTeachingGrid.Location = new System.Drawing.Point(150, 10);
             this.groupTeachPcb.Controls.Add(myTeachingGrid);
 
             TeachTransferUiSet();

@@ -71,17 +71,20 @@ namespace ZenHandler.Machine
         public enum eTeachingPosList : int
         {
             WAIT_POS = 0,
-            LEFT_TRAY_LOAD_POS, LEFT_TRAY_UNLOAD_POS, RIGHT_TRAY_LOAD_POS, RIGHT_TRAY_UNLOAD_POS,
+            LEFT_TRAY_BCR_POS, RIGHT_TRAY_BCR_POS,
+            LEFT_TRAY_LOAD_POS, LEFT_TRAY_UNLOAD_POS, 
+            RIGHT_TRAY_LOAD_POS, RIGHT_TRAY_UNLOAD_POS,
             SOCKET_A_LOAD, SOCKET_A_UNLOAD, SOCKET_B_LOAD, SOCKET_B_UNLOAD, SOCKET_C_LOAD, SOCKET_C_UNLOAD, SOCKET_D_LOAD, SOCKET_D_UNLOAD,
             NG_A_LOAD, NG_A_UNLOAD, NG_B_LOAD, NG_B_UNLOAD,
             TOTAL_TRANSFER_TEACHING_COUNT};
 
         public string[] TeachName = { 
             "WAIT_POS",
+            "LEFT_TRAY_BCR_POS", "RIGHT_TRAY_BCR_POS",
             "L_TRAY_LOAD_POS", "L_TRAY_UNLOAD_POS",
             "R_TRAY_LOAD_POS", "R_TRAY_UNLOAD_POS",
             "SOCKET_A_LOAD", "SOCKET_A_UNLOAD", "SOCKET_B_LOAD", "SOCKET_B_UNLOAD","SOCKET_C_LOAD", "SOCKET_C_UNLOAD", "SOCKET_D_LOAD", "SOCKET_D_UNLOAD",
-            "NG_A_LOAD", "NG_A_UNLOAD", "NG_B_LOAD", "NG_B_UNLOAD"};
+            "NG_A_UNLOAD", "NG_B_UNLOAD", "NG_C_UNLOAD", "NG_D_UNLOAD"};
 
 
         public const string teachingPath = "Teach_Transfer.yaml";
@@ -590,7 +593,7 @@ namespace ZenHandler.Machine
 
             return isSuccess;
         }
-        public bool TransFer_XY_Move(eTeachingPosList ePos, bool bWait = true)
+        public bool TransFer_XY_Move(eTeachingPosList ePos, int PickerNo = 0, double GapX = 0.0, double GapY = 0.0, double OffsetX = 0.0, double OffsetY = 0.0, bool bWait = true)  //Picket Index , Tray or Socekt or Ng , 
         {
             if (ProgramState.ON_LINE_MOTOR == false)
             {
