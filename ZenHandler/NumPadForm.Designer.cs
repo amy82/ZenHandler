@@ -52,7 +52,6 @@ namespace ZenHandler
             this.BTN_NUMPAD_CANCEL = new System.Windows.Forms.Button();
             this.BTN_NUMPAD_CLEAR = new System.Windows.Forms.Button();
             this.BTN_NUMPAD_DEL = new System.Windows.Forms.Button();
-            this.materialButton1 = new ReaLTaiizor.Controls.MaterialButton();
             this.SuspendLayout();
             // 
             // NumberTextBox
@@ -103,6 +102,7 @@ namespace ZenHandler
             this.BTN_NUMPAD_SIGN.TabIndex = 32;
             this.BTN_NUMPAD_SIGN.Text = "+/-";
             this.BTN_NUMPAD_SIGN.UseVisualStyleBackColor = false;
+            this.BTN_NUMPAD_SIGN.Click += new System.EventHandler(this.BTN_NUMPAD_SIGN_Click);
             // 
             // BTN_NUMPAD_PLUS
             // 
@@ -336,27 +336,6 @@ namespace ZenHandler
             this.BTN_NUMPAD_DEL.UseVisualStyleBackColor = false;
             this.BTN_NUMPAD_DEL.Click += new System.EventHandler(this.BTN_NUMPAD_DEL_Click);
             // 
-            // materialButton1
-            // 
-            this.materialButton1.AutoSize = false;
-            this.materialButton1.Density = ReaLTaiizor.Controls.MaterialButton.MaterialButtonDensity.Dense;
-            this.materialButton1.Depth = 0;
-            this.materialButton1.Font = new System.Drawing.Font("굴림", 24F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(129)));
-            this.materialButton1.HighEmphasis = true;
-            this.materialButton1.Icon = null;
-            this.materialButton1.IconType = ReaLTaiizor.Controls.MaterialButton.MaterialIconType.Default;
-            this.materialButton1.Location = new System.Drawing.Point(274, 168);
-            this.materialButton1.Margin = new System.Windows.Forms.Padding(4, 6, 4, 6);
-            this.materialButton1.MouseState = ReaLTaiizor.Helper.MaterialDrawHelper.MaterialMouseState.HOVER;
-            this.materialButton1.Name = "materialButton1";
-            this.materialButton1.NoAccentTextColor = System.Drawing.Color.Empty;
-            this.materialButton1.Size = new System.Drawing.Size(75, 49);
-            this.materialButton1.TabIndex = 41;
-            this.materialButton1.Text = "7";
-            this.materialButton1.Type = ReaLTaiizor.Controls.MaterialButton.MaterialButtonType.Contained;
-            this.materialButton1.UseAccentColor = false;
-            this.materialButton1.UseVisualStyleBackColor = true;
-            // 
             // NumPadForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 12F);
@@ -364,7 +343,6 @@ namespace ZenHandler
             this.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(64)))), ((int)(((byte)(64)))), ((int)(((byte)(64)))));
             this.ClientSize = new System.Drawing.Size(366, 476);
             this.ControlBox = false;
-            this.Controls.Add(this.materialButton1);
             this.Controls.Add(this.BTN_NUMPAD_DEL);
             this.Controls.Add(this.BTN_NUMPAD_CLEAR);
             this.Controls.Add(this.BTN_NUMPAD_CANCEL);
@@ -388,9 +366,11 @@ namespace ZenHandler
             this.Controls.Add(this.BTN_NUMPAD_2);
             this.Controls.Add(this.BTN_NUMPAD_1);
             this.Controls.Add(this.BTN_NUMPAD_0);
+            this.KeyPreview = true;
             this.Name = "NumPadForm";
             this.Text = "NumPadForm";
             this.FormClosed += new System.Windows.Forms.FormClosedEventHandler(this.NumPadForm_FormClosed);
+            this.KeyDown += new System.Windows.Forms.KeyEventHandler(this.NumPadForm_KeyDown);
             this.ResumeLayout(false);
 
         }
@@ -419,6 +399,5 @@ namespace ZenHandler
         private System.Windows.Forms.Button BTN_NUMPAD_CANCEL;
         private System.Windows.Forms.Button BTN_NUMPAD_CLEAR;
         private System.Windows.Forms.Button BTN_NUMPAD_DEL;
-        private ReaLTaiizor.Controls.MaterialButton materialButton1;
     }
 }

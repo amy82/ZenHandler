@@ -194,7 +194,15 @@ namespace ZenHandler.Controls
                 this.Columns[i].Resizable = DataGridViewTriState.False;
                 this.Columns[i].Width = inGridWid[i];
                 this.Columns[i].SortMode = DataGridViewColumnSortMode.NotSortable;
-                this.Columns[i].DefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleCenter;
+                if (i == 0)
+                {
+                    this.Columns[i].DefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleLeft;
+                }
+                else
+                {
+                    this.Columns[i].DefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleRight;
+                }
+                
             }
 
 

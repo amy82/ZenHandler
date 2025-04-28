@@ -31,22 +31,16 @@ namespace ZenHandler.Dlg
 
             int[] inGridWid = new int[] { 150, 80, 80, 80};         //Grid Width
 
-            //myTeachingGrid = new Controls.TeachingGridView( Globalo.motionManager.transferMachine.MotorAxes, Globalo.yamlManager.teachData.handler.TransferMachine, inGridWid);
             myTeachingGrid = new Controls.TeachingGridView( Globalo.motionManager.transferMachine.MotorAxes, Globalo.motionManager.transferMachine.teachingConfig, inGridWid);
 
             myTeachingGrid.Location = new System.Drawing.Point(150, 28);
             this.groupTeachPcb.Controls.Add(myTeachingGrid);
 
             TeachTransferUiSet();
-
-
+            
             changeBtnMotorNo(SelectAxisIndex);
 
             TeachResolution(Globalo.motionManager.transferMachine.teachingConfig.Resolution[SelectAxisIndex].ToString("0.#"));
-
-
-
-
         }
         public void TeachResolution(string val)
         {
@@ -85,6 +79,7 @@ namespace ZenHandler.Dlg
             comboBox_Teach_Picker.Items.Add("UnLoad Picker #2");
             comboBox_Teach_Picker.Items.Add("UnLoad Picker #3");
             comboBox_Teach_Picker.Items.Add("UnLoad Picker #4");
+
             comboBox_Teach_Picker.SelectedIndex = 0;  // 첫 번째 항목 선택
         }
 
@@ -96,10 +91,6 @@ namespace ZenHandler.Dlg
             }
             myTeachingGrid.ShowTeachingData();
             TeachResolution(Globalo.motionManager.transferMachine.teachingConfig.Resolution[SelectAxisIndex].ToString("0.#"));
-
-
-
-
         }
         public void hidePanel()
         {
@@ -114,13 +105,43 @@ namespace ZenHandler.Dlg
 
             changeComboBoxPickerNo(index);
         }
+        private void GetPickerOffsetData()
+        {
+            int PickerNo = comboBox_Teach_Picker.SelectedIndex;
+            Globalo.motionManager.transferMachine.productLayout.LoadTrayOffset[PickerNo].OffsetX = double.Parse(label_Teach_LoadTray_OffsetX_Val.Text);
+            Globalo.motionManager.transferMachine.productLayout.LoadTrayOffset[PickerNo].OffsetY = double.Parse(label_Teach_LoadTray_OffsetY_Val.Text);
+
+            Globalo.motionManager.transferMachine.productLayout.UnLoadTrayOffset[PickerNo].OffsetX = double.Parse(label_Teach_UnloadTray_OffsetX_Val.Text);
+            Globalo.motionManager.transferMachine.productLayout.UnLoadTrayOffset[PickerNo].OffsetY = double.Parse(label_Teach_UnloadTray_OffsetY_Val.Text);
+
+            Globalo.motionManager.transferMachine.productLayout.LoadSocketOffset[PickerNo].OffsetX = double.Parse(label_Teach_LoadSocket_OffsetX_Val.Text);
+            Globalo.motionManager.transferMachine.productLayout.LoadSocketOffset[PickerNo].OffsetY = double.Parse(label_Teach_LoadSocket_OffsetY_Val.Text);
+
+            Globalo.motionManager.transferMachine.productLayout.UnLoadSocketOffset[PickerNo].OffsetX = double.Parse(label_Teach_UnloadSocket_OffsetX_Val.Text);
+            Globalo.motionManager.transferMachine.productLayout.UnLoadSocketOffset[PickerNo].OffsetY = double.Parse(label_Teach_UnloadSocket_OffsetY_Val.Text);
+
+            Globalo.motionManager.transferMachine.productLayout.NgOffset[PickerNo].OffsetX = double.Parse(label_Teach_Ng_OffsetX_Val.Text);
+            Globalo.motionManager.transferMachine.productLayout.NgOffset[PickerNo].OffsetY = double.Parse(label_Teach_Ng_OffsetY_Val.Text);
+        }
         private void changeComboBoxPickerNo(int PickerNo)
         {
             //LoadPicker : 0 ~ 3
             //UnloadPicket : 4 ~ 7
 
-            LABEL_TEACH_PICKER_OFFSETX_VALUE.Text = "";
-            LABEL_TEACH_PICKER_OFFSETY_VALUE.Text = "";
+            label_Teach_LoadTray_OffsetX_Val.Text = Globalo.motionManager.transferMachine.productLayout.LoadTrayOffset[PickerNo].OffsetX.ToString("0.0##");
+            label_Teach_LoadTray_OffsetY_Val.Text = Globalo.motionManager.transferMachine.productLayout.LoadTrayOffset[PickerNo].OffsetY.ToString("0.0##");
+
+            label_Teach_UnloadTray_OffsetX_Val.Text = Globalo.motionManager.transferMachine.productLayout.UnLoadTrayOffset[PickerNo].OffsetX.ToString("0.0##");
+            label_Teach_UnloadTray_OffsetY_Val.Text = Globalo.motionManager.transferMachine.productLayout.UnLoadTrayOffset[PickerNo].OffsetY.ToString("0.0##");
+
+            label_Teach_LoadSocket_OffsetX_Val.Text = Globalo.motionManager.transferMachine.productLayout.LoadSocketOffset[PickerNo].OffsetX.ToString("0.0##");
+            label_Teach_LoadSocket_OffsetY_Val.Text = Globalo.motionManager.transferMachine.productLayout.LoadSocketOffset[PickerNo].OffsetY.ToString("0.0##");
+
+            label_Teach_UnloadSocket_OffsetX_Val.Text = Globalo.motionManager.transferMachine.productLayout.UnLoadSocketOffset[PickerNo].OffsetX.ToString("0.0##");
+            label_Teach_UnloadSocket_OffsetY_Val.Text = Globalo.motionManager.transferMachine.productLayout.UnLoadSocketOffset[PickerNo].OffsetY.ToString("0.0##");
+
+            label_Teach_Ng_OffsetX_Val.Text = Globalo.motionManager.transferMachine.productLayout.NgOffset[PickerNo].OffsetX.ToString("0.0##");
+            label_Teach_Ng_OffsetY_Val.Text = Globalo.motionManager.transferMachine.productLayout.NgOffset[PickerNo].OffsetY.ToString("0.0##");
         }
         private void changeBtnMotorNo(int MotorNo)
         {
@@ -280,14 +301,10 @@ namespace ZenHandler.Dlg
 
             if (result == DialogResult.Yes)
             {
-                //Globalo.yamlManager.teachData.handler.TransferMachine = myTeachingGrid.GetTeachData(Globalo.yamlManager.teachData.handler.TransferMachine);
-
-
                 Globalo.motionManager.transferMachine.teachingConfig = myTeachingGrid.GetTeachData(Globalo.motionManager.transferMachine.teachingConfig);
-
+                
+                
                 double dResol = double.Parse(LABEL_TEACH_ROSOLUTION_VALUE.Text);
-
-                //Globalo.yamlManager.teachData.handler.TransferMachine.Resolution[SelectAxisIndex] = dResol;
                 Globalo.motionManager.transferMachine.teachingConfig.Resolution[SelectAxisIndex] = dResol;
                 
                 //Motor Speed 적용
@@ -302,8 +319,13 @@ namespace ZenHandler.Dlg
 
                 Globalo.LogPrint("", "[TEACH] TRANSFER UNIT SAVE");
 
-                Globalo.motionManager.transferMachine.teachingConfig.SaveTeach(Globalo.motionManager.transferMachine.teachingPath);
-                //Globalo.yamlManager.teachData.SaveTeaching();
+                Globalo.motionManager.transferMachine.teachingConfig.SaveTeach(Machine.TransferMachine.teachingPath);
+
+                //Picket Offset Save
+                GetPickerOffsetData();
+
+                Data.TaskDataYaml.TaskSave_Layout(Globalo.motionManager.transferMachine.productLayout, Machine.TransferMachine.LayoutPath);
+
             }
                 
         }
@@ -340,7 +362,87 @@ namespace ZenHandler.Dlg
                 // popupForm.Show(); // 비모달로 팝업 폼 표시
             }
         }
+        private void PicketOffsetInput(Label OffsetLabel)
+        {
+            string labelValue = OffsetLabel.Text;
+            decimal decimalValue = 0;
 
-        
+
+            if (decimal.TryParse(labelValue, out decimalValue))
+            {
+                // 소수점 형식으로 변환
+                string formattedValue = decimalValue.ToString("0.0##");
+                NumPadForm popupForm = new NumPadForm(formattedValue);
+
+                DialogResult dialogResult = popupForm.ShowDialog();
+
+
+                if (dialogResult == DialogResult.OK)
+                {
+                    double dNumData = Double.Parse(popupForm.NumPadResult);
+
+                    OffsetLabel.Text = dNumData.ToString("0.#");
+                }
+            }
+        }
+        private void label_Teach_LoadTray_OffsetX_Val_Click(object sender, EventArgs e)
+        {
+            Label clickedLabel = sender as Label;
+            PicketOffsetInput(clickedLabel);
+        }
+
+        private void label_Teach_LoadTray_OffsetY_Val_Click(object sender, EventArgs e)
+        {
+            Label clickedLabel = sender as Label;
+            PicketOffsetInput(clickedLabel);
+        }
+
+        private void label_Teach_UnloadTray_OffsetX_Val_Click(object sender, EventArgs e)
+        {
+            Label clickedLabel = sender as Label;
+            PicketOffsetInput(clickedLabel);
+        }
+
+        private void label_Teach_UnloadTray_OffsetY_Val_Click(object sender, EventArgs e)
+        {
+            Label clickedLabel = sender as Label;
+            PicketOffsetInput(clickedLabel);
+        }
+
+        private void label_Teach_LoadSocket_OffsetX_Val_Click(object sender, EventArgs e)
+        {
+            Label clickedLabel = sender as Label;
+            PicketOffsetInput(clickedLabel);
+        }
+
+        private void label_Teach_LoadSocket_OffsetY_Val_Click(object sender, EventArgs e)
+        {
+            Label clickedLabel = sender as Label;
+            PicketOffsetInput(clickedLabel);
+        }
+
+        private void label_Teach_UnloadSocket_OffsetX_Val_Click(object sender, EventArgs e)
+        {
+            Label clickedLabel = sender as Label;
+            PicketOffsetInput(clickedLabel);
+        }
+
+        private void label_Teach_UnloadSocket_OffsetY_Val_Click(object sender, EventArgs e)
+        {
+            Label clickedLabel = sender as Label;
+            PicketOffsetInput(clickedLabel);
+        }
+
+        private void label_Teach_Ng_OffsetX_Val_Click(object sender, EventArgs e)
+        {
+            Label clickedLabel = sender as Label;
+            PicketOffsetInput(clickedLabel);
+        }
+
+        private void label_Teach_Ng_OffsetY_Val_Click(object sender, EventArgs e)
+        {
+            Label clickedLabel = sender as Label;
+            PicketOffsetInput(clickedLabel);
+        }
     }
 }

@@ -46,7 +46,7 @@ namespace ZenHandler.MotionControl
 
 
 
-            transferMachine.teachingConfig.LoadTeach(transferMachine.teachingPath);
+            transferMachine.teachingConfig.LoadTeach(Machine.TransferMachine.teachingPath);
             magazineHandler.teachingConfig.LoadTeach(magazineHandler.teachingPath);
             liftMachine.teachingConfig.LoadTeach(liftMachine.teachingPath);
             socketMachine.teachingConfig.LoadTeach(socketMachine.teachingPath);

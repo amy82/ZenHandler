@@ -66,15 +66,16 @@ namespace ZenHandler.Machine
         //tray 간 x축, y축 Offset
         //Socket 간 x축, y축 Offset
 
-
+        //모터 이동 방식
+        //최종 이동 위치 = 피커 1의 저장된 티칭 위치 + Try x/y Gap + Picker 별 Offset x/y;
         public enum eTeachingPosList : int
         {
             WAIT_POS = 0,
             LEFT_TRAY_LOAD_POS, LEFT_TRAY_UNLOAD_POS, RIGHT_TRAY_LOAD_POS, RIGHT_TRAY_UNLOAD_POS,
             SOCKET_A_LOAD, SOCKET_A_UNLOAD, SOCKET_B_LOAD, SOCKET_B_UNLOAD, SOCKET_C_LOAD, SOCKET_C_UNLOAD, SOCKET_D_LOAD, SOCKET_D_UNLOAD,
             NG_A_LOAD, NG_A_UNLOAD, NG_B_LOAD, NG_B_UNLOAD,
-            TOTAL_TRANSFER_TEACHING_COUNT
-        };
+            TOTAL_TRANSFER_TEACHING_COUNT};
+
         public string[] TeachName = { 
             "WAIT_POS",
             "L_TRAY_LOAD_POS", "L_TRAY_UNLOAD_POS",
@@ -82,9 +83,11 @@ namespace ZenHandler.Machine
             "SOCKET_A_LOAD", "SOCKET_A_UNLOAD", "SOCKET_B_LOAD", "SOCKET_B_UNLOAD","SOCKET_C_LOAD", "SOCKET_C_UNLOAD", "SOCKET_D_LOAD", "SOCKET_D_UNLOAD",
             "NG_A_LOAD", "NG_A_UNLOAD", "NG_B_LOAD", "NG_B_UNLOAD"};
 
-        public string teachingPath = "Teach_Transfer.yaml";
-        public string taskPath = "Task_Transfer.yaml";
-        public string LayoutPath = "Task_Product_Layout.yaml";
+
+        public const string teachingPath = "Teach_Transfer.yaml";
+        public const string taskPath = "Task_Transfer.yaml";
+        public const string LayoutPath = "Task_Product_Layout.yaml";
+
         public Data.TeachingConfig teachingConfig = new Data.TeachingConfig();
         public PickedProduct pickedProduct = new PickedProduct();
         public ProductLayout productLayout = new ProductLayout();
