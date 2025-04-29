@@ -90,8 +90,6 @@ namespace ZenHandler.Controls
                 this.Rows[i].Height = dRowHeight;
             }
 
-            string posName = "";
-
             this.ColumnHeadersDefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleCenter;
             this.ReadOnly = true;
             this.CurrentCell = null;

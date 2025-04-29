@@ -299,6 +299,18 @@
     <Compile Include="Dlg\TeachingControl.designer.cs">
       <DependentUpon>TeachingControl.cs</DependentUpon>
     </Compile>
+    <Compile Include="Dlg\TeachingLift.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Dlg\TeachingLift.Designer.cs">
+      <DependentUpon>TeachingLift.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Dlg\TeachingMagazine.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Dlg\TeachingMagazine.Designer.cs">
+      <DependentUpon>TeachingMagazine.cs</DependentUpon>
+    </Compile>
     <Compile Include="Dlg\TeachingTransfer.cs">
       <SubType>UserControl</SubType>
     </Compile>
@@ -351,9 +363,11 @@
     <Compile Include="KeyMessageFilter.cs" />
     <Compile Include="Laon\CLaonGrabberClass.cs" />
     <Compile Include="Lgit\ACMISCommon.cs" />
+    <Compile Include="Machine\FwSocketMachine.cs" />
     <Compile Include="Machine\ProductLayout.cs" />
     <Compile Include="Machine\ProductState.cs" />
-    <Compile Include="Machine\SocketMachine.cs" />
+    <Compile Include="Machine\EEpromSocketMachine.cs" />
+    <Compile Include="Machine\AoiSocketMachine.cs" />
     <Compile Include="Machine\TrayState.cs" />
     <Compile Include="MotionControl\IOController.cs" />
     <Compile Include="Machine\LiftMachine.cs" />
@@ -479,6 +493,12 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Dlg\TeachingControl.resx">
       <DependentUpon>TeachingControl.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Dlg\TeachingLift.resx">
+      <DependentUpon>TeachingLift.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Dlg\TeachingMagazine.resx">
+      <DependentUpon>TeachingMagazine.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Dlg\TeachingTransfer.resx">
       <DependentUpon>TeachingTransfer.cs</DependentUpon>

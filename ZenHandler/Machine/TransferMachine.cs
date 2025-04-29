@@ -531,18 +531,7 @@ namespace ZenHandler.Machine
         }
 
         
-        public override void MovingStop()
-        {
-            if (CancelToken != null && !CancelToken.IsCancellationRequested)
-            {
-                CancelToken.Cancel();
-            }
-            for (int i = 0; i < MotorAxes.Length; i++)
-            {
-                MotorAxes[i].MotorBreak = true;
-                MotorAxes[i].Stop();
-            }
-        }
+        
 
         public bool TransFer_X_Move(eTeachingPosList ePos, bool bWait = true)
         {
@@ -707,6 +696,18 @@ namespace ZenHandler.Machine
             Console.WriteLine($"[ORIGIN] Transfer Run Stop");
 
         }
+        public override void MovingStop()
+        {
+            if (CancelToken != null && !CancelToken.IsCancellationRequested)
+            {
+                CancelToken.Cancel();
+            }
+            for (int i = 0; i < MotorAxes.Length; i++)
+            {
+                MotorAxes[i].MotorBreak = true;
+                MotorAxes[i].Stop();
+            }
+        }
         public override bool OriginRun()
         {
             if (AutoUnitThread.GetThreadRun() == true)
@@ -725,13 +726,16 @@ namespace ZenHandler.Machine
             bool rtn = AutoUnitThread.Start();
             if(rtn)
             {
-
+                szLog = $"[ORIGIN] Transfer Origin Start";
                 Console.WriteLine($"[ORIGIN] Transfer Origin Start");
+                Globalo.LogPrint("MainForm", szLog);
             }
             else
             {
                 this.RunState = OperationState.Stopped;
                 Console.WriteLine($"[ORIGIN] Transfer Origin Start Fail");
+                szLog = $"[ORIGIN] Transfer Origin Start Fail";
+                Globalo.LogPrint("MainForm", szLog);
             }
             return rtn;
         }

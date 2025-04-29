@@ -6,69 +6,61 @@ using System.Threading.Tasks;
 
 namespace ZenHandler.Machine
 {
-    public enum eMagazine : int
+    public enum eAoiSocket : int
     {
-        MAGAZINE_L_Y = 0, MAGAZINE_L_Z, MAGAZINE_R_Y, MAGAZINE_R_Z
+        SOCKET_L_X = 0, SOCKET_L_Z, SOCKET_R_X, SOCKET_R_Z
     };
-    public class MagazineHandler : MotionControl.MotorController
+    public class AoiSocketMachine : MotionControl.MotorController
     {
         public int MotorCnt { get; private set; } = 4;
 
-        public MotionControl.MotorAxis MagazineY_L;
-        public MotionControl.MotorAxis MagazineZ_L;
-        public MotionControl.MotorAxis MagazineY_R;
-        public MotionControl.MotorAxis MagazineZ_R;
+        public MotionControl.MotorAxis CamX_L;          //AOI 공정 TOTAL : 4
+        public MotionControl.MotorAxis CamZ_L;          //AOI 공정
+        public MotionControl.MotorAxis CamX_R;          //AOI 공정
+        public MotionControl.MotorAxis CamZ_R;          //AOI 공정
 
         public MotionControl.MotorAxis[] MotorAxes; // 배열 선언
 
-        public string[] axisName = { "MagazineY_L", "MagazineZ_L", "MagazineY_R", "MagazineZ_R" };
+        public string[] axisName = {"CAMX_L", "CAMZ_L", "CAMX_R", "CAMZ_R" };
 
-        private MotorDefine.eMotorType[] motorType = { MotorDefine.eMotorType.LINEAR, MotorDefine.eMotorType.LINEAR, MotorDefine.eMotorType.LINEAR, MotorDefine.eMotorType.LINEAR };
-        private AXT_MOTION_LEVEL_MODE[] AXT_SET_LIMIT = { AXT_MOTION_LEVEL_MODE.LOW, AXT_MOTION_LEVEL_MODE.LOW, AXT_MOTION_LEVEL_MODE.LOW, AXT_MOTION_LEVEL_MODE.LOW };
-        private AXT_MOTION_LEVEL_MODE[] AXT_SET_SERVO_ALARM = { AXT_MOTION_LEVEL_MODE.LOW, AXT_MOTION_LEVEL_MODE.LOW, AXT_MOTION_LEVEL_MODE.LOW, AXT_MOTION_LEVEL_MODE.LOW };
-        private AXT_MOTION_HOME_DETECT[] MOTOR_HOME_SENSOR = { AXT_MOTION_HOME_DETECT.HomeSensor, AXT_MOTION_HOME_DETECT.HomeSensor, AXT_MOTION_HOME_DETECT.HomeSensor, AXT_MOTION_HOME_DETECT.HomeSensor };
+        private MotorDefine.eMotorType[] motorType = { MotorDefine.eMotorType.LINEAR, MotorDefine.eMotorType.LINEAR, MotorDefine.eMotorType.LINEAR, MotorDefine.eMotorType.LINEAR};
+        private AXT_MOTION_LEVEL_MODE[] AXT_SET_LIMIT = { AXT_MOTION_LEVEL_MODE.LOW, AXT_MOTION_LEVEL_MODE.LOW, AXT_MOTION_LEVEL_MODE.LOW, AXT_MOTION_LEVEL_MODE.LOW};
+        private AXT_MOTION_LEVEL_MODE[] AXT_SET_SERVO_ALARM = { AXT_MOTION_LEVEL_MODE.HIGH, AXT_MOTION_LEVEL_MODE.LOW, AXT_MOTION_LEVEL_MODE.LOW, AXT_MOTION_LEVEL_MODE.LOW};
+        private AXT_MOTION_HOME_DETECT[] MOTOR_HOME_SENSOR = { AXT_MOTION_HOME_DETECT.HomeSensor, AXT_MOTION_HOME_DETECT.HomeSensor, AXT_MOTION_HOME_DETECT.HomeSensor, AXT_MOTION_HOME_DETECT.HomeSensor};
         private AXT_MOTION_MOVE_DIR[] MOTOR_HOME_DIR = { AXT_MOTION_MOVE_DIR.DIR_CW, AXT_MOTION_MOVE_DIR.DIR_CW, AXT_MOTION_MOVE_DIR.DIR_CW, AXT_MOTION_MOVE_DIR.DIR_CW };
 
-        public static double[] MaxSpeeds = { 100.0, 100.0, 100.0, 100.0 };
-        public double[] OrgFirstVel = { 5000.0, 5000.0, 5000.0, 5000.0 };
-        public double[] OrgSecondVel = { 2500.0, 2500.0, 2500.0, 2500.0 };
-        public double[] OrgThirdVel = { 500.0, 500.0, 500.0, 500.0 };
+        private static double[] MaxSpeeds = { 200.0, 200.0, 200.0, 200.0};
+        private double[] OrgFirstVel = { 20000.0, 20000.0, 20000.0, 20000.0 };
+        private double[] OrgSecondVel = { 10000.0, 10000.0, 10000.0, 10000.0 };
+        private double[] OrgThirdVel = { 5000.0, 5000.0, 5000.0, 5000.0};
 
         public enum eTeachingPosList : int
         {
-            WAIT_POS = 0, 
-            LEFT_TRAY_LOAD_POS, LEFT_TRAY_UNLOAD_POS,
-            STACK1_L, STACK2_L, STACK3_L, STACK4_L, STACK5_L,
-            STACK1_R, STACK2_R, STACK3_R, STACK4_R, STACK5_R,
-            TOTAL_MAGAZINE_TEACHING_COUNT
+            WAIT_POS = 0, LOAD_POS, UN_LOAD_POS, CAPTURE_POS, TOTAL_SOCKET_TEACHING_COUNT
+        };
+        public string[] TeachName =
+        {
+            "WAIT_POS", "LOAD_POS", "UN_LOAD_POS", "CAPTURE_POS"
         };
 
-        public string[] TeachName = { "WAIT_POS",
-            "LEFT_TRAY_LOAD_POS", "LEFT_TRAY_UNLOAD_POS",
-            "STACK1_L","STACK2_L","STACK3_L","STACK4_L","STACK5_L",
-            "STACK1_R","STACK2_R","STACK3_R","STACK4_R","STACK5_R",
-        };
-
-        //TRAY 꺼내는 층별 위치 다 따로 해야될수도
-        public const string teachingPath = "Teach_Magazine.yaml";
-        public const string taskPath = "Task_Magazine.yaml";
+        public const string teachingPath = "Teach_AoiSocket.yaml";
+        public const string taskPath = "Task_AoiSocket.yaml";
         public Data.TeachingConfig teachingConfig = new Data.TeachingConfig();
-        //public LayerTray pickedProduct = new LayerTray();
-        public MagazineTray magazineTray = new MagazineTray();
 
-        
-        public MagazineHandler()// : base("MagazineHandler")
+
+        //public SocketProduct socketProduct = new SocketProduct();
+        public AoiSocketMachine()
         {
             int i = 0;
             this.RunState = OperationState.Stopped;
             this.MachineName = this.GetType().Name;
 
-            MotorAxes = new MotionControl.MotorAxis[] { MagazineY_L, MagazineZ_L, MagazineY_R, MagazineZ_R };
+            MotorAxes = new MotionControl.MotorAxis[] { CamX_L, CamZ_L, CamX_R, CamZ_R };
             MotorCnt = MotorAxes.Length;
 
             for (i = 0; i < MotorCnt; i++)
             {
-                int index = (int)MotionControl.MotorSet.ValidMagazineMotors[i];
+                int index = (int)MotionControl.MotorSet.ValidSocketMotors[i];
                 MotorAxes[i] = new MotionControl.MotorAxis(index,
                 axisName[i], motorType[i], MaxSpeeds[i], AXT_SET_LIMIT[i], AXT_SET_SERVO_ALARM[i], OrgFirstVel[i], OrgSecondVel[i], OrgThirdVel[i],
                 MOTOR_HOME_SENSOR[i], MOTOR_HOME_DIR[i]);
@@ -78,38 +70,15 @@ namespace ZenHandler.Machine
                 MotorAxes[i].setMotorParameter(10.0, 0.1, 0.1, 1000.0);//(double vel , double acc , double dec , double resol)
             }
 
-            magazineTray = Data.TaskDataYaml.TaskLoad_Magazine(taskPath);
-            
+
+            //socketProduct = Data.TaskDataYaml.TaskLoad_Socket(taskPath);
 
         }
         public override bool TaskSave()
         {
-            bool rtn = Data.TaskDataYaml.TaskSave_Magazine(magazineTray, taskPath);
-            return rtn;
-        }
-        public override bool IsMoving()
-        {
-            if (AutoUnitThread.GetThreadRun() == true)
-            {
-                return true;
-            }
-
-            for (int i = 0; i < MotorAxes.Length; i++)
-            {
-                if (MotorAxes[i].GetStopAxis() == false)
-                {
-                    return true;
-                }
-            }
-            return true;
-        }
-        public override void StopAuto()
-        {
-            AutoUnitThread.Stop();
-            MovingStop();
-            RunState = OperationState.Stopped;
-            Console.WriteLine($"[INFO] Magazine Run Stop");
-
+            //bool rtn = Data.TaskDataYaml.TaskSave_Transfer(socketProduct, taskPath);
+            //return rtn;
+            return false;
         }
         public override void MotorDataSet()
         {
@@ -118,6 +87,13 @@ namespace ZenHandler.Machine
             {
                 MotorAxes[i].setMotorParameter(teachingConfig.Speed[i], teachingConfig.Accel[i], teachingConfig.Decel[i], teachingConfig.Resolution[i]);
             }
+
+            for (i = 0; i < teachingConfig.Teaching.Count; i++)
+            {
+                teachingConfig.Teaching[i].Name = TeachName[i];
+            }
+
+
         }
         public override void MovingStop()
         {
@@ -131,19 +107,37 @@ namespace ZenHandler.Machine
                 MotorAxes[i].Stop();
             }
         }
-        public override bool OriginRun()
-        {
-
-            return false;
-        }
-        public override void PauseAuto()
+        public override bool IsMoving()
         {
             if (AutoUnitThread.GetThreadRun() == true)
             {
-                AutoUnitThread.Pause();
-                RunState = OperationState.Paused;
+                return true;
             }
-            return;
+            for (int i = 0; i < MotorAxes.Length; i++)
+            {
+                if (MotorAxes[i].GetStopAxis() == false)
+                {
+                    return true;
+                }
+            }
+            return false;
+        }
+        public override void StopAuto()
+        {
+            AutoUnitThread.Stop();
+            MovingStop();
+            RunState = OperationState.Stopped;
+            Console.WriteLine($"[INFO] AoiSocket Run Stop");
+
+        }
+        public override bool OriginRun()
+        {
+            if (AutoUnitThread.GetThreadRun() == true)
+            {
+                //motorAutoThread.Stop();
+                return false;
+            }
+            return true;
         }
         public override bool ReadyRun()
         {
@@ -151,7 +145,7 @@ namespace ZenHandler.Machine
             {
                 return false;
             }
-            if (MagazineY_L.OrgState == false || MagazineZ_L.OrgState == false || MagazineY_R.OrgState == false || MagazineZ_R.OrgState == false)
+            if (CamX_L.OrgState == false || CamZ_L.OrgState == false || CamX_R.OrgState == false || CamZ_R.OrgState == false)
             {
                 this.RunState = OperationState.OriginRunning;
                 AutoUnitThread.m_nCurrentStep = 1000;
@@ -185,12 +179,20 @@ namespace ZenHandler.Machine
 
             return rtn;
         }
+        public override void PauseAuto()
+        {
+            if (AutoUnitThread.GetThreadRun() == true)
+            {
+                AutoUnitThread.Pause();
+                RunState = OperationState.Paused;
+            }
+        }
         public override bool AutoRun()
         {
             bool rtn = true;
             if (this.RunState != OperationState.PreparationComplete)
             {
-                Globalo.LogPrint("MainForm", "[MAGAZINE] 운전준비가 완료되지 않았습니다.", Globalo.eMessageName.M_WARNING);
+                Globalo.LogPrint("MainForm", "[AOI SOCKET] 운전준비가 완료되지 않았습니다.", Globalo.eMessageName.M_WARNING);
                 return false;
             }
 
@@ -220,16 +222,15 @@ namespace ZenHandler.Machine
                 if (rtn)
                 {
                     RunState = OperationState.AutoRunning;
-                    Console.WriteLine($"MAGAZINE 모터 동작 성공.");
+                    Console.WriteLine($"AOI SOCKET 모터 동작 성공.");
                 }
                 else
                 {
-                    Console.WriteLine($"MAGAZINE 모터 동작 실패.");
+                    Console.WriteLine($"AOI SOCKET 모터 동작 실패.");
                 }
             }
             return rtn;
         }
-
-
     }
+    
 }

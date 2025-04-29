@@ -42,16 +42,18 @@
             this.LABEL_TEACH_MOVE_VALUE = new System.Windows.Forms.Label();
             this.TeachingTitleLabel = new System.Windows.Forms.Label();
             this.TeachingPanel = new System.Windows.Forms.Panel();
-            this.BTN_TEACH_LENS = new System.Windows.Forms.Button();
+            this.BTN_TEACH_MAGAZINE = new System.Windows.Forms.Button();
             this.BTN_TEACH_TRANSFER = new System.Windows.Forms.Button();
             this.groupBox1 = new System.Windows.Forms.GroupBox();
+            this.BTN_TEACH_LIFT = new System.Windows.Forms.Button();
+            this.BTN_TEACH_SOCKET = new System.Windows.Forms.Button();
             this.groupBox1.SuspendLayout();
             this.SuspendLayout();
             // 
             // label2
             // 
             this.label2.BackColor = System.Drawing.SystemColors.Window;
-            this.label2.Font = new System.Drawing.Font("나눔고딕", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(129)));
+            this.label2.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(129)));
             this.label2.ForeColor = System.Drawing.Color.DimGray;
             this.label2.Location = new System.Drawing.Point(15, 17);
             this.label2.Name = "label2";
@@ -63,7 +65,7 @@
             // label3
             // 
             this.label3.BackColor = System.Drawing.SystemColors.Window;
-            this.label3.Font = new System.Drawing.Font("나눔고딕", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(129)));
+            this.label3.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(129)));
             this.label3.ForeColor = System.Drawing.Color.DimGray;
             this.label3.Location = new System.Drawing.Point(15, 97);
             this.label3.Name = "label3";
@@ -75,7 +77,7 @@
             // label4
             // 
             this.label4.BackColor = System.Drawing.SystemColors.Window;
-            this.label4.Font = new System.Drawing.Font("나눔고딕", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(129)));
+            this.label4.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(129)));
             this.label4.ForeColor = System.Drawing.Color.DimGray;
             this.label4.Location = new System.Drawing.Point(291, 17);
             this.label4.Name = "label4";
@@ -89,7 +91,7 @@
             this.BTN_TEACH_SPEED_LOW.BackColor = System.Drawing.Color.PeachPuff;
             this.BTN_TEACH_SPEED_LOW.FlatAppearance.BorderSize = 0;
             this.BTN_TEACH_SPEED_LOW.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.BTN_TEACH_SPEED_LOW.Font = new System.Drawing.Font("나눔고딕", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(129)));
+            this.BTN_TEACH_SPEED_LOW.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(129)));
             this.BTN_TEACH_SPEED_LOW.ForeColor = System.Drawing.Color.White;
             this.BTN_TEACH_SPEED_LOW.Location = new System.Drawing.Point(15, 42);
             this.BTN_TEACH_SPEED_LOW.Name = "BTN_TEACH_SPEED_LOW";
@@ -104,7 +106,7 @@
             this.BTN_TEACH_SPEED_MID.BackColor = System.Drawing.Color.PeachPuff;
             this.BTN_TEACH_SPEED_MID.FlatAppearance.BorderSize = 0;
             this.BTN_TEACH_SPEED_MID.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.BTN_TEACH_SPEED_MID.Font = new System.Drawing.Font("나눔고딕", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(129)));
+            this.BTN_TEACH_SPEED_MID.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(129)));
             this.BTN_TEACH_SPEED_MID.ForeColor = System.Drawing.Color.White;
             this.BTN_TEACH_SPEED_MID.Location = new System.Drawing.Point(90, 42);
             this.BTN_TEACH_SPEED_MID.Name = "BTN_TEACH_SPEED_MID";
@@ -119,7 +121,7 @@
             this.BTN_TEACH_SPEED_HIGH.BackColor = System.Drawing.Color.PeachPuff;
             this.BTN_TEACH_SPEED_HIGH.FlatAppearance.BorderSize = 0;
             this.BTN_TEACH_SPEED_HIGH.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.BTN_TEACH_SPEED_HIGH.Font = new System.Drawing.Font("나눔고딕", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(129)));
+            this.BTN_TEACH_SPEED_HIGH.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(129)));
             this.BTN_TEACH_SPEED_HIGH.ForeColor = System.Drawing.Color.White;
             this.BTN_TEACH_SPEED_HIGH.Location = new System.Drawing.Point(165, 42);
             this.BTN_TEACH_SPEED_HIGH.Name = "BTN_TEACH_SPEED_HIGH";
@@ -134,7 +136,7 @@
             this.BTN_TEACH_JOG_MINUS.BackColor = System.Drawing.Color.PeachPuff;
             this.BTN_TEACH_JOG_MINUS.FlatAppearance.BorderSize = 0;
             this.BTN_TEACH_JOG_MINUS.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.BTN_TEACH_JOG_MINUS.Font = new System.Drawing.Font("나눔고딕", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(129)));
+            this.BTN_TEACH_JOG_MINUS.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(129)));
             this.BTN_TEACH_JOG_MINUS.ForeColor = System.Drawing.Color.White;
             this.BTN_TEACH_JOG_MINUS.Location = new System.Drawing.Point(15, 122);
             this.BTN_TEACH_JOG_MINUS.Name = "BTN_TEACH_JOG_MINUS";
@@ -150,7 +152,7 @@
             this.BTN_TEACH_JOG_STOP.BackColor = System.Drawing.Color.PeachPuff;
             this.BTN_TEACH_JOG_STOP.FlatAppearance.BorderSize = 0;
             this.BTN_TEACH_JOG_STOP.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.BTN_TEACH_JOG_STOP.Font = new System.Drawing.Font("나눔고딕", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(129)));
+            this.BTN_TEACH_JOG_STOP.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(129)));
             this.BTN_TEACH_JOG_STOP.ForeColor = System.Drawing.Color.White;
             this.BTN_TEACH_JOG_STOP.Location = new System.Drawing.Point(90, 122);
             this.BTN_TEACH_JOG_STOP.Name = "BTN_TEACH_JOG_STOP";
@@ -165,7 +167,7 @@
             this.BTN_TEACH_JOG_PLUS.BackColor = System.Drawing.Color.PeachPuff;
             this.BTN_TEACH_JOG_PLUS.FlatAppearance.BorderSize = 0;
             this.BTN_TEACH_JOG_PLUS.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.BTN_TEACH_JOG_PLUS.Font = new System.Drawing.Font("나눔고딕", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(129)));
+            this.BTN_TEACH_JOG_PLUS.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(129)));
             this.BTN_TEACH_JOG_PLUS.ForeColor = System.Drawing.Color.White;
             this.BTN_TEACH_JOG_PLUS.Location = new System.Drawing.Point(165, 122);
             this.BTN_TEACH_JOG_PLUS.Name = "BTN_TEACH_JOG_PLUS";
@@ -181,7 +183,7 @@
             this.BTN_TEACH_MOVE_MINUS.BackColor = System.Drawing.Color.PeachPuff;
             this.BTN_TEACH_MOVE_MINUS.FlatAppearance.BorderSize = 0;
             this.BTN_TEACH_MOVE_MINUS.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.BTN_TEACH_MOVE_MINUS.Font = new System.Drawing.Font("나눔고딕", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(129)));
+            this.BTN_TEACH_MOVE_MINUS.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(129)));
             this.BTN_TEACH_MOVE_MINUS.ForeColor = System.Drawing.Color.White;
             this.BTN_TEACH_MOVE_MINUS.Location = new System.Drawing.Point(291, 42);
             this.BTN_TEACH_MOVE_MINUS.Name = "BTN_TEACH_MOVE_MINUS";
@@ -196,7 +198,7 @@
             this.BTN_TEACH_MOVE_PLUS.BackColor = System.Drawing.Color.PeachPuff;
             this.BTN_TEACH_MOVE_PLUS.FlatAppearance.BorderSize = 0;
             this.BTN_TEACH_MOVE_PLUS.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.BTN_TEACH_MOVE_PLUS.Font = new System.Drawing.Font("나눔고딕", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(129)));
+            this.BTN_TEACH_MOVE_PLUS.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(129)));
             this.BTN_TEACH_MOVE_PLUS.ForeColor = System.Drawing.Color.White;
             this.BTN_TEACH_MOVE_PLUS.Location = new System.Drawing.Point(441, 42);
             this.BTN_TEACH_MOVE_PLUS.Name = "BTN_TEACH_MOVE_PLUS";
@@ -211,7 +213,7 @@
             this.LABEL_TEACH_MOVE_VALUE.BackColor = System.Drawing.SystemColors.Window;
             this.LABEL_TEACH_MOVE_VALUE.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.LABEL_TEACH_MOVE_VALUE.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.LABEL_TEACH_MOVE_VALUE.Font = new System.Drawing.Font("나눔고딕 ExtraBold", 15F, System.Drawing.FontStyle.Bold);
+            this.LABEL_TEACH_MOVE_VALUE.Font = new System.Drawing.Font("Microsoft Sans Serif", 15F, System.Drawing.FontStyle.Bold);
             this.LABEL_TEACH_MOVE_VALUE.ForeColor = System.Drawing.Color.DimGray;
             this.LABEL_TEACH_MOVE_VALUE.Location = new System.Drawing.Point(361, 42);
             this.LABEL_TEACH_MOVE_VALUE.Name = "LABEL_TEACH_MOVE_VALUE";
@@ -223,7 +225,7 @@
             // 
             // TeachingTitleLabel
             // 
-            this.TeachingTitleLabel.Font = new System.Drawing.Font("나눔고딕 ExtraBold", 19F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(129)));
+            this.TeachingTitleLabel.Font = new System.Drawing.Font("Microsoft Sans Serif", 19F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(129)));
             this.TeachingTitleLabel.Location = new System.Drawing.Point(16, 16);
             this.TeachingTitleLabel.Name = "TeachingTitleLabel";
             this.TeachingTitleLabel.Size = new System.Drawing.Size(250, 42);
@@ -239,19 +241,19 @@
             this.TeachingPanel.TabIndex = 32;
             this.TeachingPanel.Visible = false;
             // 
-            // BTN_TEACH_LENS
+            // BTN_TEACH_MAGAZINE
             // 
-            this.BTN_TEACH_LENS.BackColor = System.Drawing.Color.Tan;
-            this.BTN_TEACH_LENS.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.BTN_TEACH_LENS.Font = new System.Drawing.Font("맑은 고딕", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(129)));
-            this.BTN_TEACH_LENS.ForeColor = System.Drawing.Color.White;
-            this.BTN_TEACH_LENS.Location = new System.Drawing.Point(677, 14);
-            this.BTN_TEACH_LENS.Name = "BTN_TEACH_LENS";
-            this.BTN_TEACH_LENS.Size = new System.Drawing.Size(87, 44);
-            this.BTN_TEACH_LENS.TabIndex = 34;
-            this.BTN_TEACH_LENS.Text = "LENS";
-            this.BTN_TEACH_LENS.UseVisualStyleBackColor = false;
-            this.BTN_TEACH_LENS.Click += new System.EventHandler(this.BTN_TEACH_LENS_Click);
+            this.BTN_TEACH_MAGAZINE.BackColor = System.Drawing.Color.Tan;
+            this.BTN_TEACH_MAGAZINE.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.BTN_TEACH_MAGAZINE.Font = new System.Drawing.Font("맑은 고딕", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(129)));
+            this.BTN_TEACH_MAGAZINE.ForeColor = System.Drawing.Color.White;
+            this.BTN_TEACH_MAGAZINE.Location = new System.Drawing.Point(490, 14);
+            this.BTN_TEACH_MAGAZINE.Name = "BTN_TEACH_MAGAZINE";
+            this.BTN_TEACH_MAGAZINE.Size = new System.Drawing.Size(87, 44);
+            this.BTN_TEACH_MAGAZINE.TabIndex = 34;
+            this.BTN_TEACH_MAGAZINE.Text = "MAGAZINE";
+            this.BTN_TEACH_MAGAZINE.UseVisualStyleBackColor = false;
+            this.BTN_TEACH_MAGAZINE.Click += new System.EventHandler(this.BTN_TEACH_LENS_Click);
             // 
             // BTN_TEACH_TRANSFER
             // 
@@ -259,7 +261,7 @@
             this.BTN_TEACH_TRANSFER.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.BTN_TEACH_TRANSFER.Font = new System.Drawing.Font("맑은 고딕", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(129)));
             this.BTN_TEACH_TRANSFER.ForeColor = System.Drawing.Color.White;
-            this.BTN_TEACH_TRANSFER.Location = new System.Drawing.Point(584, 14);
+            this.BTN_TEACH_TRANSFER.Location = new System.Drawing.Point(400, 14);
             this.BTN_TEACH_TRANSFER.Name = "BTN_TEACH_TRANSFER";
             this.BTN_TEACH_TRANSFER.Size = new System.Drawing.Size(87, 44);
             this.BTN_TEACH_TRANSFER.TabIndex = 33;
@@ -288,13 +290,43 @@
             this.groupBox1.TabIndex = 35;
             this.groupBox1.TabStop = false;
             // 
+            // BTN_TEACH_LIFT
+            // 
+            this.BTN_TEACH_LIFT.BackColor = System.Drawing.Color.Tan;
+            this.BTN_TEACH_LIFT.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.BTN_TEACH_LIFT.Font = new System.Drawing.Font("맑은 고딕", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(129)));
+            this.BTN_TEACH_LIFT.ForeColor = System.Drawing.Color.White;
+            this.BTN_TEACH_LIFT.Location = new System.Drawing.Point(580, 14);
+            this.BTN_TEACH_LIFT.Name = "BTN_TEACH_LIFT";
+            this.BTN_TEACH_LIFT.Size = new System.Drawing.Size(87, 44);
+            this.BTN_TEACH_LIFT.TabIndex = 36;
+            this.BTN_TEACH_LIFT.Text = "LIFT";
+            this.BTN_TEACH_LIFT.UseVisualStyleBackColor = false;
+            this.BTN_TEACH_LIFT.Click += new System.EventHandler(this.BTN_TEACH_LIFT_Click);
+            // 
+            // BTN_TEACH_SOCKET
+            // 
+            this.BTN_TEACH_SOCKET.BackColor = System.Drawing.Color.Tan;
+            this.BTN_TEACH_SOCKET.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.BTN_TEACH_SOCKET.Font = new System.Drawing.Font("맑은 고딕", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(129)));
+            this.BTN_TEACH_SOCKET.ForeColor = System.Drawing.Color.White;
+            this.BTN_TEACH_SOCKET.Location = new System.Drawing.Point(670, 14);
+            this.BTN_TEACH_SOCKET.Name = "BTN_TEACH_SOCKET";
+            this.BTN_TEACH_SOCKET.Size = new System.Drawing.Size(87, 44);
+            this.BTN_TEACH_SOCKET.TabIndex = 37;
+            this.BTN_TEACH_SOCKET.Text = "SOCKET";
+            this.BTN_TEACH_SOCKET.UseVisualStyleBackColor = false;
+            this.BTN_TEACH_SOCKET.Click += new System.EventHandler(this.BTN_TEACH_SOCKET_Click);
+            // 
             // TeachingControl
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 12F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.SystemColors.ButtonShadow;
+            this.Controls.Add(this.BTN_TEACH_SOCKET);
+            this.Controls.Add(this.BTN_TEACH_LIFT);
             this.Controls.Add(this.groupBox1);
-            this.Controls.Add(this.BTN_TEACH_LENS);
+            this.Controls.Add(this.BTN_TEACH_MAGAZINE);
             this.Controls.Add(this.BTN_TEACH_TRANSFER);
             this.Controls.Add(this.TeachingPanel);
             this.Controls.Add(this.TeachingTitleLabel);
@@ -321,8 +353,10 @@
         public System.Windows.Forms.Label LABEL_TEACH_MOVE_VALUE;
         private System.Windows.Forms.Label TeachingTitleLabel;
         private System.Windows.Forms.Panel TeachingPanel;
-        private System.Windows.Forms.Button BTN_TEACH_LENS;
+        private System.Windows.Forms.Button BTN_TEACH_MAGAZINE;
         private System.Windows.Forms.Button BTN_TEACH_TRANSFER;
         private System.Windows.Forms.GroupBox groupBox1;
+        private System.Windows.Forms.Button BTN_TEACH_LIFT;
+        private System.Windows.Forms.Button BTN_TEACH_SOCKET;
     }
 }
