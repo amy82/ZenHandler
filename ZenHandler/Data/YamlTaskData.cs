@@ -136,7 +136,7 @@ namespace ZenHandler.Data
             }
             catch (Exception ex)
             {
-                Console.WriteLine($"Error TaskDataSave: {ex.Message}");
+                Console.WriteLine($"Error TaskSave_Layout: {ex.Message}");
                 return false;
             }
 
@@ -162,7 +162,7 @@ namespace ZenHandler.Data
             }
             catch (Exception ex)
             {
-                Console.WriteLine($"Error loading TaskLoad Transfer: {ex.Message}");
+                Console.WriteLine($"Error loading TaskLoad_Layout Transfer: {ex.Message}");
                 return new Machine.ProductLayout();
             }
         }

@@ -18,8 +18,8 @@ namespace ZenHandler.Controls
         private const int nGridSpeedRowCount = 4;           //모터 설정 표시 칸 개수 - 속도, 가감속
         private string PointFormat = "0.0###";
         private int selectStartRow = nGridSensorRowCount;     //모터 선택하면 색 변하는 Cell
-        private int dRowSensorHeight = 18;
-        private int dRowHeight = 28;
+        private int dRowSensorHeight = 16;
+        private int dRowHeight = 26;
         //
         private string ColorSelecttGrid = "#E1E0DF";       //FFB230
         //
@@ -194,7 +194,15 @@ namespace ZenHandler.Controls
                 this.Columns[i].Resizable = DataGridViewTriState.False;
                 this.Columns[i].Width = inGridWid[i];
                 this.Columns[i].SortMode = DataGridViewColumnSortMode.NotSortable;
-                this.Columns[i].DefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleCenter;
+                if (i == 0)
+                {
+                    this.Columns[i].DefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleLeft;
+                }
+                else
+                {
+                    this.Columns[i].DefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleRight;
+                }
+                
             }
 
 

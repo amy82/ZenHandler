@@ -13,7 +13,7 @@ namespace ZenHandler
         //public delegate void KeyEventHandler(Keys key);
 
         public delegate void KeyEventHandler(Keys key, string eventId);  // 이벤트에 ID 추가
-        //public event KeyEventHandler KeyEvent;  // 키 이벤트를 다른 폼으로 전달할 수 있는 이벤트
+        public event KeyEventHandler KeyEvent;  // 키 이벤트를 다른 폼으로 전달할 수 있는 이벤트
 
         private readonly Dictionary<string, KeyEventHandler> keyEvents = new Dictionary<string, KeyEventHandler>();
 

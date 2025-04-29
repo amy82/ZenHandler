@@ -19,7 +19,7 @@ namespace ZenHandler.MotionControl
         public Machine.TransferMachine transferMachine;
         public Machine.MagazineHandler magazineHandler;
         public Machine.LiftMachine liftMachine;
-        public Machine.SocketMachine socketMachine;
+        public Machine.AoiSocketMachine socketMachine;
 
         
         //#region test
@@ -40,16 +40,17 @@ namespace ZenHandler.MotionControl
             transferMachine = new Machine.TransferMachine();        //TODO: motor , io 모두 설정되고나서 해야될수도
             magazineHandler = new Machine.MagazineHandler();
             liftMachine = new Machine.LiftMachine();
-            socketMachine = new Machine.SocketMachine();
+            socketMachine = new Machine.AoiSocketMachine();
 
             transferMachine.OnTrayChangedCall += OnTrayChenge;
 
 
 
-            transferMachine.teachingConfig.LoadTeach(transferMachine.teachingPath);
-            magazineHandler.teachingConfig.LoadTeach(magazineHandler.teachingPath);
-            liftMachine.teachingConfig.LoadTeach(liftMachine.teachingPath);
-            socketMachine.teachingConfig.LoadTeach(socketMachine.teachingPath);
+            transferMachine.teachingConfig.LoadTeach(Machine.TransferMachine.teachingPath);
+            magazineHandler.teachingConfig.LoadTeach(Machine.MagazineHandler.teachingPath);
+
+            liftMachine.teachingConfig.LoadTeach(Machine.LiftMachine.teachingPath);
+            socketMachine.teachingConfig.LoadTeach(Machine.AoiSocketMachine.teachingPath);
         }
         private void OnTrayChenge(MotorSet.TrayPosition position)
         {
@@ -205,7 +206,6 @@ namespace ZenHandler.MotionControl
 
         public int New_Axisconfig(MotionControl.MotorAxis motorAxis)
         {
-            int i = 0;
             uint duRetCode = 0;
             int nFailCount = 0;
             string logstr = "";

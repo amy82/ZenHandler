@@ -27,7 +27,7 @@ namespace ZenHandler.Dlg
 
         public enum eTeachingBtn : int
         {
-            TransferTab = 0, MagazineTab , LiftTab , pcbTab, lensTab
+            TransferTab = 0, MagazineTab , LiftTab , SocketTab
         };
 
         public TeachingControl(int _w , int _h)
@@ -92,7 +92,7 @@ namespace ZenHandler.Dlg
             TeachingTitleLabel.ForeColor = ColorTranslator.FromHtml("#6F6F6F");
 
             BTN_TEACH_TRANSFER.FlatAppearance.BorderColor = ColorTranslator.FromHtml("#BBBBBB");
-            BTN_TEACH_LENS.FlatAppearance.BorderColor = ColorTranslator.FromHtml("#BBBBBB");
+            BTN_TEACH_MAGAZINE.FlatAppearance.BorderColor = ColorTranslator.FromHtml("#BBBBBB");
 
 
             BTN_TEACH_SPEED_LOW.BackColor = ColorTranslator.FromHtml("#C3A279");
@@ -174,14 +174,21 @@ namespace ZenHandler.Dlg
 
             if (TeachCurrentTab == eTeachingBtn.TransferTab)
             {
-                //teachingLens.hidePanel();
                 transferTeach.showPanel();
             }
-            else if (TeachCurrentTab == eTeachingBtn.lensTab)
+            else if (TeachCurrentTab == eTeachingBtn.MagazineTab)
             {
                 transferTeach.hidePanel();
-                //teachingLens.showPanel();
-                //teachingLens.Show();
+
+            }
+            else if (TeachCurrentTab == eTeachingBtn.LiftTab)
+            {
+                transferTeach.hidePanel();
+
+            }
+            else if (TeachCurrentTab == eTeachingBtn.SocketTab)
+            {
+                transferTeach.hidePanel();
 
             }
 
@@ -338,7 +345,7 @@ namespace ZenHandler.Dlg
         private void TeachingBtnChange(eTeachingBtn index)
         {
             BTN_TEACH_TRANSFER.BackColor = ColorTranslator.FromHtml("#E1E0DF");
-            BTN_TEACH_LENS.BackColor = ColorTranslator.FromHtml("#E1E0DF");
+            BTN_TEACH_MAGAZINE.BackColor = ColorTranslator.FromHtml("#E1E0DF");
 
             TeachCurrentTab = index;
 
@@ -353,7 +360,7 @@ namespace ZenHandler.Dlg
             }
             else
             {
-                BTN_TEACH_LENS.BackColor = ColorTranslator.FromHtml("#FFB230");
+                BTN_TEACH_MAGAZINE.BackColor = ColorTranslator.FromHtml("#FFB230");
                 //teachingLens.Visible = true;
                 transferTeach.Visible = false;
 
@@ -368,7 +375,17 @@ namespace ZenHandler.Dlg
 
         private void BTN_TEACH_LENS_Click(object sender, EventArgs e)
         {
-            //TeachingBtnChange(eTeachingBtn.lensTab);
+            TeachingBtnChange(eTeachingBtn.MagazineTab);
+        }
+
+        private void BTN_TEACH_LIFT_Click(object sender, EventArgs e)
+        {
+            TeachingBtnChange(eTeachingBtn.LiftTab);
+        }
+
+        private void BTN_TEACH_SOCKET_Click(object sender, EventArgs e)
+        {
+            TeachingBtnChange(eTeachingBtn.SocketTab);
         }
     }
 }

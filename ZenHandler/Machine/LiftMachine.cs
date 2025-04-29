@@ -7,21 +7,23 @@ using System.Threading.Tasks;
 
 namespace ZenHandler.Machine
 {
+    public enum eLift : int
+    {
+        LIFT_L_Z = 0, LIFT_R_Z, LIFT_F_X, LIFT_B_X
+    };
     public class LiftMachine : MotionControl.MotorController
     {
         public int MotorCnt { get; private set; } = 6;
 
         public MotionControl.MotorAxis LoadLift_Z_L;
-        public MotionControl.MotorAxis UnLoadLift_Z_L;
-        public MotionControl.MotorAxis Gantry_Y_L;
-
         public MotionControl.MotorAxis LoadLift_Z_R;
-        public MotionControl.MotorAxis UnLoadLift_Z_R;
-        public MotionControl.MotorAxis Gantry_Y_R;
+        public MotionControl.MotorAxis Gantry_X_F;
+        public MotionControl.MotorAxis Gantry_X_B;
 
+        //LEFT Z / RIGHT Z / GANTRY FRONT X / GANTRY BACK X / 
         public MotionControl.MotorAxis[] MotorAxes; // 배열 선언
 
-        public string[] axisName = { "LoadZ_L", "UnLoadZ_L", "GantryY_L" , "LoadZ_R", "UnLoadZ_R", "GantryY_R" };
+        public string[] axisName = { "LoadZ_L", "LoadZ_R", "GantryY_L" , "GantryY_R" };
 
         private MotorDefine.eMotorType[] motorType = { MotorDefine.eMotorType.LINEAR, MotorDefine.eMotorType.LINEAR, MotorDefine.eMotorType.LINEAR, MotorDefine.eMotorType.LINEAR, MotorDefine.eMotorType.LINEAR, MotorDefine.eMotorType.LINEAR };
         private AXT_MOTION_LEVEL_MODE[] AXT_SET_LIMIT = { AXT_MOTION_LEVEL_MODE.LOW, AXT_MOTION_LEVEL_MODE.LOW, AXT_MOTION_LEVEL_MODE.LOW, AXT_MOTION_LEVEL_MODE.LOW, AXT_MOTION_LEVEL_MODE.LOW, AXT_MOTION_LEVEL_MODE.LOW };
@@ -30,10 +32,10 @@ namespace ZenHandler.Machine
         private AXT_MOTION_MOVE_DIR[] MOTOR_HOME_DIR = { AXT_MOTION_MOVE_DIR.DIR_CW, AXT_MOTION_MOVE_DIR.DIR_CW, AXT_MOTION_MOVE_DIR.DIR_CW, AXT_MOTION_MOVE_DIR.DIR_CW, AXT_MOTION_MOVE_DIR.DIR_CW, AXT_MOTION_MOVE_DIR.DIR_CW };
 
 
-        private static double[] MaxSpeeds = { 100.0, 100.0, 200.0, 100.0, 100.0, 200.0 };
-        private double[] OrgFirstVel = { 20000.0, 20000.0, 20000.0, 20000.0, 20000.0, 20000.0 };
-        private double[] OrgSecondVel = { 5000.0, 5000.0, 10000.0, 5000.0, 5000.0, 10000.0 };
-        private double[] OrgThirdVel = { 2500.0, 2500.0, 5000.0, 2500.0, 2500.0, 5000.0 };
+        private static double[] MaxSpeeds = { 100.0, 100.0, 200.0, 200.0};
+        private double[] OrgFirstVel = { 20000.0, 20000.0, 20000.0, 20000.0};
+        private double[] OrgSecondVel = { 5000.0, 5000.0, 10000.0, 10000.0};
+        private double[] OrgThirdVel = { 2500.0, 2500.0, 5000.0, 5000.0};
 
 
         public enum eTeachingPosList : int
@@ -41,11 +43,11 @@ namespace ZenHandler.Machine
             WAIT_POS = 0, LOAD_POS, UNLOAD_POS, TOTAL_LIFT_TEACHING_COUNT
         };
 
-        public string[] TeachName = { "WAIT_POS" , "LOAD_POS", "UNLOAD_POS" };
+        public string[] TeachName = { "WAIT_POS" , "L_LOAD_POS", "R_LOAD_POS" };
 
 
-        public string teachingPath = "Teach_Lift.yaml";
-        public string taskPath = "Task_Lift.yaml";
+        public const string teachingPath = "Teach_Lift.yaml";
+        public const string taskPath = "Task_Lift.yaml";
         public Data.TeachingConfig teachingConfig = new Data.TeachingConfig();
 
         //public PickedProduct pickedProduct = new PickedProduct();
@@ -58,7 +60,7 @@ namespace ZenHandler.Machine
             this.RunState = OperationState.Stopped;
             this.MachineName = this.GetType().Name;
 
-            MotorAxes = new MotionControl.MotorAxis[] { LoadLift_Z_L, UnLoadLift_Z_L, Gantry_Y_L, LoadLift_Z_R, UnLoadLift_Z_R, Gantry_Y_R };
+            MotorAxes = new MotionControl.MotorAxis[] { LoadLift_Z_L, LoadLift_Z_R, Gantry_X_F, Gantry_X_B};
             MotorCnt = MotorAxes.Length;
 
             for (i = 0; i < MotorCnt; i++)
@@ -100,13 +102,27 @@ namespace ZenHandler.Machine
         }
         public override bool IsMoving()
         {
+            if (AutoUnitThread.GetThreadRun() == true)
+            {
+                return true;
+            }
 
+            for (int i = 0; i < MotorAxes.Length; i++)
+            {
+                if (MotorAxes[i].GetStopAxis() == false)
+                {
+                    return true;
+                }
+            }
             return true;
         }
         
         public override void StopAuto()
         {
             AutoUnitThread.Stop();
+            MovingStop();
+            RunState = OperationState.Stopped;
+            Console.WriteLine($"[INFO] Lift Run Stop");
 
         }
         public override void MovingStop()
@@ -115,9 +131,11 @@ namespace ZenHandler.Machine
             {
                 CancelToken.Cancel();
             }
-            //TransferZ.motorBreak = true;          //예제코드
-
-            //TransferZ.Stop();                 //예제코드
+            for (int i = 0; i < MotorAxes.Length; i++)
+            {
+                MotorAxes[i].MotorBreak = true;
+                MotorAxes[i].Stop();
+            }
 
         }
         public override bool OriginRun()
@@ -141,19 +159,97 @@ namespace ZenHandler.Machine
         }
         public override bool ReadyRun()
         {
+            if (AutoUnitThread.GetThreadRun() == true)
+            {
+                return false;
+            }
 
+            if (LoadLift_Z_L.OrgState == false || LoadLift_Z_R.OrgState == false || Gantry_X_F.OrgState == false|| Gantry_X_B.OrgState == false)
+            {
+                this.RunState = OperationState.OriginRunning;
+                AutoUnitThread.m_nCurrentStep = 1000;
+            }
+            else
+            {
+                this.RunState = OperationState.Preparing;
+                AutoUnitThread.m_nCurrentStep = 2000;
+            }
 
-            return true;
+            AutoUnitThread.m_nEndStep = 3000;
+            AutoUnitThread.m_nStartStep = AutoUnitThread.m_nCurrentStep;
+
+            if (AutoUnitThread.GetThreadRun() == true)
+            {
+                Console.WriteLine($"모터 동작 중입니다.");
+                return true;
+            }
+            bool rtn = AutoUnitThread.Start();
+            if (rtn)
+            {
+                Console.WriteLine($"[READY] Transfer Ready Start");
+                Console.WriteLine($"모터 동작 성공.");
+            }
+            else
+            {
+                this.RunState = OperationState.Stopped;
+                Console.WriteLine($"[READY] Transfer Ready Start Fail");
+                Console.WriteLine($"모터 동작 실패.");
+            }
+
+            return rtn;
         }
         public override void PauseAuto()
         {
-
+            if (AutoUnitThread.GetThreadRun() == true)
+            {
+                AutoUnitThread.Pause();
+                RunState = OperationState.Paused;
+            }
             return;
         }
         public override bool AutoRun()
         {
+            bool rtn = true;
+            if (this.RunState != OperationState.PreparationComplete)
+            {
+                Globalo.LogPrint("MainForm", "[LIFT] 운전준비가 완료되지 않았습니다.", Globalo.eMessageName.M_WARNING);
+                return false;
+            }
 
-            return true;
+            if (AutoUnitThread.GetThreadRun() == true)
+            {
+                Console.WriteLine($"모터 동작 중입니다.");
+
+                if (AutoUnitThread.GetThreadPause() == true)        //일시 정지 상태인지 확인
+                {
+                    AutoUnitThread.m_nCurrentStep = Math.Abs(AutoUnitThread.m_nCurrentStep);
+
+                    RunState = OperationState.AutoRunning;
+                }
+                else
+                {
+                    rtn = false;
+                }
+            }
+            else
+            {
+                AutoUnitThread.m_nCurrentStep = 3000;
+                AutoUnitThread.m_nEndStep = 10000;
+                AutoUnitThread.m_nStartStep = AutoUnitThread.m_nCurrentStep;
+
+                rtn = AutoUnitThread.Start();
+
+                if (rtn)
+                {
+                    RunState = OperationState.AutoRunning;
+                    Console.WriteLine($"LIFT 모터 동작 성공.");
+                }
+                else
+                {
+                    Console.WriteLine($"LIFT 모터 동작 실패.");
+                }
+            }
+            return rtn;
         }
 
     }
