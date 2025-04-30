@@ -22,7 +22,9 @@ namespace ZenHandler.Dlg
 
         //liftTeach
         //socketTeach
-
+        //private TeachingAoiSocket AoiSocket;      //TODO: 소켓 추가
+        //private TeachingEEpromSocket EEpromSocket;
+        //private TeachingFwSocket FwSocket;
 
 
         private double m_dJogSpeed = 0.1;
@@ -46,7 +48,18 @@ namespace ZenHandler.Dlg
             MagazineTeach = new TeachingMagazine();
             LiftTeach = new TeachingLift();
             //SocketTeach = new TeachingTeach();
+            if (Program.PG_SELECT == HANDLER_PG.AOI)
+            {
 
+            }
+            if (Program.PG_SELECT == HANDLER_PG.EEPROM)
+            {
+
+            }
+            if (Program.PG_SELECT == HANDLER_PG.FW)
+            {
+
+            }
             TeachCurrentTab = eTeachingBtn.TransferTab;
             TransferTeach.Visible = false;
             MagazineTeach.Visible = false;

@@ -8,11 +8,15 @@ using System.Windows.Forms;
 
 namespace ZenHandler
 {
+    public enum HANDLER_PG
+    {
+        AOI, EEPROM, FW
+    }
     static class Program
     {
         public const string VERSION_INFO = "1.0.0.1";
         public const string BUILD_DATE = "25-04-16";        //16:00
-
+        public const HANDLER_PG PG_SELECT = HANDLER_PG.AOI;     //AOI , EEPROM , FW         //MEMO: 여기서 프로그램 선택
         [STAThread]
         static void Main()
         {
@@ -58,3 +62,4 @@ namespace ZenHandler
 //250428 home end 07:05
 //250429 home end 07:19
 //250430 home end 07:07
+//250501 home end 07:04
