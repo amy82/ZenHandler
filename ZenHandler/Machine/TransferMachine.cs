@@ -117,6 +117,11 @@ namespace ZenHandler.Machine
 
                 //초기 셋 다른 곳에서 다시 해줘야될 듯
                 MotorAxes[i].setMotorParameter(10.0, 0.1, 0.1, 1000.0);//(double vel , double acc , double dec , double resol)
+
+                if(this.MotorUse == false)
+                {
+                    MotorAxes[i].NoUse = true;
+                }
             }
 
 
@@ -535,6 +540,11 @@ namespace ZenHandler.Machine
 
         public bool TransFer_X_Move(eTeachingPosList ePos, bool bWait = true)
         {
+            if (this.MotorUse == false)
+            {
+                Console.WriteLine("No Use Machine");
+                return true;
+            }
             if (TransferX.IsMotorBusy == true)
             {
                 Globalo.LogPrint("ManualControl", $"모터 작업이 이미 실행 중입니다. 기다려 주세요.");
@@ -562,6 +572,11 @@ namespace ZenHandler.Machine
         }
         public bool TransFer_Z_Move(eTeachingPosList ePos, bool bWait = true)
         {
+            if (this.MotorUse == false)
+            {
+                Console.WriteLine("No Use Machine");
+                return true;
+            }
             bool isSuccess = true;
             string logStr = "";
             double dPos = Globalo.motionManager.transferMachine.teachingConfig.Teaching[(int)ePos].Pos[(int)eTransfer.TRANSFER_Z];     //z Axis
@@ -585,6 +600,11 @@ namespace ZenHandler.Machine
         }
         public bool TransFer_XY_Move(eTeachingPosList ePos, int PickerNo = 0, int CountX = 0, int CountY = 0,  bool bWait = true)  //Picket Index , Tray or Socekt or Ng , 
         {
+            if (this.MotorUse == false)
+            {
+                Console.WriteLine("No Use Machine");
+                return true;
+            }
             if (ProgramState.ON_LINE_MOTOR == false)
             {
                 return true;

@@ -13,7 +13,7 @@ namespace ZenHandler.Machine
     };
     public class LiftMachine : MotionControl.MotorController
     {
-        public int MotorCnt { get; private set; } = 6;
+        public int MotorCnt { get; private set; } = 4;
 
         public MotionControl.MotorAxis LoadLift_Z_L;
         public MotionControl.MotorAxis LoadLift_Z_R;
@@ -73,6 +73,10 @@ namespace ZenHandler.Machine
 
                 //초기 셋 다른 곳에서 다시 해줘야될 듯
                 MotorAxes[i].setMotorParameter(10.0, 0.1, 0.1, 1000.0);//(double vel , double acc , double dec , double resol)
+                if (this.MotorUse == false)
+                {
+                    MotorAxes[i].NoUse = true;
+                }
             }
 
             trayProduct = Data.TaskDataYaml.TaskLoad_Lift(taskPath);

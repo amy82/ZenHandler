@@ -36,6 +36,7 @@ namespace ZenHandler.MotionControl
         public double Deceleration { get; set; }                    //감속
         public double Resolution { get; protected set; }
         public double MaxSpeed { get; protected set; }
+        public bool NoUse = false;
         //
         //
         public double EncoderPos
@@ -260,6 +261,11 @@ namespace ZenHandler.MotionControl
 
         public bool JogMove(int direction, double Speed)
         {
+            if(NoUse)
+            {
+                Console.WriteLine("JogMove no Use");
+                return true;
+            }
             //Speed = 0.1 , 0.5 , 1.0 Low , Mid , High
             Console.WriteLine($"방향 {direction}으로 조그 이동");
             double dAcc = 0.0;
@@ -331,6 +337,11 @@ namespace ZenHandler.MotionControl
         //-----------------------------------------------------------------------------
         public bool MoveAxis(double dPos, AXT_MOTION_ABSREL nAbsFlag, bool bWait)
         {
+            if (NoUse)
+            {
+                Console.WriteLine("JogMove no Use");
+                return true;
+            }
             bool isSuccess = false;
             double dCurrPos = 0.0;
             double dVel = 0.0;

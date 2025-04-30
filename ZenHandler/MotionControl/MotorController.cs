@@ -17,7 +17,7 @@ namespace ZenHandler.MotionControl
         public OperationState RunState = OperationState.Stopped;
         public string MachineName { get; protected set; }
         protected CancellationTokenSource CancelToken;      //TODO: 사용안하는듯?
-
+        public bool MotorUse = true;
         ////protected bool isMotorBusy = false; //실행중 체크용 플래그
         //abstract : 추상 메서드
         //반드시 자식 클래스에 구현해야 함, 내용없이 선언가능, 강제 특정 메서드 오버라이딩 유도
@@ -60,6 +60,11 @@ namespace ZenHandler.MotionControl
         {
             if (ProgramState.ON_LINE_MOTOR == false)
             {
+                return true;
+            }
+            if(this.MotorUse == false)
+            {
+                Console.WriteLine("No Use Machine");
                 return true;
             }
             bool isSuccess = false;

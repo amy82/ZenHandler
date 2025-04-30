@@ -14,7 +14,11 @@ namespace ZenHandler.Dlg
     public partial class TeachingControl : UserControl
     {
         private eTeachingBtn TeachCurrentTab;
-        private TeachingTransfer transferTeach;
+        private TeachingTransfer TransferTeach;
+        private TeachingMagazine MagazineTeach;
+        private TeachingLift LiftTeach;
+
+        //private TeachingSocket transferTeach;
 
         //liftTeach
         //socketTeach
@@ -38,27 +42,37 @@ namespace ZenHandler.Dlg
             MachineControl.Clear();
 
 
-            transferTeach = new TeachingTransfer();
-            //teachingLens = new TeachingLens();
+            TransferTeach = new TeachingTransfer();
+            MagazineTeach = new TeachingMagazine();
+            LiftTeach = new TeachingLift();
+            //SocketTeach = new TeachingTeach();
 
             TeachCurrentTab = eTeachingBtn.TransferTab;
+            TransferTeach.Visible = false;
+            MagazineTeach.Visible = false;
+            LiftTeach.Visible = false;
 
-            MachineControl.Add(transferTeach);
+            MachineControl.Add(TransferTeach);
+            MachineControl.Add(MagazineTeach);
+            MachineControl.Add(LiftTeach);
 
             
             this.Paint += new PaintEventHandler(Form_Paint);
 
-            //motorControl = motor;
             this.Width = _w;
             this.Height = _h;
 
 
-            transferTeach.Visible = false;
-            //teachingLens.Visible = false;
-            this.Controls.Add(transferTeach);
-            //this.Controls.Add(teachingLens);
+            
+            this.Controls.Add(TransferTeach);
+            this.Controls.Add(MagazineTeach);
+            this.Controls.Add(LiftTeach);
+            //this.Controls.Add(SocketTeach);
 
-            transferTeach.Location = new System.Drawing.Point(this.TeachingPanel.Location.X, this.TeachingPanel.Location.Y);
+            TransferTeach.Location = new System.Drawing.Point(this.TeachingPanel.Location.X, this.TeachingPanel.Location.Y);
+            MagazineTeach.Location = new System.Drawing.Point(this.TeachingPanel.Location.X, this.TeachingPanel.Location.Y);
+            LiftTeach.Location = new System.Drawing.Point(this.TeachingPanel.Location.X, this.TeachingPanel.Location.Y);
+
             setInterface();
 
             changeSpeedNo(0);
@@ -93,6 +107,8 @@ namespace ZenHandler.Dlg
 
             BTN_TEACH_TRANSFER.FlatAppearance.BorderColor = ColorTranslator.FromHtml("#BBBBBB");
             BTN_TEACH_MAGAZINE.FlatAppearance.BorderColor = ColorTranslator.FromHtml("#BBBBBB");
+            BTN_TEACH_LIFT.FlatAppearance.BorderColor = ColorTranslator.FromHtml("#BBBBBB");
+            BTN_TEACH_SOCKET.FlatAppearance.BorderColor = ColorTranslator.FromHtml("#BBBBBB");
 
 
             BTN_TEACH_SPEED_LOW.BackColor = ColorTranslator.FromHtml("#C3A279");
@@ -154,46 +170,10 @@ namespace ZenHandler.Dlg
         {
             changeSpeedNo(0);
 
-            //changeMotorNo(m_nSelectPcbAxis);      //Teaching Dlg Load
-
-            //ShowTeachingData();
-
             Globalo.LogPrint("CTeachingControl", "Teach Visible True raised!!!");
-            if (ProgramState.ON_LINE_MOTOR)
-            {
-                //TeachingTimer.Start(); // 타이머 시작
-            }
-        }
-        private void TeachingControl_VisibleChanged(object sender, EventArgs e)
-        {
-            if (this.Visible)
-            {
-
-            }
-
-
-            if (TeachCurrentTab == eTeachingBtn.TransferTab)
-            {
-                transferTeach.showPanel();
-            }
-            else if (TeachCurrentTab == eTeachingBtn.MagazineTab)
-            {
-                transferTeach.hidePanel();
-
-            }
-            else if (TeachCurrentTab == eTeachingBtn.LiftTab)
-            {
-                transferTeach.hidePanel();
-
-            }
-            else if (TeachCurrentTab == eTeachingBtn.SocketTab)
-            {
-                transferTeach.hidePanel();
-
-            }
-
 
         }
+        
 
         
 
@@ -208,7 +188,7 @@ namespace ZenHandler.Dlg
 
             if (TeachCurrentTab == eTeachingBtn.TransferTab)
             {
-                bool result = await transferTeach.MotorRelMove(dMovePos * -1);
+                bool result = await TransferTeach.MotorRelMove(dMovePos * -1);
             }
 
             
@@ -224,7 +204,7 @@ namespace ZenHandler.Dlg
 
             if (TeachCurrentTab == eTeachingBtn.TransferTab)
             {   
-                bool result = await transferTeach.MotorRelMove(dMovePos);   //TODO: 머신안에 함수로 바꿔야된다.
+                bool result = await TransferTeach.MotorRelMove(dMovePos);   //TODO: 머신안에 함수로 바꿔야된다.
             }
             
         }
@@ -294,7 +274,7 @@ namespace ZenHandler.Dlg
             }
             if (TeachCurrentTab == eTeachingBtn.TransferTab)
             {
-                bool result = await transferTeach.MotorJogMove((int)MotionControl.MotorSet.eJogDic.MINUS_MOVE, m_dJogSpeed);
+                bool result = await TransferTeach.MotorJogMove((int)MotionControl.MotorSet.eJogDic.MINUS_MOVE, m_dJogSpeed);
             }
         }
         private async void BTN_TEACH_JOG_PLUS_MouseDown(object sender, MouseEventArgs e)
@@ -305,14 +285,14 @@ namespace ZenHandler.Dlg
             }
             if (TeachCurrentTab == eTeachingBtn.TransferTab)
             {
-                bool result = await transferTeach.MotorJogMove((int)MotionControl.MotorSet.eJogDic.PLUS_MOVE, m_dJogSpeed);
+                bool result = await TransferTeach.MotorJogMove((int)MotionControl.MotorSet.eJogDic.PLUS_MOVE, m_dJogSpeed);
             }
         }
         private void JOG_STOP_FN()
         {
             if (TeachCurrentTab == eTeachingBtn.TransferTab)
             {
-                transferTeach.MotorJogStop();
+                TransferTeach.MotorJogStop();
             }
         }
         private void BTN_TEACH_JOG_STOP_Click(object sender, EventArgs e)
@@ -346,27 +326,56 @@ namespace ZenHandler.Dlg
         {
             BTN_TEACH_TRANSFER.BackColor = ColorTranslator.FromHtml("#E1E0DF");
             BTN_TEACH_MAGAZINE.BackColor = ColorTranslator.FromHtml("#E1E0DF");
+            BTN_TEACH_LIFT.BackColor = ColorTranslator.FromHtml("#E1E0DF");
+            BTN_TEACH_SOCKET.BackColor = ColorTranslator.FromHtml("#E1E0DF");
 
             TeachCurrentTab = index;
 
             if (TeachCurrentTab == eTeachingBtn.TransferTab)
             {
                 BTN_TEACH_TRANSFER.BackColor = ColorTranslator.FromHtml("#FFB230");
-                transferTeach.Visible = true;
-                //teachingLens.Visible = false;
-
-                //teachingLens.hidePanel();
-                transferTeach.showPanel();
+                //TransferTeach.Visible = true;
+                TransferTeach.showPanel();
+                MagazineTeach.hidePanel();
+                LiftTeach.hidePanel();
+                //SocketTeach.hidePanel();
             }
-            else
+            if (TeachCurrentTab == eTeachingBtn.MagazineTab)
             {
                 BTN_TEACH_MAGAZINE.BackColor = ColorTranslator.FromHtml("#FFB230");
-                //teachingLens.Visible = true;
-                transferTeach.Visible = false;
-
-                transferTeach.hidePanel();
-                //teachingLens.showPanel();
+                MagazineTeach.showPanel();
+                TransferTeach.hidePanel();
+                LiftTeach.hidePanel();
+                //SocketTeach.hidePanel();
             }
+            if (TeachCurrentTab == eTeachingBtn.LiftTab)
+            {
+                BTN_TEACH_LIFT.BackColor = ColorTranslator.FromHtml("#FFB230");
+                LiftTeach.showPanel();
+                TransferTeach.hidePanel();
+                MagazineTeach.hidePanel();
+                //SocketTeach.hidePanel();
+            }
+            
+            if (TeachCurrentTab == eTeachingBtn.SocketTab)
+            {
+                BTN_TEACH_SOCKET.BackColor = ColorTranslator.FromHtml("#FFB230");
+                //SocketTeach.showPanel();
+                LiftTeach.hidePanel();
+                TransferTeach.hidePanel();
+                MagazineTeach.hidePanel();
+            }
+        }
+        private void TeachingControl_VisibleChanged(object sender, EventArgs e)
+        {
+            if (this.Visible)
+            {
+                TeachingBtnChange(TeachCurrentTab);
+            }
+
+            
+
+
         }
         private void BTN_TEACH_PCB_Click(object sender, EventArgs e)
         {
