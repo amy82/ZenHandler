@@ -73,6 +73,7 @@ namespace ZenHandler.Dlg
 
         public void showPanel()
         {
+            this.Visible = true;
             if (ProgramState.ON_LINE_MOTOR == true)
             {
                 myTeachingGrid.MotorStateRun(true);
@@ -82,6 +83,7 @@ namespace ZenHandler.Dlg
         }
         public void hidePanel()
         {
+            this.Visible = false;
             myTeachingGrid.MotorStateRun(false);
             //TeachingTimer.Stop();
         }

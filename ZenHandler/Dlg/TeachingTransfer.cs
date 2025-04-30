@@ -85,6 +85,7 @@ namespace ZenHandler.Dlg
 
         public void showPanel()
         {
+            this.Visible = true;
             if (ProgramState.ON_LINE_MOTOR == true)
             {
                 myTeachingGrid.MotorStateRun(true);
@@ -94,8 +95,8 @@ namespace ZenHandler.Dlg
         }
         public void hidePanel()
         {
+            this.Visible = false;
             myTeachingGrid.MotorStateRun(false);
-            //TeachingTimer.Stop();
         }
         private void comboBox_Teach_Picker_SelectedIndexChanged(object sender, EventArgs e)
         {
@@ -127,7 +128,7 @@ namespace ZenHandler.Dlg
         {
             //LoadPicker : 0 ~ 3
             //UnloadPicket : 4 ~ 7
-
+            if (Globalo.motionManager.transferMachine.productLayout.LoadTrayOffset.Count < 1) return;
             label_Teach_LoadTray_OffsetX_Val.Text = Globalo.motionManager.transferMachine.productLayout.LoadTrayOffset[PickerNo].OffsetX.ToString("0.0##");
             label_Teach_LoadTray_OffsetY_Val.Text = Globalo.motionManager.transferMachine.productLayout.LoadTrayOffset[PickerNo].OffsetY.ToString("0.0##");
 

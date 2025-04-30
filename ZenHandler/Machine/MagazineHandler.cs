@@ -44,7 +44,7 @@ namespace ZenHandler.Machine
         };
 
         public string[] TeachName = { "WAIT_POS",
-            "LEFT_TRAY_LOAD_POS", "LEFT_TRAY_UNLOAD_POS",
+            "LEFT_TRAY_LOAD", "LEFT_TRAY_UNLOAD",
             "STACK1_L","STACK2_L","STACK3_L","STACK4_L","STACK5_L",
             "STACK1_R","STACK2_R","STACK3_R","STACK4_R","STACK5_R",
         };
@@ -76,6 +76,10 @@ namespace ZenHandler.Machine
 
                 //초기 셋 다른 곳에서 다시 해줘야될 듯
                 MotorAxes[i].setMotorParameter(10.0, 0.1, 0.1, 1000.0);//(double vel , double acc , double dec , double resol)
+                if (this.MotorUse == false)
+                {
+                    MotorAxes[i].NoUse = true;
+                }
             }
 
             magazineTray = Data.TaskDataYaml.TaskLoad_Magazine(taskPath);
@@ -118,6 +122,11 @@ namespace ZenHandler.Machine
             {
                 MotorAxes[i].setMotorParameter(teachingConfig.Speed[i], teachingConfig.Accel[i], teachingConfig.Decel[i], teachingConfig.Resolution[i]);
             }
+            for (i = 0; i < teachingConfig.Teaching.Count; i++)
+            {
+                teachingConfig.Teaching[i].Name = TeachName[i];
+            }
+
         }
         public override void MovingStop()
         {

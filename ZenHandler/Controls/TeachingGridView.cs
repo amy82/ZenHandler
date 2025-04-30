@@ -188,7 +188,8 @@ namespace ZenHandler.Controls
             {
                 if (i > 0)
                 {
-                    this.Columns[i].Name = Globalo.motionManager.transferMachine.axisName[i - 1];
+                    //this.Columns[i].Name = Globalo.motionManager.transferMachine.axisName[i - 1];
+                    this.Columns[i].Name = motorList[i - 1].Name;
                     this.Columns[i].DefaultCellStyle.Format = "N3";     //소수점 3째자리 표현
                 }
                 this.Columns[i].Resizable = DataGridViewTriState.False;
@@ -233,7 +234,6 @@ namespace ZenHandler.Controls
             string posName = "";
             for (i = 0; i < TeachingPosCount; i++)
             {
-                //posName = Globalo.motionManager.transferMachine.TeachingPos[i];
                 posName = teachingData.Teaching[i].Name;
 
                 this.Rows[i + (nGridSensorRowCount + nGridSpeedRowCount - 1)].SetValues(posName);

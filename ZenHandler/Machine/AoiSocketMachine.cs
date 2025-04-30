@@ -67,7 +67,11 @@ namespace ZenHandler.Machine
 
 
                 //초기 셋 다른 곳에서 다시 해줘야될 듯
-                MotorAxes[i].setMotorParameter(10.0, 0.1, 0.1, 1000.0);//(double vel , double acc , double dec , double resol)
+                MotorAxes[i].setMotorParameter(10.0, 0.1, 0.1, 1000.0);
+                if (this.MotorUse == false)
+                {
+                    MotorAxes[i].NoUse = true;
+                }
             }
 
 

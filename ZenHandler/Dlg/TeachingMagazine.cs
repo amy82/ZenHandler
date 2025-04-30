@@ -29,7 +29,7 @@ namespace ZenHandler.Dlg
             _syncContext = SynchronizationContext.Current;
             cts = new CancellationTokenSource();
 
-            int[] inGridWid = new int[] { 150, 80, 80, 80, 80 };         //Grid Width
+            int[] inGridWid = new int[] { 130, 100, 100, 100, 100 };         //Grid Width
 
             myTeachingGrid = new Controls.TeachingGridView( Globalo.motionManager.magazineHandler.MotorAxes, Globalo.motionManager.magazineHandler.teachingConfig, inGridWid);
 
@@ -73,6 +73,7 @@ namespace ZenHandler.Dlg
 
         public void showPanel()
         {
+            this.Visible = true;
             if (ProgramState.ON_LINE_MOTOR == true)
             {
                 myTeachingGrid.MotorStateRun(true);
@@ -82,6 +83,7 @@ namespace ZenHandler.Dlg
         }
         public void hidePanel()
         {
+            this.Visible = false;
             myTeachingGrid.MotorStateRun(false);
             //TeachingTimer.Stop();
         }

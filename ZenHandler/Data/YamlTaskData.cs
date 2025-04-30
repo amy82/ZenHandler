@@ -155,7 +155,6 @@ namespace ZenHandler.Data
                 Machine.ProductLayout data = Data.YamlManager.LoadYaml<Machine.ProductLayout>(filePath);
                 if (data == null)
                 {
-
                     return new Machine.ProductLayout();
                 }
                 return data;
