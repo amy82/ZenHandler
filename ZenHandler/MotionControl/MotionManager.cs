@@ -19,7 +19,9 @@ namespace ZenHandler.MotionControl
         public Machine.TransferMachine transferMachine;
         public Machine.MagazineHandler magazineHandler;
         public Machine.LiftMachine liftMachine;
-        public Machine.AoiSocketMachine socketMachine;
+
+        public Machine.AoiSocketMachine socketAoiMachine;
+        public Machine.EEpromSocketMachine socketEEpromMachine;
 
         
         //#region test
@@ -40,7 +42,8 @@ namespace ZenHandler.MotionControl
             transferMachine = new Machine.TransferMachine();        //TODO: motor , io 모두 설정되고나서 해야될수도
             magazineHandler = new Machine.MagazineHandler();
             liftMachine = new Machine.LiftMachine();
-            socketMachine = new Machine.AoiSocketMachine();
+            socketAoiMachine = new Machine.AoiSocketMachine();
+            socketEEpromMachine = new Machine.EEpromSocketMachine();
 
             transferMachine.OnTrayChangedCall += OnTrayChenge;
 
@@ -50,7 +53,8 @@ namespace ZenHandler.MotionControl
             magazineHandler.teachingConfig.LoadTeach(Machine.MagazineHandler.teachingPath);
 
             liftMachine.teachingConfig.LoadTeach(Machine.LiftMachine.teachingPath);
-            socketMachine.teachingConfig.LoadTeach(Machine.AoiSocketMachine.teachingPath);
+            socketAoiMachine.teachingConfig.LoadTeach(Machine.AoiSocketMachine.teachingPath);
+            socketEEpromMachine.teachingConfig.LoadTeach(Machine.EEpromSocketMachine.teachingPath);
         }
         private void OnTrayChenge(MotorSet.TrayPosition position)
         {
@@ -71,13 +75,13 @@ namespace ZenHandler.MotionControl
             transferMachine.StopAuto();
             magazineHandler.StopAuto();
             liftMachine.StopAuto();
-            socketMachine.StopAuto();
+            socketAoiMachine.StopAuto();
 
 
             transferMachine.MachineClose();
             magazineHandler.MachineClose();
             liftMachine.MachineClose();
-            socketMachine.MachineClose();
+            socketAoiMachine.MachineClose();
 
         }
         public void AllMotorParameterSet()
@@ -85,7 +89,7 @@ namespace ZenHandler.MotionControl
             transferMachine.MotorDataSet();
             magazineHandler.MotorDataSet();
             liftMachine.MotorDataSet();
-            socketMachine.MotorDataSet();
+            socketAoiMachine.MotorDataSet();
         }
         public void AllMotorStop()
         {
@@ -94,7 +98,7 @@ namespace ZenHandler.MotionControl
                 transferMachine.StopAuto();
                 magazineHandler.StopAuto();
                 liftMachine.StopAuto();
-                socketMachine.StopAuto();
+                socketAoiMachine.StopAuto();
             }
            
         }
@@ -120,6 +124,7 @@ namespace ZenHandler.MotionControl
                     return false;
                 }
                 ioController.DioInit();
+                int length = 0;
 
                 //------------------------------------------------------------------------------------------------------------
                 //
@@ -127,37 +132,93 @@ namespace ZenHandler.MotionControl
                 //
                 //
                 //------------------------------------------------------------------------------------------------------------
-                int length = transferMachine.MotorAxes.Length;
-                for (int i = 0; i < length; i++)
+                if (transferMachine.MotorUse)
                 {
-                    if (New_Axisconfig(transferMachine.MotorAxes[i]) > 0)   //0 = ok
+                    length = transferMachine.MotorAxes.Length;
+                    for (int i = 0; i < length; i++)
                     {
-                        //fail
-                        bAxlInit = false;
+                        if (New_Axisconfig(transferMachine.MotorAxes[i]) > 0)   //0 = ok
+                        {
+                            //fail
+                            bAxlInit = false;
+                        }
+                    }
+                }
+                
+                //------------------------------------------------------------------------------------------------------------
+                //
+                // AOI SOCKET UNIT
+                //
+                //
+                //------------------------------------------------------------------------------------------------------------
+                if(socketAoiMachine.MotorUse)
+                {
+                    length = socketAoiMachine.MotorAxes.Length;
+                    for (int i = 0; i < length; i++)
+                    {
+                        if (New_Axisconfig(socketAoiMachine.MotorAxes[i]) > 0)   //0 = ok
+                        {
+                            //fail
+                            bAxlInit = false;
+                        }
                     }
                 }
                 //------------------------------------------------------------------------------------------------------------
                 //
-                // SOCKET UNIT
+                // EEPROM SOCKET UNIT
                 //
                 //
                 //------------------------------------------------------------------------------------------------------------
-                length = socketMachine.MotorAxes.Length;
+
+                if (socketEEpromMachine.MotorUse)
+                {
+                    length = socketEEpromMachine.MotorAxes.Length;
+                    for (int i = 0; i < length; i++)
+                    {
+                        if (New_Axisconfig(socketEEpromMachine.MotorAxes[i]) > 0)   //0 = ok
+                        {
+                            //fail
+                            bAxlInit = false;
+                        }
+                    }
+                }
                 //------------------------------------------------------------------------------------------------------------
                 //
                 // MAGAZINE UNIT
                 //
                 //
                 //------------------------------------------------------------------------------------------------------------
-                length = magazineHandler.MotorAxes.Length;
+                if (magazineHandler.MotorUse)
+                {
+                    length = magazineHandler.MotorAxes.Length;
+                    for (int i = 0; i < length; i++)
+                    {
+                        if (New_Axisconfig(magazineHandler.MotorAxes[i]) > 0)   //0 = ok
+                        {
+                            //fail
+                            bAxlInit = false;
+                        }
+                    }
+                }
+                
                 //------------------------------------------------------------------------------------------------------------
                 //
                 // LIFT UNIT
                 //
                 //
                 //------------------------------------------------------------------------------------------------------------
-
-                length = liftMachine.MotorAxes.Length;
+                if(liftMachine.MotorUse)
+                {
+                    length = liftMachine.MotorAxes.Length;
+                    for (int i = 0; i < length; i++)
+                    {
+                        if (New_Axisconfig(liftMachine.MotorAxes[i]) > 0)   //0 = ok
+                        {
+                            //fail
+                            bAxlInit = false;
+                        }
+                    }
+                }
             }
             else
             {

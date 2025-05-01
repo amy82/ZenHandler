@@ -8,11 +8,12 @@ namespace ZenHandler.Machine
 {
     public class FwSocketMachine : MotionControl.MotorController
     {
-        public int MotorCnt { get; private set; } = 4;
+        public int MotorCnt { get; private set; } = 0;
 
         //실린더 전후진 4개
         //실린더 상승,하강 4개
 
+        //소켓 4개씩 4 세트 = 총 16개
 
         public const string teachingPath = "Teach_FwSocket.yaml";
         public const string taskPath = "Task_FwSocket.yaml";

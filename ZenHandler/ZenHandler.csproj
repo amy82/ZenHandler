@@ -293,6 +293,12 @@
     <Compile Include="Dlg\ManualControl.designer.cs">
       <DependentUpon>ManualControl.cs</DependentUpon>
     </Compile>
+    <Compile Include="Dlg\TeachingEEpromSocket.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Dlg\TeachingEEpromSocket.Designer.cs">
+      <DependentUpon>TeachingEEpromSocket.cs</DependentUpon>
+    </Compile>
     <Compile Include="Dlg\TeachingControl.cs">
       <SubType>UserControl</SubType>
     </Compile>
@@ -304,6 +310,12 @@
     </Compile>
     <Compile Include="Dlg\TeachingLift.Designer.cs">
       <DependentUpon>TeachingLift.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Dlg\TeachingAoiSocket.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Dlg\TeachingAoiSocket.Designer.cs">
+      <DependentUpon>TeachingAoiSocket.cs</DependentUpon>
     </Compile>
     <Compile Include="Dlg\TeachingMagazine.cs">
       <SubType>UserControl</SubType>
@@ -491,11 +503,17 @@
     <EmbeddedResource Include="Dlg\ManualControl.resx">
       <DependentUpon>ManualControl.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="Dlg\TeachingEEpromSocket.resx">
+      <DependentUpon>TeachingEEpromSocket.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="Dlg\TeachingControl.resx">
       <DependentUpon>TeachingControl.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Dlg\TeachingLift.resx">
       <DependentUpon>TeachingLift.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Dlg\TeachingAoiSocket.resx">
+      <DependentUpon>TeachingAoiSocket.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Dlg\TeachingMagazine.resx">
       <DependentUpon>TeachingMagazine.cs</DependentUpon>

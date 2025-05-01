@@ -14,6 +14,7 @@ namespace ZenHandler.Dlg
     public partial class TeachingControl : UserControl
     {
         private eTeachingBtn TeachCurrentTab;
+        //
         private TeachingTransfer TransferTeach;
         private TeachingMagazine MagazineTeach;
         private TeachingLift LiftTeach;
@@ -22,8 +23,8 @@ namespace ZenHandler.Dlg
 
         //liftTeach
         //socketTeach
-        //private TeachingAoiSocket AoiSocket;      //TODO: 소켓 추가
-        //private TeachingEEpromSocket EEpromSocket;
+        private TeachingAoiSocket AoiSocket;      //TODO: 소켓 추가
+        private TeachingEEpromSocket EEpromSocket;
         //private TeachingFwSocket FwSocket;
 
 
@@ -47,7 +48,8 @@ namespace ZenHandler.Dlg
             TransferTeach = new TeachingTransfer();
             MagazineTeach = new TeachingMagazine();
             LiftTeach = new TeachingLift();
-            //SocketTeach = new TeachingTeach();
+            AoiSocket = new TeachingAoiSocket();
+            EEpromSocket = new TeachingEEpromSocket();
             if (Program.PG_SELECT == HANDLER_PG.AOI)
             {
 
@@ -64,10 +66,14 @@ namespace ZenHandler.Dlg
             TransferTeach.Visible = false;
             MagazineTeach.Visible = false;
             LiftTeach.Visible = false;
+            AoiSocket.Visible = false;
+            EEpromSocket.Visible = false;
 
             MachineControl.Add(TransferTeach);
             MachineControl.Add(MagazineTeach);
             MachineControl.Add(LiftTeach);
+            MachineControl.Add(AoiSocket);
+            MachineControl.Add(EEpromSocket);
 
             
             this.Paint += new PaintEventHandler(Form_Paint);
@@ -80,16 +86,17 @@ namespace ZenHandler.Dlg
             this.Controls.Add(TransferTeach);
             this.Controls.Add(MagazineTeach);
             this.Controls.Add(LiftTeach);
-            //this.Controls.Add(SocketTeach);
+            this.Controls.Add(AoiSocket);
+            this.Controls.Add(EEpromSocket);
 
             TransferTeach.Location = new System.Drawing.Point(this.TeachingPanel.Location.X, this.TeachingPanel.Location.Y);
             MagazineTeach.Location = new System.Drawing.Point(this.TeachingPanel.Location.X, this.TeachingPanel.Location.Y);
             LiftTeach.Location = new System.Drawing.Point(this.TeachingPanel.Location.X, this.TeachingPanel.Location.Y);
+            AoiSocket.Location = new System.Drawing.Point(this.TeachingPanel.Location.X, this.TeachingPanel.Location.Y);
+            EEpromSocket.Location = new System.Drawing.Point(this.TeachingPanel.Location.X, this.TeachingPanel.Location.Y);
 
             setInterface();
-
             changeSpeedNo(0);
-
             TeachingBtnChange(TeachCurrentTab);
         }
         private void OnLanguageChanged(object sender, EventArgs e)
@@ -351,7 +358,8 @@ namespace ZenHandler.Dlg
                 TransferTeach.showPanel();
                 MagazineTeach.hidePanel();
                 LiftTeach.hidePanel();
-                //SocketTeach.hidePanel();
+                AoiSocket.hidePanel();
+                EEpromSocket.hidePanel();
             }
             if (TeachCurrentTab == eTeachingBtn.MagazineTab)
             {
@@ -359,7 +367,8 @@ namespace ZenHandler.Dlg
                 MagazineTeach.showPanel();
                 TransferTeach.hidePanel();
                 LiftTeach.hidePanel();
-                //SocketTeach.hidePanel();
+                AoiSocket.hidePanel();
+                EEpromSocket.hidePanel();
             }
             if (TeachCurrentTab == eTeachingBtn.LiftTab)
             {
@@ -367,13 +376,23 @@ namespace ZenHandler.Dlg
                 LiftTeach.showPanel();
                 TransferTeach.hidePanel();
                 MagazineTeach.hidePanel();
-                //SocketTeach.hidePanel();
+                AoiSocket.hidePanel();
+                EEpromSocket.hidePanel();
             }
             
             if (TeachCurrentTab == eTeachingBtn.SocketTab)
             {
                 BTN_TEACH_SOCKET.BackColor = ColorTranslator.FromHtml("#FFB230");
-                //SocketTeach.showPanel();
+                if(Program.PG_SELECT == HANDLER_PG.AOI)
+                {
+                    AoiSocket.showPanel();
+                }
+                else
+                {
+                    EEpromSocket.showPanel();
+                }
+                
+                
                 LiftTeach.hidePanel();
                 TransferTeach.hidePanel();
                 MagazineTeach.hidePanel();

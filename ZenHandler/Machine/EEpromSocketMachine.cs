@@ -14,12 +14,14 @@ namespace ZenHandler.Machine
     {
         public int MotorCnt { get; private set; } = 2;
 
-        public MotionControl.MotorAxis FrontSocketX;    //eeprom 공정 TOTAL : 2
-        public MotionControl.MotorAxis BackSocketX;    //eeprom 공정
+        //소켓4개 2세트 = 총 8개
+
+        public MotionControl.MotorAxis Front_X;    //eeprom 공정 TOTAL : 2
+        public MotionControl.MotorAxis Back_X;    //eeprom 공정
 
         public MotionControl.MotorAxis[] MotorAxes; // 배열 선언
 
-        public string[] axisName = { "FrontSocketX", "BackSocketX"};
+        public string[] axisName = { "Front_X", "Back_X"};
 
         private MotorDefine.eMotorType[] motorType = { MotorDefine.eMotorType.LINEAR, MotorDefine.eMotorType.LINEAR };
         private AXT_MOTION_LEVEL_MODE[] AXT_SET_LIMIT = { AXT_MOTION_LEVEL_MODE.LOW, AXT_MOTION_LEVEL_MODE.LOW };
@@ -53,12 +55,12 @@ namespace ZenHandler.Machine
             this.RunState = OperationState.Stopped;
             this.MachineName = this.GetType().Name;
 
-            MotorAxes = new MotionControl.MotorAxis[] { FrontSocketX, BackSocketX};
+            MotorAxes = new MotionControl.MotorAxis[] { Front_X, Back_X };
             MotorCnt = MotorAxes.Length;
 
             for (i = 0; i < MotorCnt; i++)
             {
-                int index = (int)MotionControl.MotorSet.ValidSocketMotors[i];
+                int index = (int)MotionControl.MotorSet.ValidEEpromSocketMotors[i];
                 MotorAxes[i] = new MotionControl.MotorAxis(index,
                 axisName[i], motorType[i], MaxSpeeds[i], AXT_SET_LIMIT[i], AXT_SET_SERVO_ALARM[i], OrgFirstVel[i], OrgSecondVel[i], OrgThirdVel[i],
                 MOTOR_HOME_SENSOR[i], MOTOR_HOME_DIR[i]);
@@ -147,7 +149,7 @@ namespace ZenHandler.Machine
             {
                 return false;
             }
-            if (FrontSocketX.OrgState == false || BackSocketX.OrgState == false)
+            if (Front_X.OrgState == false || Back_X.OrgState == false)
             {
                 this.RunState = OperationState.OriginRunning;
                 AutoUnitThread.m_nCurrentStep = 1000;
