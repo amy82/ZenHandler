@@ -6,6 +6,7 @@ using System.Threading.Tasks;
 
 namespace ZenHandler.Machine
 {
+
     public enum eAoiSocket : int
     {
         SOCKET_L_X = 0, SOCKET_L_Z, SOCKET_R_X, SOCKET_R_Z
@@ -14,14 +15,17 @@ namespace ZenHandler.Machine
     {
         public int MotorCnt { get; private set; } = 4;
 
-        public MotionControl.MotorAxis CamX_L;          //AOI 공정 TOTAL : 4
-        public MotionControl.MotorAxis CamZ_L;          //AOI 공정
-        public MotionControl.MotorAxis CamX_R;          //AOI 공정
-        public MotionControl.MotorAxis CamZ_R;          //AOI 공정
+        //소켓 2개 2세트 = 4개
+
+
+        public MotionControl.MotorAxis LEFT_X;          //AOI 공정 TOTAL : 4
+        public MotionControl.MotorAxis LEFT_Z;          //AOI 공정
+        public MotionControl.MotorAxis RIGHT_X;          //AOI 공정
+        public MotionControl.MotorAxis RIGHT_Z;          //AOI 공정
 
         public MotionControl.MotorAxis[] MotorAxes; // 배열 선언
 
-        public string[] axisName = {"CAMX_L", "CAMZ_L", "CAMX_R", "CAMZ_R" };
+        public string[] axisName = {"LEFT_X", "LEFT_Z", "RIGHT_X", "RIGHT_Z" };
 
         private MotorDefine.eMotorType[] motorType = { MotorDefine.eMotorType.LINEAR, MotorDefine.eMotorType.LINEAR, MotorDefine.eMotorType.LINEAR, MotorDefine.eMotorType.LINEAR};
         private AXT_MOTION_LEVEL_MODE[] AXT_SET_LIMIT = { AXT_MOTION_LEVEL_MODE.LOW, AXT_MOTION_LEVEL_MODE.LOW, AXT_MOTION_LEVEL_MODE.LOW, AXT_MOTION_LEVEL_MODE.LOW};
@@ -55,12 +59,12 @@ namespace ZenHandler.Machine
             this.RunState = OperationState.Stopped;
             this.MachineName = this.GetType().Name;
 
-            MotorAxes = new MotionControl.MotorAxis[] { CamX_L, CamZ_L, CamX_R, CamZ_R };
+            MotorAxes = new MotionControl.MotorAxis[] { LEFT_X, LEFT_Z, RIGHT_X, RIGHT_Z };
             MotorCnt = MotorAxes.Length;
 
             for (i = 0; i < MotorCnt; i++)
             {
-                int index = (int)MotionControl.MotorSet.ValidSocketMotors[i];
+                int index = (int)MotionControl.MotorSet.ValidAoiSocketMotors[i];
                 MotorAxes[i] = new MotionControl.MotorAxis(index,
                 axisName[i], motorType[i], MaxSpeeds[i], AXT_SET_LIMIT[i], AXT_SET_SERVO_ALARM[i], OrgFirstVel[i], OrgSecondVel[i], OrgThirdVel[i],
                 MOTOR_HOME_SENSOR[i], MOTOR_HOME_DIR[i]);
@@ -149,7 +153,7 @@ namespace ZenHandler.Machine
             {
                 return false;
             }
-            if (CamX_L.OrgState == false || CamZ_L.OrgState == false || CamX_R.OrgState == false || CamZ_R.OrgState == false)
+            if (LEFT_X.OrgState == false || LEFT_Z.OrgState == false || RIGHT_X.OrgState == false || RIGHT_Z.OrgState == false)
             {
                 this.RunState = OperationState.OriginRunning;
                 AutoUnitThread.m_nCurrentStep = 1000;

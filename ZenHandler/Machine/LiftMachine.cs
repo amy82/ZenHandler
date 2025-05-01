@@ -15,15 +15,15 @@ namespace ZenHandler.Machine
     {
         public int MotorCnt { get; private set; } = 4;
 
-        public MotionControl.MotorAxis LoadLift_Z_L;
-        public MotionControl.MotorAxis LoadLift_Z_R;
         public MotionControl.MotorAxis Gantry_X_F;
         public MotionControl.MotorAxis Gantry_X_B;
+        public MotionControl.MotorAxis LoadLift_Z_L;
+        public MotionControl.MotorAxis LoadLift_Z_R;
 
         //LEFT Z / RIGHT Z / GANTRY FRONT X / GANTRY BACK X / 
         public MotionControl.MotorAxis[] MotorAxes; // 배열 선언
 
-        public string[] axisName = { "LoadZ_L", "LoadZ_R", "GantryY_L" , "GantryY_R" };
+        public string[] axisName = { "FRONT_X", "BACK_X", "LEFT_Z", "RIGHT_Z"};
 
         private MotorDefine.eMotorType[] motorType = { MotorDefine.eMotorType.LINEAR, MotorDefine.eMotorType.LINEAR, MotorDefine.eMotorType.LINEAR, MotorDefine.eMotorType.LINEAR, MotorDefine.eMotorType.LINEAR, MotorDefine.eMotorType.LINEAR };
         private AXT_MOTION_LEVEL_MODE[] AXT_SET_LIMIT = { AXT_MOTION_LEVEL_MODE.LOW, AXT_MOTION_LEVEL_MODE.LOW, AXT_MOTION_LEVEL_MODE.LOW, AXT_MOTION_LEVEL_MODE.LOW, AXT_MOTION_LEVEL_MODE.LOW, AXT_MOTION_LEVEL_MODE.LOW };
@@ -60,7 +60,7 @@ namespace ZenHandler.Machine
             this.RunState = OperationState.Stopped;
             this.MachineName = this.GetType().Name;
 
-            MotorAxes = new MotionControl.MotorAxis[] { LoadLift_Z_L, LoadLift_Z_R, Gantry_X_F, Gantry_X_B};
+            MotorAxes = new MotionControl.MotorAxis[] { Gantry_X_F, Gantry_X_B, LoadLift_Z_L, LoadLift_Z_R};
             MotorCnt = MotorAxes.Length;
 
             for (i = 0; i < MotorCnt; i++)
