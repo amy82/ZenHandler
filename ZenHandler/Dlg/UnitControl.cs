@@ -91,20 +91,20 @@ namespace ZenHandler.Dlg
 
                 
             
-            if (Globalo.motionManager.socketMachine.IsMoving())
+            if (Globalo.motionManager.socketAoiMachine.IsMoving())
             {
-                if (Globalo.motionManager.socketMachine.RunState == OperationState.Preparing)
+                if (Globalo.motionManager.socketAoiMachine.RunState == OperationState.Preparing)
                 {
                     ReadyBlinkUnit((int)euNIT.SOCKET_UNIT);
                 }
             }
             else
             {
-                if (_prevState[(int)euNIT.SOCKET_UNIT] != Globalo.motionManager.socketMachine.RunState)
+                if (_prevState[(int)euNIT.SOCKET_UNIT] != Globalo.motionManager.socketAoiMachine.RunState)
                 {
-                    UpdateBtnUnit((int)euNIT.SOCKET_UNIT, Globalo.motionManager.socketMachine.RunState);
+                    UpdateBtnUnit((int)euNIT.SOCKET_UNIT, Globalo.motionManager.socketAoiMachine.RunState);
 
-                    _prevState[(int)euNIT.SOCKET_UNIT] = Globalo.motionManager.socketMachine.RunState;
+                    _prevState[(int)euNIT.SOCKET_UNIT] = Globalo.motionManager.socketAoiMachine.RunState;
                 }
             }
             if (Globalo.motionManager.liftMachine.IsMoving())

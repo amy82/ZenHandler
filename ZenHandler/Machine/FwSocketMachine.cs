@@ -8,7 +8,7 @@ namespace ZenHandler.Machine
 {
     public class FwSocketMachine : MotionControl.MotorController
     {
-        public int MotorCnt { get; private set; } = 4;
+        public int MotorCnt { get; private set; } = 0;
 
         //실린더 전후진 4개
         //실린더 상승,하강 4개

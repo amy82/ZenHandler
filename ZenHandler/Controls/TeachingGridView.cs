@@ -241,9 +241,10 @@ namespace ZenHandler.Controls
 
 
             this.Rows[nGridRowCount - 1].SetValues("현재위치");
-            this[1, nGridRowCount - 1].Value = "0.0";
-            this[2, nGridRowCount - 1].Value = "0.0";
-            this[3, nGridRowCount - 1].Value = "0.0";
+            for (i = 0; i < this.ColumnCount - 1; i++)
+            {
+                this[i + 1, nGridRowCount - 1].Value = "0.0";
+            }
 
             this.ColumnHeadersDefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleCenter;
             this.ReadOnly = true;

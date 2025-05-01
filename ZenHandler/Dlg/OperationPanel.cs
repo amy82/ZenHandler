@@ -205,28 +205,28 @@ namespace ZenHandler.Dlg
         }
         private void RunButtonUITimerFn()
         {
-            if (Globalo.motionManager.transferMachine.RunState == OperationState.OriginRunning && Globalo.motionManager.socketMachine.RunState == OperationState.OriginRunning &&
+            if (Globalo.motionManager.transferMachine.RunState == OperationState.OriginRunning && Globalo.motionManager.socketAoiMachine.RunState == OperationState.OriginRunning &&
                 Globalo.motionManager.liftMachine.RunState == OperationState.OriginRunning && Globalo.motionManager.magazineHandler.RunState == OperationState.OriginRunning)
             {
                 _AllState = OperationState.OriginRunning;
             }
-            else if (Globalo.motionManager.transferMachine.RunState == OperationState.Preparing && Globalo.motionManager.socketMachine.RunState == OperationState.Preparing &&
+            else if (Globalo.motionManager.transferMachine.RunState == OperationState.Preparing && Globalo.motionManager.socketAoiMachine.RunState == OperationState.Preparing &&
                 Globalo.motionManager.liftMachine.RunState == OperationState.Preparing && Globalo.motionManager.magazineHandler.RunState == OperationState.Preparing)
             {
                 _AllState = OperationState.Preparing;
             }
-            else if (Globalo.motionManager.transferMachine.RunState == OperationState.AutoRunning && Globalo.motionManager.socketMachine.RunState == OperationState.AutoRunning &&
+            else if (Globalo.motionManager.transferMachine.RunState == OperationState.AutoRunning && Globalo.motionManager.socketAoiMachine.RunState == OperationState.AutoRunning &&
                 Globalo.motionManager.liftMachine.RunState == OperationState.AutoRunning && Globalo.motionManager.magazineHandler.RunState == OperationState.AutoRunning)
             {
                 _AllState = OperationState.AutoRunning;
             }
-            if (Globalo.motionManager.transferMachine.RunState == OperationState.PreparationComplete && Globalo.motionManager.socketMachine.RunState == OperationState.PreparationComplete &&
+            if (Globalo.motionManager.transferMachine.RunState == OperationState.PreparationComplete && Globalo.motionManager.socketAoiMachine.RunState == OperationState.PreparationComplete &&
                 Globalo.motionManager.liftMachine.RunState == OperationState.PreparationComplete && Globalo.motionManager.magazineHandler.RunState == OperationState.PreparationComplete)
             {
                 _AllState = OperationState.PreparationComplete;
             }
             if (Globalo.motionManager.transferMachine.RunState == OperationState.Paused || 
-                Globalo.motionManager.socketMachine.RunState == OperationState.Paused ||
+                Globalo.motionManager.socketAoiMachine.RunState == OperationState.Paused ||
                 Globalo.motionManager.liftMachine.RunState == OperationState.Paused || 
                 Globalo.motionManager.magazineHandler.RunState == OperationState.Paused)
             {
@@ -234,7 +234,7 @@ namespace ZenHandler.Dlg
             }
 
             if (Globalo.motionManager.transferMachine.RunState == OperationState.Stopped ||
-                Globalo.motionManager.socketMachine.RunState == OperationState.Stopped ||
+                Globalo.motionManager.socketAoiMachine.RunState == OperationState.Stopped ||
                 Globalo.motionManager.liftMachine.RunState == OperationState.Stopped ||
                 Globalo.motionManager.magazineHandler.RunState == OperationState.Stopped)
             {
