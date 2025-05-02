@@ -239,6 +239,188 @@ namespace ZenHandler.Machine
 
             return false;
         }
+        public bool GetLoadPickerUpState(int index, bool bFlag)
+        {
+            if (ProgramState.ON_LINE_MOTOR == false)
+            {
+                return true;
+            }
+            int lModuleNo = 1;
+            int lOffset = 0;
+
+            uint uFlagHigh = 0;
+            uint upValue = Globalo.motionManager.ioController.m_dwDInDict[lModuleNo][lOffset];
+            if(index == 0)
+            {
+                if (bFlag)
+                {
+                    uFlagHigh = upValue & (uint)DioDefine.DIO_IN_ADDR_CH1.IN_LOAD_PICKER_UP1;
+                    if (uFlagHigh == 1)
+                    {
+                        return true;
+                    }
+                }
+                else
+                {
+                    uFlagHigh = upValue & (uint)DioDefine.DIO_IN_ADDR_CH1.IN_LOAD_PICKER_DOWN1;
+                    if (uFlagHigh == 1)
+                    {
+                        return true;
+                    }
+                }
+            }
+            else if (index == 1)
+            {
+                if (bFlag)
+                {
+                    uFlagHigh = upValue & (uint)DioDefine.DIO_IN_ADDR_CH1.IN_LOAD_PICKER_UP2;
+                    if (uFlagHigh == 1)
+                    {
+                        return true;
+                    }
+                }
+                else
+                {
+                    uFlagHigh = upValue & (uint)DioDefine.DIO_IN_ADDR_CH1.IN_LOAD_PICKER_DOWN2;
+                    if (uFlagHigh == 1)
+                    {
+                        return true;
+                    }
+                }
+            }
+            else if (index == 2)
+            {
+                if (bFlag)
+                {
+                    uFlagHigh = upValue & (uint)DioDefine.DIO_IN_ADDR_CH1.IN_LOAD_PICKER_UP3;
+                    if (uFlagHigh == 1)
+                    {
+                        return true;
+                    }
+                }
+                else
+                {
+                    uFlagHigh = upValue & (uint)DioDefine.DIO_IN_ADDR_CH1.IN_LOAD_PICKER_DOWN3;
+                    if (uFlagHigh == 1)
+                    {
+                        return true;
+                    }
+                }
+            }
+            else if (index == 3)
+            {
+                if (bFlag)
+                {
+                    uFlagHigh = upValue & (uint)DioDefine.DIO_IN_ADDR_CH1.IN_LOAD_PICKER_UP4;
+                    if (uFlagHigh == 1)
+                    {
+                        return true;
+                    }
+                }
+                else
+                {
+                    uFlagHigh = upValue & (uint)DioDefine.DIO_IN_ADDR_CH1.IN_LOAD_PICKER_DOWN4;
+                    if (uFlagHigh == 1)
+                    {
+                        return true;
+                    }
+                }
+            }
+            
+            return false;
+
+        }
+        public bool GetUnLoadPickerUpState(int index, bool bFlag)
+        {
+            if (ProgramState.ON_LINE_MOTOR == false)
+            {
+                return true;
+            }
+            int lModuleNo = 1;
+            int lOffset = 0;
+
+            uint uFlagHigh = 0;
+            uint upValue = Globalo.motionManager.ioController.m_dwDInDict[lModuleNo][lOffset];
+            if (index == 0)
+            {
+                if (bFlag)
+                {
+                    uFlagHigh = upValue & (uint)DioDefine.DIO_IN_ADDR_CH1.IN_UNLOAD_PICKER_UP1;
+                    if (uFlagHigh == 1)
+                    {
+                        return true;
+                    }
+                }
+                else
+                {
+                    uFlagHigh = upValue & (uint)DioDefine.DIO_IN_ADDR_CH1.IN_UNLOAD_PICKER_DOWN1;
+                    if (uFlagHigh == 1)
+                    {
+                        return true;
+                    }
+                }
+            }
+            else if (index == 1)
+            {
+                if (bFlag)
+                {
+                    uFlagHigh = upValue & (uint)DioDefine.DIO_IN_ADDR_CH1.IN_UNLOAD_PICKER_UP2;
+                    if (uFlagHigh == 1)
+                    {
+                        return true;
+                    }
+                }
+                else
+                {
+                    uFlagHigh = upValue & (uint)DioDefine.DIO_IN_ADDR_CH1.IN_UNLOAD_PICKER_DOWN2;
+                    if (uFlagHigh == 1)
+                    {
+                        return true;
+                    }
+                }
+            }
+            else if (index == 2)
+            {
+                if (bFlag)
+                {
+                    uFlagHigh = upValue & (uint)DioDefine.DIO_IN_ADDR_CH1.IN_UNLOAD_PICKER_UP3;
+                    if (uFlagHigh == 1)
+                    {
+                        return true;
+                    }
+                }
+                else
+                {
+                    uFlagHigh = upValue & (uint)DioDefine.DIO_IN_ADDR_CH1.IN_UNLOAD_PICKER_DOWN3;
+                    if (uFlagHigh == 1)
+                    {
+                        return true;
+                    }
+                }
+            }
+            else if (index == 3)
+            {
+                if (bFlag)
+                {
+                    uFlagHigh = upValue & (uint)DioDefine.DIO_IN_ADDR_CH1.IN_UNLOAD_PICKER_UP4;
+                    if (uFlagHigh == 1)
+                    {
+                        return true;
+                    }
+                }
+                else
+                {
+                    uFlagHigh = upValue & (uint)DioDefine.DIO_IN_ADDR_CH1.IN_UNLOAD_PICKER_DOWN4;
+                    if (uFlagHigh == 1)
+                    {
+                        return true;
+                    }
+                }
+            }
+
+            return false;
+
+        }
         public bool GetLensGripState(bool bFlag)
         {
             if (ProgramState.ON_LINE_MOTOR == false)
@@ -327,7 +509,114 @@ namespace ZenHandler.Machine
             }
             return false;
         }
-        
+        public bool LoadPickerUp(int index, bool bFlag, bool bWait = false)
+        {
+            if (ProgramState.ON_LINE_MOTOR == false)
+            {
+                return true;
+            }
+            int lModuleNo = 2;
+            int lOffset = 0;
+            uint uFlagHigh = 0;
+            uint uFlagLow = 0;
+            if(index == 0)
+            {
+                if (bFlag)
+                {
+                    uFlagHigh = (uint)DioDefine.DIO_OUT_ADDR_CH1.LOAD_PICKER_UP1;
+                    uFlagLow = (uint)DioDefine.DIO_OUT_ADDR_CH1.LOAD_PICKER_DOWN1;
+                }
+                else
+                {
+                    uFlagHigh = (uint)DioDefine.DIO_OUT_ADDR_CH1.LOAD_PICKER_DOWN1;
+                    uFlagLow = (uint)DioDefine.DIO_OUT_ADDR_CH1.LOAD_PICKER_UP1;
+                }
+            }
+            else if (index == 1)
+            {
+                if (bFlag)
+                {
+                    uFlagHigh = (uint)DioDefine.DIO_OUT_ADDR_CH1.LOAD_PICKER_UP2;
+                    uFlagLow = (uint)DioDefine.DIO_OUT_ADDR_CH1.LOAD_PICKER_DOWN2;
+                }
+                else
+                {
+                    uFlagHigh = (uint)DioDefine.DIO_OUT_ADDR_CH1.LOAD_PICKER_DOWN2;
+                    uFlagLow = (uint)DioDefine.DIO_OUT_ADDR_CH1.LOAD_PICKER_UP2;
+                }
+            }
+            else if (index == 2)
+            {
+                if (bFlag)
+                {
+                    uFlagHigh = (uint)DioDefine.DIO_OUT_ADDR_CH1.LOAD_PICKER_UP3;
+                    uFlagLow = (uint)DioDefine.DIO_OUT_ADDR_CH1.LOAD_PICKER_DOWN3;
+                }
+                else
+                {
+                    uFlagHigh = (uint)DioDefine.DIO_OUT_ADDR_CH1.LOAD_PICKER_DOWN3;
+                    uFlagLow = (uint)DioDefine.DIO_OUT_ADDR_CH1.LOAD_PICKER_UP3;
+                }
+            }
+            else if (index == 3)
+            {
+                if (bFlag)
+                {
+                    uFlagHigh = (uint)DioDefine.DIO_OUT_ADDR_CH1.LOAD_PICKER_UP4;
+                    uFlagLow = (uint)DioDefine.DIO_OUT_ADDR_CH1.LOAD_PICKER_DOWN4;
+                }
+                else
+                {
+                    uFlagHigh = (uint)DioDefine.DIO_OUT_ADDR_CH1.LOAD_PICKER_DOWN4;
+                    uFlagLow = (uint)DioDefine.DIO_OUT_ADDR_CH1.LOAD_PICKER_UP4;
+                }
+            }
+            
+
+            bool Rtn = Globalo.motionManager.ioController.DioWriteOutportByte(lModuleNo, lOffset, uFlagHigh, uFlagLow);
+            if (Rtn == false)
+            {
+                Console.WriteLine($"#{index} LOAD PICKER MOVE FAIL");
+                return false;
+            }
+
+            bool isSuccess = false;
+
+            if (bWait == false)
+            {
+                return true;
+            }
+            else
+            {
+                if (bWait == false)
+                {
+                    return false;
+                }
+                else
+                {
+                    int nTimeTick = 0;
+                    while (bWait)
+                    {
+                        Rtn = GetLoadVacuumState(index, bFlag);
+                        if (Rtn == true)
+                        {
+                            isSuccess = true;
+                            break;
+                        }
+
+                        nTimeTick = Environment.TickCount;
+                        if (Environment.TickCount - nTimeTick > MotionControl.MotorSet.IO_TIMEOUT)
+                        {
+                            isSuccess = false;
+                            break;
+                        }
+
+                        Thread.Sleep(10);
+                    }
+                }
+            }
+            return isSuccess;
+        }
         public bool LoadVacuumOn(int index, bool bFlag, bool bWait = false)
         {
             if (ProgramState.ON_LINE_MOTOR == false)

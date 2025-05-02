@@ -28,7 +28,28 @@ namespace ZenHandler.MotionControl
         };
         public enum eTransferMotorList : int        
         {
-            TRANSFER_X = 0, TRANSFER_Y, TRANSFER_Z, TOTAL_TRANSFER_MOTOR_COUNT
+            TRANSFER_X = 0, TRANSFER_Y = 1, TRANSFER_Z = 2, TOTAL_TRANSFER_MOTOR_COUNT
+        };
+        public static readonly eAoisocketMotorList[] ValidAoiSocketMotors =
+        {
+            eAoisocketMotorList.AOI_LEFT_X,
+            eAoisocketMotorList.AOI_LEFT_Z,
+            eAoisocketMotorList.AOI_RIGHT_X,
+            eAoisocketMotorList.AOI_RIGHT_Z
+        };
+        public enum eAoisocketMotorList : int
+        {
+            AOI_LEFT_X = 7, AOI_LEFT_Z = 8, AOI_RIGHT_X = 9, AOI_RIGHT_Z = 10, TOTAL_AOI_SOCKET_MOTOR_COUNT
+        };
+
+        public static readonly eEEpromSocketMotorList[] ValidEEpromSocketMotors =
+        {
+            eEEpromSocketMotorList.EEPROM_FRONT_X,
+            eEEpromSocketMotorList.EEPROM_BACK_X
+        };
+        public enum eEEpromSocketMotorList : int
+        {
+            EEPROM_FRONT_X = 7, EEPROM_BACK_X = 8, TOTAL_EEPROM_SOCKET_MOTOR_COUNT
         };
         public static readonly eLiftMotorList[] ValidLiftMotors =
         {
@@ -39,7 +60,7 @@ namespace ZenHandler.MotionControl
         };
         public enum eLiftMotorList : int
         {
-            FRONT_X = 5, BACK_X, LEFT_Z, RIGHT_Z, TOTAL_LIFT_MOTOR_COUNT
+            FRONT_X = 3, BACK_X = 4, LEFT_Z = 5, RIGHT_Z = 6, TOTAL_LIFT_MOTOR_COUNT
         };
 
 
@@ -53,30 +74,10 @@ namespace ZenHandler.MotionControl
 
         public enum eMagazineMotorList : int
         {
-            L_MAGAZINE_Z = 3, L_MAGAZINE_Y, R_MAGAZINE_Z, R_MAGAZINE_Y, TOTAL_MAGAZINE_MOTOR_COUNT
+            L_MAGAZINE_Z = 3, L_MAGAZINE_Y = 4, R_MAGAZINE_Z = 5, R_MAGAZINE_Y = 6, TOTAL_MAGAZINE_MOTOR_COUNT
         };
 
-        public static readonly eAoisocketMotorList[] ValidAoiSocketMotors =
-        {
-            eAoisocketMotorList.AOI_LEFT_X,
-            eAoisocketMotorList.AOI_LEFT_Z,
-            eAoisocketMotorList.AOI_RIGHT_X,
-            eAoisocketMotorList.AOI_RIGHT_Z
-        };
-        public enum eAoisocketMotorList : int
-        {
-            AOI_LEFT_X = 3, AOI_LEFT_Z, AOI_RIGHT_X, AOI_RIGHT_Z, TOTAL_AOI_SOCKET_MOTOR_COUNT
-        };
-
-        public static readonly eEEpromSocketMotorList[] ValidEEpromSocketMotors =
-        {
-            eEEpromSocketMotorList.EEPROM_FRONT_X,
-            eEEpromSocketMotorList.EEPROM_BACK_X
-        };
-        public enum eEEpromSocketMotorList : int
-        {
-            EEPROM_FRONT_X = 3, EEPROM_BACK_X, TOTAL_EEPROM_SOCKET_MOTOR_COUNT
-        };
+        
         //
         //EEPROM == LIFT Z 2개, GANTRY X 2개, SOCKET X축 2개 = TOTAL : 6개
         //aoi    == LIFT Z 2개, GANTRY X 2개 ,CAM X축 2개, CAM Z축 2개 = TOTAL : 8개

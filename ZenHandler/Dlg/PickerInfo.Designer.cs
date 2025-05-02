@@ -49,7 +49,7 @@ namespace ZenHandler.Dlg
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.Controls.Add(this.TitleLabel);
             this.Name = "PickerInfo";
-            this.Size = new System.Drawing.Size(546, 346);
+            this.Size = new System.Drawing.Size(546, 330);
             this.ResumeLayout(false);
 
         }

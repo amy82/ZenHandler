@@ -58,7 +58,44 @@ namespace ZenHandler
         //
         //
         //----------------------------------------------------------------------------------------------------------------
-
+        public enum DIO_IN_ADDR_CH1 : uint
+        {
+            IN_LOAD_PICKER_UP1 = 0x01,                   //1
+            IN_LOAD_PICKER_UP2 = 0x02,
+            IN_LOAD_PICKER_UP3 = 0x04,
+            IN_LOAD_PICKER_UP4 = 0x08,           //4
+            IN_LOAD_PICKER_DOWN1 = 0x10,
+            IN_LOAD_PICKER_DOWN2 = 0x20,
+            IN_LOAD_PICKER_DOWN3 = 0x40,
+            IN_LOAD_PICKER_DOWN4 = 0x80,          //8
+            //
+            IN_UNLOAD_PICKER_UP1 = 0x01,           //9
+            IN_UNLOAD_PICKER_UP2 = 0x02,
+            IN_UNLOAD_PICKER_UP3 = 0x04,
+            IN_UNLOAD_PICKER_UP4 = 0x08,                  //12
+            IN_UNLOAD_PICKER_DOWN1 = 0x10,
+            IN_UNLOAD_PICKER_DOWN2 = 0x20,
+            IN_UNLOAD_PICKER_DOWN3 = 0x40,
+            IN_UNLOAD_PICKER_DOWN4 = 0x80,                  //16
+            //
+            DOOR_SENSOR1 = 0x01,            //17
+            DOOR_SENSOR2 = 0x02,
+            DOOR_SENSOR3 = 0x04,
+            DOOR_SENSOR4 = 0x08,            //20
+            DOOR_SENSOR5 = 0x10,
+            DOOR_SENSOR6 = 0x20,
+            DOOR_SENSOR7 = 0x40,
+            DOOR_SENSOR8 = 0x80,            //24
+            //
+            TEMP25 = 0x01,                  //25
+            TEMP26 = 0x02,
+            TEMP27 = 0x04,
+            TEMP28 = 0x08,                  //28
+            TEMP29 = 0x10,
+            TEMP30 = 0x20,
+            TEMP31 = 0x40,
+            TEMP32 = 0x80                   //32
+        };
 
 
         //
@@ -115,5 +152,43 @@ namespace ZenHandler
         //
         //
         //----------------------------------------------------------------------------------------------------------------
+        public enum DIO_OUT_ADDR_CH1 : uint
+        {
+            LOAD_PICKER_UP1 = 0x01,            //1
+            LOAD_PICKER_UP2 = 0x02,
+            LOAD_PICKER_UP3 = 0x04,
+            LOAD_PICKER_UP4 = 0x08,            //4
+            LOAD_PICKER_DOWN1 = 0x10,
+            LOAD_PICKER_DOWN2 = 0x20,
+            LOAD_PICKER_DOWN3 = 0x40,
+            LOAD_PICKER_DOWN4 = 0x80,                 //8
+            //
+            UNLOAD_PICKER_UP1 = 0x01,                  //9
+            UNLOAD_PICKER_UP2 = 0x02,
+            UNLOAD_PICKER_UP3 = 0x04,
+            UNLOAD_PICKER_UP4 = 0x08,          //12
+            UNLOAD_PICKER_DOWN1 = 0x10,
+            UNLOAD_PICKER_DOWN2 = 0x20,
+            UNLOAD_PICKER_DOWN3 = 0x40,
+            UNLOAD_PICKER_DOWN4 = 0x80,                  //16
+            //
+            LASER_CYL_UP = 0x01,            //17
+            LASER_CYL_DOWN = 0x02,
+            TEMP19 = 0x04,
+            START_PB_PRESS = 0x08,          //20
+            DOOR_PB_PRESS = 0x10,
+            TEMP22 = 0x20,
+            TEMP23 = 0x40,
+            TEMP24 = 0x80,                  //24
+            //
+            BUZZER1 = 0x01,                  //25
+            BUZZER2 = 0x02,
+            BUZZER3 = 0x04,
+            BUZZER4 = 0x08,                  //28
+            TEMP29 = 0x10,
+            TEMP30 = 0x20,
+            EPOXY_ON = 0x40,
+            UV_ON = 0x80                    //32
+        };
     }//END
 }
