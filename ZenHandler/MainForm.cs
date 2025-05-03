@@ -597,6 +597,8 @@ namespace ZenHandler  //ApsMotionControl
                 int[] pickerList = { 1, 1, 1, 1 };
 
                 Globalo.motionManager.transferMachine.LoadMultiPickerUp(pickerList, true);
+
+                Globalo.motionManager.transferMachine.GetUnloadMultiPickerUp(new int[] { 1, 1, 1, 1 }, true);
             }
             //
         }
