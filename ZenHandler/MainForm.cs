@@ -599,12 +599,12 @@ namespace ZenHandler  //ApsMotionControl
                 //Globalo.motionManager.transferMachine.LoadMultiPickerUp(pickerList, true);
 
                 //Globalo.motionManager.transferMachine.GetUnloadMultiPickerUp(new int[] { 1, 1, 1, 1 }, true);
-                Globalo.motionManager.transferMachine.pickedProduct.UnloadTrayPos.X = Globalo.motionManager.transferMachine.pickedProduct.LoadTrayPos.X;
-                Globalo.motionManager.transferMachine.pickedProduct.UnloadTrayPos.Y = Globalo.motionManager.transferMachine.pickedProduct.LoadTrayPos.Y;
+                //Globalo.motionManager.transferMachine.pickedProduct.UnloadTrayPos.X = Globalo.motionManager.transferMachine.pickedProduct.LoadTrayPos.X;
+                //Globalo.motionManager.transferMachine.pickedProduct.UnloadTrayPos.Y = Globalo.motionManager.transferMachine.pickedProduct.LoadTrayPos.Y;
                 //배출위치는 항상 로드하는 위치로 고정시키기
-                int UnloadPosx = 3;// Globalo.motionManager.transferMachine.pickedProduct.UnloadTrayPos.X;
+                int UnloadPosx =  Globalo.motionManager.transferMachine.pickedProduct.UnloadTrayPos.X;
                 int UnloadPosy = Globalo.motionManager.transferMachine.pickedProduct.UnloadTrayPos.Y;
-                int Cnt = 3;// Machine.TransferMachine.UnLoadCount;      //  <--- 배출 개수  ex) 2개
+                int Cnt = 4;// Machine.TransferMachine.UnLoadCount;      //  <--- 배출 개수  ex) 2개
                 
                 int UnloadCnt = UnloadPosx % Cnt;
                 int TotalCnt = UnloadPosx + Cnt - UnloadCnt;
@@ -613,8 +613,8 @@ namespace ZenHandler  //ApsMotionControl
                     TotalCnt = 4;
                 }
                 Console.WriteLine("----------------------------------------------------");
-                Console.WriteLine($"배출개수 :  {Cnt}, Pos x : {UnloadPosx}");
-                Console.WriteLine($"피커 다운 수 : {UnloadPosx} ~ {TotalCnt}");
+                Console.WriteLine($"배출개수 : {Cnt}, Pos x : {UnloadPosx}");
+                Console.WriteLine($"피커 다운 범위 : {UnloadPosx} ~ {TotalCnt}");
 
                 List<int> LoadTrayOffset = new List<int>();
                 //
@@ -628,8 +628,35 @@ namespace ZenHandler  //ApsMotionControl
                 }
 
                 Globalo.motionManager.transferMachine.LoadMultiPickerUp(LoadTrayOffset, true);
+
+                testFn(Cnt);
             }
             //
+        }
+        private void testFn(int UnloadCnt)
+        {
+            int currentPosx = Globalo.motionManager.transferMachine.pickedProduct.UnloadTrayPos.X;
+            int currentPosy = Globalo.motionManager.transferMachine.pickedProduct.UnloadTrayPos.Y;
+
+            Globalo.motionManager.transferMachine.pickedProduct.UnloadTrayPos.X += UnloadCnt;
+
+            if(Globalo.motionManager.transferMachine.pickedProduct.UnloadTrayPos.X >= Globalo.motionManager.transferMachine.pickedProduct.TotalTrayPos.X)
+            {
+                Globalo.motionManager.transferMachine.pickedProduct.UnloadTrayPos.X = 0;
+                Globalo.motionManager.transferMachine.pickedProduct.UnloadTrayPos.Y++;
+            }
+
+            if(Globalo.motionManager.transferMachine.pickedProduct.UnloadTrayPos.Y >= Globalo.motionManager.transferMachine.pickedProduct.TotalTrayPos.Y)
+            {
+                Globalo.motionManager.transferMachine.pickedProduct.UnloadTrayPos.Y = 0;
+            }
+            int nextPosx = Globalo.motionManager.transferMachine.pickedProduct.UnloadTrayPos.X;
+            int nextPosy = Globalo.motionManager.transferMachine.pickedProduct.UnloadTrayPos.Y;
+
+
+            Console.WriteLine("----------------------------------------------------");
+            Console.WriteLine($"배출 X : {currentPosx} > {nextPosx}");
+            Console.WriteLine($"배출 Y : {currentPosy} > {nextPosy}");
         }
     }
 }
