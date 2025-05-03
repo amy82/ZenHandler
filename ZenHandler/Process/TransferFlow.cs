@@ -69,8 +69,8 @@ namespace ZenHandler.Process
                     break;
                 case 1060:
                     //Load 실린더 전체 상승
-                    bRtn = Globalo.motionManager.transferMachine.LoadMultiPickerUp(new int[] { 1, 1, 1, 1 }, true);
-                    if(bRtn)
+                    bRtn = Globalo.motionManager.transferMachine.LoadMultiPickerUp(new List<int> { 1, 1, 1, 1 }, true);//new int[] { 1, 1, 1, 1 }, true);
+                    if (bRtn)
                     {
                         szLog = $"[ORIGIN] Trnasfer Load PIcker All Up [STEP : {nStep}]";
                         Globalo.LogPrint("ManualControl", szLog);
@@ -466,7 +466,7 @@ namespace ZenHandler.Process
                 case 2020:
                     //로드 실린더 전체 상승
                     //Load 실린더 전체 상승
-                    bRtn = Globalo.motionManager.transferMachine.LoadMultiPickerUp(new int[] { 1, 1, 1, 1 }, true);
+                    bRtn = Globalo.motionManager.transferMachine.LoadMultiPickerUp(new List<int> { 1, 1, 1, 1 }, true);
                     if (bRtn)
                     {
                         szLog = $"[READY] Trnasfer Load PIcker All Up [STEP : {nStep}]";
@@ -819,6 +819,45 @@ namespace ZenHandler.Process
             switch (nStep)
             {
                 case 7000:
+                    nRetStep = 7020;
+                    break;
+                case 7020:
+                    nRetStep = 7040;
+                    break;
+                case 7040:
+                    int UnloadPosx = Globalo.motionManager.transferMachine.pickedProduct.UnloadTrayPos.X;
+                    int UnloadPosy = Globalo.motionManager.transferMachine.pickedProduct.UnloadTrayPos.Y;
+
+                    int kk = Machine.TransferMachine.UnLoadCount;//항상 2개씩 배출
+
+                    List<int> LoadTrayOffset = new List<int>();
+                    //
+                    for (int i = 0; i < 4; i++)
+                    {
+                        if(Globalo.motionManager.transferMachine.pickedProduct.LoadProductInfo[i].State == Machine.PickedProductState.Good)
+                        {
+                            LoadTrayOffset.Add(i);
+                        }
+                        else
+                        {
+                            LoadTrayOffset.Add(-1);
+                        }
+                    }
+                    nRetStep = 7060;
+                    break;
+                case 7060:
+                    nRetStep = 7080;
+                    break;
+                case 7080:
+                    nRetStep = 7100;
+                    break;
+                case 7100:
+                    nRetStep = 7120;
+                    break;
+                case 7120:
+                    nRetStep = 7140;
+                    break;
+                case 7140:
                     nRetStep = 7900;
                     break;
 

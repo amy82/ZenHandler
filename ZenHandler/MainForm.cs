@@ -594,11 +594,34 @@ namespace ZenHandler  //ApsMotionControl
         {
             if (ProgramState.NORINDA_MODE == true)
             {
-                int[] pickerList = { 1, 1, 1, 1 };
+                //int[] pickerList = { 1, 1, 1, 1 };
 
-                Globalo.motionManager.transferMachine.LoadMultiPickerUp(pickerList, true);
+                //Globalo.motionManager.transferMachine.LoadMultiPickerUp(pickerList, true);
 
-                Globalo.motionManager.transferMachine.GetUnloadMultiPickerUp(new int[] { 1, 1, 1, 1 }, true);
+                //Globalo.motionManager.transferMachine.GetUnloadMultiPickerUp(new int[] { 1, 1, 1, 1 }, true);
+                Globalo.motionManager.transferMachine.pickedProduct.UnloadTrayPos.X = Globalo.motionManager.transferMachine.pickedProduct.LoadTrayPos.X;
+                Globalo.motionManager.transferMachine.pickedProduct.UnloadTrayPos.Y = Globalo.motionManager.transferMachine.pickedProduct.LoadTrayPos.Y;
+                //배출위치는 항상 로드하는 위치로 고정시키기
+                int UnloadPosx = Globalo.motionManager.transferMachine.pickedProduct.UnloadTrayPos.X;
+                int UnloadPosy = Globalo.motionManager.transferMachine.pickedProduct.UnloadTrayPos.Y;
+
+                int kk = Machine.TransferMachine.UnLoadCount;//항상 2개씩 배출
+
+                List<int> LoadTrayOffset = new List<int>();
+                //
+                for (int i = 0; i < 4; i++)
+                {
+                    if (Globalo.motionManager.transferMachine.pickedProduct.LoadProductInfo[i].State == Machine.PickedProductState.Good)
+                    {
+                        LoadTrayOffset.Add(i);
+                    }
+                    if(LoadTrayOffset.Count == Machine.TransferMachine.UnLoadCount)
+                    {
+                        break;
+                    }
+                }
+
+                Globalo.motionManager.transferMachine.LoadMultiPickerUp(LoadTrayOffset, true);
             }
             //
         }

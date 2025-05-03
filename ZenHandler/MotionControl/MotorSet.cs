@@ -85,8 +85,16 @@ namespace ZenHandler.MotionControl
         public enum TrayPosition        //LIFT , MAGAZINE 왼쪽, 오른족 구분
         {
             Left,
-            Right
+            Right,
+            RightDown
         }
+
+
+        public static MotorDefine.eMotorType[] TransferMotorType = { MotorDefine.eMotorType.LINEAR, MotorDefine.eMotorType.LINEAR, MotorDefine.eMotorType.LINEAR };
+        public static AXT_MOTION_LEVEL_MODE[] TransferAXT_SET_LIMIT = { AXT_MOTION_LEVEL_MODE.LOW, AXT_MOTION_LEVEL_MODE.HIGH, AXT_MOTION_LEVEL_MODE.LOW };
+        public static AXT_MOTION_LEVEL_MODE[] TransferAXT_SET_SERVO_ALARM = { AXT_MOTION_LEVEL_MODE.HIGH, AXT_MOTION_LEVEL_MODE.HIGH, AXT_MOTION_LEVEL_MODE.LOW };
+        public static AXT_MOTION_HOME_DETECT[] TransferMOTOR_HOME_SENSOR = { AXT_MOTION_HOME_DETECT.HomeSensor, AXT_MOTION_HOME_DETECT.HomeSensor, AXT_MOTION_HOME_DETECT.HomeSensor };
+        public static AXT_MOTION_MOVE_DIR[] TransferMOTOR_HOME_DIR = { AXT_MOTION_MOVE_DIR.DIR_CCW, AXT_MOTION_MOVE_DIR.DIR_CCW, AXT_MOTION_MOVE_DIR.DIR_CW };
         public enum eJogDic : int
         {
             PLUS_MOVE = 1, MINUS_MOVE = -1
