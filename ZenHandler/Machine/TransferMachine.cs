@@ -726,18 +726,7 @@ namespace ZenHandler.Machine
         }
         public bool LoadMultiPickerUp(List<int> pickerList , bool bFlag, bool bWait = false)
         {
-            if (ProgramState.NORINDA_MODE == false)
-            {
-                if (ProgramState.ON_LINE_MOTOR == false)
-                {
-                    return true;
-                }
-            }
-            if(pickerList.Count > Machine.TransferMachine.UnLoadCount )///!= 4)      //항상 4개
-            {
-                Console.WriteLine("LoadMultiPickerUp Length Fail [{pickerList.Length}]");
-                return false;
-            }
+            
             //pickerList = 1로 들어오는 Picker만 반응하는 방식 xxxxx
             //동작해야되는 피커 번호만 들어옴 동시 동작 개수 만큼
             bool isSuccess = false;

@@ -602,22 +602,28 @@ namespace ZenHandler  //ApsMotionControl
                 Globalo.motionManager.transferMachine.pickedProduct.UnloadTrayPos.X = Globalo.motionManager.transferMachine.pickedProduct.LoadTrayPos.X;
                 Globalo.motionManager.transferMachine.pickedProduct.UnloadTrayPos.Y = Globalo.motionManager.transferMachine.pickedProduct.LoadTrayPos.Y;
                 //배출위치는 항상 로드하는 위치로 고정시키기
-                int UnloadPosx = Globalo.motionManager.transferMachine.pickedProduct.UnloadTrayPos.X;
+                int UnloadPosx = 3;// Globalo.motionManager.transferMachine.pickedProduct.UnloadTrayPos.X;
                 int UnloadPosy = Globalo.motionManager.transferMachine.pickedProduct.UnloadTrayPos.Y;
-
-                int kk = Machine.TransferMachine.UnLoadCount;//항상 2개씩 배출
+                int Cnt = 3;// Machine.TransferMachine.UnLoadCount;      //  <--- 배출 개수  ex) 2개
+                
+                int UnloadCnt = UnloadPosx % Cnt;
+                int TotalCnt = UnloadPosx + Cnt - UnloadCnt;
+                if(TotalCnt > 4)
+                {
+                    TotalCnt = 4;
+                }
+                Console.WriteLine("----------------------------------------------------");
+                Console.WriteLine($"배출개수 :  {Cnt}, Pos x : {UnloadPosx}");
+                Console.WriteLine($"피커 다운 수 : {UnloadPosx} ~ {TotalCnt}");
 
                 List<int> LoadTrayOffset = new List<int>();
                 //
-                for (int i = 0; i < 4; i++)
+                //항상 0,2 가 아닐수있음 1이나 3일 경우?
+                for (int i = UnloadPosx; i < TotalCnt; i++)  //x 좌표에서 배출 수만큼 카운트
                 {
                     if (Globalo.motionManager.transferMachine.pickedProduct.LoadProductInfo[i].State == Machine.PickedProductState.Good)
                     {
                         LoadTrayOffset.Add(i);
-                    }
-                    if(LoadTrayOffset.Count == Machine.TransferMachine.UnLoadCount)
-                    {
-                        break;
                     }
                 }
 
