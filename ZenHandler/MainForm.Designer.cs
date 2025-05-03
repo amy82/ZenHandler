@@ -77,6 +77,7 @@ namespace ZenHandler
             this.BTN_TOP_LOG.Size = new System.Drawing.Size(150, 56);
             this.BTN_TOP_LOG.TabIndex = 14;
             this.BTN_TOP_LOG.UseVisualStyleBackColor = false;
+            this.BTN_TOP_LOG.Click += new System.EventHandler(this.BTN_TOP_LOG_Click_1);
             // 
             // BTN_TOP_CCD
             // 

@@ -589,5 +589,16 @@ namespace ZenHandler  //ApsMotionControl
         {
             Application.RemoveMessageFilter(keyMessageFilter);  // 메시지 필터 제거
         }
+
+        private void BTN_TOP_LOG_Click_1(object sender, EventArgs e)
+        {
+            if (ProgramState.NORINDA_MODE == true)
+            {
+                int[] pickerList = { 1, 1, 1, 1 };
+
+                Globalo.motionManager.transferMachine.LoadMultiPickerUp(pickerList, true);
+            }
+            //
+        }
     }
 }

@@ -34,7 +34,7 @@ namespace ZenHandler.Machine
     }
     public class ProductInfo
     {
-        public int Index { get; set; } = 0;
+        public int No { get; set; } = 0;
         public string BcrLot { get; set; } = "";
         public PickedProductState State { get; set; } = PickedProductState.Blank;
 
@@ -42,7 +42,7 @@ namespace ZenHandler.Machine
 
         public ProductInfo(int index)
         {
-            Index = index;
+            No = index;
         }
     }
     // 트랜스퍼나 피커가 들고 있는 제품 정보
