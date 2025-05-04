@@ -195,8 +195,10 @@
     <Compile Include="Data\YamlSecGemData.cs" />
     <Compile Include="Data\YamlTaskData.cs" />
     <Compile Include="Data\YamlTeachingData.cs" />
-    <Compile Include="DIoControl.cs" />
-    <Compile Include="DioDefine.cs" />
+    <Compile Include="MotionControl\FwDioDefine.cs" />
+    <Compile Include="MotionControl\EEpromDioDefine.cs" />
+    <Compile Include="MotionControl\AoiDioDefine.cs" />
+    <Compile Include="MotionControl\DioDefine.cs" />
     <Compile Include="Dlg\IdlePopupForm.cs">
       <SubType>Form</SubType>
     </Compile>

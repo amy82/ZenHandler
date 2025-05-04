@@ -218,6 +218,10 @@ namespace ZenHandler.MotionControl
         }
         public bool DioWriteOutportByte(int lModuleNo, int nOffset, uint uOnAddr, uint uOffAddr)
         {
+            if (ProgramState.ON_LINE_MOTOR == false)
+            {
+                return true;
+            }
             //ex) io 신호 두개 1번 = On , 2번 = Off
 
             lock (_locks[lModuleNo]) //한 번에 하나의 스레드만 실행 가능

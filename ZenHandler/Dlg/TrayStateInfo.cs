@@ -15,7 +15,7 @@ namespace ZenHandler.Dlg
         public const int LoadTrayCol = 4;
         public const int LoadTrayRows = 11;
 
-        public const int NgTrayCol = 2;
+        public const int NgTrayCol = 4;
         public const int NgTrayRows = 4;
 
 

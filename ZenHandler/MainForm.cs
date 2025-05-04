@@ -589,5 +589,49 @@ namespace ZenHandler  //ApsMotionControl
         {
             Application.RemoveMessageFilter(keyMessageFilter);  // 메시지 필터 제거
         }
+
+        private void BTN_TOP_LOG_Click_1(object sender, EventArgs e)
+        {
+            if (ProgramState.NORINDA_MODE == true)
+            {
+                //int[] pickerList = { 1, 1, 1, 1 };
+
+                //Globalo.motionManager.transferMachine.LoadMultiPickerUp(pickerList, true);
+
+                //Globalo.motionManager.transferMachine.GetUnloadMultiPickerUp(new int[] { 1, 1, 1, 1 }, true);
+                //Globalo.motionManager.transferMachine.pickedProduct.UnloadTrayPos.X = Globalo.motionManager.transferMachine.pickedProduct.LoadTrayPos.X;
+                //Globalo.motionManager.transferMachine.pickedProduct.UnloadTrayPos.Y = Globalo.motionManager.transferMachine.pickedProduct.LoadTrayPos.Y;
+                //배출위치는 항상 로드하는 위치로 고정시키기
+                int UnloadPosx =  Globalo.motionManager.transferMachine.pickedProduct.UnloadTrayPos.X;
+                int UnloadPosy = Globalo.motionManager.transferMachine.pickedProduct.UnloadTrayPos.Y;
+                int Cnt = 4;// Machine.TransferMachine.UnLoadCount;      //  <--- 배출 개수  ex) 2개
+                
+                int UnloadCnt = UnloadPosx % Cnt;
+                int TotalCnt = UnloadPosx + Cnt - UnloadCnt;
+                if(TotalCnt > 4)
+                {
+                    TotalCnt = 4;
+                }
+                Console.WriteLine("----------------------------------------------------");
+                Console.WriteLine($"배출개수 : {Cnt}, Pos x : {UnloadPosx}");
+                Console.WriteLine($"피커 다운 범위 : {UnloadPosx} ~ {TotalCnt}");
+
+                List<int> LoadTrayOffset = new List<int>();
+                //
+                //항상 0,2 가 아닐수있음 1이나 3일 경우?
+                for (int i = UnloadPosx; i < TotalCnt; i++)  //x 좌표에서 배출 수만큼 카운트
+                {
+                    if (Globalo.motionManager.transferMachine.pickedProduct.LoadProductInfo[i].State == Machine.PickedProductState.Good)
+                    {
+                        LoadTrayOffset.Add(i);
+                    }
+                }
+
+                Globalo.motionManager.transferMachine.LoadMultiPickerUp(LoadTrayOffset, true);
+
+            }
+            //
+        }
+        
     }
 }

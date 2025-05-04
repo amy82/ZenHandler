@@ -68,15 +68,77 @@ namespace ZenHandler.Process
                     nRetStep = 1060;
                     break;
                 case 1060:
-                    //실린더 전체 상승
-                    nRetStep = 1070;
+                    //Load 실린더 전체 상승
+                    bRtn = Globalo.motionManager.transferMachine.LoadMultiPickerUp(new List<int> { 1, 1, 1, 1 }, true);//new int[] { 1, 1, 1, 1 }, true);
+                    if (bRtn)
+                    {
+                        szLog = $"[ORIGIN] Trnasfer Load PIcker All Up [STEP : {nStep}]";
+                        Globalo.LogPrint("ManualControl", szLog);
+                        nRetStep = 1065;
+                    }
+                    else
+                    {
+                        szLog = $"[ORIGIN] Trnasfer Load PIcker All Up Fail [STEP : {nStep}]";
+                        Globalo.LogPrint("ManualControl", szLog, Globalo.eMessageName.M_WARNING);
+                        nRetStep *= -1;
+                        break;
+                    }
+                    
+                    
+                    break;
+                case 1065:
+                    //UnLoad 실린더 전체 상승
+                    bRtn = Globalo.motionManager.transferMachine.UnloadMultiPickerUp(new int[] { 1, 1, 1, 1 }, true);
+                    if (bRtn)
+                    {
+                        szLog = $"[ORIGIN] Trnasfer Unload PIcker All Up [STEP : {nStep}]";
+                        Globalo.LogPrint("ManualControl", szLog);
+                        nRetStep = 1070;
+                    }
+                    else
+                    {
+                        szLog = $"[ORIGIN] Trnasfer Unload PIcker All Up Fail [STEP : {nStep}]";
+                        Globalo.LogPrint("ManualControl", szLog, Globalo.eMessageName.M_WARNING);
+                        nRetStep *= -1;
+                        break;
+                    }
+
+
                     break;
                 case 1070:
-                    //실린더 전체 상승 확인
-                    nRetStep = 1080;
+                    //Load 실린더 전체 상승 확인
+                    bRtn = Globalo.motionManager.transferMachine.GetLoadMultiPickerUp(new int[] { 1, 1, 1, 1 }, true);
+                    if (bRtn)
+                    {
+                        szLog = $"[ORIGIN] Trnasfer Load PIcker All Up Complete[STEP : {nStep}]";
+                        Globalo.LogPrint("ManualControl", szLog);
+                        nRetStep = 1080;
+                    }
+                    else
+                    {
+                        szLog = $"[ORIGIN] Trnasfer Load PIcker All Up Complete Fail [STEP : {nStep}]";
+                        Globalo.LogPrint("ManualControl", szLog, Globalo.eMessageName.M_WARNING);
+                        nRetStep *= -1;
+                        break;
+                    }
+                    
                     break;
                 case 1080:
-                    nRetStep = 1090;
+                    bRtn = Globalo.motionManager.transferMachine.GetUnloadMultiPickerUp(new int[] { 1, 1, 1, 1 }, true);
+                    if (bRtn)
+                    {
+                        szLog = $"[ORIGIN] Trnasfer Unload PIcker All Up Complete[STEP : {nStep}]";
+                        Globalo.LogPrint("ManualControl", szLog);
+                        nRetStep = 1090;
+                    }
+                    else
+                    {
+                        szLog = $"[ORIGIN] Trnasfer Unload PIcker All Up Complete Fail [STEP : {nStep}]";
+                        Globalo.LogPrint("ManualControl", szLog, Globalo.eMessageName.M_WARNING);
+                        nRetStep *= -1;
+                        break;
+                    }
+                    
                     break;
                 case 1090:
                     //z축 Limit 이동
@@ -378,6 +440,7 @@ namespace ZenHandler.Process
         public int AutoReady(int nStep)					//  운전준비(2000 ~ 3000)
         {
             string szLog = "";
+            bool bRtn = false;
             int nRetStep = nStep;
             switch (nStep)
             {
@@ -389,26 +452,98 @@ namespace ZenHandler.Process
                     }, null);
                     if (result == DialogResult.Yes)
                     {
-                        nRetStep = 2010;
+                        nRetStep = 2020;
                     }
                     else
                     {
-                        szLog = $"[AUTO] 자동운전 일시정지[STEP : {nStep}]";
+                        szLog = $"[READY] 자동운전 일시정지[STEP : {nStep}]";
                         Globalo.LogPrint("PcbPrecess", szLog);
                         nRetStep *= -1;
                         break;
                     }
                     
                     break;
-                case 2010:
+                case 2020:
+                    //로드 실린더 전체 상승
+                    //Load 실린더 전체 상승
+                    bRtn = Globalo.motionManager.transferMachine.LoadMultiPickerUp(new List<int> { 1, 1, 1, 1 }, true);
+                    if (bRtn)
+                    {
+                        szLog = $"[READY] Trnasfer Load PIcker All Up [STEP : {nStep}]";
+                        Globalo.LogPrint("ManualControl", szLog);
+                        nRetStep = 2040;
+                    }
+                    else
+                    {
+                        szLog = $"[READY] Trnasfer Load PIcker All Up Fail [STEP : {nStep}]";
+                        Globalo.LogPrint("ManualControl", szLog, Globalo.eMessageName.M_WARNING);
+                        nRetStep *= -1;
+                        break;
+                    }
+                    break;
+                case 2040:
+                    //배출 실린더 전체 상승
+                    bRtn = Globalo.motionManager.transferMachine.UnloadMultiPickerUp(new int[] { 1, 1, 1, 1 }, true);
+                    if (bRtn)
+                    {
+                        szLog = $"[READY] Trnasfer Unload PIcker All Up [STEP : {nStep}]";
+                        Globalo.LogPrint("ManualControl", szLog);
+                        nRetStep = 2060;
+                    }
+                    else
+                    {
+                        szLog = $"[READY] Trnasfer Unload PIcker All Up Fail [STEP : {nStep}]";
+                        Globalo.LogPrint("ManualControl", szLog, Globalo.eMessageName.M_WARNING);
+                        nRetStep *= -1;
+                        break;
+                    }
+                    break;
+                case 2060:
+                    //로드 / 배출 실린더 상승 확인
+                    bRtn = Globalo.motionManager.transferMachine.GetLoadMultiPickerUp(new int[] { 1, 1, 1, 1 }, true);
+                    if (bRtn)
+                    {
+                        szLog = $"[READY] Trnasfer Load PIcker All Up Complete[STEP : {nStep}]";
+                        Globalo.LogPrint("ManualControl", szLog);
+                        nRetStep = 2080;
+                    }
+                    else
+                    {
+                        szLog = $"[READY] Trnasfer Load PIcker All Up Complete Fail [STEP : {nStep}]";
+                        Globalo.LogPrint("ManualControl", szLog, Globalo.eMessageName.M_WARNING);
+                        nRetStep *= -1;
+                        break;
+                    }
+                    break;
+                case 2080:
+                    bRtn = Globalo.motionManager.transferMachine.GetUnloadMultiPickerUp(new int[] { 1, 1, 1, 1 }, true);
+                    if (bRtn)
+                    {
+                        szLog = $"[READY] Trnasfer Unload PIcker All Up Complete[STEP : {nStep}]";
+                        Globalo.LogPrint("ManualControl", szLog);
+                        nRetStep = 2100;
+                    }
+                    else
+                    {
+                        szLog = $"[READY] Trnasfer Unload PIcker All Up Complete Fail [STEP : {nStep}]";
+                        Globalo.LogPrint("ManualControl", szLog, Globalo.eMessageName.M_WARNING);
+                        nRetStep *= -1;
+                        break;
+                    }
+
+                    break;
+                case 2100:
+                    nRetStep = 2110;
+                    break;
+                case 2110:
                     nRetStep = 2020;
                     break;
-                case 2020:
+                case 2120:
                     Globalo.motionManager.transferMachine.TransFer_Z_Move(Machine.TransferMachine.eTeachingPosList.WAIT_POS, true);
                     nRetStep = 2030;
                     nTimeTick = Environment.TickCount;
                     break;
-                case 2030:
+                case 2130:
                     if (Globalo.motionManager.transferMachine.TransferZ.GetStopAxis() == true &&
                         Globalo.motionManager.transferMachine.ChkZMotorPos(Machine.TransferMachine.eTeachingPosList.WAIT_POS))
                     {
@@ -426,11 +561,11 @@ namespace ZenHandler.Process
                     }
                     
                     break;
-                case 2040:
+                case 2140:
                     Globalo.motionManager.transferMachine.TransFer_XY_Move(Machine.TransferMachine.eTeachingPosList.WAIT_POS);
                     nRetStep = 2050;
                     break;
-                case 2050:
+                case 2150:
                     if (Globalo.motionManager.transferMachine.TransferX.GetStopAxis() == true && Globalo.motionManager.transferMachine.TransferY.GetStopAxis() == true &&
                         Globalo.motionManager.transferMachine.ChkXYMotorPos(Machine.TransferMachine.eTeachingPosList.WAIT_POS))
                     {
@@ -448,19 +583,53 @@ namespace ZenHandler.Process
                     }
                    
                     break;
-                case 2060:
+                case 2160:
+                    //TODO: Picker 상태 확인하고 Blank 인데, 흡착감지면 알람
+                    //TODO: Picker 상태가 제품이 있는데 , 탈착상태이면 알람
+                    if (Globalo.motionManager.transferMachine.pickedProduct.LoadProductInfo[0].State == Machine.PickedProductState.Blank)
+                    {
+
+                    }
+                    if (Globalo.motionManager.transferMachine.pickedProduct.LoadProductInfo[1].State == Machine.PickedProductState.Blank)
+                    {
+
+                    }
+                    if (Globalo.motionManager.transferMachine.pickedProduct.LoadProductInfo[2].State == Machine.PickedProductState.Blank)
+                    {
+
+                    }
+                    if (Globalo.motionManager.transferMachine.pickedProduct.LoadProductInfo[3].State == Machine.PickedProductState.Blank)
+                    {
+
+                    }
                     nRetStep = 2070;
                     break;
-                case 2070:
+                case 2170:
+                    if (Globalo.motionManager.transferMachine.pickedProduct.UnLoadProductInfo[0].State == Machine.PickedProductState.Blank)
+                    {
+
+                    }
+                    if (Globalo.motionManager.transferMachine.pickedProduct.UnLoadProductInfo[1].State == Machine.PickedProductState.Blank)
+                    {
+
+                    }
+                    if (Globalo.motionManager.transferMachine.pickedProduct.UnLoadProductInfo[2].State == Machine.PickedProductState.Blank)
+                    {
+
+                    }
+                    if (Globalo.motionManager.transferMachine.pickedProduct.UnLoadProductInfo[3].State == Machine.PickedProductState.Blank)
+                    {
+
+                    }
                     nRetStep = 2080;
                     break;
-                case 2080:
+                case 2180:
                     nRetStep = 2090;
                     break;
-                case 2090:
+                case 2190:
                     nRetStep = 2100;
                     break;
-                case 2100:
+                case 2200:
                     nRetStep = 2900;
                     break;
                 case 2900:
@@ -650,6 +819,45 @@ namespace ZenHandler.Process
             switch (nStep)
             {
                 case 7000:
+                    nRetStep = 7020;
+                    break;
+                case 7020:
+                    nRetStep = 7040;
+                    break;
+                case 7040:
+                    int UnloadPosx = Globalo.motionManager.transferMachine.pickedProduct.UnloadTrayPos.X;
+                    int UnloadPosy = Globalo.motionManager.transferMachine.pickedProduct.UnloadTrayPos.Y;
+
+                    int kk = Machine.TransferMachine.UnLoadCount;//항상 2개씩 배출
+
+                    List<int> LoadTrayOffset = new List<int>();
+                    //
+                    for (int i = 0; i < 4; i++)
+                    {
+                        if(Globalo.motionManager.transferMachine.pickedProduct.LoadProductInfo[i].State == Machine.PickedProductState.Good)
+                        {
+                            LoadTrayOffset.Add(i);
+                        }
+                        else
+                        {
+                            LoadTrayOffset.Add(-1);
+                        }
+                    }
+                    nRetStep = 7060;
+                    break;
+                case 7060:
+                    nRetStep = 7080;
+                    break;
+                case 7080:
+                    nRetStep = 7100;
+                    break;
+                case 7100:
+                    nRetStep = 7120;
+                    break;
+                case 7120:
+                    nRetStep = 7140;
+                    break;
+                case 7140:
                     nRetStep = 7900;
                     break;
 
