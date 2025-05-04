@@ -14,10 +14,10 @@ namespace ZenHandler.Machine
     {
         public int MotorCnt { get; private set; } = 4;
 
-        public MotionControl.MotorAxis MagazineY_L;
-        public MotionControl.MotorAxis MagazineZ_L;
-        public MotionControl.MotorAxis MagazineY_R;
-        public MotionControl.MotorAxis MagazineZ_R;
+        //public MotionControl.MotorAxis MagazineY_L;
+        //public MotionControl.MotorAxis MagazineZ_L;
+        //public MotionControl.MotorAxis MagazineY_R;
+        //public MotionControl.MotorAxis MagazineZ_R;
 
         public MotionControl.MotorAxis[] MotorAxes; // 배열 선언
 
@@ -63,8 +63,8 @@ namespace ZenHandler.Machine
             this.RunState = OperationState.Stopped;
             this.MachineName = this.GetType().Name;
 
-            MotorAxes = new MotionControl.MotorAxis[] { MagazineY_L, MagazineZ_L, MagazineY_R, MagazineZ_R };
-            MotorCnt = MotorAxes.Length;
+            //MotorAxes = new MotionControl.MotorAxis[] { MagazineY_L, MagazineZ_L, MagazineY_R, MagazineZ_R };
+            //MotorCnt = MotorAxes.Length;
 
             for (i = 0; i < MotorCnt; i++)
             {
@@ -160,7 +160,8 @@ namespace ZenHandler.Machine
             {
                 return false;
             }
-            if (MagazineY_L.OrgState == false || MagazineZ_L.OrgState == false || MagazineY_R.OrgState == false || MagazineZ_R.OrgState == false)
+            if (MotorAxes[(int)Machine.eMagazine.MAGAZINE_L_Y].OrgState == false || MotorAxes[(int)Machine.eMagazine.MAGAZINE_L_Z].OrgState == false ||
+                MotorAxes[(int)Machine.eMagazine.MAGAZINE_R_Y].OrgState == false || MotorAxes[(int)Machine.eMagazine.MAGAZINE_R_Z].OrgState == false)
             {
                 this.RunState = OperationState.OriginRunning;
                 AutoUnitThread.m_nCurrentStep = 1000;

@@ -54,11 +54,13 @@ namespace ZenHandler.Machine
     // 트랜스퍼나 피커가 들고 있는 제품 정보
     public class PickedProduct
     {
-        public List<ProductInfo> LoadProductInfo { get; set; } = new List<ProductInfo>();
+        public List<ProductInfo> LoadProductInfo { get; set; } = new List<ProductInfo>();       //TODO: 항상 4개가 돼야된다.
         public List<ProductInfo> UnLoadProductInfo { get; set; } = new List<ProductInfo>();
         public TrayPoint LoadTrayPos { get; set; } = new TrayPoint();
         public TrayPoint UnloadTrayPos { get; set; } = new TrayPoint();
         public TrayPoint TotalTrayPos { get; set; } = new TrayPoint();
+        public int[] TEST = { 0, 1, 2, 3 };
+        
 
     }
     //---------------------------------------------------------------------------------------------------------------------------------------------------

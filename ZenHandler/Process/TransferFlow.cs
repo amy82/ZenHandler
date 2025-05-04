@@ -44,7 +44,7 @@ namespace ZenHandler.Process
                     //0.TRAY가 제품 배출할 수 있는 상태인지
                     //1.배출 피커에 배출할 제품을 들고 있는지
                     //
-                    //2.로드 피커에 투입할 제품이 있는지
+                    //2.로드 피커에 투입할 제품이 4개 다 찼는지 , 항상 가로 한줄씩 4개 다 채워서 시작해야된다..
                     //
                     //2.TRAY가 제품 로드할 수 있는 상태인지
                     //3.로드 피커가 비었으면 제품 로드하기
@@ -133,18 +133,75 @@ namespace ZenHandler.Process
         //
         //  4000
         //
-        public int Auto_LoadInTray(int nStep)
+        public int Auto_BcrLoadInTray(int nStep)
         {
             string szLog = "";
+            int i = 0;
             int nRetStep = nStep;
             switch (nStep)
             {
                 case 4000:
+                    nRetStep = 4100;
+                    break;
+                case 4100:
+                    nRetStep = 4200;
+                    break;
+                case 4200:
+                    int LoadPosx = Globalo.motionManager.transferMachine.pickedProduct.LoadTrayPos.X;
+                    int LoadPosy = Globalo.motionManager.transferMachine.pickedProduct.LoadTrayPos.Y;
+                    //public bool TransFer_XY_Move(eTeachingPosList ePos, int PickerNo = 0, int CountX = 0, int CountY = 0,  bool bWait = true)
+                    Globalo.motionManager.transferMachine.TransFer_XY_Move(Machine.TransferMachine.eTeachingPosList.LEFT_TRAY_BCR_POS , LoadPosx, LoadPosx, LoadPosy);
+                    nRetStep = 4300;
+                    break;
+                case 4300:
+                    //Bcr x , y 모터 이동
+                    //바코드 스캔
+                    //Load x , y 모터 이동
+                    //제품 픽업
+                    //next Bcr x, y 모터 이동
+                    //반복
+                    //픽업 4개 모두 로드시 or x 좌표 4일때
+                    //
+                    //소켓 배출 요청 확인 / 투입 요청 확인
+                    nRetStep = 4400;
+                    break;
+                case 4400:
+                    nRetStep = 4500;
+                    break;
+                case 4500:
+                    nRetStep = 4600;
+                    break;
+                case 4600:
+                    nRetStep = 4700;
+                    break;
+                case 4700:
+                    nRetStep = 4800;
+                    break;
+                case 4800:
+                    nRetStep = 4850;
+                    break;
+                case 4850:
+                    Globalo.motionManager.transferMachine.LoadTryAdd();        //여기서 Load 픽업 위치 로드한 개수만큼 증가
                     nRetStep = 4900;
                     break;
 
                 case 4900:
-
+                    int NextLoadX = Globalo.motionManager.transferMachine.pickedProduct.LoadTrayPos.X;  //0 -> 1 -> 2 -> 3
+                    if (NextLoadX < 0 || NextLoadX > 4)
+                    {
+                        szLog = $"[AUTO] BCR POS ERROR - {NextLoadX} [STEP : {nStep}]";
+                        Globalo.LogPrint("TransferUnit", szLog);
+                        nRetStep *= -1;
+                        break;
+                    }
+                    if (Globalo.motionManager.transferMachine.pickedProduct.LoadProductInfo[NextLoadX].State == Machine.PickedProductState.Blank)
+                    {
+                        nRetStep = 4000;        //다음 제품 바코드 스캔후, 제품 로드
+                    }
+                    else
+                    {
+                        nRetStep = 3000;        //소켓 배출 요청 확인
+                    }
                     break;
             }
             return nRetStep;
