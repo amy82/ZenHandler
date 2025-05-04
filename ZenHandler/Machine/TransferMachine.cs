@@ -161,6 +161,67 @@ namespace ZenHandler.Machine
    
 
         }
+        private void LoadTryAdd(int LoadCnt)
+        {
+            int currentPosx = Globalo.motionManager.transferMachine.pickedProduct.LoadTrayPos.X;
+            int currentPosy = Globalo.motionManager.transferMachine.pickedProduct.LoadTrayPos.Y;
+
+            //배출 위치는 로드하는 위치로 지정?
+            //제품 로드하면서 첫 배출 위치를 설정하는 함수
+            Globalo.motionManager.transferMachine.pickedProduct.UnloadTrayPos.X = currentPosx;
+            Globalo.motionManager.transferMachine.pickedProduct.UnloadTrayPos.Y = currentPosy;
+            //
+            //
+            //
+
+            Globalo.motionManager.transferMachine.pickedProduct.LoadTrayPos.X += LoadCnt;
+
+            if (Globalo.motionManager.transferMachine.pickedProduct.LoadTrayPos.X >= Globalo.motionManager.transferMachine.pickedProduct.TotalTrayPos.X)
+            {
+                Globalo.motionManager.transferMachine.pickedProduct.LoadTrayPos.X = 0;
+                Globalo.motionManager.transferMachine.pickedProduct.LoadTrayPos.Y++;
+            }
+
+            if (Globalo.motionManager.transferMachine.pickedProduct.LoadTrayPos.Y >= Globalo.motionManager.transferMachine.pickedProduct.TotalTrayPos.Y)
+            {
+                Globalo.motionManager.transferMachine.pickedProduct.LoadTrayPos.Y = 0;
+            }
+            int nextPosx = Globalo.motionManager.transferMachine.pickedProduct.LoadTrayPos.X;
+            int nextPosy = Globalo.motionManager.transferMachine.pickedProduct.LoadTrayPos.Y;
+
+
+            Console.WriteLine("----------------------------------------------------");
+            Console.WriteLine($"로드 X : {currentPosx} > {nextPosx}");
+            Console.WriteLine($"로드 Y : {currentPosy} > {nextPosy}");
+            Console.WriteLine($"배출 X : {currentPosx}");
+            Console.WriteLine($"배출 Y : {currentPosy}");
+        }
+        private void UnloadTryAdd(int UnloadCnt)
+        {
+            int currentPosx = Globalo.motionManager.transferMachine.pickedProduct.UnloadTrayPos.X;
+            int currentPosy = Globalo.motionManager.transferMachine.pickedProduct.UnloadTrayPos.Y;
+
+            //여기는 배출하는 과정에 배출 개수에 따라 배출 위치 재설정하는 함수
+            Globalo.motionManager.transferMachine.pickedProduct.UnloadTrayPos.X += UnloadCnt;
+
+            if (Globalo.motionManager.transferMachine.pickedProduct.UnloadTrayPos.X >= Globalo.motionManager.transferMachine.pickedProduct.TotalTrayPos.X)
+            {
+                Globalo.motionManager.transferMachine.pickedProduct.UnloadTrayPos.X = 0;
+                Globalo.motionManager.transferMachine.pickedProduct.UnloadTrayPos.Y++;
+            }
+
+            if (Globalo.motionManager.transferMachine.pickedProduct.UnloadTrayPos.Y >= Globalo.motionManager.transferMachine.pickedProduct.TotalTrayPos.Y)
+            {
+                Globalo.motionManager.transferMachine.pickedProduct.UnloadTrayPos.Y = 0;
+            }
+            int nextPosx = Globalo.motionManager.transferMachine.pickedProduct.UnloadTrayPos.X;
+            int nextPosy = Globalo.motionManager.transferMachine.pickedProduct.UnloadTrayPos.Y;
+
+
+            Console.WriteLine("----------------------------------------------------");
+            Console.WriteLine($"배출 X : {currentPosx} > {nextPosx}");
+            Console.WriteLine($"배출 Y : {currentPosy} > {nextPosy}");
+        }
         private void CheckTrayState()
         {
             //State = TransferUnitState.TrayEmpty;
