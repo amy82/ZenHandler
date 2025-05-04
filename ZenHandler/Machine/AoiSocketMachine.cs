@@ -18,10 +18,10 @@ namespace ZenHandler.Machine
         //소켓 2개 2세트 = 4개
 
 
-        public MotionControl.MotorAxis LEFT_X;          //AOI 공정 TOTAL : 4
-        public MotionControl.MotorAxis LEFT_Z;          //AOI 공정
-        public MotionControl.MotorAxis RIGHT_X;          //AOI 공정
-        public MotionControl.MotorAxis RIGHT_Z;          //AOI 공정
+        //public MotionControl.MotorAxis LEFT_X;          //AOI 공정 TOTAL : 4
+        //public MotionControl.MotorAxis LEFT_Z;          //AOI 공정
+        //public MotionControl.MotorAxis RIGHT_X;          //AOI 공정
+        //public MotionControl.MotorAxis RIGHT_Z;          //AOI 공정
 
         public MotionControl.MotorAxis[] MotorAxes; // 배열 선언
 
@@ -59,8 +59,8 @@ namespace ZenHandler.Machine
             this.RunState = OperationState.Stopped;
             this.MachineName = this.GetType().Name;
 
-            MotorAxes = new MotionControl.MotorAxis[] { LEFT_X, LEFT_Z, RIGHT_X, RIGHT_Z };
-            MotorCnt = MotorAxes.Length;
+            //MotorAxes = new MotionControl.MotorAxis[] { LEFT_X, LEFT_Z, RIGHT_X, RIGHT_Z };
+            //MotorCnt = MotorAxes.Length;
 
             for (i = 0; i < MotorCnt; i++)
             {
@@ -153,7 +153,8 @@ namespace ZenHandler.Machine
             {
                 return false;
             }
-            if (LEFT_X.OrgState == false || LEFT_Z.OrgState == false || RIGHT_X.OrgState == false || RIGHT_Z.OrgState == false)
+            if (MotorAxes[(int)Machine.eAoiSocket.SOCKET_L_X].OrgState == false || MotorAxes[(int)Machine.eAoiSocket.SOCKET_L_Z].OrgState == false ||
+                MotorAxes[(int)Machine.eAoiSocket.SOCKET_R_X].OrgState == false || MotorAxes[(int)Machine.eAoiSocket.SOCKET_R_Z].OrgState == false)
             {
                 this.RunState = OperationState.OriginRunning;
                 AutoUnitThread.m_nCurrentStep = 1000;

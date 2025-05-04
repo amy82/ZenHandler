@@ -15,10 +15,10 @@ namespace ZenHandler.Machine
     {
         public int MotorCnt { get; private set; } = 4;
 
-        public MotionControl.MotorAxis Gantry_X_F;
-        public MotionControl.MotorAxis Gantry_X_B;
-        public MotionControl.MotorAxis LoadLift_Z_L;
-        public MotionControl.MotorAxis LoadLift_Z_R;
+        //public MotionControl.MotorAxis Gantry_X_F;
+        //public MotionControl.MotorAxis Gantry_X_B;
+        //public MotionControl.MotorAxis LoadLift_Z_L;
+        //public MotionControl.MotorAxis LoadLift_Z_R;
 
         //LEFT Z / RIGHT Z / GANTRY FRONT X / GANTRY BACK X / 
         public MotionControl.MotorAxis[] MotorAxes; // 배열 선언
@@ -60,8 +60,8 @@ namespace ZenHandler.Machine
             this.RunState = OperationState.Stopped;
             this.MachineName = this.GetType().Name;
 
-            MotorAxes = new MotionControl.MotorAxis[] { Gantry_X_F, Gantry_X_B, LoadLift_Z_L, LoadLift_Z_R};
-            MotorCnt = MotorAxes.Length;
+            //MotorAxes = new MotionControl.MotorAxis[] { Gantry_X_F, Gantry_X_B, LoadLift_Z_L, LoadLift_Z_R};
+            //MotorCnt = MotorAxes.Length;
 
             for (i = 0; i < MotorCnt; i++)
             {
@@ -168,7 +168,8 @@ namespace ZenHandler.Machine
                 return false;
             }
 
-            if (LoadLift_Z_L.OrgState == false || LoadLift_Z_R.OrgState == false || Gantry_X_F.OrgState == false|| Gantry_X_B.OrgState == false)
+            if (MotorAxes[(int)Machine.eLift.LIFT_B_X].OrgState == false || MotorAxes[(int)Machine.eLift.LIFT_F_X].OrgState == false ||
+                MotorAxes[(int)Machine.eLift.LIFT_L_Z].OrgState == false|| MotorAxes[(int)Machine.eLift.LIFT_R_Z].OrgState == false)
             {
                 this.RunState = OperationState.OriginRunning;
                 AutoUnitThread.m_nCurrentStep = 1000;

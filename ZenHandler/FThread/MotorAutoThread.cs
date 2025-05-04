@@ -37,7 +37,7 @@ namespace ZenHandler.FThread
             }
             else if (this.m_nCurrentStep >= 4000 && this.m_nCurrentStep < 5000)
             {
-                this.m_nCurrentStep = this.parent.processManager.transferFlow.Auto_LoadInTray(this.m_nCurrentStep);       //제품 로드
+                this.m_nCurrentStep = this.parent.processManager.transferFlow.Auto_BcrLoadInTray(this.m_nCurrentStep);       //바코드 스캔 + 제품 로드
             }
             else if (this.m_nCurrentStep >= 5000 && this.m_nCurrentStep < 6000)
             {
@@ -49,7 +49,7 @@ namespace ZenHandler.FThread
             }
             else if (this.m_nCurrentStep >= 7000 && this.m_nCurrentStep < 8000)
             {
-                this.m_nCurrentStep = this.parent.processManager.transferFlow.Auto_UnLoadInTray(this.m_nCurrentStep);     //제품 배출
+                this.m_nCurrentStep = this.parent.processManager.transferFlow.Auto_UnLoadInTray(this.m_nCurrentStep);     //제품 TRAY 배출
             }
             else if (this.m_nCurrentStep >= 8000 && this.m_nCurrentStep < 9000)
             {

@@ -20,9 +20,9 @@ namespace ZenHandler.Machine
         public MotionControl.MotorSet.TrayPosition Position;        //Tray Load 위치
         public int MotorCnt { get; private set; } = 3;
 
-        public MotionControl.MotorAxis TransferX;
-        public MotionControl.MotorAxis TransferY;
-        public MotionControl.MotorAxis TransferZ;
+        //public MotionControl.MotorAxis TransferX;
+        //public MotionControl.MotorAxis TransferY;
+        //public MotionControl.MotorAxis TransferZ;
 
         public MotionControl.MotorAxis[] MotorAxes; // 배열 선언
         public string[] axisName = { "TransferX", "TransferY", "TransferZ" };
@@ -100,9 +100,9 @@ namespace ZenHandler.Machine
             int i = 0;
             this.RunState = OperationState.Stopped;
             this.MachineName = this.GetType().Name;
-            MotorAxes = new MotionControl.MotorAxis[] { TransferX, TransferY, TransferZ };
-            MotorCnt = MotorAxes.Length;
-
+            //MotorAxes = new MotionControl.MotorAxis[] { TransferX, TransferY, TransferZ };
+            //MotorCnt = MotorAxes.Length;
+            MotorAxes = new MotionControl.MotorAxis[MotorCnt];
 
             for (i = 0; i < MotorCnt; i++)
             {
@@ -120,8 +120,6 @@ namespace ZenHandler.Machine
                     MotorAxes[i].NoUse = true;
                 }
             }
-
-
             for (i = 0; i < 4; i++)
             {
                 pickedProduct.LoadProductInfo.Add(new ProductInfo(i));
@@ -135,7 +133,6 @@ namespace ZenHandler.Machine
 
             pickedProduct = Data.TaskDataYaml.TaskLoad_Transfer(taskPath);
             productLayout = Data.TaskDataYaml.TaskLoad_Layout(LayoutPath);
-
 
             Position = MotionControl.MotorSet.TrayPosition.Left;
             //
@@ -161,28 +158,33 @@ namespace ZenHandler.Machine
    
 
         }
-        private void LoadTryAdd(int LoadCnt)
+        public void LoadTryAdd(int LoadCnt = 1)
         {
             int currentPosx = Globalo.motionManager.transferMachine.pickedProduct.LoadTrayPos.X;
             int currentPosy = Globalo.motionManager.transferMachine.pickedProduct.LoadTrayPos.Y;
 
+            int MaxXCount = Globalo.motionManager.transferMachine.pickedProduct.TotalTrayPos.X;
+            int MaxYCount = Globalo.motionManager.transferMachine.pickedProduct.TotalTrayPos.Y;
+            Console.WriteLine($"Current Load X : {currentPosx} / {MaxXCount}");
+            Console.WriteLine($"Current Load Y : {currentPosy} / {MaxYCount}");
+
             //배출 위치는 로드하는 위치로 지정?
             //제품 로드하면서 첫 배출 위치를 설정하는 함수
-            Globalo.motionManager.transferMachine.pickedProduct.UnloadTrayPos.X = currentPosx;
+
+            Globalo.motionManager.transferMachine.pickedProduct.UnloadTrayPos.X = currentPosx;      //TODO: 배출 위치는 어떻게 관리? Y축 라인으로 해야할듯
             Globalo.motionManager.transferMachine.pickedProduct.UnloadTrayPos.Y = currentPosy;
             //
             //
             //
-
             Globalo.motionManager.transferMachine.pickedProduct.LoadTrayPos.X += LoadCnt;
 
-            if (Globalo.motionManager.transferMachine.pickedProduct.LoadTrayPos.X >= Globalo.motionManager.transferMachine.pickedProduct.TotalTrayPos.X)
+            if (Globalo.motionManager.transferMachine.pickedProduct.LoadTrayPos.X >= MaxXCount)
             {
                 Globalo.motionManager.transferMachine.pickedProduct.LoadTrayPos.X = 0;
                 Globalo.motionManager.transferMachine.pickedProduct.LoadTrayPos.Y++;
             }
 
-            if (Globalo.motionManager.transferMachine.pickedProduct.LoadTrayPos.Y >= Globalo.motionManager.transferMachine.pickedProduct.TotalTrayPos.Y)
+            if (Globalo.motionManager.transferMachine.pickedProduct.LoadTrayPos.Y >= MaxYCount)
             {
                 Globalo.motionManager.transferMachine.pickedProduct.LoadTrayPos.Y = 0;
             }
@@ -191,12 +193,11 @@ namespace ZenHandler.Machine
 
 
             Console.WriteLine("----------------------------------------------------");
-            Console.WriteLine($"로드 X : {currentPosx} > {nextPosx}");
-            Console.WriteLine($"로드 Y : {currentPosy} > {nextPosy}");
-            Console.WriteLine($"배출 X : {currentPosx}");
-            Console.WriteLine($"배출 Y : {currentPosy}");
+            Console.WriteLine($"Next Load X : {currentPosx} > {nextPosx}");
+            Console.WriteLine($"Next Load Y : {currentPosy} > {nextPosy}");
+            
         }
-        private void UnloadTryAdd(int UnloadCnt)
+        public void UnloadTryAdd(int UnloadCnt)
         {
             int currentPosx = Globalo.motionManager.transferMachine.pickedProduct.UnloadTrayPos.X;
             int currentPosy = Globalo.motionManager.transferMachine.pickedProduct.UnloadTrayPos.Y;
@@ -222,7 +223,7 @@ namespace ZenHandler.Machine
             Console.WriteLine($"배출 X : {currentPosx} > {nextPosx}");
             Console.WriteLine($"배출 Y : {currentPosy} > {nextPosy}");
         }
-        private void CheckTrayState()
+        public void CheckTrayState()
         {
             //State = TransferUnitState.TrayEmpty;
             //OnTrayChangedCall?.Invoke(Position); // 어떤 트레이 비었는지 전달
@@ -272,8 +273,8 @@ namespace ZenHandler.Machine
             dYPos = Globalo.motionManager.transferMachine.teachingConfig.Teaching[(int)teachingPos].Pos[(int)eTransfer.TRANSFER_Y];
             
 
-            currentXPos = TransferX.EncoderPos;
-            currentYPos = TransferY.EncoderPos;
+            currentXPos = MotorAxes[(int)eTransfer.TRANSFER_X].EncoderPos;
+            currentYPos = MotorAxes[(int)eTransfer.TRANSFER_Y].EncoderPos;
 
             if (dXPos == currentXPos && dYPos == currentYPos)
             {
@@ -293,7 +294,7 @@ namespace ZenHandler.Machine
 
 
             dZTeachingPos = Globalo.motionManager.transferMachine.teachingConfig.Teaching[(int)teachingPos].Pos[(int)eTransfer.TRANSFER_Z];
-            currentZPos = TransferZ.EncoderPos;
+            currentZPos = MotorAxes[(int)eTransfer.TRANSFER_Z].EncoderPos;
             
             if (dZTeachingPos == currentZPos)
             {
@@ -1299,7 +1300,7 @@ namespace ZenHandler.Machine
                 Console.WriteLine("No Use Machine");
                 return true;
             }
-            if (TransferX.IsMotorBusy == true)
+            if (MotorAxes[(int)eTransfer.TRANSFER_X].IsMotorBusy == true)
             {
                 Globalo.LogPrint("ManualControl", $"모터 작업이 이미 실행 중입니다. 기다려 주세요.");
                 return false;
@@ -1309,7 +1310,7 @@ namespace ZenHandler.Machine
             bool isSuccess = true;
             try
             {
-                isSuccess = TransferX.MoveAxis(dPos, AXT_MOTION_ABSREL.POS_ABS_MODE, bWait);
+                isSuccess = MotorAxes[(int)eTransfer.TRANSFER_X].MoveAxis(dPos, AXT_MOTION_ABSREL.POS_ABS_MODE, bWait);
 
             }
             catch (Exception ex)
@@ -1336,7 +1337,7 @@ namespace ZenHandler.Machine
             double dPos = Globalo.motionManager.transferMachine.teachingConfig.Teaching[(int)ePos].Pos[(int)eTransfer.TRANSFER_Z];     //z Axis
             try
             {
-                isSuccess = TransferZ.MoveAxis(dPos, AXT_MOTION_ABSREL.POS_ABS_MODE, bWait);
+                isSuccess = MotorAxes[(int)eTransfer.TRANSFER_Z].MoveAxis(dPos, AXT_MOTION_ABSREL.POS_ABS_MODE, bWait);
             }
             catch (Exception ex)
             {
@@ -1354,6 +1355,7 @@ namespace ZenHandler.Machine
         }
         public bool TransFer_XY_Move(eTeachingPosList ePos, int PickerNo = 0, int CountX = 0, int CountY = 0,  bool bWait = true)  //Picket Index , Tray or Socekt or Ng , 
         {
+            //TODO: PickerNo 는 없애고 CountX로 써도될듯 확인필요.
             if (this.MotorUse == false)
             {
                 Console.WriteLine("No Use Machine");
@@ -1365,7 +1367,7 @@ namespace ZenHandler.Machine
             }
 
             string logStr = "";
-            MotionControl.MotorAxis[] multiAxis = { TransferX, TransferY };
+            MotionControl.MotorAxis[] multiAxis = { MotorAxes[(int)eTransfer.TRANSFER_X], MotorAxes[(int)eTransfer.TRANSFER_Y] };
             double[] dMultiPos = { 0.0, 0.0 };
             double[] dOffsetPos = { 0.0, 0.0 };
             bool isSuccess = false;
@@ -1520,7 +1522,7 @@ namespace ZenHandler.Machine
                 return false;
             }
 
-            if (TransferX.OrgState == false || TransferY.OrgState == false || TransferZ.OrgState == false)
+            if (MotorAxes[(int)Machine.eTransfer.TRANSFER_X].OrgState == false || MotorAxes[(int)Machine.eTransfer.TRANSFER_Y].OrgState == false || MotorAxes[(int)Machine.eTransfer.TRANSFER_Z].OrgState == false)
             {
                 this.RunState = OperationState.OriginRunning;
                 AutoUnitThread.m_nCurrentStep = 1000;

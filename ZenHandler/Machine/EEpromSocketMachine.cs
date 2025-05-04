@@ -16,8 +16,8 @@ namespace ZenHandler.Machine
 
         //소켓4개 2세트 = 총 8개
 
-        public MotionControl.MotorAxis Front_X;    //eeprom 공정 TOTAL : 2
-        public MotionControl.MotorAxis Back_X;    //eeprom 공정
+        //public MotionControl.MotorAxis Front_X;    //eeprom 공정 TOTAL : 2
+        //public MotionControl.MotorAxis Back_X;    //eeprom 공정
 
         public MotionControl.MotorAxis[] MotorAxes; // 배열 선언
 
@@ -55,8 +55,8 @@ namespace ZenHandler.Machine
             this.RunState = OperationState.Stopped;
             this.MachineName = this.GetType().Name;
 
-            MotorAxes = new MotionControl.MotorAxis[] { Front_X, Back_X };
-            MotorCnt = MotorAxes.Length;
+            //MotorAxes = new MotionControl.MotorAxis[] { Front_X, Back_X };
+            //MotorCnt = MotorAxes.Length;
 
             for (i = 0; i < MotorCnt; i++)
             {
@@ -149,7 +149,7 @@ namespace ZenHandler.Machine
             {
                 return false;
             }
-            if (Front_X.OrgState == false || Back_X.OrgState == false)
+            if (MotorAxes[(int)Machine.eEEpromSocket.SOCKET_B_X].OrgState == false || MotorAxes[(int)Machine.eEEpromSocket.SOCKET_F_X].OrgState == false)
             {
                 this.RunState = OperationState.OriginRunning;
                 AutoUnitThread.m_nCurrentStep = 1000;

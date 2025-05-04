@@ -18,6 +18,290 @@ namespace ZenHandler.Process
         {
             _syncContext = SynchronizationContext.Current;
         }
+        //
+        //  3000
+        //
+        public int Auto_Waiting(int nStep)
+        {
+            string szLog = "";
+            int nRetStep = nStep;
+            switch (nStep)
+            {
+                case 3000:
+                    nRetStep = 3100;
+                    break;
+                case 3100:
+                    nRetStep = 3200;
+                    break;
+                case 3200:
+                    nRetStep = 3300;
+                    break;
+                case 3300:
+                    nRetStep = 3400;
+                    break;
+                case 3400:
+                    //확인 순서
+                    //0.TRAY가 제품 배출할 수 있는 상태인지
+                    //1.배출 피커에 배출할 제품을 들고 있는지
+                    //
+                    //2.로드 피커에 투입할 제품이 4개 다 찼는지 , 항상 가로 한줄씩 4개 다 채워서 시작해야된다..
+                    //
+                    //2.TRAY가 제품 로드할 수 있는 상태인지
+                    //3.로드 피커가 비었으면 제품 로드하기
+
+                    //소켓의 투입 요청인지 , 배출 요청인지 판단해서 진행
+                    nRetStep = 3500;
+                    break;
+                case 3500:
+                    //DialogResult result = DialogResult.None;
+                    //_syncContext.Send(_ =>
+                    //{
+                    //    result = Globalo.MessageAskPopup("제품 투입 후 진행해주세요!\n(SPACE KEY START)");
+                    //}, null);
+
+                    break;
+                case 3600:
+                    Globalo.motionManager.transferMachine.TransFer_XY_Move(Machine.TransferMachine.eTeachingPosList.LEFT_TRAY_LOAD_POS);
+                    nRetStep = 3700;
+                    nTimeTick = Environment.TickCount;
+                    break;
+                case 3700://MotorAxes[(int)eTransfer.TRANSFER_X]
+                    if (Globalo.motionManager.transferMachine.MotorAxes[(int)Machine.eTransfer.TRANSFER_X].GetStopAxis() == true &&
+                        Globalo.motionManager.transferMachine.MotorAxes[(int)Machine.eTransfer.TRANSFER_Y].GetStopAxis() == true &&
+                        Globalo.motionManager.transferMachine.ChkXYMotorPos(Machine.TransferMachine.eTeachingPosList.LEFT_TRAY_LOAD_POS))
+                    {
+                        szLog = $"[ORIGIN] LEFT_TRAY_LOAD_POS 위치 이동 완료 [STEP : {nStep}]";
+                        Globalo.LogPrint("ManualControl", szLog);
+                        nRetStep = 3720;
+                        break;
+                    }
+                    else if (Environment.TickCount - nTimeTick > 30000)
+                    {
+                        szLog = $"[ORIGIN] LEFT_TRAY_LOAD_POS 위치 이동 시간 초과 [STEP : {nStep}]";
+                        Globalo.LogPrint("ManualControl", szLog);
+                        nRetStep *= -1;
+                        break;
+                    }
+
+                    break;
+                case 3720:
+                    Globalo.motionManager.transferMachine.TransFer_XY_Move(Machine.TransferMachine.eTeachingPosList.WAIT_POS);
+                    nRetStep = 3740;
+                    nTimeTick = Environment.TickCount;
+                    break;
+                case 3740:
+                    if (Globalo.motionManager.transferMachine.MotorAxes[(int)Machine.eTransfer.TRANSFER_X].GetStopAxis() == true &&
+                        Globalo.motionManager.transferMachine.MotorAxes[(int)Machine.eTransfer.TRANSFER_Y].GetStopAxis() == true &&
+                        Globalo.motionManager.transferMachine.ChkXYMotorPos(Machine.TransferMachine.eTeachingPosList.WAIT_POS))
+                    {
+                        szLog = $"[ORIGIN] WAIT_POS 위치 이동 완료 [STEP : {nStep}]";
+                        Globalo.LogPrint("ManualControl", szLog);
+                        nRetStep = 3760;
+                        break;
+                    }
+                    else if (Environment.TickCount - nTimeTick > 30000)
+                    {
+                        szLog = $"[ORIGIN] WAIT_POS 위치 이동 시간 초과 [STEP : {nStep}]";
+                        Globalo.LogPrint("ManualControl", szLog);
+                        nRetStep *= -1;
+                        break;
+                    }
+
+                    break;
+                case 3760:
+                    nRetStep = 3780;
+                    break;
+                case 3780:
+                    nRetStep = 3800;
+                    break;
+                case 3800:
+                    nRetStep = 3820;
+                    break;
+                case 3820:
+                    nRetStep = 3840;
+                    break;
+                case 3840:
+                    nRetStep = 3900;
+                    break;
+
+                case 3900:
+                    nRetStep = 4000;
+                    break;
+            }
+            return nRetStep;
+        }
+        //
+        //  4000
+        //
+        public int Auto_BcrLoadInTray(int nStep)
+        {
+            string szLog = "";
+            int i = 0;
+            int nRetStep = nStep;
+            switch (nStep)
+            {
+                case 4000:
+                    nRetStep = 4100;
+                    break;
+                case 4100:
+                    nRetStep = 4200;
+                    break;
+                case 4200:
+                    int LoadPosx = Globalo.motionManager.transferMachine.pickedProduct.LoadTrayPos.X;
+                    int LoadPosy = Globalo.motionManager.transferMachine.pickedProduct.LoadTrayPos.Y;
+                    //public bool TransFer_XY_Move(eTeachingPosList ePos, int PickerNo = 0, int CountX = 0, int CountY = 0,  bool bWait = true)
+                    Globalo.motionManager.transferMachine.TransFer_XY_Move(Machine.TransferMachine.eTeachingPosList.LEFT_TRAY_BCR_POS , LoadPosx, LoadPosx, LoadPosy);
+                    nRetStep = 4300;
+                    break;
+                case 4300:
+                    //Bcr x , y 모터 이동
+                    //바코드 스캔
+                    //Load x , y 모터 이동
+                    //제품 픽업
+                    //next Bcr x, y 모터 이동
+                    //반복
+                    //픽업 4개 모두 로드시 or x 좌표 4일때
+                    //
+                    //소켓 배출 요청 확인 / 투입 요청 확인
+                    nRetStep = 4400;
+                    break;
+                case 4400:
+                    nRetStep = 4500;
+                    break;
+                case 4500:
+                    nRetStep = 4600;
+                    break;
+                case 4600:
+                    nRetStep = 4700;
+                    break;
+                case 4700:
+                    nRetStep = 4800;
+                    break;
+                case 4800:
+                    nRetStep = 4850;
+                    break;
+                case 4850:
+                    Globalo.motionManager.transferMachine.LoadTryAdd();        //여기서 Load 픽업 위치 로드한 개수만큼 증가
+                    nRetStep = 4900;
+                    break;
+
+                case 4900:
+                    int NextLoadX = Globalo.motionManager.transferMachine.pickedProduct.LoadTrayPos.X;  //0 -> 1 -> 2 -> 3
+                    if (NextLoadX < 0 || NextLoadX > 4)
+                    {
+                        szLog = $"[AUTO] BCR POS ERROR - {NextLoadX} [STEP : {nStep}]";
+                        Globalo.LogPrint("TransferUnit", szLog);
+                        nRetStep *= -1;
+                        break;
+                    }
+                    if (Globalo.motionManager.transferMachine.pickedProduct.LoadProductInfo[NextLoadX].State == Machine.PickedProductState.Blank)
+                    {
+                        nRetStep = 4000;        //다음 제품 바코드 스캔후, 제품 로드
+                    }
+                    else
+                    {
+                        nRetStep = 3000;        //소켓 배출 요청 확인
+                    }
+                    break;
+            }
+            return nRetStep;
+        }
+        //
+        //  5000
+        //
+        public int Auto_SocketInsert(int nStep)
+        {
+            string szLog = "";
+            int nRetStep = nStep;
+            switch (nStep)
+            {
+                case 5000:
+                    nRetStep = 5900;
+                    break;
+
+                case 5900:
+
+                    break;
+            }
+            return nRetStep;
+        }
+        //
+        //  6000
+        //
+        public int Auto_SocketOutput(int nStep)
+        {
+            string szLog = "";
+            int nRetStep = nStep;
+            switch (nStep)
+            {
+                case 6000:
+                    nRetStep = 6900;
+                    break;
+
+                case 6900:
+
+                    break;
+            }
+            return nRetStep;
+        }
+        //
+        //  7000
+        //
+        public int Auto_UnLoadInTray(int nStep)
+        {
+            string szLog = "";
+            int nRetStep = nStep;
+            switch (nStep)
+            {
+                case 7000:
+                    nRetStep = 7020;
+                    break;
+                case 7020:
+                    nRetStep = 7040;
+                    break;
+                case 7040:
+                    int UnloadPosx = Globalo.motionManager.transferMachine.pickedProduct.UnloadTrayPos.X;
+                    int UnloadPosy = Globalo.motionManager.transferMachine.pickedProduct.UnloadTrayPos.Y;
+
+                    int kk = Machine.TransferMachine.UnLoadCount;//항상 2개씩 배출
+
+                    List<int> LoadTrayOffset = new List<int>();
+                    //
+                    for (int i = 0; i < 4; i++)
+                    {
+                        if (Globalo.motionManager.transferMachine.pickedProduct.LoadProductInfo[i].State == Machine.PickedProductState.Good)
+                        {
+                            LoadTrayOffset.Add(i);
+                        }
+                        else
+                        {
+                            LoadTrayOffset.Add(-1);
+                        }
+                    }
+                    nRetStep = 7060;
+                    break;
+                case 7060:
+                    nRetStep = 7080;
+                    break;
+                case 7080:
+                    nRetStep = 7100;
+                    break;
+                case 7100:
+                    nRetStep = 7120;
+                    break;
+                case 7120:
+                    nRetStep = 7140;
+                    break;
+                case 7140:
+                    nRetStep = 7900;
+                    break;
+
+                case 7900:
+
+                    break;
+            }
+            return nRetStep;
+        }
         public int HomeProcess(int nStep)                 //  원점(1000 ~ 2000)
         {
             //string szLog = "";
@@ -143,9 +427,9 @@ namespace ZenHandler.Process
                 case 1090:
                     //z축 Limit 이동
 
-                    if (Globalo.motionManager.transferMachine.TransferZ.GetStopAxis() == false)
+                    if (Globalo.motionManager.transferMachine.MotorAxes[(int)Machine.eTransfer.TRANSFER_Z].GetStopAxis() == false)
                     {
-                        Globalo.motionManager.transferMachine.TransferZ.Stop();
+                        Globalo.motionManager.transferMachine.MotorAxes[(int)Machine.eTransfer.TRANSFER_Z].Stop();
                         break;
                     }
 
@@ -156,7 +440,7 @@ namespace ZenHandler.Process
 
                     dSpeed = (15 * -1);      //-1은 왼쪽 이동
 
-                    bRtn = Globalo.motionManager.transferMachine.TransferZ.MoveAxisLimit(dSpeed, dAcc, AXT_MOTION_HOME_DETECT.NegEndLimit, AXT_MOTION_EDGE.SIGNAL_UP_EDGE, AXT_MOTION_STOPMODE.EMERGENCY_STOP);
+                    bRtn = Globalo.motionManager.transferMachine.MotorAxes[(int)Machine.eTransfer.TRANSFER_Z].MoveAxisLimit(dSpeed, dAcc, AXT_MOTION_HOME_DETECT.NegEndLimit, AXT_MOTION_EDGE.SIGNAL_UP_EDGE, AXT_MOTION_STOPMODE.EMERGENCY_STOP);
                     if (bRtn == false)
                     {
                         szLog = $"[ORIGIN] TransferZ (-)Limit 위치 구동 실패 [STEP : {nStep}]";
@@ -178,8 +462,8 @@ namespace ZenHandler.Process
 
                     //z축 Limit 이동 확인
 
-                    if (Globalo.motionManager.transferMachine.TransferZ.GetStopAxis() == true &&
-                        Globalo.motionManager.transferMachine.TransferZ.GetNegaSensor() == true)
+                    if (Globalo.motionManager.transferMachine.MotorAxes[(int)Machine.eTransfer.TRANSFER_Z].GetStopAxis() == true &&
+                        Globalo.motionManager.transferMachine.MotorAxes[(int)Machine.eTransfer.TRANSFER_Z].GetNegaSensor() == true)
                     {
                         szLog = $"[ORIGIN] TransferZ (-)Limit 위치 이동 완료 [STEP : {nStep}]";
                         Globalo.LogPrint("ManualControl", szLog);
@@ -199,15 +483,15 @@ namespace ZenHandler.Process
                     break;
                 case 1130:
                     //x축 Limit 이동
-                    if (Globalo.motionManager.transferMachine.TransferX.GetStopAxis() == false)
+                    if (Globalo.motionManager.transferMachine.MotorAxes[(int)Machine.eTransfer.TRANSFER_X].GetStopAxis() == false)
                     {
-                        Globalo.motionManager.transferMachine.TransferX.Stop();
+                        Globalo.motionManager.transferMachine.MotorAxes[(int)Machine.eTransfer.TRANSFER_X].Stop();
                         break;
                     }
 
                     dSpeed = (10 * -1);      //-1은 왼쪽 이동
 
-                    bRtn = Globalo.motionManager.transferMachine.TransferX.MoveAxisLimit(dSpeed, dAcc, AXT_MOTION_HOME_DETECT.NegEndLimit, AXT_MOTION_EDGE.SIGNAL_UP_EDGE, AXT_MOTION_STOPMODE.EMERGENCY_STOP);
+                    bRtn = Globalo.motionManager.transferMachine.MotorAxes[(int)Machine.eTransfer.TRANSFER_X].MoveAxisLimit(dSpeed, dAcc, AXT_MOTION_HOME_DETECT.NegEndLimit, AXT_MOTION_EDGE.SIGNAL_UP_EDGE, AXT_MOTION_STOPMODE.EMERGENCY_STOP);
                     if (bRtn == false)
                     {
                         szLog = $"[ORIGIN] TransferX (-)Limit 위치 구동 실패 [STEP : {nStep}]";
@@ -224,15 +508,15 @@ namespace ZenHandler.Process
 
                 case 1140:
                     //y축 Limit 이동
-                    if (Globalo.motionManager.transferMachine.TransferY.GetStopAxis() == false)
+                    if (Globalo.motionManager.transferMachine.MotorAxes[(int)Machine.eTransfer.TRANSFER_Y].GetStopAxis() == false)
                     {
-                        Globalo.motionManager.transferMachine.TransferY.Stop();
+                        Globalo.motionManager.transferMachine.MotorAxes[(int)Machine.eTransfer.TRANSFER_Y].Stop();
                         break;
                     }
 
                     dSpeed = (10 * -1);      //-1은 왼쪽 이동
 
-                    bRtn = Globalo.motionManager.transferMachine.TransferY.MoveAxisLimit(dSpeed, dAcc, AXT_MOTION_HOME_DETECT.NegEndLimit, AXT_MOTION_EDGE.SIGNAL_UP_EDGE, AXT_MOTION_STOPMODE.EMERGENCY_STOP);
+                    bRtn = Globalo.motionManager.transferMachine.MotorAxes[(int)Machine.eTransfer.TRANSFER_Y].MoveAxisLimit(dSpeed, dAcc, AXT_MOTION_HOME_DETECT.NegEndLimit, AXT_MOTION_EDGE.SIGNAL_UP_EDGE, AXT_MOTION_STOPMODE.EMERGENCY_STOP);
                     if (bRtn == false)
                     {
                         szLog = $"[ORIGIN] TransferY (-)Limit 위치 구동 실패 [STEP : {nStep}]";
@@ -253,8 +537,8 @@ namespace ZenHandler.Process
                 case 1160:
                     //y축 Limit 이동 확인
 
-                    if (Globalo.motionManager.transferMachine.TransferY.GetStopAxis() == true &&
-                        Globalo.motionManager.transferMachine.TransferY.GetNegaSensor() == true)
+                    if (Globalo.motionManager.transferMachine.MotorAxes[(int)Machine.eTransfer.TRANSFER_Y].GetStopAxis() == true &&
+                        Globalo.motionManager.transferMachine.MotorAxes[(int)Machine.eTransfer.TRANSFER_Y].GetNegaSensor() == true)
                     {
                         szLog = $"[ORIGIN] TransferY (-)Limit 위치 이동 완료 [STEP : {nStep}]";
                         Globalo.LogPrint("ManualControl", szLog);
@@ -276,8 +560,8 @@ namespace ZenHandler.Process
                 case 1180:
                     //x축 Limit 이동 확인
 
-                    if (Globalo.motionManager.transferMachine.TransferX.GetStopAxis() == true &&
-                        Globalo.motionManager.transferMachine.TransferX.GetNegaSensor() == true)
+                    if (Globalo.motionManager.transferMachine.MotorAxes[(int)Machine.eTransfer.TRANSFER_X].GetStopAxis() == true &&
+                        Globalo.motionManager.transferMachine.MotorAxes[(int)Machine.eTransfer.TRANSFER_X].GetNegaSensor() == true)
                     {
                         szLog = $"[ORIGIN] TransferX (-)Limit 위치 이동 완료 [STEP : {nStep}]";
                         Globalo.LogPrint("ManualControl", szLog);
@@ -544,7 +828,7 @@ namespace ZenHandler.Process
                     nTimeTick = Environment.TickCount;
                     break;
                 case 2130:
-                    if (Globalo.motionManager.transferMachine.TransferZ.GetStopAxis() == true &&
+                    if (Globalo.motionManager.transferMachine.MotorAxes[(int)Machine.eTransfer.TRANSFER_Z].GetStopAxis() == true &&
                         Globalo.motionManager.transferMachine.ChkZMotorPos(Machine.TransferMachine.eTeachingPosList.WAIT_POS))
                     {
                         szLog = $"[READY] TRANSFER Z WAIT_POS 이동 완료 [STEP : {nStep}]";
@@ -566,7 +850,7 @@ namespace ZenHandler.Process
                     nRetStep = 2050;
                     break;
                 case 2150:
-                    if (Globalo.motionManager.transferMachine.TransferX.GetStopAxis() == true && Globalo.motionManager.transferMachine.TransferY.GetStopAxis() == true &&
+                    if (Globalo.motionManager.transferMachine.MotorAxes[(int)Machine.eTransfer.TRANSFER_X].GetStopAxis() == true && Globalo.motionManager.transferMachine.MotorAxes[(int)Machine.eTransfer.TRANSFER_Y].GetStopAxis() == true &&
                         Globalo.motionManager.transferMachine.ChkXYMotorPos(Machine.TransferMachine.eTeachingPosList.WAIT_POS))
                     {
                         szLog = $"[READY] WAIT_POS 위치 이동 완료 [STEP : {nStep}]";
@@ -637,232 +921,6 @@ namespace ZenHandler.Process
                     szLog = $"[READY] TRANSFER 운전준비 완료 [STEP : {nStep}]";
                     Globalo.LogPrint("ManualControl", szLog);
                     nRetStep = 3000;
-                    break;
-            }
-            return nRetStep;
-        }
-        //
-        //  3000
-        //
-        public int Auto_Waiting(int nStep)
-        {
-            string szLog = "";
-            int nRetStep = nStep;
-            switch (nStep)
-            {
-                case 3000:
-                    nRetStep = 3100;
-                    break;
-                case 3100:
-                    nRetStep = 3200;
-                    break;
-                case 3200:
-                    nRetStep = 3300;
-                    break;
-                case 3300:
-                    nRetStep = 3400;
-                    break;
-                case 3400:
-                    nRetStep = 3500;
-                    break;
-                case 3500:
-                    DialogResult result = DialogResult.None;
-                    _syncContext.Send(_ =>
-                    {
-                        result = Globalo.MessageAskPopup("제품 투입 후 진행해주세요!\n(SPACE KEY START)");
-                    }, null);
-                    if (result == DialogResult.Yes)
-                    {
-                        nRetStep = 3600;
-                    }
-                    else
-                    {
-                        szLog = $"[AUTO] 자동운전 일시정지[STEP : {nStep}]";
-                        Globalo.LogPrint("PcbPrecess", szLog);
-                        nRetStep *= -1;
-                        break;
-                    }
-
-                    break;
-                case 3600:
-                    Globalo.motionManager.transferMachine.TransFer_XY_Move(Machine.TransferMachine.eTeachingPosList.LEFT_TRAY_LOAD_POS);
-                    nRetStep = 3700;
-                    nTimeTick = Environment.TickCount;
-                    break;
-                case 3700:
-                    if (Globalo.motionManager.transferMachine.TransferX.GetStopAxis() == true && Globalo.motionManager.transferMachine.TransferY.GetStopAxis() == true &&
-                        Globalo.motionManager.transferMachine.ChkXYMotorPos(Machine.TransferMachine.eTeachingPosList.LEFT_TRAY_LOAD_POS))
-                    {
-                        szLog = $"[ORIGIN] LEFT_TRAY_LOAD_POS 위치 이동 완료 [STEP : {nStep}]";
-                        Globalo.LogPrint("ManualControl", szLog);
-                        nRetStep = 3720;
-                        break;
-                    }
-                    else if (Environment.TickCount - nTimeTick > 30000)
-                    {
-                        szLog = $"[ORIGIN] LEFT_TRAY_LOAD_POS 위치 이동 시간 초과 [STEP : {nStep}]";
-                        Globalo.LogPrint("ManualControl", szLog);
-                        nRetStep *= -1;
-                        break;
-                    }
-
-                    break;
-                case 3720:
-                    Globalo.motionManager.transferMachine.TransFer_XY_Move(Machine.TransferMachine.eTeachingPosList.WAIT_POS);
-                    nRetStep = 3740;
-                    nTimeTick = Environment.TickCount;
-                    break;
-                case 3740:
-                    if (Globalo.motionManager.transferMachine.TransferX.GetStopAxis() == true && Globalo.motionManager.transferMachine.TransferY.GetStopAxis() == true &&
-                        Globalo.motionManager.transferMachine.ChkXYMotorPos(Machine.TransferMachine.eTeachingPosList.WAIT_POS))
-                    {
-                        szLog = $"[ORIGIN] WAIT_POS 위치 이동 완료 [STEP : {nStep}]";
-                        Globalo.LogPrint("ManualControl", szLog);
-                        nRetStep = 3760;
-                        break;
-                    }
-                    else if (Environment.TickCount - nTimeTick > 30000)
-                    {
-                        szLog = $"[ORIGIN] WAIT_POS 위치 이동 시간 초과 [STEP : {nStep}]";
-                        Globalo.LogPrint("ManualControl", szLog);
-                        nRetStep *= -1;
-                        break;
-                    }
-
-                    break;
-                case 3760:
-                    nRetStep = 3780;
-                    break;
-                case 3780:
-                    nRetStep = 3800;
-                    break;
-                case 3800:
-                    nRetStep = 3820;
-                    break;
-                case 3820:
-                    nRetStep = 3840;
-                    break;
-                case 3840:
-                    nRetStep = 3900;
-                    break;
-
-                case 3900:
-                    nRetStep = 4000;
-                    break;
-            }
-            return nRetStep;
-        }
-        //
-        //  4000
-        //
-        public int Auto_LoadInTray(int nStep)
-        {
-            string szLog = "";
-            int nRetStep = nStep;
-            switch (nStep)
-            {
-                case 4000:
-                    nRetStep = 4900;
-                    break;
-
-                case 4900:
-                    
-                    break;
-            }
-            return nRetStep;
-        }
-        //
-        //  5000
-        //
-        public int Auto_SocketInsert(int nStep)
-        {
-            string szLog = "";
-            int nRetStep = nStep;
-            switch (nStep)
-            {
-                case 5000:
-                    nRetStep = 5900;
-                    break;
-
-                case 5900:
-                    
-                    break;
-            }
-            return nRetStep;
-        }
-        //
-        //  6000
-        //
-        public int Auto_SocketOutput(int nStep)
-        {
-            string szLog = "";
-            int nRetStep = nStep;
-            switch (nStep)
-            {
-                case 6000:
-                    nRetStep = 6900;
-                    break;
-
-                case 6900:
-
-                    break;
-            }
-            return nRetStep;
-        }
-        //
-        //  7000
-        //
-        public int Auto_UnLoadInTray(int nStep)
-        {
-            string szLog = "";
-            int nRetStep = nStep;
-            switch (nStep)
-            {
-                case 7000:
-                    nRetStep = 7020;
-                    break;
-                case 7020:
-                    nRetStep = 7040;
-                    break;
-                case 7040:
-                    int UnloadPosx = Globalo.motionManager.transferMachine.pickedProduct.UnloadTrayPos.X;
-                    int UnloadPosy = Globalo.motionManager.transferMachine.pickedProduct.UnloadTrayPos.Y;
-
-                    int kk = Machine.TransferMachine.UnLoadCount;//항상 2개씩 배출
-
-                    List<int> LoadTrayOffset = new List<int>();
-                    //
-                    for (int i = 0; i < 4; i++)
-                    {
-                        if(Globalo.motionManager.transferMachine.pickedProduct.LoadProductInfo[i].State == Machine.PickedProductState.Good)
-                        {
-                            LoadTrayOffset.Add(i);
-                        }
-                        else
-                        {
-                            LoadTrayOffset.Add(-1);
-                        }
-                    }
-                    nRetStep = 7060;
-                    break;
-                case 7060:
-                    nRetStep = 7080;
-                    break;
-                case 7080:
-                    nRetStep = 7100;
-                    break;
-                case 7100:
-                    nRetStep = 7120;
-                    break;
-                case 7120:
-                    nRetStep = 7140;
-                    break;
-                case 7140:
-                    nRetStep = 7900;
-                    break;
-
-                case 7900:
-
                     break;
             }
             return nRetStep;
