@@ -20,9 +20,9 @@ namespace ZenHandler.Machine
         public MotionControl.MotorSet.TrayPosition Position;        //Tray Load 위치
         public int MotorCnt { get; private set; } = 3;
 
-        public MotionControl.MotorAxis TransferX;
-        public MotionControl.MotorAxis TransferY;
-        public MotionControl.MotorAxis TransferZ;
+        //public MotionControl.MotorAxis TransferX;
+        //public MotionControl.MotorAxis TransferY;
+        //public MotionControl.MotorAxis TransferZ;
 
         public MotionControl.MotorAxis[] MotorAxes; // 배열 선언
         public string[] axisName = { "TransferX", "TransferY", "TransferZ" };
@@ -100,9 +100,9 @@ namespace ZenHandler.Machine
             int i = 0;
             this.RunState = OperationState.Stopped;
             this.MachineName = this.GetType().Name;
-            MotorAxes = new MotionControl.MotorAxis[] { TransferX, TransferY, TransferZ };
-            MotorCnt = MotorAxes.Length;
-
+            //MotorAxes = new MotionControl.MotorAxis[] { TransferX, TransferY, TransferZ };
+            //MotorCnt = MotorAxes.Length;
+            MotorAxes = new MotionControl.MotorAxis[MotorCnt];
 
             for (i = 0; i < MotorCnt; i++)
             {
@@ -120,8 +120,6 @@ namespace ZenHandler.Machine
                     MotorAxes[i].NoUse = true;
                 }
             }
-
-
             for (i = 0; i < 4; i++)
             {
                 pickedProduct.LoadProductInfo.Add(new ProductInfo(i));
@@ -272,8 +270,8 @@ namespace ZenHandler.Machine
             dYPos = Globalo.motionManager.transferMachine.teachingConfig.Teaching[(int)teachingPos].Pos[(int)eTransfer.TRANSFER_Y];
             
 
-            currentXPos = TransferX.EncoderPos;
-            currentYPos = TransferY.EncoderPos;
+            currentXPos = MotorAxes[(int)eTransfer.TRANSFER_X].EncoderPos;
+            currentYPos = MotorAxes[(int)eTransfer.TRANSFER_Y].EncoderPos;
 
             if (dXPos == currentXPos && dYPos == currentYPos)
             {
@@ -293,7 +291,7 @@ namespace ZenHandler.Machine
 
 
             dZTeachingPos = Globalo.motionManager.transferMachine.teachingConfig.Teaching[(int)teachingPos].Pos[(int)eTransfer.TRANSFER_Z];
-            currentZPos = TransferZ.EncoderPos;
+            currentZPos = MotorAxes[(int)eTransfer.TRANSFER_Z].EncoderPos;
             
             if (dZTeachingPos == currentZPos)
             {
@@ -1299,7 +1297,7 @@ namespace ZenHandler.Machine
                 Console.WriteLine("No Use Machine");
                 return true;
             }
-            if (TransferX.IsMotorBusy == true)
+            if (MotorAxes[(int)eTransfer.TRANSFER_X].IsMotorBusy == true)
             {
                 Globalo.LogPrint("ManualControl", $"모터 작업이 이미 실행 중입니다. 기다려 주세요.");
                 return false;
@@ -1309,7 +1307,7 @@ namespace ZenHandler.Machine
             bool isSuccess = true;
             try
             {
-                isSuccess = TransferX.MoveAxis(dPos, AXT_MOTION_ABSREL.POS_ABS_MODE, bWait);
+                isSuccess = MotorAxes[(int)eTransfer.TRANSFER_X].MoveAxis(dPos, AXT_MOTION_ABSREL.POS_ABS_MODE, bWait);
 
             }
             catch (Exception ex)
@@ -1336,7 +1334,7 @@ namespace ZenHandler.Machine
             double dPos = Globalo.motionManager.transferMachine.teachingConfig.Teaching[(int)ePos].Pos[(int)eTransfer.TRANSFER_Z];     //z Axis
             try
             {
-                isSuccess = TransferZ.MoveAxis(dPos, AXT_MOTION_ABSREL.POS_ABS_MODE, bWait);
+                isSuccess = MotorAxes[(int)eTransfer.TRANSFER_Z].MoveAxis(dPos, AXT_MOTION_ABSREL.POS_ABS_MODE, bWait);
             }
             catch (Exception ex)
             {
@@ -1365,7 +1363,7 @@ namespace ZenHandler.Machine
             }
 
             string logStr = "";
-            MotionControl.MotorAxis[] multiAxis = { TransferX, TransferY };
+            MotionControl.MotorAxis[] multiAxis = { MotorAxes[(int)eTransfer.TRANSFER_X], MotorAxes[(int)eTransfer.TRANSFER_Y] };
             double[] dMultiPos = { 0.0, 0.0 };
             double[] dOffsetPos = { 0.0, 0.0 };
             bool isSuccess = false;
@@ -1520,7 +1518,7 @@ namespace ZenHandler.Machine
                 return false;
             }
 
-            if (TransferX.OrgState == false || TransferY.OrgState == false || TransferZ.OrgState == false)
+            if (MotorAxes[(int)Machine.eTransfer.TRANSFER_X].OrgState == false || MotorAxes[(int)Machine.eTransfer.TRANSFER_Y].OrgState == false || MotorAxes[(int)Machine.eTransfer.TRANSFER_Z].OrgState == false)
             {
                 this.RunState = OperationState.OriginRunning;
                 AutoUnitThread.m_nCurrentStep = 1000;

@@ -65,8 +65,9 @@ namespace ZenHandler.Process
                     nRetStep = 3700;
                     nTimeTick = Environment.TickCount;
                     break;
-                case 3700:
-                    if (Globalo.motionManager.transferMachine.TransferX.GetStopAxis() == true && Globalo.motionManager.transferMachine.TransferY.GetStopAxis() == true &&
+                case 3700://MotorAxes[(int)eTransfer.TRANSFER_X]
+                    if (Globalo.motionManager.transferMachine.MotorAxes[(int)Machine.eTransfer.TRANSFER_X].GetStopAxis() == true &&
+                        Globalo.motionManager.transferMachine.MotorAxes[(int)Machine.eTransfer.TRANSFER_Y].GetStopAxis() == true &&
                         Globalo.motionManager.transferMachine.ChkXYMotorPos(Machine.TransferMachine.eTeachingPosList.LEFT_TRAY_LOAD_POS))
                     {
                         szLog = $"[ORIGIN] LEFT_TRAY_LOAD_POS 위치 이동 완료 [STEP : {nStep}]";
@@ -89,7 +90,8 @@ namespace ZenHandler.Process
                     nTimeTick = Environment.TickCount;
                     break;
                 case 3740:
-                    if (Globalo.motionManager.transferMachine.TransferX.GetStopAxis() == true && Globalo.motionManager.transferMachine.TransferY.GetStopAxis() == true &&
+                    if (Globalo.motionManager.transferMachine.MotorAxes[(int)Machine.eTransfer.TRANSFER_X].GetStopAxis() == true &&
+                        Globalo.motionManager.transferMachine.MotorAxes[(int)Machine.eTransfer.TRANSFER_Y].GetStopAxis() == true &&
                         Globalo.motionManager.transferMachine.ChkXYMotorPos(Machine.TransferMachine.eTeachingPosList.WAIT_POS))
                     {
                         szLog = $"[ORIGIN] WAIT_POS 위치 이동 완료 [STEP : {nStep}]";
@@ -368,9 +370,9 @@ namespace ZenHandler.Process
                 case 1090:
                     //z축 Limit 이동
 
-                    if (Globalo.motionManager.transferMachine.TransferZ.GetStopAxis() == false)
+                    if (Globalo.motionManager.transferMachine.MotorAxes[(int)Machine.eTransfer.TRANSFER_Z].GetStopAxis() == false)
                     {
-                        Globalo.motionManager.transferMachine.TransferZ.Stop();
+                        Globalo.motionManager.transferMachine.MotorAxes[(int)Machine.eTransfer.TRANSFER_Z].Stop();
                         break;
                     }
 
@@ -381,7 +383,7 @@ namespace ZenHandler.Process
 
                     dSpeed = (15 * -1);      //-1은 왼쪽 이동
 
-                    bRtn = Globalo.motionManager.transferMachine.TransferZ.MoveAxisLimit(dSpeed, dAcc, AXT_MOTION_HOME_DETECT.NegEndLimit, AXT_MOTION_EDGE.SIGNAL_UP_EDGE, AXT_MOTION_STOPMODE.EMERGENCY_STOP);
+                    bRtn = Globalo.motionManager.transferMachine.MotorAxes[(int)Machine.eTransfer.TRANSFER_Z].MoveAxisLimit(dSpeed, dAcc, AXT_MOTION_HOME_DETECT.NegEndLimit, AXT_MOTION_EDGE.SIGNAL_UP_EDGE, AXT_MOTION_STOPMODE.EMERGENCY_STOP);
                     if (bRtn == false)
                     {
                         szLog = $"[ORIGIN] TransferZ (-)Limit 위치 구동 실패 [STEP : {nStep}]";
@@ -403,8 +405,8 @@ namespace ZenHandler.Process
 
                     //z축 Limit 이동 확인
 
-                    if (Globalo.motionManager.transferMachine.TransferZ.GetStopAxis() == true &&
-                        Globalo.motionManager.transferMachine.TransferZ.GetNegaSensor() == true)
+                    if (Globalo.motionManager.transferMachine.MotorAxes[(int)Machine.eTransfer.TRANSFER_Z].GetStopAxis() == true &&
+                        Globalo.motionManager.transferMachine.MotorAxes[(int)Machine.eTransfer.TRANSFER_Z].GetNegaSensor() == true)
                     {
                         szLog = $"[ORIGIN] TransferZ (-)Limit 위치 이동 완료 [STEP : {nStep}]";
                         Globalo.LogPrint("ManualControl", szLog);
@@ -424,15 +426,15 @@ namespace ZenHandler.Process
                     break;
                 case 1130:
                     //x축 Limit 이동
-                    if (Globalo.motionManager.transferMachine.TransferX.GetStopAxis() == false)
+                    if (Globalo.motionManager.transferMachine.MotorAxes[(int)Machine.eTransfer.TRANSFER_X].GetStopAxis() == false)
                     {
-                        Globalo.motionManager.transferMachine.TransferX.Stop();
+                        Globalo.motionManager.transferMachine.MotorAxes[(int)Machine.eTransfer.TRANSFER_X].Stop();
                         break;
                     }
 
                     dSpeed = (10 * -1);      //-1은 왼쪽 이동
 
-                    bRtn = Globalo.motionManager.transferMachine.TransferX.MoveAxisLimit(dSpeed, dAcc, AXT_MOTION_HOME_DETECT.NegEndLimit, AXT_MOTION_EDGE.SIGNAL_UP_EDGE, AXT_MOTION_STOPMODE.EMERGENCY_STOP);
+                    bRtn = Globalo.motionManager.transferMachine.MotorAxes[(int)Machine.eTransfer.TRANSFER_X].MoveAxisLimit(dSpeed, dAcc, AXT_MOTION_HOME_DETECT.NegEndLimit, AXT_MOTION_EDGE.SIGNAL_UP_EDGE, AXT_MOTION_STOPMODE.EMERGENCY_STOP);
                     if (bRtn == false)
                     {
                         szLog = $"[ORIGIN] TransferX (-)Limit 위치 구동 실패 [STEP : {nStep}]";
@@ -449,15 +451,15 @@ namespace ZenHandler.Process
 
                 case 1140:
                     //y축 Limit 이동
-                    if (Globalo.motionManager.transferMachine.TransferY.GetStopAxis() == false)
+                    if (Globalo.motionManager.transferMachine.MotorAxes[(int)Machine.eTransfer.TRANSFER_Y].GetStopAxis() == false)
                     {
-                        Globalo.motionManager.transferMachine.TransferY.Stop();
+                        Globalo.motionManager.transferMachine.MotorAxes[(int)Machine.eTransfer.TRANSFER_Y].Stop();
                         break;
                     }
 
                     dSpeed = (10 * -1);      //-1은 왼쪽 이동
 
-                    bRtn = Globalo.motionManager.transferMachine.TransferY.MoveAxisLimit(dSpeed, dAcc, AXT_MOTION_HOME_DETECT.NegEndLimit, AXT_MOTION_EDGE.SIGNAL_UP_EDGE, AXT_MOTION_STOPMODE.EMERGENCY_STOP);
+                    bRtn = Globalo.motionManager.transferMachine.MotorAxes[(int)Machine.eTransfer.TRANSFER_Y].MoveAxisLimit(dSpeed, dAcc, AXT_MOTION_HOME_DETECT.NegEndLimit, AXT_MOTION_EDGE.SIGNAL_UP_EDGE, AXT_MOTION_STOPMODE.EMERGENCY_STOP);
                     if (bRtn == false)
                     {
                         szLog = $"[ORIGIN] TransferY (-)Limit 위치 구동 실패 [STEP : {nStep}]";
@@ -478,8 +480,8 @@ namespace ZenHandler.Process
                 case 1160:
                     //y축 Limit 이동 확인
 
-                    if (Globalo.motionManager.transferMachine.TransferY.GetStopAxis() == true &&
-                        Globalo.motionManager.transferMachine.TransferY.GetNegaSensor() == true)
+                    if (Globalo.motionManager.transferMachine.MotorAxes[(int)Machine.eTransfer.TRANSFER_Y].GetStopAxis() == true &&
+                        Globalo.motionManager.transferMachine.MotorAxes[(int)Machine.eTransfer.TRANSFER_Y].GetNegaSensor() == true)
                     {
                         szLog = $"[ORIGIN] TransferY (-)Limit 위치 이동 완료 [STEP : {nStep}]";
                         Globalo.LogPrint("ManualControl", szLog);
@@ -501,8 +503,8 @@ namespace ZenHandler.Process
                 case 1180:
                     //x축 Limit 이동 확인
 
-                    if (Globalo.motionManager.transferMachine.TransferX.GetStopAxis() == true &&
-                        Globalo.motionManager.transferMachine.TransferX.GetNegaSensor() == true)
+                    if (Globalo.motionManager.transferMachine.MotorAxes[(int)Machine.eTransfer.TRANSFER_X].GetStopAxis() == true &&
+                        Globalo.motionManager.transferMachine.MotorAxes[(int)Machine.eTransfer.TRANSFER_X].GetNegaSensor() == true)
                     {
                         szLog = $"[ORIGIN] TransferX (-)Limit 위치 이동 완료 [STEP : {nStep}]";
                         Globalo.LogPrint("ManualControl", szLog);
@@ -769,7 +771,7 @@ namespace ZenHandler.Process
                     nTimeTick = Environment.TickCount;
                     break;
                 case 2130:
-                    if (Globalo.motionManager.transferMachine.TransferZ.GetStopAxis() == true &&
+                    if (Globalo.motionManager.transferMachine.MotorAxes[(int)Machine.eTransfer.TRANSFER_Z].GetStopAxis() == true &&
                         Globalo.motionManager.transferMachine.ChkZMotorPos(Machine.TransferMachine.eTeachingPosList.WAIT_POS))
                     {
                         szLog = $"[READY] TRANSFER Z WAIT_POS 이동 완료 [STEP : {nStep}]";
@@ -791,7 +793,7 @@ namespace ZenHandler.Process
                     nRetStep = 2050;
                     break;
                 case 2150:
-                    if (Globalo.motionManager.transferMachine.TransferX.GetStopAxis() == true && Globalo.motionManager.transferMachine.TransferY.GetStopAxis() == true &&
+                    if (Globalo.motionManager.transferMachine.MotorAxes[(int)Machine.eTransfer.TRANSFER_X].GetStopAxis() == true && Globalo.motionManager.transferMachine.MotorAxes[(int)Machine.eTransfer.TRANSFER_Y].GetStopAxis() == true &&
                         Globalo.motionManager.transferMachine.ChkXYMotorPos(Machine.TransferMachine.eTeachingPosList.WAIT_POS))
                     {
                         szLog = $"[READY] WAIT_POS 위치 이동 완료 [STEP : {nStep}]";
