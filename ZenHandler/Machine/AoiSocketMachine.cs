@@ -61,7 +61,7 @@ namespace ZenHandler.Machine
 
             //MotorAxes = new MotionControl.MotorAxis[] { LEFT_X, LEFT_Z, RIGHT_X, RIGHT_Z };
             //MotorCnt = MotorAxes.Length;
-
+            MotorAxes = new MotionControl.MotorAxis[MotorCnt];
             for (i = 0; i < MotorCnt; i++)
             {
                 int index = (int)MotionControl.MotorSet.ValidAoiSocketMotors[i];

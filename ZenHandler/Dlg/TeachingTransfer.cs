@@ -129,6 +129,7 @@ namespace ZenHandler.Dlg
             //LoadPicker : 0 ~ 3
             //UnloadPicket : 4 ~ 7
             if (Globalo.motionManager.transferMachine.productLayout.LoadTrayOffset.Count < 1) return;
+
             label_Teach_LoadTray_OffsetX_Val.Text = Globalo.motionManager.transferMachine.productLayout.LoadTrayOffset[PickerNo].OffsetX.ToString("0.0##");
             label_Teach_LoadTray_OffsetY_Val.Text = Globalo.motionManager.transferMachine.productLayout.LoadTrayOffset[PickerNo].OffsetY.ToString("0.0##");
 

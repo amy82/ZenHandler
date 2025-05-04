@@ -137,24 +137,14 @@ namespace ZenHandler.Process
         {
             string szLog = "";
             int i = 0;
+            int LoadPosx = 0;
+            int LoadPosy = 0;
             int nRetStep = nStep;
+            bool bRtn = false;
             switch (nStep)
             {
                 case 4000:
-                    nRetStep = 4100;
-                    break;
-                case 4100:
-                    nRetStep = 4200;
-                    break;
-                case 4200:
-                    int LoadPosx = Globalo.motionManager.transferMachine.pickedProduct.LoadTrayPos.X;
-                    int LoadPosy = Globalo.motionManager.transferMachine.pickedProduct.LoadTrayPos.Y;
-                    //public bool TransFer_XY_Move(eTeachingPosList ePos, int PickerNo = 0, int CountX = 0, int CountY = 0,  bool bWait = true)
-                    Globalo.motionManager.transferMachine.TransFer_XY_Move(Machine.TransferMachine.eTeachingPosList.LEFT_TRAY_BCR_POS , LoadPosx, LoadPosx, LoadPosy);
-                    nRetStep = 4300;
-                    break;
-                case 4300:
-                    //Bcr x , y 모터 이동
+                    //Bcr x , y, z 모터 이동
                     //바코드 스캔
                     //Load x , y 모터 이동
                     //제품 픽업
@@ -163,16 +153,115 @@ namespace ZenHandler.Process
                     //픽업 4개 모두 로드시 or x 좌표 4일때
                     //
                     //소켓 배출 요청 확인 / 투입 요청 확인
+                    nRetStep = 4100;
+                    break;
+                case 4100:
+                    nRetStep = 4200;
+                    break;
+                case 4200:
+                    //Bcr x , y 모터 이동
+                    LoadPosx = Globalo.motionManager.transferMachine.pickedProduct.LoadTrayPos.X;
+                    LoadPosy = Globalo.motionManager.transferMachine.pickedProduct.LoadTrayPos.Y;
+                    //public bool TransFer_XY_Move(eTeachingPosList ePos, int PickerNo = 0, int CountX = 0, int CountY = 0,  bool bWait = true)
+                    Globalo.motionManager.transferMachine.TransFer_XY_Move(Machine.TransferMachine.eTeachingPosList.LEFT_TRAY_BCR_POS , LoadPosx, LoadPosy);
+                    nRetStep = 4300;
+                    break;
+                case 4220:
+                    //x, y 위치 확인
+                    break;
+                case 4240:
+                    // Bcr z 모터 이동
+                    Globalo.motionManager.transferMachine.TransFer_Z_Move(Machine.TransferMachine.eTeachingPosList.LEFT_TRAY_BCR_POS);
+                    break;
+                case 4260:
+                    //z 위치 확인
+                    bRtn = Globalo.motionManager.transferMachine.ChkZMotorPos(Machine.TransferMachine.eTeachingPosList.LEFT_TRAY_BCR_POS);
+                    break;
+                case 4300:
+                    //바코드 스캔
                     nRetStep = 4400;
                     break;
+                case 4320:
+                    //스캔 대기
+                    break;
+                case 4340:
+                    //리트라이?
+                    break;
+                case 4360:
+                    //스캔 완료
+                    break;
+                case 4380:
+                    //z 축 대기 위치로 이동
+                    Globalo.motionManager.transferMachine.TransFer_Z_Move(Machine.TransferMachine.eTeachingPosList.WAIT_POS);
+                    break;
+                case 4390:
+                    //z 축 대기 위치로 이동
+                    bRtn = Globalo.motionManager.transferMachine.ChkZMotorPos(Machine.TransferMachine.eTeachingPosList.WAIT_POS);
+                    break;
                 case 4400:
+                    //Load x , y 모터 이동
+                    LoadPosx = Globalo.motionManager.transferMachine.pickedProduct.LoadTrayPos.X;
+                    LoadPosy = Globalo.motionManager.transferMachine.pickedProduct.LoadTrayPos.Y;
+
+                    Globalo.motionManager.transferMachine.TransFer_XY_Move(Machine.TransferMachine.eTeachingPosList.LEFT_TRAY_LOAD_POS, LoadPosx, LoadPosy);
                     nRetStep = 4500;
                     break;
+                case 4420:
+                    //Load x , y 위치 확인
+                    break;
+                case 4440:
+                    Globalo.motionManager.transferMachine.TransFer_Z_Move(Machine.TransferMachine.eTeachingPosList.LEFT_TRAY_LOAD_POS);
+                    break;
+                case 4460:
+                    //Load z 위치 확인
+                    bRtn = Globalo.motionManager.transferMachine.ChkZMotorPos(Machine.TransferMachine.eTeachingPosList.LEFT_TRAY_LOAD_POS);
+                    break;
+                case 4480:
+
+                    break;
                 case 4500:
+                    //Picker 하강
+                    List<int> LoadTrayOffset = new List<int>();
+                    LoadPosx = Globalo.motionManager.transferMachine.pickedProduct.LoadTrayPos.X;
+
+                    Globalo.motionManager.transferMachine.LoadPickerUp(LoadPosx, false);        //Picker 하강
                     nRetStep = 4600;
                     break;
+                case 4510:
+                    //Picker 하강 확인
+                    break;
+                case 4520:
+                    //흡착
+                    break;
+                case 4540:
+                    //흡착 확인
+
+                    //흡착 확인되면 Count 1 증가
+                    //
+                    //
+                    Globalo.motionManager.transferMachine.LoadTryAdd(1);        //여기서 Load 픽업 위치 로드한 개수만큼 증가
+                    break;
+                case 4560:
+                    //Picker 상승
+                    Globalo.motionManager.transferMachine.LoadPickerUp(LoadPosx, true);        //Picker 상승
+                    break;
+                case 4580:
+                    //Picker 상승 확인
+                    break;
+                case 4590:
+
+                    break;
                 case 4600:
+                    //Z 축 대기 위치이동
+                    Globalo.motionManager.transferMachine.TransFer_Z_Move(Machine.TransferMachine.eTeachingPosList.WAIT_POS);
                     nRetStep = 4700;
+                    break;
+                case 4620:
+                    //Z 축 대기 위치이동 확인
+                    bRtn = Globalo.motionManager.transferMachine.ChkZMotorPos(Machine.TransferMachine.eTeachingPosList.WAIT_POS);
+                    break;
+                case 4640:
+
                     break;
                 case 4700:
                     nRetStep = 4800;
@@ -181,12 +270,12 @@ namespace ZenHandler.Process
                     nRetStep = 4850;
                     break;
                 case 4850:
-                    Globalo.motionManager.transferMachine.LoadTryAdd();        //여기서 Load 픽업 위치 로드한 개수만큼 증가
+                    
                     nRetStep = 4900;
                     break;
 
                 case 4900:
-                    int NextLoadX = Globalo.motionManager.transferMachine.pickedProduct.LoadTrayPos.X;  //0 -> 1 -> 2 -> 3
+                    int NextLoadX = Globalo.motionManager.transferMachine.pickedProduct.LoadTrayPos.X;  //0 -> 1 -> 2 -> 3   1씩 더해진 상황
                     if (NextLoadX < 0 || NextLoadX > 4)
                     {
                         szLog = $"[AUTO] BCR POS ERROR - {NextLoadX} [STEP : {nStep}]";
@@ -194,7 +283,8 @@ namespace ZenHandler.Process
                         nRetStep *= -1;
                         break;
                     }
-                    if (Globalo.motionManager.transferMachine.pickedProduct.LoadProductInfo[NextLoadX].State == Machine.PickedProductState.Blank)
+                    //피커 4개가 다 로드해야 , 한줄씩은다 로드하고 완료
+                    if (Globalo.motionManager.transferMachine.pickedProduct.LoadProductInfo[NextLoadX].State == Machine.PickedProductState.Blank)   //TODO : 어떻게 반복할지 확인필요
                     {
                         nRetStep = 4000;        //다음 제품 바코드 스캔후, 제품 로드
                     }

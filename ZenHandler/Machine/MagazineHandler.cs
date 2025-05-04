@@ -65,7 +65,7 @@ namespace ZenHandler.Machine
 
             //MotorAxes = new MotionControl.MotorAxis[] { MagazineY_L, MagazineZ_L, MagazineY_R, MagazineZ_R };
             //MotorCnt = MotorAxes.Length;
-
+            MotorAxes = new MotionControl.MotorAxis[MotorCnt];
             for (i = 0; i < MotorCnt; i++)
             {
                 int index = (int)MotionControl.MotorSet.ValidMagazineMotors[i];
