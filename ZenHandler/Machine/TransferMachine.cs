@@ -858,11 +858,11 @@ namespace ZenHandler.Machine
                         break;
                 }
             }
-            bool Rtn = Globalo.motionManager.ioController.DioWriteOutportByte(lModuleNo, lOffset, uFlagHigh, uFlagLow);
-            if (Rtn == false)
+            isSuccess = Globalo.motionManager.ioController.DioWriteOutportByte(lModuleNo, lOffset, uFlagHigh, uFlagLow);
+            if (isSuccess == false)
             {
                 Console.WriteLine($" LoadMultiPickerUp MOVE FAIL");
-                return false;
+                return isSuccess;
             }
 
             return isSuccess;
@@ -966,11 +966,11 @@ namespace ZenHandler.Machine
                         break;
                 }
             }
-            bool Rtn = Globalo.motionManager.ioController.DioWriteOutportByte(lModuleNo, lOffset, uFlagHigh, uFlagLow);
-            if (Rtn == false)
+            isSuccess = Globalo.motionManager.ioController.DioWriteOutportByte(lModuleNo, lOffset, uFlagHigh, uFlagLow);
+            if (isSuccess == false)
             {
                 Console.WriteLine($" UnloadMultiPickerUp MOVE FAIL");
-                return false;
+                return isSuccess;
             }
 
             return isSuccess;

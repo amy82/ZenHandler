@@ -214,6 +214,10 @@ namespace ZenHandler.MotionControl
         }
         public virtual bool GetStopAxis()
         {
+            if (ProgramState.ON_LINE_MOTOR == false)
+            {
+                return true;
+            }
             uint dwRetVal = 0;
             uint dwStatus = 0;
             dwRetVal = CAXM.AxmStatusReadInMotion(this.m_lAxisNo, ref dwStatus);
@@ -230,6 +234,10 @@ namespace ZenHandler.MotionControl
         }
         public bool MoveAxisLimit(double dVel, double dAcc, AXT_MOTION_HOME_DETECT Detect, AXT_MOTION_EDGE Edge, AXT_MOTION_STOPMODE StopMode, bool bWait = false)
         {
+            if (ProgramState.ON_LINE_MOTOR == false)
+            {
+                return true;
+            }
             uint duRetCode = 0;
 
             double DVel = dVel * this.Resolution;
@@ -559,6 +567,10 @@ namespace ZenHandler.MotionControl
         }
         public virtual bool GetNegaSensor()
         {
+            if (ProgramState.ON_LINE_MOTOR == false)
+            {
+                return true;
+            }
             uint dwStatus = 0;
             uint dwRetVal = 0;
             uint dwPositiveLevel = 0;
