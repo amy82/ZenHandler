@@ -657,7 +657,7 @@ namespace ZenHandler  //ApsMotionControl
                 Globalo.motionManager.transferMachine.UnloadMultiPickerUp(UnloadPicker, true);
 
 
-                Globalo.motionManager.transferMachine.UnloadTryAdd(UnloadCnt);        //여기서 Load 픽업 위치 로드한 개수만큼 증가
+                Globalo.motionManager.transferMachine.UnloadTryAdd(UnloadCnt);        //여기서 배출 픽업 위치 로드한 개수만큼 증가
 
 
                 Globalo.motionManager.transferMachine.TaskSave();

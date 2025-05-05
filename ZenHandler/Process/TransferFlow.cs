@@ -368,28 +368,26 @@ namespace ZenHandler.Process
 
                     int CntUnload = Machine.TransferMachine.UnLoadCount;//1 or 2 or 4 개씩만 배출 /    3 = xxxxx
 
-                    int UnloadCnt = UnloadPosx % CntUnload;
-                    int TotalCnt = UnloadPosx + CntUnload - UnloadCnt;
-                    if (TotalCnt > 4)
+                    int StartIndex = UnloadPosx;// % CntUnload;
+                    int EndIndex = UnloadPosx + CntUnload;/// - UnloadCnt;
+                    if (EndIndex > 4)
                     {
-                        TotalCnt = 4;
+                        EndIndex = 4;
                     }
-                    Console.WriteLine("----------------------------------------------------");
-                    Console.WriteLine($"배출개수 : {CntUnload}, Pos x : {UnloadPosx}");
-                    Console.WriteLine($"피커 다운 범위 : {UnloadPosx} ~ {TotalCnt}");
-                    List<int> LoadTrayOffset = new List<int>();
+
+                    int[] UnloadPicker = { -1, -1, -1, -1 };
                     //
-                    for (int i = 0; i < 4; i++)
+                    for (int i = StartIndex; i < EndIndex; i++)
                     {
                         if (Globalo.motionManager.transferMachine.pickedProduct.LoadProductInfo[i].State == Machine.PickedProductState.Good)
                         {
-                            LoadTrayOffset.Add(i);
-                        }
-                        else
-                        {
-                            LoadTrayOffset.Add(-1);
+                            UnloadPicker[i] = 1;
                         }
                     }
+
+                    Console.WriteLine("----------------------------------------------------");
+                    Console.WriteLine($"배출개수 : {CntUnload}, Pos x : {UnloadPosx}");
+                    Console.WriteLine($"피커 다운 범위 : {StartIndex} ~ {EndIndex}");
                     nRetStep = 7060;
                     break;
                 case 7060:

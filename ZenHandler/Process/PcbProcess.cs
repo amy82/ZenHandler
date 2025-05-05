@@ -534,10 +534,10 @@ namespace ZenHandler.Process
                         Globalo.taskWork.m_nTestFinalResult = 0;        //verify Fail
                     }
                     
-                    _syncContext.Send(_ =>
-                    {
-                        Globalo.mMainPanel.ShowVerifyResultGrid(Globalo.dataManage.eepromData.CsvRead_MMd_DataList, Globalo.dataManage.eepromData.EEpromDataList);
-                    }, null);
+                    //_syncContext.Send(_ =>
+                    //{
+                    //    Globalo.mMainPanel.ShowVerifyResultGrid(Globalo.dataManage.eepromData.CsvRead_MMd_DataList, Globalo.dataManage.eepromData.EEpromDataList);
+                    //}, null);
 
                     szLog = $"[AUTO] EEPROM DATA VERIFY COMPLETE[STEP : {nStep}]";
                     Globalo.LogPrint("PcbPrecess", szLog);
