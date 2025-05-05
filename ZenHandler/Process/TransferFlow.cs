@@ -289,8 +289,9 @@ namespace ZenHandler.Process
                     bool ChkBlank = false;
                     for (i = NextLoadX; i < 4; i++)
                     {
-                        if (Globalo.motionManager.transferMachine.pickedProduct.LoadProductInfo[NextLoadX].State == Machine.PickedProductState.Blank)   //TODO : 어떻게 반복할지 확인필요
+                        if (Globalo.motionManager.transferMachine.pickedProduct.LoadProductInfo[i].State == Machine.PickedProductState.Blank)   //TODO : 어떻게 반복할지 확인필요
                         {
+                            Console.WriteLine("Blank Index : {i}");
                             ChkBlank = true;
                             break;
                         }
@@ -365,8 +366,17 @@ namespace ZenHandler.Process
                     int UnloadPosx = Globalo.motionManager.transferMachine.pickedProduct.UnloadTrayPos.X;
                     int UnloadPosy = Globalo.motionManager.transferMachine.pickedProduct.UnloadTrayPos.Y;
 
-                    int kk = Machine.TransferMachine.UnLoadCount;//항상 2개씩 배출
+                    int CntUnload = Machine.TransferMachine.UnLoadCount;//1 or 2 or 4 개씩만 배출 /    3 = xxxxx
 
+                    int UnloadCnt = UnloadPosx % CntUnload;
+                    int TotalCnt = UnloadPosx + CntUnload - UnloadCnt;
+                    if (TotalCnt > 4)
+                    {
+                        TotalCnt = 4;
+                    }
+                    Console.WriteLine("----------------------------------------------------");
+                    Console.WriteLine($"배출개수 : {CntUnload}, Pos x : {UnloadPosx}");
+                    Console.WriteLine($"피커 다운 범위 : {UnloadPosx} ~ {TotalCnt}");
                     List<int> LoadTrayOffset = new List<int>();
                     //
                     for (int i = 0; i < 4; i++)
@@ -455,7 +465,7 @@ namespace ZenHandler.Process
                     break;
                 case 1060:
                     //Load 실린더 전체 상승
-                    bRtn = Globalo.motionManager.transferMachine.LoadMultiPickerUp(new List<int> { 1, 1, 1, 1 }, true);//new int[] { 1, 1, 1, 1 }, true);
+                    bRtn = Globalo.motionManager.transferMachine.LoadMultiPickerUp(new int[] { 1, 1, 1, 1 }, true);//new int[] { 1, 1, 1, 1 }, true);
                     if (bRtn)
                     {
                         szLog = $"[ORIGIN] Trnasfer Load PIcker All Up [STEP : {nStep}]";
@@ -857,7 +867,7 @@ namespace ZenHandler.Process
                 case 2020:
                     //로드 실린더 전체 상승
                     //Load 실린더 전체 상승
-                    bRtn = Globalo.motionManager.transferMachine.LoadMultiPickerUp(new List<int> { 1, 1, 1, 1 }, true);
+                    bRtn = Globalo.motionManager.transferMachine.LoadMultiPickerUp(new int[] { 1, 1, 1, 1 }, true);
                     if (bRtn)
                     {
                         szLog = $"[READY] Trnasfer Load PIcker All Up [STEP : {nStep}]";
