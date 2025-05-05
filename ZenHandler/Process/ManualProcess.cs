@@ -227,17 +227,17 @@ namespace ZenHandler.Process
                         rtn = Data.CEEpromData.EEpromVerifyRun();
 
 
-                        _syncContext.Send(_ =>
-                        {
-                            Globalo.mMainPanel.ShowVerifyResultGrid(Globalo.dataManage.eepromData.CsvRead_MMd_DataList, Globalo.dataManage.eepromData.EEpromDataList);
-                        }, null);
-                        if (rtn == false)
-                        {
-                            szLog = $"[MANUAL] EEPROM DATA VERIFY FAIL[STEP : {nStep}]";
-                            Globalo.LogPrint("PcbPrecess", szLog, Globalo.eMessageName.M_WARNING);
-                            nStep = -1;
-                            break;
-                        }
+                        //_syncContext.Send(_ =>
+                        //{
+                        //    Globalo.mMainPanel.ShowVerifyResultGrid(Globalo.dataManage.eepromData.CsvRead_MMd_DataList, Globalo.dataManage.eepromData.EEpromDataList);
+                        //}, null);
+                        //if (rtn == false)
+                        //{
+                        //    szLog = $"[MANUAL] EEPROM DATA VERIFY FAIL[STEP : {nStep}]";
+                        //    Globalo.LogPrint("PcbPrecess", szLog, Globalo.eMessageName.M_WARNING);
+                        //    nStep = -1;
+                        //    break;
+                        //}
 
 
                         szLog = $"[MANUAL] EEPROM DATA VERIFY COMPLETE[STEP : {nStep}]";

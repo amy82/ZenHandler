@@ -90,7 +90,7 @@ namespace ZenHandler.Machine
         public PickedProduct pickedProduct = new PickedProduct();
         public ProductLayout productLayout = new ProductLayout();
 
-        public const int UnLoadCount = 2;
+        public const int UnLoadCount = 3;
         //TODO:  픽업 상태 로드 4개 , 배출 4개 / blank , LOAD , BCR OK , PASS , NG(DEFECT 1 , 2 , 3 , 4)
         //public Dio cylinder;
         //픽업 툴 4개 실린더 Dio 로 지정?
@@ -137,7 +137,7 @@ namespace ZenHandler.Machine
             Position = MotionControl.MotorSet.TrayPosition.Left;
             //
         }
-
+        
         public override bool TaskSave()     //Picket 상태 저장
         {
             bool rtn = Data.TaskDataYaml.TaskSave_Transfer(pickedProduct, taskPath);
@@ -256,53 +256,9 @@ namespace ZenHandler.Machine
 
             return myState;
         }
-        public bool ChkXYMotorPos(eTeachingPosList teachingPos)
-        {
-            if (ProgramState.ON_LINE_MOTOR == false)
-            {
-                return true;
-            }
-
-            double dXPos = 0.0;
-            double dYPos = 0.0;
-            double currentXPos = 0.0;
-            double currentYPos = 0.0;
-
-
-            dXPos = Globalo.motionManager.transferMachine.teachingConfig.Teaching[(int)teachingPos].Pos[(int)eTransfer.TRANSFER_X];
-            dYPos = Globalo.motionManager.transferMachine.teachingConfig.Teaching[(int)teachingPos].Pos[(int)eTransfer.TRANSFER_Y];
-            
-
-            currentXPos = MotorAxes[(int)eTransfer.TRANSFER_X].EncoderPos;
-            currentYPos = MotorAxes[(int)eTransfer.TRANSFER_Y].EncoderPos;
-
-            if (dXPos == currentXPos && dYPos == currentYPos)
-            {
-                return true;
-            }
-
-            return false;
-        }
-        public bool ChkZMotorPos(eTeachingPosList teachingPos)
-        {
-            if (ProgramState.ON_LINE_MOTOR == false)
-            {
-                return true;
-            }
-            double dZTeachingPos = 0.0;
-            double currentZPos = 0.0;
-
-
-            dZTeachingPos = Globalo.motionManager.transferMachine.teachingConfig.Teaching[(int)teachingPos].Pos[(int)eTransfer.TRANSFER_Z];
-            currentZPos = MotorAxes[(int)eTransfer.TRANSFER_Z].EncoderPos;
-            
-            if (dZTeachingPos == currentZPos)
-            {
-                return true;
-            }
-
-            return false;
-        }
+        
+        
+#region Transfer Io 동작
         public bool GetLoadPickerUpState(int index, bool bFlag)
         {
             if (ProgramState.ON_LINE_MOTOR == false)
@@ -786,7 +742,7 @@ namespace ZenHandler.Machine
             }
             return false;
         }
-        public bool LoadMultiPickerUp(List<int> pickerList , bool bFlag, bool bWait = false)
+        public bool LoadMultiPickerUp(int[] pickerList , bool bFlag, bool bWait = false)
         {
             
             //pickerList = 1로 들어오는 Picker만 반응하는 방식 xxxxx
@@ -798,7 +754,7 @@ namespace ZenHandler.Machine
             uint uFlagLow = 0;
             int i = 0;
             
-            for (i = 0; i < pickerList.Count; i++)
+            for (i = 0; i < pickerList.Length; i++)
             {
                 bool chk = false;
                 int index = pickerList[i];
@@ -858,11 +814,11 @@ namespace ZenHandler.Machine
                         break;
                 }
             }
-            bool Rtn = Globalo.motionManager.ioController.DioWriteOutportByte(lModuleNo, lOffset, uFlagHigh, uFlagLow);
-            if (Rtn == false)
+            isSuccess = Globalo.motionManager.ioController.DioWriteOutportByte(lModuleNo, lOffset, uFlagHigh, uFlagLow);
+            if (isSuccess == false)
             {
                 Console.WriteLine($" LoadMultiPickerUp MOVE FAIL");
-                return false;
+                return isSuccess;
             }
 
             return isSuccess;
@@ -966,11 +922,11 @@ namespace ZenHandler.Machine
                         break;
                 }
             }
-            bool Rtn = Globalo.motionManager.ioController.DioWriteOutportByte(lModuleNo, lOffset, uFlagHigh, uFlagLow);
-            if (Rtn == false)
+            isSuccess = Globalo.motionManager.ioController.DioWriteOutportByte(lModuleNo, lOffset, uFlagHigh, uFlagLow);
+            if (isSuccess == false)
             {
                 Console.WriteLine($" UnloadMultiPickerUp MOVE FAIL");
-                return false;
+                return isSuccess;
             }
 
             return isSuccess;
@@ -1290,9 +1246,57 @@ namespace ZenHandler.Machine
             return isSuccess;
         }
 
-        
-        
 
+#endregion
+
+#region Transfer Motor 동작
+        public bool ChkXYMotorPos(eTeachingPosList teachingPos)
+        {
+            if (ProgramState.ON_LINE_MOTOR == false)
+            {
+                return true;
+            }
+
+            double dXPos = 0.0;
+            double dYPos = 0.0;
+            double currentXPos = 0.0;
+            double currentYPos = 0.0;
+
+
+            dXPos = Globalo.motionManager.transferMachine.teachingConfig.Teaching[(int)teachingPos].Pos[(int)eTransfer.TRANSFER_X];
+            dYPos = Globalo.motionManager.transferMachine.teachingConfig.Teaching[(int)teachingPos].Pos[(int)eTransfer.TRANSFER_Y];
+
+
+            currentXPos = MotorAxes[(int)eTransfer.TRANSFER_X].EncoderPos;
+            currentYPos = MotorAxes[(int)eTransfer.TRANSFER_Y].EncoderPos;
+
+            if (dXPos == currentXPos && dYPos == currentYPos)
+            {
+                return true;
+            }
+
+            return false;
+        }
+        public bool ChkZMotorPos(eTeachingPosList teachingPos)
+        {
+            if (ProgramState.ON_LINE_MOTOR == false)
+            {
+                return true;
+            }
+            double dZTeachingPos = 0.0;
+            double currentZPos = 0.0;
+
+
+            dZTeachingPos = Globalo.motionManager.transferMachine.teachingConfig.Teaching[(int)teachingPos].Pos[(int)eTransfer.TRANSFER_Z];
+            currentZPos = MotorAxes[(int)eTransfer.TRANSFER_Z].EncoderPos;
+
+            if (dZTeachingPos == currentZPos)
+            {
+                return true;
+            }
+
+            return false;
+        }
         public bool TransFer_X_Move(eTeachingPosList ePos, bool bWait = true)
         {
             if (this.MotorUse == false)
@@ -1494,6 +1498,9 @@ namespace ZenHandler.Machine
                 MotorAxes[i].Stop();
             }
         }
+#endregion
+
+#region Transfer Auto Run 동작
         public override bool OriginRun()
         {
             if (AutoUnitThread.GetThreadRun() == true)
@@ -1618,5 +1625,6 @@ namespace ZenHandler.Machine
             }
             return rtn;
         }
+#endregion
     }
 }

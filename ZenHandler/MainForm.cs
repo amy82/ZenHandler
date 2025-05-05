@@ -602,32 +602,15 @@ namespace ZenHandler  //ApsMotionControl
                 //Globalo.motionManager.transferMachine.pickedProduct.UnloadTrayPos.X = Globalo.motionManager.transferMachine.pickedProduct.LoadTrayPos.X;
                 //Globalo.motionManager.transferMachine.pickedProduct.UnloadTrayPos.Y = Globalo.motionManager.transferMachine.pickedProduct.LoadTrayPos.Y;
                 //배출위치는 항상 로드하는 위치로 고정시키기
-                int UnloadPosx =  Globalo.motionManager.transferMachine.pickedProduct.UnloadTrayPos.X;
-                int UnloadPosy = Globalo.motionManager.transferMachine.pickedProduct.UnloadTrayPos.Y;
-                int Cnt = 4;// Machine.TransferMachine.UnLoadCount;      //  <--- 배출 개수  ex) 2개
+
+                Globalo.motionManager.transferMachine.pickedProduct = Data.TaskDataYaml.TaskLoad_Transfer(Machine.TransferMachine.taskPath);
+
+
                 
-                int UnloadCnt = UnloadPosx % Cnt;
-                int TotalCnt = UnloadPosx + Cnt - UnloadCnt;
-                if(TotalCnt > 4)
-                {
-                    TotalCnt = 4;
-                }
-                Console.WriteLine("----------------------------------------------------");
-                Console.WriteLine($"배출개수 : {Cnt}, Pos x : {UnloadPosx}");
-                Console.WriteLine($"피커 다운 범위 : {UnloadPosx} ~ {TotalCnt}");
 
-                List<int> LoadTrayOffset = new List<int>();
-                //
-                //항상 0,2 가 아닐수있음 1이나 3일 경우?
-                for (int i = UnloadPosx; i < TotalCnt; i++)  //x 좌표에서 배출 수만큼 카운트
-                {
-                    if (Globalo.motionManager.transferMachine.pickedProduct.LoadProductInfo[i].State == Machine.PickedProductState.Good)
-                    {
-                        LoadTrayOffset.Add(i);
-                    }
-                }
+                
 
-                Globalo.motionManager.transferMachine.LoadMultiPickerUp(LoadTrayOffset, true);
+                
 
                 Globalo.motionManager.transferMachine.TransFer_XY_Move(Machine.TransferMachine.eTeachingPosList.LEFT_TRAY_BCR_POS, 0, 0);
                 Globalo.motionManager.transferMachine.TransFer_XY_Move(Machine.TransferMachine.eTeachingPosList.LEFT_TRAY_BCR_POS, 1, 0);
@@ -639,6 +622,54 @@ namespace ZenHandler  //ApsMotionControl
 
                 Globalo.motionManager.transferMachine.TransFer_XY_Move(Machine.TransferMachine.eTeachingPosList.LEFT_TRAY_LOAD_POS, 0, 1);
                 Globalo.motionManager.transferMachine.TransFer_XY_Move(Machine.TransferMachine.eTeachingPosList.LEFT_TRAY_LOAD_POS, 2, 1);
+
+
+                //배출 시뮬레이션
+                int UnloadPosx = Globalo.motionManager.transferMachine.pickedProduct.UnloadTrayPos.X;
+                int UnloadPosy = Globalo.motionManager.transferMachine.pickedProduct.UnloadTrayPos.Y;
+                int Cnt =  Machine.TransferMachine.UnLoadCount;      //  <--- 배출 개수  ex) 2개
+
+                int StartIndex = UnloadPosx;//// UnloadPosx % Cnt;
+                int EndIndex = UnloadPosx + Cnt;/// - StartIndex;
+                if (EndIndex > 4)
+                {
+                    EndIndex = 4;
+                }
+                int UnloadCnt = EndIndex - StartIndex;
+                int[] UnloadPicker = { -1, -1, -1, -1 };
+                //
+                //항상 0,2 가 아닐수있음 1이나 3일 경우?
+                for (int i = UnloadPosx; i < EndIndex; i++)  //x 좌표에서 배출 수만큼 카운트
+                {
+                    if (Globalo.motionManager.transferMachine.pickedProduct.UnLoadProductInfo[i].State == Machine.PickedProductState.Good)
+                    {
+                        //PIckerList.Add(i);
+                        UnloadPicker[i] = 1;
+                        Globalo.motionManager.transferMachine.pickedProduct.UnLoadProductInfo[i].State = Machine.PickedProductState.Blank;
+                    }
+                }
+                Console.WriteLine($"피커 다운 범위 : {string.Join(", ", UnloadPicker)}");
+                //Globalo.motionManager.transferMachine.LoadMultiPickerUp(LoadTrayOffset, true);  //Socket에서 투입할때 2개이상 사용할 수 있다
+                Console.WriteLine("----------------------------------------------------");
+                Console.WriteLine($"배출개수 : {Cnt}/{UnloadCnt}, Pos x : {UnloadPosx}");
+                Console.WriteLine($"피커 다운 범위 : {StartIndex} ~ {EndIndex}");
+                Globalo.motionManager.transferMachine.TransFer_XY_Move(Machine.TransferMachine.eTeachingPosList.LEFT_TRAY_UNLOAD_POS, UnloadPosx, UnloadPosy);
+                Globalo.motionManager.transferMachine.UnloadMultiPickerUp(UnloadPicker, true);
+
+
+                Globalo.motionManager.transferMachine.UnloadTryAdd(UnloadCnt);        //여기서 배출 픽업 위치 로드한 개수만큼 증가
+
+
+                Globalo.motionManager.transferMachine.TaskSave();
+
+                //for (int i = 0; i < 4; i++)
+                //{
+                //    Console.WriteLine($"나누기 1: {i/1}, Pos x : {i%1}");
+                //}
+                //for (int i = 0; i < 4; i+=2)
+                //{
+                //    Console.WriteLine($"나누기 2: {i / 2}, Pos x : {i % 2}");
+                //}
             }
             //
         }

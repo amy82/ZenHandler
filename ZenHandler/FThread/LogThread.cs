@@ -32,7 +32,8 @@ namespace ZenHandler.FThread
         protected override void ThreadInit()
         {
             //DirectoryInfo dif = new DirectoryInfo(@"C:\logg"); // 디렉토리 경로
-            this.logListBox = Globalo.mlogControl.listBox_Log;
+           // this.logListBox = Globalo.mlogControl.listBox_Log;
+            this.logListBox = Globalo.mMainPanel.listBox_Log;
 
             if (!Directory.Exists(Data.CPath.BASE_LOG_PATH))
             {

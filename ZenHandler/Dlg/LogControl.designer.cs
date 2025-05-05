@@ -41,8 +41,6 @@
             this.label1 = new System.Windows.Forms.Label();
             this.textBox_DumpFile = new System.Windows.Forms.TextBox();
             this.BTN_LOG_DUMP_OPEN = new System.Windows.Forms.Button();
-            this.label_LogTitle = new System.Windows.Forms.Label();
-            this.listBox_Log = new System.Windows.Forms.ListBox();
             this.groupBox3.SuspendLayout();
             this.groupBox2.SuspendLayout();
             this.groupBox1.SuspendLayout();
@@ -208,35 +206,10 @@
             this.BTN_LOG_DUMP_OPEN.Text = "OPEN";
             this.BTN_LOG_DUMP_OPEN.UseVisualStyleBackColor = false;
             // 
-            // label_LogTitle
-            // 
-            this.label_LogTitle.AutoSize = true;
-            this.label_LogTitle.Font = new System.Drawing.Font("나눔고딕", 8.999999F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(129)));
-            this.label_LogTitle.Location = new System.Drawing.Point(37, 636);
-            this.label_LogTitle.Name = "label_LogTitle";
-            this.label_LogTitle.Size = new System.Drawing.Size(68, 14);
-            this.label_LogTitle.TabIndex = 39;
-            this.label_LogTitle.Text = " LOG VIEW";
-            // 
-            // listBox_Log
-            // 
-            this.listBox_Log.Anchor = System.Windows.Forms.AnchorStyles.None;
-            this.listBox_Log.Font = new System.Drawing.Font("굴림", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(129)));
-            this.listBox_Log.FormattingEnabled = true;
-            this.listBox_Log.HorizontalScrollbar = true;
-            this.listBox_Log.ItemHeight = 15;
-            this.listBox_Log.Location = new System.Drawing.Point(40, 659);
-            this.listBox_Log.Margin = new System.Windows.Forms.Padding(0);
-            this.listBox_Log.Name = "listBox_Log";
-            this.listBox_Log.Size = new System.Drawing.Size(692, 289);
-            this.listBox_Log.TabIndex = 40;
-            // 
             // LogControl
             // 
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.None;
             this.BackColor = System.Drawing.Color.DeepSkyBlue;
-            this.Controls.Add(this.label_LogTitle);
-            this.Controls.Add(this.listBox_Log);
             this.Controls.Add(this.groupBox3);
             this.Controls.Add(this.groupBox2);
             this.Controls.Add(this.groupBox1);
@@ -251,7 +224,6 @@
             this.groupBox1.ResumeLayout(false);
             this.groupBox1.PerformLayout();
             this.ResumeLayout(false);
-            this.PerformLayout();
 
         }
 
@@ -270,7 +242,5 @@
         private System.Windows.Forms.Label label1;
         private System.Windows.Forms.TextBox textBox_DumpFile;
         private System.Windows.Forms.Button BTN_LOG_DUMP_OPEN;
-        private System.Windows.Forms.Label label_LogTitle;
-        public System.Windows.Forms.ListBox listBox_Log;
     }
 }
