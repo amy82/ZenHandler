@@ -22,6 +22,7 @@ namespace ZenHandler.Dlg
 
         protected CancellationTokenSource cts;
         public int SelectAxisIndex = 0;        //선택 모터 순서
+        private ToolTip TeachingTransferTooltip;
         //
         public TeachingTransfer()
         {
@@ -31,7 +32,7 @@ namespace ZenHandler.Dlg
 
             int[] inGridWid = new int[] { 150, 80, 80, 80};         //Grid Width
 
-            myTeachingGrid = new Controls.TeachingGridView( Globalo.motionManager.transferMachine.MotorAxes, Globalo.motionManager.transferMachine.teachingConfig, inGridWid);
+            myTeachingGrid = new Controls.TeachingGridView( Globalo.motionManager.transferMachine.MotorAxes, Globalo.motionManager.transferMachine.teachingConfig, inGridWid, 32);
 
             myTeachingGrid.Location = new System.Drawing.Point(150, 10);
             this.groupTeachPcb.Controls.Add(myTeachingGrid);
@@ -41,6 +42,9 @@ namespace ZenHandler.Dlg
             changeBtnMotorNo(SelectAxisIndex);
 
             TeachResolution(Globalo.motionManager.transferMachine.teachingConfig.Resolution[SelectAxisIndex].ToString("0.#"));
+
+            TeachingTransferTooltip = new ToolTip();
+
         }
         public void TeachResolution(string val)
         {
@@ -129,7 +133,7 @@ namespace ZenHandler.Dlg
         }
         private void GetUnloadPickerOffsetData()
         {
-            int PickerNo = comboBox_Teach_Picker.SelectedIndex;
+            int PickerNo = comboBox_Teach_UnloadPicker.SelectedIndex;
             Globalo.motionManager.transferMachine.productLayout.UnLoadTrayOffset[PickerNo].OffsetX = double.Parse(label_Teach_UnloadTray_OffsetX_Val.Text);
             Globalo.motionManager.transferMachine.productLayout.UnLoadTrayOffset[PickerNo].OffsetY = double.Parse(label_Teach_UnloadTray_OffsetY_Val.Text);
 
@@ -471,6 +475,25 @@ namespace ZenHandler.Dlg
             PicketOffsetInput(clickedLabel);
         }
 
-        
+        private void label_Teach_LoadTray_OffsetX_Click(object sender, EventArgs e)
+        {
+            int PickerNo = comboBox_Teach_Picker.SelectedIndex;
+            //x축 현재위치
+            //Tray 간격
+            //TRAY LOAD POS 가 L, R 두개 있지만 간격 동일해서 아무위치에서 해도될듯
+            //double dOffset = (10.0 - Load Pos X) - (Tray x 간격 * PickerNo); 이동시 Tray 간격은 더해지니 빼준다.
+            //(현재위치 - 티칭위치) - (Tray X 간격 * PickerNo)
+            double TechingPos = Globalo.motionManager.transferMachine.teachingConfig.Teaching[(int)Machine.TransferMachine.eTeachingPosList.LEFT_TRAY_LOAD_POS].Pos[(int)Machine.eTransfer.TRANSFER_X];     //x Axis
+            double CurrentX = Globalo.motionManager.transferMachine.MotorAxes[(int)Machine.eTransfer.TRANSFER_X].EncoderPos;
+            double dOffset = (CurrentX - TechingPos) - (Globalo.motionManager.transferMachine.productLayout.TrayGap.GapX * PickerNo);   //TODO: 마무리안됨
+        }
+
+        private void label_Teach_LoadTray_OffsetX_MouseEnter(object sender, EventArgs e)
+        {
+            TeachingTransferTooltip.SetToolTip(label_Teach_LoadTray_OffsetX, "클릭시 현재 Offset 적용!");
+            TeachingTransferTooltip.AutoPopDelay = 3000;
+            TeachingTransferTooltip.InitialDelay = 10;
+            TeachingTransferTooltip.ShowAlways = false;
+        }
     }
 }

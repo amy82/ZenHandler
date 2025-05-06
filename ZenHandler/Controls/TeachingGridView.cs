@@ -19,7 +19,7 @@ namespace ZenHandler.Controls
         private string PointFormat = "0.0###";
         private int selectStartRow = nGridSensorRowCount;     //모터 선택하면 색 변하는 Cell
         private int dRowSensorHeight = 16;
-        private int dRowHeight = 26;
+        private int rowHeight = 26;
         //
         private string ColorSelecttGrid = "#E1E0DF";       //FFB230
         //
@@ -30,7 +30,7 @@ namespace ZenHandler.Controls
         private MotionControl.MotorAxis[] motorList;
         //
         //
-        public TeachingGridView(MotionControl.MotorAxis[] motorAxes , Data.TeachingConfig _teachingData, int[] _inGridWid)
+        public TeachingGridView(MotionControl.MotorAxis[] motorAxes , Data.TeachingConfig _teachingData, int[] _inGridWid, int RowHeight = 26)
         {
             //어떤 Machine 의 티칭정보인지
             //
@@ -39,6 +39,7 @@ namespace ZenHandler.Controls
             motorList = motorAxes;
             teachingData = _teachingData;
             inGridWid = _inGridWid;
+            rowHeight = RowHeight;
             nGridRowCount = nGridSensorRowCount + nGridSpeedRowCount;
 
             InitializeGrid();
@@ -149,7 +150,7 @@ namespace ZenHandler.Controls
             int i = 0;
             int TeachingPosCount = teachingData.Teaching.Count;
 
-            int dGridHeight = (nGridSpeedRowCount * dRowHeight) + (nGridSensorRowCount * dRowSensorHeight) + (TeachingPosCount * dRowHeight);
+            int dGridHeight = (nGridSpeedRowCount * rowHeight) + (nGridSensorRowCount * dRowSensorHeight) + (TeachingPosCount * rowHeight);
             int scrollWidth = 3;// 20;
 
 
@@ -175,15 +176,14 @@ namespace ZenHandler.Controls
             this.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.None;
 
             this.Name = "TransferTeachGrid";
-            this.Size = new Size(dGridWidth + scrollWidth, dGridHeight + dRowHeight + 2);
+            this.Size = new Size(dGridWidth + scrollWidth, dGridHeight + rowHeight + 2);
             this.ColumnHeadersBorderStyle = DataGridViewHeaderBorderStyle.Single;
             this.CellBorderStyle = DataGridViewCellBorderStyle.Single;
             this.GridColor = Color.Black;
             this.RowHeadersVisible = false;
             this.CellClick += TeachGrid_CellClick;
             this.CellDoubleClick += TeachGrid_CellDoubleClick;
-
-
+            this.CellMouseDown += TeachGrid_CellMouseDown;
             for (i = 0; i < this.ColumnCount; i++)
             {
                 if (i > 0)
@@ -207,7 +207,7 @@ namespace ZenHandler.Controls
             }
 
 
-            this.ColumnHeadersHeight = dRowHeight;
+            this.ColumnHeadersHeight = rowHeight;
             for (i = 0; i < nGridRowCount; i++)
             {
                 if (i < nGridSensorRowCount)    //센서 Cell , 값 표시 Cell 높이 구분
@@ -216,7 +216,7 @@ namespace ZenHandler.Controls
                 }
                 else
                 {
-                    this.Rows[i].Height = dRowHeight;
+                    this.Rows[i].Height = rowHeight;
                 }
             }
 
@@ -334,6 +334,16 @@ namespace ZenHandler.Controls
             for (i = 0; i < motorList.Length + 1; i++)
             {
                 this.Columns[i].HeaderCell.Style.BackColor = Color.White;
+            }
+        }
+        private void TeachGrid_CellMouseDown(object sender , DataGridViewCellMouseEventArgs e)
+        {
+            if (e.Button == MouseButtons.Right && e.RowIndex >= (nGridSensorRowCount + nGridSpeedRowCount - 1) && e.ColumnIndex >= 1)
+            {
+                Console.WriteLine($"Mouse Rclick - {e.RowIndex} / {e.ColumnIndex}");
+                //정지 상태일때만 가능
+                //원점 잡혔을 때만 가능
+                //티칭 위치 + 피커 Index 확인 
             }
         }
         /// <summary>

@@ -98,7 +98,7 @@ namespace ZenHandler.Dlg
                 {
                     double dNumData = Double.Parse(popupForm.NumPadResult);
 
-                    OffsetLabel.Text = dNumData.ToString("0.#");
+                    OffsetLabel.Text = dNumData.ToString("0.0##");
                 }
             }
         }

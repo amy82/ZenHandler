@@ -1399,8 +1399,14 @@ namespace ZenHandler.Machine
             //GapY = Tray , Socket , Ng 세로 간격
 
             //TODO: LEFT , RIGHT 각 TRAY 몇 번째 진행인지 저장돼야된다.
-            
+            //MEMO: 로드 위치이동 방식 - 1번 피커부터 바깥에서 부터 바코드스캔후 2칸씩 이동하며 들어온다.
+            //double targetx = LOAD POS X + (Tray x 간격 * Tray X Index) + (1번피커와의 간격 Offset X)
+            //double targetx: 15.5 = 10.5 + (5.0 * 0) + (0.0);      //1번 피커
+            //double targetx: 25.5 = 10.5 + (5.0 * 1) + (10.0);     //2번 피커
+            //double targetx: 40.5 = 10.5 + (5.0 * 2) + (20.0);     //3번 피커
+            //double targetx: 55.5= 10.5 + (5.0 * 3) + (30.0);      //4번 피커
 
+            //MEMO: 배출 위치이동 방식 - 각자 Tray 배출 위치에서 티칭 - 1번이든 , 3번이든, Tray 간격은 필요 없을 듯
 
             if (ePos == eTeachingPosList.LEFT_TRAY_BCR_POS || ePos == eTeachingPosList.RIGHT_TRAY_BCR_POS)
             {
@@ -1411,17 +1417,19 @@ namespace ZenHandler.Machine
             }
             else if (ePos == eTeachingPosList.LEFT_TRAY_LOAD_POS || ePos == eTeachingPosList.RIGHT_TRAY_LOAD_POS)
             {
-                //TRAY 위 제품 로드 위치
+                //TRAY 위 제품 로드 위치 - 1번 피커부터 바깥부터, Tray 간격 1칸 + 피커 1칸 간격 씩 이동
                 //
                 dOffsetPos[0] = (Globalo.motionManager.transferMachine.productLayout.TrayGap.GapX * TrayX) + Globalo.motionManager.transferMachine.productLayout.LoadTrayOffset[PickerNo].OffsetX;
                 dOffsetPos[1] = (Globalo.motionManager.transferMachine.productLayout.TrayGap.GapY * TrayY) + Globalo.motionManager.transferMachine.productLayout.LoadTrayOffset[PickerNo].OffsetY;
             }
             else if (ePos == eTeachingPosList.LEFT_TRAY_UNLOAD_POS || ePos == eTeachingPosList.RIGHT_TRAY_UNLOAD_POS)
             {
-                //TRAY 위 제품 배출 위치
+                //TRAY 위 제품 배출 위치 - 티칭위치가 각자 바로 피커 하강해도 되는 위치라서 Tray 간격은 필요 없을듯 
                 //
-                dOffsetPos[0] = (Globalo.motionManager.transferMachine.productLayout.TrayGap.GapX * TrayX) + Globalo.motionManager.transferMachine.productLayout.UnLoadTrayOffset[PickerNo].OffsetX;
-                dOffsetPos[1] = (Globalo.motionManager.transferMachine.productLayout.TrayGap.GapY * TrayY) + Globalo.motionManager.transferMachine.productLayout.UnLoadTrayOffset[PickerNo].OffsetY;
+                dOffsetPos[0] = Globalo.motionManager.transferMachine.productLayout.UnLoadTrayOffset[PickerNo].OffsetX;
+                dOffsetPos[1] = Globalo.motionManager.transferMachine.productLayout.UnLoadTrayOffset[PickerNo].OffsetY;
+                //dOffsetPos[0] = (Globalo.motionManager.transferMachine.productLayout.TrayGap.GapX * TrayX) + Globalo.motionManager.transferMachine.productLayout.UnLoadTrayOffset[PickerNo].OffsetX;
+                //dOffsetPos[1] = (Globalo.motionManager.transferMachine.productLayout.TrayGap.GapY * TrayY) + Globalo.motionManager.transferMachine.productLayout.UnLoadTrayOffset[PickerNo].OffsetY;
             }
             else if (ePos == eTeachingPosList.SOCKET_A_LOAD || ePos == eTeachingPosList.SOCKET_B_LOAD ||
                 ePos == eTeachingPosList.SOCKET_C_LOAD || ePos == eTeachingPosList.SOCKET_D_LOAD)
