@@ -58,10 +58,13 @@ namespace ZenHandler.Machine
     {
         public List<ProductInfo> LoadProductInfo { get; set; } = new List<ProductInfo>();       //TODO: 항상 4개가 돼야된다.
         public List<ProductInfo> UnLoadProductInfo { get; set; } = new List<ProductInfo>();
-        public TrayPoint LoadTrayPos { get; set; } = new TrayPoint();
+
+        public TrayPoint LoadTrayPos { get; set; } = new TrayPoint();       //투입, 배출, Ng Tray 는 같이 쓰면되려나?  L,R 나눠야 될지?
         public TrayPoint UnloadTrayPos { get; set; } = new TrayPoint();
+        public TrayPoint NgTrayPos { get; set; } = new TrayPoint();     
+        //
         public TrayPoint TotalTrayPos { get; set; } = new TrayPoint();
-        public int[] TEST = { 0, 1, 2, 3 };
+        public TrayPoint TotalNgTrayPos { get; set; } = new TrayPoint();
         
 
     }

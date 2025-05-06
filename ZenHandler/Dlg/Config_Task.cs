@@ -26,15 +26,24 @@ namespace ZenHandler.Dlg
         public void ShowTaskData()
         {
             int i = 0;
-            bool setBool = Globalo.yamlManager.configData.DrivingSettings.IdleReportPass;
 
             hopeCheckBox_PinCountUse.Checked = Globalo.yamlManager.configData.DrivingSettings.PinCountUse;
-            hopeCheckBox_ImageGrabUse.Checked = Globalo.yamlManager.configData.DrivingSettings.ImageGrabUse;
-            checkBox_IdleReportPass.Checked = Globalo.yamlManager.configData.DrivingSettings.IdleReportPass;
-            checkBox_BcrGo.Checked = Globalo.yamlManager.configData.DrivingSettings.EnableAutoStartBcr;
+            Btn_ConfigTask_Driving_Mode.Text = Globalo.yamlManager.configData.DrivingSettings.drivingMode.ToString();
 
 
             ShowTaskPicker();
+            ShowTrayPos();
+        }
+        public void ShowTrayPos()
+        {
+            label_ConfigTask_Load_Tray_X.Text = Globalo.motionManager.transferMachine.pickedProduct.LoadTrayPos.X.ToString();
+            label_ConfigTask_Unload_Tray_X.Text = Globalo.motionManager.transferMachine.pickedProduct.UnloadTrayPos.X.ToString();
+            label_ConfigTask_NgTray_X.Text = Globalo.motionManager.transferMachine.pickedProduct.NgTrayPos.X.ToString();
+
+
+            label_ConfigTask_Load_Tray_Y.Text = Globalo.motionManager.transferMachine.pickedProduct.LoadTrayPos.Y.ToString();
+            label_ConfigTask_Unload_Tray_Y.Text = Globalo.motionManager.transferMachine.pickedProduct.UnloadTrayPos.Y.ToString();
+            label_ConfigTask_NgTray_Y.Text = Globalo.motionManager.transferMachine.pickedProduct.NgTrayPos.Y.ToString();
         }
         public void ShowTaskPicker()
         {
@@ -73,9 +82,6 @@ namespace ZenHandler.Dlg
             int i = 0;
             //운전 설정
             Globalo.yamlManager.configData.DrivingSettings.PinCountUse = hopeCheckBox_PinCountUse.Checked;
-            Globalo.yamlManager.configData.DrivingSettings.ImageGrabUse = hopeCheckBox_ImageGrabUse.Checked;
-            Globalo.yamlManager.configData.DrivingSettings.IdleReportPass = checkBox_IdleReportPass.Checked;
-            Globalo.yamlManager.configData.DrivingSettings.EnableAutoStartBcr = checkBox_BcrGo.Checked;
 
             for (i = 0; i < 4; i++)
             {
@@ -103,6 +109,16 @@ namespace ZenHandler.Dlg
                     Globalo.motionManager.transferMachine.pickedProduct.UnLoadProductInfo[i].State = Machine.PickedProductState.Blank;
                 }
             }
+
+            Globalo.motionManager.transferMachine.pickedProduct.LoadTrayPos.X = int.Parse(label_ConfigTask_Load_Tray_X.Text);
+            Globalo.motionManager.transferMachine.pickedProduct.UnloadTrayPos.X = int.Parse(label_ConfigTask_Unload_Tray_X.Text);
+            Globalo.motionManager.transferMachine.pickedProduct.NgTrayPos.X = int.Parse(label_ConfigTask_NgTray_X.Text);
+
+            Globalo.motionManager.transferMachine.pickedProduct.LoadTrayPos.Y = int.Parse(label_ConfigTask_Load_Tray_Y.Text);
+            Globalo.motionManager.transferMachine.pickedProduct.UnloadTrayPos.Y = int.Parse(label_ConfigTask_Unload_Tray_Y.Text);
+            Globalo.motionManager.transferMachine.pickedProduct.NgTrayPos.Y = int.Parse(label_ConfigTask_NgTray_Y.Text);
+
+
         }
         public void showPanel()
         {
@@ -251,7 +267,159 @@ namespace ZenHandler.Dlg
             GetTaskData();
             Globalo.motionManager.transferMachine.TaskSave();
 
-            Data.TaskDataYaml.TaskSave_Layout(Globalo.motionManager.transferMachine.productLayout, Machine.TransferMachine.LayoutPath);
+            
+            Globalo.motionManager.transferMachine.TaskSave();
+            Globalo.pickerInfo.SetPickerInfo();
+        }
+
+        private void Btn_ConfigTask_Driving_Mode_Click(object sender, EventArgs e)
+        {
+            if (Globalo.motionManager.transferMachine.RunState != OperationState.Stopped ||
+                Globalo.motionManager.socketAoiMachine.RunState != OperationState.Stopped ||
+                Globalo.motionManager.magazineHandler.RunState != OperationState.Stopped ||
+                Globalo.motionManager.liftMachine.RunState != OperationState.Stopped)
+            {
+                Globalo.LogPrint("ManualControl", "[INFO] 전체 유닛 정지상태에서 변경 가능합니다.", Globalo.eMessageName.M_WARNING);
+                return;
+            }
+            if (Globalo.yamlManager.configData.DrivingSettings.drivingMode == DrivingMode.NOMAL)
+            {
+                Globalo.yamlManager.configData.DrivingSettings.drivingMode = DrivingMode.DRY_RUN;
+            }
+            else
+            {
+                Globalo.yamlManager.configData.DrivingSettings.drivingMode = DrivingMode.NOMAL;
+            }
+
+            Btn_ConfigTask_Driving_Mode.Text = Globalo.yamlManager.configData.DrivingSettings.drivingMode.ToString();
+        }
+
+        private void SetTrayPosition(int index, Label label, bool UserSet = false)
+        {
+            if (UserSet)
+            {
+                if (Globalo.motionManager.transferMachine.RunState != OperationState.Stopped)
+                {
+                    //Transfer Unit 정지상태에서만 설정 가능합니다.
+                    Globalo.LogPrint("ManualControl", "[INFO] TRANSFER UNIT 정지 상태에서 변경 가능합니다.", Globalo.eMessageName.M_WARNING);
+                    return;
+                }
+            }
+
+
+            string labelValue = label.Text;
+            int decimalValue = 0;
+
+
+            if (int.TryParse(labelValue, out decimalValue))
+            {
+                string formattedValue = decimalValue.ToString();
+                NumPadForm popupForm = new NumPadForm(formattedValue);
+                DialogResult dialogResult = popupForm.ShowDialog();
+
+
+                if (dialogResult == DialogResult.OK)
+                {
+                    int dNumData = int.Parse(popupForm.NumPadResult);
+                    if (index == 0)
+                    {
+                        //Tray x Max Count Check
+                        if (dNumData > Globalo.motionManager.transferMachine.pickedProduct.TotalTrayPos.X - 1)
+                        {
+                            dNumData = Globalo.motionManager.transferMachine.pickedProduct.TotalTrayPos.X - 1;
+                        }
+                    }
+                    else
+                    {
+                        //Tray y Max Count Check
+                        if (dNumData > Globalo.motionManager.transferMachine.pickedProduct.TotalTrayPos.Y - 1)
+                        {
+                            dNumData = Globalo.motionManager.transferMachine.pickedProduct.TotalTrayPos.Y - 1;
+                        }
+                    }
+                    label.Text = dNumData.ToString();
+                }
+            }
+        }
+        private void SetNgTrayPosition(int index, Label label, bool UserSet = false)
+        {
+            if (UserSet)
+            {
+                if (Globalo.motionManager.transferMachine.RunState != OperationState.Stopped)
+                {
+                    //Transfer Unit 정지상태에서만 설정 가능합니다.
+                    Globalo.LogPrint("ManualControl", "[INFO] TRANSFER UNIT 정지 상태에서 변경 가능합니다.", Globalo.eMessageName.M_WARNING);
+                    return;
+                }
+            }
+            string labelValue = label.Text;
+            int decimalValue = 0;
+
+
+            if (int.TryParse(labelValue, out decimalValue))
+            {
+                string formattedValue = decimalValue.ToString();
+                NumPadForm popupForm = new NumPadForm(formattedValue);
+                DialogResult dialogResult = popupForm.ShowDialog();
+
+
+                if (dialogResult == DialogResult.OK)
+                {
+                    int dNumData = int.Parse(popupForm.NumPadResult);
+                    if (index == 0)
+                    {
+                        //Ng Tray x Max Count Check
+                        if (dNumData > Globalo.motionManager.transferMachine.pickedProduct.TotalNgTrayPos.X - 1)
+                        {
+                            dNumData = Globalo.motionManager.transferMachine.pickedProduct.TotalNgTrayPos.X - 1;
+                        }
+                    }
+                    else
+                    {
+                        //Ng Tray y Max Count Check
+                        if (dNumData > Globalo.motionManager.transferMachine.pickedProduct.TotalNgTrayPos.Y - 1)
+                        {
+                            dNumData = Globalo.motionManager.transferMachine.pickedProduct.TotalNgTrayPos.Y - 1;
+                        }
+                    }
+                    label.Text = dNumData.ToString();
+                }
+            }
+        }
+        
+        private void label_ConfigTask_Load_Tray_X_Click(object sender, EventArgs e)
+        {
+            Label label = sender as Label;
+            SetTrayPosition(0, label, true);
+        }
+        private void label_ConfigTask_Unload_Tray_X_Click(object sender, EventArgs e)
+        {
+            Label label = sender as Label;
+            SetTrayPosition(0, label, true);
+        }
+
+        private void label_ConfigTask_Load_Tray_Y_Click(object sender, EventArgs e)
+        {
+            Label label = sender as Label;
+            SetTrayPosition(1, label, true);
+        }
+
+        private void label_ConfigTask_Unload_Tray_Y_Click(object sender, EventArgs e)
+        {
+            Label label = sender as Label;
+            SetTrayPosition(1, label, true);
+        }
+
+        private void label_ConfigTask_NgTray_X_Click(object sender, EventArgs e)
+        {
+            Label label = sender as Label;
+            SetNgTrayPosition(0, label, true);
+        }
+
+        private void label_ConfigTask_NgTray_Y_Click(object sender, EventArgs e)
+        {
+            Label label = sender as Label;
+            SetNgTrayPosition(1, label, true);
         }
     }
 }

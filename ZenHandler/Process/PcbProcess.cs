@@ -464,25 +464,17 @@ namespace ZenHandler.Process
                     break;
                 case 50300:
                     //영상 Grab Start ?? 선택 가능하게
-                    if (Globalo.yamlManager.configData.DrivingSettings.ImageGrabUse == true)
+                    rtn = Globalo.mLaonGrabberClass.StartGrab();
+                    if (rtn == false)
                     {
-                        rtn = Globalo.mLaonGrabberClass.StartGrab();
-                        if (rtn == false)
-                        {
-                            szLog = $"[AUTO] CCd StartGrab Fail[STEP : {nStep}]";
-                            Globalo.LogPrint("PcbPrecess", szLog);
-                            nRetStep = -50100;
-                            break;
-                        }
+                        szLog = $"[AUTO] CCd StartGrab Fail[STEP : {nStep}]";
+                        Globalo.LogPrint("PcbPrecess", szLog);
+                        nRetStep = -50100;
+                        break;
+                    }
 
-                        szLog = $"[AUTO] CCd StartGrab Ok[STEP : {nStep}]";
-                        Globalo.LogPrint("PcbPrecess", szLog);
-                    }
-                    else
-                    {
-                        szLog = $"[AUTO] CCd Grab Pass[STEP : {nStep}]";
-                        Globalo.LogPrint("PcbPrecess", szLog);
-                    }
+                    szLog = $"[AUTO] CCd StartGrab Ok[STEP : {nStep}]";
+                    Globalo.LogPrint("PcbPrecess", szLog);
                     nRetStep = 50400;
                     break;
                 case 50400:

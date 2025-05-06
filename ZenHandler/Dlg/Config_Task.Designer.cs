@@ -32,8 +32,6 @@ namespace ZenHandler.Dlg
             this.hopeCheckBox_ImageGrabUse = new ReaLTaiizor.Controls.HopeCheckBox();
             this.hopeCheckBox_PinCountUse = new ReaLTaiizor.Controls.HopeCheckBox();
             this.label3 = new System.Windows.Forms.Label();
-            this.checkBox_BcrGo = new System.Windows.Forms.CheckBox();
-            this.checkBox_IdleReportPass = new System.Windows.Forms.CheckBox();
             this.label_ConfigTask_Transfer_Load_Picker = new System.Windows.Forms.Label();
             this.label_ConfigTask_Transfer_Unload_Picker = new System.Windows.Forms.Label();
             this.label_ConfigTask_Load_P1 = new System.Windows.Forms.Label();
@@ -53,6 +51,19 @@ namespace ZenHandler.Dlg
             this.label16 = new System.Windows.Forms.Label();
             this.label_ConfigTask_Unload_P1 = new System.Windows.Forms.Label();
             this.Btn_ConfigTask_Save = new System.Windows.Forms.Button();
+            this.label_ConfigTask_Delay = new System.Windows.Forms.Label();
+            this.label_ConfigTask_Driving_Mode = new System.Windows.Forms.Label();
+            this.Btn_ConfigTask_Driving_Mode = new System.Windows.Forms.Button();
+            this.label_ConfigTask_Tray_Pos = new System.Windows.Forms.Label();
+            this.label_ConfigTask_Load_Tray = new System.Windows.Forms.Label();
+            this.label_ConfigTask_Unload_Tray = new System.Windows.Forms.Label();
+            this.label_ConfigTask_NgTray = new System.Windows.Forms.Label();
+            this.label_ConfigTask_Load_Tray_Y = new System.Windows.Forms.Label();
+            this.label_ConfigTask_Load_Tray_X = new System.Windows.Forms.Label();
+            this.label_ConfigTask_Unload_Tray_Y = new System.Windows.Forms.Label();
+            this.label_ConfigTask_Unload_Tray_X = new System.Windows.Forms.Label();
+            this.label_ConfigTask_NgTray_Y = new System.Windows.Forms.Label();
+            this.label_ConfigTask_NgTray_X = new System.Windows.Forms.Label();
             this.SuspendLayout();
             // 
             // hopeCheckBox_ImageGrabUse
@@ -67,7 +78,7 @@ namespace ZenHandler.Dlg
             this.hopeCheckBox_ImageGrabUse.EnabledUncheckedColor = System.Drawing.Color.FromArgb(((int)(((byte)(156)))), ((int)(((byte)(158)))), ((int)(((byte)(161)))));
             this.hopeCheckBox_ImageGrabUse.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.hopeCheckBox_ImageGrabUse.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(48)))), ((int)(((byte)(49)))), ((int)(((byte)(51)))));
-            this.hopeCheckBox_ImageGrabUse.Location = new System.Drawing.Point(420, 305);
+            this.hopeCheckBox_ImageGrabUse.Location = new System.Drawing.Point(514, 659);
             this.hopeCheckBox_ImageGrabUse.Name = "hopeCheckBox_ImageGrabUse";
             this.hopeCheckBox_ImageGrabUse.Size = new System.Drawing.Size(159, 20);
             this.hopeCheckBox_ImageGrabUse.TabIndex = 67;
@@ -86,7 +97,7 @@ namespace ZenHandler.Dlg
             this.hopeCheckBox_PinCountUse.EnabledUncheckedColor = System.Drawing.Color.FromArgb(((int)(((byte)(156)))), ((int)(((byte)(158)))), ((int)(((byte)(161)))));
             this.hopeCheckBox_PinCountUse.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.hopeCheckBox_PinCountUse.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(48)))), ((int)(((byte)(49)))), ((int)(((byte)(51)))));
-            this.hopeCheckBox_PinCountUse.Location = new System.Drawing.Point(420, 269);
+            this.hopeCheckBox_PinCountUse.Location = new System.Drawing.Point(512, 623);
             this.hopeCheckBox_PinCountUse.Name = "hopeCheckBox_PinCountUse";
             this.hopeCheckBox_PinCountUse.Size = new System.Drawing.Size(163, 20);
             this.hopeCheckBox_PinCountUse.TabIndex = 66;
@@ -98,48 +109,18 @@ namespace ZenHandler.Dlg
             this.label3.BackColor = System.Drawing.Color.Transparent;
             this.label3.Font = new System.Drawing.Font("굴림", 10F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(129)));
             this.label3.ForeColor = System.Drawing.Color.DimGray;
-            this.label3.Location = new System.Drawing.Point(451, 225);
+            this.label3.Location = new System.Drawing.Point(491, 585);
             this.label3.Name = "label3";
             this.label3.Size = new System.Drawing.Size(204, 23);
             this.label3.TabIndex = 65;
             this.label3.Text = "운전 설정";
             this.label3.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
-            // checkBox_BcrGo
-            // 
-            this.checkBox_BcrGo.BackColor = System.Drawing.Color.WhiteSmoke;
-            this.checkBox_BcrGo.FlatAppearance.BorderColor = System.Drawing.Color.Black;
-            this.checkBox_BcrGo.FlatAppearance.BorderSize = 2;
-            this.checkBox_BcrGo.FlatAppearance.CheckedBackColor = System.Drawing.Color.DarkGray;
-            this.checkBox_BcrGo.Font = new System.Drawing.Font("나눔고딕 ExtraBold", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(129)));
-            this.checkBox_BcrGo.Location = new System.Drawing.Point(454, 392);
-            this.checkBox_BcrGo.Name = "checkBox_BcrGo";
-            this.checkBox_BcrGo.Size = new System.Drawing.Size(194, 21);
-            this.checkBox_BcrGo.TabIndex = 69;
-            this.checkBox_BcrGo.Text = "Start Automation on Barcode";
-            this.checkBox_BcrGo.UseVisualStyleBackColor = false;
-            this.checkBox_BcrGo.Visible = false;
-            // 
-            // checkBox_IdleReportPass
-            // 
-            this.checkBox_IdleReportPass.BackColor = System.Drawing.Color.WhiteSmoke;
-            this.checkBox_IdleReportPass.FlatAppearance.BorderColor = System.Drawing.Color.Black;
-            this.checkBox_IdleReportPass.FlatAppearance.BorderSize = 2;
-            this.checkBox_IdleReportPass.FlatAppearance.CheckedBackColor = System.Drawing.Color.DarkGray;
-            this.checkBox_IdleReportPass.Font = new System.Drawing.Font("나눔고딕 ExtraBold", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(129)));
-            this.checkBox_IdleReportPass.Location = new System.Drawing.Point(454, 365);
-            this.checkBox_IdleReportPass.Name = "checkBox_IdleReportPass";
-            this.checkBox_IdleReportPass.Size = new System.Drawing.Size(194, 21);
-            this.checkBox_IdleReportPass.TabIndex = 68;
-            this.checkBox_IdleReportPass.Text = "IDLE REASON REPORT PASS";
-            this.checkBox_IdleReportPass.UseVisualStyleBackColor = false;
-            this.checkBox_IdleReportPass.Visible = false;
-            // 
             // label_ConfigTask_Transfer_Load_Picker
             // 
-            this.label_ConfigTask_Transfer_Load_Picker.BackColor = System.Drawing.Color.Orange;
+            this.label_ConfigTask_Transfer_Load_Picker.BackColor = System.Drawing.Color.DarkSalmon;
             this.label_ConfigTask_Transfer_Load_Picker.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.label_ConfigTask_Transfer_Load_Picker.Font = new System.Drawing.Font("나눔고딕 ExtraBold", 11.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(129)));
+            this.label_ConfigTask_Transfer_Load_Picker.Font = new System.Drawing.Font("나눔고딕", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(129)));
             this.label_ConfigTask_Transfer_Load_Picker.ForeColor = System.Drawing.Color.Black;
             this.label_ConfigTask_Transfer_Load_Picker.Location = new System.Drawing.Point(21, 29);
             this.label_ConfigTask_Transfer_Load_Picker.Name = "label_ConfigTask_Transfer_Load_Picker";
@@ -152,7 +133,7 @@ namespace ZenHandler.Dlg
             // 
             this.label_ConfigTask_Transfer_Unload_Picker.BackColor = System.Drawing.Color.DarkSalmon;
             this.label_ConfigTask_Transfer_Unload_Picker.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.label_ConfigTask_Transfer_Unload_Picker.Font = new System.Drawing.Font("나눔고딕 ExtraBold", 11.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(129)));
+            this.label_ConfigTask_Transfer_Unload_Picker.Font = new System.Drawing.Font("나눔고딕", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(129)));
             this.label_ConfigTask_Transfer_Unload_Picker.ForeColor = System.Drawing.Color.Black;
             this.label_ConfigTask_Transfer_Unload_Picker.Location = new System.Drawing.Point(21, 170);
             this.label_ConfigTask_Transfer_Unload_Picker.Name = "label_ConfigTask_Transfer_Unload_Picker";
@@ -383,7 +364,7 @@ namespace ZenHandler.Dlg
             this.Btn_ConfigTask_Save.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.Btn_ConfigTask_Save.Font = new System.Drawing.Font("나눔고딕", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.Btn_ConfigTask_Save.ForeColor = System.Drawing.Color.White;
-            this.Btn_ConfigTask_Save.Location = new System.Drawing.Point(619, 419);
+            this.Btn_ConfigTask_Save.Location = new System.Drawing.Point(622, 817);
             this.Btn_ConfigTask_Save.Name = "Btn_ConfigTask_Save";
             this.Btn_ConfigTask_Save.Size = new System.Drawing.Size(122, 53);
             this.Btn_ConfigTask_Save.TabIndex = 88;
@@ -391,10 +372,196 @@ namespace ZenHandler.Dlg
             this.Btn_ConfigTask_Save.UseVisualStyleBackColor = false;
             this.Btn_ConfigTask_Save.Click += new System.EventHandler(this.Btn_ConfigTask_Save_Click);
             // 
+            // label_ConfigTask_Delay
+            // 
+            this.label_ConfigTask_Delay.BackColor = System.Drawing.Color.MistyRose;
+            this.label_ConfigTask_Delay.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.label_ConfigTask_Delay.Font = new System.Drawing.Font("나눔고딕 ExtraBold", 11.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(129)));
+            this.label_ConfigTask_Delay.ForeColor = System.Drawing.Color.Black;
+            this.label_ConfigTask_Delay.Location = new System.Drawing.Point(379, 29);
+            this.label_ConfigTask_Delay.Name = "label_ConfigTask_Delay";
+            this.label_ConfigTask_Delay.Size = new System.Drawing.Size(297, 32);
+            this.label_ConfigTask_Delay.TabIndex = 89;
+            this.label_ConfigTask_Delay.Text = "Delay Time ";
+            this.label_ConfigTask_Delay.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            // 
+            // label_ConfigTask_Driving_Mode
+            // 
+            this.label_ConfigTask_Driving_Mode.BackColor = System.Drawing.Color.MistyRose;
+            this.label_ConfigTask_Driving_Mode.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.label_ConfigTask_Driving_Mode.Font = new System.Drawing.Font("나눔고딕", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(129)));
+            this.label_ConfigTask_Driving_Mode.ForeColor = System.Drawing.Color.Black;
+            this.label_ConfigTask_Driving_Mode.Location = new System.Drawing.Point(546, 357);
+            this.label_ConfigTask_Driving_Mode.Name = "label_ConfigTask_Driving_Mode";
+            this.label_ConfigTask_Driving_Mode.Size = new System.Drawing.Size(161, 32);
+            this.label_ConfigTask_Driving_Mode.TabIndex = 90;
+            this.label_ConfigTask_Driving_Mode.Text = "Driving Mode";
+            this.label_ConfigTask_Driving_Mode.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            // 
+            // Btn_ConfigTask_Driving_Mode
+            // 
+            this.Btn_ConfigTask_Driving_Mode.Font = new System.Drawing.Font("나눔고딕 ExtraBold", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(129)));
+            this.Btn_ConfigTask_Driving_Mode.Location = new System.Drawing.Point(546, 390);
+            this.Btn_ConfigTask_Driving_Mode.Name = "Btn_ConfigTask_Driving_Mode";
+            this.Btn_ConfigTask_Driving_Mode.Size = new System.Drawing.Size(161, 52);
+            this.Btn_ConfigTask_Driving_Mode.TabIndex = 91;
+            this.Btn_ConfigTask_Driving_Mode.Text = "NOMAL";
+            this.Btn_ConfigTask_Driving_Mode.UseVisualStyleBackColor = true;
+            this.Btn_ConfigTask_Driving_Mode.Click += new System.EventHandler(this.Btn_ConfigTask_Driving_Mode_Click);
+            // 
+            // label_ConfigTask_Tray_Pos
+            // 
+            this.label_ConfigTask_Tray_Pos.BackColor = System.Drawing.Color.DarkSalmon;
+            this.label_ConfigTask_Tray_Pos.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.label_ConfigTask_Tray_Pos.Font = new System.Drawing.Font("나눔고딕", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(129)));
+            this.label_ConfigTask_Tray_Pos.ForeColor = System.Drawing.Color.Black;
+            this.label_ConfigTask_Tray_Pos.Location = new System.Drawing.Point(21, 344);
+            this.label_ConfigTask_Tray_Pos.Name = "label_ConfigTask_Tray_Pos";
+            this.label_ConfigTask_Tray_Pos.Size = new System.Drawing.Size(297, 32);
+            this.label_ConfigTask_Tray_Pos.TabIndex = 92;
+            this.label_ConfigTask_Tray_Pos.Text = "Tray Position [ x , y ]";
+            this.label_ConfigTask_Tray_Pos.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            // 
+            // label_ConfigTask_Load_Tray
+            // 
+            this.label_ConfigTask_Load_Tray.BackColor = System.Drawing.Color.MistyRose;
+            this.label_ConfigTask_Load_Tray.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.label_ConfigTask_Load_Tray.Font = new System.Drawing.Font("나눔고딕 ExtraBold", 8.999999F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(129)));
+            this.label_ConfigTask_Load_Tray.ForeColor = System.Drawing.Color.Black;
+            this.label_ConfigTask_Load_Tray.Location = new System.Drawing.Point(21, 376);
+            this.label_ConfigTask_Load_Tray.Name = "label_ConfigTask_Load_Tray";
+            this.label_ConfigTask_Load_Tray.Size = new System.Drawing.Size(126, 40);
+            this.label_ConfigTask_Load_Tray.TabIndex = 93;
+            this.label_ConfigTask_Load_Tray.Text = "Load Tray";
+            this.label_ConfigTask_Load_Tray.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            // 
+            // label_ConfigTask_Unload_Tray
+            // 
+            this.label_ConfigTask_Unload_Tray.BackColor = System.Drawing.Color.MistyRose;
+            this.label_ConfigTask_Unload_Tray.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.label_ConfigTask_Unload_Tray.Font = new System.Drawing.Font("나눔고딕 ExtraBold", 8.999999F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(129)));
+            this.label_ConfigTask_Unload_Tray.ForeColor = System.Drawing.Color.Black;
+            this.label_ConfigTask_Unload_Tray.Location = new System.Drawing.Point(21, 416);
+            this.label_ConfigTask_Unload_Tray.Name = "label_ConfigTask_Unload_Tray";
+            this.label_ConfigTask_Unload_Tray.Size = new System.Drawing.Size(126, 40);
+            this.label_ConfigTask_Unload_Tray.TabIndex = 94;
+            this.label_ConfigTask_Unload_Tray.Text = "Unload Tray";
+            this.label_ConfigTask_Unload_Tray.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            // 
+            // label_ConfigTask_NgTray
+            // 
+            this.label_ConfigTask_NgTray.BackColor = System.Drawing.Color.MistyRose;
+            this.label_ConfigTask_NgTray.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.label_ConfigTask_NgTray.Font = new System.Drawing.Font("나눔고딕 ExtraBold", 8.999999F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(129)));
+            this.label_ConfigTask_NgTray.ForeColor = System.Drawing.Color.Black;
+            this.label_ConfigTask_NgTray.Location = new System.Drawing.Point(21, 456);
+            this.label_ConfigTask_NgTray.Name = "label_ConfigTask_NgTray";
+            this.label_ConfigTask_NgTray.Size = new System.Drawing.Size(126, 40);
+            this.label_ConfigTask_NgTray.TabIndex = 95;
+            this.label_ConfigTask_NgTray.Text = "Ng Tray";
+            this.label_ConfigTask_NgTray.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            // 
+            // label_ConfigTask_Load_Tray_Y
+            // 
+            this.label_ConfigTask_Load_Tray_Y.BackColor = System.Drawing.Color.White;
+            this.label_ConfigTask_Load_Tray_Y.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.label_ConfigTask_Load_Tray_Y.Font = new System.Drawing.Font("나눔고딕", 11.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(129)));
+            this.label_ConfigTask_Load_Tray_Y.ForeColor = System.Drawing.Color.Black;
+            this.label_ConfigTask_Load_Tray_Y.Location = new System.Drawing.Point(232, 376);
+            this.label_ConfigTask_Load_Tray_Y.Name = "label_ConfigTask_Load_Tray_Y";
+            this.label_ConfigTask_Load_Tray_Y.Size = new System.Drawing.Size(86, 40);
+            this.label_ConfigTask_Load_Tray_Y.TabIndex = 98;
+            this.label_ConfigTask_Load_Tray_Y.Text = "0";
+            this.label_ConfigTask_Load_Tray_Y.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            this.label_ConfigTask_Load_Tray_Y.Click += new System.EventHandler(this.label_ConfigTask_Load_Tray_Y_Click);
+            // 
+            // label_ConfigTask_Load_Tray_X
+            // 
+            this.label_ConfigTask_Load_Tray_X.BackColor = System.Drawing.Color.White;
+            this.label_ConfigTask_Load_Tray_X.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.label_ConfigTask_Load_Tray_X.Font = new System.Drawing.Font("나눔고딕", 11.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(129)));
+            this.label_ConfigTask_Load_Tray_X.ForeColor = System.Drawing.Color.Black;
+            this.label_ConfigTask_Load_Tray_X.Location = new System.Drawing.Point(147, 376);
+            this.label_ConfigTask_Load_Tray_X.Name = "label_ConfigTask_Load_Tray_X";
+            this.label_ConfigTask_Load_Tray_X.Size = new System.Drawing.Size(86, 40);
+            this.label_ConfigTask_Load_Tray_X.TabIndex = 97;
+            this.label_ConfigTask_Load_Tray_X.Text = "0";
+            this.label_ConfigTask_Load_Tray_X.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            this.label_ConfigTask_Load_Tray_X.Click += new System.EventHandler(this.label_ConfigTask_Load_Tray_X_Click);
+            // 
+            // label_ConfigTask_Unload_Tray_Y
+            // 
+            this.label_ConfigTask_Unload_Tray_Y.BackColor = System.Drawing.Color.White;
+            this.label_ConfigTask_Unload_Tray_Y.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.label_ConfigTask_Unload_Tray_Y.Font = new System.Drawing.Font("나눔고딕", 11.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(129)));
+            this.label_ConfigTask_Unload_Tray_Y.ForeColor = System.Drawing.Color.Black;
+            this.label_ConfigTask_Unload_Tray_Y.Location = new System.Drawing.Point(232, 416);
+            this.label_ConfigTask_Unload_Tray_Y.Name = "label_ConfigTask_Unload_Tray_Y";
+            this.label_ConfigTask_Unload_Tray_Y.Size = new System.Drawing.Size(86, 40);
+            this.label_ConfigTask_Unload_Tray_Y.TabIndex = 100;
+            this.label_ConfigTask_Unload_Tray_Y.Text = "0";
+            this.label_ConfigTask_Unload_Tray_Y.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            this.label_ConfigTask_Unload_Tray_Y.Click += new System.EventHandler(this.label_ConfigTask_Unload_Tray_Y_Click);
+            // 
+            // label_ConfigTask_Unload_Tray_X
+            // 
+            this.label_ConfigTask_Unload_Tray_X.BackColor = System.Drawing.Color.White;
+            this.label_ConfigTask_Unload_Tray_X.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.label_ConfigTask_Unload_Tray_X.Font = new System.Drawing.Font("나눔고딕", 11.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(129)));
+            this.label_ConfigTask_Unload_Tray_X.ForeColor = System.Drawing.Color.Black;
+            this.label_ConfigTask_Unload_Tray_X.Location = new System.Drawing.Point(147, 416);
+            this.label_ConfigTask_Unload_Tray_X.Name = "label_ConfigTask_Unload_Tray_X";
+            this.label_ConfigTask_Unload_Tray_X.Size = new System.Drawing.Size(86, 40);
+            this.label_ConfigTask_Unload_Tray_X.TabIndex = 99;
+            this.label_ConfigTask_Unload_Tray_X.Text = "0";
+            this.label_ConfigTask_Unload_Tray_X.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            this.label_ConfigTask_Unload_Tray_X.Click += new System.EventHandler(this.label_ConfigTask_Unload_Tray_X_Click);
+            // 
+            // label_ConfigTask_NgTray_Y
+            // 
+            this.label_ConfigTask_NgTray_Y.BackColor = System.Drawing.Color.White;
+            this.label_ConfigTask_NgTray_Y.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.label_ConfigTask_NgTray_Y.Font = new System.Drawing.Font("나눔고딕", 11.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(129)));
+            this.label_ConfigTask_NgTray_Y.ForeColor = System.Drawing.Color.Black;
+            this.label_ConfigTask_NgTray_Y.Location = new System.Drawing.Point(232, 456);
+            this.label_ConfigTask_NgTray_Y.Name = "label_ConfigTask_NgTray_Y";
+            this.label_ConfigTask_NgTray_Y.Size = new System.Drawing.Size(86, 40);
+            this.label_ConfigTask_NgTray_Y.TabIndex = 102;
+            this.label_ConfigTask_NgTray_Y.Text = "0";
+            this.label_ConfigTask_NgTray_Y.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            this.label_ConfigTask_NgTray_Y.Click += new System.EventHandler(this.label_ConfigTask_NgTray_Y_Click);
+            // 
+            // label_ConfigTask_NgTray_X
+            // 
+            this.label_ConfigTask_NgTray_X.BackColor = System.Drawing.Color.White;
+            this.label_ConfigTask_NgTray_X.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.label_ConfigTask_NgTray_X.Font = new System.Drawing.Font("나눔고딕", 11.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(129)));
+            this.label_ConfigTask_NgTray_X.ForeColor = System.Drawing.Color.Black;
+            this.label_ConfigTask_NgTray_X.Location = new System.Drawing.Point(147, 456);
+            this.label_ConfigTask_NgTray_X.Name = "label_ConfigTask_NgTray_X";
+            this.label_ConfigTask_NgTray_X.Size = new System.Drawing.Size(86, 40);
+            this.label_ConfigTask_NgTray_X.TabIndex = 101;
+            this.label_ConfigTask_NgTray_X.Text = "0";
+            this.label_ConfigTask_NgTray_X.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            this.label_ConfigTask_NgTray_X.Click += new System.EventHandler(this.label_ConfigTask_NgTray_X_Click);
+            // 
             // Config_Task
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 12F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
+            this.Controls.Add(this.label_ConfigTask_NgTray_Y);
+            this.Controls.Add(this.label_ConfigTask_NgTray_X);
+            this.Controls.Add(this.label_ConfigTask_Unload_Tray_Y);
+            this.Controls.Add(this.label_ConfigTask_Unload_Tray_X);
+            this.Controls.Add(this.label_ConfigTask_Load_Tray_Y);
+            this.Controls.Add(this.label_ConfigTask_Load_Tray_X);
+            this.Controls.Add(this.label_ConfigTask_NgTray);
+            this.Controls.Add(this.label_ConfigTask_Unload_Tray);
+            this.Controls.Add(this.label_ConfigTask_Load_Tray);
+            this.Controls.Add(this.label_ConfigTask_Tray_Pos);
+            this.Controls.Add(this.Btn_ConfigTask_Driving_Mode);
+            this.Controls.Add(this.label_ConfigTask_Driving_Mode);
+            this.Controls.Add(this.label_ConfigTask_Delay);
             this.Controls.Add(this.Btn_ConfigTask_Save);
             this.Controls.Add(this.label10);
             this.Controls.Add(this.label_ConfigTask_Unload_P4);
@@ -414,13 +581,11 @@ namespace ZenHandler.Dlg
             this.Controls.Add(this.label_ConfigTask_Load_P1);
             this.Controls.Add(this.label_ConfigTask_Transfer_Unload_Picker);
             this.Controls.Add(this.label_ConfigTask_Transfer_Load_Picker);
-            this.Controls.Add(this.checkBox_BcrGo);
-            this.Controls.Add(this.checkBox_IdleReportPass);
             this.Controls.Add(this.hopeCheckBox_ImageGrabUse);
             this.Controls.Add(this.hopeCheckBox_PinCountUse);
             this.Controls.Add(this.label3);
             this.Name = "Config_Task";
-            this.Size = new System.Drawing.Size(770, 496);
+            this.Size = new System.Drawing.Size(770, 900);
             this.ResumeLayout(false);
 
         }
@@ -429,8 +594,6 @@ namespace ZenHandler.Dlg
         private ReaLTaiizor.Controls.HopeCheckBox hopeCheckBox_ImageGrabUse;
         private ReaLTaiizor.Controls.HopeCheckBox hopeCheckBox_PinCountUse;
         private System.Windows.Forms.Label label3;
-        private System.Windows.Forms.CheckBox checkBox_BcrGo;
-        private System.Windows.Forms.CheckBox checkBox_IdleReportPass;
         private System.Windows.Forms.Label label_ConfigTask_Transfer_Load_Picker;
         private System.Windows.Forms.Label label_ConfigTask_Transfer_Unload_Picker;
         private System.Windows.Forms.Label label_ConfigTask_Load_P1;
@@ -450,5 +613,18 @@ namespace ZenHandler.Dlg
         private System.Windows.Forms.Label label16;
         private System.Windows.Forms.Label label_ConfigTask_Unload_P1;
         private System.Windows.Forms.Button Btn_ConfigTask_Save;
+        private System.Windows.Forms.Label label_ConfigTask_Delay;
+        private System.Windows.Forms.Label label_ConfigTask_Driving_Mode;
+        private System.Windows.Forms.Button Btn_ConfigTask_Driving_Mode;
+        private System.Windows.Forms.Label label_ConfigTask_Tray_Pos;
+        private System.Windows.Forms.Label label_ConfigTask_Load_Tray;
+        private System.Windows.Forms.Label label_ConfigTask_Unload_Tray;
+        private System.Windows.Forms.Label label_ConfigTask_NgTray;
+        private System.Windows.Forms.Label label_ConfigTask_Load_Tray_Y;
+        private System.Windows.Forms.Label label_ConfigTask_Load_Tray_X;
+        private System.Windows.Forms.Label label_ConfigTask_Unload_Tray_Y;
+        private System.Windows.Forms.Label label_ConfigTask_Unload_Tray_X;
+        private System.Windows.Forms.Label label_ConfigTask_NgTray_Y;
+        private System.Windows.Forms.Label label_ConfigTask_NgTray_X;
     }
 }

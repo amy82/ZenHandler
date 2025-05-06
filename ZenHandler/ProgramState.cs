@@ -17,6 +17,11 @@ namespace ZenHandler
         OriginRunning,      // 원점
         OriginDone
     }
+    public enum DrivingMode
+    {
+        NOMAL = 0,
+        DRY_RUN
+    }
     // 글로벌 상태 변수를 관리하는 클래스 정의
     public static class ProgramState
     {

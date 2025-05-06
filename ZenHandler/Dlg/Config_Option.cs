@@ -53,25 +53,6 @@ namespace ZenHandler.Dlg
             }
         }
 
-        private void label_CsvScanMax_Click(object sender, EventArgs e)
-        {
-            string sValue = label_CsvScanMax.Text;
-            NumPadForm popupForm = new NumPadForm(sValue);
-
-            DialogResult dialogResult = popupForm.ShowDialog();
-            if (dialogResult == DialogResult.OK)
-            {
-                if (popupForm.NumPadResult.Contains(".") == true || popupForm.NumPadResult.Length < 1)
-                {
-                    Globalo.LogPrint("Config", "입력이 값 확인바랍니다.", Globalo.eMessageName.M_WARNING);
-
-                }
-                else
-                {
-                    label_CsvScanMax.Text = popupForm.NumPadResult;
-                }
-            }
-        }
         private void button_Bcr_Connect_Click(object sender, EventArgs e)
         {
             bool connectRtn = Globalo.serialPortManager.Barcode.Open();
@@ -182,7 +163,6 @@ namespace ZenHandler.Dlg
                 ComboBox_Language.SelectedIndex = index;
             }
             label_PinCountMax.Text = Globalo.yamlManager.configData.DrivingSettings.PinCountMax.ToString();
-            label_CsvScanMax.Text = Globalo.yamlManager.configData.DrivingSettings.CsvScanMonth.ToString();
 
             label_Config_Tray_GapX_Val.Text = Globalo.motionManager.transferMachine.productLayout.TrayGap.GapX.ToString("0.0##");
             label_Config_Tray_GapY_Val.Text = Globalo.motionManager.transferMachine.productLayout.TrayGap.GapY.ToString("0.0##");
@@ -198,7 +178,6 @@ namespace ZenHandler.Dlg
             Globalo.yamlManager.configData.DrivingSettings.Language = ComboBox_Language.Text;
 
             Globalo.yamlManager.configData.DrivingSettings.PinCountMax = int.Parse(label_PinCountMax.Text);
-            Globalo.yamlManager.configData.DrivingSettings.CsvScanMonth = int.Parse(label_CsvScanMax.Text);
 
             //제품 간격 - Tray , Socket
             Globalo.motionManager.transferMachine.productLayout.TrayGap.GapX = double.Parse(label_Config_Tray_GapX_Val.Text);
@@ -230,6 +209,7 @@ namespace ZenHandler.Dlg
             GetOptionData();
 
             Globalo.yamlManager.configDataSave();
+            Data.TaskDataYaml.TaskSave_Layout(Globalo.motionManager.transferMachine.productLayout, Machine.TransferMachine.LayoutPath);
 
             //언어 변경
             string comData = Globalo.yamlManager.configData.DrivingSettings.Language;
