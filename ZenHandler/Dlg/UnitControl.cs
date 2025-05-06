@@ -140,6 +140,9 @@ namespace ZenHandler.Dlg
                     _prevState[(int)euNIT.MAGAZINE_UNIT] = Globalo.motionManager.magazineHandler.RunState;
                 }
             }
+
+
+            this.label_TransferUnit_Step_Val.Text = Globalo.motionManager.transferMachine.AutoUnitThread.m_nCurrentStep.ToString();
         }
         private void ReadyBlinkUnit(int index)
         {

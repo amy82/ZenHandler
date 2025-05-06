@@ -64,8 +64,12 @@ namespace ZenHandler.FThread
         {
             m_bPause = true;
         }
-        
-        
+        public void Resume()
+        {
+            m_bPause = false;
+            Console.WriteLine($"{this.name} thread Resume call");
+        }
+
         public bool Start()
         {
             try
@@ -164,7 +168,7 @@ namespace ZenHandler.FThread
         {
             if (thread != null)
             {
-                Console.WriteLine($"{this.name} GetThreadRun() : {thread.IsAlive}");
+                //Console.WriteLine($"{this.name} GetThreadRun() : {thread.IsAlive}");
 
                 return thread.IsAlive;    //thread 동작 중
             }
@@ -176,11 +180,7 @@ namespace ZenHandler.FThread
         {
             return m_bPause;
         }
-        private void Resume()
-        {
-            m_bPause = false;
-            Console.WriteLine($"{this.name} thread Resume call");
-        }
+        
         private void Abort()
         {
             thread.Abort();

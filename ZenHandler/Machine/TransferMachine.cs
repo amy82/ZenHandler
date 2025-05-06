@@ -1584,11 +1584,15 @@ namespace ZenHandler.Machine
         public override bool AutoRun()
         {
             bool rtn = true;
-            if (this.RunState != OperationState.PreparationComplete)
+            if (this.RunState != OperationState.Paused)
             {
-                Globalo.LogPrint("MainForm", "[TRANSFER] 운전준비가 완료되지 않았습니다.", Globalo.eMessageName.M_WARNING);
-                return false;
+                if (this.RunState != OperationState.PreparationComplete)
+                {
+                    Globalo.LogPrint("MainForm", "[TRANSFER] 운전준비가 완료되지 않았습니다.", Globalo.eMessageName.M_WARNING);
+                    return false;
+                }
             }
+            
 
             if (AutoUnitThread.GetThreadRun() == true)
             {
@@ -1596,6 +1600,7 @@ namespace ZenHandler.Machine
 
                 if (AutoUnitThread.GetThreadPause() == true)        //일시 정지 상태인지 확인
                 {
+                    AutoUnitThread.Resume();
                     AutoUnitThread.m_nCurrentStep = Math.Abs(AutoUnitThread.m_nCurrentStep);
 
                     RunState = OperationState.AutoRunning;
