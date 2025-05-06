@@ -195,6 +195,18 @@
     <Compile Include="Data\YamlSecGemData.cs" />
     <Compile Include="Data\YamlTaskData.cs" />
     <Compile Include="Data\YamlTeachingData.cs" />
+    <Compile Include="Dlg\Config_Option.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Dlg\Config_Option.Designer.cs">
+      <DependentUpon>Config_Option.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Dlg\Config_Task.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Dlg\Config_Task.Designer.cs">
+      <DependentUpon>Config_Task.cs</DependentUpon>
+    </Compile>
     <Compile Include="MotionControl\FwDioDefine.cs" />
     <Compile Include="MotionControl\EEpromDioDefine.cs" />
     <Compile Include="MotionControl\AoiDioDefine.cs" />
@@ -457,6 +469,12 @@
     <Compile Include="Ubisam\Constants.cs" />
     <Compile Include="Ubisam\DriverHelper.cs" />
     <Compile Include="Vision.cs" />
+    <EmbeddedResource Include="Dlg\Config_Option.resx">
+      <DependentUpon>Config_Option.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Dlg\Config_Task.resx">
+      <DependentUpon>Config_Task.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="Dlg\IdlePopupForm.resx">
       <DependentUpon>IdlePopupForm.cs</DependentUpon>
     </EmbeddedResource>

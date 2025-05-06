@@ -163,8 +163,8 @@ namespace ZenHandler.Machine
             int currentPosx = Globalo.motionManager.transferMachine.pickedProduct.LoadTrayPos.X;
             int currentPosy = Globalo.motionManager.transferMachine.pickedProduct.LoadTrayPos.Y;
 
-            int MaxXCount = Globalo.motionManager.transferMachine.pickedProduct.TotalTrayPos.X;
-            int MaxYCount = Globalo.motionManager.transferMachine.pickedProduct.TotalTrayPos.Y;
+            int MaxXCount = Globalo.motionManager.transferMachine.productLayout.TotalTrayPos.X;
+            int MaxYCount = Globalo.motionManager.transferMachine.productLayout.TotalTrayPos.Y;
             Console.WriteLine($"Current Load X : {currentPosx} / {MaxXCount}");
             Console.WriteLine($"Current Load Y : {currentPosy} / {MaxYCount}");
 
@@ -205,13 +205,13 @@ namespace ZenHandler.Machine
             //여기는 배출하는 과정에 배출 개수에 따라 배출 위치 재설정하는 함수
             Globalo.motionManager.transferMachine.pickedProduct.UnloadTrayPos.X += UnloadCnt;
 
-            if (Globalo.motionManager.transferMachine.pickedProduct.UnloadTrayPos.X >= Globalo.motionManager.transferMachine.pickedProduct.TotalTrayPos.X)
+            if (Globalo.motionManager.transferMachine.pickedProduct.UnloadTrayPos.X >= Globalo.motionManager.transferMachine.productLayout.TotalTrayPos.X)
             {
                 Globalo.motionManager.transferMachine.pickedProduct.UnloadTrayPos.X = 0;
                 Globalo.motionManager.transferMachine.pickedProduct.UnloadTrayPos.Y++;
             }
 
-            if (Globalo.motionManager.transferMachine.pickedProduct.UnloadTrayPos.Y >= Globalo.motionManager.transferMachine.pickedProduct.TotalTrayPos.Y)
+            if (Globalo.motionManager.transferMachine.pickedProduct.UnloadTrayPos.Y >= Globalo.motionManager.transferMachine.productLayout.TotalTrayPos.Y)
             {
                 Globalo.motionManager.transferMachine.pickedProduct.UnloadTrayPos.Y = 0;
             }
@@ -1584,11 +1584,15 @@ namespace ZenHandler.Machine
         public override bool AutoRun()
         {
             bool rtn = true;
-            if (this.RunState != OperationState.PreparationComplete)
+            if (this.RunState != OperationState.Paused)
             {
-                Globalo.LogPrint("MainForm", "[TRANSFER] 운전준비가 완료되지 않았습니다.", Globalo.eMessageName.M_WARNING);
-                return false;
+                if (this.RunState != OperationState.PreparationComplete)
+                {
+                    Globalo.LogPrint("MainForm", "[TRANSFER] 운전준비가 완료되지 않았습니다.", Globalo.eMessageName.M_WARNING);
+                    return false;
+                }
             }
+            
 
             if (AutoUnitThread.GetThreadRun() == true)
             {
@@ -1596,6 +1600,7 @@ namespace ZenHandler.Machine
 
                 if (AutoUnitThread.GetThreadPause() == true)        //일시 정지 상태인지 확인
                 {
+                    AutoUnitThread.Resume();
                     AutoUnitThread.m_nCurrentStep = Math.Abs(AutoUnitThread.m_nCurrentStep);
 
                     RunState = OperationState.AutoRunning;

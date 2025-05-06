@@ -49,6 +49,8 @@ namespace ZenHandler.Dlg
             this.BTN_MAGAZINE_UNIT_STOP = new System.Windows.Forms.Button();
             this.BTN_MAGAZINE_UNIT_AUTORUN = new System.Windows.Forms.Button();
             this.BTN_MAGAZINE_UNIT_READY = new System.Windows.Forms.Button();
+            this.label_TransferUnit_Step_Val = new System.Windows.Forms.Label();
+            this.label_TransferUnit_Step = new System.Windows.Forms.Label();
             this.SuspendLayout();
             // 
             // label3
@@ -323,11 +325,34 @@ namespace ZenHandler.Dlg
             this.BTN_MAGAZINE_UNIT_READY.UseVisualStyleBackColor = false;
             this.BTN_MAGAZINE_UNIT_READY.Click += new System.EventHandler(this.BTN_MAGAZINE_UNIT_READY_Click);
             // 
+            // label_TransferUnit_Step_Val
+            // 
+            this.label_TransferUnit_Step_Val.BackColor = System.Drawing.Color.White;
+            this.label_TransferUnit_Step_Val.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.label_TransferUnit_Step_Val.Location = new System.Drawing.Point(270, 102);
+            this.label_TransferUnit_Step_Val.Name = "label_TransferUnit_Step_Val";
+            this.label_TransferUnit_Step_Val.Size = new System.Drawing.Size(89, 22);
+            this.label_TransferUnit_Step_Val.TabIndex = 75;
+            this.label_TransferUnit_Step_Val.Text = "0";
+            this.label_TransferUnit_Step_Val.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
+            // 
+            // label_TransferUnit_Step
+            // 
+            this.label_TransferUnit_Step.AutoSize = true;
+            this.label_TransferUnit_Step.Font = new System.Drawing.Font("나눔고딕", 8.999999F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(129)));
+            this.label_TransferUnit_Step.Location = new System.Drawing.Point(272, 84);
+            this.label_TransferUnit_Step.Name = "label_TransferUnit_Step";
+            this.label_TransferUnit_Step.Size = new System.Drawing.Size(39, 14);
+            this.label_TransferUnit_Step.TabIndex = 76;
+            this.label_TransferUnit_Step.Text = "Step :";
+            // 
             // UnitControl
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 12F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.SystemColors.Control;
+            this.Controls.Add(this.label_TransferUnit_Step);
+            this.Controls.Add(this.label_TransferUnit_Step_Val);
             this.Controls.Add(this.BTN_MAGAZINE_UNIT_PAUSE);
             this.Controls.Add(this.BTN_MAGAZINE_UNIT_STOP);
             this.Controls.Add(this.BTN_MAGAZINE_UNIT_AUTORUN);
@@ -351,6 +376,7 @@ namespace ZenHandler.Dlg
             this.Name = "UnitControl";
             this.Size = new System.Drawing.Size(770, 564);
             this.ResumeLayout(false);
+            this.PerformLayout();
 
         }
 
@@ -376,5 +402,7 @@ namespace ZenHandler.Dlg
         private System.Windows.Forms.Button BTN_MAGAZINE_UNIT_STOP;
         private System.Windows.Forms.Button BTN_MAGAZINE_UNIT_AUTORUN;
         private System.Windows.Forms.Button BTN_MAGAZINE_UNIT_READY;
+        private System.Windows.Forms.Label label_TransferUnit_Step_Val;
+        private System.Windows.Forms.Label label_TransferUnit_Step;
     }
 }

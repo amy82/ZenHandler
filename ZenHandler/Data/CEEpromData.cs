@@ -1049,7 +1049,7 @@ namespace ZenHandler.Data
                 return "";
             }
             string fullFilePath = "";
-            int maxSearchMonths = Globalo.yamlManager.configData.DrivingSettings.CsvScanMonth; // // 검색 기간 제한 (예: 최대 3개월)
+            int maxSearchMonths = 1;// Globalo.yamlManager.configData.DrivingSettings.CsvScanMonth; // // 검색 기간 제한 (예: 최대 3개월)
             int monthsSearched = 0; // 검색한 월 수
             DateTime currentDate = DateTime.Now;
             DateTime startDate = currentDate;

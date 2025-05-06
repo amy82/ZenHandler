@@ -55,7 +55,7 @@ namespace ZenHandler.Data
 
                 if (Loaded == null)
                 {
-                    Globalo.LogPrint("TeachingDataYaml", "TEACHING DATA LOAD FAIL", Globalo.eMessageName.M_ERROR);
+                    Globalo.LogPrint("TeachingDataYaml", $"{fileName} - TEACHING DATA LOAD FAIL", Globalo.eMessageName.M_ERROR);
                     return false;
                 }
                 // 값 복사
@@ -65,7 +65,7 @@ namespace ZenHandler.Data
                 this.Resolution = Loaded.Resolution;
                 this.Teaching = Loaded.Teaching;
 
-                Globalo.LogPrint("TeachingDataYaml", "TEACHING DATA LOAD COMPLETE!");
+                Globalo.LogPrint("TeachingDataYaml", $"{fileName} - TEACHING DATA LOAD COMPLETE!");
                 return true;
             }
             catch (Exception ex)

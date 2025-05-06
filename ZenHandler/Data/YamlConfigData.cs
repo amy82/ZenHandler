@@ -13,15 +13,10 @@ namespace ZenHandler.Data
 
     public class _DrivingSettings
     {
-        public bool IdleReportPass { get; set; }
-        public bool EnableAutoStartBcr { get; set; }
         public bool PinCountUse { get; set; }
         public int PinCountMax { get; set; }
-        public int CsvScanMonth { get; set; }
-        public bool ImageGrabUse { get; set; }
         public string Language { get; set; }
-
-
+        public DrivingMode drivingMode { get; set; }
 
     }
     public class ConfigData

@@ -10,7 +10,7 @@ namespace ZenHandler.MotionControl
     //class MotionBase
     public abstract class MotorController
     {
-        protected FThread.MotorAutoThread AutoUnitThread;
+        public FThread.MotorAutoThread AutoUnitThread;
         //protected FThread.MotorManualThread motorManualThread;
         
         public Process.ProcessManager processManager;

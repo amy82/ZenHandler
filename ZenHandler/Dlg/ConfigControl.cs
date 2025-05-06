@@ -15,124 +15,78 @@ namespace ZenHandler.Dlg
     public partial class ConfigControl : UserControl
     {
         //public event delLogSender eLogSender;       //외부에서 호출할때 사용
-
-        private enum eManualBtn : int
+        public enum eConfigBtn : int
         {
-            pcbTab = 0, lensTab
+            TaskTab = 0, OptionTab
         };
+        private eConfigBtn ConfigCurrentTab;
+        private Config_Task configTask;
+        private Config_Option configOption;
+        private int StartControlY = 50;
+
+
         public ConfigControl(int _w, int _h)
         {
             InitializeComponent();
+            Event.EventManager.LanguageChanged += OnLanguageChanged;
 
             this.Paint += new PaintEventHandler(Form_Paint);
             
             this.Width = _w;
             this.Height = _h;
 
+            configTask = new Config_Task();
+            configOption = new Config_Option();
+            ConfigCurrentTab = eConfigBtn.TaskTab;
+            configTask.Visible = false;
+            configOption.Visible = false;
+
+            this.Controls.Add(configOption);
+            this.Controls.Add(configTask);
+
+            configOption.Location = new System.Drawing.Point(0, StartControlY);
+            configTask.Location = new System.Drawing.Point(0, StartControlY);
+
             setInterface();
 
         }
-        public void RefreshConfig()
+        private void ConfigBtnChange(eConfigBtn index)
         {
-            ShowDriveSet();
-            ShowComPort();
-            ShowLanguage();
-        }
-        public void GetConfigData()
-        {
-            //
-            Globalo.yamlManager.configData.DrivingSettings.PinCountMax = int.Parse(label_PinCountMax.Text);
-            Globalo.yamlManager.configData.DrivingSettings.CsvScanMonth = int.Parse(label_CsvScanMax.Text);
+            Btn_Config_Task.BackColor = ColorTranslator.FromHtml("#E1E0DF");
+            Btn_Config_Option.BackColor = ColorTranslator.FromHtml("#E1E0DF");
 
-
-            //운전 설정
-            Globalo.yamlManager.configData.DrivingSettings.PinCountUse = hopeCheckBox_PinCountUse.Checked;
-            Globalo.yamlManager.configData.DrivingSettings.ImageGrabUse = hopeCheckBox_ImageGrabUse.Checked;
-            Globalo.yamlManager.configData.DrivingSettings.IdleReportPass = checkBox_IdleReportPass.Checked;
-            Globalo.yamlManager.configData.DrivingSettings.EnableAutoStartBcr = checkBox_BcrGo.Checked;
-
-            //Serial Port
-            Globalo.yamlManager.configData.SerialPort.Bcr = poisonComboBox_BcrPort.Text;
-            Globalo.yamlManager.configData.DrivingSettings.Language = ComboBox_Language.Text;
-
-            //제품 간격 - Tray , Socket
-            Globalo.motionManager.transferMachine.productLayout.TrayGap.GapX = double.Parse(label_Config_Tray_GapX_Val.Text);
-            Globalo.motionManager.transferMachine.productLayout.TrayGap.GapY = double.Parse(label_Config_Tray_GapY_Val.Text);
-            Globalo.motionManager.transferMachine.productLayout.SocketGap.GapX = double.Parse(label_Config_Socket_GapX_Val.Text);
-            Globalo.motionManager.transferMachine.productLayout.SocketGap.GapY = double.Parse(label_Config_Socket_GapY_Val.Text);
-            Globalo.motionManager.transferMachine.productLayout.NgGap.GapX = double.Parse(label_Config_Ng_GapX_Val.Text);
-            Globalo.motionManager.transferMachine.productLayout.NgGap.GapY = double.Parse(label_Config_Ng_GapY_Val.Text);
-
-        }
-        public void ShowDriveSet()
-        {
-            bool setBool = Globalo.yamlManager.configData.DrivingSettings.IdleReportPass;
-            hopeCheckBox_PinCountUse.Checked = Globalo.yamlManager.configData.DrivingSettings.PinCountUse;
-            hopeCheckBox_ImageGrabUse.Checked = Globalo.yamlManager.configData.DrivingSettings.ImageGrabUse;
-            checkBox_IdleReportPass.Checked = Globalo.yamlManager.configData.DrivingSettings.IdleReportPass;
-            checkBox_BcrGo.Checked = Globalo.yamlManager.configData.DrivingSettings.EnableAutoStartBcr;
-
-            label_PinCountMax.Text = Globalo.yamlManager.configData.DrivingSettings.PinCountMax.ToString();
-            label_CsvScanMax.Text = Globalo.yamlManager.configData.DrivingSettings.CsvScanMonth.ToString();
-
-
-
-            
-            label_Config_Tray_GapX_Val.Text = Globalo.motionManager.transferMachine.productLayout.TrayGap.GapX.ToString("0.0##");
-            label_Config_Tray_GapY_Val.Text = Globalo.motionManager.transferMachine.productLayout.TrayGap.GapY.ToString("0.0##");
-            label_Config_Socket_GapX_Val.Text = Globalo.motionManager.transferMachine.productLayout.SocketGap.GapX.ToString("0.0##");
-            label_Config_Socket_GapY_Val.Text = Globalo.motionManager.transferMachine.productLayout.SocketGap.GapY.ToString("0.0##");
-            label_Config_Ng_GapX_Val.Text = Globalo.motionManager.transferMachine.productLayout.NgGap.GapX.ToString("0.0##");
-            label_Config_Ng_GapY_Val.Text = Globalo.motionManager.transferMachine.productLayout.NgGap.GapY.ToString("0.0##");
-        }
-        public void ShowComPort()
-        {
-            string comData = Globalo.yamlManager.configData.SerialPort.Bcr;
-            int index = poisonComboBox_BcrPort.Items.IndexOf(comData);
-            if (index < 0)
+            ConfigCurrentTab = index;
+            if (ConfigCurrentTab == eConfigBtn.TaskTab)
             {
-                poisonComboBox_BcrPort.SelectedIndex = 0;  // 첫 번째 항목 선택
+                ConfigTitleLabel.Text = "| CONFIG - TASK";
+                Btn_Config_Task.BackColor = ColorTranslator.FromHtml("#FFB230");
+                configTask.showPanel();
+                configOption.hidePanel();
             }
-            else
+            if (ConfigCurrentTab == eConfigBtn.OptionTab)
             {
-                poisonComboBox_BcrPort.SelectedIndex = index;
+                ConfigTitleLabel.Text = "| CONFIG - OPTION";
+                Btn_Config_Option.BackColor = ColorTranslator.FromHtml("#FFB230");
+                configOption.showPanel();
+                configTask.hidePanel();
             }
         }
-        private void ShowLanguage()
+        private void OnLanguageChanged(object sender, EventArgs e)
         {
-            string comData = Globalo.yamlManager.configData.DrivingSettings.Language;
-
-            int index = ComboBox_Language.Items.IndexOf(comData);
-            if (index < 0)
-            {
-                ComboBox_Language.SelectedIndex = 0;  // 첫 번째 항목 선택
-            }
-            else
-            {
-                ComboBox_Language.SelectedIndex = index;
-            }
-
+            // 이벤트 처리
+            Console.WriteLine("ConfigControl - OnLanguageChanged");
         }
+
+
         public void setInterface()
         {
-            int i = 0;
-            ManualTitleLabel.ForeColor = ColorTranslator.FromHtml("#6F6F6F");
-
-            for (i = 0; i < 20; i++)
-            {
-                poisonComboBox_BcrPort.Items.Add("COM" + (i + 1).ToString());
-            }
-
-            ComboBox_Language.Items.Add("ko");
-            ComboBox_Language.Items.Add("en");
-            ComboBox_Language.Items.Add("es");
-            ComboBox_Language.SelectedIndex = 0;
-            //string selectedValue = poisonComboBox_BcrPort.SelectedItem.ToString();
+            ConfigTitleLabel.ForeColor = ColorTranslator.FromHtml("#6F6F6F");
 
         }
+
         private void Form_Paint(object sender, PaintEventArgs e)
         {
-            int lineStartY = ManualTitleLabel.Location.Y + Globalo.TabLineY;
+            int lineStartY = ConfigTitleLabel.Location.Y + Globalo.TabLineY;
             // Graphics 객체 가져오기
             Graphics g = e.Graphics;
 
@@ -163,172 +117,28 @@ namespace ZenHandler.Dlg
             //pen3.Dispose();
         }
         
-        private void ManualBtnChange(eManualBtn index)
-        {
-
-            //if (index == eManualBtn.pcbTab)
-            //{
-            //    BTN_MANUAL_PCB.BackColor = ColorTranslator.FromHtml("#FFB230");
-            //    manualPcb.Visible = true;
-            //    manualLens.Visible = false;
-            //}
-            //else
-            //{
-            //    BTN_MANUAL_LENS.BackColor = ColorTranslator.FromHtml("#FFB230");
-            //    manualLens.Visible = true;
-            //    manualPcb.Visible = false;
-            //}
-        }
-        private void BTN_CONFIG_SAVE_Click(object sender, EventArgs e)
-        {
-            //Save
-
-            GetConfigData();
-            Globalo.yamlManager.configDataSave();
-            Data.TaskDataYaml.TaskSave_Layout(Globalo.motionManager.transferMachine.productLayout, Machine.TransferMachine.LayoutPath);
-            //Globalo.motionManager.transferMachine
-            //
-            RefreshConfig();
-
-
-            //언어 변경
-            string comData = Globalo.yamlManager.configData.DrivingSettings.Language;
-            Program.SetLanguage(comData);   
-        }
-
-        private void button_Bcr_Connect_Click(object sender, EventArgs e)
-        {
-            bool connectRtn = Globalo.serialPortManager.Barcode.Open();
-
-            string logData = "";
-
-            if (connectRtn)
-            {
-                logData = $"[SERIAL] BCR CONNECT OK:{Globalo.yamlManager.configData.SerialPort.Bcr}";
-            }
-            else
-            {
-                logData = $"[SERIAL] BCR CONNECT FAIL:{Globalo.yamlManager.configData.SerialPort.Bcr}";
-            }
-
-            Globalo.LogPrint("Serial", logData);
-        }
-
-        private void button_Bcr_DisConnect_Click(object sender, EventArgs e)
-        {
-            Globalo.serialPortManager.Barcode.Close();
-
-            string logData = $"[SERIAL] BCR DISCONNECT";
-
-            Globalo.LogPrint("Serial", logData);
-        }
 
         private void ConfigControl_VisibleChanged(object sender, EventArgs e)
         {
             if (this.Visible)
             {
-                RefreshConfig();
+                //RefreshConfig();
+                ConfigBtnChange(ConfigCurrentTab);
             }
         }
 
-        private void label_PinCountMax_Click(object sender, EventArgs e)
+        
+
+        
+
+        private void Btn_Config_Task_Click(object sender, EventArgs e)
         {
-            string sValue = label_PinCountMax.Text;
-            NumPadForm popupForm = new NumPadForm(sValue);
-
-            DialogResult dialogResult = popupForm.ShowDialog();
-            if (dialogResult == DialogResult.OK)
-            {
-                if (popupForm.NumPadResult.Contains(".") == true || popupForm.NumPadResult.Length < 1)
-                {
-                    //Globalo.LogPrint("Recipe", "소수 점이 포함돼 있습니다.", Globalo.eMessageName.M_WARNING);
-                    Globalo.LogPrint("Config", "입력이 값 확인바랍니다.", Globalo.eMessageName.M_WARNING);
-
-                }
-                else
-                {
-                    label_PinCountMax.Text = popupForm.NumPadResult;
-                }
-            }
+            ConfigBtnChange(eConfigBtn.TaskTab);
         }
 
-        private void label_CsvScanMax_Click(object sender, EventArgs e)
+        private void Btn_Config_Option_Click(object sender, EventArgs e)
         {
-            string sValue = label_CsvScanMax.Text;
-            NumPadForm popupForm = new NumPadForm(sValue);
-
-            DialogResult dialogResult = popupForm.ShowDialog();
-            if (dialogResult == DialogResult.OK)
-            {
-                if (popupForm.NumPadResult.Contains(".") == true || popupForm.NumPadResult.Length < 1)
-                {
-                    Globalo.LogPrint("Config", "입력이 값 확인바랍니다.", Globalo.eMessageName.M_WARNING);
-
-                }
-                else
-                {
-                    label_CsvScanMax.Text = popupForm.NumPadResult;
-                }
-            }
-        }
-
-        private void ProductSizeInput(Label OffsetLabel)
-        {
-            string labelValue = OffsetLabel.Text;
-            decimal decimalValue = 0;
-
-
-            if (decimal.TryParse(labelValue, out decimalValue))
-            {
-                // 소수점 형식으로 변환
-                string formattedValue = decimalValue.ToString("0.0##");
-                NumPadForm popupForm = new NumPadForm(formattedValue);
-
-                DialogResult dialogResult = popupForm.ShowDialog();
-
-
-                if (dialogResult == DialogResult.OK)
-                {
-                    double dNumData = Double.Parse(popupForm.NumPadResult);
-
-                    OffsetLabel.Text = dNumData.ToString("0.#");
-                }
-            }
-        }
-        private void label_Config_Tray_GapX_Val_Click(object sender, EventArgs e)
-        {
-            Label clickedLabel = sender as Label;
-            ProductSizeInput(clickedLabel);
-        }
-
-        private void label_Config_Tray_GapY_Val_Click(object sender, EventArgs e)
-        {
-            Label clickedLabel = sender as Label;
-            ProductSizeInput(clickedLabel);
-        }
-
-        private void label_Config_Socket_GapX_Val_Click(object sender, EventArgs e)
-        {
-            Label clickedLabel = sender as Label;
-            ProductSizeInput(clickedLabel);
-        }
-
-        private void label_Config_Socket_GapY_Val_Click(object sender, EventArgs e)
-        {
-            Label clickedLabel = sender as Label;
-            ProductSizeInput(clickedLabel);
-        }
-
-        private void label_Config_Ng_GapX_Val_Click(object sender, EventArgs e)
-        {
-            Label clickedLabel = sender as Label;
-            ProductSizeInput(clickedLabel);
-        }
-
-        private void label_Config_Ng_GapY_Val_Click(object sender, EventArgs e)
-        {
-            Label clickedLabel = sender as Label;
-            ProductSizeInput(clickedLabel);
+            ConfigBtnChange(eConfigBtn.OptionTab);
         }
     }
 }
