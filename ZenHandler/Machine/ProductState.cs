@@ -24,7 +24,9 @@ namespace ZenHandler.Machine
         Good,       // 양품
         BcrNg,      // 불량
         TestNg,
-        Unknown     // 미확인 (필요 시)
+        TestNg2,
+        TestNg3,
+        TestNg4
     }
     public enum SocketProductState
     {

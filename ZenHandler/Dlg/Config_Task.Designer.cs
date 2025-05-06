@@ -29,25 +29,31 @@ namespace ZenHandler.Dlg
         /// </summary>
         private void InitializeComponent()
         {
-            this.label_ConfigTask_Title = new System.Windows.Forms.Label();
             this.hopeCheckBox_ImageGrabUse = new ReaLTaiizor.Controls.HopeCheckBox();
             this.hopeCheckBox_PinCountUse = new ReaLTaiizor.Controls.HopeCheckBox();
             this.label3 = new System.Windows.Forms.Label();
             this.checkBox_BcrGo = new System.Windows.Forms.CheckBox();
             this.checkBox_IdleReportPass = new System.Windows.Forms.CheckBox();
+            this.label_ConfigTask_Transfer_Load_Picker = new System.Windows.Forms.Label();
+            this.label_ConfigTask_Transfer_Unload_Picker = new System.Windows.Forms.Label();
+            this.label_ConfigTask_Load_P1 = new System.Windows.Forms.Label();
+            this.label2 = new System.Windows.Forms.Label();
+            this.label4 = new System.Windows.Forms.Label();
+            this.label_ConfigTask_Load_P2 = new System.Windows.Forms.Label();
+            this.label6 = new System.Windows.Forms.Label();
+            this.label_ConfigTask_Load_P3 = new System.Windows.Forms.Label();
+            this.label8 = new System.Windows.Forms.Label();
+            this.label_ConfigTask_Load_P4 = new System.Windows.Forms.Label();
+            this.label10 = new System.Windows.Forms.Label();
+            this.label_ConfigTask_Unload_P4 = new System.Windows.Forms.Label();
+            this.label12 = new System.Windows.Forms.Label();
+            this.label_ConfigTask_Unload_P3 = new System.Windows.Forms.Label();
+            this.label14 = new System.Windows.Forms.Label();
+            this.label_ConfigTask_Unload_P2 = new System.Windows.Forms.Label();
+            this.label16 = new System.Windows.Forms.Label();
+            this.label_ConfigTask_Unload_P1 = new System.Windows.Forms.Label();
+            this.Btn_ConfigTask_Save = new System.Windows.Forms.Button();
             this.SuspendLayout();
-            // 
-            // label_ConfigTask_Title
-            // 
-            this.label_ConfigTask_Title.BackColor = System.Drawing.Color.Black;
-            this.label_ConfigTask_Title.Font = new System.Drawing.Font("나눔고딕 ExtraBold", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(129)));
-            this.label_ConfigTask_Title.ForeColor = System.Drawing.Color.White;
-            this.label_ConfigTask_Title.Location = new System.Drawing.Point(30, 12);
-            this.label_ConfigTask_Title.Name = "label_ConfigTask_Title";
-            this.label_ConfigTask_Title.Size = new System.Drawing.Size(442, 23);
-            this.label_ConfigTask_Title.TabIndex = 64;
-            this.label_ConfigTask_Title.Text = "TASK";
-            this.label_ConfigTask_Title.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
             // hopeCheckBox_ImageGrabUse
             // 
@@ -129,16 +135,290 @@ namespace ZenHandler.Dlg
             this.checkBox_IdleReportPass.UseVisualStyleBackColor = false;
             this.checkBox_IdleReportPass.Visible = false;
             // 
+            // label_ConfigTask_Transfer_Load_Picker
+            // 
+            this.label_ConfigTask_Transfer_Load_Picker.BackColor = System.Drawing.Color.Orange;
+            this.label_ConfigTask_Transfer_Load_Picker.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.label_ConfigTask_Transfer_Load_Picker.Font = new System.Drawing.Font("나눔고딕 ExtraBold", 11.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(129)));
+            this.label_ConfigTask_Transfer_Load_Picker.ForeColor = System.Drawing.Color.Black;
+            this.label_ConfigTask_Transfer_Load_Picker.Location = new System.Drawing.Point(21, 29);
+            this.label_ConfigTask_Transfer_Load_Picker.Name = "label_ConfigTask_Transfer_Load_Picker";
+            this.label_ConfigTask_Transfer_Load_Picker.Size = new System.Drawing.Size(297, 32);
+            this.label_ConfigTask_Transfer_Load_Picker.TabIndex = 70;
+            this.label_ConfigTask_Transfer_Load_Picker.Text = "Transfer Load Picker State";
+            this.label_ConfigTask_Transfer_Load_Picker.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            // 
+            // label_ConfigTask_Transfer_Unload_Picker
+            // 
+            this.label_ConfigTask_Transfer_Unload_Picker.BackColor = System.Drawing.Color.DarkSalmon;
+            this.label_ConfigTask_Transfer_Unload_Picker.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.label_ConfigTask_Transfer_Unload_Picker.Font = new System.Drawing.Font("나눔고딕 ExtraBold", 11.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(129)));
+            this.label_ConfigTask_Transfer_Unload_Picker.ForeColor = System.Drawing.Color.Black;
+            this.label_ConfigTask_Transfer_Unload_Picker.Location = new System.Drawing.Point(21, 170);
+            this.label_ConfigTask_Transfer_Unload_Picker.Name = "label_ConfigTask_Transfer_Unload_Picker";
+            this.label_ConfigTask_Transfer_Unload_Picker.Size = new System.Drawing.Size(297, 32);
+            this.label_ConfigTask_Transfer_Unload_Picker.TabIndex = 71;
+            this.label_ConfigTask_Transfer_Unload_Picker.Text = "Transfer Unload Picker State";
+            this.label_ConfigTask_Transfer_Unload_Picker.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            // 
+            // label_ConfigTask_Load_P1
+            // 
+            this.label_ConfigTask_Load_P1.BackColor = System.Drawing.Color.White;
+            this.label_ConfigTask_Load_P1.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.label_ConfigTask_Load_P1.Font = new System.Drawing.Font("나눔고딕", 11.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(129)));
+            this.label_ConfigTask_Load_P1.ForeColor = System.Drawing.Color.Black;
+            this.label_ConfigTask_Load_P1.Location = new System.Drawing.Point(21, 83);
+            this.label_ConfigTask_Load_P1.Name = "label_ConfigTask_Load_P1";
+            this.label_ConfigTask_Load_P1.Size = new System.Drawing.Size(75, 51);
+            this.label_ConfigTask_Load_P1.TabIndex = 72;
+            this.label_ConfigTask_Load_P1.Text = "Blank";
+            this.label_ConfigTask_Load_P1.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            this.label_ConfigTask_Load_P1.Click += new System.EventHandler(this.label_ConfigTask_Load_P1_Click);
+            // 
+            // label2
+            // 
+            this.label2.BackColor = System.Drawing.Color.MistyRose;
+            this.label2.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.label2.Font = new System.Drawing.Font("나눔고딕", 8.999999F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(129)));
+            this.label2.ForeColor = System.Drawing.Color.Black;
+            this.label2.Location = new System.Drawing.Point(21, 61);
+            this.label2.Name = "label2";
+            this.label2.Size = new System.Drawing.Size(75, 23);
+            this.label2.TabIndex = 73;
+            this.label2.Text = "#1";
+            this.label2.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            // 
+            // label4
+            // 
+            this.label4.BackColor = System.Drawing.Color.MistyRose;
+            this.label4.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.label4.Font = new System.Drawing.Font("나눔고딕", 8.999999F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(129)));
+            this.label4.ForeColor = System.Drawing.Color.Black;
+            this.label4.Location = new System.Drawing.Point(95, 61);
+            this.label4.Name = "label4";
+            this.label4.Size = new System.Drawing.Size(75, 23);
+            this.label4.TabIndex = 75;
+            this.label4.Text = "#2";
+            this.label4.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            // 
+            // label_ConfigTask_Load_P2
+            // 
+            this.label_ConfigTask_Load_P2.BackColor = System.Drawing.Color.White;
+            this.label_ConfigTask_Load_P2.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.label_ConfigTask_Load_P2.Font = new System.Drawing.Font("나눔고딕", 11.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(129)));
+            this.label_ConfigTask_Load_P2.ForeColor = System.Drawing.Color.Black;
+            this.label_ConfigTask_Load_P2.Location = new System.Drawing.Point(95, 83);
+            this.label_ConfigTask_Load_P2.Name = "label_ConfigTask_Load_P2";
+            this.label_ConfigTask_Load_P2.Size = new System.Drawing.Size(75, 51);
+            this.label_ConfigTask_Load_P2.TabIndex = 74;
+            this.label_ConfigTask_Load_P2.Text = "Blank";
+            this.label_ConfigTask_Load_P2.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            this.label_ConfigTask_Load_P2.Click += new System.EventHandler(this.label_ConfigTask_Load_P2_Click);
+            // 
+            // label6
+            // 
+            this.label6.BackColor = System.Drawing.Color.MistyRose;
+            this.label6.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.label6.Font = new System.Drawing.Font("나눔고딕", 8.999999F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(129)));
+            this.label6.ForeColor = System.Drawing.Color.Black;
+            this.label6.Location = new System.Drawing.Point(169, 61);
+            this.label6.Name = "label6";
+            this.label6.Size = new System.Drawing.Size(75, 23);
+            this.label6.TabIndex = 77;
+            this.label6.Text = "#3";
+            this.label6.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            // 
+            // label_ConfigTask_Load_P3
+            // 
+            this.label_ConfigTask_Load_P3.BackColor = System.Drawing.Color.White;
+            this.label_ConfigTask_Load_P3.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.label_ConfigTask_Load_P3.Font = new System.Drawing.Font("나눔고딕", 11.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(129)));
+            this.label_ConfigTask_Load_P3.ForeColor = System.Drawing.Color.Black;
+            this.label_ConfigTask_Load_P3.Location = new System.Drawing.Point(169, 83);
+            this.label_ConfigTask_Load_P3.Name = "label_ConfigTask_Load_P3";
+            this.label_ConfigTask_Load_P3.Size = new System.Drawing.Size(75, 51);
+            this.label_ConfigTask_Load_P3.TabIndex = 76;
+            this.label_ConfigTask_Load_P3.Text = "Blank";
+            this.label_ConfigTask_Load_P3.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            this.label_ConfigTask_Load_P3.Click += new System.EventHandler(this.label_ConfigTask_Load_P3_Click);
+            // 
+            // label8
+            // 
+            this.label8.BackColor = System.Drawing.Color.MistyRose;
+            this.label8.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.label8.Font = new System.Drawing.Font("나눔고딕", 8.999999F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(129)));
+            this.label8.ForeColor = System.Drawing.Color.Black;
+            this.label8.Location = new System.Drawing.Point(243, 61);
+            this.label8.Name = "label8";
+            this.label8.Size = new System.Drawing.Size(75, 23);
+            this.label8.TabIndex = 79;
+            this.label8.Text = "#4";
+            this.label8.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            // 
+            // label_ConfigTask_Load_P4
+            // 
+            this.label_ConfigTask_Load_P4.BackColor = System.Drawing.Color.White;
+            this.label_ConfigTask_Load_P4.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.label_ConfigTask_Load_P4.Font = new System.Drawing.Font("나눔고딕", 11.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(129)));
+            this.label_ConfigTask_Load_P4.ForeColor = System.Drawing.Color.Black;
+            this.label_ConfigTask_Load_P4.Location = new System.Drawing.Point(243, 83);
+            this.label_ConfigTask_Load_P4.Name = "label_ConfigTask_Load_P4";
+            this.label_ConfigTask_Load_P4.Size = new System.Drawing.Size(75, 51);
+            this.label_ConfigTask_Load_P4.TabIndex = 78;
+            this.label_ConfigTask_Load_P4.Text = "Blank";
+            this.label_ConfigTask_Load_P4.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            this.label_ConfigTask_Load_P4.Click += new System.EventHandler(this.label_ConfigTask_Load_P4_Click);
+            // 
+            // label10
+            // 
+            this.label10.BackColor = System.Drawing.Color.MistyRose;
+            this.label10.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.label10.Font = new System.Drawing.Font("나눔고딕", 8.999999F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(129)));
+            this.label10.ForeColor = System.Drawing.Color.Black;
+            this.label10.Location = new System.Drawing.Point(243, 202);
+            this.label10.Name = "label10";
+            this.label10.Size = new System.Drawing.Size(75, 23);
+            this.label10.TabIndex = 87;
+            this.label10.Text = "#4";
+            this.label10.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            // 
+            // label_ConfigTask_Unload_P4
+            // 
+            this.label_ConfigTask_Unload_P4.BackColor = System.Drawing.Color.White;
+            this.label_ConfigTask_Unload_P4.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.label_ConfigTask_Unload_P4.Font = new System.Drawing.Font("나눔고딕", 11.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(129)));
+            this.label_ConfigTask_Unload_P4.ForeColor = System.Drawing.Color.Black;
+            this.label_ConfigTask_Unload_P4.Location = new System.Drawing.Point(243, 224);
+            this.label_ConfigTask_Unload_P4.Name = "label_ConfigTask_Unload_P4";
+            this.label_ConfigTask_Unload_P4.Size = new System.Drawing.Size(75, 51);
+            this.label_ConfigTask_Unload_P4.TabIndex = 86;
+            this.label_ConfigTask_Unload_P4.Text = "Blank";
+            this.label_ConfigTask_Unload_P4.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            this.label_ConfigTask_Unload_P4.Click += new System.EventHandler(this.label_ConfigTask_Unload_P4_Click);
+            // 
+            // label12
+            // 
+            this.label12.BackColor = System.Drawing.Color.MistyRose;
+            this.label12.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.label12.Font = new System.Drawing.Font("나눔고딕", 8.999999F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(129)));
+            this.label12.ForeColor = System.Drawing.Color.Black;
+            this.label12.Location = new System.Drawing.Point(169, 202);
+            this.label12.Name = "label12";
+            this.label12.Size = new System.Drawing.Size(75, 23);
+            this.label12.TabIndex = 85;
+            this.label12.Text = "#3";
+            this.label12.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            // 
+            // label_ConfigTask_Unload_P3
+            // 
+            this.label_ConfigTask_Unload_P3.BackColor = System.Drawing.Color.White;
+            this.label_ConfigTask_Unload_P3.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.label_ConfigTask_Unload_P3.Font = new System.Drawing.Font("나눔고딕", 11.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(129)));
+            this.label_ConfigTask_Unload_P3.ForeColor = System.Drawing.Color.Black;
+            this.label_ConfigTask_Unload_P3.Location = new System.Drawing.Point(169, 224);
+            this.label_ConfigTask_Unload_P3.Name = "label_ConfigTask_Unload_P3";
+            this.label_ConfigTask_Unload_P3.Size = new System.Drawing.Size(75, 51);
+            this.label_ConfigTask_Unload_P3.TabIndex = 84;
+            this.label_ConfigTask_Unload_P3.Text = "Blank";
+            this.label_ConfigTask_Unload_P3.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            this.label_ConfigTask_Unload_P3.Click += new System.EventHandler(this.label_ConfigTask_Unload_P3_Click);
+            // 
+            // label14
+            // 
+            this.label14.BackColor = System.Drawing.Color.MistyRose;
+            this.label14.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.label14.Font = new System.Drawing.Font("나눔고딕", 8.999999F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(129)));
+            this.label14.ForeColor = System.Drawing.Color.Black;
+            this.label14.Location = new System.Drawing.Point(95, 202);
+            this.label14.Name = "label14";
+            this.label14.Size = new System.Drawing.Size(75, 23);
+            this.label14.TabIndex = 83;
+            this.label14.Text = "#2";
+            this.label14.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            // 
+            // label_ConfigTask_Unload_P2
+            // 
+            this.label_ConfigTask_Unload_P2.BackColor = System.Drawing.Color.White;
+            this.label_ConfigTask_Unload_P2.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.label_ConfigTask_Unload_P2.Font = new System.Drawing.Font("나눔고딕", 11.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(129)));
+            this.label_ConfigTask_Unload_P2.ForeColor = System.Drawing.Color.Black;
+            this.label_ConfigTask_Unload_P2.Location = new System.Drawing.Point(95, 224);
+            this.label_ConfigTask_Unload_P2.Name = "label_ConfigTask_Unload_P2";
+            this.label_ConfigTask_Unload_P2.Size = new System.Drawing.Size(75, 51);
+            this.label_ConfigTask_Unload_P2.TabIndex = 82;
+            this.label_ConfigTask_Unload_P2.Text = "Blank";
+            this.label_ConfigTask_Unload_P2.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            this.label_ConfigTask_Unload_P2.Click += new System.EventHandler(this.label_ConfigTask_Unload_P2_Click);
+            // 
+            // label16
+            // 
+            this.label16.BackColor = System.Drawing.Color.MistyRose;
+            this.label16.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.label16.Font = new System.Drawing.Font("나눔고딕", 8.999999F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(129)));
+            this.label16.ForeColor = System.Drawing.Color.Black;
+            this.label16.Location = new System.Drawing.Point(21, 202);
+            this.label16.Name = "label16";
+            this.label16.Size = new System.Drawing.Size(75, 23);
+            this.label16.TabIndex = 81;
+            this.label16.Text = "#1";
+            this.label16.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            // 
+            // label_ConfigTask_Unload_P1
+            // 
+            this.label_ConfigTask_Unload_P1.BackColor = System.Drawing.Color.White;
+            this.label_ConfigTask_Unload_P1.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.label_ConfigTask_Unload_P1.Font = new System.Drawing.Font("나눔고딕", 11.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(129)));
+            this.label_ConfigTask_Unload_P1.ForeColor = System.Drawing.Color.Black;
+            this.label_ConfigTask_Unload_P1.Location = new System.Drawing.Point(21, 224);
+            this.label_ConfigTask_Unload_P1.Name = "label_ConfigTask_Unload_P1";
+            this.label_ConfigTask_Unload_P1.Size = new System.Drawing.Size(75, 51);
+            this.label_ConfigTask_Unload_P1.TabIndex = 80;
+            this.label_ConfigTask_Unload_P1.Text = "Blank";
+            this.label_ConfigTask_Unload_P1.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            this.label_ConfigTask_Unload_P1.Click += new System.EventHandler(this.label_ConfigTask_Unload_P1_Click);
+            // 
+            // Btn_ConfigTask_Save
+            // 
+            this.Btn_ConfigTask_Save.BackColor = System.Drawing.Color.Tan;
+            this.Btn_ConfigTask_Save.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.Btn_ConfigTask_Save.Font = new System.Drawing.Font("나눔고딕", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.Btn_ConfigTask_Save.ForeColor = System.Drawing.Color.White;
+            this.Btn_ConfigTask_Save.Location = new System.Drawing.Point(619, 419);
+            this.Btn_ConfigTask_Save.Name = "Btn_ConfigTask_Save";
+            this.Btn_ConfigTask_Save.Size = new System.Drawing.Size(122, 53);
+            this.Btn_ConfigTask_Save.TabIndex = 88;
+            this.Btn_ConfigTask_Save.Text = "SAVE";
+            this.Btn_ConfigTask_Save.UseVisualStyleBackColor = false;
+            this.Btn_ConfigTask_Save.Click += new System.EventHandler(this.Btn_ConfigTask_Save_Click);
+            // 
             // Config_Task
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 12F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
+            this.Controls.Add(this.Btn_ConfigTask_Save);
+            this.Controls.Add(this.label10);
+            this.Controls.Add(this.label_ConfigTask_Unload_P4);
+            this.Controls.Add(this.label12);
+            this.Controls.Add(this.label_ConfigTask_Unload_P3);
+            this.Controls.Add(this.label14);
+            this.Controls.Add(this.label_ConfigTask_Unload_P2);
+            this.Controls.Add(this.label16);
+            this.Controls.Add(this.label_ConfigTask_Unload_P1);
+            this.Controls.Add(this.label8);
+            this.Controls.Add(this.label_ConfigTask_Load_P4);
+            this.Controls.Add(this.label6);
+            this.Controls.Add(this.label_ConfigTask_Load_P3);
+            this.Controls.Add(this.label4);
+            this.Controls.Add(this.label_ConfigTask_Load_P2);
+            this.Controls.Add(this.label2);
+            this.Controls.Add(this.label_ConfigTask_Load_P1);
+            this.Controls.Add(this.label_ConfigTask_Transfer_Unload_Picker);
+            this.Controls.Add(this.label_ConfigTask_Transfer_Load_Picker);
             this.Controls.Add(this.checkBox_BcrGo);
             this.Controls.Add(this.checkBox_IdleReportPass);
             this.Controls.Add(this.hopeCheckBox_ImageGrabUse);
             this.Controls.Add(this.hopeCheckBox_PinCountUse);
             this.Controls.Add(this.label3);
-            this.Controls.Add(this.label_ConfigTask_Title);
             this.Name = "Config_Task";
             this.Size = new System.Drawing.Size(770, 496);
             this.ResumeLayout(false);
@@ -146,12 +426,29 @@ namespace ZenHandler.Dlg
         }
 
         #endregion
-
-        private System.Windows.Forms.Label label_ConfigTask_Title;
         private ReaLTaiizor.Controls.HopeCheckBox hopeCheckBox_ImageGrabUse;
         private ReaLTaiizor.Controls.HopeCheckBox hopeCheckBox_PinCountUse;
         private System.Windows.Forms.Label label3;
         private System.Windows.Forms.CheckBox checkBox_BcrGo;
         private System.Windows.Forms.CheckBox checkBox_IdleReportPass;
+        private System.Windows.Forms.Label label_ConfigTask_Transfer_Load_Picker;
+        private System.Windows.Forms.Label label_ConfigTask_Transfer_Unload_Picker;
+        private System.Windows.Forms.Label label_ConfigTask_Load_P1;
+        private System.Windows.Forms.Label label2;
+        private System.Windows.Forms.Label label4;
+        private System.Windows.Forms.Label label_ConfigTask_Load_P2;
+        private System.Windows.Forms.Label label6;
+        private System.Windows.Forms.Label label_ConfigTask_Load_P3;
+        private System.Windows.Forms.Label label8;
+        private System.Windows.Forms.Label label_ConfigTask_Load_P4;
+        private System.Windows.Forms.Label label10;
+        private System.Windows.Forms.Label label_ConfigTask_Unload_P4;
+        private System.Windows.Forms.Label label12;
+        private System.Windows.Forms.Label label_ConfigTask_Unload_P3;
+        private System.Windows.Forms.Label label14;
+        private System.Windows.Forms.Label label_ConfigTask_Unload_P2;
+        private System.Windows.Forms.Label label16;
+        private System.Windows.Forms.Label label_ConfigTask_Unload_P1;
+        private System.Windows.Forms.Button Btn_ConfigTask_Save;
     }
 }

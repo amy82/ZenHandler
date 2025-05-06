@@ -72,6 +72,91 @@ namespace ZenHandler.Dlg
                 }
             }
         }
+        private void button_Bcr_Connect_Click(object sender, EventArgs e)
+        {
+            bool connectRtn = Globalo.serialPortManager.Barcode.Open();
+
+            string logData = "";
+
+            if (connectRtn)
+            {
+                logData = $"[SERIAL] BCR CONNECT OK:{Globalo.yamlManager.configData.SerialPort.Bcr}";
+            }
+            else
+            {
+                logData = $"[SERIAL] BCR CONNECT FAIL:{Globalo.yamlManager.configData.SerialPort.Bcr}";
+            }
+
+            Globalo.LogPrint("Serial", logData);
+        }
+
+        private void button_Bcr_DisConnect_Click(object sender, EventArgs e)
+        {
+            Globalo.serialPortManager.Barcode.Close();
+
+            string logData = $"[SERIAL] BCR DISCONNECT";
+
+            Globalo.LogPrint("Serial", logData);
+        }
+        private void ProductSizeInput(Label OffsetLabel)
+        {
+            string labelValue = OffsetLabel.Text;
+            decimal decimalValue = 0;
+
+
+            if (decimal.TryParse(labelValue, out decimalValue))
+            {
+                // 소수점 형식으로 변환
+                string formattedValue = decimalValue.ToString("0.0##");
+                NumPadForm popupForm = new NumPadForm(formattedValue);
+
+                DialogResult dialogResult = popupForm.ShowDialog();
+
+
+                if (dialogResult == DialogResult.OK)
+                {
+                    double dNumData = Double.Parse(popupForm.NumPadResult);
+
+                    OffsetLabel.Text = dNumData.ToString("0.#");
+                }
+            }
+        }
+
+        private void label_Config_Tray_GapX_Val_Click(object sender, EventArgs e)
+        {
+            Label clickedLabel = sender as Label;
+            ProductSizeInput(clickedLabel);
+        }
+
+        private void label_Config_Tray_GapY_Val_Click(object sender, EventArgs e)
+        {
+            Label clickedLabel = sender as Label;
+            ProductSizeInput(clickedLabel);
+        }
+
+        private void label_Config_Socket_GapX_Val_Click(object sender, EventArgs e)
+        {
+            Label clickedLabel = sender as Label;
+            ProductSizeInput(clickedLabel);
+        }
+
+        private void label_Config_Socket_GapY_Val_Click(object sender, EventArgs e)
+        {
+            Label clickedLabel = sender as Label;
+            ProductSizeInput(clickedLabel);
+        }
+
+        private void label_Config_Ng_GapX_Val_Click(object sender, EventArgs e)
+        {
+            Label clickedLabel = sender as Label;
+            ProductSizeInput(clickedLabel);
+        }
+
+        private void label_Config_Ng_GapY_Val_Click(object sender, EventArgs e)
+        {
+            Label clickedLabel = sender as Label;
+            ProductSizeInput(clickedLabel);
+        }
         public void ShowOptionData()
         {
             string comData = Globalo.yamlManager.configData.SerialPort.Bcr;
@@ -112,7 +197,6 @@ namespace ZenHandler.Dlg
             Globalo.yamlManager.configData.SerialPort.Bcr = poisonComboBox_BcrPort.Text;
             Globalo.yamlManager.configData.DrivingSettings.Language = ComboBox_Language.Text;
 
-
             Globalo.yamlManager.configData.DrivingSettings.PinCountMax = int.Parse(label_PinCountMax.Text);
             Globalo.yamlManager.configData.DrivingSettings.CsvScanMonth = int.Parse(label_CsvScanMax.Text);
 
@@ -131,6 +215,7 @@ namespace ZenHandler.Dlg
             {
                 //myTeachingGrid.MotorStateRun(true);
             }
+            ShowOptionData();
             //myTeachingGrid.ShowTeachingData();
             //TeachResolution(Globalo.motionManager.transferMachine.teachingConfig.Resolution[SelectAxisIndex].ToString("0.#"));
         }
@@ -138,6 +223,17 @@ namespace ZenHandler.Dlg
         {
             this.Visible = false;
             //myTeachingGrid.MotorStateRun(false);
+        }
+
+        private void Btn_ConfigOption_Save_Click(object sender, EventArgs e)
+        {
+            GetOptionData();
+
+            Globalo.yamlManager.configDataSave();
+
+            //언어 변경
+            string comData = Globalo.yamlManager.configData.DrivingSettings.Language;
+            Program.SetLanguage(comData);
         }
     }
 }

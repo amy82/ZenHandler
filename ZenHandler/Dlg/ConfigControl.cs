@@ -58,12 +58,14 @@ namespace ZenHandler.Dlg
             ConfigCurrentTab = index;
             if (ConfigCurrentTab == eConfigBtn.TaskTab)
             {
+                ConfigTitleLabel.Text = "| CONFIG - TASK";
                 Btn_Config_Task.BackColor = ColorTranslator.FromHtml("#FFB230");
                 configTask.showPanel();
                 configOption.hidePanel();
             }
             if (ConfigCurrentTab == eConfigBtn.OptionTab)
             {
+                ConfigTitleLabel.Text = "| CONFIG - OPTION";
                 Btn_Config_Option.BackColor = ColorTranslator.FromHtml("#FFB230");
                 configOption.showPanel();
                 configTask.hidePanel();
@@ -74,22 +76,17 @@ namespace ZenHandler.Dlg
             // 이벤트 처리
             Console.WriteLine("ConfigControl - OnLanguageChanged");
         }
-        public void RefreshConfig()
-        {
-        }
-        public void GetConfigData()
-        {
 
-        }
 
         public void setInterface()
         {
-            ManualTitleLabel.ForeColor = ColorTranslator.FromHtml("#6F6F6F");
+            ConfigTitleLabel.ForeColor = ColorTranslator.FromHtml("#6F6F6F");
 
         }
+
         private void Form_Paint(object sender, PaintEventArgs e)
         {
-            int lineStartY = ManualTitleLabel.Location.Y + Globalo.TabLineY;
+            int lineStartY = ConfigTitleLabel.Location.Y + Globalo.TabLineY;
             // Graphics 객체 가져오기
             Graphics g = e.Graphics;
 
@@ -120,49 +117,6 @@ namespace ZenHandler.Dlg
             //pen3.Dispose();
         }
         
-        private void BTN_CONFIG_SAVE_Click(object sender, EventArgs e)
-        {
-            //Save
-
-            GetConfigData();
-            Globalo.yamlManager.configDataSave();
-            Data.TaskDataYaml.TaskSave_Layout(Globalo.motionManager.transferMachine.productLayout, Machine.TransferMachine.LayoutPath);
-            //Globalo.motionManager.transferMachine
-            //
-            RefreshConfig();
-
-
-            //언어 변경
-            string comData = Globalo.yamlManager.configData.DrivingSettings.Language;
-            Program.SetLanguage(comData);   
-        }
-
-        private void button_Bcr_Connect_Click(object sender, EventArgs e)
-        {
-            bool connectRtn = Globalo.serialPortManager.Barcode.Open();
-
-            string logData = "";
-
-            if (connectRtn)
-            {
-                logData = $"[SERIAL] BCR CONNECT OK:{Globalo.yamlManager.configData.SerialPort.Bcr}";
-            }
-            else
-            {
-                logData = $"[SERIAL] BCR CONNECT FAIL:{Globalo.yamlManager.configData.SerialPort.Bcr}";
-            }
-
-            Globalo.LogPrint("Serial", logData);
-        }
-
-        private void button_Bcr_DisConnect_Click(object sender, EventArgs e)
-        {
-            Globalo.serialPortManager.Barcode.Close();
-
-            string logData = $"[SERIAL] BCR DISCONNECT";
-
-            Globalo.LogPrint("Serial", logData);
-        }
 
         private void ConfigControl_VisibleChanged(object sender, EventArgs e)
         {
@@ -175,63 +129,16 @@ namespace ZenHandler.Dlg
 
         
 
-        private void ProductSizeInput(Label OffsetLabel)
+        
+
+        private void Btn_Config_Task_Click(object sender, EventArgs e)
         {
-            string labelValue = OffsetLabel.Text;
-            decimal decimalValue = 0;
-
-
-            if (decimal.TryParse(labelValue, out decimalValue))
-            {
-                // 소수점 형식으로 변환
-                string formattedValue = decimalValue.ToString("0.0##");
-                NumPadForm popupForm = new NumPadForm(formattedValue);
-
-                DialogResult dialogResult = popupForm.ShowDialog();
-
-
-                if (dialogResult == DialogResult.OK)
-                {
-                    double dNumData = Double.Parse(popupForm.NumPadResult);
-
-                    OffsetLabel.Text = dNumData.ToString("0.#");
-                }
-            }
-        }
-        private void label_Config_Tray_GapX_Val_Click(object sender, EventArgs e)
-        {
-            Label clickedLabel = sender as Label;
-            ProductSizeInput(clickedLabel);
+            ConfigBtnChange(eConfigBtn.TaskTab);
         }
 
-        private void label_Config_Tray_GapY_Val_Click(object sender, EventArgs e)
+        private void Btn_Config_Option_Click(object sender, EventArgs e)
         {
-            Label clickedLabel = sender as Label;
-            ProductSizeInput(clickedLabel);
-        }
-
-        private void label_Config_Socket_GapX_Val_Click(object sender, EventArgs e)
-        {
-            Label clickedLabel = sender as Label;
-            ProductSizeInput(clickedLabel);
-        }
-
-        private void label_Config_Socket_GapY_Val_Click(object sender, EventArgs e)
-        {
-            Label clickedLabel = sender as Label;
-            ProductSizeInput(clickedLabel);
-        }
-
-        private void label_Config_Ng_GapX_Val_Click(object sender, EventArgs e)
-        {
-            Label clickedLabel = sender as Label;
-            ProductSizeInput(clickedLabel);
-        }
-
-        private void label_Config_Ng_GapY_Val_Click(object sender, EventArgs e)
-        {
-            Label clickedLabel = sender as Label;
-            ProductSizeInput(clickedLabel);
+            ConfigBtnChange(eConfigBtn.OptionTab);
         }
     }
 }

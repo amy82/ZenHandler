@@ -29,7 +29,6 @@ namespace ZenHandler.Dlg
         /// </summary>
         private void InitializeComponent()
         {
-            this.label_Config_Option = new System.Windows.Forms.Label();
             this.label_Config_Tray_GapY_Val = new System.Windows.Forms.Label();
             this.label_Config_Socket_GapY_Val = new System.Windows.Forms.Label();
             this.label_Config_Tray_GapX_Val = new System.Windows.Forms.Label();
@@ -52,19 +51,8 @@ namespace ZenHandler.Dlg
             this.label_PinCountMax = new System.Windows.Forms.Label();
             this.label4 = new System.Windows.Forms.Label();
             this.label_CsvScanMax = new System.Windows.Forms.Label();
+            this.Btn_ConfigOption_Save = new System.Windows.Forms.Button();
             this.SuspendLayout();
-            // 
-            // label_Config_Option
-            // 
-            this.label_Config_Option.BackColor = System.Drawing.Color.Black;
-            this.label_Config_Option.Font = new System.Drawing.Font("나눔고딕 ExtraBold", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(129)));
-            this.label_Config_Option.ForeColor = System.Drawing.Color.White;
-            this.label_Config_Option.Location = new System.Drawing.Point(41, 16);
-            this.label_Config_Option.Name = "label_Config_Option";
-            this.label_Config_Option.Size = new System.Drawing.Size(458, 23);
-            this.label_Config_Option.TabIndex = 27;
-            this.label_Config_Option.Text = "OPTION";
-            this.label_Config_Option.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
             // label_Config_Tray_GapY_Val
             // 
@@ -76,6 +64,7 @@ namespace ZenHandler.Dlg
             this.label_Config_Tray_GapY_Val.TabIndex = 66;
             this.label_Config_Tray_GapY_Val.Text = "0.0";
             this.label_Config_Tray_GapY_Val.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            this.label_Config_Tray_GapY_Val.Click += new System.EventHandler(this.label_Config_Tray_GapY_Val_Click);
             // 
             // label_Config_Socket_GapY_Val
             // 
@@ -87,6 +76,7 @@ namespace ZenHandler.Dlg
             this.label_Config_Socket_GapY_Val.TabIndex = 70;
             this.label_Config_Socket_GapY_Val.Text = "0.0";
             this.label_Config_Socket_GapY_Val.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            this.label_Config_Socket_GapY_Val.Click += new System.EventHandler(this.label_Config_Socket_GapY_Val_Click);
             // 
             // label_Config_Tray_GapX_Val
             // 
@@ -98,6 +88,7 @@ namespace ZenHandler.Dlg
             this.label_Config_Tray_GapX_Val.TabIndex = 65;
             this.label_Config_Tray_GapX_Val.Text = "0.0";
             this.label_Config_Tray_GapX_Val.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            this.label_Config_Tray_GapX_Val.Click += new System.EventHandler(this.label_Config_Tray_GapX_Val_Click);
             // 
             // label_Config_Ng_GapY
             // 
@@ -137,6 +128,7 @@ namespace ZenHandler.Dlg
             this.label_Config_Ng_GapY_Val.TabIndex = 74;
             this.label_Config_Ng_GapY_Val.Text = "0.0";
             this.label_Config_Ng_GapY_Val.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            this.label_Config_Ng_GapY_Val.Click += new System.EventHandler(this.label_Config_Ng_GapY_Val_Click);
             // 
             // label_Config_Socket_GapX
             // 
@@ -176,6 +168,7 @@ namespace ZenHandler.Dlg
             this.label_Config_Ng_GapX_Val.TabIndex = 73;
             this.label_Config_Ng_GapX_Val.Text = "0.0";
             this.label_Config_Ng_GapX_Val.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            this.label_Config_Ng_GapX_Val.Click += new System.EventHandler(this.label_Config_Ng_GapX_Val_Click);
             // 
             // label_Config_Socket_GapX_Val
             // 
@@ -187,6 +180,7 @@ namespace ZenHandler.Dlg
             this.label_Config_Socket_GapX_Val.TabIndex = 69;
             this.label_Config_Socket_GapX_Val.Text = "0.0";
             this.label_Config_Socket_GapX_Val.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            this.label_Config_Socket_GapX_Val.Click += new System.EventHandler(this.label_Config_Socket_GapX_Val_Click);
             // 
             // label_Config_Socket_GapY
             // 
@@ -228,6 +222,7 @@ namespace ZenHandler.Dlg
             this.button_Bcr_DisConnect.TabIndex = 77;
             this.button_Bcr_DisConnect.Text = "DISCONNECT";
             this.button_Bcr_DisConnect.UseVisualStyleBackColor = false;
+            this.button_Bcr_DisConnect.Click += new System.EventHandler(this.button_Bcr_Connect_Click);
             // 
             // poisonComboBox_BcrPort
             // 
@@ -254,6 +249,7 @@ namespace ZenHandler.Dlg
             this.button_Bcr_Connect.TabIndex = 76;
             this.button_Bcr_Connect.Text = "CONNECT";
             this.button_Bcr_Connect.UseVisualStyleBackColor = false;
+            this.button_Bcr_Connect.Click += new System.EventHandler(this.button_Bcr_DisConnect_Click);
             // 
             // label_Config_Bcr
             // 
@@ -320,6 +316,7 @@ namespace ZenHandler.Dlg
             this.label_PinCountMax.TabIndex = 82;
             this.label_PinCountMax.Text = "0";
             this.label_PinCountMax.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            this.label_PinCountMax.Click += new System.EventHandler(this.label_PinCountMax_Click);
             // 
             // label4
             // 
@@ -345,11 +342,27 @@ namespace ZenHandler.Dlg
             this.label_CsvScanMax.TabIndex = 84;
             this.label_CsvScanMax.Text = "0";
             this.label_CsvScanMax.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            this.label_CsvScanMax.Click += new System.EventHandler(this.label_CsvScanMax_Click);
+            // 
+            // Btn_ConfigOption_Save
+            // 
+            this.Btn_ConfigOption_Save.BackColor = System.Drawing.Color.Tan;
+            this.Btn_ConfigOption_Save.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.Btn_ConfigOption_Save.Font = new System.Drawing.Font("나눔고딕", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.Btn_ConfigOption_Save.ForeColor = System.Drawing.Color.White;
+            this.Btn_ConfigOption_Save.Location = new System.Drawing.Point(621, 412);
+            this.Btn_ConfigOption_Save.Name = "Btn_ConfigOption_Save";
+            this.Btn_ConfigOption_Save.Size = new System.Drawing.Size(122, 53);
+            this.Btn_ConfigOption_Save.TabIndex = 89;
+            this.Btn_ConfigOption_Save.Text = "SAVE";
+            this.Btn_ConfigOption_Save.UseVisualStyleBackColor = false;
+            this.Btn_ConfigOption_Save.Click += new System.EventHandler(this.Btn_ConfigOption_Save_Click);
             // 
             // Config_Option
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 12F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
+            this.Controls.Add(this.Btn_ConfigOption_Save);
             this.Controls.Add(this.label2);
             this.Controls.Add(this.label_PinCountMax);
             this.Controls.Add(this.label4);
@@ -372,7 +385,6 @@ namespace ZenHandler.Dlg
             this.Controls.Add(this.label_Config_Socket_GapX_Val);
             this.Controls.Add(this.label_Config_Socket_GapY);
             this.Controls.Add(this.label_Config_Tray_GapX);
-            this.Controls.Add(this.label_Config_Option);
             this.Name = "Config_Option";
             this.Size = new System.Drawing.Size(770, 482);
             this.ResumeLayout(false);
@@ -380,8 +392,6 @@ namespace ZenHandler.Dlg
         }
 
         #endregion
-
-        private System.Windows.Forms.Label label_Config_Option;
         private System.Windows.Forms.Label label_Config_Tray_GapY_Val;
         private System.Windows.Forms.Label label_Config_Socket_GapY_Val;
         private System.Windows.Forms.Label label_Config_Tray_GapX_Val;
@@ -404,5 +414,6 @@ namespace ZenHandler.Dlg
         private System.Windows.Forms.Label label_PinCountMax;
         public System.Windows.Forms.Label label4;
         private System.Windows.Forms.Label label_CsvScanMax;
+        private System.Windows.Forms.Button Btn_ConfigOption_Save;
     }
 }

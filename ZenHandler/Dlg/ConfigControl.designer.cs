@@ -28,35 +28,10 @@
         /// </summary>
         private void InitializeComponent()
         {
-            this.ManualTitleLabel = new System.Windows.Forms.Label();
-            this.BTN_CONFIG_SAVE = new System.Windows.Forms.Button();
             this.Btn_Config_Task = new System.Windows.Forms.Button();
             this.Btn_Config_Option = new System.Windows.Forms.Button();
+            this.ConfigTitleLabel = new System.Windows.Forms.Label();
             this.SuspendLayout();
-            // 
-            // ManualTitleLabel
-            // 
-            this.ManualTitleLabel.Font = new System.Drawing.Font("Microsoft Sans Serif", 19F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(129)));
-            this.ManualTitleLabel.Location = new System.Drawing.Point(3, 0);
-            this.ManualTitleLabel.Name = "ManualTitleLabel";
-            this.ManualTitleLabel.Size = new System.Drawing.Size(250, 50);
-            this.ManualTitleLabel.TabIndex = 2;
-            this.ManualTitleLabel.Text = "| CONFIG";
-            this.ManualTitleLabel.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            // 
-            // BTN_CONFIG_SAVE
-            // 
-            this.BTN_CONFIG_SAVE.BackColor = System.Drawing.Color.Tan;
-            this.BTN_CONFIG_SAVE.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.BTN_CONFIG_SAVE.Font = new System.Drawing.Font("나눔고딕", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.BTN_CONFIG_SAVE.ForeColor = System.Drawing.Color.White;
-            this.BTN_CONFIG_SAVE.Location = new System.Drawing.Point(608, 929);
-            this.BTN_CONFIG_SAVE.Name = "BTN_CONFIG_SAVE";
-            this.BTN_CONFIG_SAVE.Size = new System.Drawing.Size(122, 53);
-            this.BTN_CONFIG_SAVE.TabIndex = 28;
-            this.BTN_CONFIG_SAVE.Text = "SAVE";
-            this.BTN_CONFIG_SAVE.UseVisualStyleBackColor = false;
-            this.BTN_CONFIG_SAVE.Click += new System.EventHandler(this.BTN_CONFIG_SAVE_Click);
             // 
             // Btn_Config_Task
             // 
@@ -70,6 +45,7 @@
             this.Btn_Config_Task.TabIndex = 63;
             this.Btn_Config_Task.Text = "TASK";
             this.Btn_Config_Task.UseVisualStyleBackColor = false;
+            this.Btn_Config_Task.Click += new System.EventHandler(this.Btn_Config_Task_Click);
             // 
             // Btn_Config_Option
             // 
@@ -83,15 +59,25 @@
             this.Btn_Config_Option.TabIndex = 64;
             this.Btn_Config_Option.Text = "OPTION";
             this.Btn_Config_Option.UseVisualStyleBackColor = false;
+            this.Btn_Config_Option.Click += new System.EventHandler(this.Btn_Config_Option_Click);
+            // 
+            // ConfigTitleLabel
+            // 
+            this.ConfigTitleLabel.Font = new System.Drawing.Font("Microsoft Sans Serif", 19F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(129)));
+            this.ConfigTitleLabel.Location = new System.Drawing.Point(16, 16);
+            this.ConfigTitleLabel.Name = "ConfigTitleLabel";
+            this.ConfigTitleLabel.Size = new System.Drawing.Size(286, 42);
+            this.ConfigTitleLabel.TabIndex = 65;
+            this.ConfigTitleLabel.Text = "| CONFIG - TASK";
+            this.ConfigTitleLabel.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
             // 
             // ConfigControl
             // 
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.None;
             this.BackColor = System.Drawing.Color.DeepSkyBlue;
+            this.Controls.Add(this.ConfigTitleLabel);
             this.Controls.Add(this.Btn_Config_Option);
             this.Controls.Add(this.Btn_Config_Task);
-            this.Controls.Add(this.ManualTitleLabel);
-            this.Controls.Add(this.BTN_CONFIG_SAVE);
             this.Name = "ConfigControl";
             this.Size = new System.Drawing.Size(770, 1000);
             this.VisibleChanged += new System.EventHandler(this.ConfigControl_VisibleChanged);
@@ -100,10 +86,8 @@
         }
 
         #endregion
-
-        private System.Windows.Forms.Label ManualTitleLabel;
-        private System.Windows.Forms.Button BTN_CONFIG_SAVE;
         private System.Windows.Forms.Button Btn_Config_Task;
         private System.Windows.Forms.Button Btn_Config_Option;
+        private System.Windows.Forms.Label ConfigTitleLabel;
     }
 }
