@@ -32,5 +32,8 @@ namespace ZenHandler.Machine
         public GapInfo TrayGap { get; set; } = new GapInfo();
         public GapInfo SocketGap { get; set; } = new GapInfo();
         public GapInfo NgGap { get; set; } = new GapInfo();
+
+        public TrayPoint TotalTrayPos { get; set; } = new TrayPoint();
+        public TrayPoint TotalNgTrayPos { get; set; } = new TrayPoint();
     }
 }

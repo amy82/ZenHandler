@@ -24,7 +24,7 @@ namespace ZenHandler.Dlg
             int i = 0;
             for (i = 0; i < 20; i++)
             {
-                poisonComboBox_BcrPort.Items.Add("COM" + (i + 1).ToString());
+                comboBox_BcrPort.Items.Add("COM" + (i + 1).ToString());
             }
 
             ComboBox_Language.Items.Add("ko");
@@ -142,14 +142,14 @@ namespace ZenHandler.Dlg
         {
             string comData = Globalo.yamlManager.configData.SerialPort.Bcr;
             
-            int index = poisonComboBox_BcrPort.Items.IndexOf(comData);
+            int index = comboBox_BcrPort.Items.IndexOf(comData);
             if (index < 0)
             {
-                poisonComboBox_BcrPort.SelectedIndex = 0;  // 첫 번째 항목 선택
+                comboBox_BcrPort.SelectedIndex = 0;  // 첫 번째 항목 선택
             }
             else
             {
-                poisonComboBox_BcrPort.SelectedIndex = index;
+                comboBox_BcrPort.SelectedIndex = index;
             }
 
             comData = Globalo.yamlManager.configData.DrivingSettings.Language;
@@ -170,11 +170,18 @@ namespace ZenHandler.Dlg
             label_Config_Socket_GapY_Val.Text = Globalo.motionManager.transferMachine.productLayout.SocketGap.GapY.ToString("0.0##");
             label_Config_Ng_GapX_Val.Text = Globalo.motionManager.transferMachine.productLayout.NgGap.GapX.ToString("0.0##");
             label_Config_Ng_GapY_Val.Text = Globalo.motionManager.transferMachine.productLayout.NgGap.GapY.ToString("0.0##");
+
+
+            label_Config_Tray_Max_Count_X.Text = Globalo.motionManager.transferMachine.productLayout.TotalTrayPos.X.ToString();
+            label_Config_Tray_Max_Count_Y.Text = Globalo.motionManager.transferMachine.productLayout.TotalTrayPos.Y.ToString();
+            label_Config_Ngtray_Max_Count_X.Text = Globalo.motionManager.transferMachine.productLayout.TotalNgTrayPos.X.ToString();
+            label_Config_Ngtray_Max_Count_Y.Text = Globalo.motionManager.transferMachine.productLayout.TotalNgTrayPos.Y.ToString();
+
         }
         public void GetOptionData()
         {
             //Serial Port
-            Globalo.yamlManager.configData.SerialPort.Bcr = poisonComboBox_BcrPort.Text;
+            Globalo.yamlManager.configData.SerialPort.Bcr = comboBox_BcrPort.Text;
             Globalo.yamlManager.configData.DrivingSettings.Language = ComboBox_Language.Text;
 
             Globalo.yamlManager.configData.DrivingSettings.PinCountMax = int.Parse(label_PinCountMax.Text);
@@ -186,6 +193,16 @@ namespace ZenHandler.Dlg
             Globalo.motionManager.transferMachine.productLayout.SocketGap.GapY = double.Parse(label_Config_Socket_GapY_Val.Text);
             Globalo.motionManager.transferMachine.productLayout.NgGap.GapX = double.Parse(label_Config_Ng_GapX_Val.Text);
             Globalo.motionManager.transferMachine.productLayout.NgGap.GapY = double.Parse(label_Config_Ng_GapY_Val.Text);
+
+            //Tray 최대 로드 개수
+            Globalo.motionManager.transferMachine.productLayout.TotalTrayPos.X = int.Parse(label_Config_Tray_Max_Count_X.Text);
+            Globalo.motionManager.transferMachine.productLayout.TotalTrayPos.Y = int.Parse(label_Config_Tray_Max_Count_Y.Text);
+
+            Globalo.motionManager.transferMachine.productLayout.TotalNgTrayPos.X = int.Parse(label_Config_Ngtray_Max_Count_X.Text);
+            Globalo.motionManager.transferMachine.productLayout.TotalNgTrayPos.Y = int.Parse(label_Config_Ngtray_Max_Count_Y.Text);
+
+
+
         }
         public void showPanel()
         {
@@ -214,6 +231,55 @@ namespace ZenHandler.Dlg
             //언어 변경
             string comData = Globalo.yamlManager.configData.DrivingSettings.Language;
             Program.SetLanguage(comData);
+        }
+        private void ProductMaxCountInput(Label label)
+        {
+            string labelValue = label.Text;
+            int decimalValue = 0;
+
+
+            if (int.TryParse(labelValue, out decimalValue))
+            {
+                // 소수점 형식으로 변환
+                string formattedValue = decimalValue.ToString();
+                NumPadForm popupForm = new NumPadForm(formattedValue);
+
+                DialogResult dialogResult = popupForm.ShowDialog();
+
+
+                if (dialogResult == DialogResult.OK)
+                {
+                    int dNumData = int.Parse(popupForm.NumPadResult);
+                    if (dNumData < 1)
+                    {
+                        dNumData = 1;
+                    }
+                    label.Text = dNumData.ToString();
+                }
+            }
+        }
+        private void label_Config_Tray_Max_Count_X_Click(object sender, EventArgs e)
+        {
+            Label clickedLabel = sender as Label;
+            ProductMaxCountInput(clickedLabel);
+        }
+
+        private void label_Config_Tray_Max_Count_Y_Click(object sender, EventArgs e)
+        {
+            Label clickedLabel = sender as Label;
+            ProductMaxCountInput(clickedLabel);
+        }
+
+        private void label_Config_Ngtray_Max_Count_X_Click(object sender, EventArgs e)
+        {
+            Label clickedLabel = sender as Label;
+            ProductMaxCountInput(clickedLabel);
+        }
+
+        private void label_Config_Ngtray_Max_Count_Y_Click(object sender, EventArgs e)
+        {
+            Label clickedLabel = sender as Label;
+            ProductMaxCountInput(clickedLabel);
         }
     }
 }

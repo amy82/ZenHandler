@@ -30,7 +30,6 @@ namespace ZenHandler.Dlg
         private void InitializeComponent()
         {
             this.button_Bcr_DisConnect = new System.Windows.Forms.Button();
-            this.poisonComboBox_BcrPort = new System.Windows.Forms.ComboBox();
             this.button_Bcr_Connect = new System.Windows.Forms.Button();
             this.label_Config_Bcr = new System.Windows.Forms.Label();
             this.label5 = new System.Windows.Forms.Label();
@@ -48,6 +47,14 @@ namespace ZenHandler.Dlg
             this.label_Config_Ng_GapY_Val = new System.Windows.Forms.Label();
             this.label_Config_Ng_GapX_Val = new System.Windows.Forms.Label();
             this.label_Config_Ng_Gap = new System.Windows.Forms.Label();
+            this.comboBox_BcrPort = new System.Windows.Forms.ComboBox();
+            this.label_ConfigOption_Tray_Max_Count = new System.Windows.Forms.Label();
+            this.label_Config_Tray_Max_Count_Y = new System.Windows.Forms.Label();
+            this.label_Config_Tray_Max_Count_X = new System.Windows.Forms.Label();
+            this.label_Config_Tray_Max_Count = new System.Windows.Forms.Label();
+            this.label_Config_Ngtray_Max_Count_Y = new System.Windows.Forms.Label();
+            this.label_Config_Ngtray_Max_Count_X = new System.Windows.Forms.Label();
+            this.label_Config_Ngtray_Max_Count = new System.Windows.Forms.Label();
             this.SuspendLayout();
             // 
             // button_Bcr_DisConnect
@@ -56,7 +63,7 @@ namespace ZenHandler.Dlg
             this.button_Bcr_DisConnect.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.button_Bcr_DisConnect.Font = new System.Drawing.Font("나눔고딕 ExtraBold", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(129)));
             this.button_Bcr_DisConnect.ForeColor = System.Drawing.Color.White;
-            this.button_Bcr_DisConnect.Location = new System.Drawing.Point(490, 78);
+            this.button_Bcr_DisConnect.Location = new System.Drawing.Point(490, 85);
             this.button_Bcr_DisConnect.Name = "button_Bcr_DisConnect";
             this.button_Bcr_DisConnect.Size = new System.Drawing.Size(103, 44);
             this.button_Bcr_DisConnect.TabIndex = 77;
@@ -64,26 +71,13 @@ namespace ZenHandler.Dlg
             this.button_Bcr_DisConnect.UseVisualStyleBackColor = false;
             this.button_Bcr_DisConnect.Click += new System.EventHandler(this.button_Bcr_Connect_Click);
             // 
-            // poisonComboBox_BcrPort
-            // 
-            this.poisonComboBox_BcrPort.Cursor = System.Windows.Forms.Cursors.Hand;
-            this.poisonComboBox_BcrPort.DropDownHeight = 120;
-            this.poisonComboBox_BcrPort.Font = new System.Drawing.Font("나눔고딕", 12.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(129)));
-            this.poisonComboBox_BcrPort.FormattingEnabled = true;
-            this.poisonComboBox_BcrPort.IntegralHeight = false;
-            this.poisonComboBox_BcrPort.ItemHeight = 20;
-            this.poisonComboBox_BcrPort.Location = new System.Drawing.Point(594, 44);
-            this.poisonComboBox_BcrPort.Name = "poisonComboBox_BcrPort";
-            this.poisonComboBox_BcrPort.Size = new System.Drawing.Size(105, 28);
-            this.poisonComboBox_BcrPort.TabIndex = 78;
-            // 
             // button_Bcr_Connect
             // 
             this.button_Bcr_Connect.BackColor = System.Drawing.Color.Tan;
             this.button_Bcr_Connect.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.button_Bcr_Connect.Font = new System.Drawing.Font("나눔고딕 ExtraBold", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(129)));
             this.button_Bcr_Connect.ForeColor = System.Drawing.Color.White;
-            this.button_Bcr_Connect.Location = new System.Drawing.Point(593, 78);
+            this.button_Bcr_Connect.Location = new System.Drawing.Point(593, 85);
             this.button_Bcr_Connect.Name = "button_Bcr_Connect";
             this.button_Bcr_Connect.Size = new System.Drawing.Size(103, 44);
             this.button_Bcr_Connect.TabIndex = 76;
@@ -98,9 +92,9 @@ namespace ZenHandler.Dlg
             this.label_Config_Bcr.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.label_Config_Bcr.Font = new System.Drawing.Font("나눔고딕", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(129)));
             this.label_Config_Bcr.ForeColor = System.Drawing.Color.Black;
-            this.label_Config_Bcr.Location = new System.Drawing.Point(485, 44);
+            this.label_Config_Bcr.Location = new System.Drawing.Point(490, 44);
             this.label_Config_Bcr.Name = "label_Config_Bcr";
-            this.label_Config_Bcr.Size = new System.Drawing.Size(107, 29);
+            this.label_Config_Bcr.Size = new System.Drawing.Size(89, 28);
             this.label_Config_Bcr.TabIndex = 75;
             this.label_Config_Bcr.Text = "BCR";
             this.label_Config_Bcr.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
@@ -139,7 +133,7 @@ namespace ZenHandler.Dlg
             this.label2.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.label2.Font = new System.Drawing.Font("나눔고딕", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(129)));
             this.label2.ForeColor = System.Drawing.Color.Black;
-            this.label2.Location = new System.Drawing.Point(44, 330);
+            this.label2.Location = new System.Drawing.Point(46, 434);
             this.label2.Name = "label2";
             this.label2.Size = new System.Drawing.Size(161, 29);
             this.label2.TabIndex = 81;
@@ -150,7 +144,7 @@ namespace ZenHandler.Dlg
             // 
             this.label_PinCountMax.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.label_PinCountMax.Font = new System.Drawing.Font("굴림", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(129)));
-            this.label_PinCountMax.Location = new System.Drawing.Point(211, 330);
+            this.label_PinCountMax.Location = new System.Drawing.Point(213, 434);
             this.label_PinCountMax.Name = "label_PinCountMax";
             this.label_PinCountMax.Size = new System.Drawing.Size(100, 29);
             this.label_PinCountMax.TabIndex = 82;
@@ -174,7 +168,7 @@ namespace ZenHandler.Dlg
             // 
             // label_ConfigOption_Position_Gap
             // 
-            this.label_ConfigOption_Position_Gap.BackColor = System.Drawing.Color.SlateGray;
+            this.label_ConfigOption_Position_Gap.BackColor = System.Drawing.Color.Plum;
             this.label_ConfigOption_Position_Gap.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.label_ConfigOption_Position_Gap.Font = new System.Drawing.Font("나눔고딕", 11.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(129)));
             this.label_ConfigOption_Position_Gap.ForeColor = System.Drawing.Color.WhiteSmoke;
@@ -197,6 +191,7 @@ namespace ZenHandler.Dlg
             this.label_Config_Tray_GapY_Val.TabIndex = 101;
             this.label_Config_Tray_GapY_Val.Text = "0";
             this.label_Config_Tray_GapY_Val.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            this.label_Config_Tray_GapY_Val.Click += new System.EventHandler(this.label_Config_Tray_GapY_Val_Click);
             // 
             // label_Config_Tray_GapX_Val
             // 
@@ -210,6 +205,7 @@ namespace ZenHandler.Dlg
             this.label_Config_Tray_GapX_Val.TabIndex = 100;
             this.label_Config_Tray_GapX_Val.Text = "0";
             this.label_Config_Tray_GapX_Val.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            this.label_Config_Tray_GapX_Val.Click += new System.EventHandler(this.label_Config_Tray_GapX_Val_Click);
             // 
             // label_Config_Tray_Gap
             // 
@@ -236,6 +232,7 @@ namespace ZenHandler.Dlg
             this.label_Config_Socket_GapY_Val.TabIndex = 104;
             this.label_Config_Socket_GapY_Val.Text = "0";
             this.label_Config_Socket_GapY_Val.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            this.label_Config_Socket_GapY_Val.Click += new System.EventHandler(this.label_Config_Socket_GapY_Val_Click);
             // 
             // label_Config_Socket_GapX_Val
             // 
@@ -249,6 +246,7 @@ namespace ZenHandler.Dlg
             this.label_Config_Socket_GapX_Val.TabIndex = 103;
             this.label_Config_Socket_GapX_Val.Text = "0";
             this.label_Config_Socket_GapX_Val.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            this.label_Config_Socket_GapX_Val.Click += new System.EventHandler(this.label_Config_Socket_GapX_Val_Click);
             // 
             // label_Config_Socket_Gap
             // 
@@ -275,6 +273,7 @@ namespace ZenHandler.Dlg
             this.label_Config_Ng_GapY_Val.TabIndex = 107;
             this.label_Config_Ng_GapY_Val.Text = "0";
             this.label_Config_Ng_GapY_Val.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            this.label_Config_Ng_GapY_Val.Click += new System.EventHandler(this.label_Config_Ng_GapY_Val_Click);
             // 
             // label_Config_Ng_GapX_Val
             // 
@@ -288,6 +287,7 @@ namespace ZenHandler.Dlg
             this.label_Config_Ng_GapX_Val.TabIndex = 106;
             this.label_Config_Ng_GapX_Val.Text = "0";
             this.label_Config_Ng_GapX_Val.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            this.label_Config_Ng_GapX_Val.Click += new System.EventHandler(this.label_Config_Ng_GapX_Val_Click);
             // 
             // label_Config_Ng_Gap
             // 
@@ -302,10 +302,124 @@ namespace ZenHandler.Dlg
             this.label_Config_Ng_Gap.Text = "Ng Gap";
             this.label_Config_Ng_Gap.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
+            // comboBox_BcrPort
+            // 
+            this.comboBox_BcrPort.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.comboBox_BcrPort.Font = new System.Drawing.Font("나눔고딕", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(129)));
+            this.comboBox_BcrPort.FormattingEnabled = true;
+            this.comboBox_BcrPort.ItemHeight = 19;
+            this.comboBox_BcrPort.Location = new System.Drawing.Point(582, 44);
+            this.comboBox_BcrPort.Name = "comboBox_BcrPort";
+            this.comboBox_BcrPort.Size = new System.Drawing.Size(114, 27);
+            this.comboBox_BcrPort.TabIndex = 108;
+            // 
+            // label_ConfigOption_Tray_Max_Count
+            // 
+            this.label_ConfigOption_Tray_Max_Count.BackColor = System.Drawing.Color.Plum;
+            this.label_ConfigOption_Tray_Max_Count.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.label_ConfigOption_Tray_Max_Count.Font = new System.Drawing.Font("나눔고딕", 11.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(129)));
+            this.label_ConfigOption_Tray_Max_Count.ForeColor = System.Drawing.Color.WhiteSmoke;
+            this.label_ConfigOption_Tray_Max_Count.Location = new System.Drawing.Point(21, 220);
+            this.label_ConfigOption_Tray_Max_Count.Name = "label_ConfigOption_Tray_Max_Count";
+            this.label_ConfigOption_Tray_Max_Count.Size = new System.Drawing.Size(297, 32);
+            this.label_ConfigOption_Tray_Max_Count.TabIndex = 109;
+            this.label_ConfigOption_Tray_Max_Count.Text = "Tray Max Count";
+            this.label_ConfigOption_Tray_Max_Count.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            // 
+            // label_Config_Tray_Max_Count_Y
+            // 
+            this.label_Config_Tray_Max_Count_Y.BackColor = System.Drawing.Color.White;
+            this.label_Config_Tray_Max_Count_Y.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.label_Config_Tray_Max_Count_Y.Font = new System.Drawing.Font("나눔고딕", 11.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(129)));
+            this.label_Config_Tray_Max_Count_Y.ForeColor = System.Drawing.Color.Black;
+            this.label_Config_Tray_Max_Count_Y.Location = new System.Drawing.Point(232, 252);
+            this.label_Config_Tray_Max_Count_Y.Name = "label_Config_Tray_Max_Count_Y";
+            this.label_Config_Tray_Max_Count_Y.Size = new System.Drawing.Size(86, 40);
+            this.label_Config_Tray_Max_Count_Y.TabIndex = 112;
+            this.label_Config_Tray_Max_Count_Y.Text = "0";
+            this.label_Config_Tray_Max_Count_Y.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            this.label_Config_Tray_Max_Count_Y.Click += new System.EventHandler(this.label_Config_Tray_Max_Count_Y_Click);
+            // 
+            // label_Config_Tray_Max_Count_X
+            // 
+            this.label_Config_Tray_Max_Count_X.BackColor = System.Drawing.Color.White;
+            this.label_Config_Tray_Max_Count_X.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.label_Config_Tray_Max_Count_X.Font = new System.Drawing.Font("나눔고딕", 11.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(129)));
+            this.label_Config_Tray_Max_Count_X.ForeColor = System.Drawing.Color.Black;
+            this.label_Config_Tray_Max_Count_X.Location = new System.Drawing.Point(147, 252);
+            this.label_Config_Tray_Max_Count_X.Name = "label_Config_Tray_Max_Count_X";
+            this.label_Config_Tray_Max_Count_X.Size = new System.Drawing.Size(86, 40);
+            this.label_Config_Tray_Max_Count_X.TabIndex = 111;
+            this.label_Config_Tray_Max_Count_X.Text = "0";
+            this.label_Config_Tray_Max_Count_X.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            this.label_Config_Tray_Max_Count_X.Click += new System.EventHandler(this.label_Config_Tray_Max_Count_X_Click);
+            // 
+            // label_Config_Tray_Max_Count
+            // 
+            this.label_Config_Tray_Max_Count.BackColor = System.Drawing.Color.PaleTurquoise;
+            this.label_Config_Tray_Max_Count.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.label_Config_Tray_Max_Count.Font = new System.Drawing.Font("나눔고딕 ExtraBold", 8.999999F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(129)));
+            this.label_Config_Tray_Max_Count.ForeColor = System.Drawing.Color.Black;
+            this.label_Config_Tray_Max_Count.Location = new System.Drawing.Point(21, 252);
+            this.label_Config_Tray_Max_Count.Name = "label_Config_Tray_Max_Count";
+            this.label_Config_Tray_Max_Count.Size = new System.Drawing.Size(126, 40);
+            this.label_Config_Tray_Max_Count.TabIndex = 110;
+            this.label_Config_Tray_Max_Count.Text = "Tray Gap";
+            this.label_Config_Tray_Max_Count.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            // 
+            // label_Config_Ngtray_Max_Count_Y
+            // 
+            this.label_Config_Ngtray_Max_Count_Y.BackColor = System.Drawing.Color.White;
+            this.label_Config_Ngtray_Max_Count_Y.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.label_Config_Ngtray_Max_Count_Y.Font = new System.Drawing.Font("나눔고딕", 11.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(129)));
+            this.label_Config_Ngtray_Max_Count_Y.ForeColor = System.Drawing.Color.Black;
+            this.label_Config_Ngtray_Max_Count_Y.Location = new System.Drawing.Point(232, 292);
+            this.label_Config_Ngtray_Max_Count_Y.Name = "label_Config_Ngtray_Max_Count_Y";
+            this.label_Config_Ngtray_Max_Count_Y.Size = new System.Drawing.Size(86, 40);
+            this.label_Config_Ngtray_Max_Count_Y.TabIndex = 115;
+            this.label_Config_Ngtray_Max_Count_Y.Text = "0";
+            this.label_Config_Ngtray_Max_Count_Y.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            this.label_Config_Ngtray_Max_Count_Y.Click += new System.EventHandler(this.label_Config_Ngtray_Max_Count_Y_Click);
+            // 
+            // label_Config_Ngtray_Max_Count_X
+            // 
+            this.label_Config_Ngtray_Max_Count_X.BackColor = System.Drawing.Color.White;
+            this.label_Config_Ngtray_Max_Count_X.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.label_Config_Ngtray_Max_Count_X.Font = new System.Drawing.Font("나눔고딕", 11.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(129)));
+            this.label_Config_Ngtray_Max_Count_X.ForeColor = System.Drawing.Color.Black;
+            this.label_Config_Ngtray_Max_Count_X.Location = new System.Drawing.Point(147, 292);
+            this.label_Config_Ngtray_Max_Count_X.Name = "label_Config_Ngtray_Max_Count_X";
+            this.label_Config_Ngtray_Max_Count_X.Size = new System.Drawing.Size(86, 40);
+            this.label_Config_Ngtray_Max_Count_X.TabIndex = 114;
+            this.label_Config_Ngtray_Max_Count_X.Text = "0";
+            this.label_Config_Ngtray_Max_Count_X.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            this.label_Config_Ngtray_Max_Count_X.Click += new System.EventHandler(this.label_Config_Ngtray_Max_Count_X_Click);
+            // 
+            // label_Config_Ngtray_Max_Count
+            // 
+            this.label_Config_Ngtray_Max_Count.BackColor = System.Drawing.Color.PaleTurquoise;
+            this.label_Config_Ngtray_Max_Count.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.label_Config_Ngtray_Max_Count.Font = new System.Drawing.Font("나눔고딕 ExtraBold", 8.999999F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(129)));
+            this.label_Config_Ngtray_Max_Count.ForeColor = System.Drawing.Color.Black;
+            this.label_Config_Ngtray_Max_Count.Location = new System.Drawing.Point(21, 292);
+            this.label_Config_Ngtray_Max_Count.Name = "label_Config_Ngtray_Max_Count";
+            this.label_Config_Ngtray_Max_Count.Size = new System.Drawing.Size(126, 40);
+            this.label_Config_Ngtray_Max_Count.TabIndex = 113;
+            this.label_Config_Ngtray_Max_Count.Text = "Ngtray Gap";
+            this.label_Config_Ngtray_Max_Count.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            // 
             // Config_Option
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 12F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
+            this.Controls.Add(this.label_Config_Ngtray_Max_Count_Y);
+            this.Controls.Add(this.label_Config_Ngtray_Max_Count_X);
+            this.Controls.Add(this.label_Config_Ngtray_Max_Count);
+            this.Controls.Add(this.label_Config_Tray_Max_Count_Y);
+            this.Controls.Add(this.label_Config_Tray_Max_Count_X);
+            this.Controls.Add(this.label_Config_Tray_Max_Count);
+            this.Controls.Add(this.label_ConfigOption_Tray_Max_Count);
+            this.Controls.Add(this.comboBox_BcrPort);
             this.Controls.Add(this.label_Config_Ng_GapY_Val);
             this.Controls.Add(this.label_Config_Ng_GapX_Val);
             this.Controls.Add(this.label_Config_Ng_Gap);
@@ -322,7 +436,6 @@ namespace ZenHandler.Dlg
             this.Controls.Add(this.label5);
             this.Controls.Add(this.ComboBox_Language);
             this.Controls.Add(this.button_Bcr_DisConnect);
-            this.Controls.Add(this.poisonComboBox_BcrPort);
             this.Controls.Add(this.button_Bcr_Connect);
             this.Controls.Add(this.label_Config_Bcr);
             this.Name = "Config_Option";
@@ -333,7 +446,6 @@ namespace ZenHandler.Dlg
 
         #endregion
         private System.Windows.Forms.Button button_Bcr_DisConnect;
-        private System.Windows.Forms.ComboBox poisonComboBox_BcrPort;
         private System.Windows.Forms.Button button_Bcr_Connect;
         public System.Windows.Forms.Label label_Config_Bcr;
         public System.Windows.Forms.Label label5;
@@ -351,5 +463,13 @@ namespace ZenHandler.Dlg
         private System.Windows.Forms.Label label_Config_Ng_GapY_Val;
         private System.Windows.Forms.Label label_Config_Ng_GapX_Val;
         private System.Windows.Forms.Label label_Config_Ng_Gap;
+        private System.Windows.Forms.ComboBox comboBox_BcrPort;
+        private System.Windows.Forms.Label label_ConfigOption_Tray_Max_Count;
+        private System.Windows.Forms.Label label_Config_Tray_Max_Count_Y;
+        private System.Windows.Forms.Label label_Config_Tray_Max_Count_X;
+        private System.Windows.Forms.Label label_Config_Tray_Max_Count;
+        private System.Windows.Forms.Label label_Config_Ngtray_Max_Count_Y;
+        private System.Windows.Forms.Label label_Config_Ngtray_Max_Count_X;
+        private System.Windows.Forms.Label label_Config_Ngtray_Max_Count;
     }
 }

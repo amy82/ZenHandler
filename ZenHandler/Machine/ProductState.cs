@@ -63,8 +63,7 @@ namespace ZenHandler.Machine
         public TrayPoint UnloadTrayPos { get; set; } = new TrayPoint();
         public TrayPoint NgTrayPos { get; set; } = new TrayPoint();     
         //
-        public TrayPoint TotalTrayPos { get; set; } = new TrayPoint();
-        public TrayPoint TotalNgTrayPos { get; set; } = new TrayPoint();
+        
         
 
     }

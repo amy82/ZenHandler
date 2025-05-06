@@ -324,17 +324,17 @@ namespace ZenHandler.Dlg
                     if (index == 0)
                     {
                         //Tray x Max Count Check
-                        if (dNumData > Globalo.motionManager.transferMachine.pickedProduct.TotalTrayPos.X - 1)
+                        if (dNumData > Globalo.motionManager.transferMachine.productLayout.TotalTrayPos.X - 1)
                         {
-                            dNumData = Globalo.motionManager.transferMachine.pickedProduct.TotalTrayPos.X - 1;
+                            dNumData = Globalo.motionManager.transferMachine.productLayout.TotalTrayPos.X - 1;
                         }
                     }
                     else
                     {
                         //Tray y Max Count Check
-                        if (dNumData > Globalo.motionManager.transferMachine.pickedProduct.TotalTrayPos.Y - 1)
+                        if (dNumData > Globalo.motionManager.transferMachine.productLayout.TotalTrayPos.Y - 1)
                         {
-                            dNumData = Globalo.motionManager.transferMachine.pickedProduct.TotalTrayPos.Y - 1;
+                            dNumData = Globalo.motionManager.transferMachine.productLayout.TotalTrayPos.Y - 1;
                         }
                     }
                     label.Text = dNumData.ToString();
@@ -369,17 +369,17 @@ namespace ZenHandler.Dlg
                     if (index == 0)
                     {
                         //Ng Tray x Max Count Check
-                        if (dNumData > Globalo.motionManager.transferMachine.pickedProduct.TotalNgTrayPos.X - 1)
+                        if (dNumData > Globalo.motionManager.transferMachine.productLayout.TotalNgTrayPos.X - 1)
                         {
-                            dNumData = Globalo.motionManager.transferMachine.pickedProduct.TotalNgTrayPos.X - 1;
+                            dNumData = Globalo.motionManager.transferMachine.productLayout.TotalNgTrayPos.X - 1;
                         }
                     }
                     else
                     {
                         //Ng Tray y Max Count Check
-                        if (dNumData > Globalo.motionManager.transferMachine.pickedProduct.TotalNgTrayPos.Y - 1)
+                        if (dNumData > Globalo.motionManager.transferMachine.productLayout.TotalNgTrayPos.Y - 1)
                         {
-                            dNumData = Globalo.motionManager.transferMachine.pickedProduct.TotalNgTrayPos.Y - 1;
+                            dNumData = Globalo.motionManager.transferMachine.productLayout.TotalNgTrayPos.Y - 1;
                         }
                     }
                     label.Text = dNumData.ToString();
