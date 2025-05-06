@@ -70,7 +70,7 @@ namespace ZenHandler.Machine
             LEFT_TRAY_LOAD_POS, LEFT_TRAY_UNLOAD_POS, 
             RIGHT_TRAY_LOAD_POS, RIGHT_TRAY_UNLOAD_POS,
             SOCKET_A_LOAD, SOCKET_A_UNLOAD, SOCKET_B_LOAD, SOCKET_B_UNLOAD, SOCKET_C_LOAD, SOCKET_C_UNLOAD, SOCKET_D_LOAD, SOCKET_D_UNLOAD,
-            NG_A_LOAD, NG_A_UNLOAD, NG_B_LOAD, NG_B_UNLOAD,
+            NG_A_UNLOAD, NG_B_UNLOAD,
             TOTAL_TRANSFER_TEACHING_COUNT};
 
         public string[] TeachName = { 
@@ -79,7 +79,7 @@ namespace ZenHandler.Machine
             "L_TRAY_LOAD_POS", "L_TRAY_UNLOAD_POS",
             "R_TRAY_LOAD_POS", "R_TRAY_UNLOAD_POS",
             "SOCKET_A_LOAD", "SOCKET_A_UNLOAD", "SOCKET_B_LOAD", "SOCKET_B_UNLOAD","SOCKET_C_LOAD", "SOCKET_C_UNLOAD", "SOCKET_D_LOAD", "SOCKET_D_UNLOAD",
-            "NG_A_UNLOAD", "NG_B_UNLOAD", "NG_C_UNLOAD", "NG_D_UNLOAD"};
+            "NG_A_UNLOAD", "NG_B_UNLOAD"};
 
 
         public const string teachingPath = "Teach_Transfer.yaml";
@@ -1424,19 +1424,26 @@ namespace ZenHandler.Machine
                 dOffsetPos[1] = (Globalo.motionManager.transferMachine.productLayout.TrayGap.GapY * TrayY) + Globalo.motionManager.transferMachine.productLayout.UnLoadTrayOffset[PickerNo].OffsetY;
             }
             else if (ePos == eTeachingPosList.SOCKET_A_LOAD || ePos == eTeachingPosList.SOCKET_B_LOAD ||
-                ePos == eTeachingPosList.SOCKET_C_LOAD || ePos == eTeachingPosList.SOCKET_D_LOAD ||
-                ePos == eTeachingPosList.SOCKET_A_UNLOAD || ePos == eTeachingPosList.SOCKET_B_UNLOAD ||
+                ePos == eTeachingPosList.SOCKET_C_LOAD || ePos == eTeachingPosList.SOCKET_D_LOAD)
+            {
+                //Socket에 제품 투입 / 배출 위치
+                //Socket쪽에는 피커 전체 동시 동작 Fx = 4 , EE = 4 , Aoi = 2
+                //
+                dOffsetPos[0] = (Globalo.motionManager.transferMachine.productLayout.SocketGap.GapX * TrayX) + Globalo.motionManager.transferMachine.productLayout.LoadTrayOffset[PickerNo].OffsetX;
+                dOffsetPos[1] = (Globalo.motionManager.transferMachine.productLayout.SocketGap.GapY * TrayY) + Globalo.motionManager.transferMachine.productLayout.LoadTrayOffset[PickerNo].OffsetY;
+            }
+            else if (ePos == eTeachingPosList.SOCKET_A_UNLOAD || ePos == eTeachingPosList.SOCKET_B_UNLOAD ||
                 ePos == eTeachingPosList.SOCKET_C_UNLOAD || ePos == eTeachingPosList.SOCKET_D_UNLOAD)
             {
                 //Socket에 제품 투입 / 배출 위치
                 //
-                dOffsetPos[0] = 0.0;// Globalo.motionManager.transferMachine.productLayout.SocketGap.GapX; //소켓은 피커 4개 동시에 투입, 배출 이라서 필요없나?
-                dOffsetPos[1] = 0.0;//Globalo.motionManager.transferMachine.productLayout.SocketGap.GapY;
+                dOffsetPos[0] = (Globalo.motionManager.transferMachine.productLayout.SocketGap.GapX * TrayX) + Globalo.motionManager.transferMachine.productLayout.UnLoadTrayOffset[PickerNo].OffsetX;
+                dOffsetPos[1] = (Globalo.motionManager.transferMachine.productLayout.SocketGap.GapY * TrayY) + Globalo.motionManager.transferMachine.productLayout.UnLoadTrayOffset[PickerNo].OffsetY;
             }
-            else if (ePos == eTeachingPosList.NG_A_LOAD)
+            else if (ePos == eTeachingPosList.NG_A_UNLOAD || ePos == eTeachingPosList.NG_B_UNLOAD)
             {
-                dOffsetPos[0] = Globalo.motionManager.transferMachine.productLayout.NgGap.GapX;
-                dOffsetPos[1] = Globalo.motionManager.transferMachine.productLayout.NgGap.GapY;
+                dOffsetPos[0] = (Globalo.motionManager.transferMachine.productLayout.NgGap.GapX * TrayX) + Globalo.motionManager.transferMachine.productLayout.UnLoadTrayOffset[PickerNo].OffsetX;
+                dOffsetPos[1] = (Globalo.motionManager.transferMachine.productLayout.NgGap.GapY * TrayY) + Globalo.motionManager.transferMachine.productLayout.UnLoadTrayOffset[PickerNo].OffsetY;
             }
             else
             {
