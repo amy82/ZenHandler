@@ -116,10 +116,10 @@ namespace ZenHandler.Dlg
             //SetNgTraySlot(0, 1, TRAY_KIND.NG_TRAY_R, NgTraySlotState.NgInspection);
 
 
-            //SetUpdateLoadTray(TRAY_KIND.LOAD_TRAY_L);
-            //SetUpdateLoadTray(TRAY_KIND.LOAD_TRAY_R);
-            //SetUpdateLoadTray(TRAY_KIND.NG_TRAY_L);
-            //SetUpdateLoadTray(TRAY_KIND.NG_TRAY_R);
+            SetUpdateLoadTray(TRAY_KIND.LOAD_TRAY_L);
+            SetUpdateLoadTray(TRAY_KIND.LOAD_TRAY_R);
+            SetUpdateLoadTray(TRAY_KIND.NG_TRAY_L);
+            SetUpdateLoadTray(TRAY_KIND.NG_TRAY_R);
 
             //UpdateTrayColors(TRAY_KIND.LOAD_TRAY_L, 2, 3);      //가로 3번째 , 세로 4번째 로드 할 차례
             //UpdateTrayColors(TRAY_KIND.LOAD_TRAY_R, 3, 5);      //가로 4 번째 , 세로 6 번째 배출 할 차례
@@ -146,7 +146,7 @@ namespace ZenHandler.Dlg
                 }
             }
         }
-        private void SetUpdateLoadTray(TRAY_KIND index)
+        public void SetUpdateLoadTray(TRAY_KIND index)
         {
             int rows = trayClass[(int)index].RowCount;
             int cols = trayClass[(int)index].ColumnCount;
@@ -354,6 +354,9 @@ namespace ZenHandler.Dlg
         public void TrayInitSet(TableLayoutPanel tray, int widthCnt, int heightCnt)     //처음 칸 조절
         {
             this.Visible = false;
+            tray.Controls.Clear();
+            tray.RowStyles.Clear();
+            tray.ColumnStyles.Clear();
             //tray.SuspendLayout();   // 🔴 레이아웃 중지
             int i = 0;
             tray.ColumnCount = widthCnt;
@@ -362,9 +365,7 @@ namespace ZenHandler.Dlg
             tray.CellBorderStyle = TableLayoutPanelCellBorderStyle.Inset;
 
             
-            tray.Controls.Clear();
-            tray.RowStyles.Clear();
-            tray.ColumnStyles.Clear();
+            
 
             // 각 행을 동일한 비율로 설정 (5행)
             for (i = 0; i < tray.RowCount; i++)

@@ -88,7 +88,16 @@ namespace ZenHandler.Dlg
 
             PinCountInfoSet();
         }
+        public void ShowUphTime(int ctTime)
+        {
+            label_CycleTime_Val.Text = ctTime.ToString();
+            label_SocketUph_Val.Text = (3600 / ctTime).ToString() ;
+            label_HandlerUph_Val.Text = "0";
 
+
+            //int nOneCycleTime = (int)(GetTickCount() - g_clTaskWork.m_nCycleUph) / 1000;      //나누기 1000은 Second로 변환
+            //sData.Format(_T("%d"), (int)(3600 * 10) / nOneCycleTime);     //10개 만드는데 걸린 시간
+        }
         public void ShowModelName()
         {
             if (Globalo.yamlManager.secsGemDataYaml.MesData.SecGemData.CurrentModelName.Length < 1)

@@ -25,14 +25,13 @@ namespace ZenHandler.Dlg
             InitPickerGrid();
         }
 
-        public void SetPickerInfo()
+        public void SetLoadPickerInfo()
         {
             int i = 0;
 
             for (i = 0; i < 4; i++)
             {
                 dataGridView[1, i].Value = Globalo.motionManager.transferMachine.pickedProduct.LoadProductInfo[i].BcrLot;
-                dataGridView[1, i + 4].Value = Globalo.motionManager.transferMachine.pickedProduct.UnLoadProductInfo[i].BcrLot;
 
                 if (Globalo.motionManager.transferMachine.pickedProduct.LoadProductInfo[i].State == Machine.PickedProductState.Blank)
                 {
@@ -51,25 +50,7 @@ namespace ZenHandler.Dlg
                     dataGridView[2, i].Style.BackColor = Color.Red;
                 }
 
-
-                if (Globalo.motionManager.transferMachine.pickedProduct.UnLoadProductInfo[i].State == Machine.PickedProductState.Blank)
-                {
-                    dataGridView[2, i+4].Style.BackColor = Color.White;
-                }
-                else if (Globalo.motionManager.transferMachine.pickedProduct.UnLoadProductInfo[i].State == Machine.PickedProductState.Bcr)
-                {
-                    dataGridView[2, i + 4].Style.BackColor = Color.Yellow;
-                }
-                else if (Globalo.motionManager.transferMachine.pickedProduct.UnLoadProductInfo[i].State == Machine.PickedProductState.Good)
-                {
-                    dataGridView[2, i + 4].Style.BackColor = Color.LightGreen;
-                }
-                else
-                {
-                    dataGridView[2, i + 4].Style.BackColor = Color.Red;
-                }
                 dataGridView[2, i].Value = Globalo.motionManager.transferMachine.pickedProduct.LoadProductInfo[i].State;
-                dataGridView[2, i + 4].Value = Globalo.motionManager.transferMachine.pickedProduct.UnLoadProductInfo[i].State;
             }
 
             //dataGridView
@@ -83,6 +64,43 @@ namespace ZenHandler.Dlg
             //dataGridView[1, 0].Value = formattedValue;
         }
 
+        public void SetUnloadPickerInfo()
+        {
+            int i = 0;
+
+            for (i = 0; i < 4; i++)
+            {
+                dataGridView[1, i + 4].Value = Globalo.motionManager.transferMachine.pickedProduct.UnLoadProductInfo[i].BcrLot;
+
+                if (Globalo.motionManager.transferMachine.pickedProduct.UnLoadProductInfo[i].State == Machine.PickedProductState.Blank)
+                {
+                    dataGridView[2, i + 4].Style.BackColor = Color.White;
+                }
+                else if (Globalo.motionManager.transferMachine.pickedProduct.UnLoadProductInfo[i].State == Machine.PickedProductState.Bcr)
+                {
+                    dataGridView[2, i + 4].Style.BackColor = Color.Yellow;
+                }
+                else if (Globalo.motionManager.transferMachine.pickedProduct.UnLoadProductInfo[i].State == Machine.PickedProductState.Good)
+                {
+                    dataGridView[2, i + 4].Style.BackColor = Color.LightGreen;
+                }
+                else
+                {
+                    dataGridView[2, i + 4].Style.BackColor = Color.Red;
+                }
+                dataGridView[2, i + 4].Value = Globalo.motionManager.transferMachine.pickedProduct.UnLoadProductInfo[i].State;
+            }
+
+            //dataGridView
+            //dataGridView[0, 0] = Picker 제일 위에칸
+
+            //dataGridView[1, (0 ~ 7)] = Lot 제일 위에칸 0 ~ 3 = Load , 4 ~ 7 = Unload
+
+            //dataGridView[2, 0] = State 제일 위에칸
+
+            //string formattedValue = "lot data";
+            //dataGridView[1, 0].Value = formattedValue;
+        }
         public void InitPickerGrid()
         {
             int i = 0;
