@@ -31,56 +31,56 @@ namespace ZenHandler.Dlg
         {
             this.AsplitContainer4 = new System.Windows.Forms.SplitContainer();
             this.label_SocketTitle4 = new System.Windows.Forms.Label();
-            this.label_SocketState4 = new System.Windows.Forms.Label();
+            this.ASocketState4 = new System.Windows.Forms.Label();
             this.AsplitContainer3 = new System.Windows.Forms.SplitContainer();
             this.label_SocketTitle3 = new System.Windows.Forms.Label();
-            this.label_SocketState3 = new System.Windows.Forms.Label();
+            this.ASocketState3 = new System.Windows.Forms.Label();
             this.AsplitContainer2 = new System.Windows.Forms.SplitContainer();
             this.label_SocketTitle2 = new System.Windows.Forms.Label();
-            this.label_SocketState2 = new System.Windows.Forms.Label();
+            this.ASocketState2 = new System.Windows.Forms.Label();
             this.AsplitContainer1 = new System.Windows.Forms.SplitContainer();
             this.label_SocketTitle1 = new System.Windows.Forms.Label();
-            this.label_SocketState1 = new System.Windows.Forms.Label();
+            this.ASocketState1 = new System.Windows.Forms.Label();
             this.BsplitContainer4 = new System.Windows.Forms.SplitContainer();
             this.label_SocketTitle8 = new System.Windows.Forms.Label();
-            this.label_SocketState8 = new System.Windows.Forms.Label();
+            this.BSocketState4 = new System.Windows.Forms.Label();
             this.BsplitContainer3 = new System.Windows.Forms.SplitContainer();
             this.label_SocketTitle7 = new System.Windows.Forms.Label();
-            this.label_SocketState7 = new System.Windows.Forms.Label();
+            this.BSocketState3 = new System.Windows.Forms.Label();
             this.BsplitContainer2 = new System.Windows.Forms.SplitContainer();
             this.label_SocketTitle6 = new System.Windows.Forms.Label();
-            this.label_SocketState6 = new System.Windows.Forms.Label();
+            this.BSocketState2 = new System.Windows.Forms.Label();
             this.BsplitContainer1 = new System.Windows.Forms.SplitContainer();
             this.label1 = new System.Windows.Forms.Label();
             this.label_SocketTitle5 = new System.Windows.Forms.Label();
-            this.label_SocketState5 = new System.Windows.Forms.Label();
+            this.BSocketState1 = new System.Windows.Forms.Label();
             this.TitleLabel = new System.Windows.Forms.Label();
             this.CsplitContainer4 = new System.Windows.Forms.SplitContainer();
             this.label2 = new System.Windows.Forms.Label();
-            this.label3 = new System.Windows.Forms.Label();
+            this.CSocketState4 = new System.Windows.Forms.Label();
             this.CsplitContainer3 = new System.Windows.Forms.SplitContainer();
             this.label4 = new System.Windows.Forms.Label();
-            this.label5 = new System.Windows.Forms.Label();
+            this.CSocketState3 = new System.Windows.Forms.Label();
             this.CsplitContainer2 = new System.Windows.Forms.SplitContainer();
             this.label6 = new System.Windows.Forms.Label();
-            this.label7 = new System.Windows.Forms.Label();
+            this.CSocketState2 = new System.Windows.Forms.Label();
             this.CsplitContainer1 = new System.Windows.Forms.SplitContainer();
             this.label8 = new System.Windows.Forms.Label();
             this.label9 = new System.Windows.Forms.Label();
-            this.label10 = new System.Windows.Forms.Label();
+            this.CSocketState1 = new System.Windows.Forms.Label();
             this.DsplitContainer4 = new System.Windows.Forms.SplitContainer();
             this.label11 = new System.Windows.Forms.Label();
-            this.label12 = new System.Windows.Forms.Label();
+            this.DSocketState4 = new System.Windows.Forms.Label();
             this.DsplitContainer3 = new System.Windows.Forms.SplitContainer();
             this.label13 = new System.Windows.Forms.Label();
-            this.label14 = new System.Windows.Forms.Label();
+            this.DSocketState3 = new System.Windows.Forms.Label();
             this.DsplitContainer2 = new System.Windows.Forms.SplitContainer();
             this.label15 = new System.Windows.Forms.Label();
-            this.label16 = new System.Windows.Forms.Label();
+            this.DSocketState2 = new System.Windows.Forms.Label();
             this.DsplitContainer1 = new System.Windows.Forms.SplitContainer();
             this.label17 = new System.Windows.Forms.Label();
             this.label18 = new System.Windows.Forms.Label();
-            this.label19 = new System.Windows.Forms.Label();
+            this.DSocketState1 = new System.Windows.Forms.Label();
             ((System.ComponentModel.ISupportInitialize)(this.AsplitContainer4)).BeginInit();
             this.AsplitContainer4.Panel1.SuspendLayout();
             this.AsplitContainer4.Panel2.SuspendLayout();
@@ -163,7 +163,7 @@ namespace ZenHandler.Dlg
             // AsplitContainer4.Panel2
             // 
             this.AsplitContainer4.Panel2.BackColor = System.Drawing.Color.DimGray;
-            this.AsplitContainer4.Panel2.Controls.Add(this.label_SocketState4);
+            this.AsplitContainer4.Panel2.Controls.Add(this.ASocketState4);
             this.AsplitContainer4.Size = new System.Drawing.Size(93, 59);
             this.AsplitContainer4.SplitterDistance = 25;
             this.AsplitContainer4.SplitterWidth = 1;
@@ -177,20 +177,20 @@ namespace ZenHandler.Dlg
             this.label_SocketTitle4.Name = "label_SocketTitle4";
             this.label_SocketTitle4.Size = new System.Drawing.Size(91, 23);
             this.label_SocketTitle4.TabIndex = 1;
-            this.label_SocketTitle4.Text = "SOCKET #1-4";
+            this.label_SocketTitle4.Text = "#A-4";
             this.label_SocketTitle4.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
-            // label_SocketState4
+            // ASocketState4
             // 
-            this.label_SocketState4.BackColor = System.Drawing.Color.White;
-            this.label_SocketState4.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.label_SocketState4.Font = new System.Drawing.Font("나눔고딕 ExtraBold", 11.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(129)));
-            this.label_SocketState4.Location = new System.Drawing.Point(0, 0);
-            this.label_SocketState4.Name = "label_SocketState4";
-            this.label_SocketState4.Size = new System.Drawing.Size(91, 31);
-            this.label_SocketState4.TabIndex = 1;
-            this.label_SocketState4.Text = "READY";
-            this.label_SocketState4.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            this.ASocketState4.BackColor = System.Drawing.Color.White;
+            this.ASocketState4.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.ASocketState4.Font = new System.Drawing.Font("나눔고딕 ExtraBold", 11.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(129)));
+            this.ASocketState4.Location = new System.Drawing.Point(0, 0);
+            this.ASocketState4.Name = "ASocketState4";
+            this.ASocketState4.Size = new System.Drawing.Size(91, 31);
+            this.ASocketState4.TabIndex = 1;
+            this.ASocketState4.Text = "Blank";
+            this.ASocketState4.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
             // AsplitContainer3
             // 
@@ -208,7 +208,7 @@ namespace ZenHandler.Dlg
             // AsplitContainer3.Panel2
             // 
             this.AsplitContainer3.Panel2.BackColor = System.Drawing.Color.DimGray;
-            this.AsplitContainer3.Panel2.Controls.Add(this.label_SocketState3);
+            this.AsplitContainer3.Panel2.Controls.Add(this.ASocketState3);
             this.AsplitContainer3.Size = new System.Drawing.Size(93, 59);
             this.AsplitContainer3.SplitterDistance = 25;
             this.AsplitContainer3.SplitterWidth = 1;
@@ -222,20 +222,20 @@ namespace ZenHandler.Dlg
             this.label_SocketTitle3.Name = "label_SocketTitle3";
             this.label_SocketTitle3.Size = new System.Drawing.Size(91, 23);
             this.label_SocketTitle3.TabIndex = 1;
-            this.label_SocketTitle3.Text = "SOCKET #1-3";
+            this.label_SocketTitle3.Text = "#A-3";
             this.label_SocketTitle3.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
-            // label_SocketState3
+            // ASocketState3
             // 
-            this.label_SocketState3.BackColor = System.Drawing.Color.Red;
-            this.label_SocketState3.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.label_SocketState3.Font = new System.Drawing.Font("나눔고딕 ExtraBold", 11.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(129)));
-            this.label_SocketState3.Location = new System.Drawing.Point(0, 0);
-            this.label_SocketState3.Name = "label_SocketState3";
-            this.label_SocketState3.Size = new System.Drawing.Size(91, 31);
-            this.label_SocketState3.TabIndex = 1;
-            this.label_SocketState3.Text = "NG";
-            this.label_SocketState3.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            this.ASocketState3.BackColor = System.Drawing.Color.Red;
+            this.ASocketState3.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.ASocketState3.Font = new System.Drawing.Font("나눔고딕 ExtraBold", 11.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(129)));
+            this.ASocketState3.Location = new System.Drawing.Point(0, 0);
+            this.ASocketState3.Name = "ASocketState3";
+            this.ASocketState3.Size = new System.Drawing.Size(91, 31);
+            this.ASocketState3.TabIndex = 1;
+            this.ASocketState3.Text = "NG";
+            this.ASocketState3.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
             // AsplitContainer2
             // 
@@ -253,7 +253,7 @@ namespace ZenHandler.Dlg
             // AsplitContainer2.Panel2
             // 
             this.AsplitContainer2.Panel2.BackColor = System.Drawing.Color.DimGray;
-            this.AsplitContainer2.Panel2.Controls.Add(this.label_SocketState2);
+            this.AsplitContainer2.Panel2.Controls.Add(this.ASocketState2);
             this.AsplitContainer2.Size = new System.Drawing.Size(93, 59);
             this.AsplitContainer2.SplitterDistance = 25;
             this.AsplitContainer2.SplitterWidth = 1;
@@ -267,21 +267,21 @@ namespace ZenHandler.Dlg
             this.label_SocketTitle2.Name = "label_SocketTitle2";
             this.label_SocketTitle2.Size = new System.Drawing.Size(91, 23);
             this.label_SocketTitle2.TabIndex = 1;
-            this.label_SocketTitle2.Text = "SOCKET #1-2";
+            this.label_SocketTitle2.Text = "#A-2";
             this.label_SocketTitle2.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
-            // label_SocketState2
+            // ASocketState2
             // 
-            this.label_SocketState2.BackColor = System.Drawing.Color.Green;
-            this.label_SocketState2.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.label_SocketState2.Font = new System.Drawing.Font("나눔고딕 ExtraBold", 11.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(129)));
-            this.label_SocketState2.ForeColor = System.Drawing.Color.Yellow;
-            this.label_SocketState2.Location = new System.Drawing.Point(0, 0);
-            this.label_SocketState2.Name = "label_SocketState2";
-            this.label_SocketState2.Size = new System.Drawing.Size(91, 31);
-            this.label_SocketState2.TabIndex = 1;
-            this.label_SocketState2.Text = "PASS";
-            this.label_SocketState2.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            this.ASocketState2.BackColor = System.Drawing.Color.Green;
+            this.ASocketState2.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.ASocketState2.Font = new System.Drawing.Font("나눔고딕 ExtraBold", 11.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(129)));
+            this.ASocketState2.ForeColor = System.Drawing.Color.Yellow;
+            this.ASocketState2.Location = new System.Drawing.Point(0, 0);
+            this.ASocketState2.Name = "ASocketState2";
+            this.ASocketState2.Size = new System.Drawing.Size(91, 31);
+            this.ASocketState2.TabIndex = 1;
+            this.ASocketState2.Text = "PASS";
+            this.ASocketState2.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
             // AsplitContainer1
             // 
@@ -299,7 +299,7 @@ namespace ZenHandler.Dlg
             // AsplitContainer1.Panel2
             // 
             this.AsplitContainer1.Panel2.BackColor = System.Drawing.Color.DimGray;
-            this.AsplitContainer1.Panel2.Controls.Add(this.label_SocketState1);
+            this.AsplitContainer1.Panel2.Controls.Add(this.ASocketState1);
             this.AsplitContainer1.Size = new System.Drawing.Size(93, 59);
             this.AsplitContainer1.SplitterDistance = 25;
             this.AsplitContainer1.SplitterWidth = 1;
@@ -313,20 +313,20 @@ namespace ZenHandler.Dlg
             this.label_SocketTitle1.Name = "label_SocketTitle1";
             this.label_SocketTitle1.Size = new System.Drawing.Size(91, 23);
             this.label_SocketTitle1.TabIndex = 1;
-            this.label_SocketTitle1.Text = "SOCKET #1-1";
+            this.label_SocketTitle1.Text = "#A-1";
             this.label_SocketTitle1.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
-            // label_SocketState1
+            // ASocketState1
             // 
-            this.label_SocketState1.BackColor = System.Drawing.Color.White;
-            this.label_SocketState1.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.label_SocketState1.Font = new System.Drawing.Font("나눔고딕 ExtraBold", 11.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(129)));
-            this.label_SocketState1.Location = new System.Drawing.Point(0, 0);
-            this.label_SocketState1.Name = "label_SocketState1";
-            this.label_SocketState1.Size = new System.Drawing.Size(91, 31);
-            this.label_SocketState1.TabIndex = 1;
-            this.label_SocketState1.Text = "TEST";
-            this.label_SocketState1.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            this.ASocketState1.BackColor = System.Drawing.Color.White;
+            this.ASocketState1.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.ASocketState1.Font = new System.Drawing.Font("나눔고딕 ExtraBold", 11.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(129)));
+            this.ASocketState1.Location = new System.Drawing.Point(0, 0);
+            this.ASocketState1.Name = "ASocketState1";
+            this.ASocketState1.Size = new System.Drawing.Size(91, 31);
+            this.ASocketState1.TabIndex = 1;
+            this.ASocketState1.Text = "TEST";
+            this.ASocketState1.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
             // BsplitContainer4
             // 
@@ -344,7 +344,7 @@ namespace ZenHandler.Dlg
             // BsplitContainer4.Panel2
             // 
             this.BsplitContainer4.Panel2.BackColor = System.Drawing.Color.DimGray;
-            this.BsplitContainer4.Panel2.Controls.Add(this.label_SocketState8);
+            this.BsplitContainer4.Panel2.Controls.Add(this.BSocketState4);
             this.BsplitContainer4.Size = new System.Drawing.Size(93, 59);
             this.BsplitContainer4.SplitterDistance = 25;
             this.BsplitContainer4.SplitterWidth = 1;
@@ -358,20 +358,20 @@ namespace ZenHandler.Dlg
             this.label_SocketTitle8.Name = "label_SocketTitle8";
             this.label_SocketTitle8.Size = new System.Drawing.Size(91, 23);
             this.label_SocketTitle8.TabIndex = 1;
-            this.label_SocketTitle8.Text = "SOCKET #2-4";
+            this.label_SocketTitle8.Text = "#B-4";
             this.label_SocketTitle8.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
-            // label_SocketState8
+            // BSocketState4
             // 
-            this.label_SocketState8.BackColor = System.Drawing.Color.White;
-            this.label_SocketState8.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.label_SocketState8.Font = new System.Drawing.Font("나눔고딕 ExtraBold", 11.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(129)));
-            this.label_SocketState8.Location = new System.Drawing.Point(0, 0);
-            this.label_SocketState8.Name = "label_SocketState8";
-            this.label_SocketState8.Size = new System.Drawing.Size(91, 31);
-            this.label_SocketState8.TabIndex = 1;
-            this.label_SocketState8.Text = "READY";
-            this.label_SocketState8.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            this.BSocketState4.BackColor = System.Drawing.Color.White;
+            this.BSocketState4.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.BSocketState4.Font = new System.Drawing.Font("나눔고딕 ExtraBold", 11.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(129)));
+            this.BSocketState4.Location = new System.Drawing.Point(0, 0);
+            this.BSocketState4.Name = "BSocketState4";
+            this.BSocketState4.Size = new System.Drawing.Size(91, 31);
+            this.BSocketState4.TabIndex = 1;
+            this.BSocketState4.Text = "Blank";
+            this.BSocketState4.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
             // BsplitContainer3
             // 
@@ -389,7 +389,7 @@ namespace ZenHandler.Dlg
             // BsplitContainer3.Panel2
             // 
             this.BsplitContainer3.Panel2.BackColor = System.Drawing.Color.DimGray;
-            this.BsplitContainer3.Panel2.Controls.Add(this.label_SocketState7);
+            this.BsplitContainer3.Panel2.Controls.Add(this.BSocketState3);
             this.BsplitContainer3.Size = new System.Drawing.Size(93, 59);
             this.BsplitContainer3.SplitterDistance = 25;
             this.BsplitContainer3.SplitterWidth = 1;
@@ -403,20 +403,20 @@ namespace ZenHandler.Dlg
             this.label_SocketTitle7.Name = "label_SocketTitle7";
             this.label_SocketTitle7.Size = new System.Drawing.Size(91, 23);
             this.label_SocketTitle7.TabIndex = 1;
-            this.label_SocketTitle7.Text = "SOCKET #2-3";
+            this.label_SocketTitle7.Text = "#B-3";
             this.label_SocketTitle7.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
-            // label_SocketState7
+            // BSocketState3
             // 
-            this.label_SocketState7.BackColor = System.Drawing.Color.Red;
-            this.label_SocketState7.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.label_SocketState7.Font = new System.Drawing.Font("나눔고딕 ExtraBold", 11.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(129)));
-            this.label_SocketState7.Location = new System.Drawing.Point(0, 0);
-            this.label_SocketState7.Name = "label_SocketState7";
-            this.label_SocketState7.Size = new System.Drawing.Size(91, 31);
-            this.label_SocketState7.TabIndex = 1;
-            this.label_SocketState7.Text = "NG";
-            this.label_SocketState7.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            this.BSocketState3.BackColor = System.Drawing.Color.Red;
+            this.BSocketState3.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.BSocketState3.Font = new System.Drawing.Font("나눔고딕 ExtraBold", 11.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(129)));
+            this.BSocketState3.Location = new System.Drawing.Point(0, 0);
+            this.BSocketState3.Name = "BSocketState3";
+            this.BSocketState3.Size = new System.Drawing.Size(91, 31);
+            this.BSocketState3.TabIndex = 1;
+            this.BSocketState3.Text = "NG";
+            this.BSocketState3.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
             // BsplitContainer2
             // 
@@ -434,7 +434,7 @@ namespace ZenHandler.Dlg
             // BsplitContainer2.Panel2
             // 
             this.BsplitContainer2.Panel2.BackColor = System.Drawing.Color.DimGray;
-            this.BsplitContainer2.Panel2.Controls.Add(this.label_SocketState6);
+            this.BsplitContainer2.Panel2.Controls.Add(this.BSocketState2);
             this.BsplitContainer2.Size = new System.Drawing.Size(93, 59);
             this.BsplitContainer2.SplitterDistance = 25;
             this.BsplitContainer2.SplitterWidth = 1;
@@ -448,21 +448,21 @@ namespace ZenHandler.Dlg
             this.label_SocketTitle6.Name = "label_SocketTitle6";
             this.label_SocketTitle6.Size = new System.Drawing.Size(91, 23);
             this.label_SocketTitle6.TabIndex = 1;
-            this.label_SocketTitle6.Text = "SOCKET #2-2";
+            this.label_SocketTitle6.Text = "#B-2";
             this.label_SocketTitle6.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
-            // label_SocketState6
+            // BSocketState2
             // 
-            this.label_SocketState6.BackColor = System.Drawing.Color.Green;
-            this.label_SocketState6.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.label_SocketState6.Font = new System.Drawing.Font("나눔고딕 ExtraBold", 11.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(129)));
-            this.label_SocketState6.ForeColor = System.Drawing.Color.Yellow;
-            this.label_SocketState6.Location = new System.Drawing.Point(0, 0);
-            this.label_SocketState6.Name = "label_SocketState6";
-            this.label_SocketState6.Size = new System.Drawing.Size(91, 31);
-            this.label_SocketState6.TabIndex = 1;
-            this.label_SocketState6.Text = "PASS";
-            this.label_SocketState6.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            this.BSocketState2.BackColor = System.Drawing.Color.Green;
+            this.BSocketState2.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.BSocketState2.Font = new System.Drawing.Font("나눔고딕 ExtraBold", 11.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(129)));
+            this.BSocketState2.ForeColor = System.Drawing.Color.Yellow;
+            this.BSocketState2.Location = new System.Drawing.Point(0, 0);
+            this.BSocketState2.Name = "BSocketState2";
+            this.BSocketState2.Size = new System.Drawing.Size(91, 31);
+            this.BSocketState2.TabIndex = 1;
+            this.BSocketState2.Text = "PASS";
+            this.BSocketState2.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
             // BsplitContainer1
             // 
@@ -481,7 +481,7 @@ namespace ZenHandler.Dlg
             // BsplitContainer1.Panel2
             // 
             this.BsplitContainer1.Panel2.BackColor = System.Drawing.Color.DimGray;
-            this.BsplitContainer1.Panel2.Controls.Add(this.label_SocketState5);
+            this.BsplitContainer1.Panel2.Controls.Add(this.BSocketState1);
             this.BsplitContainer1.Size = new System.Drawing.Size(93, 59);
             this.BsplitContainer1.SplitterDistance = 25;
             this.BsplitContainer1.SplitterWidth = 1;
@@ -495,7 +495,7 @@ namespace ZenHandler.Dlg
             this.label1.Name = "label1";
             this.label1.Size = new System.Drawing.Size(91, 23);
             this.label1.TabIndex = 2;
-            this.label1.Text = "SOCKET #2-1";
+            this.label1.Text = "#B-1";
             this.label1.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
             // label_SocketTitle5
@@ -509,17 +509,17 @@ namespace ZenHandler.Dlg
             this.label_SocketTitle5.Text = "SOCKET #5";
             this.label_SocketTitle5.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
-            // label_SocketState5
+            // BSocketState1
             // 
-            this.label_SocketState5.BackColor = System.Drawing.Color.White;
-            this.label_SocketState5.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.label_SocketState5.Font = new System.Drawing.Font("나눔고딕 ExtraBold", 11.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(129)));
-            this.label_SocketState5.Location = new System.Drawing.Point(0, 0);
-            this.label_SocketState5.Name = "label_SocketState5";
-            this.label_SocketState5.Size = new System.Drawing.Size(91, 31);
-            this.label_SocketState5.TabIndex = 1;
-            this.label_SocketState5.Text = "TEST";
-            this.label_SocketState5.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            this.BSocketState1.BackColor = System.Drawing.Color.White;
+            this.BSocketState1.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.BSocketState1.Font = new System.Drawing.Font("나눔고딕 ExtraBold", 11.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(129)));
+            this.BSocketState1.Location = new System.Drawing.Point(0, 0);
+            this.BSocketState1.Name = "BSocketState1";
+            this.BSocketState1.Size = new System.Drawing.Size(91, 31);
+            this.BSocketState1.TabIndex = 1;
+            this.BSocketState1.Text = "TEST";
+            this.BSocketState1.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
             // TitleLabel
             // 
@@ -548,7 +548,7 @@ namespace ZenHandler.Dlg
             // CsplitContainer4.Panel2
             // 
             this.CsplitContainer4.Panel2.BackColor = System.Drawing.Color.DimGray;
-            this.CsplitContainer4.Panel2.Controls.Add(this.label3);
+            this.CsplitContainer4.Panel2.Controls.Add(this.CSocketState4);
             this.CsplitContainer4.Size = new System.Drawing.Size(93, 59);
             this.CsplitContainer4.SplitterDistance = 25;
             this.CsplitContainer4.SplitterWidth = 1;
@@ -562,20 +562,20 @@ namespace ZenHandler.Dlg
             this.label2.Name = "label2";
             this.label2.Size = new System.Drawing.Size(91, 23);
             this.label2.TabIndex = 1;
-            this.label2.Text = "SOCKET #3-4";
+            this.label2.Text = "#C-4";
             this.label2.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
-            // label3
+            // CSocketState4
             // 
-            this.label3.BackColor = System.Drawing.Color.White;
-            this.label3.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.label3.Font = new System.Drawing.Font("나눔고딕 ExtraBold", 11.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(129)));
-            this.label3.Location = new System.Drawing.Point(0, 0);
-            this.label3.Name = "label3";
-            this.label3.Size = new System.Drawing.Size(91, 31);
-            this.label3.TabIndex = 1;
-            this.label3.Text = "READY";
-            this.label3.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            this.CSocketState4.BackColor = System.Drawing.Color.White;
+            this.CSocketState4.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.CSocketState4.Font = new System.Drawing.Font("나눔고딕 ExtraBold", 11.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(129)));
+            this.CSocketState4.Location = new System.Drawing.Point(0, 0);
+            this.CSocketState4.Name = "CSocketState4";
+            this.CSocketState4.Size = new System.Drawing.Size(91, 31);
+            this.CSocketState4.TabIndex = 1;
+            this.CSocketState4.Text = "Blank";
+            this.CSocketState4.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
             // CsplitContainer3
             // 
@@ -593,7 +593,7 @@ namespace ZenHandler.Dlg
             // CsplitContainer3.Panel2
             // 
             this.CsplitContainer3.Panel2.BackColor = System.Drawing.Color.DimGray;
-            this.CsplitContainer3.Panel2.Controls.Add(this.label5);
+            this.CsplitContainer3.Panel2.Controls.Add(this.CSocketState3);
             this.CsplitContainer3.Size = new System.Drawing.Size(93, 59);
             this.CsplitContainer3.SplitterDistance = 25;
             this.CsplitContainer3.SplitterWidth = 1;
@@ -607,20 +607,20 @@ namespace ZenHandler.Dlg
             this.label4.Name = "label4";
             this.label4.Size = new System.Drawing.Size(91, 23);
             this.label4.TabIndex = 1;
-            this.label4.Text = "SOCKET #3-3";
+            this.label4.Text = "#C-3";
             this.label4.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
-            // label5
+            // CSocketState3
             // 
-            this.label5.BackColor = System.Drawing.Color.Red;
-            this.label5.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.label5.Font = new System.Drawing.Font("나눔고딕 ExtraBold", 11.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(129)));
-            this.label5.Location = new System.Drawing.Point(0, 0);
-            this.label5.Name = "label5";
-            this.label5.Size = new System.Drawing.Size(91, 31);
-            this.label5.TabIndex = 1;
-            this.label5.Text = "NG";
-            this.label5.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            this.CSocketState3.BackColor = System.Drawing.Color.Red;
+            this.CSocketState3.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.CSocketState3.Font = new System.Drawing.Font("나눔고딕 ExtraBold", 11.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(129)));
+            this.CSocketState3.Location = new System.Drawing.Point(0, 0);
+            this.CSocketState3.Name = "CSocketState3";
+            this.CSocketState3.Size = new System.Drawing.Size(91, 31);
+            this.CSocketState3.TabIndex = 1;
+            this.CSocketState3.Text = "NG";
+            this.CSocketState3.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
             // CsplitContainer2
             // 
@@ -638,7 +638,7 @@ namespace ZenHandler.Dlg
             // CsplitContainer2.Panel2
             // 
             this.CsplitContainer2.Panel2.BackColor = System.Drawing.Color.DimGray;
-            this.CsplitContainer2.Panel2.Controls.Add(this.label7);
+            this.CsplitContainer2.Panel2.Controls.Add(this.CSocketState2);
             this.CsplitContainer2.Size = new System.Drawing.Size(93, 59);
             this.CsplitContainer2.SplitterDistance = 25;
             this.CsplitContainer2.SplitterWidth = 1;
@@ -652,21 +652,21 @@ namespace ZenHandler.Dlg
             this.label6.Name = "label6";
             this.label6.Size = new System.Drawing.Size(91, 23);
             this.label6.TabIndex = 1;
-            this.label6.Text = "SOCKET #3-2";
+            this.label6.Text = "#C-2";
             this.label6.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
-            // label7
+            // CSocketState2
             // 
-            this.label7.BackColor = System.Drawing.Color.Green;
-            this.label7.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.label7.Font = new System.Drawing.Font("나눔고딕 ExtraBold", 11.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(129)));
-            this.label7.ForeColor = System.Drawing.Color.Yellow;
-            this.label7.Location = new System.Drawing.Point(0, 0);
-            this.label7.Name = "label7";
-            this.label7.Size = new System.Drawing.Size(91, 31);
-            this.label7.TabIndex = 1;
-            this.label7.Text = "PASS";
-            this.label7.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            this.CSocketState2.BackColor = System.Drawing.Color.Green;
+            this.CSocketState2.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.CSocketState2.Font = new System.Drawing.Font("나눔고딕 ExtraBold", 11.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(129)));
+            this.CSocketState2.ForeColor = System.Drawing.Color.Yellow;
+            this.CSocketState2.Location = new System.Drawing.Point(0, 0);
+            this.CSocketState2.Name = "CSocketState2";
+            this.CSocketState2.Size = new System.Drawing.Size(91, 31);
+            this.CSocketState2.TabIndex = 1;
+            this.CSocketState2.Text = "PASS";
+            this.CSocketState2.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
             // CsplitContainer1
             // 
@@ -685,7 +685,7 @@ namespace ZenHandler.Dlg
             // CsplitContainer1.Panel2
             // 
             this.CsplitContainer1.Panel2.BackColor = System.Drawing.Color.DimGray;
-            this.CsplitContainer1.Panel2.Controls.Add(this.label10);
+            this.CsplitContainer1.Panel2.Controls.Add(this.CSocketState1);
             this.CsplitContainer1.Size = new System.Drawing.Size(93, 59);
             this.CsplitContainer1.SplitterDistance = 25;
             this.CsplitContainer1.SplitterWidth = 1;
@@ -699,7 +699,7 @@ namespace ZenHandler.Dlg
             this.label8.Name = "label8";
             this.label8.Size = new System.Drawing.Size(91, 23);
             this.label8.TabIndex = 2;
-            this.label8.Text = "SOCKET #3-1";
+            this.label8.Text = "#C-1";
             this.label8.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
             // label9
@@ -713,17 +713,17 @@ namespace ZenHandler.Dlg
             this.label9.Text = "SOCKET #5";
             this.label9.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
-            // label10
+            // CSocketState1
             // 
-            this.label10.BackColor = System.Drawing.Color.White;
-            this.label10.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.label10.Font = new System.Drawing.Font("나눔고딕 ExtraBold", 11.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(129)));
-            this.label10.Location = new System.Drawing.Point(0, 0);
-            this.label10.Name = "label10";
-            this.label10.Size = new System.Drawing.Size(91, 31);
-            this.label10.TabIndex = 1;
-            this.label10.Text = "TEST";
-            this.label10.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            this.CSocketState1.BackColor = System.Drawing.Color.White;
+            this.CSocketState1.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.CSocketState1.Font = new System.Drawing.Font("나눔고딕 ExtraBold", 11.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(129)));
+            this.CSocketState1.Location = new System.Drawing.Point(0, 0);
+            this.CSocketState1.Name = "CSocketState1";
+            this.CSocketState1.Size = new System.Drawing.Size(91, 31);
+            this.CSocketState1.TabIndex = 1;
+            this.CSocketState1.Text = "TEST";
+            this.CSocketState1.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
             // DsplitContainer4
             // 
@@ -741,7 +741,7 @@ namespace ZenHandler.Dlg
             // DsplitContainer4.Panel2
             // 
             this.DsplitContainer4.Panel2.BackColor = System.Drawing.Color.DimGray;
-            this.DsplitContainer4.Panel2.Controls.Add(this.label12);
+            this.DsplitContainer4.Panel2.Controls.Add(this.DSocketState4);
             this.DsplitContainer4.Size = new System.Drawing.Size(93, 59);
             this.DsplitContainer4.SplitterDistance = 25;
             this.DsplitContainer4.SplitterWidth = 1;
@@ -755,20 +755,20 @@ namespace ZenHandler.Dlg
             this.label11.Name = "label11";
             this.label11.Size = new System.Drawing.Size(91, 23);
             this.label11.TabIndex = 1;
-            this.label11.Text = "SOCKET #4-4";
+            this.label11.Text = "#D-4";
             this.label11.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
-            // label12
+            // DSocketState4
             // 
-            this.label12.BackColor = System.Drawing.Color.White;
-            this.label12.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.label12.Font = new System.Drawing.Font("나눔고딕 ExtraBold", 11.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(129)));
-            this.label12.Location = new System.Drawing.Point(0, 0);
-            this.label12.Name = "label12";
-            this.label12.Size = new System.Drawing.Size(91, 31);
-            this.label12.TabIndex = 1;
-            this.label12.Text = "READY";
-            this.label12.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            this.DSocketState4.BackColor = System.Drawing.Color.White;
+            this.DSocketState4.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.DSocketState4.Font = new System.Drawing.Font("나눔고딕 ExtraBold", 11.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(129)));
+            this.DSocketState4.Location = new System.Drawing.Point(0, 0);
+            this.DSocketState4.Name = "DSocketState4";
+            this.DSocketState4.Size = new System.Drawing.Size(91, 31);
+            this.DSocketState4.TabIndex = 1;
+            this.DSocketState4.Text = "Blank";
+            this.DSocketState4.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
             // DsplitContainer3
             // 
@@ -786,7 +786,7 @@ namespace ZenHandler.Dlg
             // DsplitContainer3.Panel2
             // 
             this.DsplitContainer3.Panel2.BackColor = System.Drawing.Color.DimGray;
-            this.DsplitContainer3.Panel2.Controls.Add(this.label14);
+            this.DsplitContainer3.Panel2.Controls.Add(this.DSocketState3);
             this.DsplitContainer3.Size = new System.Drawing.Size(93, 59);
             this.DsplitContainer3.SplitterDistance = 25;
             this.DsplitContainer3.SplitterWidth = 1;
@@ -800,20 +800,20 @@ namespace ZenHandler.Dlg
             this.label13.Name = "label13";
             this.label13.Size = new System.Drawing.Size(91, 23);
             this.label13.TabIndex = 1;
-            this.label13.Text = "SOCKET #4-3";
+            this.label13.Text = "#D-3";
             this.label13.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
-            // label14
+            // DSocketState3
             // 
-            this.label14.BackColor = System.Drawing.Color.Red;
-            this.label14.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.label14.Font = new System.Drawing.Font("나눔고딕 ExtraBold", 11.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(129)));
-            this.label14.Location = new System.Drawing.Point(0, 0);
-            this.label14.Name = "label14";
-            this.label14.Size = new System.Drawing.Size(91, 31);
-            this.label14.TabIndex = 1;
-            this.label14.Text = "NG";
-            this.label14.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            this.DSocketState3.BackColor = System.Drawing.Color.Red;
+            this.DSocketState3.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.DSocketState3.Font = new System.Drawing.Font("나눔고딕 ExtraBold", 11.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(129)));
+            this.DSocketState3.Location = new System.Drawing.Point(0, 0);
+            this.DSocketState3.Name = "DSocketState3";
+            this.DSocketState3.Size = new System.Drawing.Size(91, 31);
+            this.DSocketState3.TabIndex = 1;
+            this.DSocketState3.Text = "NG";
+            this.DSocketState3.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
             // DsplitContainer2
             // 
@@ -831,7 +831,7 @@ namespace ZenHandler.Dlg
             // DsplitContainer2.Panel2
             // 
             this.DsplitContainer2.Panel2.BackColor = System.Drawing.Color.DimGray;
-            this.DsplitContainer2.Panel2.Controls.Add(this.label16);
+            this.DsplitContainer2.Panel2.Controls.Add(this.DSocketState2);
             this.DsplitContainer2.Size = new System.Drawing.Size(93, 59);
             this.DsplitContainer2.SplitterDistance = 25;
             this.DsplitContainer2.SplitterWidth = 1;
@@ -845,21 +845,21 @@ namespace ZenHandler.Dlg
             this.label15.Name = "label15";
             this.label15.Size = new System.Drawing.Size(91, 23);
             this.label15.TabIndex = 1;
-            this.label15.Text = "SOCKET #4-2";
+            this.label15.Text = "#D-2";
             this.label15.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
-            // label16
+            // DSocketState2
             // 
-            this.label16.BackColor = System.Drawing.Color.Green;
-            this.label16.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.label16.Font = new System.Drawing.Font("나눔고딕 ExtraBold", 11.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(129)));
-            this.label16.ForeColor = System.Drawing.Color.Yellow;
-            this.label16.Location = new System.Drawing.Point(0, 0);
-            this.label16.Name = "label16";
-            this.label16.Size = new System.Drawing.Size(91, 31);
-            this.label16.TabIndex = 1;
-            this.label16.Text = "PASS";
-            this.label16.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            this.DSocketState2.BackColor = System.Drawing.Color.Green;
+            this.DSocketState2.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.DSocketState2.Font = new System.Drawing.Font("나눔고딕 ExtraBold", 11.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(129)));
+            this.DSocketState2.ForeColor = System.Drawing.Color.Yellow;
+            this.DSocketState2.Location = new System.Drawing.Point(0, 0);
+            this.DSocketState2.Name = "DSocketState2";
+            this.DSocketState2.Size = new System.Drawing.Size(91, 31);
+            this.DSocketState2.TabIndex = 1;
+            this.DSocketState2.Text = "PASS";
+            this.DSocketState2.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
             // DsplitContainer1
             // 
@@ -878,7 +878,7 @@ namespace ZenHandler.Dlg
             // DsplitContainer1.Panel2
             // 
             this.DsplitContainer1.Panel2.BackColor = System.Drawing.Color.DimGray;
-            this.DsplitContainer1.Panel2.Controls.Add(this.label19);
+            this.DsplitContainer1.Panel2.Controls.Add(this.DSocketState1);
             this.DsplitContainer1.Size = new System.Drawing.Size(93, 59);
             this.DsplitContainer1.SplitterDistance = 25;
             this.DsplitContainer1.SplitterWidth = 1;
@@ -892,7 +892,7 @@ namespace ZenHandler.Dlg
             this.label17.Name = "label17";
             this.label17.Size = new System.Drawing.Size(91, 23);
             this.label17.TabIndex = 2;
-            this.label17.Text = "SOCKET #4-1";
+            this.label17.Text = "#D-1";
             this.label17.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
             // label18
@@ -906,17 +906,17 @@ namespace ZenHandler.Dlg
             this.label18.Text = "SOCKET #5";
             this.label18.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
-            // label19
+            // DSocketState1
             // 
-            this.label19.BackColor = System.Drawing.Color.White;
-            this.label19.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.label19.Font = new System.Drawing.Font("나눔고딕 ExtraBold", 11.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(129)));
-            this.label19.Location = new System.Drawing.Point(0, 0);
-            this.label19.Name = "label19";
-            this.label19.Size = new System.Drawing.Size(91, 31);
-            this.label19.TabIndex = 1;
-            this.label19.Text = "TEST";
-            this.label19.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            this.DSocketState1.BackColor = System.Drawing.Color.White;
+            this.DSocketState1.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.DSocketState1.Font = new System.Drawing.Font("나눔고딕 ExtraBold", 11.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(129)));
+            this.DSocketState1.Location = new System.Drawing.Point(0, 0);
+            this.DSocketState1.Name = "DSocketState1";
+            this.DSocketState1.Size = new System.Drawing.Size(91, 31);
+            this.DSocketState1.TabIndex = 1;
+            this.DSocketState1.Text = "TEST";
+            this.DSocketState1.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
             // SocketStateInfo
             // 
@@ -941,6 +941,7 @@ namespace ZenHandler.Dlg
             this.Controls.Add(this.AsplitContainer1);
             this.Name = "SocketStateInfo";
             this.Size = new System.Drawing.Size(411, 300);
+            this.Load += new System.EventHandler(this.SocketStateInfo_Load);
             this.AsplitContainer4.Panel1.ResumeLayout(false);
             this.AsplitContainer4.Panel2.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.AsplitContainer4)).EndInit();
@@ -1013,55 +1014,55 @@ namespace ZenHandler.Dlg
 
         private System.Windows.Forms.SplitContainer AsplitContainer4;
         private System.Windows.Forms.Label label_SocketTitle4;
-        private System.Windows.Forms.Label label_SocketState4;
+        private System.Windows.Forms.Label ASocketState4;
         private System.Windows.Forms.SplitContainer AsplitContainer3;
         private System.Windows.Forms.Label label_SocketTitle3;
-        private System.Windows.Forms.Label label_SocketState3;
+        private System.Windows.Forms.Label ASocketState3;
         private System.Windows.Forms.SplitContainer AsplitContainer2;
         private System.Windows.Forms.Label label_SocketTitle2;
-        private System.Windows.Forms.Label label_SocketState2;
+        private System.Windows.Forms.Label ASocketState2;
         private System.Windows.Forms.SplitContainer AsplitContainer1;
         private System.Windows.Forms.Label label_SocketTitle1;
-        private System.Windows.Forms.Label label_SocketState1;
+        private System.Windows.Forms.Label ASocketState1;
         private System.Windows.Forms.SplitContainer BsplitContainer4;
         private System.Windows.Forms.Label label_SocketTitle8;
-        private System.Windows.Forms.Label label_SocketState8;
+        private System.Windows.Forms.Label BSocketState4;
         private System.Windows.Forms.SplitContainer BsplitContainer3;
         private System.Windows.Forms.Label label_SocketTitle7;
-        private System.Windows.Forms.Label label_SocketState7;
+        private System.Windows.Forms.Label BSocketState3;
         private System.Windows.Forms.SplitContainer BsplitContainer2;
         private System.Windows.Forms.Label label_SocketTitle6;
-        private System.Windows.Forms.Label label_SocketState6;
+        private System.Windows.Forms.Label BSocketState2;
         private System.Windows.Forms.SplitContainer BsplitContainer1;
         private System.Windows.Forms.Label label_SocketTitle5;
-        private System.Windows.Forms.Label label_SocketState5;
+        private System.Windows.Forms.Label BSocketState1;
         private System.Windows.Forms.Label TitleLabel;
         private System.Windows.Forms.Label label1;
         private System.Windows.Forms.SplitContainer CsplitContainer4;
         private System.Windows.Forms.Label label2;
-        private System.Windows.Forms.Label label3;
+        private System.Windows.Forms.Label CSocketState4;
         private System.Windows.Forms.SplitContainer CsplitContainer3;
         private System.Windows.Forms.Label label4;
-        private System.Windows.Forms.Label label5;
+        private System.Windows.Forms.Label CSocketState3;
         private System.Windows.Forms.SplitContainer CsplitContainer2;
         private System.Windows.Forms.Label label6;
-        private System.Windows.Forms.Label label7;
+        private System.Windows.Forms.Label CSocketState2;
         private System.Windows.Forms.SplitContainer CsplitContainer1;
         private System.Windows.Forms.Label label8;
         private System.Windows.Forms.Label label9;
-        private System.Windows.Forms.Label label10;
+        private System.Windows.Forms.Label CSocketState1;
         private System.Windows.Forms.SplitContainer DsplitContainer4;
         private System.Windows.Forms.Label label11;
-        private System.Windows.Forms.Label label12;
+        private System.Windows.Forms.Label DSocketState4;
         private System.Windows.Forms.SplitContainer DsplitContainer3;
         private System.Windows.Forms.Label label13;
-        private System.Windows.Forms.Label label14;
+        private System.Windows.Forms.Label DSocketState3;
         private System.Windows.Forms.SplitContainer DsplitContainer2;
         private System.Windows.Forms.Label label15;
-        private System.Windows.Forms.Label label16;
+        private System.Windows.Forms.Label DSocketState2;
         private System.Windows.Forms.SplitContainer DsplitContainer1;
         private System.Windows.Forms.Label label17;
         private System.Windows.Forms.Label label18;
-        private System.Windows.Forms.Label label19;
+        private System.Windows.Forms.Label DSocketState1;
     }
 }
