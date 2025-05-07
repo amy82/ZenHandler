@@ -62,9 +62,6 @@ namespace ZenHandler.Machine
         public TrayPoint LoadTrayPos { get; set; } = new TrayPoint();       //투입, 배출, Ng Tray 는 같이 쓰면되려나?  L,R 나눠야 될지?
         public TrayPoint UnloadTrayPos { get; set; } = new TrayPoint();
         public TrayPoint NgTrayPos { get; set; } = new TrayPoint();
-
-        public int LeftTrayLayer { get; set; }
-        public int RightTrayLayer { get; set; }
     }
     //---------------------------------------------------------------------------------------------------------------------------------------------------
     //
@@ -78,6 +75,9 @@ namespace ZenHandler.Machine
         public List<List<int>> RightLoadTraySlots { get; set; } = new List<List<int>>();
         public List<List<int>> LeftNgTraySlots { get; set; } = new List<List<int>>();
         public List<List<int>> RightNgTraySlots { get; set; } = new List<List<int>>();
+
+        public int LeftTrayLayer { get; set; }
+        public int RightTrayLayer { get; set; }
     }
 
 
@@ -109,8 +109,10 @@ namespace ZenHandler.Machine
     }
     public class MagazineTray
     {
-        MagazineInfo LeftMagazineInfo { get; set; } = new MagazineInfo();
-        MagazineInfo RightMagazineInfo { get; set; } = new MagazineInfo();
+        public List<MagazineInfo> LeftMagazineInfo { get; set; } = new List<MagazineInfo>();  
+        public List<MagazineInfo> RightMagazineInfo { get; set; } = new List<MagazineInfo>();  
+        public int LeftTrayLayer { get; set; } = 0;
+        public int RightTrayLayer { get; set; } = 0;
     }
 
 

@@ -23,8 +23,8 @@ namespace ZenHandler.Dlg
 
         //liftTeach
         //socketTeach
-        private TeachingAoiSocket AoiSocket;      //TODO: 소켓 추가
-        private TeachingEEpromSocket EEpromSocket;
+        private TeachingAoiSocket AoiSocketTeach;      //TODO: 소켓 추가
+        private TeachingEEpromSocket EEpromSocketTeach;
         //private TeachingFwSocket FwSocket;
 
 
@@ -48,8 +48,8 @@ namespace ZenHandler.Dlg
             TransferTeach = new TeachingTransfer();
             MagazineTeach = new TeachingMagazine();
             LiftTeach = new TeachingLift();
-            AoiSocket = new TeachingAoiSocket();
-            EEpromSocket = new TeachingEEpromSocket();
+            AoiSocketTeach = new TeachingAoiSocket();
+            EEpromSocketTeach = new TeachingEEpromSocket();
             if (Program.PG_SELECT == HANDLER_PG.AOI)
             {
 
@@ -66,14 +66,14 @@ namespace ZenHandler.Dlg
             TransferTeach.Visible = false;
             MagazineTeach.Visible = false;
             LiftTeach.Visible = false;
-            AoiSocket.Visible = false;
-            EEpromSocket.Visible = false;
+            AoiSocketTeach.Visible = false;
+            EEpromSocketTeach.Visible = false;
 
             MachineControl.Add(TransferTeach);
             MachineControl.Add(MagazineTeach);
             MachineControl.Add(LiftTeach);
-            MachineControl.Add(AoiSocket);
-            MachineControl.Add(EEpromSocket);
+            MachineControl.Add(AoiSocketTeach);
+            MachineControl.Add(EEpromSocketTeach);
 
             
             this.Paint += new PaintEventHandler(Form_Paint);
@@ -86,14 +86,14 @@ namespace ZenHandler.Dlg
             this.Controls.Add(TransferTeach);
             this.Controls.Add(MagazineTeach);
             this.Controls.Add(LiftTeach);
-            this.Controls.Add(AoiSocket);
-            this.Controls.Add(EEpromSocket);
+            this.Controls.Add(AoiSocketTeach);
+            this.Controls.Add(EEpromSocketTeach);
 
             TransferTeach.Location = new System.Drawing.Point(this.TeachingPanel.Location.X, this.TeachingPanel.Location.Y);
             MagazineTeach.Location = new System.Drawing.Point(this.TeachingPanel.Location.X, this.TeachingPanel.Location.Y);
             LiftTeach.Location = new System.Drawing.Point(this.TeachingPanel.Location.X, this.TeachingPanel.Location.Y);
-            AoiSocket.Location = new System.Drawing.Point(this.TeachingPanel.Location.X, this.TeachingPanel.Location.Y);
-            EEpromSocket.Location = new System.Drawing.Point(this.TeachingPanel.Location.X, this.TeachingPanel.Location.Y);
+            AoiSocketTeach.Location = new System.Drawing.Point(this.TeachingPanel.Location.X, this.TeachingPanel.Location.Y);
+            EEpromSocketTeach.Location = new System.Drawing.Point(this.TeachingPanel.Location.X, this.TeachingPanel.Location.Y);
 
             setInterface();
             changeSpeedNo(0);
@@ -210,8 +210,30 @@ namespace ZenHandler.Dlg
             {
                 bool result = await TransferTeach.MotorRelMove(dMovePos * -1);
             }
+            else if (TeachCurrentTab == eTeachingBtn.MagazineTab)
+            {
+                bool result = await MagazineTeach.MotorRelMove(dMovePos * -1);
+            }
+            else if (TeachCurrentTab == eTeachingBtn.LiftTab)
+            {
+                bool result = await LiftTeach.MotorRelMove(dMovePos * -1);
+            }
+            else if (TeachCurrentTab == eTeachingBtn.SocketTab)
+            {
+                if (Program.PG_SELECT == HANDLER_PG.AOI)
+                {
+                    bool result = await AoiSocketTeach.MotorRelMove(dMovePos * -1);
+                }
+                else if (Program.PG_SELECT == HANDLER_PG.EEPROM)
+                {
+                    bool result = await EEpromSocketTeach.MotorRelMove(dMovePos * -1);
+                }
+                else
+                {
+                    //Fw는 모터 없음
+                }
+            }
 
-            
         }
 
         private async void BTN_TEACH_MOVE_PLUS_Click(object sender, EventArgs e)
@@ -226,7 +248,31 @@ namespace ZenHandler.Dlg
             {   
                 bool result = await TransferTeach.MotorRelMove(dMovePos);   //TODO: 머신안에 함수로 바꿔야된다.
             }
-            
+            else if (TeachCurrentTab == eTeachingBtn.MagazineTab)
+            {
+                bool result = await MagazineTeach.MotorRelMove(dMovePos);
+            }
+            else if (TeachCurrentTab == eTeachingBtn.LiftTab)
+            {
+                bool result = await LiftTeach.MotorRelMove(dMovePos);
+            }
+            else if (TeachCurrentTab == eTeachingBtn.SocketTab)
+            {
+                bool result = false;
+                if (Program.PG_SELECT == HANDLER_PG.AOI)
+                {
+                    result = await AoiSocketTeach.MotorRelMove(dMovePos);
+                }
+                else if (Program.PG_SELECT == HANDLER_PG.EEPROM)
+                {
+                    result = await EEpromSocketTeach.MotorRelMove(dMovePos);
+                }
+                else
+                {
+                    //Fw는 모터 없음
+                }
+            }
+
         }
 
         private void LABEL_TEACH_MOVE_VALUE_Click(object sender, EventArgs e)
@@ -292,9 +338,34 @@ namespace ZenHandler.Dlg
             {
                 return;
             }
+            bool result = false;
             if (TeachCurrentTab == eTeachingBtn.TransferTab)
             {
-                bool result = await TransferTeach.MotorJogMove((int)MotionControl.MotorSet.eJogDic.MINUS_MOVE, m_dJogSpeed);
+                result = await TransferTeach.MotorJogMove((int)MotionControl.MotorSet.eJogDic.MINUS_MOVE, m_dJogSpeed);
+            }
+            else if (TeachCurrentTab == eTeachingBtn.MagazineTab)
+            {
+                result = await MagazineTeach.MotorJogMove((int)MotionControl.MotorSet.eJogDic.MINUS_MOVE, m_dJogSpeed);
+            }
+            else if (TeachCurrentTab == eTeachingBtn.LiftTab)
+            {
+                result = await LiftTeach.MotorJogMove((int)MotionControl.MotorSet.eJogDic.MINUS_MOVE, m_dJogSpeed);
+            }
+            else if (TeachCurrentTab == eTeachingBtn.SocketTab)
+            {
+                
+                if (Program.PG_SELECT == HANDLER_PG.AOI)
+                {
+                    result = await AoiSocketTeach.MotorJogMove((int)MotionControl.MotorSet.eJogDic.MINUS_MOVE, m_dJogSpeed);
+                }
+                else if (Program.PG_SELECT == HANDLER_PG.EEPROM)
+                {
+                    result = await EEpromSocketTeach.MotorJogMove((int)MotionControl.MotorSet.eJogDic.MINUS_MOVE, m_dJogSpeed);
+                }
+                else
+                {
+                    //Fw는 모터 없음
+                }
             }
         }
         private async void BTN_TEACH_JOG_PLUS_MouseDown(object sender, MouseEventArgs e)
@@ -303,9 +374,34 @@ namespace ZenHandler.Dlg
             {
                 return;
             }
+            bool result = false;
             if (TeachCurrentTab == eTeachingBtn.TransferTab)
             {
-                bool result = await TransferTeach.MotorJogMove((int)MotionControl.MotorSet.eJogDic.PLUS_MOVE, m_dJogSpeed);
+                result = await TransferTeach.MotorJogMove((int)MotionControl.MotorSet.eJogDic.PLUS_MOVE, m_dJogSpeed);
+            }
+            else if (TeachCurrentTab == eTeachingBtn.MagazineTab)
+            {
+                result = await MagazineTeach.MotorJogMove((int)MotionControl.MotorSet.eJogDic.PLUS_MOVE, m_dJogSpeed);
+            }
+            else if (TeachCurrentTab == eTeachingBtn.LiftTab)
+            {
+                result = await LiftTeach.MotorJogMove((int)MotionControl.MotorSet.eJogDic.PLUS_MOVE, m_dJogSpeed);
+            }
+            else if (TeachCurrentTab == eTeachingBtn.SocketTab)
+            {
+
+                if (Program.PG_SELECT == HANDLER_PG.AOI)
+                {
+                    result = await AoiSocketTeach.MotorJogMove((int)MotionControl.MotorSet.eJogDic.PLUS_MOVE, m_dJogSpeed);
+                }
+                else if (Program.PG_SELECT == HANDLER_PG.EEPROM)
+                {
+                    result = await EEpromSocketTeach.MotorJogMove((int)MotionControl.MotorSet.eJogDic.PLUS_MOVE, m_dJogSpeed);
+                }
+                else
+                {
+                    //Fw는 모터 없음
+                }
             }
         }
         private void JOG_STOP_FN()
@@ -313,6 +409,29 @@ namespace ZenHandler.Dlg
             if (TeachCurrentTab == eTeachingBtn.TransferTab)
             {
                 TransferTeach.MotorJogStop();
+            }
+            else if (TeachCurrentTab == eTeachingBtn.MagazineTab)
+            {
+                MagazineTeach.MotorJogStop();
+            }
+            else if (TeachCurrentTab == eTeachingBtn.LiftTab)
+            {
+                LiftTeach.MotorJogStop();
+            }
+            else if (TeachCurrentTab == eTeachingBtn.SocketTab)
+            {
+                if (Program.PG_SELECT == HANDLER_PG.AOI)
+                {
+                    AoiSocketTeach.MotorJogStop();
+                }
+                else if (Program.PG_SELECT == HANDLER_PG.EEPROM)
+                {
+                    EEpromSocketTeach.MotorJogStop();
+                }
+                else
+                {
+                    //Fw는 모터 없음
+                }
             }
         }
         private void BTN_TEACH_JOG_STOP_Click(object sender, EventArgs e)
@@ -358,8 +477,8 @@ namespace ZenHandler.Dlg
                 TransferTeach.showPanel();
                 MagazineTeach.hidePanel();
                 LiftTeach.hidePanel();
-                AoiSocket.hidePanel();
-                EEpromSocket.hidePanel();
+                AoiSocketTeach.hidePanel();
+                EEpromSocketTeach.hidePanel();
             }
 
             if (TeachCurrentTab == eTeachingBtn.MagazineTab)
@@ -368,8 +487,8 @@ namespace ZenHandler.Dlg
                 MagazineTeach.showPanel();
                 TransferTeach.hidePanel();
                 LiftTeach.hidePanel();
-                AoiSocket.hidePanel();
-                EEpromSocket.hidePanel();
+                AoiSocketTeach.hidePanel();
+                EEpromSocketTeach.hidePanel();
             }
             if (TeachCurrentTab == eTeachingBtn.LiftTab)
             {
@@ -377,8 +496,8 @@ namespace ZenHandler.Dlg
                 LiftTeach.showPanel();
                 TransferTeach.hidePanel();
                 MagazineTeach.hidePanel();
-                AoiSocket.hidePanel();
-                EEpromSocket.hidePanel();
+                AoiSocketTeach.hidePanel();
+                EEpromSocketTeach.hidePanel();
             }
             
             if (TeachCurrentTab == eTeachingBtn.SocketTab)
@@ -386,11 +505,15 @@ namespace ZenHandler.Dlg
                 BTN_TEACH_SOCKET.BackColor = ColorTranslator.FromHtml("#FFB230");
                 if(Program.PG_SELECT == HANDLER_PG.AOI)
                 {
-                    AoiSocket.showPanel();
+                    AoiSocketTeach.showPanel();
+                }
+                else if (Program.PG_SELECT == HANDLER_PG.EEPROM)
+                {
+                    EEpromSocketTeach.showPanel();
                 }
                 else
                 {
-                    EEpromSocket.showPanel();
+                    //Fw는 모터 없음
                 }
                 
                 

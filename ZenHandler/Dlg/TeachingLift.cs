@@ -245,7 +245,7 @@ namespace ZenHandler.Dlg
         private void BTN_TEACH_DATA_SAVE_Click(object sender, EventArgs e)
         {
             //Teaching 저장하시겠습니까?
-            string szLog = $"[TRANSFER] Teaching Save?";
+            string szLog = $"[LIFT] Teaching Save?";
 
             DialogResult result = DialogResult.None;
 
