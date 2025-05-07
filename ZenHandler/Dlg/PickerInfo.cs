@@ -104,7 +104,7 @@ namespace ZenHandler.Dlg
                 }
                 else
                 {
-                    posName = "UnLoad " + (i + 1).ToString();
+                    posName = "UnLoad " + (i%4 + 1).ToString();
                 }
                 dataGridView.Rows[i].SetValues(posName);
             }
