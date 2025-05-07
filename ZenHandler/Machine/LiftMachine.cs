@@ -139,21 +139,32 @@ namespace ZenHandler.Machine
         }
         public override bool OriginRun()
         {
-            AutoUnitThread.m_nCurrentStep = 1000;
-
-            AutoUnitThread.m_nStartStep = 1000;
-            AutoUnitThread.m_nEndStep = 20000;
-
             if (AutoUnitThread.GetThreadRun() == true)
             {
-                Console.WriteLine($"원점 동작 중입니다.");
-
-                AutoUnitThread.Stop();
-                Thread.Sleep(300);
+                return false;
             }
+            string szLog = "";
+
+            this.RunState = OperationState.OriginRunning;
+            AutoUnitThread.m_nCurrentStep = 1000;          //ORG
+            AutoUnitThread.m_nEndStep = 2000;
+
+            AutoUnitThread.m_nStartStep = AutoUnitThread.m_nCurrentStep;
+
             bool rtn = AutoUnitThread.Start();
-
-
+            if (rtn)
+            {
+                szLog = $"[ORIGIN] Lift Socket Origin Start";
+                Console.WriteLine($"[ORIGIN] Lift Socket Origin Start");
+                Globalo.LogPrint("MainForm", szLog);
+            }
+            else
+            {
+                this.RunState = OperationState.Stopped;
+                Console.WriteLine($"[ORIGIN] Lift Socket Origin Start Fail");
+                szLog = $"[ORIGIN] Lift Socket Origin Start Fail";
+                Globalo.LogPrint("MainForm", szLog);
+            }
             return rtn;
         }
         public override bool ReadyRun()
@@ -186,13 +197,13 @@ namespace ZenHandler.Machine
             bool rtn = AutoUnitThread.Start();
             if (rtn)
             {
-                Console.WriteLine($"[READY] Transfer Ready Start");
+                Console.WriteLine($"[READY] Lift Ready Start");
                 Console.WriteLine($"모터 동작 성공.");
             }
             else
             {
                 this.RunState = OperationState.Stopped;
-                Console.WriteLine($"[READY] Transfer Ready Start Fail");
+                Console.WriteLine($"[READY] Lift Ready Start Fail");
                 Console.WriteLine($"모터 동작 실패.");
             }
 
@@ -210,10 +221,13 @@ namespace ZenHandler.Machine
         public override bool AutoRun()
         {
             bool rtn = true;
-            if (this.RunState != OperationState.PreparationComplete)
+            if (this.RunState != OperationState.Paused)
             {
-                Globalo.LogPrint("MainForm", "[LIFT] 운전준비가 완료되지 않았습니다.", Globalo.eMessageName.M_WARNING);
-                return false;
+                if (this.RunState != OperationState.PreparationComplete)
+                {
+                    Globalo.LogPrint("MainForm", "[LIFT] 운전준비가 완료되지 않았습니다.", Globalo.eMessageName.M_WARNING);
+                    return false;
+                }
             }
 
             if (AutoUnitThread.GetThreadRun() == true)

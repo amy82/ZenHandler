@@ -1561,7 +1561,9 @@ namespace ZenHandler.Machine
                 return false;
             }
 
-            if (MotorAxes[(int)Machine.eTransfer.TRANSFER_X].OrgState == false || MotorAxes[(int)Machine.eTransfer.TRANSFER_Y].OrgState == false || MotorAxes[(int)Machine.eTransfer.TRANSFER_Z].OrgState == false)
+            if (MotorAxes[(int)Machine.eTransfer.TRANSFER_X].OrgState == false || 
+                MotorAxes[(int)Machine.eTransfer.TRANSFER_Y].OrgState == false || 
+                MotorAxes[(int)Machine.eTransfer.TRANSFER_Z].OrgState == false)
             {
                 this.RunState = OperationState.OriginRunning;
                 AutoUnitThread.m_nCurrentStep = 1000;

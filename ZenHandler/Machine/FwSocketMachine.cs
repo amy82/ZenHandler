@@ -32,13 +32,12 @@ namespace ZenHandler.Machine
         }
         public override bool TaskSave()
         {
-            //bool rtn = Data.TaskDataYaml.TaskSave_Transfer(socketProduct, taskPath);
-            //return rtn;
-            return false;
+            bool rtn = Data.TaskDataYaml.TaskSave_Socket(socketProduct, taskPath);
+            return rtn;
         }
         public override void MotorDataSet()
         {
-
+            //Fw Socket Motor xxxx
         }
         public override void MovingStop()
         {
@@ -67,8 +66,29 @@ namespace ZenHandler.Machine
         {
             if (AutoUnitThread.GetThreadRun() == true)
             {
-                //motorAutoThread.Stop();
                 return false;
+            }
+            string szLog = "";
+
+            this.RunState = OperationState.OriginRunning;
+            AutoUnitThread.m_nCurrentStep = 1000;          //ORG
+            AutoUnitThread.m_nEndStep = 2000;
+
+            AutoUnitThread.m_nStartStep = AutoUnitThread.m_nCurrentStep;
+
+            bool rtn = AutoUnitThread.Start();
+            if (rtn)
+            {
+                szLog = $"[ORIGIN] Fw Socket Origin Start";
+                Console.WriteLine($"[ORIGIN] Fw Socket Origin Start");
+                Globalo.LogPrint("MainForm", szLog);
+            }
+            else
+            {
+                this.RunState = OperationState.Stopped;
+                Console.WriteLine($"[ORIGIN] Fw Socket Origin Start Fail");
+                szLog = $"[ORIGIN] Fw Socket Origin Start Fail";
+                Globalo.LogPrint("MainForm", szLog);
             }
             return true;
         }
@@ -79,7 +99,7 @@ namespace ZenHandler.Machine
                 return false;
             }
             this.RunState = OperationState.Preparing;   //TODO: 모터없는 부분이라 확인필요
-            AutoUnitThread.m_nCurrentStep = 2000;
+            AutoUnitThread.m_nCurrentStep = 1000;
             //if (TransferX.OrgState == false || TransferY.OrgState == false || TransferZ.OrgState == false)
             //{
             //    this.RunState = OperationState.OriginRunning;
@@ -125,10 +145,13 @@ namespace ZenHandler.Machine
         public override bool AutoRun()
         {
             bool rtn = true;
-            if (this.RunState != OperationState.PreparationComplete)
+            if (this.RunState != OperationState.Paused)
             {
-                Globalo.LogPrint("MainForm", "[FWSOCKET] 운전준비가 완료되지 않았습니다.", Globalo.eMessageName.M_WARNING);
-                return false;
+                if (this.RunState != OperationState.PreparationComplete)
+                {
+                    Globalo.LogPrint("MainForm", "[FW SOCKET] 운전준비가 완료되지 않았습니다.", Globalo.eMessageName.M_WARNING);
+                    return false;
+                }
             }
 
             if (AutoUnitThread.GetThreadRun() == true)

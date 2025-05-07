@@ -75,9 +75,8 @@ namespace ZenHandler.Machine
         }
         public override bool TaskSave()
         {
-            //bool rtn = Data.TaskDataYaml.TaskSave_Transfer(socketProduct, taskPath);
-            //return rtn;
-            return false;
+            bool rtn = Data.TaskDataYaml.TaskSave_Socket(socketProduct, taskPath);
+            return rtn;
         }
         public override void MotorDataSet()
         {
@@ -133,10 +132,31 @@ namespace ZenHandler.Machine
         {
             if (AutoUnitThread.GetThreadRun() == true)
             {
-                //motorAutoThread.Stop();
                 return false;
             }
-            return true;
+            string szLog = "";
+
+            this.RunState = OperationState.OriginRunning;
+            AutoUnitThread.m_nCurrentStep = 1000;          //ORG
+            AutoUnitThread.m_nEndStep = 2000;
+
+            AutoUnitThread.m_nStartStep = AutoUnitThread.m_nCurrentStep;
+
+            bool rtn = AutoUnitThread.Start();
+            if (rtn)
+            {
+                szLog = $"[ORIGIN] Aoi Socket Origin Start";
+                Console.WriteLine($"[ORIGIN] Aoi Socket Origin Start");
+                Globalo.LogPrint("MainForm", szLog);
+            }
+            else
+            {
+                this.RunState = OperationState.Stopped;
+                Console.WriteLine($"[ORIGIN] Aoi Socket Origin Start Fail");
+                szLog = $"[ORIGIN] Aoi Socket Origin Start Fail";
+                Globalo.LogPrint("MainForm", szLog);
+            }
+            return rtn;
         }
         public override bool ReadyRun()
         {
@@ -167,13 +187,13 @@ namespace ZenHandler.Machine
             bool rtn = AutoUnitThread.Start();
             if (rtn)
             {
-                Console.WriteLine($"[READY] Transfer Ready Start");
+                Console.WriteLine($"[READY] Aoi Socket Ready Start");
                 Console.WriteLine($"모터 동작 성공.");
             }
             else
             {
                 this.RunState = OperationState.Stopped;
-                Console.WriteLine($"[READY] Transfer Ready Start Fail");
+                Console.WriteLine($"[READY] Aoi Socket Ready Start Fail");
                 Console.WriteLine($"모터 동작 실패.");
             }
 
@@ -190,10 +210,13 @@ namespace ZenHandler.Machine
         public override bool AutoRun()
         {
             bool rtn = true;
-            if (this.RunState != OperationState.PreparationComplete)
+            if (this.RunState != OperationState.Paused)
             {
-                Globalo.LogPrint("MainForm", "[AOI SOCKET] 운전준비가 완료되지 않았습니다.", Globalo.eMessageName.M_WARNING);
-                return false;
+                if (this.RunState != OperationState.PreparationComplete)
+                {
+                    Globalo.LogPrint("MainForm", "[AOI SOCKET] 운전준비가 완료되지 않았습니다.", Globalo.eMessageName.M_WARNING);
+                    return false;
+                }
             }
 
             if (AutoUnitThread.GetThreadRun() == true)
