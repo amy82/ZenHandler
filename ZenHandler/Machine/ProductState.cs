@@ -30,10 +30,10 @@ namespace ZenHandler.Machine
     }
     public enum SocketProductState
     {
-        Blank = 0,   // 제품 없음    
+        Blank = 0,   // 제품 없음
+        Test,        //검사 중
         Good,       // 양품
-        NG,         // 불량
-        Unknown     // 미확인 (필요 시)
+        NG         // 불량
     }
     public class ProductInfo
     {
@@ -61,11 +61,10 @@ namespace ZenHandler.Machine
 
         public TrayPoint LoadTrayPos { get; set; } = new TrayPoint();       //투입, 배출, Ng Tray 는 같이 쓰면되려나?  L,R 나눠야 될지?
         public TrayPoint UnloadTrayPos { get; set; } = new TrayPoint();
-        public TrayPoint NgTrayPos { get; set; } = new TrayPoint();     
-        //
-        
-        
+        public TrayPoint NgTrayPos { get; set; } = new TrayPoint();
 
+        public int LeftTrayLayer { get; set; }
+        public int RightTrayLayer { get; set; }
     }
     //---------------------------------------------------------------------------------------------------------------------------------------------------
     //

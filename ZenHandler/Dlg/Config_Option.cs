@@ -177,6 +177,8 @@ namespace ZenHandler.Dlg
             label_Config_Ngtray_Max_Count_X.Text = Globalo.motionManager.transferMachine.productLayout.TotalNgTrayPos.X.ToString();
             label_Config_Ngtray_Max_Count_Y.Text = Globalo.motionManager.transferMachine.productLayout.TotalNgTrayPos.Y.ToString();
 
+            label_Config_Tray_Max_Layer_Val.Text = Globalo.motionManager.transferMachine.productLayout.TotalTrayLayer.ToString();
+
         }
         public void GetOptionData()
         {
@@ -201,7 +203,7 @@ namespace ZenHandler.Dlg
             Globalo.motionManager.transferMachine.productLayout.TotalNgTrayPos.X = int.Parse(label_Config_Ngtray_Max_Count_X.Text);
             Globalo.motionManager.transferMachine.productLayout.TotalNgTrayPos.Y = int.Parse(label_Config_Ngtray_Max_Count_Y.Text);
 
-
+            Globalo.motionManager.transferMachine.productLayout.TotalTrayLayer = int.Parse(label_Config_Tray_Max_Layer_Val.Text);
 
         }
         public void showPanel()
@@ -277,6 +279,18 @@ namespace ZenHandler.Dlg
         }
 
         private void label_Config_Ngtray_Max_Count_Y_Click(object sender, EventArgs e)
+        {
+            Label clickedLabel = sender as Label;
+            ProductMaxCountInput(clickedLabel);
+        }
+
+        private void label_Config_Left_Tray_Max_Layer_Val_Click(object sender, EventArgs e)
+        {
+            Label clickedLabel = sender as Label;
+            ProductMaxCountInput(clickedLabel);
+        }
+
+        private void label_Config_Right_Tray_Max_Layer_Val_Click(object sender, EventArgs e)
         {
             Label clickedLabel = sender as Label;
             ProductMaxCountInput(clickedLabel);

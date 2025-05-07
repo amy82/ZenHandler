@@ -139,7 +139,7 @@ namespace ZenHandler.Dlg
             this.BTN_TEACH_EEPROM_SOCKET_BACK_X.Name = "BTN_TEACH_EEPROM_SOCKET_BACK_X";
             this.BTN_TEACH_EEPROM_SOCKET_BACK_X.Size = new System.Drawing.Size(117, 42);
             this.BTN_TEACH_EEPROM_SOCKET_BACK_X.TabIndex = 23;
-            this.BTN_TEACH_EEPROM_SOCKET_BACK_X.Text = "BACK Z";
+            this.BTN_TEACH_EEPROM_SOCKET_BACK_X.Text = "BACK X";
             this.BTN_TEACH_EEPROM_SOCKET_BACK_X.UseVisualStyleBackColor = false;
             this.BTN_TEACH_EEPROM_SOCKET_BACK_X.Click += new System.EventHandler(this.BTN_TEACH_PCB_Y_Click);
             // 

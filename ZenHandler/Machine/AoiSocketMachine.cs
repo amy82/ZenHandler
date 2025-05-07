@@ -16,13 +16,7 @@ namespace ZenHandler.Machine
         public int MotorCnt { get; private set; } = 4;
 
         //소켓 2개 2세트 = 4개
-
-
-        //public MotionControl.MotorAxis LEFT_X;          //AOI 공정 TOTAL : 4
-        //public MotionControl.MotorAxis LEFT_Z;          //AOI 공정
-        //public MotionControl.MotorAxis RIGHT_X;          //AOI 공정
-        //public MotionControl.MotorAxis RIGHT_Z;          //AOI 공정
-
+        
         public MotionControl.MotorAxis[] MotorAxes; // 배열 선언
 
         public string[] axisName = {"LEFT_X", "LEFT_Z", "RIGHT_X", "RIGHT_Z" };
@@ -38,13 +32,13 @@ namespace ZenHandler.Machine
         private double[] OrgSecondVel = { 10000.0, 10000.0, 10000.0, 10000.0 };
         private double[] OrgThirdVel = { 5000.0, 5000.0, 5000.0, 5000.0};
 
-        public enum eTeachingPosList : int
+        public enum eTeachingAoiPosList : int
         {
-            WAIT_POS = 0, LOAD_POS, UN_LOAD_POS, CAPTURE_POS, TOTAL_SOCKET_TEACHING_COUNT
+            WAIT_POS = 0, LOAD_POS, UN_LOAD_POS, CAPTURE_L_POS, CAPTURE_R_POS, HOUSING_POS , KEY_POS, TOTAL_AOI_SOCKET_TEACHING_COUNT
         };
         public string[] TeachName =
         {
-            "WAIT_POS", "LOAD_POS", "UN_LOAD_POS", "CAPTURE_POS"
+            "WAIT_POS", "LOAD_POS", "UN_LOAD_POS", "CAPTURE_L_POS", "CAPTURE_R_POS", "HOUSING_POS", "KEY_POS"
         };
 
         public const string teachingPath = "Teach_AoiSocket.yaml";
@@ -59,8 +53,6 @@ namespace ZenHandler.Machine
             this.RunState = OperationState.Stopped;
             this.MachineName = this.GetType().Name;
 
-            //MotorAxes = new MotionControl.MotorAxis[] { LEFT_X, LEFT_Z, RIGHT_X, RIGHT_Z };
-            //MotorCnt = MotorAxes.Length;
             MotorAxes = new MotionControl.MotorAxis[MotorCnt];
             for (i = 0; i < MotorCnt; i++)
             {

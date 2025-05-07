@@ -35,5 +35,7 @@ namespace ZenHandler.Machine
 
         public TrayPoint TotalTrayPos { get; set; } = new TrayPoint();
         public TrayPoint TotalNgTrayPos { get; set; } = new TrayPoint();
+
+        public int TotalTrayLayer { get; set; } = 1;
     }
 }

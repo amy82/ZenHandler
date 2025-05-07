@@ -29,9 +29,9 @@ namespace ZenHandler.Dlg
             _syncContext = SynchronizationContext.Current;
             cts = new CancellationTokenSource();
 
-            int[] inGridWid = new int[] { 130, 100, 100, 100, 100 };         //Grid Width
+            int[] inGridWid = new int[] { 140, 90, 90, 90, 90 };         //Grid Width
 
-            myTeachingGrid = new Controls.TeachingGridView( Globalo.motionManager.magazineHandler.MotorAxes, Globalo.motionManager.magazineHandler.teachingConfig, inGridWid);
+            myTeachingGrid = new Controls.TeachingGridView( Globalo.motionManager.magazineHandler.MotorAxes, Globalo.motionManager.magazineHandler.teachingConfig, inGridWid, 32);
 
             myTeachingGrid.Location = new System.Drawing.Point(150, 10);
             this.groupTeachPcb.Controls.Add(myTeachingGrid);

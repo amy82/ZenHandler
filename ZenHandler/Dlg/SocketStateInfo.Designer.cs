@@ -51,10 +51,10 @@ namespace ZenHandler.Dlg
             this.label_SocketTitle6 = new System.Windows.Forms.Label();
             this.label_SocketState6 = new System.Windows.Forms.Label();
             this.splitContainer8 = new System.Windows.Forms.SplitContainer();
+            this.label1 = new System.Windows.Forms.Label();
             this.label_SocketTitle5 = new System.Windows.Forms.Label();
             this.label_SocketState5 = new System.Windows.Forms.Label();
             this.TitleLabel = new System.Windows.Forms.Label();
-            this.label1 = new System.Windows.Forms.Label();
             this.splitContainer9 = new System.Windows.Forms.SplitContainer();
             this.label2 = new System.Windows.Forms.Label();
             this.label3 = new System.Windows.Forms.Label();
@@ -487,6 +487,17 @@ namespace ZenHandler.Dlg
             this.splitContainer8.SplitterWidth = 1;
             this.splitContainer8.TabIndex = 59;
             // 
+            // label1
+            // 
+            this.label1.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.label1.Font = new System.Drawing.Font("나눔고딕", 8.999999F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(129)));
+            this.label1.Location = new System.Drawing.Point(0, 0);
+            this.label1.Name = "label1";
+            this.label1.Size = new System.Drawing.Size(91, 23);
+            this.label1.TabIndex = 2;
+            this.label1.Text = "SOCKET #2-1";
+            this.label1.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            // 
             // label_SocketTitle5
             // 
             this.label_SocketTitle5.Dock = System.Windows.Forms.DockStyle.Fill;
@@ -520,17 +531,6 @@ namespace ZenHandler.Dlg
             this.TitleLabel.TabIndex = 63;
             this.TitleLabel.Text = "| Socket Info";
             this.TitleLabel.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            // 
-            // label1
-            // 
-            this.label1.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.label1.Font = new System.Drawing.Font("나눔고딕", 8.999999F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(129)));
-            this.label1.Location = new System.Drawing.Point(0, 0);
-            this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(91, 23);
-            this.label1.TabIndex = 2;
-            this.label1.Text = "SOCKET #2-1";
-            this.label1.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
             // splitContainer9
             // 

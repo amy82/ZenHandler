@@ -76,12 +76,14 @@ namespace ZenHandler.MotionControl
             magazineHandler.StopAuto();
             liftMachine.StopAuto();
             socketAoiMachine.StopAuto();
+            socketEEpromMachine.StopAuto();
 
 
             transferMachine.MachineClose();
             magazineHandler.MachineClose();
             liftMachine.MachineClose();
             socketAoiMachine.MachineClose();
+            socketEEpromMachine.MachineClose();
 
         }
         public void AllMotorParameterSet()
@@ -90,6 +92,7 @@ namespace ZenHandler.MotionControl
             magazineHandler.MotorDataSet();
             liftMachine.MotorDataSet();
             socketAoiMachine.MotorDataSet();
+            socketEEpromMachine.MotorDataSet();
         }
         public void AllMotorStop()
         {
@@ -99,6 +102,7 @@ namespace ZenHandler.MotionControl
                 magazineHandler.StopAuto();
                 liftMachine.StopAuto();
                 socketAoiMachine.StopAuto();
+                socketEEpromMachine.StopAuto();
             }
            
         }

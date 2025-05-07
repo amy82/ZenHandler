@@ -361,6 +361,7 @@ namespace ZenHandler.Dlg
                 AoiSocket.hidePanel();
                 EEpromSocket.hidePanel();
             }
+
             if (TeachCurrentTab == eTeachingBtn.MagazineTab)
             {
                 BTN_TEACH_MAGAZINE.BackColor = ColorTranslator.FromHtml("#FFB230");

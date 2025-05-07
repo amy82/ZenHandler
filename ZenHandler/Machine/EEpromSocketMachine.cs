@@ -16,9 +16,6 @@ namespace ZenHandler.Machine
 
         //소켓4개 2세트 = 총 8개
 
-        //public MotionControl.MotorAxis Front_X;    //eeprom 공정 TOTAL : 2
-        //public MotionControl.MotorAxis Back_X;    //eeprom 공정
-
         public MotionControl.MotorAxis[] MotorAxes; // 배열 선언
 
         public string[] axisName = { "Front_X", "Back_X"};
