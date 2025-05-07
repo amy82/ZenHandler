@@ -29,145 +29,145 @@ namespace ZenHandler.Dlg
         /// </summary>
         private void InitializeComponent()
         {
-            this.splitContainer4 = new System.Windows.Forms.SplitContainer();
+            this.AsplitContainer4 = new System.Windows.Forms.SplitContainer();
             this.label_SocketTitle4 = new System.Windows.Forms.Label();
             this.label_SocketState4 = new System.Windows.Forms.Label();
-            this.splitContainer3 = new System.Windows.Forms.SplitContainer();
+            this.AsplitContainer3 = new System.Windows.Forms.SplitContainer();
             this.label_SocketTitle3 = new System.Windows.Forms.Label();
             this.label_SocketState3 = new System.Windows.Forms.Label();
-            this.splitContainer2 = new System.Windows.Forms.SplitContainer();
+            this.AsplitContainer2 = new System.Windows.Forms.SplitContainer();
             this.label_SocketTitle2 = new System.Windows.Forms.Label();
             this.label_SocketState2 = new System.Windows.Forms.Label();
-            this.splitContainer1 = new System.Windows.Forms.SplitContainer();
+            this.AsplitContainer1 = new System.Windows.Forms.SplitContainer();
             this.label_SocketTitle1 = new System.Windows.Forms.Label();
             this.label_SocketState1 = new System.Windows.Forms.Label();
-            this.splitContainer5 = new System.Windows.Forms.SplitContainer();
+            this.BsplitContainer4 = new System.Windows.Forms.SplitContainer();
             this.label_SocketTitle8 = new System.Windows.Forms.Label();
             this.label_SocketState8 = new System.Windows.Forms.Label();
-            this.splitContainer6 = new System.Windows.Forms.SplitContainer();
+            this.BsplitContainer3 = new System.Windows.Forms.SplitContainer();
             this.label_SocketTitle7 = new System.Windows.Forms.Label();
             this.label_SocketState7 = new System.Windows.Forms.Label();
-            this.splitContainer7 = new System.Windows.Forms.SplitContainer();
+            this.BsplitContainer2 = new System.Windows.Forms.SplitContainer();
             this.label_SocketTitle6 = new System.Windows.Forms.Label();
             this.label_SocketState6 = new System.Windows.Forms.Label();
-            this.splitContainer8 = new System.Windows.Forms.SplitContainer();
+            this.BsplitContainer1 = new System.Windows.Forms.SplitContainer();
             this.label1 = new System.Windows.Forms.Label();
             this.label_SocketTitle5 = new System.Windows.Forms.Label();
             this.label_SocketState5 = new System.Windows.Forms.Label();
             this.TitleLabel = new System.Windows.Forms.Label();
-            this.splitContainer9 = new System.Windows.Forms.SplitContainer();
+            this.CsplitContainer4 = new System.Windows.Forms.SplitContainer();
             this.label2 = new System.Windows.Forms.Label();
             this.label3 = new System.Windows.Forms.Label();
-            this.splitContainer10 = new System.Windows.Forms.SplitContainer();
+            this.CsplitContainer3 = new System.Windows.Forms.SplitContainer();
             this.label4 = new System.Windows.Forms.Label();
             this.label5 = new System.Windows.Forms.Label();
-            this.splitContainer11 = new System.Windows.Forms.SplitContainer();
+            this.CsplitContainer2 = new System.Windows.Forms.SplitContainer();
             this.label6 = new System.Windows.Forms.Label();
             this.label7 = new System.Windows.Forms.Label();
-            this.splitContainer12 = new System.Windows.Forms.SplitContainer();
+            this.CsplitContainer1 = new System.Windows.Forms.SplitContainer();
             this.label8 = new System.Windows.Forms.Label();
             this.label9 = new System.Windows.Forms.Label();
             this.label10 = new System.Windows.Forms.Label();
-            this.splitContainer13 = new System.Windows.Forms.SplitContainer();
+            this.DsplitContainer4 = new System.Windows.Forms.SplitContainer();
             this.label11 = new System.Windows.Forms.Label();
             this.label12 = new System.Windows.Forms.Label();
-            this.splitContainer14 = new System.Windows.Forms.SplitContainer();
+            this.DsplitContainer3 = new System.Windows.Forms.SplitContainer();
             this.label13 = new System.Windows.Forms.Label();
             this.label14 = new System.Windows.Forms.Label();
-            this.splitContainer15 = new System.Windows.Forms.SplitContainer();
+            this.DsplitContainer2 = new System.Windows.Forms.SplitContainer();
             this.label15 = new System.Windows.Forms.Label();
             this.label16 = new System.Windows.Forms.Label();
-            this.splitContainer16 = new System.Windows.Forms.SplitContainer();
+            this.DsplitContainer1 = new System.Windows.Forms.SplitContainer();
             this.label17 = new System.Windows.Forms.Label();
             this.label18 = new System.Windows.Forms.Label();
             this.label19 = new System.Windows.Forms.Label();
-            ((System.ComponentModel.ISupportInitialize)(this.splitContainer4)).BeginInit();
-            this.splitContainer4.Panel1.SuspendLayout();
-            this.splitContainer4.Panel2.SuspendLayout();
-            this.splitContainer4.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.splitContainer3)).BeginInit();
-            this.splitContainer3.Panel1.SuspendLayout();
-            this.splitContainer3.Panel2.SuspendLayout();
-            this.splitContainer3.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.splitContainer2)).BeginInit();
-            this.splitContainer2.Panel1.SuspendLayout();
-            this.splitContainer2.Panel2.SuspendLayout();
-            this.splitContainer2.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.splitContainer1)).BeginInit();
-            this.splitContainer1.Panel1.SuspendLayout();
-            this.splitContainer1.Panel2.SuspendLayout();
-            this.splitContainer1.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.splitContainer5)).BeginInit();
-            this.splitContainer5.Panel1.SuspendLayout();
-            this.splitContainer5.Panel2.SuspendLayout();
-            this.splitContainer5.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.splitContainer6)).BeginInit();
-            this.splitContainer6.Panel1.SuspendLayout();
-            this.splitContainer6.Panel2.SuspendLayout();
-            this.splitContainer6.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.splitContainer7)).BeginInit();
-            this.splitContainer7.Panel1.SuspendLayout();
-            this.splitContainer7.Panel2.SuspendLayout();
-            this.splitContainer7.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.splitContainer8)).BeginInit();
-            this.splitContainer8.Panel1.SuspendLayout();
-            this.splitContainer8.Panel2.SuspendLayout();
-            this.splitContainer8.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.splitContainer9)).BeginInit();
-            this.splitContainer9.Panel1.SuspendLayout();
-            this.splitContainer9.Panel2.SuspendLayout();
-            this.splitContainer9.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.splitContainer10)).BeginInit();
-            this.splitContainer10.Panel1.SuspendLayout();
-            this.splitContainer10.Panel2.SuspendLayout();
-            this.splitContainer10.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.splitContainer11)).BeginInit();
-            this.splitContainer11.Panel1.SuspendLayout();
-            this.splitContainer11.Panel2.SuspendLayout();
-            this.splitContainer11.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.splitContainer12)).BeginInit();
-            this.splitContainer12.Panel1.SuspendLayout();
-            this.splitContainer12.Panel2.SuspendLayout();
-            this.splitContainer12.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.splitContainer13)).BeginInit();
-            this.splitContainer13.Panel1.SuspendLayout();
-            this.splitContainer13.Panel2.SuspendLayout();
-            this.splitContainer13.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.splitContainer14)).BeginInit();
-            this.splitContainer14.Panel1.SuspendLayout();
-            this.splitContainer14.Panel2.SuspendLayout();
-            this.splitContainer14.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.splitContainer15)).BeginInit();
-            this.splitContainer15.Panel1.SuspendLayout();
-            this.splitContainer15.Panel2.SuspendLayout();
-            this.splitContainer15.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.splitContainer16)).BeginInit();
-            this.splitContainer16.Panel1.SuspendLayout();
-            this.splitContainer16.Panel2.SuspendLayout();
-            this.splitContainer16.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.AsplitContainer4)).BeginInit();
+            this.AsplitContainer4.Panel1.SuspendLayout();
+            this.AsplitContainer4.Panel2.SuspendLayout();
+            this.AsplitContainer4.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.AsplitContainer3)).BeginInit();
+            this.AsplitContainer3.Panel1.SuspendLayout();
+            this.AsplitContainer3.Panel2.SuspendLayout();
+            this.AsplitContainer3.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.AsplitContainer2)).BeginInit();
+            this.AsplitContainer2.Panel1.SuspendLayout();
+            this.AsplitContainer2.Panel2.SuspendLayout();
+            this.AsplitContainer2.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.AsplitContainer1)).BeginInit();
+            this.AsplitContainer1.Panel1.SuspendLayout();
+            this.AsplitContainer1.Panel2.SuspendLayout();
+            this.AsplitContainer1.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.BsplitContainer4)).BeginInit();
+            this.BsplitContainer4.Panel1.SuspendLayout();
+            this.BsplitContainer4.Panel2.SuspendLayout();
+            this.BsplitContainer4.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.BsplitContainer3)).BeginInit();
+            this.BsplitContainer3.Panel1.SuspendLayout();
+            this.BsplitContainer3.Panel2.SuspendLayout();
+            this.BsplitContainer3.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.BsplitContainer2)).BeginInit();
+            this.BsplitContainer2.Panel1.SuspendLayout();
+            this.BsplitContainer2.Panel2.SuspendLayout();
+            this.BsplitContainer2.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.BsplitContainer1)).BeginInit();
+            this.BsplitContainer1.Panel1.SuspendLayout();
+            this.BsplitContainer1.Panel2.SuspendLayout();
+            this.BsplitContainer1.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.CsplitContainer4)).BeginInit();
+            this.CsplitContainer4.Panel1.SuspendLayout();
+            this.CsplitContainer4.Panel2.SuspendLayout();
+            this.CsplitContainer4.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.CsplitContainer3)).BeginInit();
+            this.CsplitContainer3.Panel1.SuspendLayout();
+            this.CsplitContainer3.Panel2.SuspendLayout();
+            this.CsplitContainer3.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.CsplitContainer2)).BeginInit();
+            this.CsplitContainer2.Panel1.SuspendLayout();
+            this.CsplitContainer2.Panel2.SuspendLayout();
+            this.CsplitContainer2.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.CsplitContainer1)).BeginInit();
+            this.CsplitContainer1.Panel1.SuspendLayout();
+            this.CsplitContainer1.Panel2.SuspendLayout();
+            this.CsplitContainer1.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.DsplitContainer4)).BeginInit();
+            this.DsplitContainer4.Panel1.SuspendLayout();
+            this.DsplitContainer4.Panel2.SuspendLayout();
+            this.DsplitContainer4.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.DsplitContainer3)).BeginInit();
+            this.DsplitContainer3.Panel1.SuspendLayout();
+            this.DsplitContainer3.Panel2.SuspendLayout();
+            this.DsplitContainer3.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.DsplitContainer2)).BeginInit();
+            this.DsplitContainer2.Panel1.SuspendLayout();
+            this.DsplitContainer2.Panel2.SuspendLayout();
+            this.DsplitContainer2.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.DsplitContainer1)).BeginInit();
+            this.DsplitContainer1.Panel1.SuspendLayout();
+            this.DsplitContainer1.Panel2.SuspendLayout();
+            this.DsplitContainer1.SuspendLayout();
             this.SuspendLayout();
             // 
-            // splitContainer4
+            // AsplitContainer4
             // 
-            this.splitContainer4.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.splitContainer4.Location = new System.Drawing.Point(302, 37);
-            this.splitContainer4.Margin = new System.Windows.Forms.Padding(0);
-            this.splitContainer4.Name = "splitContainer4";
-            this.splitContainer4.Orientation = System.Windows.Forms.Orientation.Horizontal;
+            this.AsplitContainer4.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.AsplitContainer4.Location = new System.Drawing.Point(302, 37);
+            this.AsplitContainer4.Margin = new System.Windows.Forms.Padding(0);
+            this.AsplitContainer4.Name = "AsplitContainer4";
+            this.AsplitContainer4.Orientation = System.Windows.Forms.Orientation.Horizontal;
             // 
-            // splitContainer4.Panel1
+            // AsplitContainer4.Panel1
             // 
-            this.splitContainer4.Panel1.BackColor = System.Drawing.Color.White;
-            this.splitContainer4.Panel1.Controls.Add(this.label_SocketTitle4);
+            this.AsplitContainer4.Panel1.BackColor = System.Drawing.Color.White;
+            this.AsplitContainer4.Panel1.Controls.Add(this.label_SocketTitle4);
             // 
-            // splitContainer4.Panel2
+            // AsplitContainer4.Panel2
             // 
-            this.splitContainer4.Panel2.BackColor = System.Drawing.Color.DimGray;
-            this.splitContainer4.Panel2.Controls.Add(this.label_SocketState4);
-            this.splitContainer4.Size = new System.Drawing.Size(93, 59);
-            this.splitContainer4.SplitterDistance = 25;
-            this.splitContainer4.SplitterWidth = 1;
-            this.splitContainer4.TabIndex = 58;
+            this.AsplitContainer4.Panel2.BackColor = System.Drawing.Color.DimGray;
+            this.AsplitContainer4.Panel2.Controls.Add(this.label_SocketState4);
+            this.AsplitContainer4.Size = new System.Drawing.Size(93, 59);
+            this.AsplitContainer4.SplitterDistance = 25;
+            this.AsplitContainer4.SplitterWidth = 1;
+            this.AsplitContainer4.TabIndex = 58;
             // 
             // label_SocketTitle4
             // 
@@ -192,27 +192,27 @@ namespace ZenHandler.Dlg
             this.label_SocketState4.Text = "READY";
             this.label_SocketState4.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
-            // splitContainer3
+            // AsplitContainer3
             // 
-            this.splitContainer3.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.splitContainer3.Location = new System.Drawing.Point(207, 37);
-            this.splitContainer3.Margin = new System.Windows.Forms.Padding(0);
-            this.splitContainer3.Name = "splitContainer3";
-            this.splitContainer3.Orientation = System.Windows.Forms.Orientation.Horizontal;
+            this.AsplitContainer3.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.AsplitContainer3.Location = new System.Drawing.Point(207, 37);
+            this.AsplitContainer3.Margin = new System.Windows.Forms.Padding(0);
+            this.AsplitContainer3.Name = "AsplitContainer3";
+            this.AsplitContainer3.Orientation = System.Windows.Forms.Orientation.Horizontal;
             // 
-            // splitContainer3.Panel1
+            // AsplitContainer3.Panel1
             // 
-            this.splitContainer3.Panel1.BackColor = System.Drawing.Color.White;
-            this.splitContainer3.Panel1.Controls.Add(this.label_SocketTitle3);
+            this.AsplitContainer3.Panel1.BackColor = System.Drawing.Color.White;
+            this.AsplitContainer3.Panel1.Controls.Add(this.label_SocketTitle3);
             // 
-            // splitContainer3.Panel2
+            // AsplitContainer3.Panel2
             // 
-            this.splitContainer3.Panel2.BackColor = System.Drawing.Color.DimGray;
-            this.splitContainer3.Panel2.Controls.Add(this.label_SocketState3);
-            this.splitContainer3.Size = new System.Drawing.Size(93, 59);
-            this.splitContainer3.SplitterDistance = 25;
-            this.splitContainer3.SplitterWidth = 1;
-            this.splitContainer3.TabIndex = 57;
+            this.AsplitContainer3.Panel2.BackColor = System.Drawing.Color.DimGray;
+            this.AsplitContainer3.Panel2.Controls.Add(this.label_SocketState3);
+            this.AsplitContainer3.Size = new System.Drawing.Size(93, 59);
+            this.AsplitContainer3.SplitterDistance = 25;
+            this.AsplitContainer3.SplitterWidth = 1;
+            this.AsplitContainer3.TabIndex = 57;
             // 
             // label_SocketTitle3
             // 
@@ -237,27 +237,27 @@ namespace ZenHandler.Dlg
             this.label_SocketState3.Text = "NG";
             this.label_SocketState3.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
-            // splitContainer2
+            // AsplitContainer2
             // 
-            this.splitContainer2.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.splitContainer2.Location = new System.Drawing.Point(112, 37);
-            this.splitContainer2.Margin = new System.Windows.Forms.Padding(0);
-            this.splitContainer2.Name = "splitContainer2";
-            this.splitContainer2.Orientation = System.Windows.Forms.Orientation.Horizontal;
+            this.AsplitContainer2.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.AsplitContainer2.Location = new System.Drawing.Point(112, 37);
+            this.AsplitContainer2.Margin = new System.Windows.Forms.Padding(0);
+            this.AsplitContainer2.Name = "AsplitContainer2";
+            this.AsplitContainer2.Orientation = System.Windows.Forms.Orientation.Horizontal;
             // 
-            // splitContainer2.Panel1
+            // AsplitContainer2.Panel1
             // 
-            this.splitContainer2.Panel1.BackColor = System.Drawing.Color.White;
-            this.splitContainer2.Panel1.Controls.Add(this.label_SocketTitle2);
+            this.AsplitContainer2.Panel1.BackColor = System.Drawing.Color.White;
+            this.AsplitContainer2.Panel1.Controls.Add(this.label_SocketTitle2);
             // 
-            // splitContainer2.Panel2
+            // AsplitContainer2.Panel2
             // 
-            this.splitContainer2.Panel2.BackColor = System.Drawing.Color.DimGray;
-            this.splitContainer2.Panel2.Controls.Add(this.label_SocketState2);
-            this.splitContainer2.Size = new System.Drawing.Size(93, 59);
-            this.splitContainer2.SplitterDistance = 25;
-            this.splitContainer2.SplitterWidth = 1;
-            this.splitContainer2.TabIndex = 56;
+            this.AsplitContainer2.Panel2.BackColor = System.Drawing.Color.DimGray;
+            this.AsplitContainer2.Panel2.Controls.Add(this.label_SocketState2);
+            this.AsplitContainer2.Size = new System.Drawing.Size(93, 59);
+            this.AsplitContainer2.SplitterDistance = 25;
+            this.AsplitContainer2.SplitterWidth = 1;
+            this.AsplitContainer2.TabIndex = 56;
             // 
             // label_SocketTitle2
             // 
@@ -283,27 +283,27 @@ namespace ZenHandler.Dlg
             this.label_SocketState2.Text = "PASS";
             this.label_SocketState2.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
-            // splitContainer1
+            // AsplitContainer1
             // 
-            this.splitContainer1.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.splitContainer1.Location = new System.Drawing.Point(17, 37);
-            this.splitContainer1.Margin = new System.Windows.Forms.Padding(0);
-            this.splitContainer1.Name = "splitContainer1";
-            this.splitContainer1.Orientation = System.Windows.Forms.Orientation.Horizontal;
+            this.AsplitContainer1.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.AsplitContainer1.Location = new System.Drawing.Point(17, 37);
+            this.AsplitContainer1.Margin = new System.Windows.Forms.Padding(0);
+            this.AsplitContainer1.Name = "AsplitContainer1";
+            this.AsplitContainer1.Orientation = System.Windows.Forms.Orientation.Horizontal;
             // 
-            // splitContainer1.Panel1
+            // AsplitContainer1.Panel1
             // 
-            this.splitContainer1.Panel1.BackColor = System.Drawing.Color.White;
-            this.splitContainer1.Panel1.Controls.Add(this.label_SocketTitle1);
+            this.AsplitContainer1.Panel1.BackColor = System.Drawing.Color.White;
+            this.AsplitContainer1.Panel1.Controls.Add(this.label_SocketTitle1);
             // 
-            // splitContainer1.Panel2
+            // AsplitContainer1.Panel2
             // 
-            this.splitContainer1.Panel2.BackColor = System.Drawing.Color.DimGray;
-            this.splitContainer1.Panel2.Controls.Add(this.label_SocketState1);
-            this.splitContainer1.Size = new System.Drawing.Size(93, 59);
-            this.splitContainer1.SplitterDistance = 25;
-            this.splitContainer1.SplitterWidth = 1;
-            this.splitContainer1.TabIndex = 55;
+            this.AsplitContainer1.Panel2.BackColor = System.Drawing.Color.DimGray;
+            this.AsplitContainer1.Panel2.Controls.Add(this.label_SocketState1);
+            this.AsplitContainer1.Size = new System.Drawing.Size(93, 59);
+            this.AsplitContainer1.SplitterDistance = 25;
+            this.AsplitContainer1.SplitterWidth = 1;
+            this.AsplitContainer1.TabIndex = 55;
             // 
             // label_SocketTitle1
             // 
@@ -328,27 +328,27 @@ namespace ZenHandler.Dlg
             this.label_SocketState1.Text = "TEST";
             this.label_SocketState1.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
-            // splitContainer5
+            // BsplitContainer4
             // 
-            this.splitContainer5.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.splitContainer5.Location = new System.Drawing.Point(302, 101);
-            this.splitContainer5.Margin = new System.Windows.Forms.Padding(0);
-            this.splitContainer5.Name = "splitContainer5";
-            this.splitContainer5.Orientation = System.Windows.Forms.Orientation.Horizontal;
+            this.BsplitContainer4.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.BsplitContainer4.Location = new System.Drawing.Point(302, 101);
+            this.BsplitContainer4.Margin = new System.Windows.Forms.Padding(0);
+            this.BsplitContainer4.Name = "BsplitContainer4";
+            this.BsplitContainer4.Orientation = System.Windows.Forms.Orientation.Horizontal;
             // 
-            // splitContainer5.Panel1
+            // BsplitContainer4.Panel1
             // 
-            this.splitContainer5.Panel1.BackColor = System.Drawing.Color.White;
-            this.splitContainer5.Panel1.Controls.Add(this.label_SocketTitle8);
+            this.BsplitContainer4.Panel1.BackColor = System.Drawing.Color.White;
+            this.BsplitContainer4.Panel1.Controls.Add(this.label_SocketTitle8);
             // 
-            // splitContainer5.Panel2
+            // BsplitContainer4.Panel2
             // 
-            this.splitContainer5.Panel2.BackColor = System.Drawing.Color.DimGray;
-            this.splitContainer5.Panel2.Controls.Add(this.label_SocketState8);
-            this.splitContainer5.Size = new System.Drawing.Size(93, 59);
-            this.splitContainer5.SplitterDistance = 25;
-            this.splitContainer5.SplitterWidth = 1;
-            this.splitContainer5.TabIndex = 62;
+            this.BsplitContainer4.Panel2.BackColor = System.Drawing.Color.DimGray;
+            this.BsplitContainer4.Panel2.Controls.Add(this.label_SocketState8);
+            this.BsplitContainer4.Size = new System.Drawing.Size(93, 59);
+            this.BsplitContainer4.SplitterDistance = 25;
+            this.BsplitContainer4.SplitterWidth = 1;
+            this.BsplitContainer4.TabIndex = 62;
             // 
             // label_SocketTitle8
             // 
@@ -373,27 +373,27 @@ namespace ZenHandler.Dlg
             this.label_SocketState8.Text = "READY";
             this.label_SocketState8.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
-            // splitContainer6
+            // BsplitContainer3
             // 
-            this.splitContainer6.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.splitContainer6.Location = new System.Drawing.Point(207, 101);
-            this.splitContainer6.Margin = new System.Windows.Forms.Padding(0);
-            this.splitContainer6.Name = "splitContainer6";
-            this.splitContainer6.Orientation = System.Windows.Forms.Orientation.Horizontal;
+            this.BsplitContainer3.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.BsplitContainer3.Location = new System.Drawing.Point(207, 101);
+            this.BsplitContainer3.Margin = new System.Windows.Forms.Padding(0);
+            this.BsplitContainer3.Name = "BsplitContainer3";
+            this.BsplitContainer3.Orientation = System.Windows.Forms.Orientation.Horizontal;
             // 
-            // splitContainer6.Panel1
+            // BsplitContainer3.Panel1
             // 
-            this.splitContainer6.Panel1.BackColor = System.Drawing.Color.White;
-            this.splitContainer6.Panel1.Controls.Add(this.label_SocketTitle7);
+            this.BsplitContainer3.Panel1.BackColor = System.Drawing.Color.White;
+            this.BsplitContainer3.Panel1.Controls.Add(this.label_SocketTitle7);
             // 
-            // splitContainer6.Panel2
+            // BsplitContainer3.Panel2
             // 
-            this.splitContainer6.Panel2.BackColor = System.Drawing.Color.DimGray;
-            this.splitContainer6.Panel2.Controls.Add(this.label_SocketState7);
-            this.splitContainer6.Size = new System.Drawing.Size(93, 59);
-            this.splitContainer6.SplitterDistance = 25;
-            this.splitContainer6.SplitterWidth = 1;
-            this.splitContainer6.TabIndex = 61;
+            this.BsplitContainer3.Panel2.BackColor = System.Drawing.Color.DimGray;
+            this.BsplitContainer3.Panel2.Controls.Add(this.label_SocketState7);
+            this.BsplitContainer3.Size = new System.Drawing.Size(93, 59);
+            this.BsplitContainer3.SplitterDistance = 25;
+            this.BsplitContainer3.SplitterWidth = 1;
+            this.BsplitContainer3.TabIndex = 61;
             // 
             // label_SocketTitle7
             // 
@@ -418,27 +418,27 @@ namespace ZenHandler.Dlg
             this.label_SocketState7.Text = "NG";
             this.label_SocketState7.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
-            // splitContainer7
+            // BsplitContainer2
             // 
-            this.splitContainer7.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.splitContainer7.Location = new System.Drawing.Point(111, 101);
-            this.splitContainer7.Margin = new System.Windows.Forms.Padding(0);
-            this.splitContainer7.Name = "splitContainer7";
-            this.splitContainer7.Orientation = System.Windows.Forms.Orientation.Horizontal;
+            this.BsplitContainer2.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.BsplitContainer2.Location = new System.Drawing.Point(111, 101);
+            this.BsplitContainer2.Margin = new System.Windows.Forms.Padding(0);
+            this.BsplitContainer2.Name = "BsplitContainer2";
+            this.BsplitContainer2.Orientation = System.Windows.Forms.Orientation.Horizontal;
             // 
-            // splitContainer7.Panel1
+            // BsplitContainer2.Panel1
             // 
-            this.splitContainer7.Panel1.BackColor = System.Drawing.Color.White;
-            this.splitContainer7.Panel1.Controls.Add(this.label_SocketTitle6);
+            this.BsplitContainer2.Panel1.BackColor = System.Drawing.Color.White;
+            this.BsplitContainer2.Panel1.Controls.Add(this.label_SocketTitle6);
             // 
-            // splitContainer7.Panel2
+            // BsplitContainer2.Panel2
             // 
-            this.splitContainer7.Panel2.BackColor = System.Drawing.Color.DimGray;
-            this.splitContainer7.Panel2.Controls.Add(this.label_SocketState6);
-            this.splitContainer7.Size = new System.Drawing.Size(93, 59);
-            this.splitContainer7.SplitterDistance = 25;
-            this.splitContainer7.SplitterWidth = 1;
-            this.splitContainer7.TabIndex = 60;
+            this.BsplitContainer2.Panel2.BackColor = System.Drawing.Color.DimGray;
+            this.BsplitContainer2.Panel2.Controls.Add(this.label_SocketState6);
+            this.BsplitContainer2.Size = new System.Drawing.Size(93, 59);
+            this.BsplitContainer2.SplitterDistance = 25;
+            this.BsplitContainer2.SplitterWidth = 1;
+            this.BsplitContainer2.TabIndex = 60;
             // 
             // label_SocketTitle6
             // 
@@ -464,28 +464,28 @@ namespace ZenHandler.Dlg
             this.label_SocketState6.Text = "PASS";
             this.label_SocketState6.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
-            // splitContainer8
+            // BsplitContainer1
             // 
-            this.splitContainer8.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.splitContainer8.Location = new System.Drawing.Point(16, 101);
-            this.splitContainer8.Margin = new System.Windows.Forms.Padding(0);
-            this.splitContainer8.Name = "splitContainer8";
-            this.splitContainer8.Orientation = System.Windows.Forms.Orientation.Horizontal;
+            this.BsplitContainer1.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.BsplitContainer1.Location = new System.Drawing.Point(16, 101);
+            this.BsplitContainer1.Margin = new System.Windows.Forms.Padding(0);
+            this.BsplitContainer1.Name = "BsplitContainer1";
+            this.BsplitContainer1.Orientation = System.Windows.Forms.Orientation.Horizontal;
             // 
-            // splitContainer8.Panel1
+            // BsplitContainer1.Panel1
             // 
-            this.splitContainer8.Panel1.BackColor = System.Drawing.Color.White;
-            this.splitContainer8.Panel1.Controls.Add(this.label1);
-            this.splitContainer8.Panel1.Controls.Add(this.label_SocketTitle5);
+            this.BsplitContainer1.Panel1.BackColor = System.Drawing.Color.White;
+            this.BsplitContainer1.Panel1.Controls.Add(this.label1);
+            this.BsplitContainer1.Panel1.Controls.Add(this.label_SocketTitle5);
             // 
-            // splitContainer8.Panel2
+            // BsplitContainer1.Panel2
             // 
-            this.splitContainer8.Panel2.BackColor = System.Drawing.Color.DimGray;
-            this.splitContainer8.Panel2.Controls.Add(this.label_SocketState5);
-            this.splitContainer8.Size = new System.Drawing.Size(93, 59);
-            this.splitContainer8.SplitterDistance = 25;
-            this.splitContainer8.SplitterWidth = 1;
-            this.splitContainer8.TabIndex = 59;
+            this.BsplitContainer1.Panel2.BackColor = System.Drawing.Color.DimGray;
+            this.BsplitContainer1.Panel2.Controls.Add(this.label_SocketState5);
+            this.BsplitContainer1.Size = new System.Drawing.Size(93, 59);
+            this.BsplitContainer1.SplitterDistance = 25;
+            this.BsplitContainer1.SplitterWidth = 1;
+            this.BsplitContainer1.TabIndex = 59;
             // 
             // label1
             // 
@@ -532,27 +532,27 @@ namespace ZenHandler.Dlg
             this.TitleLabel.Text = "| Socket Info";
             this.TitleLabel.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
             // 
-            // splitContainer9
+            // CsplitContainer4
             // 
-            this.splitContainer9.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.splitContainer9.Location = new System.Drawing.Point(303, 166);
-            this.splitContainer9.Margin = new System.Windows.Forms.Padding(0);
-            this.splitContainer9.Name = "splitContainer9";
-            this.splitContainer9.Orientation = System.Windows.Forms.Orientation.Horizontal;
+            this.CsplitContainer4.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.CsplitContainer4.Location = new System.Drawing.Point(303, 166);
+            this.CsplitContainer4.Margin = new System.Windows.Forms.Padding(0);
+            this.CsplitContainer4.Name = "CsplitContainer4";
+            this.CsplitContainer4.Orientation = System.Windows.Forms.Orientation.Horizontal;
             // 
-            // splitContainer9.Panel1
+            // CsplitContainer4.Panel1
             // 
-            this.splitContainer9.Panel1.BackColor = System.Drawing.Color.White;
-            this.splitContainer9.Panel1.Controls.Add(this.label2);
+            this.CsplitContainer4.Panel1.BackColor = System.Drawing.Color.White;
+            this.CsplitContainer4.Panel1.Controls.Add(this.label2);
             // 
-            // splitContainer9.Panel2
+            // CsplitContainer4.Panel2
             // 
-            this.splitContainer9.Panel2.BackColor = System.Drawing.Color.DimGray;
-            this.splitContainer9.Panel2.Controls.Add(this.label3);
-            this.splitContainer9.Size = new System.Drawing.Size(93, 59);
-            this.splitContainer9.SplitterDistance = 25;
-            this.splitContainer9.SplitterWidth = 1;
-            this.splitContainer9.TabIndex = 67;
+            this.CsplitContainer4.Panel2.BackColor = System.Drawing.Color.DimGray;
+            this.CsplitContainer4.Panel2.Controls.Add(this.label3);
+            this.CsplitContainer4.Size = new System.Drawing.Size(93, 59);
+            this.CsplitContainer4.SplitterDistance = 25;
+            this.CsplitContainer4.SplitterWidth = 1;
+            this.CsplitContainer4.TabIndex = 67;
             // 
             // label2
             // 
@@ -577,27 +577,27 @@ namespace ZenHandler.Dlg
             this.label3.Text = "READY";
             this.label3.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
-            // splitContainer10
+            // CsplitContainer3
             // 
-            this.splitContainer10.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.splitContainer10.Location = new System.Drawing.Point(208, 166);
-            this.splitContainer10.Margin = new System.Windows.Forms.Padding(0);
-            this.splitContainer10.Name = "splitContainer10";
-            this.splitContainer10.Orientation = System.Windows.Forms.Orientation.Horizontal;
+            this.CsplitContainer3.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.CsplitContainer3.Location = new System.Drawing.Point(208, 166);
+            this.CsplitContainer3.Margin = new System.Windows.Forms.Padding(0);
+            this.CsplitContainer3.Name = "CsplitContainer3";
+            this.CsplitContainer3.Orientation = System.Windows.Forms.Orientation.Horizontal;
             // 
-            // splitContainer10.Panel1
+            // CsplitContainer3.Panel1
             // 
-            this.splitContainer10.Panel1.BackColor = System.Drawing.Color.White;
-            this.splitContainer10.Panel1.Controls.Add(this.label4);
+            this.CsplitContainer3.Panel1.BackColor = System.Drawing.Color.White;
+            this.CsplitContainer3.Panel1.Controls.Add(this.label4);
             // 
-            // splitContainer10.Panel2
+            // CsplitContainer3.Panel2
             // 
-            this.splitContainer10.Panel2.BackColor = System.Drawing.Color.DimGray;
-            this.splitContainer10.Panel2.Controls.Add(this.label5);
-            this.splitContainer10.Size = new System.Drawing.Size(93, 59);
-            this.splitContainer10.SplitterDistance = 25;
-            this.splitContainer10.SplitterWidth = 1;
-            this.splitContainer10.TabIndex = 66;
+            this.CsplitContainer3.Panel2.BackColor = System.Drawing.Color.DimGray;
+            this.CsplitContainer3.Panel2.Controls.Add(this.label5);
+            this.CsplitContainer3.Size = new System.Drawing.Size(93, 59);
+            this.CsplitContainer3.SplitterDistance = 25;
+            this.CsplitContainer3.SplitterWidth = 1;
+            this.CsplitContainer3.TabIndex = 66;
             // 
             // label4
             // 
@@ -622,27 +622,27 @@ namespace ZenHandler.Dlg
             this.label5.Text = "NG";
             this.label5.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
-            // splitContainer11
+            // CsplitContainer2
             // 
-            this.splitContainer11.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.splitContainer11.Location = new System.Drawing.Point(112, 166);
-            this.splitContainer11.Margin = new System.Windows.Forms.Padding(0);
-            this.splitContainer11.Name = "splitContainer11";
-            this.splitContainer11.Orientation = System.Windows.Forms.Orientation.Horizontal;
+            this.CsplitContainer2.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.CsplitContainer2.Location = new System.Drawing.Point(112, 166);
+            this.CsplitContainer2.Margin = new System.Windows.Forms.Padding(0);
+            this.CsplitContainer2.Name = "CsplitContainer2";
+            this.CsplitContainer2.Orientation = System.Windows.Forms.Orientation.Horizontal;
             // 
-            // splitContainer11.Panel1
+            // CsplitContainer2.Panel1
             // 
-            this.splitContainer11.Panel1.BackColor = System.Drawing.Color.White;
-            this.splitContainer11.Panel1.Controls.Add(this.label6);
+            this.CsplitContainer2.Panel1.BackColor = System.Drawing.Color.White;
+            this.CsplitContainer2.Panel1.Controls.Add(this.label6);
             // 
-            // splitContainer11.Panel2
+            // CsplitContainer2.Panel2
             // 
-            this.splitContainer11.Panel2.BackColor = System.Drawing.Color.DimGray;
-            this.splitContainer11.Panel2.Controls.Add(this.label7);
-            this.splitContainer11.Size = new System.Drawing.Size(93, 59);
-            this.splitContainer11.SplitterDistance = 25;
-            this.splitContainer11.SplitterWidth = 1;
-            this.splitContainer11.TabIndex = 65;
+            this.CsplitContainer2.Panel2.BackColor = System.Drawing.Color.DimGray;
+            this.CsplitContainer2.Panel2.Controls.Add(this.label7);
+            this.CsplitContainer2.Size = new System.Drawing.Size(93, 59);
+            this.CsplitContainer2.SplitterDistance = 25;
+            this.CsplitContainer2.SplitterWidth = 1;
+            this.CsplitContainer2.TabIndex = 65;
             // 
             // label6
             // 
@@ -668,28 +668,28 @@ namespace ZenHandler.Dlg
             this.label7.Text = "PASS";
             this.label7.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
-            // splitContainer12
+            // CsplitContainer1
             // 
-            this.splitContainer12.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.splitContainer12.Location = new System.Drawing.Point(17, 166);
-            this.splitContainer12.Margin = new System.Windows.Forms.Padding(0);
-            this.splitContainer12.Name = "splitContainer12";
-            this.splitContainer12.Orientation = System.Windows.Forms.Orientation.Horizontal;
+            this.CsplitContainer1.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.CsplitContainer1.Location = new System.Drawing.Point(17, 166);
+            this.CsplitContainer1.Margin = new System.Windows.Forms.Padding(0);
+            this.CsplitContainer1.Name = "CsplitContainer1";
+            this.CsplitContainer1.Orientation = System.Windows.Forms.Orientation.Horizontal;
             // 
-            // splitContainer12.Panel1
+            // CsplitContainer1.Panel1
             // 
-            this.splitContainer12.Panel1.BackColor = System.Drawing.Color.White;
-            this.splitContainer12.Panel1.Controls.Add(this.label8);
-            this.splitContainer12.Panel1.Controls.Add(this.label9);
+            this.CsplitContainer1.Panel1.BackColor = System.Drawing.Color.White;
+            this.CsplitContainer1.Panel1.Controls.Add(this.label8);
+            this.CsplitContainer1.Panel1.Controls.Add(this.label9);
             // 
-            // splitContainer12.Panel2
+            // CsplitContainer1.Panel2
             // 
-            this.splitContainer12.Panel2.BackColor = System.Drawing.Color.DimGray;
-            this.splitContainer12.Panel2.Controls.Add(this.label10);
-            this.splitContainer12.Size = new System.Drawing.Size(93, 59);
-            this.splitContainer12.SplitterDistance = 25;
-            this.splitContainer12.SplitterWidth = 1;
-            this.splitContainer12.TabIndex = 64;
+            this.CsplitContainer1.Panel2.BackColor = System.Drawing.Color.DimGray;
+            this.CsplitContainer1.Panel2.Controls.Add(this.label10);
+            this.CsplitContainer1.Size = new System.Drawing.Size(93, 59);
+            this.CsplitContainer1.SplitterDistance = 25;
+            this.CsplitContainer1.SplitterWidth = 1;
+            this.CsplitContainer1.TabIndex = 64;
             // 
             // label8
             // 
@@ -725,27 +725,27 @@ namespace ZenHandler.Dlg
             this.label10.Text = "TEST";
             this.label10.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
-            // splitContainer13
+            // DsplitContainer4
             // 
-            this.splitContainer13.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.splitContainer13.Location = new System.Drawing.Point(303, 230);
-            this.splitContainer13.Margin = new System.Windows.Forms.Padding(0);
-            this.splitContainer13.Name = "splitContainer13";
-            this.splitContainer13.Orientation = System.Windows.Forms.Orientation.Horizontal;
+            this.DsplitContainer4.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.DsplitContainer4.Location = new System.Drawing.Point(303, 230);
+            this.DsplitContainer4.Margin = new System.Windows.Forms.Padding(0);
+            this.DsplitContainer4.Name = "DsplitContainer4";
+            this.DsplitContainer4.Orientation = System.Windows.Forms.Orientation.Horizontal;
             // 
-            // splitContainer13.Panel1
+            // DsplitContainer4.Panel1
             // 
-            this.splitContainer13.Panel1.BackColor = System.Drawing.Color.White;
-            this.splitContainer13.Panel1.Controls.Add(this.label11);
+            this.DsplitContainer4.Panel1.BackColor = System.Drawing.Color.White;
+            this.DsplitContainer4.Panel1.Controls.Add(this.label11);
             // 
-            // splitContainer13.Panel2
+            // DsplitContainer4.Panel2
             // 
-            this.splitContainer13.Panel2.BackColor = System.Drawing.Color.DimGray;
-            this.splitContainer13.Panel2.Controls.Add(this.label12);
-            this.splitContainer13.Size = new System.Drawing.Size(93, 59);
-            this.splitContainer13.SplitterDistance = 25;
-            this.splitContainer13.SplitterWidth = 1;
-            this.splitContainer13.TabIndex = 71;
+            this.DsplitContainer4.Panel2.BackColor = System.Drawing.Color.DimGray;
+            this.DsplitContainer4.Panel2.Controls.Add(this.label12);
+            this.DsplitContainer4.Size = new System.Drawing.Size(93, 59);
+            this.DsplitContainer4.SplitterDistance = 25;
+            this.DsplitContainer4.SplitterWidth = 1;
+            this.DsplitContainer4.TabIndex = 71;
             // 
             // label11
             // 
@@ -770,27 +770,27 @@ namespace ZenHandler.Dlg
             this.label12.Text = "READY";
             this.label12.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
-            // splitContainer14
+            // DsplitContainer3
             // 
-            this.splitContainer14.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.splitContainer14.Location = new System.Drawing.Point(208, 230);
-            this.splitContainer14.Margin = new System.Windows.Forms.Padding(0);
-            this.splitContainer14.Name = "splitContainer14";
-            this.splitContainer14.Orientation = System.Windows.Forms.Orientation.Horizontal;
+            this.DsplitContainer3.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.DsplitContainer3.Location = new System.Drawing.Point(208, 230);
+            this.DsplitContainer3.Margin = new System.Windows.Forms.Padding(0);
+            this.DsplitContainer3.Name = "DsplitContainer3";
+            this.DsplitContainer3.Orientation = System.Windows.Forms.Orientation.Horizontal;
             // 
-            // splitContainer14.Panel1
+            // DsplitContainer3.Panel1
             // 
-            this.splitContainer14.Panel1.BackColor = System.Drawing.Color.White;
-            this.splitContainer14.Panel1.Controls.Add(this.label13);
+            this.DsplitContainer3.Panel1.BackColor = System.Drawing.Color.White;
+            this.DsplitContainer3.Panel1.Controls.Add(this.label13);
             // 
-            // splitContainer14.Panel2
+            // DsplitContainer3.Panel2
             // 
-            this.splitContainer14.Panel2.BackColor = System.Drawing.Color.DimGray;
-            this.splitContainer14.Panel2.Controls.Add(this.label14);
-            this.splitContainer14.Size = new System.Drawing.Size(93, 59);
-            this.splitContainer14.SplitterDistance = 25;
-            this.splitContainer14.SplitterWidth = 1;
-            this.splitContainer14.TabIndex = 70;
+            this.DsplitContainer3.Panel2.BackColor = System.Drawing.Color.DimGray;
+            this.DsplitContainer3.Panel2.Controls.Add(this.label14);
+            this.DsplitContainer3.Size = new System.Drawing.Size(93, 59);
+            this.DsplitContainer3.SplitterDistance = 25;
+            this.DsplitContainer3.SplitterWidth = 1;
+            this.DsplitContainer3.TabIndex = 70;
             // 
             // label13
             // 
@@ -815,27 +815,27 @@ namespace ZenHandler.Dlg
             this.label14.Text = "NG";
             this.label14.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
-            // splitContainer15
+            // DsplitContainer2
             // 
-            this.splitContainer15.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.splitContainer15.Location = new System.Drawing.Point(112, 230);
-            this.splitContainer15.Margin = new System.Windows.Forms.Padding(0);
-            this.splitContainer15.Name = "splitContainer15";
-            this.splitContainer15.Orientation = System.Windows.Forms.Orientation.Horizontal;
+            this.DsplitContainer2.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.DsplitContainer2.Location = new System.Drawing.Point(112, 230);
+            this.DsplitContainer2.Margin = new System.Windows.Forms.Padding(0);
+            this.DsplitContainer2.Name = "DsplitContainer2";
+            this.DsplitContainer2.Orientation = System.Windows.Forms.Orientation.Horizontal;
             // 
-            // splitContainer15.Panel1
+            // DsplitContainer2.Panel1
             // 
-            this.splitContainer15.Panel1.BackColor = System.Drawing.Color.White;
-            this.splitContainer15.Panel1.Controls.Add(this.label15);
+            this.DsplitContainer2.Panel1.BackColor = System.Drawing.Color.White;
+            this.DsplitContainer2.Panel1.Controls.Add(this.label15);
             // 
-            // splitContainer15.Panel2
+            // DsplitContainer2.Panel2
             // 
-            this.splitContainer15.Panel2.BackColor = System.Drawing.Color.DimGray;
-            this.splitContainer15.Panel2.Controls.Add(this.label16);
-            this.splitContainer15.Size = new System.Drawing.Size(93, 59);
-            this.splitContainer15.SplitterDistance = 25;
-            this.splitContainer15.SplitterWidth = 1;
-            this.splitContainer15.TabIndex = 69;
+            this.DsplitContainer2.Panel2.BackColor = System.Drawing.Color.DimGray;
+            this.DsplitContainer2.Panel2.Controls.Add(this.label16);
+            this.DsplitContainer2.Size = new System.Drawing.Size(93, 59);
+            this.DsplitContainer2.SplitterDistance = 25;
+            this.DsplitContainer2.SplitterWidth = 1;
+            this.DsplitContainer2.TabIndex = 69;
             // 
             // label15
             // 
@@ -861,28 +861,28 @@ namespace ZenHandler.Dlg
             this.label16.Text = "PASS";
             this.label16.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
-            // splitContainer16
+            // DsplitContainer1
             // 
-            this.splitContainer16.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.splitContainer16.Location = new System.Drawing.Point(17, 230);
-            this.splitContainer16.Margin = new System.Windows.Forms.Padding(0);
-            this.splitContainer16.Name = "splitContainer16";
-            this.splitContainer16.Orientation = System.Windows.Forms.Orientation.Horizontal;
+            this.DsplitContainer1.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.DsplitContainer1.Location = new System.Drawing.Point(17, 230);
+            this.DsplitContainer1.Margin = new System.Windows.Forms.Padding(0);
+            this.DsplitContainer1.Name = "DsplitContainer1";
+            this.DsplitContainer1.Orientation = System.Windows.Forms.Orientation.Horizontal;
             // 
-            // splitContainer16.Panel1
+            // DsplitContainer1.Panel1
             // 
-            this.splitContainer16.Panel1.BackColor = System.Drawing.Color.White;
-            this.splitContainer16.Panel1.Controls.Add(this.label17);
-            this.splitContainer16.Panel1.Controls.Add(this.label18);
+            this.DsplitContainer1.Panel1.BackColor = System.Drawing.Color.White;
+            this.DsplitContainer1.Panel1.Controls.Add(this.label17);
+            this.DsplitContainer1.Panel1.Controls.Add(this.label18);
             // 
-            // splitContainer16.Panel2
+            // DsplitContainer1.Panel2
             // 
-            this.splitContainer16.Panel2.BackColor = System.Drawing.Color.DimGray;
-            this.splitContainer16.Panel2.Controls.Add(this.label19);
-            this.splitContainer16.Size = new System.Drawing.Size(93, 59);
-            this.splitContainer16.SplitterDistance = 25;
-            this.splitContainer16.SplitterWidth = 1;
-            this.splitContainer16.TabIndex = 68;
+            this.DsplitContainer1.Panel2.BackColor = System.Drawing.Color.DimGray;
+            this.DsplitContainer1.Panel2.Controls.Add(this.label19);
+            this.DsplitContainer1.Size = new System.Drawing.Size(93, 59);
+            this.DsplitContainer1.SplitterDistance = 25;
+            this.DsplitContainer1.SplitterWidth = 1;
+            this.DsplitContainer1.TabIndex = 68;
             // 
             // label17
             // 
@@ -922,144 +922,144 @@ namespace ZenHandler.Dlg
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 12F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.Controls.Add(this.splitContainer13);
-            this.Controls.Add(this.splitContainer14);
-            this.Controls.Add(this.splitContainer15);
-            this.Controls.Add(this.splitContainer16);
-            this.Controls.Add(this.splitContainer9);
-            this.Controls.Add(this.splitContainer10);
-            this.Controls.Add(this.splitContainer11);
-            this.Controls.Add(this.splitContainer12);
+            this.Controls.Add(this.DsplitContainer4);
+            this.Controls.Add(this.DsplitContainer3);
+            this.Controls.Add(this.DsplitContainer2);
+            this.Controls.Add(this.DsplitContainer1);
+            this.Controls.Add(this.CsplitContainer4);
+            this.Controls.Add(this.CsplitContainer3);
+            this.Controls.Add(this.CsplitContainer2);
+            this.Controls.Add(this.CsplitContainer1);
             this.Controls.Add(this.TitleLabel);
-            this.Controls.Add(this.splitContainer5);
-            this.Controls.Add(this.splitContainer6);
-            this.Controls.Add(this.splitContainer7);
-            this.Controls.Add(this.splitContainer8);
-            this.Controls.Add(this.splitContainer4);
-            this.Controls.Add(this.splitContainer3);
-            this.Controls.Add(this.splitContainer2);
-            this.Controls.Add(this.splitContainer1);
+            this.Controls.Add(this.BsplitContainer4);
+            this.Controls.Add(this.BsplitContainer3);
+            this.Controls.Add(this.BsplitContainer2);
+            this.Controls.Add(this.BsplitContainer1);
+            this.Controls.Add(this.AsplitContainer4);
+            this.Controls.Add(this.AsplitContainer3);
+            this.Controls.Add(this.AsplitContainer2);
+            this.Controls.Add(this.AsplitContainer1);
             this.Name = "SocketStateInfo";
             this.Size = new System.Drawing.Size(411, 300);
-            this.splitContainer4.Panel1.ResumeLayout(false);
-            this.splitContainer4.Panel2.ResumeLayout(false);
-            ((System.ComponentModel.ISupportInitialize)(this.splitContainer4)).EndInit();
-            this.splitContainer4.ResumeLayout(false);
-            this.splitContainer3.Panel1.ResumeLayout(false);
-            this.splitContainer3.Panel2.ResumeLayout(false);
-            ((System.ComponentModel.ISupportInitialize)(this.splitContainer3)).EndInit();
-            this.splitContainer3.ResumeLayout(false);
-            this.splitContainer2.Panel1.ResumeLayout(false);
-            this.splitContainer2.Panel2.ResumeLayout(false);
-            ((System.ComponentModel.ISupportInitialize)(this.splitContainer2)).EndInit();
-            this.splitContainer2.ResumeLayout(false);
-            this.splitContainer1.Panel1.ResumeLayout(false);
-            this.splitContainer1.Panel2.ResumeLayout(false);
-            ((System.ComponentModel.ISupportInitialize)(this.splitContainer1)).EndInit();
-            this.splitContainer1.ResumeLayout(false);
-            this.splitContainer5.Panel1.ResumeLayout(false);
-            this.splitContainer5.Panel2.ResumeLayout(false);
-            ((System.ComponentModel.ISupportInitialize)(this.splitContainer5)).EndInit();
-            this.splitContainer5.ResumeLayout(false);
-            this.splitContainer6.Panel1.ResumeLayout(false);
-            this.splitContainer6.Panel2.ResumeLayout(false);
-            ((System.ComponentModel.ISupportInitialize)(this.splitContainer6)).EndInit();
-            this.splitContainer6.ResumeLayout(false);
-            this.splitContainer7.Panel1.ResumeLayout(false);
-            this.splitContainer7.Panel2.ResumeLayout(false);
-            ((System.ComponentModel.ISupportInitialize)(this.splitContainer7)).EndInit();
-            this.splitContainer7.ResumeLayout(false);
-            this.splitContainer8.Panel1.ResumeLayout(false);
-            this.splitContainer8.Panel2.ResumeLayout(false);
-            ((System.ComponentModel.ISupportInitialize)(this.splitContainer8)).EndInit();
-            this.splitContainer8.ResumeLayout(false);
-            this.splitContainer9.Panel1.ResumeLayout(false);
-            this.splitContainer9.Panel2.ResumeLayout(false);
-            ((System.ComponentModel.ISupportInitialize)(this.splitContainer9)).EndInit();
-            this.splitContainer9.ResumeLayout(false);
-            this.splitContainer10.Panel1.ResumeLayout(false);
-            this.splitContainer10.Panel2.ResumeLayout(false);
-            ((System.ComponentModel.ISupportInitialize)(this.splitContainer10)).EndInit();
-            this.splitContainer10.ResumeLayout(false);
-            this.splitContainer11.Panel1.ResumeLayout(false);
-            this.splitContainer11.Panel2.ResumeLayout(false);
-            ((System.ComponentModel.ISupportInitialize)(this.splitContainer11)).EndInit();
-            this.splitContainer11.ResumeLayout(false);
-            this.splitContainer12.Panel1.ResumeLayout(false);
-            this.splitContainer12.Panel2.ResumeLayout(false);
-            ((System.ComponentModel.ISupportInitialize)(this.splitContainer12)).EndInit();
-            this.splitContainer12.ResumeLayout(false);
-            this.splitContainer13.Panel1.ResumeLayout(false);
-            this.splitContainer13.Panel2.ResumeLayout(false);
-            ((System.ComponentModel.ISupportInitialize)(this.splitContainer13)).EndInit();
-            this.splitContainer13.ResumeLayout(false);
-            this.splitContainer14.Panel1.ResumeLayout(false);
-            this.splitContainer14.Panel2.ResumeLayout(false);
-            ((System.ComponentModel.ISupportInitialize)(this.splitContainer14)).EndInit();
-            this.splitContainer14.ResumeLayout(false);
-            this.splitContainer15.Panel1.ResumeLayout(false);
-            this.splitContainer15.Panel2.ResumeLayout(false);
-            ((System.ComponentModel.ISupportInitialize)(this.splitContainer15)).EndInit();
-            this.splitContainer15.ResumeLayout(false);
-            this.splitContainer16.Panel1.ResumeLayout(false);
-            this.splitContainer16.Panel2.ResumeLayout(false);
-            ((System.ComponentModel.ISupportInitialize)(this.splitContainer16)).EndInit();
-            this.splitContainer16.ResumeLayout(false);
+            this.AsplitContainer4.Panel1.ResumeLayout(false);
+            this.AsplitContainer4.Panel2.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)(this.AsplitContainer4)).EndInit();
+            this.AsplitContainer4.ResumeLayout(false);
+            this.AsplitContainer3.Panel1.ResumeLayout(false);
+            this.AsplitContainer3.Panel2.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)(this.AsplitContainer3)).EndInit();
+            this.AsplitContainer3.ResumeLayout(false);
+            this.AsplitContainer2.Panel1.ResumeLayout(false);
+            this.AsplitContainer2.Panel2.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)(this.AsplitContainer2)).EndInit();
+            this.AsplitContainer2.ResumeLayout(false);
+            this.AsplitContainer1.Panel1.ResumeLayout(false);
+            this.AsplitContainer1.Panel2.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)(this.AsplitContainer1)).EndInit();
+            this.AsplitContainer1.ResumeLayout(false);
+            this.BsplitContainer4.Panel1.ResumeLayout(false);
+            this.BsplitContainer4.Panel2.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)(this.BsplitContainer4)).EndInit();
+            this.BsplitContainer4.ResumeLayout(false);
+            this.BsplitContainer3.Panel1.ResumeLayout(false);
+            this.BsplitContainer3.Panel2.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)(this.BsplitContainer3)).EndInit();
+            this.BsplitContainer3.ResumeLayout(false);
+            this.BsplitContainer2.Panel1.ResumeLayout(false);
+            this.BsplitContainer2.Panel2.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)(this.BsplitContainer2)).EndInit();
+            this.BsplitContainer2.ResumeLayout(false);
+            this.BsplitContainer1.Panel1.ResumeLayout(false);
+            this.BsplitContainer1.Panel2.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)(this.BsplitContainer1)).EndInit();
+            this.BsplitContainer1.ResumeLayout(false);
+            this.CsplitContainer4.Panel1.ResumeLayout(false);
+            this.CsplitContainer4.Panel2.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)(this.CsplitContainer4)).EndInit();
+            this.CsplitContainer4.ResumeLayout(false);
+            this.CsplitContainer3.Panel1.ResumeLayout(false);
+            this.CsplitContainer3.Panel2.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)(this.CsplitContainer3)).EndInit();
+            this.CsplitContainer3.ResumeLayout(false);
+            this.CsplitContainer2.Panel1.ResumeLayout(false);
+            this.CsplitContainer2.Panel2.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)(this.CsplitContainer2)).EndInit();
+            this.CsplitContainer2.ResumeLayout(false);
+            this.CsplitContainer1.Panel1.ResumeLayout(false);
+            this.CsplitContainer1.Panel2.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)(this.CsplitContainer1)).EndInit();
+            this.CsplitContainer1.ResumeLayout(false);
+            this.DsplitContainer4.Panel1.ResumeLayout(false);
+            this.DsplitContainer4.Panel2.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)(this.DsplitContainer4)).EndInit();
+            this.DsplitContainer4.ResumeLayout(false);
+            this.DsplitContainer3.Panel1.ResumeLayout(false);
+            this.DsplitContainer3.Panel2.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)(this.DsplitContainer3)).EndInit();
+            this.DsplitContainer3.ResumeLayout(false);
+            this.DsplitContainer2.Panel1.ResumeLayout(false);
+            this.DsplitContainer2.Panel2.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)(this.DsplitContainer2)).EndInit();
+            this.DsplitContainer2.ResumeLayout(false);
+            this.DsplitContainer1.Panel1.ResumeLayout(false);
+            this.DsplitContainer1.Panel2.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)(this.DsplitContainer1)).EndInit();
+            this.DsplitContainer1.ResumeLayout(false);
             this.ResumeLayout(false);
 
         }
 
         #endregion
 
-        private System.Windows.Forms.SplitContainer splitContainer4;
+        private System.Windows.Forms.SplitContainer AsplitContainer4;
         private System.Windows.Forms.Label label_SocketTitle4;
         private System.Windows.Forms.Label label_SocketState4;
-        private System.Windows.Forms.SplitContainer splitContainer3;
+        private System.Windows.Forms.SplitContainer AsplitContainer3;
         private System.Windows.Forms.Label label_SocketTitle3;
         private System.Windows.Forms.Label label_SocketState3;
-        private System.Windows.Forms.SplitContainer splitContainer2;
+        private System.Windows.Forms.SplitContainer AsplitContainer2;
         private System.Windows.Forms.Label label_SocketTitle2;
         private System.Windows.Forms.Label label_SocketState2;
-        private System.Windows.Forms.SplitContainer splitContainer1;
+        private System.Windows.Forms.SplitContainer AsplitContainer1;
         private System.Windows.Forms.Label label_SocketTitle1;
         private System.Windows.Forms.Label label_SocketState1;
-        private System.Windows.Forms.SplitContainer splitContainer5;
+        private System.Windows.Forms.SplitContainer BsplitContainer4;
         private System.Windows.Forms.Label label_SocketTitle8;
         private System.Windows.Forms.Label label_SocketState8;
-        private System.Windows.Forms.SplitContainer splitContainer6;
+        private System.Windows.Forms.SplitContainer BsplitContainer3;
         private System.Windows.Forms.Label label_SocketTitle7;
         private System.Windows.Forms.Label label_SocketState7;
-        private System.Windows.Forms.SplitContainer splitContainer7;
+        private System.Windows.Forms.SplitContainer BsplitContainer2;
         private System.Windows.Forms.Label label_SocketTitle6;
         private System.Windows.Forms.Label label_SocketState6;
-        private System.Windows.Forms.SplitContainer splitContainer8;
+        private System.Windows.Forms.SplitContainer BsplitContainer1;
         private System.Windows.Forms.Label label_SocketTitle5;
         private System.Windows.Forms.Label label_SocketState5;
         private System.Windows.Forms.Label TitleLabel;
         private System.Windows.Forms.Label label1;
-        private System.Windows.Forms.SplitContainer splitContainer9;
+        private System.Windows.Forms.SplitContainer CsplitContainer4;
         private System.Windows.Forms.Label label2;
         private System.Windows.Forms.Label label3;
-        private System.Windows.Forms.SplitContainer splitContainer10;
+        private System.Windows.Forms.SplitContainer CsplitContainer3;
         private System.Windows.Forms.Label label4;
         private System.Windows.Forms.Label label5;
-        private System.Windows.Forms.SplitContainer splitContainer11;
+        private System.Windows.Forms.SplitContainer CsplitContainer2;
         private System.Windows.Forms.Label label6;
         private System.Windows.Forms.Label label7;
-        private System.Windows.Forms.SplitContainer splitContainer12;
+        private System.Windows.Forms.SplitContainer CsplitContainer1;
         private System.Windows.Forms.Label label8;
         private System.Windows.Forms.Label label9;
         private System.Windows.Forms.Label label10;
-        private System.Windows.Forms.SplitContainer splitContainer13;
+        private System.Windows.Forms.SplitContainer DsplitContainer4;
         private System.Windows.Forms.Label label11;
         private System.Windows.Forms.Label label12;
-        private System.Windows.Forms.SplitContainer splitContainer14;
+        private System.Windows.Forms.SplitContainer DsplitContainer3;
         private System.Windows.Forms.Label label13;
         private System.Windows.Forms.Label label14;
-        private System.Windows.Forms.SplitContainer splitContainer15;
+        private System.Windows.Forms.SplitContainer DsplitContainer2;
         private System.Windows.Forms.Label label15;
         private System.Windows.Forms.Label label16;
-        private System.Windows.Forms.SplitContainer splitContainer16;
+        private System.Windows.Forms.SplitContainer DsplitContainer1;
         private System.Windows.Forms.Label label17;
         private System.Windows.Forms.Label label18;
         private System.Windows.Forms.Label label19;

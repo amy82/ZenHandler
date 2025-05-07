@@ -124,15 +124,31 @@ namespace ZenHandler.Machine
     // 소켓 안에 있는 제품 상태 정보
     public class SocketProductInfo
     {
-        public int SocketIndex { get; set; }
+        public int No { get; set; }
         public SocketProductState State { get; set; } = SocketProductState.Blank;
-        public DateTime TimeInserted { get; set; } = DateTime.Now;
+        public string BcrLot { get; set; } = "Empty";
 
-        public string BcrId { get; set; } = "Empty";
-
-        public SocketProductInfo(int socketIndex)
+        public SocketProductInfo() { }  // <- 이게 없으면 yaml 로드 안됨
+        public SocketProductInfo(int index)
         {
-            SocketIndex = socketIndex;
+            No = index;
         }
+    }
+    public class AoiSocketProduct
+    {
+        public List<SocketProductInfo> SocketInfo_A { get; set; } = new List<SocketProductInfo>();
+        public List<SocketProductInfo> SocketInfo_B { get; set; } = new List<SocketProductInfo>();
+    }
+    public class EEpromSocketProduct
+    {
+        public List<SocketProductInfo> SocketInfo_A { get; set; } = new List<SocketProductInfo>();
+        public List<SocketProductInfo> SocketInfo_B { get; set; } = new List<SocketProductInfo>();
+    }
+    public class SocketProduct//FwSocketProduct
+    {
+        public List<SocketProductInfo> SocketInfo_A { get; set; } = new List<SocketProductInfo>();
+        public List<SocketProductInfo> SocketInfo_B { get; set; } = new List<SocketProductInfo>();
+        public List<SocketProductInfo> SocketInfo_C { get; set; } = new List<SocketProductInfo>();
+        public List<SocketProductInfo> SocketInfo_D { get; set; } = new List<SocketProductInfo>();
     }
 }

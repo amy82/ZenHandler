@@ -43,9 +43,9 @@ namespace ZenHandler.Machine
         public const string teachingPath = "Teach_EEpromSocket.yaml";
         public const string taskPath = "Task_EEpromSocket.yaml";
         public Data.TeachingConfig teachingConfig = new Data.TeachingConfig();
+        public SocketProduct socketProduct = new SocketProduct();
 
 
-        //public SocketProduct socketProduct = new SocketProduct();
         public EEpromSocketMachine()
         {
             int i = 0;
@@ -72,7 +72,7 @@ namespace ZenHandler.Machine
             }
 
 
-            //socketProduct = Data.TaskDataYaml.TaskLoad_Socket(taskPath);
+            socketProduct = Data.TaskDataYaml.TaskLoad_Socket(taskPath);
 
         }
         public override bool TaskSave()

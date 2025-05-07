@@ -17,7 +17,8 @@ namespace ZenHandler.Machine
 
         public const string teachingPath = "Teach_FwSocket.yaml";
         public const string taskPath = "Task_FwSocket.yaml";
-        public Data.TeachingConfig teachingConfig = new Data.TeachingConfig();
+        //public Data.TeachingConfig teachingConfig = new Data.TeachingConfig();
+        public SocketProduct socketProduct = new SocketProduct();
 
         public FwSocketMachine()
         {
@@ -25,7 +26,8 @@ namespace ZenHandler.Machine
             this.RunState = OperationState.Stopped;
             this.MachineName = this.GetType().Name;
 
-            
+
+            socketProduct = Data.TaskDataYaml.TaskLoad_Socket(taskPath);
 
         }
         public override bool TaskSave()
