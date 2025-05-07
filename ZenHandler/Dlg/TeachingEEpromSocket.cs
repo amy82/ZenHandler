@@ -232,7 +232,7 @@ namespace ZenHandler.Dlg
         private void BTN_TEACH_DATA_SAVE_Click(object sender, EventArgs e)
         {
             //Teaching 저장하시겠습니까?
-            string szLog = $"[TRANSFER] Teaching Save?";
+            string szLog = $"[EEPROM SOCKET] Teaching Save?";
 
             DialogResult result = DialogResult.None;
 
@@ -259,7 +259,7 @@ namespace ZenHandler.Dlg
                     Globalo.motionManager.socketEEpromMachine.MotorAxes[i].Deceleration = Globalo.motionManager.socketEEpromMachine.teachingConfig.Decel[i];
                 }
 
-                Globalo.LogPrint("", "[TEACH] TRANSFER UNIT SAVE");
+                Globalo.LogPrint("", "[TEACH] EEPROM SOCKET UNIT SAVE");
 
                 Globalo.motionManager.socketEEpromMachine.teachingConfig.SaveTeach(Machine.EEpromSocketMachine.teachingPath);
 

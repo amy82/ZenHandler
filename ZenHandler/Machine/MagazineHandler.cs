@@ -14,11 +14,6 @@ namespace ZenHandler.Machine
     {
         public int MotorCnt { get; private set; } = 4;
 
-        //public MotionControl.MotorAxis MagazineY_L;
-        //public MotionControl.MotorAxis MagazineZ_L;
-        //public MotionControl.MotorAxis MagazineY_R;
-        //public MotionControl.MotorAxis MagazineZ_R;
-
         public MotionControl.MotorAxis[] MotorAxes; // 배열 선언
 
         public string[] axisName = { "LEFT_Y", "LEFT_Z", "RIGHT_Y", "RIGHT_Z" };
@@ -38,15 +33,13 @@ namespace ZenHandler.Machine
         {
             WAIT_POS = 0, 
             LEFT_TRAY_LOAD_POS, LEFT_TRAY_UNLOAD_POS,
-            STACK1_L, STACK2_L, STACK3_L, STACK4_L, STACK5_L,
-            STACK1_R, STACK2_R, STACK3_R, STACK4_R, STACK5_R,
+            LAYER1, LAYER2, LAYER3, LAYER4, LAYER5,
             TOTAL_MAGAZINE_TEACHING_COUNT
         };
 
         public string[] TeachName = { "WAIT_POS",
             "LEFT_TRAY_LOAD", "LEFT_TRAY_UNLOAD",
-            "STACK1_L","STACK2_L","STACK3_L","STACK4_L","STACK5_L",
-            "STACK1_R","STACK2_R","STACK3_R","STACK4_R","STACK5_R",
+            "LAYER1","LAYER2","LAYER3","LAYER4","LAYER5"
         };
 
         //TRAY 꺼내는 층별 위치 다 따로 해야될수도
@@ -63,8 +56,6 @@ namespace ZenHandler.Machine
             this.RunState = OperationState.Stopped;
             this.MachineName = this.GetType().Name;
 
-            //MotorAxes = new MotionControl.MotorAxis[] { MagazineY_L, MagazineZ_L, MagazineY_R, MagazineZ_R };
-            //MotorCnt = MotorAxes.Length;
             MotorAxes = new MotionControl.MotorAxis[MotorCnt];
             for (i = 0; i < MotorCnt; i++)
             {
@@ -83,8 +74,6 @@ namespace ZenHandler.Machine
             }
 
             magazineTray = Data.TaskDataYaml.TaskLoad_Magazine(taskPath);
-            
-
         }
         public override bool TaskSave()
         {

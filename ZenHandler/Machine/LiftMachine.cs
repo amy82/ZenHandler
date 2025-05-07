@@ -15,11 +15,6 @@ namespace ZenHandler.Machine
     {
         public int MotorCnt { get; private set; } = 4;
 
-        //public MotionControl.MotorAxis Gantry_X_F;
-        //public MotionControl.MotorAxis Gantry_X_B;
-        //public MotionControl.MotorAxis LoadLift_Z_L;
-        //public MotionControl.MotorAxis LoadLift_Z_R;
-
         //LEFT Z / RIGHT Z / GANTRY FRONT X / GANTRY BACK X / 
         public MotionControl.MotorAxis[] MotorAxes; // 배열 선언
 
@@ -43,7 +38,7 @@ namespace ZenHandler.Machine
             WAIT_POS = 0, LOAD_POS, UNLOAD_POS, TOTAL_LIFT_TEACHING_COUNT
         };
 
-        public string[] TeachName = { "WAIT_POS" , "L_LOAD_POS", "R_LOAD_POS" };
+        public string[] TeachName = { "WAIT_POS" , "LOAD_POS", "UNLOAD_POS" };
 
 
         public const string teachingPath = "Teach_Lift.yaml";

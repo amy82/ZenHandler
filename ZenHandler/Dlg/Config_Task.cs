@@ -44,6 +44,19 @@ namespace ZenHandler.Dlg
             label_ConfigTask_Load_Tray_Y.Text = Globalo.motionManager.transferMachine.pickedProduct.LoadTrayPos.Y.ToString();
             label_ConfigTask_Unload_Tray_Y.Text = Globalo.motionManager.transferMachine.pickedProduct.UnloadTrayPos.Y.ToString();
             label_ConfigTask_NgTray_Y.Text = Globalo.motionManager.transferMachine.pickedProduct.NgTrayPos.Y.ToString();
+
+            if (Program.PG_SELECT == HANDLER_PG.FW)
+            {
+                label_ConfigTask_Left_Tray_Layer_Val.Text = Globalo.motionManager.magazineHandler.magazineTray.LeftTrayLayer.ToString();
+                label_ConfigTask_Right_Tray_Layer_Val.Text = Globalo.motionManager.magazineHandler.magazineTray.RightTrayLayer.ToString();
+            }
+            else
+            {
+                label_ConfigTask_Left_Tray_Layer_Val.Text = Globalo.motionManager.liftMachine.trayProduct.LeftTrayLayer.ToString();
+                label_ConfigTask_Right_Tray_Layer_Val.Text = Globalo.motionManager.liftMachine.trayProduct.RightTrayLayer.ToString();
+            }
+                
+
         }
         public void ShowTaskPicker()
         {
@@ -119,6 +132,19 @@ namespace ZenHandler.Dlg
             Globalo.motionManager.transferMachine.pickedProduct.NgTrayPos.Y = int.Parse(label_ConfigTask_NgTray_Y.Text);
 
 
+            if (Program.PG_SELECT == HANDLER_PG.FW)
+            {
+                Globalo.motionManager.magazineHandler.magazineTray.LeftTrayLayer = int.Parse(label_ConfigTask_Left_Tray_Layer_Val.Text);
+                Globalo.motionManager.magazineHandler.magazineTray.RightTrayLayer = int.Parse(label_ConfigTask_Right_Tray_Layer_Val.Text);
+            }
+            else
+            {
+                Globalo.motionManager.liftMachine.trayProduct.LeftTrayLayer = int.Parse(label_ConfigTask_Left_Tray_Layer_Val.Text);
+                Globalo.motionManager.liftMachine.trayProduct.RightTrayLayer = int.Parse(label_ConfigTask_Right_Tray_Layer_Val.Text);
+            }
+
+            
+
         }
         public void showPanel()
         {
@@ -147,8 +173,6 @@ namespace ZenHandler.Dlg
                     return;
                 }
             }
-            
-
             if (Globalo.motionManager.transferMachine.pickedProduct.LoadProductInfo[index].State == Machine.PickedProductState.Blank)
             {
                 Globalo.motionManager.transferMachine.pickedProduct.LoadProductInfo[index].State = Machine.PickedProductState.Bcr;
@@ -270,6 +294,20 @@ namespace ZenHandler.Dlg
             
             Globalo.motionManager.transferMachine.TaskSave();
             Globalo.pickerInfo.SetPickerInfo();
+
+
+            if (Program.PG_SELECT == HANDLER_PG.FW)
+            {
+                Globalo.motionManager.magazineHandler.TaskSave();
+            }
+            else if (Program.PG_SELECT == HANDLER_PG.AOI)
+            {
+                Globalo.motionManager.liftMachine.TaskSave();
+            }
+            else if (Program.PG_SELECT == HANDLER_PG.EEPROM)
+            {
+                Globalo.motionManager.liftMachine.TaskSave();
+            }
         }
 
         private void Btn_ConfigTask_Driving_Mode_Click(object sender, EventArgs e)
@@ -386,7 +424,45 @@ namespace ZenHandler.Dlg
                 }
             }
         }
-        
+        private void SetTrayLayer(Label label, bool UserSet = false)
+        {
+            if (UserSet)
+            {
+                if (Globalo.motionManager.transferMachine.RunState != OperationState.Stopped)
+                {
+                    //Transfer Unit 정지상태에서만 설정 가능합니다.
+                    Globalo.LogPrint("ManualControl", "[INFO] TRANSFER UNIT 정지 상태에서 변경 가능합니다.", Globalo.eMessageName.M_WARNING);
+                    return;
+                }
+            }
+
+            string labelValue = label.Text;
+            int decimalValue = 0;
+
+
+            if (int.TryParse(labelValue, out decimalValue))
+            {
+                string formattedValue = decimalValue.ToString();
+                NumPadForm popupForm = new NumPadForm(formattedValue);
+                DialogResult dialogResult = popupForm.ShowDialog();
+
+
+                if (dialogResult == DialogResult.OK)
+                {
+                    int dNumData = int.Parse(popupForm.NumPadResult);
+
+                    if (dNumData < 0)
+                    {
+                        dNumData = 0;
+                    }
+                    if (dNumData > Globalo.motionManager.transferMachine.productLayout.TotalTrayLayer - 1)
+                    {
+                        dNumData = Globalo.motionManager.transferMachine.productLayout.TotalTrayLayer - 1;
+                    }
+                    label.Text = dNumData.ToString();
+                }
+            }
+        }
         private void label_ConfigTask_Load_Tray_X_Click(object sender, EventArgs e)
         {
             Label label = sender as Label;
@@ -420,6 +496,18 @@ namespace ZenHandler.Dlg
         {
             Label label = sender as Label;
             SetNgTrayPosition(1, label, true);
+        }
+
+        private void label_ConfigTask_Left_Tray_Layer_Val_Click(object sender, EventArgs e)
+        {
+            Label label = sender as Label;
+            SetTrayLayer(label, true);
+        }
+
+        private void label_ConfigTask_Right_Tray_Layer_Val_Click(object sender, EventArgs e)
+        {
+            Label label = sender as Label;
+            SetTrayLayer(label, true);
         }
     }
 }

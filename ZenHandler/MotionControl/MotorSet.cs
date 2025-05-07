@@ -74,7 +74,7 @@ namespace ZenHandler.MotionControl
 
         public enum eMagazineMotorList : int
         {
-            L_MAGAZINE_Z = 3, L_MAGAZINE_Y = 4, R_MAGAZINE_Z = 5, R_MAGAZINE_Y = 6, TOTAL_MAGAZINE_MOTOR_COUNT
+            L_MAGAZINE_Y = 3, L_MAGAZINE_Z = 4, R_MAGAZINE_Y = 5, R_MAGAZINE_Z = 6, TOTAL_MAGAZINE_MOTOR_COUNT
         };
 
         

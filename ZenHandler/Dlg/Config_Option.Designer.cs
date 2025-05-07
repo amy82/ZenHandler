@@ -55,6 +55,8 @@ namespace ZenHandler.Dlg
             this.label_Config_Ngtray_Max_Count_Y = new System.Windows.Forms.Label();
             this.label_Config_Ngtray_Max_Count_X = new System.Windows.Forms.Label();
             this.label_Config_Ngtray_Max_Count = new System.Windows.Forms.Label();
+            this.label_Config_Tray_Max_Layer = new System.Windows.Forms.Label();
+            this.label_Config_Tray_Max_Layer_Val = new System.Windows.Forms.Label();
             this.SuspendLayout();
             // 
             // button_Bcr_DisConnect
@@ -117,6 +119,7 @@ namespace ZenHandler.Dlg
             // 
             this.ComboBox_Language.Cursor = System.Windows.Forms.Cursors.Hand;
             this.ComboBox_Language.DropDownHeight = 120;
+            this.ComboBox_Language.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.ComboBox_Language.Font = new System.Drawing.Font("나눔고딕", 12.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(129)));
             this.ComboBox_Language.FormattingEnabled = true;
             this.ComboBox_Language.IntegralHeight = false;
@@ -133,7 +136,7 @@ namespace ZenHandler.Dlg
             this.label2.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.label2.Font = new System.Drawing.Font("나눔고딕", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(129)));
             this.label2.ForeColor = System.Drawing.Color.Black;
-            this.label2.Location = new System.Drawing.Point(46, 434);
+            this.label2.Location = new System.Drawing.Point(426, 373);
             this.label2.Name = "label2";
             this.label2.Size = new System.Drawing.Size(161, 29);
             this.label2.TabIndex = 81;
@@ -144,7 +147,7 @@ namespace ZenHandler.Dlg
             // 
             this.label_PinCountMax.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.label_PinCountMax.Font = new System.Drawing.Font("굴림", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(129)));
-            this.label_PinCountMax.Location = new System.Drawing.Point(213, 434);
+            this.label_PinCountMax.Location = new System.Drawing.Point(593, 373);
             this.label_PinCountMax.Name = "label_PinCountMax";
             this.label_PinCountMax.Size = new System.Drawing.Size(100, 29);
             this.label_PinCountMax.TabIndex = 82;
@@ -408,10 +411,39 @@ namespace ZenHandler.Dlg
             this.label_Config_Ngtray_Max_Count.Text = "Ngtray Gap";
             this.label_Config_Ngtray_Max_Count.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
+            // label_Config_Tray_Max_Layer
+            // 
+            this.label_Config_Tray_Max_Layer.BackColor = System.Drawing.Color.PaleTurquoise;
+            this.label_Config_Tray_Max_Layer.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.label_Config_Tray_Max_Layer.Font = new System.Drawing.Font("나눔고딕 ExtraBold", 8.999999F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(129)));
+            this.label_Config_Tray_Max_Layer.ForeColor = System.Drawing.Color.Black;
+            this.label_Config_Tray_Max_Layer.Location = new System.Drawing.Point(21, 332);
+            this.label_Config_Tray_Max_Layer.Name = "label_Config_Tray_Max_Layer";
+            this.label_Config_Tray_Max_Layer.Size = new System.Drawing.Size(126, 40);
+            this.label_Config_Tray_Max_Layer.TabIndex = 116;
+            this.label_Config_Tray_Max_Layer.Text = "Tray Layer";
+            this.label_Config_Tray_Max_Layer.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            // 
+            // label_Config_Tray_Max_Layer_Val
+            // 
+            this.label_Config_Tray_Max_Layer_Val.BackColor = System.Drawing.Color.White;
+            this.label_Config_Tray_Max_Layer_Val.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.label_Config_Tray_Max_Layer_Val.Font = new System.Drawing.Font("나눔고딕", 11.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(129)));
+            this.label_Config_Tray_Max_Layer_Val.ForeColor = System.Drawing.Color.Black;
+            this.label_Config_Tray_Max_Layer_Val.Location = new System.Drawing.Point(147, 332);
+            this.label_Config_Tray_Max_Layer_Val.Name = "label_Config_Tray_Max_Layer_Val";
+            this.label_Config_Tray_Max_Layer_Val.Size = new System.Drawing.Size(86, 40);
+            this.label_Config_Tray_Max_Layer_Val.TabIndex = 118;
+            this.label_Config_Tray_Max_Layer_Val.Text = "0";
+            this.label_Config_Tray_Max_Layer_Val.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            this.label_Config_Tray_Max_Layer_Val.Click += new System.EventHandler(this.label_Config_Left_Tray_Max_Layer_Val_Click);
+            // 
             // Config_Option
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 12F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
+            this.Controls.Add(this.label_Config_Tray_Max_Layer_Val);
+            this.Controls.Add(this.label_Config_Tray_Max_Layer);
             this.Controls.Add(this.label_Config_Ngtray_Max_Count_Y);
             this.Controls.Add(this.label_Config_Ngtray_Max_Count_X);
             this.Controls.Add(this.label_Config_Ngtray_Max_Count);
@@ -471,5 +503,7 @@ namespace ZenHandler.Dlg
         private System.Windows.Forms.Label label_Config_Ngtray_Max_Count_Y;
         private System.Windows.Forms.Label label_Config_Ngtray_Max_Count_X;
         private System.Windows.Forms.Label label_Config_Ngtray_Max_Count;
+        private System.Windows.Forms.Label label_Config_Tray_Max_Layer;
+        private System.Windows.Forms.Label label_Config_Tray_Max_Layer_Val;
     }
 }

@@ -30,10 +30,10 @@ namespace ZenHandler.Machine
     }
     public enum SocketProductState
     {
-        Blank = 0,   // 제품 없음    
+        Blank = 0,   // 제품 없음
+        Test,        //검사 중
         Good,       // 양품
-        NG,         // 불량
-        Unknown     // 미확인 (필요 시)
+        NG         // 불량
     }
     public class ProductInfo
     {
@@ -61,11 +61,7 @@ namespace ZenHandler.Machine
 
         public TrayPoint LoadTrayPos { get; set; } = new TrayPoint();       //투입, 배출, Ng Tray 는 같이 쓰면되려나?  L,R 나눠야 될지?
         public TrayPoint UnloadTrayPos { get; set; } = new TrayPoint();
-        public TrayPoint NgTrayPos { get; set; } = new TrayPoint();     
-        //
-        
-        
-
+        public TrayPoint NgTrayPos { get; set; } = new TrayPoint();
     }
     //---------------------------------------------------------------------------------------------------------------------------------------------------
     //
@@ -79,6 +75,9 @@ namespace ZenHandler.Machine
         public List<List<int>> RightLoadTraySlots { get; set; } = new List<List<int>>();
         public List<List<int>> LeftNgTraySlots { get; set; } = new List<List<int>>();
         public List<List<int>> RightNgTraySlots { get; set; } = new List<List<int>>();
+
+        public int LeftTrayLayer { get; set; }
+        public int RightTrayLayer { get; set; }
     }
 
 
@@ -110,8 +109,10 @@ namespace ZenHandler.Machine
     }
     public class MagazineTray
     {
-        MagazineInfo LeftMagazineInfo { get; set; } = new MagazineInfo();
-        MagazineInfo RightMagazineInfo { get; set; } = new MagazineInfo();
+        public List<MagazineInfo> LeftMagazineInfo { get; set; } = new List<MagazineInfo>();  
+        public List<MagazineInfo> RightMagazineInfo { get; set; } = new List<MagazineInfo>();  
+        public int LeftTrayLayer { get; set; } = 0;
+        public int RightTrayLayer { get; set; } = 0;
     }
 
 
@@ -123,15 +124,31 @@ namespace ZenHandler.Machine
     // 소켓 안에 있는 제품 상태 정보
     public class SocketProductInfo
     {
-        public int SocketIndex { get; set; }
+        public int No { get; set; }
         public SocketProductState State { get; set; } = SocketProductState.Blank;
-        public DateTime TimeInserted { get; set; } = DateTime.Now;
+        public string BcrLot { get; set; } = "Empty";
 
-        public string BcrId { get; set; } = "Empty";
-
-        public SocketProductInfo(int socketIndex)
+        public SocketProductInfo() { }  // <- 이게 없으면 yaml 로드 안됨
+        public SocketProductInfo(int index)
         {
-            SocketIndex = socketIndex;
+            No = index;
         }
+    }
+    public class AoiSocketProduct
+    {
+        public List<SocketProductInfo> SocketInfo_A { get; set; } = new List<SocketProductInfo>();
+        public List<SocketProductInfo> SocketInfo_B { get; set; } = new List<SocketProductInfo>();
+    }
+    public class EEpromSocketProduct
+    {
+        public List<SocketProductInfo> SocketInfo_A { get; set; } = new List<SocketProductInfo>();
+        public List<SocketProductInfo> SocketInfo_B { get; set; } = new List<SocketProductInfo>();
+    }
+    public class SocketProduct//FwSocketProduct
+    {
+        public List<SocketProductInfo> SocketInfo_A { get; set; } = new List<SocketProductInfo>();
+        public List<SocketProductInfo> SocketInfo_B { get; set; } = new List<SocketProductInfo>();
+        public List<SocketProductInfo> SocketInfo_C { get; set; } = new List<SocketProductInfo>();
+        public List<SocketProductInfo> SocketInfo_D { get; set; } = new List<SocketProductInfo>();
     }
 }

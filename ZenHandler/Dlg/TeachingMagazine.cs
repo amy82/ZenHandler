@@ -29,9 +29,9 @@ namespace ZenHandler.Dlg
             _syncContext = SynchronizationContext.Current;
             cts = new CancellationTokenSource();
 
-            int[] inGridWid = new int[] { 130, 100, 100, 100, 100 };         //Grid Width
+            int[] inGridWid = new int[] { 140, 90, 90, 90, 90 };         //Grid Width
 
-            myTeachingGrid = new Controls.TeachingGridView( Globalo.motionManager.magazineHandler.MotorAxes, Globalo.motionManager.magazineHandler.teachingConfig, inGridWid);
+            myTeachingGrid = new Controls.TeachingGridView( Globalo.motionManager.magazineHandler.MotorAxes, Globalo.motionManager.magazineHandler.teachingConfig, inGridWid, 32);
 
             myTeachingGrid.Location = new System.Drawing.Point(150, 10);
             this.groupTeachPcb.Controls.Add(myTeachingGrid);
@@ -245,7 +245,7 @@ namespace ZenHandler.Dlg
         private void BTN_TEACH_DATA_SAVE_Click(object sender, EventArgs e)
         {
             //Teaching 저장하시겠습니까?
-            string szLog = $"[TRANSFER] Teaching Save?";
+            string szLog = $"[MAGAZINE] Teaching Save?";
 
             DialogResult result = DialogResult.None;
 

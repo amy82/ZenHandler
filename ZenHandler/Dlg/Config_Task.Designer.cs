@@ -64,6 +64,10 @@ namespace ZenHandler.Dlg
             this.label_ConfigTask_Unload_Tray_X = new System.Windows.Forms.Label();
             this.label_ConfigTask_NgTray_Y = new System.Windows.Forms.Label();
             this.label_ConfigTask_NgTray_X = new System.Windows.Forms.Label();
+            this.label_ConfigTask_Left_Tray_Layer_Val = new System.Windows.Forms.Label();
+            this.label_ConfigTask_Left_Tray_Layer = new System.Windows.Forms.Label();
+            this.label_ConfigTask_Right_Tray_Layer_Val = new System.Windows.Forms.Label();
+            this.label_ConfigTask_Right_Tray_Layer = new System.Windows.Forms.Label();
             this.SuspendLayout();
             // 
             // hopeCheckBox_ImageGrabUse
@@ -545,10 +549,68 @@ namespace ZenHandler.Dlg
             this.label_ConfigTask_NgTray_X.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             this.label_ConfigTask_NgTray_X.Click += new System.EventHandler(this.label_ConfigTask_NgTray_X_Click);
             // 
+            // label_ConfigTask_Left_Tray_Layer_Val
+            // 
+            this.label_ConfigTask_Left_Tray_Layer_Val.BackColor = System.Drawing.Color.White;
+            this.label_ConfigTask_Left_Tray_Layer_Val.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.label_ConfigTask_Left_Tray_Layer_Val.Font = new System.Drawing.Font("나눔고딕", 11.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(129)));
+            this.label_ConfigTask_Left_Tray_Layer_Val.ForeColor = System.Drawing.Color.Black;
+            this.label_ConfigTask_Left_Tray_Layer_Val.Location = new System.Drawing.Point(147, 496);
+            this.label_ConfigTask_Left_Tray_Layer_Val.Name = "label_ConfigTask_Left_Tray_Layer_Val";
+            this.label_ConfigTask_Left_Tray_Layer_Val.Size = new System.Drawing.Size(86, 40);
+            this.label_ConfigTask_Left_Tray_Layer_Val.TabIndex = 104;
+            this.label_ConfigTask_Left_Tray_Layer_Val.Text = "0";
+            this.label_ConfigTask_Left_Tray_Layer_Val.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            this.label_ConfigTask_Left_Tray_Layer_Val.Click += new System.EventHandler(this.label_ConfigTask_Left_Tray_Layer_Val_Click);
+            // 
+            // label_ConfigTask_Left_Tray_Layer
+            // 
+            this.label_ConfigTask_Left_Tray_Layer.BackColor = System.Drawing.Color.MistyRose;
+            this.label_ConfigTask_Left_Tray_Layer.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.label_ConfigTask_Left_Tray_Layer.Font = new System.Drawing.Font("나눔고딕 ExtraBold", 8.999999F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(129)));
+            this.label_ConfigTask_Left_Tray_Layer.ForeColor = System.Drawing.Color.Black;
+            this.label_ConfigTask_Left_Tray_Layer.Location = new System.Drawing.Point(21, 496);
+            this.label_ConfigTask_Left_Tray_Layer.Name = "label_ConfigTask_Left_Tray_Layer";
+            this.label_ConfigTask_Left_Tray_Layer.Size = new System.Drawing.Size(126, 40);
+            this.label_ConfigTask_Left_Tray_Layer.TabIndex = 103;
+            this.label_ConfigTask_Left_Tray_Layer.Text = "Left Tray Layer";
+            this.label_ConfigTask_Left_Tray_Layer.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            // 
+            // label_ConfigTask_Right_Tray_Layer_Val
+            // 
+            this.label_ConfigTask_Right_Tray_Layer_Val.BackColor = System.Drawing.Color.White;
+            this.label_ConfigTask_Right_Tray_Layer_Val.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.label_ConfigTask_Right_Tray_Layer_Val.Font = new System.Drawing.Font("나눔고딕", 11.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(129)));
+            this.label_ConfigTask_Right_Tray_Layer_Val.ForeColor = System.Drawing.Color.Black;
+            this.label_ConfigTask_Right_Tray_Layer_Val.Location = new System.Drawing.Point(147, 536);
+            this.label_ConfigTask_Right_Tray_Layer_Val.Name = "label_ConfigTask_Right_Tray_Layer_Val";
+            this.label_ConfigTask_Right_Tray_Layer_Val.Size = new System.Drawing.Size(86, 40);
+            this.label_ConfigTask_Right_Tray_Layer_Val.TabIndex = 106;
+            this.label_ConfigTask_Right_Tray_Layer_Val.Text = "0";
+            this.label_ConfigTask_Right_Tray_Layer_Val.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            this.label_ConfigTask_Right_Tray_Layer_Val.Click += new System.EventHandler(this.label_ConfigTask_Right_Tray_Layer_Val_Click);
+            // 
+            // label_ConfigTask_Right_Tray_Layer
+            // 
+            this.label_ConfigTask_Right_Tray_Layer.BackColor = System.Drawing.Color.MistyRose;
+            this.label_ConfigTask_Right_Tray_Layer.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.label_ConfigTask_Right_Tray_Layer.Font = new System.Drawing.Font("나눔고딕 ExtraBold", 8.999999F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(129)));
+            this.label_ConfigTask_Right_Tray_Layer.ForeColor = System.Drawing.Color.Black;
+            this.label_ConfigTask_Right_Tray_Layer.Location = new System.Drawing.Point(21, 536);
+            this.label_ConfigTask_Right_Tray_Layer.Name = "label_ConfigTask_Right_Tray_Layer";
+            this.label_ConfigTask_Right_Tray_Layer.Size = new System.Drawing.Size(126, 40);
+            this.label_ConfigTask_Right_Tray_Layer.TabIndex = 105;
+            this.label_ConfigTask_Right_Tray_Layer.Text = "Right Tray Layer";
+            this.label_ConfigTask_Right_Tray_Layer.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            // 
             // Config_Task
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 12F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
+            this.Controls.Add(this.label_ConfigTask_Right_Tray_Layer_Val);
+            this.Controls.Add(this.label_ConfigTask_Right_Tray_Layer);
+            this.Controls.Add(this.label_ConfigTask_Left_Tray_Layer_Val);
+            this.Controls.Add(this.label_ConfigTask_Left_Tray_Layer);
             this.Controls.Add(this.label_ConfigTask_NgTray_Y);
             this.Controls.Add(this.label_ConfigTask_NgTray_X);
             this.Controls.Add(this.label_ConfigTask_Unload_Tray_Y);
@@ -626,5 +688,9 @@ namespace ZenHandler.Dlg
         private System.Windows.Forms.Label label_ConfigTask_Unload_Tray_X;
         private System.Windows.Forms.Label label_ConfigTask_NgTray_Y;
         private System.Windows.Forms.Label label_ConfigTask_NgTray_X;
+        private System.Windows.Forms.Label label_ConfigTask_Left_Tray_Layer_Val;
+        private System.Windows.Forms.Label label_ConfigTask_Left_Tray_Layer;
+        private System.Windows.Forms.Label label_ConfigTask_Right_Tray_Layer_Val;
+        private System.Windows.Forms.Label label_ConfigTask_Right_Tray_Layer;
     }
 }

@@ -32,7 +32,7 @@ namespace ZenHandler.Dlg
             this.groupTeachPcb = new System.Windows.Forms.GroupBox();
             this.BTN_TEACH_AOI_SOCKET_RIGHT_Z = new System.Windows.Forms.Button();
             this.LABEL_TEACH_ROSOLUTION_VALUE = new System.Windows.Forms.Label();
-            this.BTN_TEACH_DATA_SAVE = new System.Windows.Forms.Button();
+            this.Btn_Teach_AoiSocket_Save = new System.Windows.Forms.Button();
             this.label_Resolution = new System.Windows.Forms.Label();
             this.label4 = new System.Windows.Forms.Label();
             this.label3 = new System.Windows.Forms.Label();
@@ -50,7 +50,7 @@ namespace ZenHandler.Dlg
             this.groupTeachPcb.BackColor = System.Drawing.Color.White;
             this.groupTeachPcb.Controls.Add(this.BTN_TEACH_AOI_SOCKET_RIGHT_Z);
             this.groupTeachPcb.Controls.Add(this.LABEL_TEACH_ROSOLUTION_VALUE);
-            this.groupTeachPcb.Controls.Add(this.BTN_TEACH_DATA_SAVE);
+            this.groupTeachPcb.Controls.Add(this.Btn_Teach_AoiSocket_Save);
             this.groupTeachPcb.Controls.Add(this.label_Resolution);
             this.groupTeachPcb.Controls.Add(this.label4);
             this.groupTeachPcb.Controls.Add(this.label3);
@@ -71,7 +71,7 @@ namespace ZenHandler.Dlg
             this.BTN_TEACH_AOI_SOCKET_RIGHT_Z.BackColor = System.Drawing.Color.Tan;
             this.BTN_TEACH_AOI_SOCKET_RIGHT_Z.FlatAppearance.BorderSize = 0;
             this.BTN_TEACH_AOI_SOCKET_RIGHT_Z.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.BTN_TEACH_AOI_SOCKET_RIGHT_Z.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.BTN_TEACH_AOI_SOCKET_RIGHT_Z.Font = new System.Drawing.Font("나눔고딕 ExtraBold", 11.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(129)));
             this.BTN_TEACH_AOI_SOCKET_RIGHT_Z.ForeColor = System.Drawing.Color.White;
             this.BTN_TEACH_AOI_SOCKET_RIGHT_Z.Location = new System.Drawing.Point(17, 346);
             this.BTN_TEACH_AOI_SOCKET_RIGHT_Z.Name = "BTN_TEACH_AOI_SOCKET_RIGHT_Z";
@@ -96,20 +96,20 @@ namespace ZenHandler.Dlg
             this.LABEL_TEACH_ROSOLUTION_VALUE.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             this.LABEL_TEACH_ROSOLUTION_VALUE.Click += new System.EventHandler(this.LABEL_TEACH_ROSOLUTION_VALUE_Click);
             // 
-            // BTN_TEACH_DATA_SAVE
+            // Btn_Teach_AoiSocket_Save
             // 
-            this.BTN_TEACH_DATA_SAVE.BackColor = System.Drawing.Color.Tan;
-            this.BTN_TEACH_DATA_SAVE.FlatAppearance.BorderSize = 0;
-            this.BTN_TEACH_DATA_SAVE.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.BTN_TEACH_DATA_SAVE.Font = new System.Drawing.Font("Microsoft Sans Serif", 12.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(129)));
-            this.BTN_TEACH_DATA_SAVE.ForeColor = System.Drawing.Color.White;
-            this.BTN_TEACH_DATA_SAVE.Location = new System.Drawing.Point(601, 693);
-            this.BTN_TEACH_DATA_SAVE.Name = "BTN_TEACH_DATA_SAVE";
-            this.BTN_TEACH_DATA_SAVE.Size = new System.Drawing.Size(135, 48);
-            this.BTN_TEACH_DATA_SAVE.TabIndex = 34;
-            this.BTN_TEACH_DATA_SAVE.Text = "SAVE";
-            this.BTN_TEACH_DATA_SAVE.UseVisualStyleBackColor = false;
-            this.BTN_TEACH_DATA_SAVE.Click += new System.EventHandler(this.BTN_TEACH_DATA_SAVE_Click);
+            this.Btn_Teach_AoiSocket_Save.BackColor = System.Drawing.Color.Tan;
+            this.Btn_Teach_AoiSocket_Save.FlatAppearance.BorderSize = 0;
+            this.Btn_Teach_AoiSocket_Save.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.Btn_Teach_AoiSocket_Save.Font = new System.Drawing.Font("나눔고딕 ExtraBold", 12.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.Btn_Teach_AoiSocket_Save.ForeColor = System.Drawing.Color.White;
+            this.Btn_Teach_AoiSocket_Save.Location = new System.Drawing.Point(601, 693);
+            this.Btn_Teach_AoiSocket_Save.Name = "Btn_Teach_AoiSocket_Save";
+            this.Btn_Teach_AoiSocket_Save.Size = new System.Drawing.Size(135, 48);
+            this.Btn_Teach_AoiSocket_Save.TabIndex = 34;
+            this.Btn_Teach_AoiSocket_Save.Text = "SAVE";
+            this.Btn_Teach_AoiSocket_Save.UseVisualStyleBackColor = false;
+            this.Btn_Teach_AoiSocket_Save.Click += new System.EventHandler(this.BTN_TEACH_DATA_SAVE_Click);
             // 
             // label_Resolution
             // 
@@ -126,7 +126,7 @@ namespace ZenHandler.Dlg
             // label4
             // 
             this.label4.BackColor = System.Drawing.Color.DimGray;
-            this.label4.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label4.Font = new System.Drawing.Font("나눔고딕 ExtraBold", 11.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(129)));
             this.label4.ForeColor = System.Drawing.Color.White;
             this.label4.Location = new System.Drawing.Point(17, 191);
             this.label4.Name = "label4";
@@ -138,7 +138,7 @@ namespace ZenHandler.Dlg
             // label3
             // 
             this.label3.BackColor = System.Drawing.Color.DimGray;
-            this.label3.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(129)));
+            this.label3.Font = new System.Drawing.Font("나눔고딕 ExtraBold", 11.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(129)));
             this.label3.ForeColor = System.Drawing.Color.White;
             this.label3.Location = new System.Drawing.Point(15, 11);
             this.label3.Name = "label3";
@@ -152,7 +152,7 @@ namespace ZenHandler.Dlg
             this.BTN_TEACH_AOI_SOCKET_LEFT_Z.BackColor = System.Drawing.Color.Tan;
             this.BTN_TEACH_AOI_SOCKET_LEFT_Z.FlatAppearance.BorderSize = 0;
             this.BTN_TEACH_AOI_SOCKET_LEFT_Z.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.BTN_TEACH_AOI_SOCKET_LEFT_Z.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.BTN_TEACH_AOI_SOCKET_LEFT_Z.Font = new System.Drawing.Font("나눔고딕 ExtraBold", 11.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(129)));
             this.BTN_TEACH_AOI_SOCKET_LEFT_Z.ForeColor = System.Drawing.Color.White;
             this.BTN_TEACH_AOI_SOCKET_LEFT_Z.Location = new System.Drawing.Point(17, 260);
             this.BTN_TEACH_AOI_SOCKET_LEFT_Z.Name = "BTN_TEACH_AOI_SOCKET_LEFT_Z";
@@ -167,7 +167,7 @@ namespace ZenHandler.Dlg
             this.BTN_TEACH_SERVO_ON.BackColor = System.Drawing.Color.Tan;
             this.BTN_TEACH_SERVO_ON.FlatAppearance.BorderSize = 0;
             this.BTN_TEACH_SERVO_ON.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.BTN_TEACH_SERVO_ON.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(129)));
+            this.BTN_TEACH_SERVO_ON.Font = new System.Drawing.Font("나눔고딕 ExtraBold", 11.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(129)));
             this.BTN_TEACH_SERVO_ON.ForeColor = System.Drawing.Color.White;
             this.BTN_TEACH_SERVO_ON.Location = new System.Drawing.Point(15, 37);
             this.BTN_TEACH_SERVO_ON.Name = "BTN_TEACH_SERVO_ON";
@@ -182,7 +182,7 @@ namespace ZenHandler.Dlg
             this.BTN_TEACH_SERVO_OFF.BackColor = System.Drawing.Color.Tan;
             this.BTN_TEACH_SERVO_OFF.FlatAppearance.BorderSize = 0;
             this.BTN_TEACH_SERVO_OFF.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.BTN_TEACH_SERVO_OFF.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(129)));
+            this.BTN_TEACH_SERVO_OFF.Font = new System.Drawing.Font("나눔고딕 ExtraBold", 11.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(129)));
             this.BTN_TEACH_SERVO_OFF.ForeColor = System.Drawing.Color.White;
             this.BTN_TEACH_SERVO_OFF.Location = new System.Drawing.Point(15, 83);
             this.BTN_TEACH_SERVO_OFF.Name = "BTN_TEACH_SERVO_OFF";
@@ -197,7 +197,7 @@ namespace ZenHandler.Dlg
             this.BTN_TEACH_SERVO_RESET.BackColor = System.Drawing.Color.Tan;
             this.BTN_TEACH_SERVO_RESET.FlatAppearance.BorderSize = 0;
             this.BTN_TEACH_SERVO_RESET.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.BTN_TEACH_SERVO_RESET.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(129)));
+            this.BTN_TEACH_SERVO_RESET.Font = new System.Drawing.Font("나눔고딕 ExtraBold", 11.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(129)));
             this.BTN_TEACH_SERVO_RESET.ForeColor = System.Drawing.Color.White;
             this.BTN_TEACH_SERVO_RESET.Location = new System.Drawing.Point(15, 129);
             this.BTN_TEACH_SERVO_RESET.Name = "BTN_TEACH_SERVO_RESET";
@@ -212,7 +212,7 @@ namespace ZenHandler.Dlg
             this.BTN_TEACH_AOI_SOCKET_RIGHT_X.BackColor = System.Drawing.Color.Tan;
             this.BTN_TEACH_AOI_SOCKET_RIGHT_X.FlatAppearance.BorderSize = 0;
             this.BTN_TEACH_AOI_SOCKET_RIGHT_X.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.BTN_TEACH_AOI_SOCKET_RIGHT_X.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.BTN_TEACH_AOI_SOCKET_RIGHT_X.Font = new System.Drawing.Font("나눔고딕 ExtraBold", 11.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(129)));
             this.BTN_TEACH_AOI_SOCKET_RIGHT_X.ForeColor = System.Drawing.Color.White;
             this.BTN_TEACH_AOI_SOCKET_RIGHT_X.Location = new System.Drawing.Point(17, 303);
             this.BTN_TEACH_AOI_SOCKET_RIGHT_X.Name = "BTN_TEACH_AOI_SOCKET_RIGHT_X";
@@ -227,7 +227,7 @@ namespace ZenHandler.Dlg
             this.BTN_TEACH_AOI_SOCKET_LEFT_X.BackColor = System.Drawing.Color.Tan;
             this.BTN_TEACH_AOI_SOCKET_LEFT_X.FlatAppearance.BorderSize = 0;
             this.BTN_TEACH_AOI_SOCKET_LEFT_X.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.BTN_TEACH_AOI_SOCKET_LEFT_X.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.BTN_TEACH_AOI_SOCKET_LEFT_X.Font = new System.Drawing.Font("나눔고딕 ExtraBold", 11.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(129)));
             this.BTN_TEACH_AOI_SOCKET_LEFT_X.ForeColor = System.Drawing.Color.White;
             this.BTN_TEACH_AOI_SOCKET_LEFT_X.Location = new System.Drawing.Point(17, 217);
             this.BTN_TEACH_AOI_SOCKET_LEFT_X.Name = "BTN_TEACH_AOI_SOCKET_LEFT_X";
@@ -259,7 +259,7 @@ namespace ZenHandler.Dlg
         private System.Windows.Forms.Button BTN_TEACH_AOI_SOCKET_LEFT_X;
         private System.Windows.Forms.Label label4;
         private System.Windows.Forms.Label label3;
-        private System.Windows.Forms.Button BTN_TEACH_DATA_SAVE;
+        private System.Windows.Forms.Button Btn_Teach_AoiSocket_Save;
         public System.Windows.Forms.Label LABEL_TEACH_ROSOLUTION_VALUE;
         private System.Windows.Forms.Label label_Resolution;
         private System.Windows.Forms.Button BTN_TEACH_AOI_SOCKET_RIGHT_Z;

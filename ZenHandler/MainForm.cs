@@ -287,7 +287,7 @@ namespace ZenHandler  //ApsMotionControl
             TopPanel.BackColor = ColorTranslator.FromHtml("#FAFAFA");
             MainTitleLabel.ForeColor = ColorTranslator.FromHtml("#8F949F");
             MainTitleLabel.BackColor = Color.Transparent;
-            MainTitleLabel.Text = "Zen Handler V1";
+            MainTitleLabel.Text = "Zen Handler V1 - " + Program.PG_SELECT.ToString();
 
             //-----------------------------------------------
             int MidPanelHeight = LeftPanel.Height;          //Left Middle 패널 높이

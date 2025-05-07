@@ -22,6 +22,7 @@ namespace ZenHandler.MotionControl
 
         public Machine.AoiSocketMachine socketAoiMachine;
         public Machine.EEpromSocketMachine socketEEpromMachine;
+        public Machine.FwSocketMachine socketFwMachine;
 
         
         //#region test
@@ -44,6 +45,7 @@ namespace ZenHandler.MotionControl
             liftMachine = new Machine.LiftMachine();
             socketAoiMachine = new Machine.AoiSocketMachine();
             socketEEpromMachine = new Machine.EEpromSocketMachine();
+            socketFwMachine = new Machine.FwSocketMachine();
 
             transferMachine.OnTrayChangedCall += OnTrayChenge;
 
@@ -55,6 +57,8 @@ namespace ZenHandler.MotionControl
             liftMachine.teachingConfig.LoadTeach(Machine.LiftMachine.teachingPath);
             socketAoiMachine.teachingConfig.LoadTeach(Machine.AoiSocketMachine.teachingPath);
             socketEEpromMachine.teachingConfig.LoadTeach(Machine.EEpromSocketMachine.teachingPath);
+
+            //FwSocket = Teaching 없음
         }
         private void OnTrayChenge(MotorSet.TrayPosition position)
         {
@@ -76,12 +80,16 @@ namespace ZenHandler.MotionControl
             magazineHandler.StopAuto();
             liftMachine.StopAuto();
             socketAoiMachine.StopAuto();
-
+            socketEEpromMachine.StopAuto();
+            socketFwMachine.StopAuto();
+            
 
             transferMachine.MachineClose();
             magazineHandler.MachineClose();
             liftMachine.MachineClose();
             socketAoiMachine.MachineClose();
+            socketEEpromMachine.MachineClose();
+            socketFwMachine.MachineClose();
 
         }
         public void AllMotorParameterSet()
@@ -90,6 +98,8 @@ namespace ZenHandler.MotionControl
             magazineHandler.MotorDataSet();
             liftMachine.MotorDataSet();
             socketAoiMachine.MotorDataSet();
+            socketEEpromMachine.MotorDataSet();
+            socketFwMachine.MotorDataSet();
         }
         public void AllMotorStop()
         {
@@ -99,6 +109,8 @@ namespace ZenHandler.MotionControl
                 magazineHandler.StopAuto();
                 liftMachine.StopAuto();
                 socketAoiMachine.StopAuto();
+                socketEEpromMachine.StopAuto();
+                socketFwMachine.StopAuto();
             }
            
         }
@@ -182,6 +194,15 @@ namespace ZenHandler.MotionControl
                         }
                     }
                 }
+                //------------------------------------------------------------------------------------------------------------
+                //
+                // FW SOCKET UNIT
+                //
+                //
+                //------------------------------------------------------------------------------------------------------------
+
+                //socketFwMachine = Motor XXXXX 없음
+
                 //------------------------------------------------------------------------------------------------------------
                 //
                 // MAGAZINE UNIT
