@@ -32,7 +32,7 @@ namespace ZenHandler.Dlg
 
             int[] inGridWid = new int[] { 150, 80, 80, 80};         //Grid Width
 
-            myTeachingGrid = new Controls.TeachingGridView( Globalo.motionManager.transferMachine.MotorAxes, Globalo.motionManager.transferMachine.teachingConfig, inGridWid, 32);
+            myTeachingGrid = new Controls.TeachingGridView( Globalo.motionManager.transferMachine.MotorAxes, Globalo.motionManager.transferMachine.teachingConfig, inGridWid, 28);
 
             myTeachingGrid.Location = new System.Drawing.Point(150, 10);
             this.groupTeachPcb.Controls.Add(myTeachingGrid);
@@ -75,10 +75,10 @@ namespace ZenHandler.Dlg
 
 
 
-            comboBox_Teach_Picker.Items.Add("Load Picker #1");
-            comboBox_Teach_Picker.Items.Add("Load Picker #2");
-            comboBox_Teach_Picker.Items.Add("Load Picker #3");
-            comboBox_Teach_Picker.Items.Add("Load Picker #4");
+            comboBox_Teach_LoadPicker.Items.Add("Load Picker #1");
+            comboBox_Teach_LoadPicker.Items.Add("Load Picker #2");
+            comboBox_Teach_LoadPicker.Items.Add("Load Picker #3");
+            comboBox_Teach_LoadPicker.Items.Add("Load Picker #4");
 
             comboBox_Teach_UnloadPicker.Items.Add("UnLoad Picker #1");
             comboBox_Teach_UnloadPicker.Items.Add("UnLoad Picker #2");
@@ -86,7 +86,7 @@ namespace ZenHandler.Dlg
             comboBox_Teach_UnloadPicker.Items.Add("UnLoad Picker #4");
 
             
-            comboBox_Teach_Picker.SelectedIndex = 0;  // 첫 번째 항목 선택
+            comboBox_Teach_LoadPicker.SelectedIndex = 0;  // 첫 번째 항목 선택
             comboBox_Teach_UnloadPicker.SelectedIndex = 0;  // 첫 번째 항목 선택
         }
 
@@ -107,8 +107,8 @@ namespace ZenHandler.Dlg
         }
         private void comboBox_Teach_Picker_SelectedIndexChanged(object sender, EventArgs e)
         {
-            int index = comboBox_Teach_Picker.SelectedIndex;
-            string value = comboBox_Teach_Picker.SelectedItem.ToString();
+            int index = comboBox_Teach_LoadPicker.SelectedIndex;
+            string value = comboBox_Teach_LoadPicker.SelectedItem.ToString();
             Console.WriteLine($"comboBox_Teach_Picker 선택된 인덱스: {index}, 값: {value}");
 
             changeComboBoxLoadPickerNo(index);
@@ -124,7 +124,7 @@ namespace ZenHandler.Dlg
         }
         private void GetLoadPickerOffsetData()
         {
-            int PickerNo = comboBox_Teach_Picker.SelectedIndex;
+            int PickerNo = comboBox_Teach_LoadPicker.SelectedIndex;
             Globalo.motionManager.transferMachine.productLayout.LoadTrayOffset[PickerNo].OffsetX = double.Parse(label_Teach_LoadTray_OffsetX_Val.Text);
             Globalo.motionManager.transferMachine.productLayout.LoadTrayOffset[PickerNo].OffsetY = double.Parse(label_Teach_LoadTray_OffsetY_Val.Text);
 
@@ -474,26 +474,142 @@ namespace ZenHandler.Dlg
             Label clickedLabel = sender as Label;
             PicketOffsetInput(clickedLabel);
         }
-
-        private void label_Teach_LoadTray_OffsetX_Click(object sender, EventArgs e)
-        {
-            int PickerNo = comboBox_Teach_Picker.SelectedIndex;
-            //x축 현재위치
-            //Tray 간격
-            //TRAY LOAD POS 가 L, R 두개 있지만 간격 동일해서 아무위치에서 해도될듯
-            //double dOffset = (10.0 - Load Pos X) - (Tray x 간격 * PickerNo); 이동시 Tray 간격은 더해지니 빼준다.
-            //(현재위치 - 티칭위치) - (Tray X 간격 * PickerNo)
-            double TechingPos = Globalo.motionManager.transferMachine.teachingConfig.Teaching[(int)Machine.TransferMachine.eTeachingPosList.LEFT_TRAY_LOAD_POS].Pos[(int)Machine.eTransfer.TRANSFER_X];     //x Axis
-            double CurrentX = Globalo.motionManager.transferMachine.MotorAxes[(int)Machine.eTransfer.TRANSFER_X].EncoderPos;
-            double dOffset = (CurrentX - TechingPos) - (Globalo.motionManager.transferMachine.productLayout.TrayGap.GapX * PickerNo);   //TODO: 마무리안됨
-        }
-
         private void label_Teach_LoadTray_OffsetX_MouseEnter(object sender, EventArgs e)
         {
             TeachingTransferTooltip.SetToolTip(label_Teach_LoadTray_OffsetX, "클릭시 현재 Offset 적용!");
             TeachingTransferTooltip.AutoPopDelay = 3000;
             TeachingTransferTooltip.InitialDelay = 10;
             TeachingTransferTooltip.ShowAlways = false;
+        }
+        private void label_Teach_UnloadTray_OffsetX_MouseEnter(object sender, EventArgs e)
+        {
+            TeachingTransferTooltip.SetToolTip(label_Teach_UnloadTray_OffsetX, "클릭시 현재 Offset 적용!");
+            TeachingTransferTooltip.AutoPopDelay = 3000;
+            TeachingTransferTooltip.InitialDelay = 10;
+            TeachingTransferTooltip.ShowAlways = false;
+        }
+        private void label_Teach_LoadTray_OffsetX_Click(object sender, EventArgs e)
+        {
+            int PickerNo = comboBox_Teach_LoadPicker.SelectedIndex;
+            //x축 현재위치
+            //Tray 간격
+            //TRAY LOAD POS 가 L, R 두개 있지만 간격 동일해서 아무위치에서 해도될듯
+            //double dOffset = (10.0 - Load Pos X) - (Tray x 간격 * PickerNo); 이동시 Tray 간격은 더해지니 빼준다.
+            //(현재위치 - 티칭위치) - (Tray X 간격 * PickerNo)
+
+            
+            double TechingPos = Globalo.motionManager.transferMachine.teachingConfig.Teaching[(int)Machine.TransferMachine.eTeachingPosList.LEFT_TRAY_LOAD_POS].Pos[(int)Machine.eTransfer.TRANSFER_X];     //x Axis
+            double CurrentX = Globalo.motionManager.transferMachine.MotorAxes[(int)Machine.eTransfer.TRANSFER_X].EncoderPos;
+            double dOffset = (CurrentX - TechingPos) - (Globalo.motionManager.transferMachine.productLayout.TrayGap.GapX * PickerNo);   //TODO: 마무리안됨
+            Console.WriteLine($"[Load X]Current X:{CurrentX} , TechingPos:{TechingPos} , dOffset : {dOffset}");
+            
+            label_Teach_LoadTray_OffsetX_Val.Text = dOffset.ToString("0.0##");
+        }
+
+        
+
+        private void label_Teach_LoadTray_OffsetY_Click(object sender, EventArgs e)
+        {
+            int PickerNo = comboBox_Teach_LoadPicker.SelectedIndex;
+
+            double TechingPos = Globalo.motionManager.transferMachine.teachingConfig.Teaching[(int)Machine.TransferMachine.eTeachingPosList.LEFT_TRAY_LOAD_POS].Pos[(int)Machine.eTransfer.TRANSFER_Y];     //x Axis
+            double CurrentY = Globalo.motionManager.transferMachine.MotorAxes[(int)Machine.eTransfer.TRANSFER_Y].EncoderPos;
+            double dOffset = (CurrentY - TechingPos) - (Globalo.motionManager.transferMachine.productLayout.TrayGap.GapY * PickerNo);   //TODO: 마무리안됨
+            Console.WriteLine($"[Load Y] Current Y:{CurrentY} , TechingPos:{TechingPos} , dOffset : {dOffset}");
+
+            label_Teach_LoadTray_OffsetY_Val.Text = dOffset.ToString("0.0##");
+        }
+
+        private void label_Teach_UnloadTray_OffsetX_Click(object sender, EventArgs e)
+        {
+            int PickerNo = comboBox_Teach_UnloadPicker.SelectedIndex;
+            double TechingPos = Globalo.motionManager.transferMachine.teachingConfig.Teaching[(int)Machine.TransferMachine.eTeachingPosList.LEFT_TRAY_UNLOAD_POS].Pos[(int)Machine.eTransfer.TRANSFER_X];     //x Axis
+            double CurrentX = Globalo.motionManager.transferMachine.MotorAxes[(int)Machine.eTransfer.TRANSFER_X].EncoderPos;
+            double dOffset = (CurrentX - TechingPos) - (Globalo.motionManager.transferMachine.productLayout.TrayGap.GapX * PickerNo);   //TODO: 마무리안됨
+            Console.WriteLine($"[Unload X] Current X:{CurrentX} , TechingPos:{TechingPos} , dOffset : {dOffset}");
+
+            label_Teach_UnloadTray_OffsetX_Val.Text = dOffset.ToString("0.0##");
+        }
+
+        private void label_Teach_UnloadTray_OffsetY_Click(object sender, EventArgs e)
+        {
+            int PickerNo = comboBox_Teach_UnloadPicker.SelectedIndex;
+
+            double TechingPos = Globalo.motionManager.transferMachine.teachingConfig.Teaching[(int)Machine.TransferMachine.eTeachingPosList.LEFT_TRAY_UNLOAD_POS].Pos[(int)Machine.eTransfer.TRANSFER_Y];     //x Axis
+            double CurrentY = Globalo.motionManager.transferMachine.MotorAxes[(int)Machine.eTransfer.TRANSFER_Y].EncoderPos;
+            double dOffset = (CurrentY - TechingPos) - (Globalo.motionManager.transferMachine.productLayout.TrayGap.GapY * PickerNo);   //TODO: 마무리안됨
+            Console.WriteLine($"[Unload Y] Current Y:{CurrentY} , TechingPos:{TechingPos} , dOffset : {dOffset}");
+
+            label_Teach_UnloadTray_OffsetY_Val.Text = dOffset.ToString("0.0##");
+        }
+
+        private void label_Teach_Ng_OffsetX_Click(object sender, EventArgs e)
+        {
+            int PickerNo = comboBox_Teach_UnloadPicker.SelectedIndex;
+            double TechingPos = Globalo.motionManager.transferMachine.teachingConfig.Teaching[(int)Machine.TransferMachine.eTeachingPosList.NG_A_UNLOAD].Pos[(int)Machine.eTransfer.TRANSFER_X];     //x Axis
+            double CurrentX = Globalo.motionManager.transferMachine.MotorAxes[(int)Machine.eTransfer.TRANSFER_X].EncoderPos;
+            double dOffset = (CurrentX - TechingPos) - (Globalo.motionManager.transferMachine.productLayout.NgGap.GapX * PickerNo);
+            Console.WriteLine($"[Ng X] Current X:{CurrentX} , TechingPos:{TechingPos} , dOffset : {dOffset}");
+
+            label_Teach_Ng_OffsetX_Val.Text = dOffset.ToString("0.0##");
+        }
+
+        private void label_Teach_Ng_OffsetY_Click(object sender, EventArgs e)
+        {
+            int PickerNo = comboBox_Teach_UnloadPicker.SelectedIndex;
+
+            double TechingPos = Globalo.motionManager.transferMachine.teachingConfig.Teaching[(int)Machine.TransferMachine.eTeachingPosList.NG_A_UNLOAD].Pos[(int)Machine.eTransfer.TRANSFER_Y];     //x Axis
+            double CurrentY = Globalo.motionManager.transferMachine.MotorAxes[(int)Machine.eTransfer.TRANSFER_Y].EncoderPos;
+            double dOffset = (CurrentY - TechingPos) - (Globalo.motionManager.transferMachine.productLayout.NgGap.GapY * PickerNo);
+            Console.WriteLine($"[Ng Y] Current Y:{CurrentY} , TechingPos:{TechingPos} , dOffset : {dOffset}");
+
+            label_Teach_Ng_OffsetY_Val.Text = dOffset.ToString("0.0##");
+        }
+
+        private void label_Teach_LoadSocket_OffsetX_Click(object sender, EventArgs e)
+        {
+            int PickerNo = comboBox_Teach_LoadPicker.SelectedIndex;
+
+            double TechingPos = Globalo.motionManager.transferMachine.teachingConfig.Teaching[(int)Machine.TransferMachine.eTeachingPosList.SOCKET_A_LOAD].Pos[(int)Machine.eTransfer.TRANSFER_X];     //x Axis
+            double CurrentX = Globalo.motionManager.transferMachine.MotorAxes[(int)Machine.eTransfer.TRANSFER_X].EncoderPos;
+            double dOffset = (CurrentX - TechingPos) - (Globalo.motionManager.transferMachine.productLayout.SocketGap.GapX * PickerNo);   //TODO: 마무리안됨
+            Console.WriteLine($"[Socket Load X]Current X:{CurrentX} , TechingPos:{TechingPos} , dOffset : {dOffset}");
+
+            label_Teach_LoadSocket_OffsetX_Val.Text = dOffset.ToString("0.0##");
+        }
+
+        private void label_Teach_LoadSocket_OffsetY_Click(object sender, EventArgs e)
+        {
+            int PickerNo = comboBox_Teach_LoadPicker.SelectedIndex;
+
+            double TechingPos = Globalo.motionManager.transferMachine.teachingConfig.Teaching[(int)Machine.TransferMachine.eTeachingPosList.SOCKET_A_LOAD].Pos[(int)Machine.eTransfer.TRANSFER_Y];     //x Axis
+            double CurrentY = Globalo.motionManager.transferMachine.MotorAxes[(int)Machine.eTransfer.TRANSFER_Y].EncoderPos;
+            double dOffset = (CurrentY - TechingPos) - (Globalo.motionManager.transferMachine.productLayout.SocketGap.GapY * PickerNo);   //TODO: 마무리안됨
+            Console.WriteLine($"[Socket Load Y] Current Y:{CurrentY} , TechingPos:{TechingPos} , dOffset : {dOffset}");
+
+            label_Teach_LoadSocket_OffsetY_Val.Text = dOffset.ToString("0.0##");
+        }
+
+        private void label_Teach_UnloadSocket_OffsetX_Click(object sender, EventArgs e)
+        {
+            int PickerNo = comboBox_Teach_UnloadPicker.SelectedIndex;
+            double TechingPos = Globalo.motionManager.transferMachine.teachingConfig.Teaching[(int)Machine.TransferMachine.eTeachingPosList.SOCKET_A_UNLOAD].Pos[(int)Machine.eTransfer.TRANSFER_X];     //x Axis
+            double CurrentX = Globalo.motionManager.transferMachine.MotorAxes[(int)Machine.eTransfer.TRANSFER_X].EncoderPos;
+            double dOffset = (CurrentX - TechingPos) - (Globalo.motionManager.transferMachine.productLayout.SocketGap.GapX * PickerNo);
+            Console.WriteLine($"[Socket Unload X] Current X:{CurrentX} , TechingPos:{TechingPos} , dOffset : {dOffset}");
+
+            label_Teach_UnloadSocket_OffsetX_Val.Text = dOffset.ToString("0.0##");
+        }
+
+        private void label_Teach_UnloadSocket_OffsetY_Click(object sender, EventArgs e)
+        {
+            int PickerNo = comboBox_Teach_UnloadPicker.SelectedIndex;
+            double TechingPos = Globalo.motionManager.transferMachine.teachingConfig.Teaching[(int)Machine.TransferMachine.eTeachingPosList.SOCKET_A_UNLOAD].Pos[(int)Machine.eTransfer.TRANSFER_Y];     //x Axis
+            double CurrentY = Globalo.motionManager.transferMachine.MotorAxes[(int)Machine.eTransfer.TRANSFER_Y].EncoderPos;
+            double dOffset = (CurrentY - TechingPos) - (Globalo.motionManager.transferMachine.productLayout.SocketGap.GapY * PickerNo);
+            Console.WriteLine($"[Socket Unload Y] Current Y:{CurrentY} , TechingPos:{TechingPos} , dOffset : {dOffset}");
+
+            label_Teach_UnloadSocket_OffsetY_Val.Text = dOffset.ToString("0.0##");
         }
     }
 }

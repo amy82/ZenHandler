@@ -117,6 +117,7 @@ namespace ZenHandler.Dlg
             // 
             this.ComboBox_Language.Cursor = System.Windows.Forms.Cursors.Hand;
             this.ComboBox_Language.DropDownHeight = 120;
+            this.ComboBox_Language.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.ComboBox_Language.Font = new System.Drawing.Font("나눔고딕", 12.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(129)));
             this.ComboBox_Language.FormattingEnabled = true;
             this.ComboBox_Language.IntegralHeight = false;

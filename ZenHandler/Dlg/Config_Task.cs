@@ -147,8 +147,6 @@ namespace ZenHandler.Dlg
                     return;
                 }
             }
-            
-
             if (Globalo.motionManager.transferMachine.pickedProduct.LoadProductInfo[index].State == Machine.PickedProductState.Blank)
             {
                 Globalo.motionManager.transferMachine.pickedProduct.LoadProductInfo[index].State = Machine.PickedProductState.Bcr;

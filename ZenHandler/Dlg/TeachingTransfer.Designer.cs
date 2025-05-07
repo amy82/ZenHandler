@@ -47,7 +47,7 @@ namespace ZenHandler.Dlg
             this.label_Teach_UnloadTray_OffsetY = new System.Windows.Forms.Label();
             this.label_Teach_UnloadTray_OffsetX_Val = new System.Windows.Forms.Label();
             this.label_Teach_UnloadTray_OffsetX = new System.Windows.Forms.Label();
-            this.comboBox_Teach_Picker = new System.Windows.Forms.ComboBox();
+            this.comboBox_Teach_LoadPicker = new System.Windows.Forms.ComboBox();
             this.label_Teach_LoadTray_OffsetY_Val = new System.Windows.Forms.Label();
             this.label_Teach_LoadTray_OffsetY = new System.Windows.Forms.Label();
             this.label_Teach_LoadTray_OffsetX_Val = new System.Windows.Forms.Label();
@@ -86,7 +86,7 @@ namespace ZenHandler.Dlg
             this.groupTeachPcb.Controls.Add(this.label_Teach_UnloadTray_OffsetY);
             this.groupTeachPcb.Controls.Add(this.label_Teach_UnloadTray_OffsetX_Val);
             this.groupTeachPcb.Controls.Add(this.label_Teach_UnloadTray_OffsetX);
-            this.groupTeachPcb.Controls.Add(this.comboBox_Teach_Picker);
+            this.groupTeachPcb.Controls.Add(this.comboBox_Teach_LoadPicker);
             this.groupTeachPcb.Controls.Add(this.label_Teach_LoadTray_OffsetY_Val);
             this.groupTeachPcb.Controls.Add(this.label_Teach_LoadTray_OffsetY);
             this.groupTeachPcb.Controls.Add(this.label_Teach_LoadTray_OffsetX_Val);
@@ -138,6 +138,7 @@ namespace ZenHandler.Dlg
             // label_Teach_Ng_OffsetY
             // 
             this.label_Teach_Ng_OffsetY.BackColor = System.Drawing.Color.Gray;
+            this.label_Teach_Ng_OffsetY.Cursor = System.Windows.Forms.Cursors.Hand;
             this.label_Teach_Ng_OffsetY.Font = new System.Drawing.Font("나눔고딕 ExtraBold", 8.999999F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(129)));
             this.label_Teach_Ng_OffsetY.ForeColor = System.Drawing.Color.WhiteSmoke;
             this.label_Teach_Ng_OffsetY.Location = new System.Drawing.Point(568, 405);
@@ -146,6 +147,7 @@ namespace ZenHandler.Dlg
             this.label_Teach_Ng_OffsetY.TabIndex = 67;
             this.label_Teach_Ng_OffsetY.Text = "Ng Y";
             this.label_Teach_Ng_OffsetY.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            this.label_Teach_Ng_OffsetY.Click += new System.EventHandler(this.label_Teach_Ng_OffsetY_Click);
             // 
             // label_Teach_Ng_OffsetX_Val
             // 
@@ -165,6 +167,7 @@ namespace ZenHandler.Dlg
             // label_Teach_Ng_OffsetX
             // 
             this.label_Teach_Ng_OffsetX.BackColor = System.Drawing.Color.Gray;
+            this.label_Teach_Ng_OffsetX.Cursor = System.Windows.Forms.Cursors.Hand;
             this.label_Teach_Ng_OffsetX.Font = new System.Drawing.Font("나눔고딕 ExtraBold", 8.999999F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(129)));
             this.label_Teach_Ng_OffsetX.ForeColor = System.Drawing.Color.WhiteSmoke;
             this.label_Teach_Ng_OffsetX.Location = new System.Drawing.Point(568, 374);
@@ -173,6 +176,7 @@ namespace ZenHandler.Dlg
             this.label_Teach_Ng_OffsetX.TabIndex = 65;
             this.label_Teach_Ng_OffsetX.Text = "Ng X";
             this.label_Teach_Ng_OffsetX.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            this.label_Teach_Ng_OffsetX.Click += new System.EventHandler(this.label_Teach_Ng_OffsetX_Click);
             // 
             // label_Teach_UnloadSocket_OffsetY_Val
             // 
@@ -192,6 +196,7 @@ namespace ZenHandler.Dlg
             // label_Teach_UnloadSocket_OffsetY
             // 
             this.label_Teach_UnloadSocket_OffsetY.BackColor = System.Drawing.Color.Gray;
+            this.label_Teach_UnloadSocket_OffsetY.Cursor = System.Windows.Forms.Cursors.Hand;
             this.label_Teach_UnloadSocket_OffsetY.Font = new System.Drawing.Font("나눔고딕 ExtraBold", 8.999999F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(129)));
             this.label_Teach_UnloadSocket_OffsetY.ForeColor = System.Drawing.Color.WhiteSmoke;
             this.label_Teach_UnloadSocket_OffsetY.Location = new System.Drawing.Point(568, 343);
@@ -200,6 +205,7 @@ namespace ZenHandler.Dlg
             this.label_Teach_UnloadSocket_OffsetY.TabIndex = 63;
             this.label_Teach_UnloadSocket_OffsetY.Text = "Unload Socket Y";
             this.label_Teach_UnloadSocket_OffsetY.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            this.label_Teach_UnloadSocket_OffsetY.Click += new System.EventHandler(this.label_Teach_UnloadSocket_OffsetY_Click);
             // 
             // label_Teach_UnloadSocket_OffsetX_Val
             // 
@@ -219,6 +225,7 @@ namespace ZenHandler.Dlg
             // label_Teach_UnloadSocket_OffsetX
             // 
             this.label_Teach_UnloadSocket_OffsetX.BackColor = System.Drawing.Color.Gray;
+            this.label_Teach_UnloadSocket_OffsetX.Cursor = System.Windows.Forms.Cursors.Hand;
             this.label_Teach_UnloadSocket_OffsetX.Font = new System.Drawing.Font("나눔고딕 ExtraBold", 8.999999F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(129)));
             this.label_Teach_UnloadSocket_OffsetX.ForeColor = System.Drawing.Color.WhiteSmoke;
             this.label_Teach_UnloadSocket_OffsetX.Location = new System.Drawing.Point(568, 312);
@@ -227,6 +234,7 @@ namespace ZenHandler.Dlg
             this.label_Teach_UnloadSocket_OffsetX.TabIndex = 61;
             this.label_Teach_UnloadSocket_OffsetX.Text = "Unload Socket X";
             this.label_Teach_UnloadSocket_OffsetX.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            this.label_Teach_UnloadSocket_OffsetX.Click += new System.EventHandler(this.label_Teach_UnloadSocket_OffsetX_Click);
             // 
             // label_Teach_LoadSocket_OffsetY_Val
             // 
@@ -246,6 +254,7 @@ namespace ZenHandler.Dlg
             // label_Teach_LoadSocket_OffsetY
             // 
             this.label_Teach_LoadSocket_OffsetY.BackColor = System.Drawing.Color.Gray;
+            this.label_Teach_LoadSocket_OffsetY.Cursor = System.Windows.Forms.Cursors.Hand;
             this.label_Teach_LoadSocket_OffsetY.Font = new System.Drawing.Font("나눔고딕 ExtraBold", 8.999999F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(129)));
             this.label_Teach_LoadSocket_OffsetY.ForeColor = System.Drawing.Color.WhiteSmoke;
             this.label_Teach_LoadSocket_OffsetY.Location = new System.Drawing.Point(568, 135);
@@ -254,6 +263,7 @@ namespace ZenHandler.Dlg
             this.label_Teach_LoadSocket_OffsetY.TabIndex = 59;
             this.label_Teach_LoadSocket_OffsetY.Text = "Load Socket Y";
             this.label_Teach_LoadSocket_OffsetY.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            this.label_Teach_LoadSocket_OffsetY.Click += new System.EventHandler(this.label_Teach_LoadSocket_OffsetY_Click);
             // 
             // label_Teach_LoadSocket_OffsetX_Val
             // 
@@ -273,6 +283,7 @@ namespace ZenHandler.Dlg
             // label_Teach_LoadSocket_OffsetX
             // 
             this.label_Teach_LoadSocket_OffsetX.BackColor = System.Drawing.Color.Gray;
+            this.label_Teach_LoadSocket_OffsetX.Cursor = System.Windows.Forms.Cursors.Hand;
             this.label_Teach_LoadSocket_OffsetX.Font = new System.Drawing.Font("나눔고딕 ExtraBold", 8.999999F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(129)));
             this.label_Teach_LoadSocket_OffsetX.ForeColor = System.Drawing.Color.WhiteSmoke;
             this.label_Teach_LoadSocket_OffsetX.Location = new System.Drawing.Point(568, 104);
@@ -281,6 +292,7 @@ namespace ZenHandler.Dlg
             this.label_Teach_LoadSocket_OffsetX.TabIndex = 57;
             this.label_Teach_LoadSocket_OffsetX.Text = "Load Socket X";
             this.label_Teach_LoadSocket_OffsetX.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            this.label_Teach_LoadSocket_OffsetX.Click += new System.EventHandler(this.label_Teach_LoadSocket_OffsetX_Click);
             // 
             // label_Teach_UnloadTray_OffsetY_Val
             // 
@@ -300,6 +312,7 @@ namespace ZenHandler.Dlg
             // label_Teach_UnloadTray_OffsetY
             // 
             this.label_Teach_UnloadTray_OffsetY.BackColor = System.Drawing.Color.Gray;
+            this.label_Teach_UnloadTray_OffsetY.Cursor = System.Windows.Forms.Cursors.Hand;
             this.label_Teach_UnloadTray_OffsetY.Font = new System.Drawing.Font("나눔고딕 ExtraBold", 8.999999F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(129)));
             this.label_Teach_UnloadTray_OffsetY.ForeColor = System.Drawing.Color.WhiteSmoke;
             this.label_Teach_UnloadTray_OffsetY.Location = new System.Drawing.Point(568, 281);
@@ -308,6 +321,7 @@ namespace ZenHandler.Dlg
             this.label_Teach_UnloadTray_OffsetY.TabIndex = 55;
             this.label_Teach_UnloadTray_OffsetY.Text = "Unload Tray Y";
             this.label_Teach_UnloadTray_OffsetY.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            this.label_Teach_UnloadTray_OffsetY.Click += new System.EventHandler(this.label_Teach_UnloadTray_OffsetY_Click);
             // 
             // label_Teach_UnloadTray_OffsetX_Val
             // 
@@ -327,6 +341,7 @@ namespace ZenHandler.Dlg
             // label_Teach_UnloadTray_OffsetX
             // 
             this.label_Teach_UnloadTray_OffsetX.BackColor = System.Drawing.Color.Gray;
+            this.label_Teach_UnloadTray_OffsetX.Cursor = System.Windows.Forms.Cursors.Hand;
             this.label_Teach_UnloadTray_OffsetX.Font = new System.Drawing.Font("나눔고딕 ExtraBold", 8.999999F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(129)));
             this.label_Teach_UnloadTray_OffsetX.ForeColor = System.Drawing.Color.WhiteSmoke;
             this.label_Teach_UnloadTray_OffsetX.Location = new System.Drawing.Point(568, 250);
@@ -335,18 +350,20 @@ namespace ZenHandler.Dlg
             this.label_Teach_UnloadTray_OffsetX.TabIndex = 53;
             this.label_Teach_UnloadTray_OffsetX.Text = "Unload Tray X";
             this.label_Teach_UnloadTray_OffsetX.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            this.label_Teach_UnloadTray_OffsetX.Click += new System.EventHandler(this.label_Teach_UnloadTray_OffsetX_Click);
+            this.label_Teach_UnloadTray_OffsetX.MouseEnter += new System.EventHandler(this.label_Teach_UnloadTray_OffsetX_MouseEnter);
             // 
-            // comboBox_Teach_Picker
+            // comboBox_Teach_LoadPicker
             // 
-            this.comboBox_Teach_Picker.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
-            this.comboBox_Teach_Picker.Font = new System.Drawing.Font("나눔고딕 ExtraBold", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(129)));
-            this.comboBox_Teach_Picker.FormattingEnabled = true;
-            this.comboBox_Teach_Picker.ItemHeight = 19;
-            this.comboBox_Teach_Picker.Location = new System.Drawing.Point(568, 11);
-            this.comboBox_Teach_Picker.Name = "comboBox_Teach_Picker";
-            this.comboBox_Teach_Picker.Size = new System.Drawing.Size(182, 27);
-            this.comboBox_Teach_Picker.TabIndex = 52;
-            this.comboBox_Teach_Picker.SelectedIndexChanged += new System.EventHandler(this.comboBox_Teach_Picker_SelectedIndexChanged);
+            this.comboBox_Teach_LoadPicker.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.comboBox_Teach_LoadPicker.Font = new System.Drawing.Font("나눔고딕 ExtraBold", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(129)));
+            this.comboBox_Teach_LoadPicker.FormattingEnabled = true;
+            this.comboBox_Teach_LoadPicker.ItemHeight = 19;
+            this.comboBox_Teach_LoadPicker.Location = new System.Drawing.Point(568, 11);
+            this.comboBox_Teach_LoadPicker.Name = "comboBox_Teach_LoadPicker";
+            this.comboBox_Teach_LoadPicker.Size = new System.Drawing.Size(182, 27);
+            this.comboBox_Teach_LoadPicker.TabIndex = 52;
+            this.comboBox_Teach_LoadPicker.SelectedIndexChanged += new System.EventHandler(this.comboBox_Teach_Picker_SelectedIndexChanged);
             // 
             // label_Teach_LoadTray_OffsetY_Val
             // 
@@ -366,6 +383,7 @@ namespace ZenHandler.Dlg
             // label_Teach_LoadTray_OffsetY
             // 
             this.label_Teach_LoadTray_OffsetY.BackColor = System.Drawing.Color.Gray;
+            this.label_Teach_LoadTray_OffsetY.Cursor = System.Windows.Forms.Cursors.Hand;
             this.label_Teach_LoadTray_OffsetY.Font = new System.Drawing.Font("나눔고딕 ExtraBold", 8.999999F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(129)));
             this.label_Teach_LoadTray_OffsetY.ForeColor = System.Drawing.Color.WhiteSmoke;
             this.label_Teach_LoadTray_OffsetY.Location = new System.Drawing.Point(568, 73);
@@ -374,6 +392,7 @@ namespace ZenHandler.Dlg
             this.label_Teach_LoadTray_OffsetY.TabIndex = 50;
             this.label_Teach_LoadTray_OffsetY.Text = "Load Tray Y";
             this.label_Teach_LoadTray_OffsetY.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            this.label_Teach_LoadTray_OffsetY.Click += new System.EventHandler(this.label_Teach_LoadTray_OffsetY_Click);
             // 
             // label_Teach_LoadTray_OffsetX_Val
             // 
@@ -590,7 +609,7 @@ namespace ZenHandler.Dlg
         private System.Windows.Forms.Label label_Teach_LoadTray_OffsetY;
         public System.Windows.Forms.Label label_Teach_LoadTray_OffsetX_Val;
         private System.Windows.Forms.Label label_Teach_LoadTray_OffsetX;
-        private System.Windows.Forms.ComboBox comboBox_Teach_Picker;
+        private System.Windows.Forms.ComboBox comboBox_Teach_LoadPicker;
         public System.Windows.Forms.Label label_Teach_LoadSocket_OffsetY_Val;
         private System.Windows.Forms.Label label_Teach_LoadSocket_OffsetY;
         public System.Windows.Forms.Label label_Teach_LoadSocket_OffsetX_Val;

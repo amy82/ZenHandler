@@ -71,7 +71,8 @@ namespace ZenHandler.Machine
             RIGHT_TRAY_LOAD_POS, RIGHT_TRAY_UNLOAD_POS,
             SOCKET_A_LOAD, SOCKET_A_UNLOAD, SOCKET_B_LOAD, SOCKET_B_UNLOAD, SOCKET_C_LOAD, SOCKET_C_UNLOAD, SOCKET_D_LOAD, SOCKET_D_UNLOAD,
             NG_A_UNLOAD, NG_B_UNLOAD,
-            TOTAL_TRANSFER_TEACHING_COUNT};
+            TOTAL_TRANSFER_TEACHING_COUNT
+        };
 
         public string[] TeachName = { 
             "WAIT_POS",
@@ -79,7 +80,8 @@ namespace ZenHandler.Machine
             "L_TRAY_LOAD_POS", "L_TRAY_UNLOAD_POS",
             "R_TRAY_LOAD_POS", "R_TRAY_UNLOAD_POS",
             "SOCKET_A_LOAD", "SOCKET_A_UNLOAD", "SOCKET_B_LOAD", "SOCKET_B_UNLOAD","SOCKET_C_LOAD", "SOCKET_C_UNLOAD", "SOCKET_D_LOAD", "SOCKET_D_UNLOAD",
-            "NG_A_UNLOAD", "NG_B_UNLOAD"};
+            "NG_A_UNLOAD", "NG_B_UNLOAD"
+        };
 
 
         public const string teachingPath = "Teach_Transfer.yaml";
@@ -1424,6 +1426,7 @@ namespace ZenHandler.Machine
             }
             else if (ePos == eTeachingPosList.LEFT_TRAY_UNLOAD_POS || ePos == eTeachingPosList.RIGHT_TRAY_UNLOAD_POS)
             {
+                //MEMO: FW 모델은 TRAY 에 배출할때 무조건 하나씩 배출해야된다.
                 //TRAY 위 제품 배출 위치 - 티칭위치가 각자 바로 피커 하강해도 되는 위치라서 Tray 간격은 필요 없을듯 
                 //
                 dOffsetPos[0] = Globalo.motionManager.transferMachine.productLayout.UnLoadTrayOffset[PickerNo].OffsetX;
@@ -1450,8 +1453,9 @@ namespace ZenHandler.Machine
             }
             else if (ePos == eTeachingPosList.NG_A_UNLOAD || ePos == eTeachingPosList.NG_B_UNLOAD)
             {
-                dOffsetPos[0] = (Globalo.motionManager.transferMachine.productLayout.NgGap.GapX * TrayX) + Globalo.motionManager.transferMachine.productLayout.UnLoadTrayOffset[PickerNo].OffsetX;
-                dOffsetPos[1] = (Globalo.motionManager.transferMachine.productLayout.NgGap.GapY * TrayY) + Globalo.motionManager.transferMachine.productLayout.UnLoadTrayOffset[PickerNo].OffsetY;
+                //MEMO: Ng는 전모델 픽업 하나씩 내려놔야된다.
+                dOffsetPos[0] = (Globalo.motionManager.transferMachine.productLayout.NgGap.GapX * TrayX) + Globalo.motionManager.transferMachine.productLayout.NgOffset[PickerNo].OffsetX;
+                dOffsetPos[1] = (Globalo.motionManager.transferMachine.productLayout.NgGap.GapY * TrayY) + Globalo.motionManager.transferMachine.productLayout.NgOffset[PickerNo].OffsetY;
             }
             else
             {
