@@ -80,20 +80,20 @@ namespace ZenHandler.Dlg
 
             TeachingTitleLabel.ForeColor = ColorTranslator.FromHtml("#6F6F6F");
 
-            BTN_TEACH_PCB.FlatAppearance.BorderColor = ColorTranslator.FromHtml("#BBBBBB");
+            button_Manual_Transfer.FlatAppearance.BorderColor = ColorTranslator.FromHtml("#BBBBBB");
             BTN_TEACH_LENS.FlatAppearance.BorderColor = ColorTranslator.FromHtml("#BBBBBB");
 
         }
         private void TeachingBtnChange(eManualBtn index)
         {
-            BTN_TEACH_PCB.BackColor = ColorTranslator.FromHtml("#E1E0DF");
+            button_Manual_Transfer.BackColor = ColorTranslator.FromHtml("#E1E0DF");
             BTN_TEACH_LENS.BackColor = ColorTranslator.FromHtml("#E1E0DF");
 
             manualBtnTab = index;
 
             if (manualBtnTab == eManualBtn.TransferTab)
             {
-                BTN_TEACH_PCB.BackColor = ColorTranslator.FromHtml("#FFB230");
+                button_Manual_Transfer.BackColor = ColorTranslator.FromHtml("#FFB230");
                 manualTransfer.Visible = true;
                 //teachingLens.Visible = false;
 

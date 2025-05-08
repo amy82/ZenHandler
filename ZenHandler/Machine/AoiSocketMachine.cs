@@ -93,6 +93,13 @@ namespace ZenHandler.Machine
 
 
         }
+        #region Aoi Socket Machine Io 동작
+        public bool GetIsProductInSocket(int GroupNo, int index , bool bFlag , bool bWait = false)      //각 소켓의 제품 유무 확인 센서
+        {
+            //GroupNo = 좌,우 2Set
+            return false;
+        }
+        #endregion
         public override void MovingStop()
         {
             if (CancelToken != null && !CancelToken.IsCancellationRequested)

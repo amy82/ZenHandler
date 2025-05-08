@@ -81,6 +81,25 @@ namespace ZenHandler.Machine
             bool rtn = Data.TaskDataYaml.TaskSave_Magazine(magazineTray, taskPath);
             return rtn;
         }
+        #region Magazine Machine Io 동작
+        public bool GetMagazineInPosition(int index, bool bFlag, bool bWait = false)       //Magazine 정위치 안착 확인 
+        {
+            return false;
+        }
+        public bool GetTrayUndocked(int index, bool bFlag, bool bWait = false)              //Magazine 과 Loader 사이 Tray 감지
+        {
+            return false;
+        }
+        public bool GetIsTrayOnLoader(int index, bool bFlag, bool bWait = false)              //Loader 에 Tray 유무 확인
+        {
+            return false;
+        }
+        public bool GetIsTrayFrontOfLoader(int index, bool bFlag, bool bWait = false)              //Loader 앞쪽에 Tray 감지 센서  - Magazine에서 Tray 빼기전 유무 확인
+        {
+            return false;
+        }
+
+        #endregion
         public override bool IsMoving()
         {
             if (AutoUnitThread.GetThreadRun() == true)

@@ -39,6 +39,65 @@ namespace ZenHandler.Machine
         {
             //Fw Socket Motor xxxx
         }
+        #region Fw Socket Machine Io 동작
+        public bool GetIsProductInSocket(int GroupNo,  int index, bool bFlag, bool bWait = false)      //각 소켓의 제품 유무 확인 센서
+        {
+            //GroupNo = 앞2 , 뒤2 4Set
+            return false;
+        }
+        public bool GetIsPusherForward(int GroupNo, int index, bool bFlag, bool bWait = false)      //각 소켓의 푸셔 전/후진 확인 센서
+        {
+            //GroupNo = 앞2 , 뒤2 4Set
+            return false;
+        }
+        public bool GetIsPusherUp(int GroupNo, int index, bool bFlag, bool bWait = false)      //각 소켓의 푸셔 상/하강 확인 센서
+        {
+            //GroupNo = 앞2 , 뒤2 4Set
+            return false;
+        }
+        public bool GetIsFlipperRotated(int GroupNo, int index, bool bFlag, bool bWait = false)      //각 소켓의 로테이션 회전 상태 확인
+        {
+            //GroupNo = 앞2 , 뒤2 4Set
+            return false;
+        }
+        public bool GetIsFlipperUp(int GroupNo, int index, bool bFlag, bool bWait = false)      //각 소켓의 로테이션 실린더 상/하강 상태
+        {
+            //GroupNo = 앞2 , 뒤2 4Set
+            return false;
+        }
+
+        public bool FlipperGrip(int GroupNo , int index, bool bFlag, bool bWait = false)        //로테이션 그립 언그립
+        {
+            bool isSuccess = false;
+            //index = -1 이면 전체 동작?
+            return isSuccess;
+        }
+        public bool FlipperRotate(int GroupNo, int index, bool bFlag, bool bWait = false)       //로테이션 회전 동작
+        {
+            bool isSuccess = false;
+            //index = -1 이면 전체 동작?
+            return isSuccess;
+        }
+        public bool FlipperUp(int GroupNo, int index, bool bFlag, bool bWait = false)       //로테이션 상승,하강 동작
+        {
+            bool isSuccess = false;
+            //index = -1 이면 전체 동작?
+            return isSuccess;
+        }
+
+        public bool ContactPusherUp(int GroupNo, int index, bool bFlag, bool bWait = false)       //컨택 푸셔 상승,하강 동작
+        {
+            bool isSuccess = false;
+            //index = -1 이면 전체 동작?
+            return isSuccess;
+        }
+        public bool ContactPusherFor(int GroupNo, int index, bool bFlag, bool bWait = false)       //컨택 푸셔 전진 후진 동작
+        {
+            bool isSuccess = false;
+            //index = -1 이면 전체 동작?
+            return isSuccess;
+        }
+        #endregion
         public override void MovingStop()
         {
             if (CancelToken != null && !CancelToken.IsCancellationRequested)

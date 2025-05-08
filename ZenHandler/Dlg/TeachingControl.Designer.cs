@@ -245,7 +245,7 @@
             // 
             this.BTN_TEACH_MAGAZINE.BackColor = System.Drawing.Color.Tan;
             this.BTN_TEACH_MAGAZINE.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.BTN_TEACH_MAGAZINE.Font = new System.Drawing.Font("맑은 고딕", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(129)));
+            this.BTN_TEACH_MAGAZINE.Font = new System.Drawing.Font("나눔고딕 ExtraBold", 8.999999F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(129)));
             this.BTN_TEACH_MAGAZINE.ForeColor = System.Drawing.Color.White;
             this.BTN_TEACH_MAGAZINE.Location = new System.Drawing.Point(490, 14);
             this.BTN_TEACH_MAGAZINE.Name = "BTN_TEACH_MAGAZINE";
@@ -259,7 +259,7 @@
             // 
             this.BTN_TEACH_TRANSFER.BackColor = System.Drawing.Color.Tan;
             this.BTN_TEACH_TRANSFER.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.BTN_TEACH_TRANSFER.Font = new System.Drawing.Font("맑은 고딕", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(129)));
+            this.BTN_TEACH_TRANSFER.Font = new System.Drawing.Font("나눔고딕 ExtraBold", 8.999999F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(129)));
             this.BTN_TEACH_TRANSFER.ForeColor = System.Drawing.Color.White;
             this.BTN_TEACH_TRANSFER.Location = new System.Drawing.Point(400, 14);
             this.BTN_TEACH_TRANSFER.Name = "BTN_TEACH_TRANSFER";
@@ -294,7 +294,7 @@
             // 
             this.BTN_TEACH_LIFT.BackColor = System.Drawing.Color.Tan;
             this.BTN_TEACH_LIFT.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.BTN_TEACH_LIFT.Font = new System.Drawing.Font("맑은 고딕", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(129)));
+            this.BTN_TEACH_LIFT.Font = new System.Drawing.Font("나눔고딕 ExtraBold", 8.999999F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(129)));
             this.BTN_TEACH_LIFT.ForeColor = System.Drawing.Color.White;
             this.BTN_TEACH_LIFT.Location = new System.Drawing.Point(580, 14);
             this.BTN_TEACH_LIFT.Name = "BTN_TEACH_LIFT";
@@ -308,7 +308,7 @@
             // 
             this.BTN_TEACH_SOCKET.BackColor = System.Drawing.Color.Tan;
             this.BTN_TEACH_SOCKET.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.BTN_TEACH_SOCKET.Font = new System.Drawing.Font("맑은 고딕", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(129)));
+            this.BTN_TEACH_SOCKET.Font = new System.Drawing.Font("나눔고딕 ExtraBold", 8.999999F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(129)));
             this.BTN_TEACH_SOCKET.ForeColor = System.Drawing.Color.White;
             this.BTN_TEACH_SOCKET.Location = new System.Drawing.Point(670, 14);
             this.BTN_TEACH_SOCKET.Name = "BTN_TEACH_SOCKET";

@@ -99,6 +99,60 @@ namespace ZenHandler.Machine
 
 
         }
+        #region Lift Machine Io 동작
+        public bool GetGantryClampFor(bool bFlag, bool bWait = false)
+        {
+            return false;
+        }
+
+        public bool GantryClampFor(bool bFlag, bool bWait = false)        //GANTRY 좌우 전후진 클램프
+        {
+            bool isSuccess = false;
+
+            return isSuccess;
+        }
+        public bool GetPUsherUp(bool bFlag, bool bWait = false)
+        {
+            return false;
+        }
+
+        public bool PusherUp(bool bFlag, bool bWait = false)        //푸셔 상승 , 하강
+        {
+            bool isSuccess = false;
+
+            return isSuccess;
+        }
+        public bool GetPUsherFor(bool bFlag, bool bWait = false)
+        {
+            return false;
+        }
+        public bool PusherFor(bool bFlag, bool bWait = false)       //푸셔 전진 , 후진
+        {
+            bool isSuccess = false;
+
+            return isSuccess;
+        }
+        public bool GetTraySlidePos(int index)                  //슬라이드 정위치 확인
+        {
+            return false;
+        }
+        public bool GetTopTouchSensor(int index)        //TRAY 교체시 리프트 정지 센서
+        {
+            return false;
+        }
+        public bool GetMiddleWaitSensor(int index)        //리프트 대기 위치 확인 센서
+        {
+            return false;
+        }
+        public bool GetIsTrayOnTop(int index)              //LEFT , RIGHT 상단 TRAY 유무 확인
+        {
+            return false;
+        }
+        public bool GetIsTrayOnSlide(int index)              //LEFT , RIGHT SLIDE 위 TRAY 유무 확인
+        {
+            return false;
+        }
+        #endregion
         public override bool IsMoving()
         {
             if (AutoUnitThread.GetThreadRun() == true)
