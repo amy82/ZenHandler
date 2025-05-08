@@ -291,9 +291,9 @@ namespace ZenHandler.Dlg
             GetTaskData();
             Globalo.motionManager.transferMachine.TaskSave();
 
-            
-            Globalo.motionManager.transferMachine.TaskSave();
-            Globalo.pickerInfo.SetPickerInfo();
+
+            Globalo.pickerInfo.SetLoadPickerInfo();
+            Globalo.pickerInfo.SetUnloadPickerInfo();
 
 
             if (Program.PG_SELECT == HANDLER_PG.FW)

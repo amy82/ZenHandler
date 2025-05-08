@@ -239,6 +239,7 @@ namespace ZenHandler.Process
                     Globalo.motionManager.transferMachine.LoadPickerUp(LoadPosx, false);        //Picker 하강
                     nRetStep = 4510;
                     break;
+
                 case 4510:
                     //Picker 하강 확인
                     nRetStep = 4520;
@@ -249,10 +250,27 @@ namespace ZenHandler.Process
                     break;
                 case 4540:
                     //흡착 or 그립 확인
-
+                    LoadPosx = Globalo.motionManager.transferMachine.pickedProduct.LoadTrayPos.X;
+                    Globalo.motionManager.transferMachine.pickedProduct.LoadProductInfo[LoadPosx].State = Machine.PickedProductState.Bcr;       //Bcr Scan ,Load
+                    Globalo.pickerInfo.SetLoadPickerInfo();                 //피커 상태 Display
+                    Globalo.motionManager.transferMachine.TaskSave();       //피커 상태 Save
+                    //
+                    //
                     //흡착 확인되면 Count 1 증가
                     //
                     // ++1
+                    LoadPosx = Globalo.motionManager.transferMachine.pickedProduct.LoadTrayPos.X;
+                    LoadPosy = Globalo.motionManager.transferMachine.pickedProduct.LoadTrayPos.Y;
+                    if (Globalo.motionManager.transferMachine.Position == MotionControl.MotorSet.TrayPosition.Left)
+                    {
+                        Globalo.motionManager.liftMachine.trayProduct.LeftLoadTraySlots[LoadPosy][LoadPosx] = -1;
+                    }
+                    else
+                    {
+                        Globalo.motionManager.liftMachine.trayProduct.RightLoadTraySlots[LoadPosy][LoadPosx] = -1;
+                    }
+                    Globalo.motionManager.liftMachine.trayProduct.LeftLoadTraySlots[LoadPosy][LoadPosx] = -1;// (int)Dlg.TrayStateInfo.LoadTraySlotState.Empty;
+                    Globalo.trayStateInfo.SetUpdateLoadTray(Dlg.TrayStateInfo.TRAY_KIND.LOAD_TRAY_L);
                     Globalo.motionManager.transferMachine.LoadTryAdd(1);        //여기서 Load 픽업 위치 로드한 개수만큼 증가
                     nRetStep = 4560;
                     break;
@@ -424,7 +442,21 @@ namespace ZenHandler.Process
                     break;
 
                 case 7900:
+                    if (Globalo.motionManager.transferMachine.uphStartTime == DateTime.MinValue)
+                    {
+                        // 초기화되지 않음
+                        TimeSpan elapsed = DateTime.Now - Globalo.motionManager.transferMachine.uphStartTime;
+                        //double elapsedMinutes = elapsed.TotalMinutes;
+                        //double elapsedSeconds = elapsed.TotalSeconds;
+                        Globalo.productionInfo.ShowUphTime(elapsed.Seconds);
 
+                        Globalo.motionManager.transferMachine.uphStartTime = DateTime.Now;
+                    }
+                    else
+                    {
+                        // 이미 값이 설정됨
+                    }
+                    
                     break;
             }
             return nRetStep;

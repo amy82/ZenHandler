@@ -233,6 +233,8 @@ namespace ZenHandler.Dlg
             //언어 변경
             string comData = Globalo.yamlManager.configData.DrivingSettings.Language;
             Program.SetLanguage(comData);
+
+            Globalo.trayStateInfo.InitTableLayoutSet();
         }
         private void ProductMaxCountInput(Label label)
         {

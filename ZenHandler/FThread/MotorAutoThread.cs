@@ -17,7 +17,7 @@ namespace ZenHandler.FThread
         public MotorAutoThread(MotionControl.MotorController _parent)
         {
             this.parent = _parent;
-            this.name = "MotorAutoThread";
+            this.name = this.parent.MachineName + " MotorAutoThread";
         }
 
 
@@ -67,13 +67,67 @@ namespace ZenHandler.FThread
             {
                 this.m_nCurrentStep = this.parent.processManager.liftFlow.HomeProcess(this.m_nCurrentStep);
             }
+            else if (this.m_nCurrentStep >= 2000 && this.m_nCurrentStep < 3000)
+            {
+                this.m_nCurrentStep = this.parent.processManager.liftFlow.AutoReady(this.m_nCurrentStep);
+            }
+
+            //1. Left TRAY 투입 Flow - Gantry Left 이동후 진행
+            //2. Left ---->  Right TRAY 이동 Flow -  - Gantry Right 이동후 진행
+            //3. RIGHT TRAY 배출 Flow
+            //4??
         }
         private void MagazineFlow()
         {
             if (this.m_nCurrentStep >= 1000 && this.m_nCurrentStep < 2000)
             {
-                this.m_nCurrentStep = this.parent.processManager.liftFlow.HomeProcess(this.m_nCurrentStep);
+                this.m_nCurrentStep = this.parent.processManager.magazineFlow.HomeProcess(this.m_nCurrentStep);
             }
+            else if (this.m_nCurrentStep >= 2000 && this.m_nCurrentStep < 3000)
+            {
+                this.m_nCurrentStep = this.parent.processManager.magazineFlow.AutoReady(this.m_nCurrentStep);
+            }
+
+            //1.L,R 공통 TRAY Load <-- Magazine Flow (Magazine Load 위치로 Z축 이동후 -> Tray 꺼내서 투입 위치로 Z축 이동)
+            //2.L,R 공통 TRAY Unload --> Magazine Flow (Magazine 원래 위치로 Z축 이동후 -> Y축 이동해서 집어넣기)
+            //3.??
+        }
+
+        private void SocketFlow()
+        {
+            if (this.m_nCurrentStep >= 1000 && this.m_nCurrentStep < 2000)
+            {
+                if (Program.PG_SELECT == HANDLER_PG.FW)
+                {
+                    this.m_nCurrentStep = this.parent.processManager.fwSocketFlow.HomeProcess(this.m_nCurrentStep);
+                }
+                if (Program.PG_SELECT == HANDLER_PG.AOI)
+                {
+                    this.m_nCurrentStep = this.parent.processManager.aoiSocketFlow.HomeProcess(this.m_nCurrentStep);
+                }
+                if (Program.PG_SELECT == HANDLER_PG.EEPROM)
+                {
+                    this.m_nCurrentStep = this.parent.processManager.eepromSocketFlow.HomeProcess(this.m_nCurrentStep);
+                }
+                    
+            }else if (this.m_nCurrentStep >= 2000 && this.m_nCurrentStep < 3000)
+            {
+                if (Program.PG_SELECT == HANDLER_PG.FW)
+                {
+                    this.m_nCurrentStep = this.parent.processManager.fwSocketFlow.AutoReady(this.m_nCurrentStep);
+                }
+                if (Program.PG_SELECT == HANDLER_PG.AOI)
+                {
+                    this.m_nCurrentStep = this.parent.processManager.aoiSocketFlow.AutoReady(this.m_nCurrentStep);
+                }
+                if (Program.PG_SELECT == HANDLER_PG.EEPROM)
+                {
+                    this.m_nCurrentStep = this.parent.processManager.eepromSocketFlow.AutoReady(this.m_nCurrentStep);
+                }
+
+            }
+
+            //EEprom  , Aoi 설비만 Socket 모터 있음 
         }
 
 
@@ -92,7 +146,7 @@ namespace ZenHandler.FThread
                 }
                 else if (this.parent.MachineName == Globalo.motionManager.magazineHandler.GetType().Name)
                 {
-
+                    MagazineFlow();
                 }
                 else if (this.parent.MachineName == Globalo.motionManager.liftMachine.GetType().Name)
                 {
@@ -100,17 +154,49 @@ namespace ZenHandler.FThread
 
                     Console.WriteLine($"{this.parent.MachineName} Process Start: {rtn}");
 
-                    //LiftFlow();
+                    LiftFlow();
 
                     rtn = Globalo.motionManager.transferMachine.IsMoving();
 
                     Console.WriteLine($"{this.parent.MachineName} Process End: {rtn}");
                 }
+                else if (this.parent.MachineName == Globalo.motionManager.socketAoiMachine.GetType().Name ||        //TODO: 확인 필요
+                    this.parent.MachineName == Globalo.motionManager.socketFwMachine.GetType().Name ||
+                    this.parent.MachineName == Globalo.motionManager.socketEEpromMachine.GetType().Name)
+                {
+                    SocketFlow();
+                }
+
             }
             else if(this.m_nCurrentStep < 0)
             {
                 //Pause
-                Globalo.motionManager.transferMachine.RunState = OperationState.Paused;
+                if (this.parent.MachineName == Globalo.motionManager.transferMachine.GetType().Name)
+                {
+                    Globalo.motionManager.transferMachine.RunState = OperationState.Paused;
+                }
+                else if (this.parent.MachineName == Globalo.motionManager.magazineHandler.GetType().Name)
+                {
+                    Globalo.motionManager.magazineHandler.RunState = OperationState.Paused;
+                }
+                else if (this.parent.MachineName == Globalo.motionManager.liftMachine.GetType().Name)
+                {
+                    Globalo.motionManager.liftMachine.RunState = OperationState.Paused;
+                }
+                else if (this.parent.MachineName == Globalo.motionManager.socketAoiMachine.GetType().Name)
+                {
+                    Globalo.motionManager.socketAoiMachine.RunState = OperationState.Paused;
+                }
+                else if (this.parent.MachineName == Globalo.motionManager.socketFwMachine.GetType().Name)
+                {
+                    Globalo.motionManager.socketFwMachine.RunState = OperationState.Paused;
+                }
+                else if (this.parent.MachineName == Globalo.motionManager.socketEEpromMachine.GetType().Name)
+                {
+                    Globalo.motionManager.socketEEpromMachine.RunState = OperationState.Paused;
+                }
+
+                Console.WriteLine($"{this.parent.MachineName} Process Pause");
                 this.Pause();
             }
             else
@@ -119,6 +205,8 @@ namespace ZenHandler.FThread
                 m_nStartStep = 0;
                 m_nEndStep = 0;
                 this.Stop();
+
+                Console.WriteLine($"{this.parent.MachineName} Process Stop");
             }
         }
         protected override void ThreadInit()

@@ -30,7 +30,7 @@
         {
             this.TeachingTitleLabel = new System.Windows.Forms.Label();
             this.BTN_TEACH_LENS = new System.Windows.Forms.Button();
-            this.BTN_TEACH_PCB = new System.Windows.Forms.Button();
+            this.button_Manual_Transfer = new System.Windows.Forms.Button();
             this.SuspendLayout();
             // 
             // TeachingTitleLabel
@@ -47,7 +47,7 @@
             // 
             this.BTN_TEACH_LENS.BackColor = System.Drawing.Color.Tan;
             this.BTN_TEACH_LENS.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.BTN_TEACH_LENS.Font = new System.Drawing.Font("나눔고딕 ExtraBold", 11F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(129)));
+            this.BTN_TEACH_LENS.Font = new System.Drawing.Font("나눔고딕 ExtraBold", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(129)));
             this.BTN_TEACH_LENS.ForeColor = System.Drawing.Color.White;
             this.BTN_TEACH_LENS.Location = new System.Drawing.Point(677, 14);
             this.BTN_TEACH_LENS.Name = "BTN_TEACH_LENS";
@@ -57,19 +57,19 @@
             this.BTN_TEACH_LENS.UseVisualStyleBackColor = false;
             this.BTN_TEACH_LENS.Click += new System.EventHandler(this.BTN_TEACH_LENS_Click);
             // 
-            // BTN_TEACH_PCB
+            // button_Manual_Transfer
             // 
-            this.BTN_TEACH_PCB.BackColor = System.Drawing.Color.Tan;
-            this.BTN_TEACH_PCB.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.BTN_TEACH_PCB.Font = new System.Drawing.Font("나눔고딕 ExtraBold", 11F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(129)));
-            this.BTN_TEACH_PCB.ForeColor = System.Drawing.Color.White;
-            this.BTN_TEACH_PCB.Location = new System.Drawing.Point(584, 14);
-            this.BTN_TEACH_PCB.Name = "BTN_TEACH_PCB";
-            this.BTN_TEACH_PCB.Size = new System.Drawing.Size(87, 44);
-            this.BTN_TEACH_PCB.TabIndex = 33;
-            this.BTN_TEACH_PCB.Text = "PCB";
-            this.BTN_TEACH_PCB.UseVisualStyleBackColor = false;
-            this.BTN_TEACH_PCB.Click += new System.EventHandler(this.BTN_TEACH_PCB_Click);
+            this.button_Manual_Transfer.BackColor = System.Drawing.Color.Tan;
+            this.button_Manual_Transfer.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.button_Manual_Transfer.Font = new System.Drawing.Font("나눔고딕 ExtraBold", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(129)));
+            this.button_Manual_Transfer.ForeColor = System.Drawing.Color.White;
+            this.button_Manual_Transfer.Location = new System.Drawing.Point(584, 14);
+            this.button_Manual_Transfer.Name = "button_Manual_Transfer";
+            this.button_Manual_Transfer.Size = new System.Drawing.Size(87, 44);
+            this.button_Manual_Transfer.TabIndex = 33;
+            this.button_Manual_Transfer.Text = "TRANSFER";
+            this.button_Manual_Transfer.UseVisualStyleBackColor = false;
+            this.button_Manual_Transfer.Click += new System.EventHandler(this.BTN_TEACH_PCB_Click);
             // 
             // ManualControl
             // 
@@ -77,7 +77,7 @@
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.SystemColors.ButtonShadow;
             this.Controls.Add(this.BTN_TEACH_LENS);
-            this.Controls.Add(this.BTN_TEACH_PCB);
+            this.Controls.Add(this.button_Manual_Transfer);
             this.Controls.Add(this.TeachingTitleLabel);
             this.Name = "ManualControl";
             this.Size = new System.Drawing.Size(770, 1018);
@@ -89,6 +89,6 @@
         #endregion
         private System.Windows.Forms.Label TeachingTitleLabel;
         private System.Windows.Forms.Button BTN_TEACH_LENS;
-        private System.Windows.Forms.Button BTN_TEACH_PCB;
+        private System.Windows.Forms.Button button_Manual_Transfer;
     }
 }

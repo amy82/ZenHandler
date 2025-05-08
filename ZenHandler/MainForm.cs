@@ -185,7 +185,8 @@ namespace ZenHandler  //ApsMotionControl
             Globalo.productionInfo.ProductionInfoSet();
             Globalo.productionInfo.PinCountInfoSet();
 
-            Globalo.pickerInfo.SetPickerInfo();
+            Globalo.pickerInfo.SetLoadPickerInfo();
+            Globalo.pickerInfo.SetUnloadPickerInfo();
 
 
             //Console.WriteLine($"Top Panel Size ({TopPanel.Width},{TopPanel.Height})");

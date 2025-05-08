@@ -6,9 +6,9 @@ using System.Threading.Tasks;
 
 namespace ZenHandler.Process
 {
-    public class LiftFlow
+    public class AoiSocketFlow
     {
-        public LiftFlow()
+        public AoiSocketFlow()
         {
 
         }

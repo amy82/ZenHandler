@@ -17,11 +17,12 @@ namespace ZenHandler.Machine
         public MotionControl.MotorAxis[] MotorAxes; // 배열 선언
 
         public string[] axisName = { "LEFT_Y", "LEFT_Z", "RIGHT_Y", "RIGHT_Z" };
+        //Y축 2개 Home 센서 없음 , -Limit으로 원점 진행
 
         private MotorDefine.eMotorType[] motorType = { MotorDefine.eMotorType.LINEAR, MotorDefine.eMotorType.LINEAR, MotorDefine.eMotorType.LINEAR, MotorDefine.eMotorType.LINEAR };
         private AXT_MOTION_LEVEL_MODE[] AXT_SET_LIMIT = { AXT_MOTION_LEVEL_MODE.LOW, AXT_MOTION_LEVEL_MODE.LOW, AXT_MOTION_LEVEL_MODE.LOW, AXT_MOTION_LEVEL_MODE.LOW };
         private AXT_MOTION_LEVEL_MODE[] AXT_SET_SERVO_ALARM = { AXT_MOTION_LEVEL_MODE.LOW, AXT_MOTION_LEVEL_MODE.LOW, AXT_MOTION_LEVEL_MODE.LOW, AXT_MOTION_LEVEL_MODE.LOW };
-        private AXT_MOTION_HOME_DETECT[] MOTOR_HOME_SENSOR = { AXT_MOTION_HOME_DETECT.HomeSensor, AXT_MOTION_HOME_DETECT.HomeSensor, AXT_MOTION_HOME_DETECT.HomeSensor, AXT_MOTION_HOME_DETECT.HomeSensor };
+        private AXT_MOTION_HOME_DETECT[] MOTOR_HOME_SENSOR = { AXT_MOTION_HOME_DETECT.NegEndLimit, AXT_MOTION_HOME_DETECT.HomeSensor, AXT_MOTION_HOME_DETECT.NegEndLimit, AXT_MOTION_HOME_DETECT.HomeSensor };
         private AXT_MOTION_MOVE_DIR[] MOTOR_HOME_DIR = { AXT_MOTION_MOVE_DIR.DIR_CW, AXT_MOTION_MOVE_DIR.DIR_CW, AXT_MOTION_MOVE_DIR.DIR_CW, AXT_MOTION_MOVE_DIR.DIR_CW };
 
         public static double[] MaxSpeeds = { 100.0, 100.0, 100.0, 100.0 };
@@ -80,6 +81,25 @@ namespace ZenHandler.Machine
             bool rtn = Data.TaskDataYaml.TaskSave_Magazine(magazineTray, taskPath);
             return rtn;
         }
+        #region Magazine Machine Io 동작
+        public bool GetMagazineInPosition(int index, bool bFlag, bool bWait = false)       //Magazine 정위치 안착 확인 
+        {
+            return false;
+        }
+        public bool GetTrayUndocked(int index, bool bFlag, bool bWait = false)              //Magazine 과 Loader 사이 Tray 감지
+        {
+            return false;
+        }
+        public bool GetIsTrayOnLoader(int index, bool bFlag, bool bWait = false)              //Loader 에 Tray 유무 확인
+        {
+            return false;
+        }
+        public bool GetIsTrayFrontOfLoader(int index, bool bFlag, bool bWait = false)              //Loader 앞쪽에 Tray 감지 센서  - Magazine에서 Tray 빼기전 유무 확인
+        {
+            return false;
+        }
+
+        #endregion
         public override bool IsMoving()
         {
             if (AutoUnitThread.GetThreadRun() == true)
@@ -131,7 +151,32 @@ namespace ZenHandler.Machine
         }
         public override bool OriginRun()
         {
+            if (AutoUnitThread.GetThreadRun() == true)
+            {
+                return false;
+            }
+            string szLog = "";
 
+            this.RunState = OperationState.OriginRunning;
+            AutoUnitThread.m_nCurrentStep = 1000;          //ORG
+            AutoUnitThread.m_nEndStep = 2000;
+
+            AutoUnitThread.m_nStartStep = AutoUnitThread.m_nCurrentStep;
+
+            bool rtn = AutoUnitThread.Start();
+            if (rtn)
+            {
+                szLog = $"[ORIGIN] Magazine Socket Origin Start";
+                Console.WriteLine($"[ORIGIN] Magazine Socket Origin Start");
+                Globalo.LogPrint("MainForm", szLog);
+            }
+            else
+            {
+                this.RunState = OperationState.Stopped;
+                Console.WriteLine($"[ORIGIN] Magazine Socket Origin Start Fail");
+                szLog = $"[ORIGIN] Magazine Socket Origin Start Fail";
+                Globalo.LogPrint("MainForm", szLog);
+            }
             return false;
         }
         public override void PauseAuto()
@@ -172,13 +217,13 @@ namespace ZenHandler.Machine
             bool rtn = AutoUnitThread.Start();
             if (rtn)
             {
-                Console.WriteLine($"[READY] Transfer Ready Start");
+                Console.WriteLine($"[READY] Magazine Ready Start");
                 Console.WriteLine($"모터 동작 성공.");
             }
             else
             {
                 this.RunState = OperationState.Stopped;
-                Console.WriteLine($"[READY] Transfer Ready Start Fail");
+                Console.WriteLine($"[READY] Magazine Ready Start Fail");
                 Console.WriteLine($"모터 동작 실패.");
             }
 
@@ -187,10 +232,13 @@ namespace ZenHandler.Machine
         public override bool AutoRun()
         {
             bool rtn = true;
-            if (this.RunState != OperationState.PreparationComplete)
+            if (this.RunState != OperationState.Paused)
             {
-                Globalo.LogPrint("MainForm", "[MAGAZINE] 운전준비가 완료되지 않았습니다.", Globalo.eMessageName.M_WARNING);
-                return false;
+                if (this.RunState != OperationState.PreparationComplete)
+                {
+                    Globalo.LogPrint("MainForm", "[MAGAZINE] 운전준비가 완료되지 않았습니다.", Globalo.eMessageName.M_WARNING);
+                    return false;
+                }
             }
 
             if (AutoUnitThread.GetThreadRun() == true)

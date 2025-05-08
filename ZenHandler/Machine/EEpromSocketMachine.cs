@@ -77,10 +77,16 @@ namespace ZenHandler.Machine
         }
         public override bool TaskSave()
         {
-            //bool rtn = Data.TaskDataYaml.TaskSave_Transfer(socketProduct, taskPath);
-            //return rtn;
+            bool rtn = Data.TaskDataYaml.TaskSave_Socket(socketProduct, taskPath);
+            return rtn;
+        }
+        #region EEprom Socket Machine Io 동작
+        public bool GetIsProductInSocket(int GroupNo, int index, bool bFlag, bool bWait = false)      //각 소켓의 제품 유무 확인 센서
+        {
+            //GroupNo = 앞,뒤 2Set
             return false;
         }
+        #endregion
         public override void MotorDataSet()
         {
             int i = 0;
@@ -135,8 +141,29 @@ namespace ZenHandler.Machine
         {
             if (AutoUnitThread.GetThreadRun() == true)
             {
-                //motorAutoThread.Stop();
                 return false;
+            }
+            string szLog = "";
+
+            this.RunState = OperationState.OriginRunning;
+            AutoUnitThread.m_nCurrentStep = 1000;          //ORG
+            AutoUnitThread.m_nEndStep = 2000;
+
+            AutoUnitThread.m_nStartStep = AutoUnitThread.m_nCurrentStep;
+
+            bool rtn = AutoUnitThread.Start();
+            if (rtn)
+            {
+                szLog = $"[ORIGIN] EEprom Socket Origin Start";
+                Console.WriteLine($"[ORIGIN] EEprom Socket Origin Start");
+                Globalo.LogPrint("MainForm", szLog);
+            }
+            else
+            {
+                this.RunState = OperationState.Stopped;
+                Console.WriteLine($"[ORIGIN] EEprom Socket Origin Start Fail");
+                szLog = $"[ORIGIN] EEprom Socket Origin Start Fail";
+                Globalo.LogPrint("MainForm", szLog);
             }
             return true;
         }
@@ -168,13 +195,13 @@ namespace ZenHandler.Machine
             bool rtn = AutoUnitThread.Start();
             if (rtn)
             {
-                Console.WriteLine($"[READY] Transfer Ready Start");
+                Console.WriteLine($"[READY] EEprom Socket Ready Start");
                 Console.WriteLine($"모터 동작 성공.");
             }
             else
             {
                 this.RunState = OperationState.Stopped;
-                Console.WriteLine($"[READY] Transfer Ready Start Fail");
+                Console.WriteLine($"[READY] EEprom Socket Ready Start Fail");
                 Console.WriteLine($"모터 동작 실패.");
             }
 
@@ -191,10 +218,13 @@ namespace ZenHandler.Machine
         public override bool AutoRun()
         {
             bool rtn = true;
-            if (this.RunState != OperationState.PreparationComplete)
+            if (this.RunState != OperationState.Paused)
             {
-                Globalo.LogPrint("MainForm", "[EEPROM SOCKET] 운전준비가 완료되지 않았습니다.", Globalo.eMessageName.M_WARNING);
-                return false;
+                if (this.RunState != OperationState.PreparationComplete)
+                {
+                    Globalo.LogPrint("MainForm", "[EEPROM SOCKET] 운전준비가 완료되지 않았습니다.", Globalo.eMessageName.M_WARNING);
+                    return false;
+                }
             }
 
             if (AutoUnitThread.GetThreadRun() == true)

@@ -32,14 +32,72 @@ namespace ZenHandler.Machine
         }
         public override bool TaskSave()
         {
-            //bool rtn = Data.TaskDataYaml.TaskSave_Transfer(socketProduct, taskPath);
-            //return rtn;
-            return false;
+            bool rtn = Data.TaskDataYaml.TaskSave_Socket(socketProduct, taskPath);
+            return rtn;
         }
         public override void MotorDataSet()
         {
-
+            //Fw Socket Motor xxxx
         }
+        #region Fw Socket Machine Io 동작
+        public bool GetIsProductInSocket(int GroupNo,  int index, bool bFlag, bool bWait = false)      //각 소켓의 제품 유무 확인 센서
+        {
+            //GroupNo = 앞2 , 뒤2 4Set
+            return false;
+        }
+        public bool GetIsPusherForward(int GroupNo, int index, bool bFlag, bool bWait = false)      //각 소켓의 푸셔 전/후진 확인 센서
+        {
+            //GroupNo = 앞2 , 뒤2 4Set
+            return false;
+        }
+        public bool GetIsPusherUp(int GroupNo, int index, bool bFlag, bool bWait = false)      //각 소켓의 푸셔 상/하강 확인 센서
+        {
+            //GroupNo = 앞2 , 뒤2 4Set
+            return false;
+        }
+        public bool GetIsFlipperRotated(int GroupNo, int index, bool bFlag, bool bWait = false)      //각 소켓의 로테이션 회전 상태 확인
+        {
+            //GroupNo = 앞2 , 뒤2 4Set
+            return false;
+        }
+        public bool GetIsFlipperUp(int GroupNo, int index, bool bFlag, bool bWait = false)      //각 소켓의 로테이션 실린더 상/하강 상태
+        {
+            //GroupNo = 앞2 , 뒤2 4Set
+            return false;
+        }
+
+        public bool FlipperGrip(int GroupNo , int index, bool bFlag, bool bWait = false)        //로테이션 그립 언그립
+        {
+            bool isSuccess = false;
+            //index = -1 이면 전체 동작?
+            return isSuccess;
+        }
+        public bool FlipperRotate(int GroupNo, int index, bool bFlag, bool bWait = false)       //로테이션 회전 동작
+        {
+            bool isSuccess = false;
+            //index = -1 이면 전체 동작?
+            return isSuccess;
+        }
+        public bool FlipperUp(int GroupNo, int index, bool bFlag, bool bWait = false)       //로테이션 상승,하강 동작
+        {
+            bool isSuccess = false;
+            //index = -1 이면 전체 동작?
+            return isSuccess;
+        }
+
+        public bool ContactPusherUp(int GroupNo, int index, bool bFlag, bool bWait = false)       //컨택 푸셔 상승,하강 동작
+        {
+            bool isSuccess = false;
+            //index = -1 이면 전체 동작?
+            return isSuccess;
+        }
+        public bool ContactPusherFor(int GroupNo, int index, bool bFlag, bool bWait = false)       //컨택 푸셔 전진 후진 동작
+        {
+            bool isSuccess = false;
+            //index = -1 이면 전체 동작?
+            return isSuccess;
+        }
+        #endregion
         public override void MovingStop()
         {
             if (CancelToken != null && !CancelToken.IsCancellationRequested)
@@ -67,8 +125,29 @@ namespace ZenHandler.Machine
         {
             if (AutoUnitThread.GetThreadRun() == true)
             {
-                //motorAutoThread.Stop();
                 return false;
+            }
+            string szLog = "";
+
+            this.RunState = OperationState.OriginRunning;
+            AutoUnitThread.m_nCurrentStep = 1000;          //ORG
+            AutoUnitThread.m_nEndStep = 2000;
+
+            AutoUnitThread.m_nStartStep = AutoUnitThread.m_nCurrentStep;
+
+            bool rtn = AutoUnitThread.Start();
+            if (rtn)
+            {
+                szLog = $"[ORIGIN] Fw Socket Origin Start";
+                Console.WriteLine($"[ORIGIN] Fw Socket Origin Start");
+                Globalo.LogPrint("MainForm", szLog);
+            }
+            else
+            {
+                this.RunState = OperationState.Stopped;
+                Console.WriteLine($"[ORIGIN] Fw Socket Origin Start Fail");
+                szLog = $"[ORIGIN] Fw Socket Origin Start Fail";
+                Globalo.LogPrint("MainForm", szLog);
             }
             return true;
         }
@@ -79,7 +158,7 @@ namespace ZenHandler.Machine
                 return false;
             }
             this.RunState = OperationState.Preparing;   //TODO: 모터없는 부분이라 확인필요
-            AutoUnitThread.m_nCurrentStep = 2000;
+            AutoUnitThread.m_nCurrentStep = 1000;
             //if (TransferX.OrgState == false || TransferY.OrgState == false || TransferZ.OrgState == false)
             //{
             //    this.RunState = OperationState.OriginRunning;
@@ -125,10 +204,13 @@ namespace ZenHandler.Machine
         public override bool AutoRun()
         {
             bool rtn = true;
-            if (this.RunState != OperationState.PreparationComplete)
+            if (this.RunState != OperationState.Paused)
             {
-                Globalo.LogPrint("MainForm", "[FWSOCKET] 운전준비가 완료되지 않았습니다.", Globalo.eMessageName.M_WARNING);
-                return false;
+                if (this.RunState != OperationState.PreparationComplete)
+                {
+                    Globalo.LogPrint("MainForm", "[FW SOCKET] 운전준비가 완료되지 않았습니다.", Globalo.eMessageName.M_WARNING);
+                    return false;
+                }
             }
 
             if (AutoUnitThread.GetThreadRun() == true)

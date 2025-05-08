@@ -8,15 +8,25 @@ namespace ZenHandler.Process
 {
     public class ProcessManager
     {
-        public PcbProcess pcbProcess;
         public TransferFlow transferFlow;
         public LiftFlow liftFlow;
+        public MagazineFlow magazineFlow;
+
+        public FwSocketFlow fwSocketFlow;
+        public AoiSocketFlow aoiSocketFlow;
+        public EEpromSocketFlow eepromSocketFlow;
+
 
         public ProcessManager()
         {
-            pcbProcess = new PcbProcess();
             transferFlow = new TransferFlow();
             liftFlow = new LiftFlow();
+            magazineFlow = new MagazineFlow();
+            //
+            fwSocketFlow = new FwSocketFlow();
+            aoiSocketFlow = new AoiSocketFlow();
+            eepromSocketFlow = new EEpromSocketFlow();
+
         }
 
 

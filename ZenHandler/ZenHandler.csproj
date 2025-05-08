@@ -425,6 +425,10 @@
     <Compile Include="NumPadForm.Designer.cs">
       <DependentUpon>NumPadForm.cs</DependentUpon>
     </Compile>
+    <Compile Include="Process\FwSocketFlow.cs" />
+    <Compile Include="Process\AoiSocketFlow.cs" />
+    <Compile Include="Process\EEpromSocketFlow.cs" />
+    <Compile Include="Process\MagazineFlow.cs" />
     <Compile Include="Process\LiftFlow.cs" />
     <Compile Include="Process\ManualProcess.cs" />
     <Compile Include="Process\PcbProcess.cs" />

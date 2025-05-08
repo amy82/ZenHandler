@@ -19,11 +19,7 @@ namespace ZenHandler.Machine
         public event Action<MotionControl.MotorSet.TrayPosition> OnTrayChangedCall;
         public MotionControl.MotorSet.TrayPosition Position;        //Tray Load 위치
         public int MotorCnt { get; private set; } = 3;
-
-        //public MotionControl.MotorAxis TransferX;
-        //public MotionControl.MotorAxis TransferY;
-        //public MotionControl.MotorAxis TransferZ;
-
+        
         public MotionControl.MotorAxis[] MotorAxes; // 배열 선언
         public string[] axisName = { "TransferX", "TransferY", "TransferZ" };
         
@@ -82,7 +78,7 @@ namespace ZenHandler.Machine
             "SOCKET_A_LOAD", "SOCKET_A_UNLOAD", "SOCKET_B_LOAD", "SOCKET_B_UNLOAD","SOCKET_C_LOAD", "SOCKET_C_UNLOAD", "SOCKET_D_LOAD", "SOCKET_D_UNLOAD",
             "NG_A_LOAD", "NG_A_UNLOAD","NG_B_LOAD", "NG_B_UNLOAD"
         };
-
+        public DateTime uphStartTime;
 
         public const string teachingPath = "Teach_Transfer.yaml";
         public const string taskPath = "Task_Transfer.yaml";
@@ -92,7 +88,7 @@ namespace ZenHandler.Machine
         public PickedProduct pickedProduct = new PickedProduct();
         public ProductLayout productLayout = new ProductLayout();
 
-        public const int UnLoadCount = 3;
+        public const int UnLoadCount = 2;
         //TODO:  픽업 상태 로드 4개 , 배출 4개 / blank , LOAD , BCR OK , PASS , NG(DEFECT 1 , 2 , 3 , 4)
         //public Dio cylinder;
         //픽업 툴 4개 실린더 Dio 로 지정?
@@ -137,9 +133,16 @@ namespace ZenHandler.Machine
             productLayout = Data.TaskDataYaml.TaskLoad_Layout(LayoutPath);
 
             Position = MotionControl.MotorSet.TrayPosition.Left;
-            //
+            uphStartTime = DateTime.Now;
+            //double elapsedMinutes = (DateTime.Now - uphStartTime).TotalSeconds;//TotalMinutes;
+            TimeSpan elapsed = DateTime.Now - uphStartTime;
+            double elapsedMinutes = elapsed.TotalMinutes;
+            double elapsedSeconds = elapsed.TotalSeconds;
+
+            
+
         }
-        
+
         public override bool TaskSave()     //Picket 상태 저장
         {
             bool rtn = Data.TaskDataYaml.TaskSave_Transfer(pickedProduct, taskPath);
@@ -1558,7 +1561,9 @@ namespace ZenHandler.Machine
                 return false;
             }
 
-            if (MotorAxes[(int)Machine.eTransfer.TRANSFER_X].OrgState == false || MotorAxes[(int)Machine.eTransfer.TRANSFER_Y].OrgState == false || MotorAxes[(int)Machine.eTransfer.TRANSFER_Z].OrgState == false)
+            if (MotorAxes[(int)Machine.eTransfer.TRANSFER_X].OrgState == false || 
+                MotorAxes[(int)Machine.eTransfer.TRANSFER_Y].OrgState == false || 
+                MotorAxes[(int)Machine.eTransfer.TRANSFER_Z].OrgState == false)
             {
                 this.RunState = OperationState.OriginRunning;
                 AutoUnitThread.m_nCurrentStep = 1000;

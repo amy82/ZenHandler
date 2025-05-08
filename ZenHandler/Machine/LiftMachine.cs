@@ -99,6 +99,60 @@ namespace ZenHandler.Machine
 
 
         }
+        #region Lift Machine Io 동작
+        public bool GetGantryClampFor(bool bFlag, bool bWait = false)
+        {
+            return false;
+        }
+
+        public bool GantryClampFor(bool bFlag, bool bWait = false)        //GANTRY 좌우 전후진 클램프
+        {
+            bool isSuccess = false;
+
+            return isSuccess;
+        }
+        public bool GetPUsherUp(bool bFlag, bool bWait = false)
+        {
+            return false;
+        }
+
+        public bool PusherUp(bool bFlag, bool bWait = false)        //푸셔 상승 , 하강
+        {
+            bool isSuccess = false;
+
+            return isSuccess;
+        }
+        public bool GetPUsherFor(bool bFlag, bool bWait = false)
+        {
+            return false;
+        }
+        public bool PusherFor(bool bFlag, bool bWait = false)       //푸셔 전진 , 후진
+        {
+            bool isSuccess = false;
+
+            return isSuccess;
+        }
+        public bool GetTraySlidePos(int index)                  //슬라이드 정위치 확인
+        {
+            return false;
+        }
+        public bool GetTopTouchSensor(int index)        //TRAY 교체시 리프트 정지 센서
+        {
+            return false;
+        }
+        public bool GetMiddleWaitSensor(int index)        //리프트 대기 위치 확인 센서
+        {
+            return false;
+        }
+        public bool GetIsTrayOnTop(int index)              //LEFT , RIGHT 상단 TRAY 유무 확인
+        {
+            return false;
+        }
+        public bool GetIsTrayOnSlide(int index)              //LEFT , RIGHT SLIDE 위 TRAY 유무 확인
+        {
+            return false;
+        }
+        #endregion
         public override bool IsMoving()
         {
             if (AutoUnitThread.GetThreadRun() == true)
@@ -139,21 +193,32 @@ namespace ZenHandler.Machine
         }
         public override bool OriginRun()
         {
-            AutoUnitThread.m_nCurrentStep = 1000;
-
-            AutoUnitThread.m_nStartStep = 1000;
-            AutoUnitThread.m_nEndStep = 20000;
-
             if (AutoUnitThread.GetThreadRun() == true)
             {
-                Console.WriteLine($"원점 동작 중입니다.");
-
-                AutoUnitThread.Stop();
-                Thread.Sleep(300);
+                return false;
             }
+            string szLog = "";
+
+            this.RunState = OperationState.OriginRunning;
+            AutoUnitThread.m_nCurrentStep = 1000;          //ORG
+            AutoUnitThread.m_nEndStep = 2000;
+
+            AutoUnitThread.m_nStartStep = AutoUnitThread.m_nCurrentStep;
+
             bool rtn = AutoUnitThread.Start();
-
-
+            if (rtn)
+            {
+                szLog = $"[ORIGIN] Lift Socket Origin Start";
+                Console.WriteLine($"[ORIGIN] Lift Socket Origin Start");
+                Globalo.LogPrint("MainForm", szLog);
+            }
+            else
+            {
+                this.RunState = OperationState.Stopped;
+                Console.WriteLine($"[ORIGIN] Lift Socket Origin Start Fail");
+                szLog = $"[ORIGIN] Lift Socket Origin Start Fail";
+                Globalo.LogPrint("MainForm", szLog);
+            }
             return rtn;
         }
         public override bool ReadyRun()
@@ -186,13 +251,13 @@ namespace ZenHandler.Machine
             bool rtn = AutoUnitThread.Start();
             if (rtn)
             {
-                Console.WriteLine($"[READY] Transfer Ready Start");
+                Console.WriteLine($"[READY] Lift Ready Start");
                 Console.WriteLine($"모터 동작 성공.");
             }
             else
             {
                 this.RunState = OperationState.Stopped;
-                Console.WriteLine($"[READY] Transfer Ready Start Fail");
+                Console.WriteLine($"[READY] Lift Ready Start Fail");
                 Console.WriteLine($"모터 동작 실패.");
             }
 
@@ -210,10 +275,13 @@ namespace ZenHandler.Machine
         public override bool AutoRun()
         {
             bool rtn = true;
-            if (this.RunState != OperationState.PreparationComplete)
+            if (this.RunState != OperationState.Paused)
             {
-                Globalo.LogPrint("MainForm", "[LIFT] 운전준비가 완료되지 않았습니다.", Globalo.eMessageName.M_WARNING);
-                return false;
+                if (this.RunState != OperationState.PreparationComplete)
+                {
+                    Globalo.LogPrint("MainForm", "[LIFT] 운전준비가 완료되지 않았습니다.", Globalo.eMessageName.M_WARNING);
+                    return false;
+                }
             }
 
             if (AutoUnitThread.GetThreadRun() == true)
