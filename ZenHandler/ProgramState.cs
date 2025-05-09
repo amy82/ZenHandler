@@ -12,7 +12,7 @@ namespace ZenHandler
         Paused,
         AutoRunning,   // 자동운전중
         Preparing,      // 운전준비중
-        PreparationComplete,   //운전준비 완료
+        Standby,   //운전준비 완료
         ManualTesting,   //수동 검사 , Manualthread 진행중
         OriginRunning,      // 원점
         OriginDone

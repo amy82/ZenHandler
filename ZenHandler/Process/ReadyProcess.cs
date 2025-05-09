@@ -1065,7 +1065,7 @@ namespace ZenHandler.Process
                         Console.WriteLine($"운전준비 Processing {i}");
                         //Thread.Sleep(300); // 작업 시간 가정
                     }
-                    ProgramState.CurrentState = OperationState.PreparationComplete;
+                    ProgramState.CurrentState = OperationState.Standby;
                     szLog = $"[READY] 운전준비 완료 [STEP : {nStep}]";
                     Globalo.LogPrint("PcbPrecess", szLog);
                     nRetStep = 30000;

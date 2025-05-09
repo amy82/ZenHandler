@@ -226,8 +226,14 @@ namespace ZenHandler.Machine
         }
         public override bool ReadyRun()
         {
+            if (this.RunState != OperationState.Stopped)
+            {
+                Globalo.LogPrint("MainForm", "[LIFT] 설비 정지상태가 아닙니다.", Globalo.eMessageName.M_WARNING);
+                return false;
+            }
             if (AutoUnitThread.GetThreadRun() == true)
             {
+                Globalo.LogPrint("MainForm", "[LIFT] 설비 정지상태가 아닙니다..", Globalo.eMessageName.M_WARNING);
                 return false;
             }
 
@@ -280,7 +286,7 @@ namespace ZenHandler.Machine
             bool rtn = true;
             if (this.RunState != OperationState.Paused)
             {
-                if (this.RunState != OperationState.PreparationComplete)
+                if (this.RunState != OperationState.Standby)
                 {
                     Globalo.LogPrint("MainForm", "[LIFT] 운전준비가 완료되지 않았습니다.", Globalo.eMessageName.M_WARNING);
                     return false;

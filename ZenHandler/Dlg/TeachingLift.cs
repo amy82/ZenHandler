@@ -40,7 +40,7 @@ namespace ZenHandler.Dlg
             
             changeBtnMotorNo(SelectAxisIndex);
 
-            TeachResolution(Globalo.motionManager.liftMachine.teachingConfig.Resolution[SelectAxisIndex].ToString("0.#"));
+            //TeachResolution(Globalo.motionManager.liftMachine.teachingConfig.Resolution[SelectAxisIndex].ToString("0.#"));
         }
         public void TeachResolution(string val)
         {
@@ -79,7 +79,8 @@ namespace ZenHandler.Dlg
                 myTeachingGrid.MotorStateRun(true);
             }
             myTeachingGrid.ShowTeachingData();
-            TeachResolution(Globalo.motionManager.liftMachine.teachingConfig.Resolution[SelectAxisIndex].ToString("0.#"));
+            changeBtnMotorNo(SelectAxisIndex);
+            //TeachResolution(Globalo.motionManager.liftMachine.teachingConfig.Resolution[SelectAxisIndex].ToString("0.#"));
         }
         public void hidePanel()
         {
@@ -113,7 +114,11 @@ namespace ZenHandler.Dlg
 
 
             myTeachingGrid.changeMotorNo(SelectAxisIndex);
-
+            if (Globalo.motionManager.liftMachine.teachingConfig.Resolution.Count < 1)
+            {
+                Console.WriteLine("liftMachine Resolution Zero");
+                return;
+            }
             TeachResolution(Globalo.motionManager.liftMachine.teachingConfig.Resolution[MotorNo].ToString("0.#"));
 
 

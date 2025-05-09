@@ -16,7 +16,7 @@ namespace ZenHandler.Dlg
         //public event delLogSender eLogSender;       //외부에서 호출할때 사용
         //private ManualPcb manualPcb = new ManualPcb();
         //private ManualLens manualLens = new ManualLens();
-        private UnitControl unitControl;
+        public UnitControl unitControl;
 
         private const int ResultGridRowViewCount = 25;//20;
 

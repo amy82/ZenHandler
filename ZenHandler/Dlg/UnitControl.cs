@@ -71,8 +71,8 @@ namespace ZenHandler.Dlg
 
         private void BlinkTimer_Tick(object sender, EventArgs e)
         {
-            if (Globalo.motionManager.transferMachine.IsMoving() && (Globalo.motionManager.transferMachine.RunState == OperationState.Preparing ||
-                    Globalo.motionManager.transferMachine.RunState == OperationState.OriginRunning))
+            if (Globalo.motionManager.transferMachine.IsMoving() && (Globalo.motionManager.transferMachine.RunState == OperationState.Preparing))
+                   // || Globalo.motionManager.transferMachine.RunState == OperationState.OriginRunning))       //TODO: 원점 동작일때는 일단 빼자
             {
 
                 Console.WriteLine("---ReadyBlinkUnit");
@@ -143,6 +143,8 @@ namespace ZenHandler.Dlg
 
 
             this.label_TransferUnit_Step_Val.Text = Globalo.motionManager.transferMachine.AutoUnitThread.m_nCurrentStep.ToString();
+            this.label_TransferUnit_State_Val.Text = Globalo.motionManager.transferMachine.RunState.ToString();
+
         }
         private void ReadyBlinkUnit(int index)
         {
@@ -151,7 +153,7 @@ namespace ZenHandler.Dlg
         }
         private void UpdateBtnUnit(int index, OperationState state)
         {
-            if (state == OperationState.PreparationComplete)
+            if (state == OperationState.Standby)
             {
                 unitReadyButtons[index].BackColor = ColorReady;
                 unitStopButtons[index].BackColor = ColorDefault;
@@ -187,6 +189,31 @@ namespace ZenHandler.Dlg
         //
         //
         //---------------------------------------------------------------------------------------------------------------------
+        public bool TransferUnit_Origin()
+        {
+            bool bRtn = Globalo.motionManager.transferMachine.OriginRun();
+            if (bRtn)
+            {
+                unitReadyButtons[(int)euNIT.TRANSFER_UNIT].BackColor = ColorDefault;
+                unitStopButtons[(int)euNIT.TRANSFER_UNIT].BackColor = ColorDefault;
+                unitAutoRunButtons[(int)euNIT.TRANSFER_UNIT].BackColor = ColorDefault;
+                unitPauseButtons[(int)euNIT.TRANSFER_UNIT].BackColor = ColorDefault;
+            }
+
+            return bRtn;
+        }
+        public bool TransferUnit_Ready()
+        {
+            bool bRtn = Globalo.motionManager.transferMachine.ReadyRun();
+            if (bRtn)
+            {
+                unitReadyButtons[(int)euNIT.TRANSFER_UNIT].BackColor = ColorReady;
+                unitStopButtons[(int)euNIT.TRANSFER_UNIT].BackColor = ColorDefault;
+                unitAutoRunButtons[(int)euNIT.TRANSFER_UNIT].BackColor = ColorDefault;
+                unitPauseButtons[(int)euNIT.TRANSFER_UNIT].BackColor = ColorDefault;
+            }
+            return bRtn;
+        }
         private void BTN_TRANSFER_UNIT_READY_Click(object sender, EventArgs e)
         {
             MessagePopUpForm messagePopUp = new MessagePopUpForm("", "YES", "NO");
@@ -195,14 +222,8 @@ namespace ZenHandler.Dlg
 
             if (result == DialogResult.Yes)
             {
-                bool bRtn = Globalo.motionManager.transferMachine.ReadyRun();
-                if (bRtn)
-                {
-                    unitReadyButtons[(int)euNIT.TRANSFER_UNIT].BackColor = ColorReady;
-                    unitStopButtons[(int)euNIT.TRANSFER_UNIT].BackColor = ColorDefault;
-                    unitAutoRunButtons[(int)euNIT.TRANSFER_UNIT].BackColor = ColorDefault;
-                    unitPauseButtons[(int)euNIT.TRANSFER_UNIT].BackColor = ColorDefault;
-                }
+                TransferUnit_Ready();
+                
             }
             
             

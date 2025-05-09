@@ -51,6 +51,8 @@ namespace ZenHandler.Dlg
             this.BTN_MAGAZINE_UNIT_READY = new System.Windows.Forms.Button();
             this.label_TransferUnit_Step_Val = new System.Windows.Forms.Label();
             this.label_TransferUnit_Step = new System.Windows.Forms.Label();
+            this.label_TransferUnit_State = new System.Windows.Forms.Label();
+            this.label_TransferUnit_State_Val = new System.Windows.Forms.Label();
             this.SuspendLayout();
             // 
             // label3
@@ -84,7 +86,7 @@ namespace ZenHandler.Dlg
             this.label1.ForeColor = System.Drawing.Color.Black;
             this.label1.Location = new System.Drawing.Point(59, 43);
             this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(295, 23);
+            this.label1.Size = new System.Drawing.Size(314, 23);
             this.label1.TabIndex = 54;
             this.label1.Text = "TRANSFER UNIT";
             this.label1.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
@@ -331,7 +333,7 @@ namespace ZenHandler.Dlg
             this.label_TransferUnit_Step_Val.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.label_TransferUnit_Step_Val.Location = new System.Drawing.Point(270, 102);
             this.label_TransferUnit_Step_Val.Name = "label_TransferUnit_Step_Val";
-            this.label_TransferUnit_Step_Val.Size = new System.Drawing.Size(89, 22);
+            this.label_TransferUnit_Step_Val.Size = new System.Drawing.Size(103, 22);
             this.label_TransferUnit_Step_Val.TabIndex = 75;
             this.label_TransferUnit_Step_Val.Text = "0";
             this.label_TransferUnit_Step_Val.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
@@ -346,11 +348,34 @@ namespace ZenHandler.Dlg
             this.label_TransferUnit_Step.TabIndex = 76;
             this.label_TransferUnit_Step.Text = "Step :";
             // 
+            // label_TransferUnit_State
+            // 
+            this.label_TransferUnit_State.AutoSize = true;
+            this.label_TransferUnit_State.Font = new System.Drawing.Font("나눔고딕", 8.999999F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(129)));
+            this.label_TransferUnit_State.Location = new System.Drawing.Point(272, 139);
+            this.label_TransferUnit_State.Name = "label_TransferUnit_State";
+            this.label_TransferUnit_State.Size = new System.Drawing.Size(43, 14);
+            this.label_TransferUnit_State.TabIndex = 77;
+            this.label_TransferUnit_State.Text = "State :";
+            // 
+            // label_TransferUnit_State_Val
+            // 
+            this.label_TransferUnit_State_Val.BackColor = System.Drawing.Color.White;
+            this.label_TransferUnit_State_Val.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.label_TransferUnit_State_Val.Location = new System.Drawing.Point(270, 155);
+            this.label_TransferUnit_State_Val.Name = "label_TransferUnit_State_Val";
+            this.label_TransferUnit_State_Val.Size = new System.Drawing.Size(103, 22);
+            this.label_TransferUnit_State_Val.TabIndex = 78;
+            this.label_TransferUnit_State_Val.Text = "0";
+            this.label_TransferUnit_State_Val.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
+            // 
             // UnitControl
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 12F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.SystemColors.Control;
+            this.Controls.Add(this.label_TransferUnit_State_Val);
+            this.Controls.Add(this.label_TransferUnit_State);
             this.Controls.Add(this.label_TransferUnit_Step);
             this.Controls.Add(this.label_TransferUnit_Step_Val);
             this.Controls.Add(this.BTN_MAGAZINE_UNIT_PAUSE);
@@ -404,5 +429,7 @@ namespace ZenHandler.Dlg
         private System.Windows.Forms.Button BTN_MAGAZINE_UNIT_READY;
         private System.Windows.Forms.Label label_TransferUnit_Step_Val;
         private System.Windows.Forms.Label label_TransferUnit_Step;
+        private System.Windows.Forms.Label label_TransferUnit_State;
+        private System.Windows.Forms.Label label_TransferUnit_State_Val;
     }
 }

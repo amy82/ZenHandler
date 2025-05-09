@@ -52,7 +52,8 @@ namespace ZenHandler.Dlg
         public bool StartHomeProcess()
         {
             //TRANSFER UNIT
-            if (Globalo.motionManager.transferMachine.OriginRun() == false)
+            
+            if (Globalo.mMainPanel.unitControl.TransferUnit_Origin() == false)
             {
                 Globalo.motionManager.transferMachine.StopAuto();
                 Globalo.LogPrint("ManualCMainFormontrol", "[ORIGIN] TRANSFER UNIT ORIGIN FAIL", Globalo.eMessageName.M_WARNING);
@@ -61,11 +62,37 @@ namespace ZenHandler.Dlg
             {
                 Globalo.LogPrint("ManualCMainFormontrol", "[ORIGIN] TRANSFER UNIT ORIGIN START");
             }
+            if (Program.PG_SELECT == HANDLER_PG.FW)
+            {
+                //MAGAZINE UNIT
+                if (Globalo.motionManager.magazineHandler.OriginRun() == false)
+                {
+                    Globalo.motionManager.magazineHandler.StopAuto();
+                    Globalo.LogPrint("ManualCMainFormontrol", "[ORIGIN] MAGAZINE UNIT ORIGIN FAIL", Globalo.eMessageName.M_WARNING);
+                }
+                else
+                {
+                    Globalo.LogPrint("ManualCMainFormontrol", "[ORIGIN] MAGAZINE UNIT ORIGIN START");
+                }
+            }
+            else
+            {
+                //LIFT UNIT
+                if (Globalo.motionManager.liftMachine.OriginRun() == false)
+                {
+                    Globalo.motionManager.liftMachine.StopAuto();
+                    Globalo.LogPrint("ManualCMainFormontrol", "[ORIGIN] LIFT UNIT ORIGIN FAIL", Globalo.eMessageName.M_WARNING);
+                }
+                else
+                {
+                    Globalo.LogPrint("ManualCMainFormontrol", "[ORIGIN] LIFT UNIT ORIGIN START");
+                }
+            }
             //SOCKET UNIT
 
-            //MAGAZINE UNIT
 
-            //LIFT UNIT
+
+
 
 
             //Globalo.operationPanel.AutoButtonSet(ProgramState.CurrentState);
@@ -195,7 +222,7 @@ namespace ZenHandler.Dlg
                 case OperationState.Paused:
                     BTN_MAIN_PAUSE1.BackColor = ColorTranslator.FromHtml(ButtonColor.BTN_PAUSE_ON);
                     break;
-                case OperationState.PreparationComplete:
+                case OperationState.Standby:
                     BTN_MAIN_READY1.BackColor = ColorTranslator.FromHtml(ButtonColor.BTN_ON);
                     break;
                 case OperationState.Stopped:
@@ -220,10 +247,10 @@ namespace ZenHandler.Dlg
             {
                 _AllState = OperationState.AutoRunning;
             }
-            if (Globalo.motionManager.transferMachine.RunState == OperationState.PreparationComplete && Globalo.motionManager.socketAoiMachine.RunState == OperationState.PreparationComplete &&
-                Globalo.motionManager.liftMachine.RunState == OperationState.PreparationComplete && Globalo.motionManager.magazineHandler.RunState == OperationState.PreparationComplete)
+            if (Globalo.motionManager.transferMachine.RunState == OperationState.Standby && Globalo.motionManager.socketAoiMachine.RunState == OperationState.Standby &&
+                Globalo.motionManager.liftMachine.RunState == OperationState.Standby && Globalo.motionManager.magazineHandler.RunState == OperationState.Standby)
             {
-                _AllState = OperationState.PreparationComplete;
+                _AllState = OperationState.Standby;
             }
             if (Globalo.motionManager.transferMachine.RunState == OperationState.Paused || 
                 Globalo.motionManager.socketAoiMachine.RunState == OperationState.Paused ||
@@ -297,7 +324,7 @@ namespace ZenHandler.Dlg
                     BTN_MAIN_PAUSE1.BackColor = ColorTranslator.FromHtml(ButtonColor.BTN_OFF);
                     BTN_MAIN_STOP1.BackColor = ColorTranslator.FromHtml(ButtonColor.BTN_OFF);
                 }
-                if (_AllState == OperationState.PreparationComplete)
+                if (_AllState == OperationState.Standby)
                 {
                     BTN_MAIN_READY1.BackColor = ColorTranslator.FromHtml(ButtonColor.BTN_ON);
                     BTN_MAIN_START1.BackColor = ColorTranslator.FromHtml(ButtonColor.BTN_OFF);
@@ -462,32 +489,40 @@ namespace ZenHandler.Dlg
         }
         private bool ChkRunState()
         {
-            if (Globalo.motionManager.transferMachine.RunState == OperationState.OriginRunning)
+            if (Globalo.motionManager.transferMachine.RunState != OperationState.Stopped && Globalo.motionManager.transferMachine.RunState != OperationState.OriginDone)
             {
-                Globalo.LogPrint("MainForm", "[INFO] 원점 동작 중 사용 불가", Globalo.eMessageName.M_WARNING);
+                Globalo.LogPrint("MainForm", "[INFO] 설비 정지 상태에서 사용 가능", Globalo.eMessageName.M_WARNING);
                 return false;
             }
-            if (Globalo.motionManager.transferMachine.RunState == OperationState.Preparing)
+            if (Program.PG_SELECT == HANDLER_PG.FW)
             {
-                Globalo.LogPrint("MainForm", "[INFO] 운전 준비 중 사용 불가", Globalo.eMessageName.M_WARNING);
-                return false;
+                if (Globalo.motionManager.magazineHandler.RunState != OperationState.Stopped && Globalo.motionManager.magazineHandler.RunState != OperationState.OriginDone)
+                {
+                    Globalo.LogPrint("MainForm", "[INFO] 설비 정지 상태에서 사용 가능", Globalo.eMessageName.M_WARNING);
+                    return false;
+                }
             }
-            //if (ProgramState.CurrentState == OperationState.ManualTesting)        //TODO: 메뉴얼 쓰레드 확인필요
-            //{
-            //    Globalo.LogPrint("ManualControl", "[INFO] MANUAL 동작 중 사용 불가", Globalo.eMessageName.M_WARNING);
-            //    return false;
-            //}
-            if (Globalo.motionManager.transferMachine.RunState == OperationState.AutoRunning)
+            else
             {
-                Globalo.LogPrint("MainForm", "[INFO] 자동 운전 중 사용 불가", Globalo.eMessageName.M_WARNING);
-                return false;
+                if (Globalo.motionManager.liftMachine.RunState != OperationState.Stopped && Globalo.motionManager.liftMachine.RunState != OperationState.OriginDone)
+                {
+                    Globalo.LogPrint("MainForm", "[INFO] 설비 정지 상태에서 사용 가능", Globalo.eMessageName.M_WARNING);
+                    return false;
+                }
+                if (Globalo.motionManager.socketEEpromMachine.RunState != OperationState.Stopped && Globalo.motionManager.socketEEpromMachine.RunState != OperationState.OriginDone)
+                {
+                    Globalo.LogPrint("MainForm", "[INFO] 설비 정지 상태에서 사용 가능", Globalo.eMessageName.M_WARNING);
+                    return false;
+                }
+                if (Globalo.motionManager.socketAoiMachine.RunState != OperationState.Stopped && Globalo.motionManager.socketAoiMachine.RunState != OperationState.OriginDone)
+                {
+                    Globalo.LogPrint("MainForm", "[INFO] 설비 정지 상태에서 사용 가능", Globalo.eMessageName.M_WARNING);
+                    return false;
+                }
             }
-            if (Globalo.motionManager.transferMachine.RunState == OperationState.Paused)
-            {
-                Globalo.LogPrint("ManualCMainFormontrol", "[INFO] 일시 정지 중 사용 불가", Globalo.eMessageName.M_WARNING);
-                return false;
-            }
-
+                
+            
+            
             return true;
         }
     }//end

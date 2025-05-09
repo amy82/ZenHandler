@@ -324,6 +324,11 @@ namespace ZenHandler.Data
             string filePath = Path.Combine(CPath.BASE_LOG_ALARM_PATH, currentDate, alarmFilePath);
             try
             {
+                string directoryPath = Path.GetDirectoryName(filePath);
+                if (!Directory.Exists(directoryPath)) // 폴더가 존재하지 않으면
+                {
+                    Directory.CreateDirectory(directoryPath); // 폴더 생성
+                }
                 //if (!File.Exists(filePath))       //없으면 생성된다.
                 //    return false;
 

@@ -33,10 +33,11 @@ namespace ZenHandler.Data
             string filePath = Path.Combine(CPath.BASE_ENV_PATH, fileName);
             try
             {
-                //if (!File.Exists(filePath))
-                //{
-                //    return false;
-                //}
+                if (!File.Exists(filePath))
+                {
+                    Globalo.LogPrint("LoadTeach", $"[Teaching] { fileName} Load Fail", Globalo.eMessageName.M_ERROR);
+                    return false;
+                }
                 var Loaded = Data.YamlManager.LoadYaml<TeachingConfig>(filePath);
 
                 if (Loaded == null)
@@ -51,13 +52,21 @@ namespace ZenHandler.Data
                 this.Decel = Loaded.Decel;
                 this.Resolution = Loaded.Resolution;
                 this.Teaching = Loaded.Teaching;
+
                 if (this.Teaching.Count < teachCnt)
                 {
                     for (int i = 0; i < teachCnt - this.Teaching.Count; i++)
                     {
-                        this.Teaching.Add(new TeachingPos { Name = "Pos", Pos = new List<double> { 10.0, 20.0 } });//TODO: 티칭 개수만큼 더해줘야된다.
+                        List<double> Pos = new List<double>();
+                        for (int j = 0; j < axisCount; j++)
+                        {
+                            Pos.Add(0.0);
+                        }
+                        //this.Teaching.Add(new TeachingPos { Name = "Pos", Pos = new List<double> { 10.0, 20.0 } });//TODO: 티칭 개수만큼 더해줘야된다.
+                        this.Teaching.Add(new TeachingPos { Name = "Pos", Pos = Pos });
                     }
-                    Globalo.LogPrint("TeachingDataYaml", $"{fileName} - TEACHING DATA add");
+                    Globalo.LogPrint("TeachingDataYaml", $"{fileName} - TEACHING DATA LOAD FAIL!", Globalo.eMessageName.M_ERROR);
+                    return false;
                 }
                 Globalo.LogPrint("TeachingDataYaml", $"{fileName} - TEACHING DATA LOAD COMPLETE!");
                 return true;
@@ -70,9 +79,15 @@ namespace ZenHandler.Data
                     this.Accel.Add(0.1);
                     this.Decel.Add(0.1);
                     this.Resolution.Add(1000);
-                    this.Teaching.Add(new TeachingPos { Name = "Pos", Pos = new List<double> { 10.0, 20.0 } });
-                    
+                    List<double> Pos = new List<double>();
+                    for (int j = 0; j < axisCount; j++)
+                    {
+                        Pos.Add(0.0);
+                    }
+                    this.Teaching.Add(new TeachingPos { Name = "Pos", Pos = Pos });
+
                 }
+                Globalo.LogPrint("TeachingDataYaml", $"{fileName} - TEACHING DATA LOAD FAIL!", Globalo.eMessageName.M_ERROR);
                 Console.WriteLine($"Error loading MesLoad: {ex.Message}");
                 return false;
             }
