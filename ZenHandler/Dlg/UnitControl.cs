@@ -223,10 +223,7 @@ namespace ZenHandler.Dlg
             if (result == DialogResult.Yes)
             {
                 TransferUnit_Ready();
-                
             }
-            
-            
         }
 
         private void BTN_TRANSFER_UNIT_AUTORUN_Click(object sender, EventArgs e)
@@ -272,26 +269,113 @@ namespace ZenHandler.Dlg
         //
         //
         //---------------------------------------------------------------------------------------------------------------------
+        public bool SocketUnit_Origin()
+        {
+            bool bRtn = true;
+            if (Program.PG_SELECT == HANDLER_PG.FW)
+            {
+                bRtn = Globalo.motionManager.socketFwMachine.OriginRun();
+            }
+            else if (Program.PG_SELECT == HANDLER_PG.AOI)
+            {
+                bRtn = Globalo.motionManager.socketAoiMachine.OriginRun();
 
+            }
+            else
+            {
+                bRtn = Globalo.motionManager.socketEEpromMachine.OriginRun();
+            }
+               
+            if (bRtn)
+            {
+                unitReadyButtons[(int)euNIT.SOCKET_UNIT].BackColor = ColorDefault;
+                unitStopButtons[(int)euNIT.SOCKET_UNIT].BackColor = ColorDefault;
+                unitAutoRunButtons[(int)euNIT.SOCKET_UNIT].BackColor = ColorDefault;
+                unitPauseButtons[(int)euNIT.SOCKET_UNIT].BackColor = ColorDefault;
+            }
+
+            return bRtn;
+        }
+        public bool SocketUnit_Ready()
+        {
+            bool bRtn = true;
+            if (Program.PG_SELECT == HANDLER_PG.FW)
+            {
+                bRtn = Globalo.motionManager.socketFwMachine.ReadyRun();
+            }
+            else if (Program.PG_SELECT == HANDLER_PG.AOI)
+            {
+                bRtn = Globalo.motionManager.socketAoiMachine.ReadyRun();
+
+            }
+            else
+            {
+                bRtn = Globalo.motionManager.socketEEpromMachine.ReadyRun();
+            }
+            if (bRtn)
+            {
+                unitReadyButtons[(int)euNIT.SOCKET_UNIT].BackColor = ColorReady;
+                unitStopButtons[(int)euNIT.SOCKET_UNIT].BackColor = ColorDefault;
+                unitAutoRunButtons[(int)euNIT.SOCKET_UNIT].BackColor = ColorDefault;
+                unitPauseButtons[(int)euNIT.SOCKET_UNIT].BackColor = ColorDefault;
+            }
+            return bRtn;
+        }
 
         private void BTN_SOCKET_UNIT_READY_Click(object sender, EventArgs e)
         {
+            if (Program.PG_SELECT == HANDLER_PG.FW)
+            {
+            }
+            else if (Program.PG_SELECT == HANDLER_PG.AOI)
+            {
 
+            }
+            else
+            {
+            }
         }
 
         private void BTN_SOCKET_UNIT_AUTORUN_Click(object sender, EventArgs e)
         {
+            if (Program.PG_SELECT == HANDLER_PG.FW)
+            {
+            }
+            else if (Program.PG_SELECT == HANDLER_PG.AOI)
+            {
 
+            }
+            else
+            {
+            }
         }
 
         private void BTN_SOCKET_UNIT_STOP_Click(object sender, EventArgs e)
         {
+            if (Program.PG_SELECT == HANDLER_PG.FW)
+            {
+            }
+            else if (Program.PG_SELECT == HANDLER_PG.AOI)
+            {
 
+            }
+            else
+            {
+            }
         }
 
         private void BTN_SOCKET_UNIT_PAUSE_Click(object sender, EventArgs e)
         {
+            if (Program.PG_SELECT == HANDLER_PG.FW)
+            {
+            }
+            else if (Program.PG_SELECT == HANDLER_PG.AOI)
+            {
 
+            }
+            else
+            {
+            }
         }
         //---------------------------------------------------------------------------------------------------------------------
         //
@@ -300,7 +384,31 @@ namespace ZenHandler.Dlg
         //
         //
         //---------------------------------------------------------------------------------------------------------------------
+        public bool MagazineUnit_Origin()
+        {
+            bool bRtn = Globalo.motionManager.magazineHandler.OriginRun();
+            if (bRtn)
+            {
+                unitReadyButtons[(int)euNIT.MAGAZINE_UNIT].BackColor = ColorDefault;
+                unitStopButtons[(int)euNIT.MAGAZINE_UNIT].BackColor = ColorDefault;
+                unitAutoRunButtons[(int)euNIT.MAGAZINE_UNIT].BackColor = ColorDefault;
+                unitPauseButtons[(int)euNIT.MAGAZINE_UNIT].BackColor = ColorDefault;
+            }
 
+            return bRtn;
+        }
+        public bool MagazineUnit_Ready()
+        {
+            bool bRtn = Globalo.motionManager.magazineHandler.ReadyRun();
+            if (bRtn)
+            {
+                unitReadyButtons[(int)euNIT.MAGAZINE_UNIT].BackColor = ColorReady;
+                unitStopButtons[(int)euNIT.MAGAZINE_UNIT].BackColor = ColorDefault;
+                unitAutoRunButtons[(int)euNIT.MAGAZINE_UNIT].BackColor = ColorDefault;
+                unitPauseButtons[(int)euNIT.MAGAZINE_UNIT].BackColor = ColorDefault;
+            }
+            return bRtn;
+        }
         private void BTN_MAGAZINE_UNIT_READY_Click(object sender, EventArgs e)
         {
 
@@ -327,7 +435,31 @@ namespace ZenHandler.Dlg
         //
         //
         //---------------------------------------------------------------------------------------------------------------------
+        public bool LiftUnit_Origin()
+        {
+            bool bRtn = Globalo.motionManager.liftMachine.OriginRun();
+            if (bRtn)
+            {
+                unitReadyButtons[(int)euNIT.LIFT_UNIT].BackColor = ColorDefault;
+                unitStopButtons[(int)euNIT.LIFT_UNIT].BackColor = ColorDefault;
+                unitAutoRunButtons[(int)euNIT.LIFT_UNIT].BackColor = ColorDefault;
+                unitPauseButtons[(int)euNIT.LIFT_UNIT].BackColor = ColorDefault;
+            }
 
+            return bRtn;
+        }
+        public bool LiftUnit_Ready()
+        {
+            bool bRtn = Globalo.motionManager.liftMachine.ReadyRun();
+            if (bRtn)
+            {
+                unitReadyButtons[(int)euNIT.LIFT_UNIT].BackColor = ColorReady;
+                unitStopButtons[(int)euNIT.LIFT_UNIT].BackColor = ColorDefault;
+                unitAutoRunButtons[(int)euNIT.LIFT_UNIT].BackColor = ColorDefault;
+                unitPauseButtons[(int)euNIT.LIFT_UNIT].BackColor = ColorDefault;
+            }
+            return bRtn;
+        }
 
 
         private void BTN_LIFT_UNIT_READY_Click(object sender, EventArgs e)

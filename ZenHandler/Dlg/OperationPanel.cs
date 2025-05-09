@@ -103,7 +103,7 @@ namespace ZenHandler.Dlg
         {
             //TRANSFER UNIT
 
-            if (Globalo.motionManager.transferMachine.ReadyRun() == false)
+            if (Globalo.mMainPanel.unitControl.TransferUnit_Ready() == false)
             {
                 Globalo.motionManager.transferMachine.StopAuto();
                 Globalo.LogPrint("ManualCMainFormontrol", "[READY] TRANSFER UNIT READY FAIL", Globalo.eMessageName.M_WARNING);
@@ -489,14 +489,16 @@ namespace ZenHandler.Dlg
         }
         private bool ChkRunState()
         {
-            if (Globalo.motionManager.transferMachine.RunState != OperationState.Stopped && Globalo.motionManager.transferMachine.RunState != OperationState.OriginDone)
+            if (Globalo.motionManager.transferMachine.RunState != OperationState.Stopped && Globalo.motionManager.transferMachine.RunState != OperationState.OriginDone
+                && Globalo.motionManager.transferMachine.RunState != OperationState.Standby)
             {
                 Globalo.LogPrint("MainForm", "[INFO] 설비 정지 상태에서 사용 가능", Globalo.eMessageName.M_WARNING);
                 return false;
             }
             if (Program.PG_SELECT == HANDLER_PG.FW)
             {
-                if (Globalo.motionManager.magazineHandler.RunState != OperationState.Stopped && Globalo.motionManager.magazineHandler.RunState != OperationState.OriginDone)
+                if (Globalo.motionManager.magazineHandler.RunState != OperationState.Stopped && Globalo.motionManager.magazineHandler.RunState != OperationState.OriginDone
+                    && Globalo.motionManager.magazineHandler.RunState != OperationState.Standby)
                 {
                     Globalo.LogPrint("MainForm", "[INFO] 설비 정지 상태에서 사용 가능", Globalo.eMessageName.M_WARNING);
                     return false;
@@ -504,17 +506,20 @@ namespace ZenHandler.Dlg
             }
             else
             {
-                if (Globalo.motionManager.liftMachine.RunState != OperationState.Stopped && Globalo.motionManager.liftMachine.RunState != OperationState.OriginDone)
+                if (Globalo.motionManager.liftMachine.RunState != OperationState.Stopped && Globalo.motionManager.liftMachine.RunState != OperationState.OriginDone
+                    && Globalo.motionManager.liftMachine.RunState != OperationState.Standby)
                 {
                     Globalo.LogPrint("MainForm", "[INFO] 설비 정지 상태에서 사용 가능", Globalo.eMessageName.M_WARNING);
                     return false;
                 }
-                if (Globalo.motionManager.socketEEpromMachine.RunState != OperationState.Stopped && Globalo.motionManager.socketEEpromMachine.RunState != OperationState.OriginDone)
+                if (Globalo.motionManager.socketEEpromMachine.RunState != OperationState.Stopped && Globalo.motionManager.socketEEpromMachine.RunState != OperationState.OriginDone
+                    && Globalo.motionManager.socketEEpromMachine.RunState != OperationState.Standby)
                 {
                     Globalo.LogPrint("MainForm", "[INFO] 설비 정지 상태에서 사용 가능", Globalo.eMessageName.M_WARNING);
                     return false;
                 }
-                if (Globalo.motionManager.socketAoiMachine.RunState != OperationState.Stopped && Globalo.motionManager.socketAoiMachine.RunState != OperationState.OriginDone)
+                if (Globalo.motionManager.socketAoiMachine.RunState != OperationState.Stopped && Globalo.motionManager.socketAoiMachine.RunState != OperationState.OriginDone
+                    && Globalo.motionManager.socketAoiMachine.RunState != OperationState.Standby)
                 {
                     Globalo.LogPrint("MainForm", "[INFO] 설비 정지 상태에서 사용 가능", Globalo.eMessageName.M_WARNING);
                     return false;
