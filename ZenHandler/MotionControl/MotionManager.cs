@@ -51,12 +51,12 @@ namespace ZenHandler.MotionControl
 
 
 
-            transferMachine.teachingConfig.LoadTeach(Machine.TransferMachine.teachingPath);
-            magazineHandler.teachingConfig.LoadTeach(Machine.MagazineHandler.teachingPath);
+            transferMachine.teachingConfig.LoadTeach(Machine.TransferMachine.teachingPath, transferMachine.MotorCnt, (int)Machine.TransferMachine.eTeachingPosList.TOTAL_TRANSFER_TEACHING_COUNT);   //TODO: 티칭 개수만큼 불러와야되는데 파일에 없으면 못 불러온다
+            magazineHandler.teachingConfig.LoadTeach(Machine.MagazineHandler.teachingPath, magazineHandler.MotorCnt, (int)Machine.MagazineHandler.eTeachingPosList.TOTAL_MAGAZINE_TEACHING_COUNT);
 
-            liftMachine.teachingConfig.LoadTeach(Machine.LiftMachine.teachingPath);
-            socketAoiMachine.teachingConfig.LoadTeach(Machine.AoiSocketMachine.teachingPath);
-            socketEEpromMachine.teachingConfig.LoadTeach(Machine.EEpromSocketMachine.teachingPath);
+            liftMachine.teachingConfig.LoadTeach(Machine.LiftMachine.teachingPath, liftMachine.MotorCnt, (int)Machine.LiftMachine.eTeachingPosList.TOTAL_LIFT_TEACHING_COUNT);
+            socketAoiMachine.teachingConfig.LoadTeach(Machine.AoiSocketMachine.teachingPath, socketAoiMachine.MotorCnt, (int)Machine.AoiSocketMachine.eTeachingAoiPosList.TOTAL_AOI_SOCKET_TEACHING_COUNT);
+            socketEEpromMachine.teachingConfig.LoadTeach(Machine.EEpromSocketMachine.teachingPath, socketEEpromMachine.MotorCnt, (int)Machine.EEpromSocketMachine.eTeachingPosList.TOTAL_SOCKET_TEACHING_COUNT);
 
             //FwSocket = Teaching 없음
         }

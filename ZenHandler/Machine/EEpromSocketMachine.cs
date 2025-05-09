@@ -73,6 +73,20 @@ namespace ZenHandler.Machine
 
 
             socketProduct = Data.TaskDataYaml.TaskLoad_Socket(taskPath);
+            if (socketProduct.SocketInfo_A.Count < 1)
+            {
+                socketProduct.SocketInfo_A.Add(new SocketProductInfo());
+                socketProduct.SocketInfo_A.Add(new SocketProductInfo());
+                socketProduct.SocketInfo_A.Add(new SocketProductInfo());
+                socketProduct.SocketInfo_A.Add(new SocketProductInfo());
+            }
+            if (socketProduct.SocketInfo_B.Count < 1)
+            {
+                socketProduct.SocketInfo_B.Add(new SocketProductInfo());
+                socketProduct.SocketInfo_B.Add(new SocketProductInfo());
+                socketProduct.SocketInfo_B.Add(new SocketProductInfo());
+                socketProduct.SocketInfo_B.Add(new SocketProductInfo());
+            }
 
         }
         public override bool TaskSave()
@@ -97,7 +111,10 @@ namespace ZenHandler.Machine
 
             for (i = 0; i < teachingConfig.Teaching.Count; i++)
             {
-                teachingConfig.Teaching[i].Name = TeachName[i];
+                if (i < TeachName.Length)
+                {
+                    teachingConfig.Teaching[i].Name = TeachName[i];
+                }
             }
 
 

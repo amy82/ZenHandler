@@ -94,7 +94,10 @@ namespace ZenHandler.Machine
 
             for (i = 0; i < teachingConfig.Teaching.Count; i++)
             {
-                teachingConfig.Teaching[i].Name = TeachName[i];
+                if (i < TeachName.Length)
+                {
+                    teachingConfig.Teaching[i].Name = TeachName[i];
+                }
             }
 
 
