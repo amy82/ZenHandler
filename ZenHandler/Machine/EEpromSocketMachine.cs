@@ -73,6 +73,20 @@ namespace ZenHandler.Machine
 
 
             socketProduct = Data.TaskDataYaml.TaskLoad_Socket(taskPath);
+            if (socketProduct.SocketInfo_A.Count < 1)
+            {
+                socketProduct.SocketInfo_A.Add(new SocketProductInfo());
+                socketProduct.SocketInfo_A.Add(new SocketProductInfo());
+                socketProduct.SocketInfo_A.Add(new SocketProductInfo());
+                socketProduct.SocketInfo_A.Add(new SocketProductInfo());
+            }
+            if (socketProduct.SocketInfo_B.Count < 1)
+            {
+                socketProduct.SocketInfo_B.Add(new SocketProductInfo());
+                socketProduct.SocketInfo_B.Add(new SocketProductInfo());
+                socketProduct.SocketInfo_B.Add(new SocketProductInfo());
+                socketProduct.SocketInfo_B.Add(new SocketProductInfo());
+            }
 
         }
         public override bool TaskSave()
@@ -97,7 +111,10 @@ namespace ZenHandler.Machine
 
             for (i = 0; i < teachingConfig.Teaching.Count; i++)
             {
-                teachingConfig.Teaching[i].Name = TeachName[i];
+                if (i < TeachName.Length)
+                {
+                    teachingConfig.Teaching[i].Name = TeachName[i];
+                }
             }
 
 
@@ -165,12 +182,18 @@ namespace ZenHandler.Machine
                 szLog = $"[ORIGIN] EEprom Socket Origin Start Fail";
                 Globalo.LogPrint("MainForm", szLog);
             }
-            return true;
+            return rtn;
         }
         public override bool ReadyRun()
         {
+            if (this.RunState != OperationState.Stopped)
+            {
+                Globalo.LogPrint("MainForm", "[EEPROM SOCKET] 설비 정지상태가 아닙니다.", Globalo.eMessageName.M_WARNING);
+                return false;
+            }
             if (AutoUnitThread.GetThreadRun() == true)
             {
+                Globalo.LogPrint("MainForm", "[EEPROM SOCKET] 설비 정지상태가 아닙니다..", Globalo.eMessageName.M_WARNING);
                 return false;
             }
             if (MotorAxes[(int)Machine.eEEpromSocket.SOCKET_B_X].OrgState == false || MotorAxes[(int)Machine.eEEpromSocket.SOCKET_F_X].OrgState == false)
@@ -220,7 +243,7 @@ namespace ZenHandler.Machine
             bool rtn = true;
             if (this.RunState != OperationState.Paused)
             {
-                if (this.RunState != OperationState.PreparationComplete)
+                if (this.RunState != OperationState.Standby)
                 {
                     Globalo.LogPrint("MainForm", "[EEPROM SOCKET] 운전준비가 완료되지 않았습니다.", Globalo.eMessageName.M_WARNING);
                     return false;

@@ -127,13 +127,22 @@ namespace ZenHandler.Machine
         public override void MotorDataSet()
         {
             int i = 0;
+            if(teachingConfig.Speed.Count < 1)
+            {
+                Console.WriteLine("magazineHandler Speed Zero");
+                return;
+            }
             for (i = 0; i < MotorAxes.Length; i++)
             {
                 MotorAxes[i].setMotorParameter(teachingConfig.Speed[i], teachingConfig.Accel[i], teachingConfig.Decel[i], teachingConfig.Resolution[i]);
             }
             for (i = 0; i < teachingConfig.Teaching.Count; i++)
             {
-                teachingConfig.Teaching[i].Name = TeachName[i];
+                if (i < TeachName.Length)
+                {
+                    teachingConfig.Teaching[i].Name = TeachName[i];
+                }
+                
             }
 
         }
@@ -177,7 +186,7 @@ namespace ZenHandler.Machine
                 szLog = $"[ORIGIN] Magazine Socket Origin Start Fail";
                 Globalo.LogPrint("MainForm", szLog);
             }
-            return false;
+            return rtn;
         }
         public override void PauseAuto()
         {
@@ -190,8 +199,14 @@ namespace ZenHandler.Machine
         }
         public override bool ReadyRun()
         {
+            if (this.RunState != OperationState.Stopped)
+            {
+                Globalo.LogPrint("MainForm", "[MAGAZINE] 설비 정지상태가 아닙니다.", Globalo.eMessageName.M_WARNING);
+                return false;
+            }
             if (AutoUnitThread.GetThreadRun() == true)
             {
+                Globalo.LogPrint("MainForm", "[MAGAZINE] 설비 정지상태가 아닙니다..", Globalo.eMessageName.M_WARNING);
                 return false;
             }
             if (MotorAxes[(int)Machine.eMagazine.MAGAZINE_L_Y].OrgState == false || MotorAxes[(int)Machine.eMagazine.MAGAZINE_L_Z].OrgState == false ||
@@ -234,7 +249,7 @@ namespace ZenHandler.Machine
             bool rtn = true;
             if (this.RunState != OperationState.Paused)
             {
-                if (this.RunState != OperationState.PreparationComplete)
+                if (this.RunState != OperationState.Standby)
                 {
                     Globalo.LogPrint("MainForm", "[MAGAZINE] 운전준비가 완료되지 않았습니다.", Globalo.eMessageName.M_WARNING);
                     return false;

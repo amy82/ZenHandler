@@ -158,7 +158,10 @@ namespace ZenHandler.Machine
 
             for (i = 0; i < teachingConfig.Teaching.Count; i++)
             {
-                teachingConfig.Teaching[i].Name = TeachName[i];
+                if (i < TeachName.Length)
+                {
+                    teachingConfig.Teaching[i].Name = TeachName[i];
+                }
             }
    
 
@@ -1541,6 +1544,7 @@ namespace ZenHandler.Machine
             bool rtn = AutoUnitThread.Start();
             if(rtn)
             {
+                this.RunState = OperationState.OriginRunning;
                 szLog = $"[ORIGIN] Transfer Origin Start";
                 Console.WriteLine($"[ORIGIN] Transfer Origin Start");
                 Globalo.LogPrint("MainForm", szLog);
@@ -1556,8 +1560,14 @@ namespace ZenHandler.Machine
         }
         public override bool ReadyRun()
         {
+            if (this.RunState != OperationState.Stopped && this.RunState != OperationState.OriginDone)
+            {
+                Globalo.LogPrint("MainForm", "[TRANSFER] 설비 정지상태가 아닙니다.", Globalo.eMessageName.M_WARNING);
+                return false;
+            }
             if (AutoUnitThread.GetThreadRun() == true)
             {
+                Globalo.LogPrint("MainForm", "[TRANSFER] 설비 정지상태가 아닙니다..", Globalo.eMessageName.M_WARNING);
                 return false;
             }
 
@@ -1610,7 +1620,7 @@ namespace ZenHandler.Machine
             bool rtn = true;
             if (this.RunState != OperationState.Paused)
             {
-                if (this.RunState != OperationState.PreparationComplete)
+                if (this.RunState != OperationState.Standby)
                 {
                     Globalo.LogPrint("MainForm", "[TRANSFER] 운전준비가 완료되지 않았습니다.", Globalo.eMessageName.M_WARNING);
                     return false;

@@ -124,24 +124,33 @@ namespace ZenHandler.Controls
             int j = 0;
             //double dpos = 0.0;
             string formattedValue = "";
-
-            for (i = 0; i < motorList.Length; i++)
+            try
             {
-                formattedValue = teachingData.Speed[i].ToString(PointFormat);//, CultureInfo.InvariantCulture);     //
-                this[1 + i, selectStartRow + 0].Value = formattedValue;
-                formattedValue = teachingData.Accel[i].ToString(PointFormat);//, CultureInfo.InvariantCulture);
-                this[1 + i, selectStartRow + 1].Value = formattedValue;
-                formattedValue = teachingData.Decel[i].ToString(PointFormat);//, CultureInfo.InvariantCulture);
-                this[1 + i, selectStartRow + 2].Value = formattedValue;
-            }
-
-            for (i = 0; i < teachingData.Teaching.Count; i++)
-            {
-                for (j = 0; j < teachingData.Teaching[i].Pos.Count; j++)
+                for (i = 0; i < motorList.Length; i++)
                 {
-                    formattedValue = teachingData.Teaching[i].Pos[j].ToString(PointFormat, CultureInfo.InvariantCulture);
-                    this[1 + j, 9 + i].Value = formattedValue;
+                    formattedValue = teachingData.Speed[i].ToString(PointFormat);//, CultureInfo.InvariantCulture);     //
+                    this[1 + i, selectStartRow + 0].Value = formattedValue;
+                    formattedValue = teachingData.Accel[i].ToString(PointFormat);//, CultureInfo.InvariantCulture);
+                    this[1 + i, selectStartRow + 1].Value = formattedValue;
+                    formattedValue = teachingData.Decel[i].ToString(PointFormat);//, CultureInfo.InvariantCulture);
+                    this[1 + i, selectStartRow + 2].Value = formattedValue;
                 }
+
+                for (i = 0; i < teachingData.Teaching.Count; i++)
+                {
+                    for (j = 0; j < teachingData.Teaching[i].Pos.Count; j++)
+                    {
+                        formattedValue = teachingData.Teaching[i].Pos[j].ToString(PointFormat, CultureInfo.InvariantCulture);
+                        this[1 + j, 9 + i].Value = formattedValue;
+                    }
+                }
+            
+                
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine($"Error Teaching Data Count Err: {ex.Message}");
+                return;
             }
         }
         private void InitializeGrid()

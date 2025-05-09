@@ -463,18 +463,9 @@ namespace ZenHandler.Process
         }
         public int HomeProcess(int nStep)                 //  원점(1000 ~ 2000)
         {
-            //string szLog = "";
-            //uint duState = 0;
-
-            //bool bRtn = false;
-            //int nLensAxis = 0;
             uint duState = 0;
             bool m_bHomeProc = true;
             bool m_bHomeError = false;
-            //double dAcc = 0.3;
-            //int i = 0;
-
-
             uint duRetCode = 0;
             string szLog = "";
             bool bRtn = false;
@@ -515,13 +506,13 @@ namespace ZenHandler.Process
                     bRtn = Globalo.motionManager.transferMachine.LoadMultiPickerUp(new int[] { 1, 1, 1, 1 }, true);//new int[] { 1, 1, 1, 1 }, true);
                     if (bRtn)
                     {
-                        szLog = $"[ORIGIN] Trnasfer Load PIcker All Up [STEP : {nStep}]";
+                        szLog = $"[ORIGIN] Transfer Load PIcker All Up [STEP : {nStep}]";
                         Globalo.LogPrint("ManualControl", szLog);
                         nRetStep = 1065;
                     }
                     else
                     {
-                        szLog = $"[ORIGIN] Trnasfer Load PIcker All Up Fail [STEP : {nStep}]";
+                        szLog = $"[ORIGIN] Transfer Load PIcker All Up Fail [STEP : {nStep}]";
                         Globalo.LogPrint("ManualControl", szLog, Globalo.eMessageName.M_WARNING);
                         nRetStep *= -1;
                         break;
@@ -534,13 +525,13 @@ namespace ZenHandler.Process
                     bRtn = Globalo.motionManager.transferMachine.UnloadMultiPickerUp(new int[] { 1, 1, 1, 1 }, true);
                     if (bRtn)
                     {
-                        szLog = $"[ORIGIN] Trnasfer Unload PIcker All Up [STEP : {nStep}]";
+                        szLog = $"[ORIGIN] Transfer Unload PIcker All Up [STEP : {nStep}]";
                         Globalo.LogPrint("ManualControl", szLog);
                         nRetStep = 1070;
                     }
                     else
                     {
-                        szLog = $"[ORIGIN] Trnasfer Unload PIcker All Up Fail [STEP : {nStep}]";
+                        szLog = $"[ORIGIN] Transfer Unload PIcker All Up Fail [STEP : {nStep}]";
                         Globalo.LogPrint("ManualControl", szLog, Globalo.eMessageName.M_WARNING);
                         nRetStep *= -1;
                         break;
@@ -553,13 +544,13 @@ namespace ZenHandler.Process
                     bRtn = Globalo.motionManager.transferMachine.GetLoadMultiPickerUp(new int[] { 1, 1, 1, 1 }, true);
                     if (bRtn)
                     {
-                        szLog = $"[ORIGIN] Trnasfer Load PIcker All Up Complete[STEP : {nStep}]";
+                        szLog = $"[ORIGIN] Transfer Load PIcker All Up Complete[STEP : {nStep}]";
                         Globalo.LogPrint("ManualControl", szLog);
                         nRetStep = 1080;
                     }
                     else
                     {
-                        szLog = $"[ORIGIN] Trnasfer Load PIcker All Up Complete Fail [STEP : {nStep}]";
+                        szLog = $"[ORIGIN] Transfer Load PIcker All Up Complete Fail [STEP : {nStep}]";
                         Globalo.LogPrint("ManualControl", szLog, Globalo.eMessageName.M_WARNING);
                         nRetStep *= -1;
                         break;
@@ -570,13 +561,13 @@ namespace ZenHandler.Process
                     bRtn = Globalo.motionManager.transferMachine.GetUnloadMultiPickerUp(new int[] { 1, 1, 1, 1 }, true);
                     if (bRtn)
                     {
-                        szLog = $"[ORIGIN] Trnasfer Unload PIcker All Up Complete[STEP : {nStep}]";
+                        szLog = $"[ORIGIN] Transfer Unload PIcker All Up Complete[STEP : {nStep}]";
                         Globalo.LogPrint("ManualControl", szLog);
                         nRetStep = 1090;
                     }
                     else
                     {
-                        szLog = $"[ORIGIN] Trnasfer Unload PIcker All Up Complete Fail [STEP : {nStep}]";
+                        szLog = $"[ORIGIN] Transfer Unload PIcker All Up Complete Fail [STEP : {nStep}]";
                         Globalo.LogPrint("ManualControl", szLog, Globalo.eMessageName.M_WARNING);
                         nRetStep *= -1;
                         break;
@@ -749,6 +740,11 @@ namespace ZenHandler.Process
                 case 1260:
                     if (ProgramState.ON_LINE_MOTOR == false)
                     {
+                        for (int i = 0; i < Globalo.motionManager.transferMachine.MotorAxes.Length; i++)
+                        {
+                            Globalo.motionManager.transferMachine.MotorAxes[i].OrgState = true;
+                        }
+                            
                         nRetStep = 1900;
                         break;
                     }
@@ -874,6 +870,7 @@ namespace ZenHandler.Process
                     break;
 
                 case 1900:
+                    Globalo.motionManager.transferMachine.RunState = OperationState.OriginDone;
                     szLog = $"[ORIGIN] TRANSFER UNIT 전체 원점 위치 이동 완료 [STEP : {nStep}]";
                     Globalo.LogPrint("ManualControl", szLog);
                     nRetStep = 2000;
@@ -917,13 +914,13 @@ namespace ZenHandler.Process
                     bRtn = Globalo.motionManager.transferMachine.LoadMultiPickerUp(new int[] { 1, 1, 1, 1 }, true);
                     if (bRtn)
                     {
-                        szLog = $"[READY] Trnasfer Load PIcker All Up [STEP : {nStep}]";
+                        szLog = $"[READY] Transfer Load PIcker All Up [STEP : {nStep}]";
                         Globalo.LogPrint("ManualControl", szLog);
                         nRetStep = 2040;
                     }
                     else
                     {
-                        szLog = $"[READY] Trnasfer Load PIcker All Up Fail [STEP : {nStep}]";
+                        szLog = $"[READY] Transfer Load PIcker All Up Fail [STEP : {nStep}]";
                         Globalo.LogPrint("ManualControl", szLog, Globalo.eMessageName.M_WARNING);
                         nRetStep *= -1;
                         break;
@@ -934,13 +931,13 @@ namespace ZenHandler.Process
                     bRtn = Globalo.motionManager.transferMachine.UnloadMultiPickerUp(new int[] { 1, 1, 1, 1 }, true);
                     if (bRtn)
                     {
-                        szLog = $"[READY] Trnasfer Unload PIcker All Up [STEP : {nStep}]";
+                        szLog = $"[READY] Transfer Unload PIcker All Up [STEP : {nStep}]";
                         Globalo.LogPrint("ManualControl", szLog);
                         nRetStep = 2060;
                     }
                     else
                     {
-                        szLog = $"[READY] Trnasfer Unload PIcker All Up Fail [STEP : {nStep}]";
+                        szLog = $"[READY] Transfer Unload PIcker All Up Fail [STEP : {nStep}]";
                         Globalo.LogPrint("ManualControl", szLog, Globalo.eMessageName.M_WARNING);
                         nRetStep *= -1;
                         break;
@@ -951,13 +948,13 @@ namespace ZenHandler.Process
                     bRtn = Globalo.motionManager.transferMachine.GetLoadMultiPickerUp(new int[] { 1, 1, 1, 1 }, true);
                     if (bRtn)
                     {
-                        szLog = $"[READY] Trnasfer Load PIcker All Up Complete[STEP : {nStep}]";
+                        szLog = $"[READY] Transfer Load PIcker All Up Complete[STEP : {nStep}]";
                         Globalo.LogPrint("ManualControl", szLog);
                         nRetStep = 2080;
                     }
                     else
                     {
-                        szLog = $"[READY] Trnasfer Load PIcker All Up Complete Fail [STEP : {nStep}]";
+                        szLog = $"[READY] Transfer Load PIcker All Up Complete Fail [STEP : {nStep}]";
                         Globalo.LogPrint("ManualControl", szLog, Globalo.eMessageName.M_WARNING);
                         nRetStep *= -1;
                         break;
@@ -967,13 +964,13 @@ namespace ZenHandler.Process
                     bRtn = Globalo.motionManager.transferMachine.GetUnloadMultiPickerUp(new int[] { 1, 1, 1, 1 }, true);
                     if (bRtn)
                     {
-                        szLog = $"[READY] Trnasfer Unload PIcker All Up Complete[STEP : {nStep}]";
+                        szLog = $"[READY] Transfer Unload PIcker All Up Complete[STEP : {nStep}]";
                         Globalo.LogPrint("ManualControl", szLog);
                         nRetStep = 2100;
                     }
                     else
                     {
-                        szLog = $"[READY] Trnasfer Unload PIcker All Up Complete Fail [STEP : {nStep}]";
+                        szLog = $"[READY] Transfer Unload PIcker All Up Complete Fail [STEP : {nStep}]";
                         Globalo.LogPrint("ManualControl", szLog, Globalo.eMessageName.M_WARNING);
                         nRetStep *= -1;
                         break;
@@ -1081,7 +1078,7 @@ namespace ZenHandler.Process
                     nRetStep = 2900;
                     break;
                 case 2900:
-                    Globalo.motionManager.transferMachine.RunState = OperationState.PreparationComplete;
+                    Globalo.motionManager.transferMachine.RunState = OperationState.Standby;
                     szLog = $"[READY] TRANSFER 운전준비 완료 [STEP : {nStep}]";
                     Globalo.LogPrint("ManualControl", szLog);
                     nRetStep = 3000;

@@ -69,10 +69,12 @@ namespace ZenHandler.Dlg
             blinkTimer.Stop();
         }
 
+        #region [BlinkTimer_Tick]
+       
         private void BlinkTimer_Tick(object sender, EventArgs e)
         {
-            if (Globalo.motionManager.transferMachine.IsMoving() && (Globalo.motionManager.transferMachine.RunState == OperationState.Preparing ||
-                    Globalo.motionManager.transferMachine.RunState == OperationState.OriginRunning))
+            if (Globalo.motionManager.transferMachine.IsMoving() && (Globalo.motionManager.transferMachine.RunState == OperationState.Preparing))
+                   // || Globalo.motionManager.transferMachine.RunState == OperationState.OriginRunning))       //TODO: 원점 동작일때는 일단 빼자
             {
 
                 Console.WriteLine("---ReadyBlinkUnit");
@@ -143,6 +145,41 @@ namespace ZenHandler.Dlg
 
 
             this.label_TransferUnit_Step_Val.Text = Globalo.motionManager.transferMachine.AutoUnitThread.m_nCurrentStep.ToString();
+            this.label_LiftUnit_Step_Val.Text = Globalo.motionManager.liftMachine.AutoUnitThread.m_nCurrentStep.ToString();
+            this.label_MagazineUnit_Step_Val.Text = Globalo.motionManager.magazineHandler.AutoUnitThread.m_nCurrentStep.ToString();
+            if (Program.PG_SELECT == HANDLER_PG.FW)
+            {
+                this.label_SocketUnit_Step_Val.Text = Globalo.motionManager.socketFwMachine.AutoUnitThread.m_nCurrentStep.ToString();
+            }
+            if (Program.PG_SELECT == HANDLER_PG.AOI)
+            {
+                this.label_SocketUnit_Step_Val.Text = Globalo.motionManager.socketAoiMachine.AutoUnitThread.m_nCurrentStep.ToString();
+            }
+            if (Program.PG_SELECT == HANDLER_PG.EEPROM)
+            {
+                this.label_SocketUnit_Step_Val.Text = Globalo.motionManager.socketEEpromMachine.AutoUnitThread.m_nCurrentStep.ToString();
+            }
+
+            
+
+            this.label_TransferUnit_State_Val.Text = Globalo.motionManager.transferMachine.RunState.ToString();
+            this.label_LiftUnit_State_Val.Text = Globalo.motionManager.transferMachine.RunState.ToString();
+            this.label_MagazineUnit_State_Val.Text = Globalo.motionManager.transferMachine.RunState.ToString();
+            
+
+            if (Program.PG_SELECT == HANDLER_PG.FW)
+            {
+                this.label_SocketUnit_State_Val.Text = Globalo.motionManager.socketFwMachine.RunState.ToString();
+            }
+            if (Program.PG_SELECT == HANDLER_PG.AOI)
+            {
+                this.label_SocketUnit_State_Val.Text = Globalo.motionManager.socketAoiMachine.RunState.ToString();
+            }
+            if (Program.PG_SELECT == HANDLER_PG.EEPROM)
+            {
+                this.label_SocketUnit_State_Val.Text = Globalo.motionManager.socketEEpromMachine.RunState.ToString();
+            }
+
         }
         private void ReadyBlinkUnit(int index)
         {
@@ -151,7 +188,7 @@ namespace ZenHandler.Dlg
         }
         private void UpdateBtnUnit(int index, OperationState state)
         {
-            if (state == OperationState.PreparationComplete)
+            if (state == OperationState.Standby)
             {
                 unitReadyButtons[index].BackColor = ColorReady;
                 unitStopButtons[index].BackColor = ColorDefault;
@@ -180,6 +217,304 @@ namespace ZenHandler.Dlg
                 unitAutoRunButtons[index].BackColor = ColorDefault;
             }
         }
+        #endregion
+
+        //
+
+        public bool UnitOrigin(euNIT UNIT)
+        {
+            bool bRtn = true;
+            if (UNIT == euNIT.TRANSFER_UNIT)
+            {
+                bRtn = Globalo.motionManager.transferMachine.OriginRun();
+                if (bRtn == false)
+                {
+                    Globalo.motionManager.transferMachine.StopAuto();
+                }
+            }
+            if (Program.PG_SELECT == HANDLER_PG.FW)
+            {
+                if (UNIT == euNIT.MAGAZINE_UNIT)
+                {
+                    bRtn = Globalo.motionManager.magazineHandler.OriginRun();
+                    if (bRtn == false)
+                    {
+                        Globalo.motionManager.magazineHandler.StopAuto();
+                    }
+                }
+            }
+            if (Program.PG_SELECT == HANDLER_PG.EEPROM || Program.PG_SELECT == HANDLER_PG.AOI)
+            {
+                if (UNIT == euNIT.LIFT_UNIT)
+                {
+                    bRtn = Globalo.motionManager.liftMachine.OriginRun();
+                    if (bRtn == false)
+                    {
+                        Globalo.motionManager.liftMachine.StopAuto();
+                    }
+                }
+            }
+            else if (UNIT == euNIT.SOCKET_UNIT)
+            {
+                if (Program.PG_SELECT == HANDLER_PG.FW)
+                {
+                    bRtn = Globalo.motionManager.socketFwMachine.OriginRun();
+                    if (bRtn == false)
+                    {
+                        Globalo.motionManager.socketFwMachine.StopAuto();
+                    }
+                }
+                if (Program.PG_SELECT == HANDLER_PG.AOI)
+                {
+                    bRtn = Globalo.motionManager.socketAoiMachine.OriginRun();
+                    if (bRtn == false)
+                    {
+                        Globalo.motionManager.socketAoiMachine.StopAuto();
+                    }
+                }
+                if (Program.PG_SELECT == HANDLER_PG.EEPROM)
+                {
+                    bRtn = Globalo.motionManager.socketEEpromMachine.OriginRun();
+                    if (bRtn == false)
+                    {
+                        Globalo.motionManager.socketEEpromMachine.StopAuto();
+                    }
+                }
+            }
+
+            unitReadyButtons[(int)UNIT].BackColor = ColorDefault;
+            unitStopButtons[(int)UNIT].BackColor = ColorDefault;
+            unitAutoRunButtons[(int)UNIT].BackColor = ColorDefault;
+            unitPauseButtons[(int)UNIT].BackColor = ColorDefault;
+            return bRtn;
+        }
+
+        public bool UnitReady(euNIT UNIT)
+        {
+            bool bRtn = true;
+            if (UNIT == euNIT.TRANSFER_UNIT)
+            {
+                bRtn = Globalo.motionManager.transferMachine.ReadyRun();
+                if (bRtn == false)
+                {
+                    Globalo.motionManager.transferMachine.StopAuto();
+                }
+            }
+            if (Program.PG_SELECT == HANDLER_PG.FW)
+            {
+                if (UNIT == euNIT.MAGAZINE_UNIT)
+                {
+                    bRtn = Globalo.motionManager.magazineHandler.ReadyRun();
+                    if (bRtn == false)
+                    {
+                        Globalo.motionManager.magazineHandler.StopAuto();
+                    }
+                }
+            }
+            if (Program.PG_SELECT == HANDLER_PG.EEPROM || Program.PG_SELECT == HANDLER_PG.AOI)
+            {
+                if (UNIT == euNIT.LIFT_UNIT)
+                {
+                    bRtn = Globalo.motionManager.liftMachine.ReadyRun();
+                    if (bRtn == false)
+                    {
+                        Globalo.motionManager.liftMachine.StopAuto();
+                    }
+                }
+            }
+            else if (UNIT == euNIT.SOCKET_UNIT)
+            {
+                if (Program.PG_SELECT == HANDLER_PG.FW)
+                {
+                    bRtn = Globalo.motionManager.socketFwMachine.ReadyRun();
+                    if (bRtn == false)
+                    {
+                        Globalo.motionManager.socketFwMachine.StopAuto();
+                    }
+                }
+                if (Program.PG_SELECT == HANDLER_PG.AOI)
+                {
+                    bRtn = Globalo.motionManager.socketAoiMachine.ReadyRun();
+                    if (bRtn == false)
+                    {
+                        Globalo.motionManager.socketAoiMachine.StopAuto();
+                    }
+                }
+                if (Program.PG_SELECT == HANDLER_PG.EEPROM)
+                {
+                    bRtn = Globalo.motionManager.socketEEpromMachine.ReadyRun();
+                    if (bRtn == false)
+                    {
+                        Globalo.motionManager.socketEEpromMachine.StopAuto();
+                    }
+                }
+            }
+
+            unitReadyButtons[(int)UNIT].BackColor = ColorReady;
+            unitStopButtons[(int)UNIT].BackColor = ColorDefault;
+            unitAutoRunButtons[(int)UNIT].BackColor = ColorDefault;
+            unitPauseButtons[(int)UNIT].BackColor = ColorDefault;
+            return bRtn;
+        }
+
+        public bool UnitAutoRun(euNIT UNIT)
+        {
+            bool bRtn = true;
+            if (UNIT == euNIT.TRANSFER_UNIT)
+            {
+                bRtn = Globalo.motionManager.transferMachine.AutoRun();
+                if (bRtn == false)
+                {
+                    Globalo.motionManager.transferMachine.StopAuto();
+                }
+            }
+            if (Program.PG_SELECT == HANDLER_PG.FW)
+            {
+                if (UNIT == euNIT.MAGAZINE_UNIT)
+                {
+                    bRtn = Globalo.motionManager.magazineHandler.AutoRun();
+                    if (bRtn == false)
+                    {
+                        Globalo.motionManager.magazineHandler.StopAuto();
+                    }
+                }
+            }
+            if (Program.PG_SELECT == HANDLER_PG.EEPROM || Program.PG_SELECT == HANDLER_PG.AOI)
+            {
+                if (UNIT == euNIT.LIFT_UNIT)
+                {
+                    bRtn = Globalo.motionManager.liftMachine.AutoRun();
+                    if (bRtn == false)
+                    {
+                        Globalo.motionManager.liftMachine.StopAuto();
+                    }
+                }
+            }
+            else if (UNIT == euNIT.SOCKET_UNIT)
+            {
+                if (Program.PG_SELECT == HANDLER_PG.FW)
+                {
+                    bRtn = Globalo.motionManager.socketFwMachine.AutoRun();
+                    if (bRtn == false)
+                    {
+                        Globalo.motionManager.socketFwMachine.StopAuto();
+                    }
+                }
+                if (Program.PG_SELECT == HANDLER_PG.AOI)
+                {
+                    bRtn = Globalo.motionManager.socketAoiMachine.AutoRun();
+                    if (bRtn == false)
+                    {
+                        Globalo.motionManager.socketAoiMachine.StopAuto();
+                    }
+                }
+                if (Program.PG_SELECT == HANDLER_PG.EEPROM)
+                {
+                    bRtn = Globalo.motionManager.socketEEpromMachine.AutoRun();
+                    if (bRtn == false)
+                    {
+                        Globalo.motionManager.socketEEpromMachine.StopAuto();
+                    }
+                }
+            }
+
+            unitAutoRunButtons[(int)UNIT].BackColor = ColorAutoRun;
+            unitReadyButtons[(int)UNIT].BackColor = ColorDefault;
+            unitStopButtons[(int)UNIT].BackColor = ColorDefault;
+            unitPauseButtons[(int)UNIT].BackColor = ColorDefault;
+            return bRtn;
+        }
+
+        public bool UnitPause(euNIT UNIT)
+        {
+            bool bRtn = true;
+            if (UNIT == euNIT.TRANSFER_UNIT)
+            {
+                Globalo.motionManager.transferMachine.PauseAuto();
+
+            }
+            if (Program.PG_SELECT == HANDLER_PG.FW)
+            {
+                if (UNIT == euNIT.MAGAZINE_UNIT)
+                {
+                    Globalo.motionManager.magazineHandler.PauseAuto();
+                }
+            }
+            if (Program.PG_SELECT == HANDLER_PG.EEPROM || Program.PG_SELECT == HANDLER_PG.AOI)
+            {
+                if (UNIT == euNIT.LIFT_UNIT)
+                {
+                    Globalo.motionManager.liftMachine.PauseAuto();
+                }
+            }
+            else if (UNIT == euNIT.SOCKET_UNIT)
+            {
+                if (Program.PG_SELECT == HANDLER_PG.FW)
+                {
+                    Globalo.motionManager.socketFwMachine.PauseAuto();
+                }
+                if (Program.PG_SELECT == HANDLER_PG.AOI)
+                {
+                    Globalo.motionManager.socketAoiMachine.PauseAuto();
+                }
+                if (Program.PG_SELECT == HANDLER_PG.EEPROM)
+                {
+                    Globalo.motionManager.socketEEpromMachine.PauseAuto();
+                }
+            }
+
+            unitPauseButtons[(int)UNIT].BackColor = ColorPause;
+            unitStopButtons[(int)UNIT].BackColor = ColorDefault;
+            unitAutoRunButtons[(int)UNIT].BackColor = ColorDefault;
+            unitReadyButtons[(int)UNIT].BackColor = ColorDefault;
+            return bRtn;
+        }
+        
+
+        public bool UnitStop(euNIT UNIT)
+        {
+            bool bRtn = true;
+            if (UNIT == euNIT.TRANSFER_UNIT)
+            {
+                Globalo.motionManager.transferMachine.StopAuto();
+                
+            }
+            if (Program.PG_SELECT == HANDLER_PG.FW)
+            {
+                if (UNIT == euNIT.MAGAZINE_UNIT)
+                {
+                    Globalo.motionManager.magazineHandler.StopAuto();
+                }
+            }
+            if (Program.PG_SELECT == HANDLER_PG.EEPROM || Program.PG_SELECT == HANDLER_PG.AOI)
+            {
+                if (UNIT == euNIT.LIFT_UNIT)
+                {
+                    Globalo.motionManager.liftMachine.StopAuto();
+                }
+            }
+            else if (UNIT == euNIT.SOCKET_UNIT)
+            {
+                if (Program.PG_SELECT == HANDLER_PG.FW)
+                {
+                    Globalo.motionManager.socketFwMachine.StopAuto();
+                }
+                if (Program.PG_SELECT == HANDLER_PG.AOI)
+                {
+                    Globalo.motionManager.socketAoiMachine.StopAuto();
+                }
+                if (Program.PG_SELECT == HANDLER_PG.EEPROM)
+                {
+                    Globalo.motionManager.socketEEpromMachine.StopAuto();
+                }
+            }
+
+            unitStopButtons[(int)UNIT].BackColor = ColorStop;
+            unitAutoRunButtons[(int)UNIT].BackColor = ColorDefault;
+            unitReadyButtons[(int)UNIT].BackColor = ColorDefault;
+            unitPauseButtons[(int)UNIT].BackColor = ColorDefault;
+            return bRtn;
+        }
         //---------------------------------------------------------------------------------------------------------------------
         //
         //
@@ -195,17 +530,8 @@ namespace ZenHandler.Dlg
 
             if (result == DialogResult.Yes)
             {
-                bool bRtn = Globalo.motionManager.transferMachine.ReadyRun();
-                if (bRtn)
-                {
-                    unitReadyButtons[(int)euNIT.TRANSFER_UNIT].BackColor = ColorReady;
-                    unitStopButtons[(int)euNIT.TRANSFER_UNIT].BackColor = ColorDefault;
-                    unitAutoRunButtons[(int)euNIT.TRANSFER_UNIT].BackColor = ColorDefault;
-                    unitPauseButtons[(int)euNIT.TRANSFER_UNIT].BackColor = ColorDefault;
-                }
+                UnitReady(euNIT.TRANSFER_UNIT);
             }
-            
-            
         }
 
         private void BTN_TRANSFER_UNIT_AUTORUN_Click(object sender, EventArgs e)
@@ -216,32 +542,19 @@ namespace ZenHandler.Dlg
 
             if (result == DialogResult.Yes)
             {
-                bool bRtn = Globalo.motionManager.transferMachine.AutoRun();
-                if (bRtn)
-                {
-                    unitAutoRunButtons[(int)euNIT.TRANSFER_UNIT].BackColor = ColorAutoRun;
-                    unitStopButtons[(int)euNIT.TRANSFER_UNIT].BackColor = ColorDefault;
-                    unitReadyButtons[(int)euNIT.TRANSFER_UNIT].BackColor = ColorDefault;
-                    unitPauseButtons[(int)euNIT.TRANSFER_UNIT].BackColor = ColorDefault;
-                }
-                    
+                UnitAutoRun(euNIT.TRANSFER_UNIT);
             }
                 
         }
 
         private void BTN_TRANSFER_UNIT_STOP_Click(object sender, EventArgs e)
         {
-            Globalo.motionManager.transferMachine.StopAuto();
-
-            unitStopButtons[(int)euNIT.TRANSFER_UNIT].BackColor = ColorStop;
-            unitReadyButtons[(int)euNIT.TRANSFER_UNIT].BackColor = ColorDefault;
-            unitAutoRunButtons[(int)euNIT.TRANSFER_UNIT].BackColor = ColorDefault;
-            unitPauseButtons[(int)euNIT.TRANSFER_UNIT].BackColor = ColorDefault;
+            UnitStop(euNIT.TRANSFER_UNIT);
         }
 
         private void BTN_TRANSFER_UNIT_PAUSE_Click(object sender, EventArgs e)
         {
-            Globalo.motionManager.transferMachine.PauseAuto();
+            UnitPause(euNIT.TRANSFER_UNIT);
         }
 
         //---------------------------------------------------------------------------------------------------------------------
@@ -251,26 +564,38 @@ namespace ZenHandler.Dlg
         //
         //
         //---------------------------------------------------------------------------------------------------------------------
-
-
         private void BTN_SOCKET_UNIT_READY_Click(object sender, EventArgs e)
         {
+            MessagePopUpForm messagePopUp = new MessagePopUpForm("", "YES", "NO");
+            messagePopUp.MessageSet(Globalo.eMessageName.M_ASK, "SOCKET UNIT 운전준비 하시겠습니까 ?");
+            DialogResult result = messagePopUp.ShowDialog();
 
+            if (result == DialogResult.Yes)
+            {
+                UnitReady(euNIT.SOCKET_UNIT);
+            }
         }
 
         private void BTN_SOCKET_UNIT_AUTORUN_Click(object sender, EventArgs e)
         {
+            MessagePopUpForm messagePopUp = new MessagePopUpForm("", "YES", "NO");
+            messagePopUp.MessageSet(Globalo.eMessageName.M_ASK, "SOCKET UNIT 자동운전 하시겠습니까 ?");
+            DialogResult result = messagePopUp.ShowDialog();
 
+            if (result == DialogResult.Yes)
+            {
+                UnitAutoRun(euNIT.SOCKET_UNIT);
+            }
         }
 
         private void BTN_SOCKET_UNIT_STOP_Click(object sender, EventArgs e)
         {
-
+            UnitStop(euNIT.SOCKET_UNIT);
         }
 
         private void BTN_SOCKET_UNIT_PAUSE_Click(object sender, EventArgs e)
         {
-
+            UnitPause(euNIT.SOCKET_UNIT);
         }
         //---------------------------------------------------------------------------------------------------------------------
         //
@@ -282,22 +607,36 @@ namespace ZenHandler.Dlg
 
         private void BTN_MAGAZINE_UNIT_READY_Click(object sender, EventArgs e)
         {
+            MessagePopUpForm messagePopUp = new MessagePopUpForm("", "YES", "NO");
+            messagePopUp.MessageSet(Globalo.eMessageName.M_ASK, "MAGAZINE UNIT 운전준비 하시겠습니까 ?");
+            DialogResult result = messagePopUp.ShowDialog();
 
+            if (result == DialogResult.Yes)
+            {
+                UnitReady(euNIT.MAGAZINE_UNIT);
+            }
         }
 
         private void BTN_MAGAZINE_UNIT_AUTORUN_Click(object sender, EventArgs e)
         {
+            MessagePopUpForm messagePopUp = new MessagePopUpForm("", "YES", "NO");
+            messagePopUp.MessageSet(Globalo.eMessageName.M_ASK, "MAGAZINE UNIT 자동운전 하시겠습니까 ?");
+            DialogResult result = messagePopUp.ShowDialog();
 
+            if (result == DialogResult.Yes)
+            {
+                UnitAutoRun(euNIT.MAGAZINE_UNIT);
+            }
         }
 
         private void BTN_MAGAZINE_UNIT_STOP_Click(object sender, EventArgs e)
         {
-
+            UnitStop(euNIT.MAGAZINE_UNIT);
         }
 
         private void BTN_MAGAZINE_UNIT_PAUSE_Click(object sender, EventArgs e)
         {
-
+            UnitPause(euNIT.MAGAZINE_UNIT);
         }
         //---------------------------------------------------------------------------------------------------------------------
         //
@@ -306,27 +645,38 @@ namespace ZenHandler.Dlg
         //
         //
         //---------------------------------------------------------------------------------------------------------------------
-
-
-
         private void BTN_LIFT_UNIT_READY_Click(object sender, EventArgs e)
         {
+            MessagePopUpForm messagePopUp = new MessagePopUpForm("", "YES", "NO");
+            messagePopUp.MessageSet(Globalo.eMessageName.M_ASK, "LIFT UNIT 운전준비 하시겠습니까 ?");
+            DialogResult result = messagePopUp.ShowDialog();
 
+            if (result == DialogResult.Yes)
+            {
+                UnitReady(euNIT.LIFT_UNIT);
+            }
         }
 
         private void BTN_LIFT_UNIT_AUTORUN_Click(object sender, EventArgs e)
         {
+            MessagePopUpForm messagePopUp = new MessagePopUpForm("", "YES", "NO");
+            messagePopUp.MessageSet(Globalo.eMessageName.M_ASK, "LIFT UNIT 자동운전 하시겠습니까 ?");
+            DialogResult result = messagePopUp.ShowDialog();
 
+            if (result == DialogResult.Yes)
+            {
+                UnitAutoRun(euNIT.LIFT_UNIT);
+            }
         }
 
         private void BTN_LIFT_UNIT_STOP_Click(object sender, EventArgs e)
         {
-
+            UnitStop(euNIT.LIFT_UNIT);
         }
 
         private void BTN_LIFT_UNIT_PAUSE_Click(object sender, EventArgs e)
         {
-
+            UnitPause(euNIT.LIFT_UNIT);
         }
 
 

@@ -38,16 +38,24 @@ namespace ZenHandler.Dlg
             this.label_Manual_XY_Title = new System.Windows.Forms.Label();
             this.button_Manual_Transfer_Wait_Pos_XY = new System.Windows.Forms.Button();
             this.groupBox1 = new System.Windows.Forms.GroupBox();
-            this.button_Manual_Transfer_Right_Tray_Unload_Pos_Z = new System.Windows.Forms.Button();
+            this.button_Manual_Transfer_D_Socket_Unload_Pos_XY = new System.Windows.Forms.Button();
+            this.button_Manual_Transfer_C_Socket_Unload_Pos_XY = new System.Windows.Forms.Button();
+            this.button_Manual_Transfer_B_Socket_Unload_Pos_XY = new System.Windows.Forms.Button();
+            this.button_Manual_Transfer_A_Socket_Unload_Pos_XY = new System.Windows.Forms.Button();
+            this.button_Manual_Transfer_Right_Bcr_Pos_XY = new System.Windows.Forms.Button();
+            this.button_Manual_Transfer_Left_Bcr_Pos_XY = new System.Windows.Forms.Button();
+            this.button_Manual_Transfer_D_Socket_Load_Pos_XY = new System.Windows.Forms.Button();
             this.button_Manual_Transfer_Right_Tray_Unload_Pos_XY = new System.Windows.Forms.Button();
-            this.button_Manual_Transfer_Left_Tray_Unload_Pos_Z = new System.Windows.Forms.Button();
             this.button_Manual_Transfer_Left_Tray_Unload_Pos_XY = new System.Windows.Forms.Button();
-            this.button_Manual_Transfer_Right_Tray_Load_Pos_Z = new System.Windows.Forms.Button();
+            this.button_Manual_Transfer_C_Socket_Load_Pos_XY = new System.Windows.Forms.Button();
             this.button_Manual_Transfer_Right_Tray_Load_Pos_XY = new System.Windows.Forms.Button();
-            this.button_Manual_Transfer_B_Socket_Load_Pos_Z = new System.Windows.Forms.Button();
             this.button_Manual_Transfer_B_Socket_Load_Pos_XY = new System.Windows.Forms.Button();
-            this.button_Manual_Transfer_A_Socket_Load_Pos_Z = new System.Windows.Forms.Button();
             this.button_Manual_Transfer_A_Socket_Load_Pos_XY = new System.Windows.Forms.Button();
+            this.button_Manual_Transfer_Right_Tray_Unload_Pos_Z = new System.Windows.Forms.Button();
+            this.button_Manual_Transfer_Left_Tray_Unload_Pos_Z = new System.Windows.Forms.Button();
+            this.button_Manual_Transfer_Right_Tray_Load_Pos_Z = new System.Windows.Forms.Button();
+            this.button_Manual_Transfer_B_Socket_Load_Pos_Z = new System.Windows.Forms.Button();
+            this.button_Manual_Transfer_A_Socket_Load_Pos_Z = new System.Windows.Forms.Button();
             this.groupBox2 = new System.Windows.Forms.GroupBox();
             this.BTN_MANUAL_TRANSFER_UNLOAD_VACUUM_OFF4 = new System.Windows.Forms.Button();
             this.BTN_MANUAL_TRANSFER_UNLOAD_VACUUM_ON4 = new System.Windows.Forms.Button();
@@ -65,23 +73,16 @@ namespace ZenHandler.Dlg
             this.BTN_MANUAL_TRANSFER_LOAD_VACUUM_ON2 = new System.Windows.Forms.Button();
             this.label4 = new System.Windows.Forms.Label();
             this.groupBox3 = new System.Windows.Forms.GroupBox();
-            this.button_Manual_Transfer_D_Socket_Load_Pos_XY = new System.Windows.Forms.Button();
-            this.button_Manual_Transfer_D_Socket_Load_Pos_Z = new System.Windows.Forms.Button();
-            this.button_Manual_Transfer_C_Socket_Load_Pos_XY = new System.Windows.Forms.Button();
-            this.button_Manual_Transfer_C_Socket_Load_Pos_Z = new System.Windows.Forms.Button();
-            this.button_Manual_Transfer_Left_Bcr_Pos_XY = new System.Windows.Forms.Button();
-            this.button_Manual_Transfer_Right_Bcr_Pos_XY = new System.Windows.Forms.Button();
-            this.button_Manual_Transfer_A_Socket_Unload_Pos_XY = new System.Windows.Forms.Button();
-            this.button_Manual_Transfer_B_Socket_Unload_Pos_XY = new System.Windows.Forms.Button();
-            this.button_Manual_Transfer_C_Socket_Unload_Pos_XY = new System.Windows.Forms.Button();
-            this.button_Manual_Transfer_D_Socket_Unload_Pos_XY = new System.Windows.Forms.Button();
-            this.button_Manual_Transfer_Right_Bcr_Pos_Z = new System.Windows.Forms.Button();
-            this.button_Manual_Transfer_Left_Bcr_Pos_Z = new System.Windows.Forms.Button();
+            this.label_Manual_Z_Title = new System.Windows.Forms.Label();
             this.button_Manual_Transfer_D_Socket_Unload_Pos_Z = new System.Windows.Forms.Button();
             this.button_Manual_Transfer_C_Socket_Unload_Pos_Z = new System.Windows.Forms.Button();
             this.button_Manual_Transfer_A_Socket_Unload_Pos_Z = new System.Windows.Forms.Button();
             this.button_Manual_Transfer_B_Socket_Unload_Pos_Z = new System.Windows.Forms.Button();
-            this.label_Manual_Z_Title = new System.Windows.Forms.Label();
+            this.button_Manual_Transfer_Right_Bcr_Pos_Z = new System.Windows.Forms.Button();
+            this.button_Manual_Transfer_Left_Bcr_Pos_Z = new System.Windows.Forms.Button();
+            this.button_Manual_Transfer_D_Socket_Load_Pos_Z = new System.Windows.Forms.Button();
+            this.button_Manual_Transfer_C_Socket_Load_Pos_Z = new System.Windows.Forms.Button();
+            this.comboBox_Manual_LoadPicker = new System.Windows.Forms.ComboBox();
             this.groupBox1.SuspendLayout();
             this.groupBox2.SuspendLayout();
             this.groupBox3.SuspendLayout();
@@ -214,25 +215,103 @@ namespace ZenHandler.Dlg
             this.groupBox1.Controls.Add(this.button_Manual_Transfer_B_Socket_Load_Pos_XY);
             this.groupBox1.Controls.Add(this.button_Manual_Transfer_Left_Tray_Load_Pos_XY);
             this.groupBox1.Controls.Add(this.button_Manual_Transfer_A_Socket_Load_Pos_XY);
-            this.groupBox1.Location = new System.Drawing.Point(10, 273);
+            this.groupBox1.Location = new System.Drawing.Point(10, 322);
             this.groupBox1.Name = "groupBox1";
             this.groupBox1.Size = new System.Drawing.Size(358, 567);
             this.groupBox1.TabIndex = 41;
             this.groupBox1.TabStop = false;
             // 
-            // button_Manual_Transfer_Right_Tray_Unload_Pos_Z
+            // button_Manual_Transfer_D_Socket_Unload_Pos_XY
             // 
-            this.button_Manual_Transfer_Right_Tray_Unload_Pos_Z.BackColor = System.Drawing.Color.Tan;
-            this.button_Manual_Transfer_Right_Tray_Unload_Pos_Z.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.button_Manual_Transfer_Right_Tray_Unload_Pos_Z.Font = new System.Drawing.Font("나눔고딕 ExtraBold", 8.999999F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(129)));
-            this.button_Manual_Transfer_Right_Tray_Unload_Pos_Z.ForeColor = System.Drawing.Color.White;
-            this.button_Manual_Transfer_Right_Tray_Unload_Pos_Z.Location = new System.Drawing.Point(175, 208);
-            this.button_Manual_Transfer_Right_Tray_Unload_Pos_Z.Name = "button_Manual_Transfer_Right_Tray_Unload_Pos_Z";
-            this.button_Manual_Transfer_Right_Tray_Unload_Pos_Z.Size = new System.Drawing.Size(155, 51);
-            this.button_Manual_Transfer_Right_Tray_Unload_Pos_Z.TabIndex = 43;
-            this.button_Manual_Transfer_Right_Tray_Unload_Pos_Z.Text = "Z RIGHT TRAY UNLOAD";
-            this.button_Manual_Transfer_Right_Tray_Unload_Pos_Z.UseVisualStyleBackColor = false;
-            this.button_Manual_Transfer_Right_Tray_Unload_Pos_Z.Click += new System.EventHandler(this.BTN_MANUAL_TRANSFER_RIGHT_UNLOAD_POS_Z_Click);
+            this.button_Manual_Transfer_D_Socket_Unload_Pos_XY.BackColor = System.Drawing.Color.Tan;
+            this.button_Manual_Transfer_D_Socket_Unload_Pos_XY.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.button_Manual_Transfer_D_Socket_Unload_Pos_XY.Font = new System.Drawing.Font("나눔고딕 ExtraBold", 8.999999F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(129)));
+            this.button_Manual_Transfer_D_Socket_Unload_Pos_XY.ForeColor = System.Drawing.Color.White;
+            this.button_Manual_Transfer_D_Socket_Unload_Pos_XY.Location = new System.Drawing.Point(184, 429);
+            this.button_Manual_Transfer_D_Socket_Unload_Pos_XY.Name = "button_Manual_Transfer_D_Socket_Unload_Pos_XY";
+            this.button_Manual_Transfer_D_Socket_Unload_Pos_XY.Size = new System.Drawing.Size(155, 51);
+            this.button_Manual_Transfer_D_Socket_Unload_Pos_XY.TabIndex = 58;
+            this.button_Manual_Transfer_D_Socket_Unload_Pos_XY.Text = "D SOCKET UNLOAD";
+            this.button_Manual_Transfer_D_Socket_Unload_Pos_XY.UseVisualStyleBackColor = false;
+            // 
+            // button_Manual_Transfer_C_Socket_Unload_Pos_XY
+            // 
+            this.button_Manual_Transfer_C_Socket_Unload_Pos_XY.BackColor = System.Drawing.Color.Tan;
+            this.button_Manual_Transfer_C_Socket_Unload_Pos_XY.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.button_Manual_Transfer_C_Socket_Unload_Pos_XY.Font = new System.Drawing.Font("나눔고딕 ExtraBold", 8.999999F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(129)));
+            this.button_Manual_Transfer_C_Socket_Unload_Pos_XY.ForeColor = System.Drawing.Color.White;
+            this.button_Manual_Transfer_C_Socket_Unload_Pos_XY.Location = new System.Drawing.Point(184, 373);
+            this.button_Manual_Transfer_C_Socket_Unload_Pos_XY.Name = "button_Manual_Transfer_C_Socket_Unload_Pos_XY";
+            this.button_Manual_Transfer_C_Socket_Unload_Pos_XY.Size = new System.Drawing.Size(155, 51);
+            this.button_Manual_Transfer_C_Socket_Unload_Pos_XY.TabIndex = 57;
+            this.button_Manual_Transfer_C_Socket_Unload_Pos_XY.Text = "C SOCKET UNLOAD";
+            this.button_Manual_Transfer_C_Socket_Unload_Pos_XY.UseVisualStyleBackColor = false;
+            // 
+            // button_Manual_Transfer_B_Socket_Unload_Pos_XY
+            // 
+            this.button_Manual_Transfer_B_Socket_Unload_Pos_XY.BackColor = System.Drawing.Color.Tan;
+            this.button_Manual_Transfer_B_Socket_Unload_Pos_XY.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.button_Manual_Transfer_B_Socket_Unload_Pos_XY.Font = new System.Drawing.Font("나눔고딕 ExtraBold", 8.999999F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(129)));
+            this.button_Manual_Transfer_B_Socket_Unload_Pos_XY.ForeColor = System.Drawing.Color.White;
+            this.button_Manual_Transfer_B_Socket_Unload_Pos_XY.Location = new System.Drawing.Point(184, 318);
+            this.button_Manual_Transfer_B_Socket_Unload_Pos_XY.Name = "button_Manual_Transfer_B_Socket_Unload_Pos_XY";
+            this.button_Manual_Transfer_B_Socket_Unload_Pos_XY.Size = new System.Drawing.Size(155, 51);
+            this.button_Manual_Transfer_B_Socket_Unload_Pos_XY.TabIndex = 56;
+            this.button_Manual_Transfer_B_Socket_Unload_Pos_XY.Text = "B SOCKET UNLOAD";
+            this.button_Manual_Transfer_B_Socket_Unload_Pos_XY.UseVisualStyleBackColor = false;
+            // 
+            // button_Manual_Transfer_A_Socket_Unload_Pos_XY
+            // 
+            this.button_Manual_Transfer_A_Socket_Unload_Pos_XY.BackColor = System.Drawing.Color.Tan;
+            this.button_Manual_Transfer_A_Socket_Unload_Pos_XY.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.button_Manual_Transfer_A_Socket_Unload_Pos_XY.Font = new System.Drawing.Font("나눔고딕 ExtraBold", 8.999999F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(129)));
+            this.button_Manual_Transfer_A_Socket_Unload_Pos_XY.ForeColor = System.Drawing.Color.White;
+            this.button_Manual_Transfer_A_Socket_Unload_Pos_XY.Location = new System.Drawing.Point(184, 262);
+            this.button_Manual_Transfer_A_Socket_Unload_Pos_XY.Name = "button_Manual_Transfer_A_Socket_Unload_Pos_XY";
+            this.button_Manual_Transfer_A_Socket_Unload_Pos_XY.Size = new System.Drawing.Size(155, 51);
+            this.button_Manual_Transfer_A_Socket_Unload_Pos_XY.TabIndex = 55;
+            this.button_Manual_Transfer_A_Socket_Unload_Pos_XY.Text = "A SOCKET UNLOAD";
+            this.button_Manual_Transfer_A_Socket_Unload_Pos_XY.UseVisualStyleBackColor = false;
+            // 
+            // button_Manual_Transfer_Right_Bcr_Pos_XY
+            // 
+            this.button_Manual_Transfer_Right_Bcr_Pos_XY.BackColor = System.Drawing.Color.Tan;
+            this.button_Manual_Transfer_Right_Bcr_Pos_XY.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.button_Manual_Transfer_Right_Bcr_Pos_XY.Font = new System.Drawing.Font("나눔고딕 ExtraBold", 8.999999F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(129)));
+            this.button_Manual_Transfer_Right_Bcr_Pos_XY.ForeColor = System.Drawing.Color.White;
+            this.button_Manual_Transfer_Right_Bcr_Pos_XY.Location = new System.Drawing.Point(184, 98);
+            this.button_Manual_Transfer_Right_Bcr_Pos_XY.Name = "button_Manual_Transfer_Right_Bcr_Pos_XY";
+            this.button_Manual_Transfer_Right_Bcr_Pos_XY.Size = new System.Drawing.Size(155, 51);
+            this.button_Manual_Transfer_Right_Bcr_Pos_XY.TabIndex = 54;
+            this.button_Manual_Transfer_Right_Bcr_Pos_XY.Text = "RIGHT BCR SCAN";
+            this.button_Manual_Transfer_Right_Bcr_Pos_XY.UseVisualStyleBackColor = false;
+            // 
+            // button_Manual_Transfer_Left_Bcr_Pos_XY
+            // 
+            this.button_Manual_Transfer_Left_Bcr_Pos_XY.BackColor = System.Drawing.Color.Tan;
+            this.button_Manual_Transfer_Left_Bcr_Pos_XY.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.button_Manual_Transfer_Left_Bcr_Pos_XY.Font = new System.Drawing.Font("나눔고딕 ExtraBold", 8.999999F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(129)));
+            this.button_Manual_Transfer_Left_Bcr_Pos_XY.ForeColor = System.Drawing.Color.White;
+            this.button_Manual_Transfer_Left_Bcr_Pos_XY.Location = new System.Drawing.Point(23, 98);
+            this.button_Manual_Transfer_Left_Bcr_Pos_XY.Name = "button_Manual_Transfer_Left_Bcr_Pos_XY";
+            this.button_Manual_Transfer_Left_Bcr_Pos_XY.Size = new System.Drawing.Size(155, 51);
+            this.button_Manual_Transfer_Left_Bcr_Pos_XY.TabIndex = 53;
+            this.button_Manual_Transfer_Left_Bcr_Pos_XY.Text = "LEFT BCR SCAN";
+            this.button_Manual_Transfer_Left_Bcr_Pos_XY.UseVisualStyleBackColor = false;
+            // 
+            // button_Manual_Transfer_D_Socket_Load_Pos_XY
+            // 
+            this.button_Manual_Transfer_D_Socket_Load_Pos_XY.BackColor = System.Drawing.Color.Tan;
+            this.button_Manual_Transfer_D_Socket_Load_Pos_XY.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.button_Manual_Transfer_D_Socket_Load_Pos_XY.Font = new System.Drawing.Font("나눔고딕 ExtraBold", 8.999999F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(129)));
+            this.button_Manual_Transfer_D_Socket_Load_Pos_XY.ForeColor = System.Drawing.Color.White;
+            this.button_Manual_Transfer_D_Socket_Load_Pos_XY.Location = new System.Drawing.Point(23, 429);
+            this.button_Manual_Transfer_D_Socket_Load_Pos_XY.Name = "button_Manual_Transfer_D_Socket_Load_Pos_XY";
+            this.button_Manual_Transfer_D_Socket_Load_Pos_XY.Size = new System.Drawing.Size(155, 51);
+            this.button_Manual_Transfer_D_Socket_Load_Pos_XY.TabIndex = 52;
+            this.button_Manual_Transfer_D_Socket_Load_Pos_XY.Text = "D SOCKET LOAD";
+            this.button_Manual_Transfer_D_Socket_Load_Pos_XY.UseVisualStyleBackColor = false;
+            this.button_Manual_Transfer_D_Socket_Load_Pos_XY.Click += new System.EventHandler(this.BTN_MANUAL_TRANSFER_SOCKET_D1_POS_XY_Click);
             // 
             // button_Manual_Transfer_Right_Tray_Unload_Pos_XY
             // 
@@ -248,20 +327,6 @@ namespace ZenHandler.Dlg
             this.button_Manual_Transfer_Right_Tray_Unload_Pos_XY.UseVisualStyleBackColor = false;
             this.button_Manual_Transfer_Right_Tray_Unload_Pos_XY.Click += new System.EventHandler(this.BTN_MANUAL_TRANSFER_RIGHT_UNLOAD_POS_XY_Click);
             // 
-            // button_Manual_Transfer_Left_Tray_Unload_Pos_Z
-            // 
-            this.button_Manual_Transfer_Left_Tray_Unload_Pos_Z.BackColor = System.Drawing.Color.Tan;
-            this.button_Manual_Transfer_Left_Tray_Unload_Pos_Z.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.button_Manual_Transfer_Left_Tray_Unload_Pos_Z.Font = new System.Drawing.Font("나눔고딕 ExtraBold", 8.999999F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(129)));
-            this.button_Manual_Transfer_Left_Tray_Unload_Pos_Z.ForeColor = System.Drawing.Color.White;
-            this.button_Manual_Transfer_Left_Tray_Unload_Pos_Z.Location = new System.Drawing.Point(175, 153);
-            this.button_Manual_Transfer_Left_Tray_Unload_Pos_Z.Name = "button_Manual_Transfer_Left_Tray_Unload_Pos_Z";
-            this.button_Manual_Transfer_Left_Tray_Unload_Pos_Z.Size = new System.Drawing.Size(155, 51);
-            this.button_Manual_Transfer_Left_Tray_Unload_Pos_Z.TabIndex = 41;
-            this.button_Manual_Transfer_Left_Tray_Unload_Pos_Z.Text = "Z LEFT TRAY UNLOAD";
-            this.button_Manual_Transfer_Left_Tray_Unload_Pos_Z.UseVisualStyleBackColor = false;
-            this.button_Manual_Transfer_Left_Tray_Unload_Pos_Z.Click += new System.EventHandler(this.BTN_MANUAL_TRANSFER_LEFT_UNLOAD_POS_Z_Click);
-            // 
             // button_Manual_Transfer_Left_Tray_Unload_Pos_XY
             // 
             this.button_Manual_Transfer_Left_Tray_Unload_Pos_XY.BackColor = System.Drawing.Color.Tan;
@@ -276,19 +341,19 @@ namespace ZenHandler.Dlg
             this.button_Manual_Transfer_Left_Tray_Unload_Pos_XY.UseVisualStyleBackColor = false;
             this.button_Manual_Transfer_Left_Tray_Unload_Pos_XY.Click += new System.EventHandler(this.BTN_MANUAL_TRANSFER_LEFT_UNLOAD_POS_XY_Click);
             // 
-            // button_Manual_Transfer_Right_Tray_Load_Pos_Z
+            // button_Manual_Transfer_C_Socket_Load_Pos_XY
             // 
-            this.button_Manual_Transfer_Right_Tray_Load_Pos_Z.BackColor = System.Drawing.Color.Tan;
-            this.button_Manual_Transfer_Right_Tray_Load_Pos_Z.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.button_Manual_Transfer_Right_Tray_Load_Pos_Z.Font = new System.Drawing.Font("나눔고딕 ExtraBold", 8.999999F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(129)));
-            this.button_Manual_Transfer_Right_Tray_Load_Pos_Z.ForeColor = System.Drawing.Color.White;
-            this.button_Manual_Transfer_Right_Tray_Load_Pos_Z.Location = new System.Drawing.Point(14, 208);
-            this.button_Manual_Transfer_Right_Tray_Load_Pos_Z.Name = "button_Manual_Transfer_Right_Tray_Load_Pos_Z";
-            this.button_Manual_Transfer_Right_Tray_Load_Pos_Z.Size = new System.Drawing.Size(155, 51);
-            this.button_Manual_Transfer_Right_Tray_Load_Pos_Z.TabIndex = 39;
-            this.button_Manual_Transfer_Right_Tray_Load_Pos_Z.Text = "Z RIGHT TRAY LOAD";
-            this.button_Manual_Transfer_Right_Tray_Load_Pos_Z.UseVisualStyleBackColor = false;
-            this.button_Manual_Transfer_Right_Tray_Load_Pos_Z.Click += new System.EventHandler(this.BTN_MANUAL_TRANSFER_RIGHT_LOAD_POS_Z_Click);
+            this.button_Manual_Transfer_C_Socket_Load_Pos_XY.BackColor = System.Drawing.Color.Tan;
+            this.button_Manual_Transfer_C_Socket_Load_Pos_XY.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.button_Manual_Transfer_C_Socket_Load_Pos_XY.Font = new System.Drawing.Font("나눔고딕 ExtraBold", 8.999999F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(129)));
+            this.button_Manual_Transfer_C_Socket_Load_Pos_XY.ForeColor = System.Drawing.Color.White;
+            this.button_Manual_Transfer_C_Socket_Load_Pos_XY.Location = new System.Drawing.Point(23, 373);
+            this.button_Manual_Transfer_C_Socket_Load_Pos_XY.Name = "button_Manual_Transfer_C_Socket_Load_Pos_XY";
+            this.button_Manual_Transfer_C_Socket_Load_Pos_XY.Size = new System.Drawing.Size(155, 51);
+            this.button_Manual_Transfer_C_Socket_Load_Pos_XY.TabIndex = 48;
+            this.button_Manual_Transfer_C_Socket_Load_Pos_XY.Text = "C SOCKET LOAD";
+            this.button_Manual_Transfer_C_Socket_Load_Pos_XY.UseVisualStyleBackColor = false;
+            this.button_Manual_Transfer_C_Socket_Load_Pos_XY.Click += new System.EventHandler(this.BTN_MANUAL_TRANSFER_SOCKET_C1_POS_XY_Click);
             // 
             // button_Manual_Transfer_Right_Tray_Load_Pos_XY
             // 
@@ -304,20 +369,6 @@ namespace ZenHandler.Dlg
             this.button_Manual_Transfer_Right_Tray_Load_Pos_XY.UseVisualStyleBackColor = false;
             this.button_Manual_Transfer_Right_Tray_Load_Pos_XY.Click += new System.EventHandler(this.BTN_MANUAL_TRANSFER_RIGHT_LOAD_POS_XY_Click);
             // 
-            // button_Manual_Transfer_B_Socket_Load_Pos_Z
-            // 
-            this.button_Manual_Transfer_B_Socket_Load_Pos_Z.BackColor = System.Drawing.Color.Tan;
-            this.button_Manual_Transfer_B_Socket_Load_Pos_Z.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.button_Manual_Transfer_B_Socket_Load_Pos_Z.Font = new System.Drawing.Font("나눔고딕 ExtraBold", 8.999999F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(129)));
-            this.button_Manual_Transfer_B_Socket_Load_Pos_Z.ForeColor = System.Drawing.Color.White;
-            this.button_Manual_Transfer_B_Socket_Load_Pos_Z.Location = new System.Drawing.Point(14, 319);
-            this.button_Manual_Transfer_B_Socket_Load_Pos_Z.Name = "button_Manual_Transfer_B_Socket_Load_Pos_Z";
-            this.button_Manual_Transfer_B_Socket_Load_Pos_Z.Size = new System.Drawing.Size(155, 51);
-            this.button_Manual_Transfer_B_Socket_Load_Pos_Z.TabIndex = 45;
-            this.button_Manual_Transfer_B_Socket_Load_Pos_Z.Text = "Z B SOCKET LOAD";
-            this.button_Manual_Transfer_B_Socket_Load_Pos_Z.UseVisualStyleBackColor = false;
-            this.button_Manual_Transfer_B_Socket_Load_Pos_Z.Click += new System.EventHandler(this.BTN_MANUAL_TRANSFER_SOCKET3_POS_Z_Click);
-            // 
             // button_Manual_Transfer_B_Socket_Load_Pos_XY
             // 
             this.button_Manual_Transfer_B_Socket_Load_Pos_XY.BackColor = System.Drawing.Color.Tan;
@@ -332,20 +383,6 @@ namespace ZenHandler.Dlg
             this.button_Manual_Transfer_B_Socket_Load_Pos_XY.UseVisualStyleBackColor = false;
             this.button_Manual_Transfer_B_Socket_Load_Pos_XY.Click += new System.EventHandler(this.BTN_MANUAL_TRANSFER_SOCKET3_POS_XY_Click);
             // 
-            // button_Manual_Transfer_A_Socket_Load_Pos_Z
-            // 
-            this.button_Manual_Transfer_A_Socket_Load_Pos_Z.BackColor = System.Drawing.Color.Tan;
-            this.button_Manual_Transfer_A_Socket_Load_Pos_Z.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.button_Manual_Transfer_A_Socket_Load_Pos_Z.Font = new System.Drawing.Font("나눔고딕 ExtraBold", 8.999999F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(129)));
-            this.button_Manual_Transfer_A_Socket_Load_Pos_Z.ForeColor = System.Drawing.Color.White;
-            this.button_Manual_Transfer_A_Socket_Load_Pos_Z.Location = new System.Drawing.Point(14, 263);
-            this.button_Manual_Transfer_A_Socket_Load_Pos_Z.Name = "button_Manual_Transfer_A_Socket_Load_Pos_Z";
-            this.button_Manual_Transfer_A_Socket_Load_Pos_Z.Size = new System.Drawing.Size(155, 51);
-            this.button_Manual_Transfer_A_Socket_Load_Pos_Z.TabIndex = 41;
-            this.button_Manual_Transfer_A_Socket_Load_Pos_Z.Text = "Z A SOCKET LOAD";
-            this.button_Manual_Transfer_A_Socket_Load_Pos_Z.UseVisualStyleBackColor = false;
-            this.button_Manual_Transfer_A_Socket_Load_Pos_Z.Click += new System.EventHandler(this.BTN_MANUAL_TRANSFER_SOCKET1_POS_Z_Click);
-            // 
             // button_Manual_Transfer_A_Socket_Load_Pos_XY
             // 
             this.button_Manual_Transfer_A_Socket_Load_Pos_XY.BackColor = System.Drawing.Color.Tan;
@@ -359,6 +396,76 @@ namespace ZenHandler.Dlg
             this.button_Manual_Transfer_A_Socket_Load_Pos_XY.Text = "A SOCKET LOAD";
             this.button_Manual_Transfer_A_Socket_Load_Pos_XY.UseVisualStyleBackColor = false;
             this.button_Manual_Transfer_A_Socket_Load_Pos_XY.Click += new System.EventHandler(this.BTN_MANUAL_TRANSFER_SOCKET1_POS_XY_Click);
+            // 
+            // button_Manual_Transfer_Right_Tray_Unload_Pos_Z
+            // 
+            this.button_Manual_Transfer_Right_Tray_Unload_Pos_Z.BackColor = System.Drawing.Color.Tan;
+            this.button_Manual_Transfer_Right_Tray_Unload_Pos_Z.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.button_Manual_Transfer_Right_Tray_Unload_Pos_Z.Font = new System.Drawing.Font("나눔고딕 ExtraBold", 8.999999F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(129)));
+            this.button_Manual_Transfer_Right_Tray_Unload_Pos_Z.ForeColor = System.Drawing.Color.White;
+            this.button_Manual_Transfer_Right_Tray_Unload_Pos_Z.Location = new System.Drawing.Point(175, 208);
+            this.button_Manual_Transfer_Right_Tray_Unload_Pos_Z.Name = "button_Manual_Transfer_Right_Tray_Unload_Pos_Z";
+            this.button_Manual_Transfer_Right_Tray_Unload_Pos_Z.Size = new System.Drawing.Size(155, 51);
+            this.button_Manual_Transfer_Right_Tray_Unload_Pos_Z.TabIndex = 43;
+            this.button_Manual_Transfer_Right_Tray_Unload_Pos_Z.Text = "Z RIGHT TRAY UNLOAD";
+            this.button_Manual_Transfer_Right_Tray_Unload_Pos_Z.UseVisualStyleBackColor = false;
+            this.button_Manual_Transfer_Right_Tray_Unload_Pos_Z.Click += new System.EventHandler(this.BTN_MANUAL_TRANSFER_RIGHT_UNLOAD_POS_Z_Click);
+            // 
+            // button_Manual_Transfer_Left_Tray_Unload_Pos_Z
+            // 
+            this.button_Manual_Transfer_Left_Tray_Unload_Pos_Z.BackColor = System.Drawing.Color.Tan;
+            this.button_Manual_Transfer_Left_Tray_Unload_Pos_Z.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.button_Manual_Transfer_Left_Tray_Unload_Pos_Z.Font = new System.Drawing.Font("나눔고딕 ExtraBold", 8.999999F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(129)));
+            this.button_Manual_Transfer_Left_Tray_Unload_Pos_Z.ForeColor = System.Drawing.Color.White;
+            this.button_Manual_Transfer_Left_Tray_Unload_Pos_Z.Location = new System.Drawing.Point(175, 153);
+            this.button_Manual_Transfer_Left_Tray_Unload_Pos_Z.Name = "button_Manual_Transfer_Left_Tray_Unload_Pos_Z";
+            this.button_Manual_Transfer_Left_Tray_Unload_Pos_Z.Size = new System.Drawing.Size(155, 51);
+            this.button_Manual_Transfer_Left_Tray_Unload_Pos_Z.TabIndex = 41;
+            this.button_Manual_Transfer_Left_Tray_Unload_Pos_Z.Text = "Z LEFT TRAY UNLOAD";
+            this.button_Manual_Transfer_Left_Tray_Unload_Pos_Z.UseVisualStyleBackColor = false;
+            this.button_Manual_Transfer_Left_Tray_Unload_Pos_Z.Click += new System.EventHandler(this.BTN_MANUAL_TRANSFER_LEFT_UNLOAD_POS_Z_Click);
+            // 
+            // button_Manual_Transfer_Right_Tray_Load_Pos_Z
+            // 
+            this.button_Manual_Transfer_Right_Tray_Load_Pos_Z.BackColor = System.Drawing.Color.Tan;
+            this.button_Manual_Transfer_Right_Tray_Load_Pos_Z.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.button_Manual_Transfer_Right_Tray_Load_Pos_Z.Font = new System.Drawing.Font("나눔고딕 ExtraBold", 8.999999F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(129)));
+            this.button_Manual_Transfer_Right_Tray_Load_Pos_Z.ForeColor = System.Drawing.Color.White;
+            this.button_Manual_Transfer_Right_Tray_Load_Pos_Z.Location = new System.Drawing.Point(14, 208);
+            this.button_Manual_Transfer_Right_Tray_Load_Pos_Z.Name = "button_Manual_Transfer_Right_Tray_Load_Pos_Z";
+            this.button_Manual_Transfer_Right_Tray_Load_Pos_Z.Size = new System.Drawing.Size(155, 51);
+            this.button_Manual_Transfer_Right_Tray_Load_Pos_Z.TabIndex = 39;
+            this.button_Manual_Transfer_Right_Tray_Load_Pos_Z.Text = "Z RIGHT TRAY LOAD";
+            this.button_Manual_Transfer_Right_Tray_Load_Pos_Z.UseVisualStyleBackColor = false;
+            this.button_Manual_Transfer_Right_Tray_Load_Pos_Z.Click += new System.EventHandler(this.BTN_MANUAL_TRANSFER_RIGHT_LOAD_POS_Z_Click);
+            // 
+            // button_Manual_Transfer_B_Socket_Load_Pos_Z
+            // 
+            this.button_Manual_Transfer_B_Socket_Load_Pos_Z.BackColor = System.Drawing.Color.Tan;
+            this.button_Manual_Transfer_B_Socket_Load_Pos_Z.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.button_Manual_Transfer_B_Socket_Load_Pos_Z.Font = new System.Drawing.Font("나눔고딕 ExtraBold", 8.999999F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(129)));
+            this.button_Manual_Transfer_B_Socket_Load_Pos_Z.ForeColor = System.Drawing.Color.White;
+            this.button_Manual_Transfer_B_Socket_Load_Pos_Z.Location = new System.Drawing.Point(14, 319);
+            this.button_Manual_Transfer_B_Socket_Load_Pos_Z.Name = "button_Manual_Transfer_B_Socket_Load_Pos_Z";
+            this.button_Manual_Transfer_B_Socket_Load_Pos_Z.Size = new System.Drawing.Size(155, 51);
+            this.button_Manual_Transfer_B_Socket_Load_Pos_Z.TabIndex = 45;
+            this.button_Manual_Transfer_B_Socket_Load_Pos_Z.Text = "Z B SOCKET LOAD";
+            this.button_Manual_Transfer_B_Socket_Load_Pos_Z.UseVisualStyleBackColor = false;
+            this.button_Manual_Transfer_B_Socket_Load_Pos_Z.Click += new System.EventHandler(this.BTN_MANUAL_TRANSFER_SOCKET3_POS_Z_Click);
+            // 
+            // button_Manual_Transfer_A_Socket_Load_Pos_Z
+            // 
+            this.button_Manual_Transfer_A_Socket_Load_Pos_Z.BackColor = System.Drawing.Color.Tan;
+            this.button_Manual_Transfer_A_Socket_Load_Pos_Z.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.button_Manual_Transfer_A_Socket_Load_Pos_Z.Font = new System.Drawing.Font("나눔고딕 ExtraBold", 8.999999F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(129)));
+            this.button_Manual_Transfer_A_Socket_Load_Pos_Z.ForeColor = System.Drawing.Color.White;
+            this.button_Manual_Transfer_A_Socket_Load_Pos_Z.Location = new System.Drawing.Point(14, 263);
+            this.button_Manual_Transfer_A_Socket_Load_Pos_Z.Name = "button_Manual_Transfer_A_Socket_Load_Pos_Z";
+            this.button_Manual_Transfer_A_Socket_Load_Pos_Z.Size = new System.Drawing.Size(155, 51);
+            this.button_Manual_Transfer_A_Socket_Load_Pos_Z.TabIndex = 41;
+            this.button_Manual_Transfer_A_Socket_Load_Pos_Z.Text = "Z A SOCKET LOAD";
+            this.button_Manual_Transfer_A_Socket_Load_Pos_Z.UseVisualStyleBackColor = false;
+            this.button_Manual_Transfer_A_Socket_Load_Pos_Z.Click += new System.EventHandler(this.BTN_MANUAL_TRANSFER_SOCKET1_POS_Z_Click);
             // 
             // groupBox2
             // 
@@ -614,171 +721,23 @@ namespace ZenHandler.Dlg
             this.groupBox3.Controls.Add(this.button_Manual_Transfer_B_Socket_Load_Pos_Z);
             this.groupBox3.Controls.Add(this.BTN_MANUAL_TRANSFER_WAIT_POS_Z);
             this.groupBox3.Controls.Add(this.button_Manual_Transfer_Left_Tray_Load_Pos_Z);
-            this.groupBox3.Location = new System.Drawing.Point(374, 273);
+            this.groupBox3.Location = new System.Drawing.Point(389, 322);
             this.groupBox3.Name = "groupBox3";
             this.groupBox3.Size = new System.Drawing.Size(358, 567);
             this.groupBox3.TabIndex = 42;
             this.groupBox3.TabStop = false;
             // 
-            // button_Manual_Transfer_D_Socket_Load_Pos_XY
+            // label_Manual_Z_Title
             // 
-            this.button_Manual_Transfer_D_Socket_Load_Pos_XY.BackColor = System.Drawing.Color.Tan;
-            this.button_Manual_Transfer_D_Socket_Load_Pos_XY.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.button_Manual_Transfer_D_Socket_Load_Pos_XY.Font = new System.Drawing.Font("나눔고딕 ExtraBold", 8.999999F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(129)));
-            this.button_Manual_Transfer_D_Socket_Load_Pos_XY.ForeColor = System.Drawing.Color.White;
-            this.button_Manual_Transfer_D_Socket_Load_Pos_XY.Location = new System.Drawing.Point(23, 429);
-            this.button_Manual_Transfer_D_Socket_Load_Pos_XY.Name = "button_Manual_Transfer_D_Socket_Load_Pos_XY";
-            this.button_Manual_Transfer_D_Socket_Load_Pos_XY.Size = new System.Drawing.Size(155, 51);
-            this.button_Manual_Transfer_D_Socket_Load_Pos_XY.TabIndex = 52;
-            this.button_Manual_Transfer_D_Socket_Load_Pos_XY.Text = "D SOCKET LOAD";
-            this.button_Manual_Transfer_D_Socket_Load_Pos_XY.UseVisualStyleBackColor = false;
-            this.button_Manual_Transfer_D_Socket_Load_Pos_XY.Click += new System.EventHandler(this.BTN_MANUAL_TRANSFER_SOCKET_D1_POS_XY_Click);
-            // 
-            // button_Manual_Transfer_D_Socket_Load_Pos_Z
-            // 
-            this.button_Manual_Transfer_D_Socket_Load_Pos_Z.BackColor = System.Drawing.Color.Tan;
-            this.button_Manual_Transfer_D_Socket_Load_Pos_Z.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.button_Manual_Transfer_D_Socket_Load_Pos_Z.Font = new System.Drawing.Font("나눔고딕 ExtraBold", 8.999999F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(129)));
-            this.button_Manual_Transfer_D_Socket_Load_Pos_Z.ForeColor = System.Drawing.Color.White;
-            this.button_Manual_Transfer_D_Socket_Load_Pos_Z.Location = new System.Drawing.Point(14, 432);
-            this.button_Manual_Transfer_D_Socket_Load_Pos_Z.Name = "button_Manual_Transfer_D_Socket_Load_Pos_Z";
-            this.button_Manual_Transfer_D_Socket_Load_Pos_Z.Size = new System.Drawing.Size(155, 51);
-            this.button_Manual_Transfer_D_Socket_Load_Pos_Z.TabIndex = 53;
-            this.button_Manual_Transfer_D_Socket_Load_Pos_Z.Text = "Z D SOCKET LOAD";
-            this.button_Manual_Transfer_D_Socket_Load_Pos_Z.UseVisualStyleBackColor = false;
-            this.button_Manual_Transfer_D_Socket_Load_Pos_Z.Click += new System.EventHandler(this.BTN_MANUAL_TRANSFER_SOCKET_D1_POS_Z_Click);
-            // 
-            // button_Manual_Transfer_C_Socket_Load_Pos_XY
-            // 
-            this.button_Manual_Transfer_C_Socket_Load_Pos_XY.BackColor = System.Drawing.Color.Tan;
-            this.button_Manual_Transfer_C_Socket_Load_Pos_XY.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.button_Manual_Transfer_C_Socket_Load_Pos_XY.Font = new System.Drawing.Font("나눔고딕 ExtraBold", 8.999999F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(129)));
-            this.button_Manual_Transfer_C_Socket_Load_Pos_XY.ForeColor = System.Drawing.Color.White;
-            this.button_Manual_Transfer_C_Socket_Load_Pos_XY.Location = new System.Drawing.Point(23, 373);
-            this.button_Manual_Transfer_C_Socket_Load_Pos_XY.Name = "button_Manual_Transfer_C_Socket_Load_Pos_XY";
-            this.button_Manual_Transfer_C_Socket_Load_Pos_XY.Size = new System.Drawing.Size(155, 51);
-            this.button_Manual_Transfer_C_Socket_Load_Pos_XY.TabIndex = 48;
-            this.button_Manual_Transfer_C_Socket_Load_Pos_XY.Text = "C SOCKET LOAD";
-            this.button_Manual_Transfer_C_Socket_Load_Pos_XY.UseVisualStyleBackColor = false;
-            this.button_Manual_Transfer_C_Socket_Load_Pos_XY.Click += new System.EventHandler(this.BTN_MANUAL_TRANSFER_SOCKET_C1_POS_XY_Click);
-            // 
-            // button_Manual_Transfer_C_Socket_Load_Pos_Z
-            // 
-            this.button_Manual_Transfer_C_Socket_Load_Pos_Z.BackColor = System.Drawing.Color.Tan;
-            this.button_Manual_Transfer_C_Socket_Load_Pos_Z.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.button_Manual_Transfer_C_Socket_Load_Pos_Z.Font = new System.Drawing.Font("나눔고딕 ExtraBold", 8.999999F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(129)));
-            this.button_Manual_Transfer_C_Socket_Load_Pos_Z.ForeColor = System.Drawing.Color.White;
-            this.button_Manual_Transfer_C_Socket_Load_Pos_Z.Location = new System.Drawing.Point(14, 375);
-            this.button_Manual_Transfer_C_Socket_Load_Pos_Z.Name = "button_Manual_Transfer_C_Socket_Load_Pos_Z";
-            this.button_Manual_Transfer_C_Socket_Load_Pos_Z.Size = new System.Drawing.Size(155, 51);
-            this.button_Manual_Transfer_C_Socket_Load_Pos_Z.TabIndex = 49;
-            this.button_Manual_Transfer_C_Socket_Load_Pos_Z.Text = "Z C SOCKET LOAD";
-            this.button_Manual_Transfer_C_Socket_Load_Pos_Z.UseVisualStyleBackColor = false;
-            this.button_Manual_Transfer_C_Socket_Load_Pos_Z.Click += new System.EventHandler(this.BTN_MANUAL_TRANSFER_SOCKET_C1_POS_Z_Click);
-            // 
-            // button_Manual_Transfer_Left_Bcr_Pos_XY
-            // 
-            this.button_Manual_Transfer_Left_Bcr_Pos_XY.BackColor = System.Drawing.Color.Tan;
-            this.button_Manual_Transfer_Left_Bcr_Pos_XY.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.button_Manual_Transfer_Left_Bcr_Pos_XY.Font = new System.Drawing.Font("나눔고딕 ExtraBold", 8.999999F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(129)));
-            this.button_Manual_Transfer_Left_Bcr_Pos_XY.ForeColor = System.Drawing.Color.White;
-            this.button_Manual_Transfer_Left_Bcr_Pos_XY.Location = new System.Drawing.Point(23, 98);
-            this.button_Manual_Transfer_Left_Bcr_Pos_XY.Name = "button_Manual_Transfer_Left_Bcr_Pos_XY";
-            this.button_Manual_Transfer_Left_Bcr_Pos_XY.Size = new System.Drawing.Size(155, 51);
-            this.button_Manual_Transfer_Left_Bcr_Pos_XY.TabIndex = 53;
-            this.button_Manual_Transfer_Left_Bcr_Pos_XY.Text = "LEFT BCR SCAN";
-            this.button_Manual_Transfer_Left_Bcr_Pos_XY.UseVisualStyleBackColor = false;
-            // 
-            // button_Manual_Transfer_Right_Bcr_Pos_XY
-            // 
-            this.button_Manual_Transfer_Right_Bcr_Pos_XY.BackColor = System.Drawing.Color.Tan;
-            this.button_Manual_Transfer_Right_Bcr_Pos_XY.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.button_Manual_Transfer_Right_Bcr_Pos_XY.Font = new System.Drawing.Font("나눔고딕 ExtraBold", 8.999999F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(129)));
-            this.button_Manual_Transfer_Right_Bcr_Pos_XY.ForeColor = System.Drawing.Color.White;
-            this.button_Manual_Transfer_Right_Bcr_Pos_XY.Location = new System.Drawing.Point(184, 98);
-            this.button_Manual_Transfer_Right_Bcr_Pos_XY.Name = "button_Manual_Transfer_Right_Bcr_Pos_XY";
-            this.button_Manual_Transfer_Right_Bcr_Pos_XY.Size = new System.Drawing.Size(155, 51);
-            this.button_Manual_Transfer_Right_Bcr_Pos_XY.TabIndex = 54;
-            this.button_Manual_Transfer_Right_Bcr_Pos_XY.Text = "RIGHT BCR SCAN";
-            this.button_Manual_Transfer_Right_Bcr_Pos_XY.UseVisualStyleBackColor = false;
-            // 
-            // button_Manual_Transfer_A_Socket_Unload_Pos_XY
-            // 
-            this.button_Manual_Transfer_A_Socket_Unload_Pos_XY.BackColor = System.Drawing.Color.Tan;
-            this.button_Manual_Transfer_A_Socket_Unload_Pos_XY.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.button_Manual_Transfer_A_Socket_Unload_Pos_XY.Font = new System.Drawing.Font("나눔고딕 ExtraBold", 8.999999F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(129)));
-            this.button_Manual_Transfer_A_Socket_Unload_Pos_XY.ForeColor = System.Drawing.Color.White;
-            this.button_Manual_Transfer_A_Socket_Unload_Pos_XY.Location = new System.Drawing.Point(184, 262);
-            this.button_Manual_Transfer_A_Socket_Unload_Pos_XY.Name = "button_Manual_Transfer_A_Socket_Unload_Pos_XY";
-            this.button_Manual_Transfer_A_Socket_Unload_Pos_XY.Size = new System.Drawing.Size(155, 51);
-            this.button_Manual_Transfer_A_Socket_Unload_Pos_XY.TabIndex = 55;
-            this.button_Manual_Transfer_A_Socket_Unload_Pos_XY.Text = "A SOCKET UNLOAD";
-            this.button_Manual_Transfer_A_Socket_Unload_Pos_XY.UseVisualStyleBackColor = false;
-            // 
-            // button_Manual_Transfer_B_Socket_Unload_Pos_XY
-            // 
-            this.button_Manual_Transfer_B_Socket_Unload_Pos_XY.BackColor = System.Drawing.Color.Tan;
-            this.button_Manual_Transfer_B_Socket_Unload_Pos_XY.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.button_Manual_Transfer_B_Socket_Unload_Pos_XY.Font = new System.Drawing.Font("나눔고딕 ExtraBold", 8.999999F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(129)));
-            this.button_Manual_Transfer_B_Socket_Unload_Pos_XY.ForeColor = System.Drawing.Color.White;
-            this.button_Manual_Transfer_B_Socket_Unload_Pos_XY.Location = new System.Drawing.Point(184, 318);
-            this.button_Manual_Transfer_B_Socket_Unload_Pos_XY.Name = "button_Manual_Transfer_B_Socket_Unload_Pos_XY";
-            this.button_Manual_Transfer_B_Socket_Unload_Pos_XY.Size = new System.Drawing.Size(155, 51);
-            this.button_Manual_Transfer_B_Socket_Unload_Pos_XY.TabIndex = 56;
-            this.button_Manual_Transfer_B_Socket_Unload_Pos_XY.Text = "B SOCKET UNLOAD";
-            this.button_Manual_Transfer_B_Socket_Unload_Pos_XY.UseVisualStyleBackColor = false;
-            // 
-            // button_Manual_Transfer_C_Socket_Unload_Pos_XY
-            // 
-            this.button_Manual_Transfer_C_Socket_Unload_Pos_XY.BackColor = System.Drawing.Color.Tan;
-            this.button_Manual_Transfer_C_Socket_Unload_Pos_XY.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.button_Manual_Transfer_C_Socket_Unload_Pos_XY.Font = new System.Drawing.Font("나눔고딕 ExtraBold", 8.999999F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(129)));
-            this.button_Manual_Transfer_C_Socket_Unload_Pos_XY.ForeColor = System.Drawing.Color.White;
-            this.button_Manual_Transfer_C_Socket_Unload_Pos_XY.Location = new System.Drawing.Point(184, 373);
-            this.button_Manual_Transfer_C_Socket_Unload_Pos_XY.Name = "button_Manual_Transfer_C_Socket_Unload_Pos_XY";
-            this.button_Manual_Transfer_C_Socket_Unload_Pos_XY.Size = new System.Drawing.Size(155, 51);
-            this.button_Manual_Transfer_C_Socket_Unload_Pos_XY.TabIndex = 57;
-            this.button_Manual_Transfer_C_Socket_Unload_Pos_XY.Text = "C SOCKET UNLOAD";
-            this.button_Manual_Transfer_C_Socket_Unload_Pos_XY.UseVisualStyleBackColor = false;
-            // 
-            // button_Manual_Transfer_D_Socket_Unload_Pos_XY
-            // 
-            this.button_Manual_Transfer_D_Socket_Unload_Pos_XY.BackColor = System.Drawing.Color.Tan;
-            this.button_Manual_Transfer_D_Socket_Unload_Pos_XY.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.button_Manual_Transfer_D_Socket_Unload_Pos_XY.Font = new System.Drawing.Font("나눔고딕 ExtraBold", 8.999999F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(129)));
-            this.button_Manual_Transfer_D_Socket_Unload_Pos_XY.ForeColor = System.Drawing.Color.White;
-            this.button_Manual_Transfer_D_Socket_Unload_Pos_XY.Location = new System.Drawing.Point(184, 429);
-            this.button_Manual_Transfer_D_Socket_Unload_Pos_XY.Name = "button_Manual_Transfer_D_Socket_Unload_Pos_XY";
-            this.button_Manual_Transfer_D_Socket_Unload_Pos_XY.Size = new System.Drawing.Size(155, 51);
-            this.button_Manual_Transfer_D_Socket_Unload_Pos_XY.TabIndex = 58;
-            this.button_Manual_Transfer_D_Socket_Unload_Pos_XY.Text = "D SOCKET UNLOAD";
-            this.button_Manual_Transfer_D_Socket_Unload_Pos_XY.UseVisualStyleBackColor = false;
-            // 
-            // button_Manual_Transfer_Right_Bcr_Pos_Z
-            // 
-            this.button_Manual_Transfer_Right_Bcr_Pos_Z.BackColor = System.Drawing.Color.Tan;
-            this.button_Manual_Transfer_Right_Bcr_Pos_Z.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.button_Manual_Transfer_Right_Bcr_Pos_Z.Font = new System.Drawing.Font("나눔고딕 ExtraBold", 8.999999F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(129)));
-            this.button_Manual_Transfer_Right_Bcr_Pos_Z.ForeColor = System.Drawing.Color.White;
-            this.button_Manual_Transfer_Right_Bcr_Pos_Z.Location = new System.Drawing.Point(175, 99);
-            this.button_Manual_Transfer_Right_Bcr_Pos_Z.Name = "button_Manual_Transfer_Right_Bcr_Pos_Z";
-            this.button_Manual_Transfer_Right_Bcr_Pos_Z.Size = new System.Drawing.Size(155, 51);
-            this.button_Manual_Transfer_Right_Bcr_Pos_Z.TabIndex = 55;
-            this.button_Manual_Transfer_Right_Bcr_Pos_Z.Text = "Z RIGHT BCR SCAN";
-            this.button_Manual_Transfer_Right_Bcr_Pos_Z.UseVisualStyleBackColor = false;
-            // 
-            // button_Manual_Transfer_Left_Bcr_Pos_Z
-            // 
-            this.button_Manual_Transfer_Left_Bcr_Pos_Z.BackColor = System.Drawing.Color.Tan;
-            this.button_Manual_Transfer_Left_Bcr_Pos_Z.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.button_Manual_Transfer_Left_Bcr_Pos_Z.Font = new System.Drawing.Font("나눔고딕 ExtraBold", 8.999999F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(129)));
-            this.button_Manual_Transfer_Left_Bcr_Pos_Z.ForeColor = System.Drawing.Color.White;
-            this.button_Manual_Transfer_Left_Bcr_Pos_Z.Location = new System.Drawing.Point(14, 99);
-            this.button_Manual_Transfer_Left_Bcr_Pos_Z.Name = "button_Manual_Transfer_Left_Bcr_Pos_Z";
-            this.button_Manual_Transfer_Left_Bcr_Pos_Z.Size = new System.Drawing.Size(155, 51);
-            this.button_Manual_Transfer_Left_Bcr_Pos_Z.TabIndex = 54;
-            this.button_Manual_Transfer_Left_Bcr_Pos_Z.Text = "Z LEFT BCR SCAN";
-            this.button_Manual_Transfer_Left_Bcr_Pos_Z.UseVisualStyleBackColor = false;
+            this.label_Manual_Z_Title.BackColor = System.Drawing.Color.PapayaWhip;
+            this.label_Manual_Z_Title.Font = new System.Drawing.Font("굴림", 10F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(129)));
+            this.label_Manual_Z_Title.ForeColor = System.Drawing.Color.Black;
+            this.label_Manual_Z_Title.Location = new System.Drawing.Point(14, 17);
+            this.label_Manual_Z_Title.Name = "label_Manual_Z_Title";
+            this.label_Manual_Z_Title.Size = new System.Drawing.Size(316, 23);
+            this.label_Manual_Z_Title.TabIndex = 59;
+            this.label_Manual_Z_Title.Text = "Z AXIS";
+            this.label_Manual_Z_Title.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
             // button_Manual_Transfer_D_Socket_Unload_Pos_Z
             // 
@@ -832,22 +791,76 @@ namespace ZenHandler.Dlg
             this.button_Manual_Transfer_B_Socket_Unload_Pos_Z.Text = "Z B SOCKET UNLOAD";
             this.button_Manual_Transfer_B_Socket_Unload_Pos_Z.UseVisualStyleBackColor = false;
             // 
-            // label_Manual_Z_Title
+            // button_Manual_Transfer_Right_Bcr_Pos_Z
             // 
-            this.label_Manual_Z_Title.BackColor = System.Drawing.Color.PapayaWhip;
-            this.label_Manual_Z_Title.Font = new System.Drawing.Font("굴림", 10F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(129)));
-            this.label_Manual_Z_Title.ForeColor = System.Drawing.Color.Black;
-            this.label_Manual_Z_Title.Location = new System.Drawing.Point(14, 17);
-            this.label_Manual_Z_Title.Name = "label_Manual_Z_Title";
-            this.label_Manual_Z_Title.Size = new System.Drawing.Size(316, 23);
-            this.label_Manual_Z_Title.TabIndex = 59;
-            this.label_Manual_Z_Title.Text = "Z AXIS";
-            this.label_Manual_Z_Title.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            this.button_Manual_Transfer_Right_Bcr_Pos_Z.BackColor = System.Drawing.Color.Tan;
+            this.button_Manual_Transfer_Right_Bcr_Pos_Z.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.button_Manual_Transfer_Right_Bcr_Pos_Z.Font = new System.Drawing.Font("나눔고딕 ExtraBold", 8.999999F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(129)));
+            this.button_Manual_Transfer_Right_Bcr_Pos_Z.ForeColor = System.Drawing.Color.White;
+            this.button_Manual_Transfer_Right_Bcr_Pos_Z.Location = new System.Drawing.Point(175, 99);
+            this.button_Manual_Transfer_Right_Bcr_Pos_Z.Name = "button_Manual_Transfer_Right_Bcr_Pos_Z";
+            this.button_Manual_Transfer_Right_Bcr_Pos_Z.Size = new System.Drawing.Size(155, 51);
+            this.button_Manual_Transfer_Right_Bcr_Pos_Z.TabIndex = 55;
+            this.button_Manual_Transfer_Right_Bcr_Pos_Z.Text = "Z RIGHT BCR SCAN";
+            this.button_Manual_Transfer_Right_Bcr_Pos_Z.UseVisualStyleBackColor = false;
+            // 
+            // button_Manual_Transfer_Left_Bcr_Pos_Z
+            // 
+            this.button_Manual_Transfer_Left_Bcr_Pos_Z.BackColor = System.Drawing.Color.Tan;
+            this.button_Manual_Transfer_Left_Bcr_Pos_Z.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.button_Manual_Transfer_Left_Bcr_Pos_Z.Font = new System.Drawing.Font("나눔고딕 ExtraBold", 8.999999F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(129)));
+            this.button_Manual_Transfer_Left_Bcr_Pos_Z.ForeColor = System.Drawing.Color.White;
+            this.button_Manual_Transfer_Left_Bcr_Pos_Z.Location = new System.Drawing.Point(14, 99);
+            this.button_Manual_Transfer_Left_Bcr_Pos_Z.Name = "button_Manual_Transfer_Left_Bcr_Pos_Z";
+            this.button_Manual_Transfer_Left_Bcr_Pos_Z.Size = new System.Drawing.Size(155, 51);
+            this.button_Manual_Transfer_Left_Bcr_Pos_Z.TabIndex = 54;
+            this.button_Manual_Transfer_Left_Bcr_Pos_Z.Text = "Z LEFT BCR SCAN";
+            this.button_Manual_Transfer_Left_Bcr_Pos_Z.UseVisualStyleBackColor = false;
+            // 
+            // button_Manual_Transfer_D_Socket_Load_Pos_Z
+            // 
+            this.button_Manual_Transfer_D_Socket_Load_Pos_Z.BackColor = System.Drawing.Color.Tan;
+            this.button_Manual_Transfer_D_Socket_Load_Pos_Z.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.button_Manual_Transfer_D_Socket_Load_Pos_Z.Font = new System.Drawing.Font("나눔고딕 ExtraBold", 8.999999F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(129)));
+            this.button_Manual_Transfer_D_Socket_Load_Pos_Z.ForeColor = System.Drawing.Color.White;
+            this.button_Manual_Transfer_D_Socket_Load_Pos_Z.Location = new System.Drawing.Point(14, 432);
+            this.button_Manual_Transfer_D_Socket_Load_Pos_Z.Name = "button_Manual_Transfer_D_Socket_Load_Pos_Z";
+            this.button_Manual_Transfer_D_Socket_Load_Pos_Z.Size = new System.Drawing.Size(155, 51);
+            this.button_Manual_Transfer_D_Socket_Load_Pos_Z.TabIndex = 53;
+            this.button_Manual_Transfer_D_Socket_Load_Pos_Z.Text = "Z D SOCKET LOAD";
+            this.button_Manual_Transfer_D_Socket_Load_Pos_Z.UseVisualStyleBackColor = false;
+            this.button_Manual_Transfer_D_Socket_Load_Pos_Z.Click += new System.EventHandler(this.BTN_MANUAL_TRANSFER_SOCKET_D1_POS_Z_Click);
+            // 
+            // button_Manual_Transfer_C_Socket_Load_Pos_Z
+            // 
+            this.button_Manual_Transfer_C_Socket_Load_Pos_Z.BackColor = System.Drawing.Color.Tan;
+            this.button_Manual_Transfer_C_Socket_Load_Pos_Z.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.button_Manual_Transfer_C_Socket_Load_Pos_Z.Font = new System.Drawing.Font("나눔고딕 ExtraBold", 8.999999F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(129)));
+            this.button_Manual_Transfer_C_Socket_Load_Pos_Z.ForeColor = System.Drawing.Color.White;
+            this.button_Manual_Transfer_C_Socket_Load_Pos_Z.Location = new System.Drawing.Point(14, 375);
+            this.button_Manual_Transfer_C_Socket_Load_Pos_Z.Name = "button_Manual_Transfer_C_Socket_Load_Pos_Z";
+            this.button_Manual_Transfer_C_Socket_Load_Pos_Z.Size = new System.Drawing.Size(155, 51);
+            this.button_Manual_Transfer_C_Socket_Load_Pos_Z.TabIndex = 49;
+            this.button_Manual_Transfer_C_Socket_Load_Pos_Z.Text = "Z C SOCKET LOAD";
+            this.button_Manual_Transfer_C_Socket_Load_Pos_Z.UseVisualStyleBackColor = false;
+            this.button_Manual_Transfer_C_Socket_Load_Pos_Z.Click += new System.EventHandler(this.BTN_MANUAL_TRANSFER_SOCKET_C1_POS_Z_Click);
+            // 
+            // comboBox_Manual_LoadPicker
+            // 
+            this.comboBox_Manual_LoadPicker.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.comboBox_Manual_LoadPicker.Font = new System.Drawing.Font("나눔고딕 ExtraBold", 15.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(129)));
+            this.comboBox_Manual_LoadPicker.FormattingEnabled = true;
+            this.comboBox_Manual_LoadPicker.ItemHeight = 24;
+            this.comboBox_Manual_LoadPicker.Location = new System.Drawing.Point(74, 267);
+            this.comboBox_Manual_LoadPicker.Name = "comboBox_Manual_LoadPicker";
+            this.comboBox_Manual_LoadPicker.Size = new System.Drawing.Size(249, 32);
+            this.comboBox_Manual_LoadPicker.TabIndex = 53;
             // 
             // ManualTransfer
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 12F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
+            this.Controls.Add(this.comboBox_Manual_LoadPicker);
             this.Controls.Add(this.groupBox3);
             this.Controls.Add(this.groupBox2);
             this.Controls.Add(this.groupBox1);
@@ -916,5 +929,6 @@ namespace ZenHandler.Dlg
         private System.Windows.Forms.Button button_Manual_Transfer_A_Socket_Unload_Pos_Z;
         private System.Windows.Forms.Button button_Manual_Transfer_B_Socket_Unload_Pos_Z;
         private System.Windows.Forms.Label label_Manual_Z_Title;
+        private System.Windows.Forms.ComboBox comboBox_Manual_LoadPicker;
     }
 }

@@ -20,42 +20,30 @@ namespace ZenHandler.Data
         public string Name { get; set; }
         public List<double> Pos { get; set; }
     }
-    public class TeachingDataList
-    {
-        public List<double> Speed { get; set; }
-        public List<double> Accel { get; set; }
-        public List<double> Decel { get; set; }
-        public List<double> Resolution { get; set; }
-        public List<TeachingPos> Teaching { get; set; }
-    }
-
-    public class HandlerTeachingData
-    {
-        //public TeachingDataList TransferMachine { get; set; } = new TeachingDataList(); //teachingTransferUnit.yaml
-        //public TeachingDataList MagazineHandler { get; set; } = new TeachingDataList();//teachingMagazineUnit.yaml
-        //public TeachingDataList LiftMachine { get; set; } = new TeachingDataList();//teachingLIftUnit.yaml
-    }
     public class TeachingConfig
     {
-        public List<double> Speed { get; set; }
-        public List<double> Accel { get; set; }
-        public List<double> Decel { get; set; }
-        public List<double> Resolution { get; set; }
-        public List<TeachingPos> Teaching { get; set; }
+        public List<double> Speed { get; set; } = new List<double>();
+        public List<double> Accel { get; set; } = new List<double>();
+        public List<double> Decel { get; set; } = new List<double>();
+        public List<double> Resolution { get; set; } = new List<double>();
+        public List<TeachingPos> Teaching { get; set; } = new List<TeachingPos>();
 
-        public bool LoadTeach(string fileName)      //티칭 분리
+        public bool LoadTeach(string fileName, int axisCount, int teachCnt)      //티칭 분리
         {
             string filePath = Path.Combine(CPath.BASE_ENV_PATH, fileName);
             try
             {
                 if (!File.Exists(filePath))
+                {
+                    Globalo.LogPrint("LoadTeach", $"[Teaching] { fileName} Load Fail", Globalo.eMessageName.M_ERROR);
                     return false;
-
+                }
                 var Loaded = Data.YamlManager.LoadYaml<TeachingConfig>(filePath);
 
                 if (Loaded == null)
                 {
                     Globalo.LogPrint("TeachingDataYaml", $"{fileName} - TEACHING DATA LOAD FAIL", Globalo.eMessageName.M_ERROR);
+                   
                     return false;
                 }
                 // 값 복사
@@ -65,11 +53,41 @@ namespace ZenHandler.Data
                 this.Resolution = Loaded.Resolution;
                 this.Teaching = Loaded.Teaching;
 
+                if (this.Teaching.Count < teachCnt)
+                {
+                    for (int i = 0; i < teachCnt - this.Teaching.Count; i++)
+                    {
+                        List<double> Pos = new List<double>();
+                        for (int j = 0; j < axisCount; j++)
+                        {
+                            Pos.Add(0.0);
+                        }
+                        //this.Teaching.Add(new TeachingPos { Name = "Pos", Pos = new List<double> { 10.0, 20.0 } });//TODO: 티칭 개수만큼 더해줘야된다.
+                        this.Teaching.Add(new TeachingPos { Name = "Pos", Pos = Pos });
+                    }
+                    Globalo.LogPrint("TeachingDataYaml", $"{fileName} - TEACHING DATA LOAD FAIL!", Globalo.eMessageName.M_ERROR);
+                    return false;
+                }
                 Globalo.LogPrint("TeachingDataYaml", $"{fileName} - TEACHING DATA LOAD COMPLETE!");
                 return true;
             }
             catch (Exception ex)
             {
+                for (int i = 0; i < axisCount; i++)
+                {
+                    this.Speed.Add(10.0);
+                    this.Accel.Add(0.1);
+                    this.Decel.Add(0.1);
+                    this.Resolution.Add(1000);
+                    List<double> Pos = new List<double>();
+                    for (int j = 0; j < axisCount; j++)
+                    {
+                        Pos.Add(0.0);
+                    }
+                    this.Teaching.Add(new TeachingPos { Name = "Pos", Pos = Pos });
+
+                }
+                Globalo.LogPrint("TeachingDataYaml", $"{fileName} - TEACHING DATA LOAD FAIL!", Globalo.eMessageName.M_ERROR);
                 Console.WriteLine($"Error loading MesLoad: {ex.Message}");
                 return false;
             }
@@ -135,72 +153,57 @@ namespace ZenHandler.Data
 
     public class TeachingDataYaml
     {
-        public HandlerTeachingData handler;
+        //public HandlerTeachingData handler;
         
         public TeachingDataYaml()
         {
 
         }
         
-        public bool LoadTeaching(string fileName = "teachingData")
-        {
-            string filePath = Path.Combine(CPath.BASE_ENV_PATH, "Teaching_"+fileName + ".yaml");    //CPath.yamlTeachingData);
-            try
-            {
-                if (!File.Exists(filePath))
-                    return false;
+        //public bool LoadTeaching(string fileName = "teachingData")
+        //{
+        //    string filePath = Path.Combine(CPath.BASE_ENV_PATH, "Teaching_"+fileName + ".yaml");    //CPath.yamlTeachingData);
+        //    try
+        //    {
+        //        if (!File.Exists(filePath))
+        //            return false;
 
-                handler = Data.YamlManager.LoadYaml<HandlerTeachingData>(filePath);
+        //        handler = Data.YamlManager.LoadYaml<HandlerTeachingData>(filePath);
 
-                if (handler == null)
-                {
-                    Globalo.LogPrint("TeachingDataYaml", "TEACHING DATA LOAD FAIL", Globalo.eMessageName.M_ERROR);
-                    return false;
-                }
+        //        if (handler == null)
+        //        {
+        //            Globalo.LogPrint("TeachingDataYaml", "TEACHING DATA LOAD FAIL", Globalo.eMessageName.M_ERROR);
+        //            return false;
+        //        }
 
-                Globalo.LogPrint("TeachingDataYaml", "TEACHING DATA LOAD COMPLETE!");
-                return true;
-            }
-            catch (Exception ex)
-            {
-                Console.WriteLine($"Error loading MesLoad: {ex.Message}");
-                return false;
-            }
-        }
+        //        Globalo.LogPrint("TeachingDataYaml", "TEACHING DATA LOAD COMPLETE!");
+        //        return true;
+        //    }
+        //    catch (Exception ex)
+        //    {
+        //        Console.WriteLine($"Error loading MesLoad: {ex.Message}");
+        //        return false;
+        //    }
+        //}
 
-        public bool SaveTeaching()
-        {
-            string filePath = Path.Combine(CPath.BASE_ENV_PATH, CPath.yamlTeachingData);
-            try
-            {
-                if (!File.Exists(filePath))
-                    return false;
+        //public bool SaveTeaching()
+        //{
+        //    string filePath = Path.Combine(CPath.BASE_ENV_PATH, CPath.yamlTeachingData);
+        //    try
+        //    {
+        //        if (!File.Exists(filePath))
+        //            return false;
 
-                //Data.YamlManager.SaveYaml(filePath, teachingHandlerData);
-                SaveFlowYaml(filePath, handler);
-                return true;
-            }
-            catch (Exception ex)
-            {
-                Console.WriteLine($"Error Save YAML: {ex.Message}");
-                return false;
-            }
-        }
-        public static void SaveFlowYaml(string filePath, HandlerTeachingData data)
-        {
-            var serializer = new SerializerBuilder()
-               // .WithNamingConvention(CamelCaseNamingConvention.Instance)
-                .WithTypeConverter(new FlowStyleDoubleListConverter())
-                .ConfigureDefaultValuesHandling(DefaultValuesHandling.OmitNull)
-                .Build();
-
-            using (var writer = new StreamWriter(filePath))
-            {
-                serializer.Serialize(writer, data);
-            }
-
-            Console.WriteLine($"YAML 저장 완료: {filePath}");
-        }
+        //        //Data.YamlManager.SaveYaml(filePath, teachingHandlerData);
+        //        SaveFlowYaml(filePath, handler);
+        //        return true;
+        //    }
+        //    catch (Exception ex)
+        //    {
+        //        Console.WriteLine($"Error Save YAML: {ex.Message}");
+        //        return false;
+        //    }
+        //}
 
         public class FlowStyleDoubleListConverter : IYamlTypeConverter
         {

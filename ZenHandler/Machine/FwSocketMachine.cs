@@ -28,7 +28,34 @@ namespace ZenHandler.Machine
 
 
             socketProduct = Data.TaskDataYaml.TaskLoad_Socket(taskPath);
-
+            if (socketProduct.SocketInfo_A.Count < 1)
+            {
+                socketProduct.SocketInfo_A.Add(new SocketProductInfo());
+                socketProduct.SocketInfo_A.Add(new SocketProductInfo());
+                socketProduct.SocketInfo_A.Add(new SocketProductInfo());
+                socketProduct.SocketInfo_A.Add(new SocketProductInfo());
+            }
+            if (socketProduct.SocketInfo_B.Count < 1)
+            {
+                socketProduct.SocketInfo_B.Add(new SocketProductInfo());
+                socketProduct.SocketInfo_B.Add(new SocketProductInfo());
+                socketProduct.SocketInfo_B.Add(new SocketProductInfo());
+                socketProduct.SocketInfo_B.Add(new SocketProductInfo());
+            }
+            if (socketProduct.SocketInfo_C.Count < 1)
+            {
+                socketProduct.SocketInfo_C.Add(new SocketProductInfo());
+                socketProduct.SocketInfo_C.Add(new SocketProductInfo());
+                socketProduct.SocketInfo_C.Add(new SocketProductInfo());
+                socketProduct.SocketInfo_C.Add(new SocketProductInfo());
+            }
+            if (socketProduct.SocketInfo_D.Count < 1)
+            {
+                socketProduct.SocketInfo_D.Add(new SocketProductInfo());
+                socketProduct.SocketInfo_D.Add(new SocketProductInfo());
+                socketProduct.SocketInfo_D.Add(new SocketProductInfo());
+                socketProduct.SocketInfo_D.Add(new SocketProductInfo());
+            }
         }
         public override bool TaskSave()
         {
@@ -149,12 +176,18 @@ namespace ZenHandler.Machine
                 szLog = $"[ORIGIN] Fw Socket Origin Start Fail";
                 Globalo.LogPrint("MainForm", szLog);
             }
-            return true;
+            return rtn;
         }
         public override bool ReadyRun()
         {
+            if (this.RunState != OperationState.Stopped)
+            {
+                Globalo.LogPrint("MainForm", "[FW SOCKET] 설비 정지상태가 아닙니다.", Globalo.eMessageName.M_WARNING);
+                return false;
+            }
             if (AutoUnitThread.GetThreadRun() == true)
             {
+                Globalo.LogPrint("MainForm", "[FW SOCKET] 설비 정지상태가 아닙니다..", Globalo.eMessageName.M_WARNING);
                 return false;
             }
             this.RunState = OperationState.Preparing;   //TODO: 모터없는 부분이라 확인필요
@@ -206,7 +239,7 @@ namespace ZenHandler.Machine
             bool rtn = true;
             if (this.RunState != OperationState.Paused)
             {
-                if (this.RunState != OperationState.PreparationComplete)
+                if (this.RunState != OperationState.Standby)
                 {
                     Globalo.LogPrint("MainForm", "[FW SOCKET] 운전준비가 완료되지 않았습니다.", Globalo.eMessageName.M_WARNING);
                     return false;
