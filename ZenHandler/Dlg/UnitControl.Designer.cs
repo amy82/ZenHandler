@@ -53,6 +53,18 @@ namespace ZenHandler.Dlg
             this.label_TransferUnit_Step = new System.Windows.Forms.Label();
             this.label_TransferUnit_State = new System.Windows.Forms.Label();
             this.label_TransferUnit_State_Val = new System.Windows.Forms.Label();
+            this.label_LiftUnit_State_Val = new System.Windows.Forms.Label();
+            this.label_LiftUnit_State = new System.Windows.Forms.Label();
+            this.label_LiftUnit_Step = new System.Windows.Forms.Label();
+            this.label_LiftUnit_Step_Val = new System.Windows.Forms.Label();
+            this.label_SocketUnit_State_Val = new System.Windows.Forms.Label();
+            this.label_SocketUnit_State = new System.Windows.Forms.Label();
+            this.label_SocketUnit_Step = new System.Windows.Forms.Label();
+            this.label_SocketUnit_Step_Val = new System.Windows.Forms.Label();
+            this.label_MagazineUnit_State_Val = new System.Windows.Forms.Label();
+            this.label_MagazineUnit_State = new System.Windows.Forms.Label();
+            this.label_MagazineUnit_Step = new System.Windows.Forms.Label();
+            this.label_MagazineUnit_Step_Val = new System.Windows.Forms.Label();
             this.SuspendLayout();
             // 
             // label3
@@ -369,11 +381,149 @@ namespace ZenHandler.Dlg
             this.label_TransferUnit_State_Val.Text = "0";
             this.label_TransferUnit_State_Val.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
             // 
+            // label_LiftUnit_State_Val
+            // 
+            this.label_LiftUnit_State_Val.BackColor = System.Drawing.Color.White;
+            this.label_LiftUnit_State_Val.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.label_LiftUnit_State_Val.Location = new System.Drawing.Point(609, 154);
+            this.label_LiftUnit_State_Val.Name = "label_LiftUnit_State_Val";
+            this.label_LiftUnit_State_Val.Size = new System.Drawing.Size(103, 22);
+            this.label_LiftUnit_State_Val.TabIndex = 82;
+            this.label_LiftUnit_State_Val.Text = "0";
+            this.label_LiftUnit_State_Val.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
+            // 
+            // label_LiftUnit_State
+            // 
+            this.label_LiftUnit_State.AutoSize = true;
+            this.label_LiftUnit_State.Font = new System.Drawing.Font("나눔고딕", 8.999999F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(129)));
+            this.label_LiftUnit_State.Location = new System.Drawing.Point(611, 138);
+            this.label_LiftUnit_State.Name = "label_LiftUnit_State";
+            this.label_LiftUnit_State.Size = new System.Drawing.Size(43, 14);
+            this.label_LiftUnit_State.TabIndex = 81;
+            this.label_LiftUnit_State.Text = "State :";
+            // 
+            // label_LiftUnit_Step
+            // 
+            this.label_LiftUnit_Step.AutoSize = true;
+            this.label_LiftUnit_Step.Font = new System.Drawing.Font("나눔고딕", 8.999999F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(129)));
+            this.label_LiftUnit_Step.Location = new System.Drawing.Point(611, 83);
+            this.label_LiftUnit_Step.Name = "label_LiftUnit_Step";
+            this.label_LiftUnit_Step.Size = new System.Drawing.Size(39, 14);
+            this.label_LiftUnit_Step.TabIndex = 80;
+            this.label_LiftUnit_Step.Text = "Step :";
+            // 
+            // label_LiftUnit_Step_Val
+            // 
+            this.label_LiftUnit_Step_Val.BackColor = System.Drawing.Color.White;
+            this.label_LiftUnit_Step_Val.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.label_LiftUnit_Step_Val.Location = new System.Drawing.Point(609, 101);
+            this.label_LiftUnit_Step_Val.Name = "label_LiftUnit_Step_Val";
+            this.label_LiftUnit_Step_Val.Size = new System.Drawing.Size(103, 22);
+            this.label_LiftUnit_Step_Val.TabIndex = 79;
+            this.label_LiftUnit_Step_Val.Text = "0";
+            this.label_LiftUnit_Step_Val.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
+            // 
+            // label_SocketUnit_State_Val
+            // 
+            this.label_SocketUnit_State_Val.BackColor = System.Drawing.Color.White;
+            this.label_SocketUnit_State_Val.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.label_SocketUnit_State_Val.Location = new System.Drawing.Point(275, 438);
+            this.label_SocketUnit_State_Val.Name = "label_SocketUnit_State_Val";
+            this.label_SocketUnit_State_Val.Size = new System.Drawing.Size(103, 22);
+            this.label_SocketUnit_State_Val.TabIndex = 86;
+            this.label_SocketUnit_State_Val.Text = "0";
+            this.label_SocketUnit_State_Val.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
+            // 
+            // label_SocketUnit_State
+            // 
+            this.label_SocketUnit_State.AutoSize = true;
+            this.label_SocketUnit_State.Font = new System.Drawing.Font("나눔고딕", 8.999999F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(129)));
+            this.label_SocketUnit_State.Location = new System.Drawing.Point(277, 422);
+            this.label_SocketUnit_State.Name = "label_SocketUnit_State";
+            this.label_SocketUnit_State.Size = new System.Drawing.Size(43, 14);
+            this.label_SocketUnit_State.TabIndex = 85;
+            this.label_SocketUnit_State.Text = "State :";
+            // 
+            // label_SocketUnit_Step
+            // 
+            this.label_SocketUnit_Step.AutoSize = true;
+            this.label_SocketUnit_Step.Font = new System.Drawing.Font("나눔고딕", 8.999999F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(129)));
+            this.label_SocketUnit_Step.Location = new System.Drawing.Point(277, 367);
+            this.label_SocketUnit_Step.Name = "label_SocketUnit_Step";
+            this.label_SocketUnit_Step.Size = new System.Drawing.Size(39, 14);
+            this.label_SocketUnit_Step.TabIndex = 84;
+            this.label_SocketUnit_Step.Text = "Step :";
+            // 
+            // label_SocketUnit_Step_Val
+            // 
+            this.label_SocketUnit_Step_Val.BackColor = System.Drawing.Color.White;
+            this.label_SocketUnit_Step_Val.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.label_SocketUnit_Step_Val.Location = new System.Drawing.Point(275, 385);
+            this.label_SocketUnit_Step_Val.Name = "label_SocketUnit_Step_Val";
+            this.label_SocketUnit_Step_Val.Size = new System.Drawing.Size(103, 22);
+            this.label_SocketUnit_Step_Val.TabIndex = 83;
+            this.label_SocketUnit_Step_Val.Text = "0";
+            this.label_SocketUnit_Step_Val.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
+            // 
+            // label_MagazineUnit_State_Val
+            // 
+            this.label_MagazineUnit_State_Val.BackColor = System.Drawing.Color.White;
+            this.label_MagazineUnit_State_Val.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.label_MagazineUnit_State_Val.Location = new System.Drawing.Point(614, 438);
+            this.label_MagazineUnit_State_Val.Name = "label_MagazineUnit_State_Val";
+            this.label_MagazineUnit_State_Val.Size = new System.Drawing.Size(103, 22);
+            this.label_MagazineUnit_State_Val.TabIndex = 90;
+            this.label_MagazineUnit_State_Val.Text = "0";
+            this.label_MagazineUnit_State_Val.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
+            // 
+            // label_MagazineUnit_State
+            // 
+            this.label_MagazineUnit_State.AutoSize = true;
+            this.label_MagazineUnit_State.Font = new System.Drawing.Font("나눔고딕", 8.999999F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(129)));
+            this.label_MagazineUnit_State.Location = new System.Drawing.Point(616, 422);
+            this.label_MagazineUnit_State.Name = "label_MagazineUnit_State";
+            this.label_MagazineUnit_State.Size = new System.Drawing.Size(43, 14);
+            this.label_MagazineUnit_State.TabIndex = 89;
+            this.label_MagazineUnit_State.Text = "State :";
+            // 
+            // label_MagazineUnit_Step
+            // 
+            this.label_MagazineUnit_Step.AutoSize = true;
+            this.label_MagazineUnit_Step.Font = new System.Drawing.Font("나눔고딕", 8.999999F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(129)));
+            this.label_MagazineUnit_Step.Location = new System.Drawing.Point(616, 367);
+            this.label_MagazineUnit_Step.Name = "label_MagazineUnit_Step";
+            this.label_MagazineUnit_Step.Size = new System.Drawing.Size(39, 14);
+            this.label_MagazineUnit_Step.TabIndex = 88;
+            this.label_MagazineUnit_Step.Text = "Step :";
+            // 
+            // label_MagazineUnit_Step_Val
+            // 
+            this.label_MagazineUnit_Step_Val.BackColor = System.Drawing.Color.White;
+            this.label_MagazineUnit_Step_Val.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.label_MagazineUnit_Step_Val.Location = new System.Drawing.Point(614, 385);
+            this.label_MagazineUnit_Step_Val.Name = "label_MagazineUnit_Step_Val";
+            this.label_MagazineUnit_Step_Val.Size = new System.Drawing.Size(103, 22);
+            this.label_MagazineUnit_Step_Val.TabIndex = 87;
+            this.label_MagazineUnit_Step_Val.Text = "0";
+            this.label_MagazineUnit_Step_Val.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
+            // 
             // UnitControl
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 12F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.SystemColors.Control;
+            this.Controls.Add(this.label_MagazineUnit_State_Val);
+            this.Controls.Add(this.label_MagazineUnit_State);
+            this.Controls.Add(this.label_MagazineUnit_Step);
+            this.Controls.Add(this.label_MagazineUnit_Step_Val);
+            this.Controls.Add(this.label_SocketUnit_State_Val);
+            this.Controls.Add(this.label_SocketUnit_State);
+            this.Controls.Add(this.label_SocketUnit_Step);
+            this.Controls.Add(this.label_SocketUnit_Step_Val);
+            this.Controls.Add(this.label_LiftUnit_State_Val);
+            this.Controls.Add(this.label_LiftUnit_State);
+            this.Controls.Add(this.label_LiftUnit_Step);
+            this.Controls.Add(this.label_LiftUnit_Step_Val);
             this.Controls.Add(this.label_TransferUnit_State_Val);
             this.Controls.Add(this.label_TransferUnit_State);
             this.Controls.Add(this.label_TransferUnit_Step);
@@ -431,5 +581,17 @@ namespace ZenHandler.Dlg
         private System.Windows.Forms.Label label_TransferUnit_Step;
         private System.Windows.Forms.Label label_TransferUnit_State;
         private System.Windows.Forms.Label label_TransferUnit_State_Val;
+        private System.Windows.Forms.Label label_LiftUnit_State_Val;
+        private System.Windows.Forms.Label label_LiftUnit_State;
+        private System.Windows.Forms.Label label_LiftUnit_Step;
+        private System.Windows.Forms.Label label_LiftUnit_Step_Val;
+        private System.Windows.Forms.Label label_SocketUnit_State_Val;
+        private System.Windows.Forms.Label label_SocketUnit_State;
+        private System.Windows.Forms.Label label_SocketUnit_Step;
+        private System.Windows.Forms.Label label_SocketUnit_Step_Val;
+        private System.Windows.Forms.Label label_MagazineUnit_State_Val;
+        private System.Windows.Forms.Label label_MagazineUnit_State;
+        private System.Windows.Forms.Label label_MagazineUnit_Step;
+        private System.Windows.Forms.Label label_MagazineUnit_Step_Val;
     }
 }

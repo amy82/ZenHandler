@@ -145,7 +145,40 @@ namespace ZenHandler.Dlg
 
 
             this.label_TransferUnit_Step_Val.Text = Globalo.motionManager.transferMachine.AutoUnitThread.m_nCurrentStep.ToString();
+            this.label_LiftUnit_Step_Val.Text = Globalo.motionManager.liftMachine.AutoUnitThread.m_nCurrentStep.ToString();
+            this.label_MagazineUnit_Step_Val.Text = Globalo.motionManager.magazineHandler.AutoUnitThread.m_nCurrentStep.ToString();
+            if (Program.PG_SELECT == HANDLER_PG.FW)
+            {
+                this.label_SocketUnit_Step_Val.Text = Globalo.motionManager.socketFwMachine.AutoUnitThread.m_nCurrentStep.ToString();
+            }
+            if (Program.PG_SELECT == HANDLER_PG.AOI)
+            {
+                this.label_SocketUnit_Step_Val.Text = Globalo.motionManager.socketAoiMachine.AutoUnitThread.m_nCurrentStep.ToString();
+            }
+            if (Program.PG_SELECT == HANDLER_PG.EEPROM)
+            {
+                this.label_SocketUnit_Step_Val.Text = Globalo.motionManager.socketEEpromMachine.AutoUnitThread.m_nCurrentStep.ToString();
+            }
+
+            
+
             this.label_TransferUnit_State_Val.Text = Globalo.motionManager.transferMachine.RunState.ToString();
+            this.label_LiftUnit_State_Val.Text = Globalo.motionManager.transferMachine.RunState.ToString();
+            this.label_MagazineUnit_State_Val.Text = Globalo.motionManager.transferMachine.RunState.ToString();
+            
+
+            if (Program.PG_SELECT == HANDLER_PG.FW)
+            {
+                this.label_SocketUnit_State_Val.Text = Globalo.motionManager.socketFwMachine.RunState.ToString();
+            }
+            if (Program.PG_SELECT == HANDLER_PG.AOI)
+            {
+                this.label_SocketUnit_State_Val.Text = Globalo.motionManager.socketAoiMachine.RunState.ToString();
+            }
+            if (Program.PG_SELECT == HANDLER_PG.EEPROM)
+            {
+                this.label_SocketUnit_State_Val.Text = Globalo.motionManager.socketEEpromMachine.RunState.ToString();
+            }
 
         }
         private void ReadyBlinkUnit(int index)
