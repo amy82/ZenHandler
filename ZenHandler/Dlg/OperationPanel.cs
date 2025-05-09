@@ -53,9 +53,8 @@ namespace ZenHandler.Dlg
         {
             //TRANSFER UNIT
             
-            if (Globalo.mMainPanel.unitControl.TransferUnit_Origin() == false)
+            if (Globalo.mMainPanel.unitControl.UnitOrigin(euNIT.TRANSFER_UNIT) == false)
             {
-                Globalo.motionManager.transferMachine.StopAuto();
                 Globalo.LogPrint("ManualCMainFormontrol", "[ORIGIN] TRANSFER UNIT ORIGIN FAIL", Globalo.eMessageName.M_WARNING);
             }
             else
@@ -65,22 +64,21 @@ namespace ZenHandler.Dlg
             if (Program.PG_SELECT == HANDLER_PG.FW)
             {
                 //MAGAZINE UNIT
-                if (Globalo.motionManager.magazineHandler.OriginRun() == false)
+                if (Globalo.mMainPanel.unitControl.UnitOrigin(euNIT.MAGAZINE_UNIT) == false)
                 {
-                    Globalo.motionManager.magazineHandler.StopAuto();
                     Globalo.LogPrint("ManualCMainFormontrol", "[ORIGIN] MAGAZINE UNIT ORIGIN FAIL", Globalo.eMessageName.M_WARNING);
                 }
                 else
                 {
                     Globalo.LogPrint("ManualCMainFormontrol", "[ORIGIN] MAGAZINE UNIT ORIGIN START");
                 }
+                
             }
             else
             {
                 //LIFT UNIT
-                if (Globalo.motionManager.liftMachine.OriginRun() == false)
+                if (Globalo.mMainPanel.unitControl.UnitOrigin(euNIT.LIFT_UNIT) == false)
                 {
-                    Globalo.motionManager.liftMachine.StopAuto();
                     Globalo.LogPrint("ManualCMainFormontrol", "[ORIGIN] LIFT UNIT ORIGIN FAIL", Globalo.eMessageName.M_WARNING);
                 }
                 else
@@ -89,7 +87,14 @@ namespace ZenHandler.Dlg
                 }
             }
             //SOCKET UNIT
-
+            if (Globalo.mMainPanel.unitControl.UnitOrigin(euNIT.SOCKET_UNIT) == false)
+            {
+                Globalo.LogPrint("ManualCMainFormontrol", "[ORIGIN] SOCKET UNIT ORIGIN FAIL", Globalo.eMessageName.M_WARNING);
+            }
+            else
+            {
+                Globalo.LogPrint("ManualCMainFormontrol", "[ORIGIN] SOCKET UNIT ORIGIN START");
+            }
 
 
 
@@ -103,9 +108,8 @@ namespace ZenHandler.Dlg
         {
             //TRANSFER UNIT
 
-            if (Globalo.mMainPanel.unitControl.TransferUnit_Ready() == false)
+            if (Globalo.mMainPanel.unitControl.UnitReady(euNIT.TRANSFER_UNIT) == false)
             {
-                Globalo.motionManager.transferMachine.StopAuto();
                 Globalo.LogPrint("ManualCMainFormontrol", "[READY] TRANSFER UNIT READY FAIL", Globalo.eMessageName.M_WARNING);
             }
             else
@@ -125,11 +129,17 @@ namespace ZenHandler.Dlg
         }
         public void StopAutoProcess()
         {
-            Globalo.mManualPanel.ManualDlgStop();               //정지하면 Manual Tab 에서 구동중인 모터 구동함수 빠져나오는 용도
-            Globalo.motionManager.AllMotorStop();
+            Globalo.mMainPanel.unitControl.UnitStop(euNIT.TRANSFER_UNIT);
+            Globalo.mMainPanel.unitControl.UnitStop(euNIT.LIFT_UNIT);
+            Globalo.mMainPanel.unitControl.UnitStop(euNIT.MAGAZINE_UNIT);
+            Globalo.mMainPanel.unitControl.UnitStop(euNIT.SOCKET_UNIT);
         }
         public void PauseAutoProcess()
         {
+            Globalo.mMainPanel.unitControl.UnitPause(euNIT.TRANSFER_UNIT);
+            Globalo.mMainPanel.unitControl.UnitPause(euNIT.LIFT_UNIT);
+            Globalo.mMainPanel.unitControl.UnitPause(euNIT.MAGAZINE_UNIT);
+            Globalo.mMainPanel.unitControl.UnitPause(euNIT.SOCKET_UNIT);
             //labelGuide.Text = "설비 일시정지 상태입니다.";
 
             //if (labelGuide.InvokeRequired)
@@ -142,9 +152,9 @@ namespace ZenHandler.Dlg
             //    MainGuideTxtSet("설비 일시정지 상태입니다.");
             //}
 
-            Globalo.camControl.setOverlayText("PAUS", Color.Red);         //초기화
+            //Globalo.camControl.setOverlayText("PAUS", Color.Red);         //초기화
 
-            Globalo.threadControl.autoRunthread.Pause();
+            //Globalo.threadControl.autoRunthread.Pause();
 
         }
         public bool StartAutoProcess()
@@ -152,53 +162,50 @@ namespace ZenHandler.Dlg
             //모터 구동중 체크
             //운전준비 체크
 
+            
+
             //TRANSFER UNIT
-            if (Globalo.motionManager.transferMachine.AutoRun() == true)
+            if (Globalo.mMainPanel.unitControl.UnitAutoRun(euNIT.TRANSFER_UNIT) == true)
             {
                 Globalo.LogPrint("MainForm", "[AUTO] TRANSFER UNIT AUTO RUN START");
             }
             else
             {
-                Globalo.motionManager.transferMachine.StopAuto();
-                Globalo.LogPrint("MainForm", "[AUTO] TRANSFER UNIT AUTO RUN FAIL");
+                Globalo.LogPrint("MainForm", "[AUTO] TRANSFER UNIT AUTO RUN FAIL", Globalo.eMessageName.M_WARNING);
             }
 
             //SOCKET UNIT
+            if (Globalo.mMainPanel.unitControl.UnitAutoRun(euNIT.SOCKET_UNIT) == true)
+            {
+                Globalo.LogPrint("MainForm", "[AUTO] SOCKET UNIT AUTO RUN START");
+            }
+            else
+            {
+                Globalo.LogPrint("MainForm", "[AUTO] SOCKET UNIT AUTO RUN FAIL", Globalo.eMessageName.M_WARNING);
+            }
+
 
             //MAGAZINE UNIT
+            if (Globalo.mMainPanel.unitControl.UnitAutoRun(euNIT.MAGAZINE_UNIT) == true)
+            {
+                Globalo.LogPrint("MainForm", "[AUTO] MAGAZINE UNIT AUTO RUN START");
+            }
+            else
+            {
+                Globalo.LogPrint("MainForm", "[AUTO] MAGAZINE UNIT AUTO RUN FAIL", Globalo.eMessageName.M_WARNING);
+            }
+
 
             //LIFT UNIT
+            if (Globalo.mMainPanel.unitControl.UnitAutoRun(euNIT.LIFT_UNIT) == true)
+            {
+                Globalo.LogPrint("MainForm", "[AUTO] LIFT UNIT AUTO RUN START");
+            }
+            else
+            {
+                Globalo.LogPrint("MainForm", "[AUTO] LIFT UNIT AUTO RUN FAIL", Globalo.eMessageName.M_WARNING);
+            }
 
-
-            //if (Globalo.threadControl.autoRunthread.GetThreadRun() == true)
-            //{
-            //    if (ProgramState.CurrentState == OperationState.Paused)
-            //    {
-            //        Globalo.taskWork.m_nCurrentStep = Math.Abs(Globalo.taskWork.m_nCurrentStep);
-            //        Globalo.LogPrint("MainForm", "[AUTO] AUTO RUN RESUME");
-            //    }
-            //    else
-            //    {
-            //        Globalo.LogPrint("MainForm", "[AUTO] AUTO RUN START FAIL");
-            //        return false;
-            //    }
-            //}
-            //else
-            //{
-            //    Globalo.taskWork.m_nCurrentStep = 30000;
-            //}
-
-            //Globalo.taskWork.m_nStartStep = 30000;
-            //Globalo.taskWork.m_nEndStep = 70000;
-
-            //ProgramState.CurrentState = OperationState.AutoRunning;
-            //bool bRtn = Globalo.threadControl.autoRunthread.Start();
-            //if (bRtn == false)
-            //{
-            //    ProgramState.CurrentState = OperationState.Stopped;
-            //    return false;
-            //}
-            
             return true;
         }
         public void AutoButtonSet(OperationState operation)
@@ -356,7 +363,7 @@ namespace ZenHandler.Dlg
         private void BTN_MAIN_STOP1_Click(object sender, EventArgs e)
         {
             StopAutoProcess();
-
+            Globalo.mManualPanel.ManualDlgStop();//정지하면 Manual Tab 에서 구동중인 모터 구동함수 빠져나오는 용도
             Globalo.LogPrint("MainForm", "[AUTO] AUTO RUN STOP.");
         }
 
@@ -446,26 +453,6 @@ namespace ZenHandler.Dlg
             {
                 StartAutoProcess();     //자동 운전 시작
             }
-
-            //if (ProgramState.CurrentState == OperationState.Paused)
-            //{
-            //    if (Math.Abs(Globalo.taskWork.m_nCurrentStep) < 30000 || Math.Abs(Globalo.taskWork.m_nCurrentStep) >= 90000)
-            //    {
-            //        Globalo.LogPrint("MainForm", "[INFO] 운전 준비 상태가 아닙니다.", Globalo.eMessageName.M_WARNING);
-            //        return;
-            //    }
-            //    logStr = "자동운전 재개 하시겠습니까 ?";
-            //    //if (Globalo.taskWork.m_nCurrentStep >= 20000 && Globalo.taskWork.m_nCurrentStep < 30000)
-            //}
-            //else
-            //{
-            //    if (Globalo.threadControl.autoRunthread.GetThreadRun() == true)
-            //    {
-            //        Globalo.LogPrint("MainForm", "[INFO] 자동 운전 중 사용 불가", Globalo.eMessageName.M_WARNING);
-            //        return;
-            //    }
-            //}
-
 
         }
         private void OnLanguageChanged(object sender, EventArgs e)
