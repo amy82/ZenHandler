@@ -11,6 +11,11 @@ namespace ZenHandler.Machine
     {
         LIFT_L_Z = 0, LIFT_R_Z, LIFT_F_X, LIFT_B_X
     };
+
+    public enum eLiftSensor : int
+    {
+        LIFT_TOPSTOP_POS = 0, LIFT_READY_POS, LIFT_HOME_POS
+    };
     public class LiftMachine : MotionControl.MotorController
     {
         public int MotorCnt { get; private set; } = 4;
@@ -212,6 +217,118 @@ namespace ZenHandler.Machine
             }
 
             return false;
+        }
+        public bool LIft_Z_Move_SersonDetected(eLift motorAxis, eLiftSensor Sensor, bool bWait = true)
+        {
+            if (this.MotorUse == false)
+            {
+                Console.WriteLine("No Use Machine");
+                return true;
+            }
+
+            string logStr = "";
+            bool isSuccess = false;
+            int moveDic = 1;        //1이면 상승 , 그외 하강
+            if (Sensor == eLiftSensor.LIFT_READY_POS)
+            {
+                moveDic = 1;
+                if (MotorAxes[(int)motorAxis].GetHomeSensor() == true)
+                {
+                    return true;
+                }
+            }
+            else if (Sensor == eLiftSensor.LIFT_TOPSTOP_POS)
+            {
+                moveDic = 1;
+                //상단 정지 감지 센서
+                if (GetTopTouchSensor((int)motorAxis) == true)
+                {
+                    return true;
+                }
+            }
+            else if (Sensor == eLiftSensor.LIFT_HOME_POS)
+            {
+                moveDic = -1;
+                if (MotorAxes[(int)motorAxis].GetNegaSensor() == true)
+                {
+                    return true;
+                }
+            }
+
+            double dSpeed = MotorAxes[(int)motorAxis].Velocity;
+
+            isSuccess = MotorAxes[(int)motorAxis].JogMove(moveDic, dSpeed);
+
+            if (bWait == false)
+            {
+                return isSuccess;
+            }
+            int step = 100;
+            int nTimeTick = 0;
+            int SkipChk = 0;
+            while (true)
+            {
+                if (MotorAxes[(int)motorAxis].MotorBreak)
+                {
+                    break;
+                }
+
+                switch (step)
+                {
+                    case 100:
+                        isSuccess = false;
+                        nTimeTick = Environment.TickCount;
+                        step = 200;
+                        break;
+                    case 200:
+                        if (Sensor == eLiftSensor.LIFT_READY_POS)
+                        {
+                            if (MotorAxes[(int)motorAxis].GetHomeSensor() == true)
+                            {
+                                MotorAxes[(int)motorAxis].Stop(1);
+                                isSuccess = true;
+                                step = 1000;
+                            }
+                        }
+                        else if (Sensor == eLiftSensor.LIFT_TOPSTOP_POS)
+                        {
+                            //상단 정지 감지 센서
+                            //g_clDioControl.ReadDIn(4);   //TODO:   <-----------필요?
+                            if (GetTopTouchSensor((int)motorAxis) == true)
+                            {
+                                MotorAxes[(int)motorAxis].Stop(1);
+                                isSuccess = true;
+                                step = 1000;
+                            }
+                        }
+                        else if (Sensor == eLiftSensor.LIFT_HOME_POS)
+                        {
+                            if (MotorAxes[(int)motorAxis].GetNegaSensor() == true)
+                            {
+                                MotorAxes[(int)motorAxis].Stop(1);
+                                isSuccess = true;
+                                step = 1000;
+                            }
+                        }
+                        break;
+
+                    default:
+                        break;
+                }
+                if (step >= 1000)
+                {
+                    break;
+                }
+
+                if (Environment.TickCount - nTimeTick > MotionControl.MotorSet.LIFT_MOVE_TIMEOUT)
+                {
+                    isSuccess = false;
+                    Console.WriteLine($"Lift Motor Stop Timeout ");
+                    break;
+                }
+                Thread.Sleep(10);
+            }
+            return isSuccess;
         }
         public bool Gantry_X_Move(eTeachingPosList ePos, bool bWait = true)  //Picket Index , Tray or Socekt or Ng , 
         {
