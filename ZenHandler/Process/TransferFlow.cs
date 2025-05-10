@@ -997,8 +997,8 @@ namespace ZenHandler.Process
                     break;
                 case 2120:
                     Globalo.motionManager.transferMachine.TransFer_Z_Move(Machine.TransferMachine.eTeachingPosList.WAIT_POS, true);
-                    nRetStep = 2130;
                     nTimeTick = Environment.TickCount;
+                    nRetStep = 2130;
                     break;
                 case 2130:
                     if (Globalo.motionManager.transferMachine.MotorAxes[(int)Machine.eTransfer.TRANSFER_Z].GetStopAxis() == true &&
@@ -1020,6 +1020,7 @@ namespace ZenHandler.Process
                     break;
                 case 2140:
                     Globalo.motionManager.transferMachine.TransFer_XY_Move(Machine.TransferMachine.eTeachingPosList.WAIT_POS);
+                    nTimeTick = Environment.TickCount;
                     nRetStep = 2150;
                     break;
                 case 2150:

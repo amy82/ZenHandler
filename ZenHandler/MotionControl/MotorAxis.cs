@@ -232,7 +232,7 @@ namespace ZenHandler.MotionControl
             }
             return false;
         }
-        public bool MoveAxisLimit(double dVel, double dAcc, AXT_MOTION_HOME_DETECT Detect, AXT_MOTION_EDGE Edge, AXT_MOTION_STOPMODE StopMode, bool bWait = false)
+        public bool MoveAxisLimit(double dVel, double dAcc, AXT_MOTION_HOME_DETECT Detect, AXT_MOTION_EDGE Edge = AXT_MOTION_EDGE.SIGNAL_UP_EDGE, AXT_MOTION_STOPMODE StopMode = AXT_MOTION_STOPMODE.EMERGENCY_STOP, bool bWait = false)
         {
             if (ProgramState.ON_LINE_MOTOR == false)
             {

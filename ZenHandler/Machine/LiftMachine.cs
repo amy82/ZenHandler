@@ -32,7 +32,11 @@ namespace ZenHandler.Machine
         private double[] OrgSecondVel = { 5000.0, 5000.0, 10000.0, 10000.0};
         private double[] OrgThirdVel = { 2500.0, 2500.0, 5000.0, 5000.0};
 
-        public bool[] IsOnTray = { false, false };      //Tray 유무 확인
+        public bool[] IsLiftOnTray = { false, false };      //리프트 위 Tray 유무 확인
+        public bool[] IsTopLoadOnTray = { false, false };      //상단 Gantry , Pusher Tray 로드 확인
+
+        public bool IsLoadingInputTray = false;         //투입 LIft 투입중
+        public bool IsUnloadingOutputTray = false;      //배출 Lift 배출중
 
         public enum eTeachingPosList : int
         {
@@ -144,7 +148,7 @@ namespace ZenHandler.Machine
 
             return isSuccess;
         }
-        public bool GetTraySlidePos(int index)    //슬라이드 정위치 확인
+        public bool GetTraySlidePos(int index)          //슬라이드 정위치 확인
         {
             return false;
         }
@@ -156,7 +160,7 @@ namespace ZenHandler.Machine
         {
             return false;
         }
-        public bool GetIsTrayOnTop(int index)              //GANTRY 위 , RIGHT 고정 상단 TRAY 유무 확인
+        public bool GetIsLoadTrayOnTop(int index)            //GANTRY, PUSHER 위 TRAY 유무 확인
         {
             return false;
         }
@@ -181,7 +185,74 @@ namespace ZenHandler.Machine
             }
             return true;
         }
-        
+        #region LIFT Motor 동작
+        public bool ChkGantryXMotorPos(eTeachingPosList teachingPos)
+        {
+            if (ProgramState.ON_LINE_MOTOR == false)
+            {
+                return true;
+            }
+
+            double dXPos = 0.0;
+            double dYPos = 0.0;
+            double currentXPos = 0.0;
+            double currentYPos = 0.0;
+
+
+            dXPos = Globalo.motionManager.liftMachine.teachingConfig.Teaching[(int)teachingPos].Pos[(int)eLift.LIFT_B_X];
+            dYPos = Globalo.motionManager.liftMachine.teachingConfig.Teaching[(int)teachingPos].Pos[(int)eLift.LIFT_F_X];
+
+
+            currentXPos = MotorAxes[(int)eLift.LIFT_B_X].EncoderPos;
+            currentYPos = MotorAxes[(int)eLift.LIFT_F_X].EncoderPos;
+
+            if (dXPos == currentXPos && dYPos == currentYPos)
+            {
+                return true;
+            }
+
+            return false;
+        }
+        public bool Gantry_X_Move(eTeachingPosList ePos, bool bWait = true)  //Picket Index , Tray or Socekt or Ng , 
+        {
+            //TODO: PickerNo 는 없애고 CountX로 써도될듯 확인필요.
+            if (this.MotorUse == false)
+            {
+                Console.WriteLine("No Use Machine");
+                return true;
+            }
+            string logStr = "";
+            bool isSuccess = false;
+
+
+            MotionControl.MotorAxis[] multiAxis = { MotorAxes[(int)eLift.LIFT_F_X], MotorAxes[(int)eLift.LIFT_B_X] };
+            double[] dMultiPos = { 0.0, 0.0 };
+            double[] dOffsetPos = { 0.0, 0.0 };
+
+            dMultiPos[0] = Globalo.motionManager.liftMachine.teachingConfig.Teaching[(int)ePos].Pos[(int)eLift.LIFT_F_X];     //F x Axis
+            dMultiPos[1] = Globalo.motionManager.liftMachine.teachingConfig.Teaching[(int)ePos].Pos[(int)eLift.LIFT_B_X];      //F x Axis
+
+
+            dOffsetPos[0] = 0.0;
+            dOffsetPos[1] = 0.0;
+
+            dMultiPos[0] += dOffsetPos[0];
+            dMultiPos[1] += dOffsetPos[1];
+
+            Console.WriteLine($"[{ePos.ToString()} :{dMultiPos[0]}, :{dMultiPos[1]}]");
+
+            isSuccess = MultiAxisMove(multiAxis, dMultiPos, bWait);
+
+            if (isSuccess == false)
+            {
+                logStr = $"GANTRY X축 {ePos.ToString() } 이동 실패";
+
+                Globalo.LogPrint("ManualControl", logStr);
+            }
+
+            return isSuccess;
+        }
+        #endregion
         public override void StopAuto()
         {
             AutoUnitThread.Stop();
@@ -190,6 +261,7 @@ namespace ZenHandler.Machine
             Console.WriteLine($"[INFO] Lift Run Stop");
 
         }
+
         public override void MovingStop()
         {
             if (CancelToken != null && !CancelToken.IsCancellationRequested)
