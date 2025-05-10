@@ -146,6 +146,8 @@ namespace ZenHandler.Machine
             }
 
         }
+        #region MAGAZINE Motor 동작
+
         public override void MovingStop()
         {
             if (CancelToken != null && !CancelToken.IsCancellationRequested)
@@ -158,6 +160,8 @@ namespace ZenHandler.Machine
                 MotorAxes[i].Stop();
             }
         }
+        #endregion
+
         public override bool OriginRun()
         {
             if (AutoUnitThread.GetThreadRun() == true)

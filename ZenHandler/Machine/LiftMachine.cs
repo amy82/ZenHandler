@@ -20,11 +20,11 @@ namespace ZenHandler.Machine
 
         public string[] axisName = { "FRONT_X", "BACK_X", "LEFT_Z", "RIGHT_Z"};
 
-        private MotorDefine.eMotorType[] motorType = { MotorDefine.eMotorType.LINEAR, MotorDefine.eMotorType.LINEAR, MotorDefine.eMotorType.LINEAR, MotorDefine.eMotorType.LINEAR, MotorDefine.eMotorType.LINEAR, MotorDefine.eMotorType.LINEAR };
-        private AXT_MOTION_LEVEL_MODE[] AXT_SET_LIMIT = { AXT_MOTION_LEVEL_MODE.LOW, AXT_MOTION_LEVEL_MODE.LOW, AXT_MOTION_LEVEL_MODE.LOW, AXT_MOTION_LEVEL_MODE.LOW, AXT_MOTION_LEVEL_MODE.LOW, AXT_MOTION_LEVEL_MODE.LOW };
-        private AXT_MOTION_LEVEL_MODE[] AXT_SET_SERVO_ALARM = { AXT_MOTION_LEVEL_MODE.HIGH, AXT_MOTION_LEVEL_MODE.LOW, AXT_MOTION_LEVEL_MODE.LOW, AXT_MOTION_LEVEL_MODE.LOW, AXT_MOTION_LEVEL_MODE.LOW, AXT_MOTION_LEVEL_MODE.LOW };
-        private AXT_MOTION_HOME_DETECT[] MOTOR_HOME_SENSOR = { AXT_MOTION_HOME_DETECT.HomeSensor, AXT_MOTION_HOME_DETECT.HomeSensor, AXT_MOTION_HOME_DETECT.HomeSensor, AXT_MOTION_HOME_DETECT.HomeSensor, AXT_MOTION_HOME_DETECT.HomeSensor, AXT_MOTION_HOME_DETECT.HomeSensor };
-        private AXT_MOTION_MOVE_DIR[] MOTOR_HOME_DIR = { AXT_MOTION_MOVE_DIR.DIR_CW, AXT_MOTION_MOVE_DIR.DIR_CW, AXT_MOTION_MOVE_DIR.DIR_CW, AXT_MOTION_MOVE_DIR.DIR_CW, AXT_MOTION_MOVE_DIR.DIR_CW, AXT_MOTION_MOVE_DIR.DIR_CW };
+        private MotorDefine.eMotorType[] motorType = { MotorDefine.eMotorType.LINEAR, MotorDefine.eMotorType.LINEAR, MotorDefine.eMotorType.LINEAR, MotorDefine.eMotorType.LINEAR};
+        private AXT_MOTION_LEVEL_MODE[] AXT_SET_LIMIT = { AXT_MOTION_LEVEL_MODE.LOW, AXT_MOTION_LEVEL_MODE.LOW, AXT_MOTION_LEVEL_MODE.LOW, AXT_MOTION_LEVEL_MODE.LOW };
+        private AXT_MOTION_LEVEL_MODE[] AXT_SET_SERVO_ALARM = { AXT_MOTION_LEVEL_MODE.HIGH, AXT_MOTION_LEVEL_MODE.LOW, AXT_MOTION_LEVEL_MODE.LOW, AXT_MOTION_LEVEL_MODE.LOW };
+        private AXT_MOTION_HOME_DETECT[] MOTOR_HOME_SENSOR = { AXT_MOTION_HOME_DETECT.HomeSensor, AXT_MOTION_HOME_DETECT.HomeSensor, AXT_MOTION_HOME_DETECT.NegEndLimit, AXT_MOTION_HOME_DETECT.NegEndLimit };
+        private AXT_MOTION_MOVE_DIR[] MOTOR_HOME_DIR = { AXT_MOTION_MOVE_DIR.DIR_CW, AXT_MOTION_MOVE_DIR.DIR_CW, AXT_MOTION_MOVE_DIR.DIR_CW, AXT_MOTION_MOVE_DIR.DIR_CW};
 
 
         private static double[] MaxSpeeds = { 100.0, 100.0, 200.0, 200.0};
@@ -32,6 +32,7 @@ namespace ZenHandler.Machine
         private double[] OrgSecondVel = { 5000.0, 5000.0, 10000.0, 10000.0};
         private double[] OrgThirdVel = { 2500.0, 2500.0, 5000.0, 5000.0};
 
+        public bool[] IsOnTray = { false, false };      //Tray 유무 확인
 
         public enum eTeachingPosList : int
         {
@@ -54,9 +55,7 @@ namespace ZenHandler.Machine
             int i = 0;
             this.RunState = OperationState.Stopped;
             this.MachineName = this.GetType().Name;
-
-            //MotorAxes = new MotionControl.MotorAxis[] { Gantry_X_F, Gantry_X_B, LoadLift_Z_L, LoadLift_Z_R};
-            //MotorCnt = MotorAxes.Length;
+            
             MotorAxes = new MotionControl.MotorAxis[MotorCnt];
             for (i = 0; i < MotorCnt; i++)
             {
@@ -103,6 +102,16 @@ namespace ZenHandler.Machine
 
         }
         #region Lift Machine Io 동작
+        public bool GetGantryCenteringFor(bool bFlag, bool bWait = false)
+        {
+            return false;
+        }
+        public bool GantryCenteringFor(bool bFlag, bool bWait = false)        //GANTRY 모서리 센터링 전후진
+        {
+            bool isSuccess = false;
+
+            return isSuccess;
+        }
         public bool GetGantryClampFor(bool bFlag, bool bWait = false)
         {
             return false;
@@ -135,7 +144,7 @@ namespace ZenHandler.Machine
 
             return isSuccess;
         }
-        public bool GetTraySlidePos(int index)                  //슬라이드 정위치 확인
+        public bool GetTraySlidePos(int index)    //슬라이드 정위치 확인
         {
             return false;
         }
@@ -147,7 +156,7 @@ namespace ZenHandler.Machine
         {
             return false;
         }
-        public bool GetIsTrayOnTop(int index)              //LEFT , RIGHT 상단 TRAY 유무 확인
+        public bool GetIsTrayOnTop(int index)              //GANTRY 위 , RIGHT 고정 상단 TRAY 유무 확인
         {
             return false;
         }

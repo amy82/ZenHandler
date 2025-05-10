@@ -21,6 +21,8 @@ namespace ZenHandler.Process
         //
         //  3000
         //
+        #region [TRANSFER 작업 분기]
+       
         public int Auto_Waiting(int nStep)
         {
             string szLog = "";
@@ -130,9 +132,12 @@ namespace ZenHandler.Process
             }
             return nRetStep;
         }
+        #endregion
         //
         //  4000
         //
+        #region [TRANSFER BCR SCAN]
+        
         public int Auto_BcrLoadInTray(int nStep)
         {
             string szLog = "";
@@ -344,6 +349,7 @@ namespace ZenHandler.Process
             }
             return nRetStep;
         }
+        #endregion
         //
         //  5000
         //
@@ -461,6 +467,8 @@ namespace ZenHandler.Process
             }
             return nRetStep;
         }
+        #region [TRANSFER Home 원점 동작]
+        
         public int HomeProcess(int nStep)                 //  원점(1000 ~ 2000)
         {
             uint duState = 0;
@@ -882,6 +890,10 @@ namespace ZenHandler.Process
             }
             return nRetStep;
         }
+        #endregion
+
+        #region [TRANSFER 운전 준비]
+
         public int AutoReady(int nStep)					//  운전준비(2000 ~ 3000)
         {
             string szLog = "";
@@ -1086,6 +1098,8 @@ namespace ZenHandler.Process
             }
             return nRetStep;
         }
+        #endregion
+
         //
         //  8000
         //

@@ -266,7 +266,7 @@ namespace ZenHandler.Machine
         }
         
         
-#region Transfer Io 동작
+    #region Transfer Io 동작
         public bool GetLoadPickerUpState(int index, bool bFlag)
         {
             if (ProgramState.ON_LINE_MOTOR == false)
@@ -1257,7 +1257,7 @@ namespace ZenHandler.Machine
 
 #endregion
 
-#region Transfer Motor 동작
+    #region Transfer Motor 동작
         public bool ChkXYMotorPos(eTeachingPosList teachingPos)
         {
             if (ProgramState.ON_LINE_MOTOR == false)
@@ -1525,7 +1525,7 @@ namespace ZenHandler.Machine
         }
 #endregion
 
-#region Transfer Auto Run 동작
+    #region Transfer Auto Run 동작
         public override bool OriginRun()
         {
             if (AutoUnitThread.GetThreadRun() == true)
