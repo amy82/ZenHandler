@@ -9,7 +9,7 @@ namespace ZenHandler.Machine
 {
     public enum eLift : int
     {
-        LIFT_L_Z = 0, LIFT_R_Z, LIFT_F_X, LIFT_B_X
+        LIFT_L_Z = 0, LIFT_R_Z, GANTRYX_L, GANTRYX_R
     };
 
     public enum eLiftSensor : int
@@ -204,12 +204,12 @@ namespace ZenHandler.Machine
             double currentYPos = 0.0;
 
 
-            dXPos = Globalo.motionManager.liftMachine.teachingConfig.Teaching[(int)teachingPos].Pos[(int)eLift.LIFT_B_X];
-            dYPos = Globalo.motionManager.liftMachine.teachingConfig.Teaching[(int)teachingPos].Pos[(int)eLift.LIFT_F_X];
+            dXPos = Globalo.motionManager.liftMachine.teachingConfig.Teaching[(int)teachingPos].Pos[(int)eLift.GANTRYX_L];
+            dYPos = Globalo.motionManager.liftMachine.teachingConfig.Teaching[(int)teachingPos].Pos[(int)eLift.GANTRYX_R];
 
 
-            currentXPos = MotorAxes[(int)eLift.LIFT_B_X].EncoderPos;
-            currentYPos = MotorAxes[(int)eLift.LIFT_F_X].EncoderPos;
+            currentXPos = MotorAxes[(int)eLift.GANTRYX_L].EncoderPos;
+            currentYPos = MotorAxes[(int)eLift.GANTRYX_R].EncoderPos;
 
             if (dXPos == currentXPos && dYPos == currentYPos)
             {
@@ -232,6 +232,7 @@ namespace ZenHandler.Machine
             if (Sensor == eLiftSensor.LIFT_READY_POS)
             {
                 moveDic = 1;
+                bWait = true;       //무조건 대기
                 if (MotorAxes[(int)motorAxis].GetHomeSensor() == true)
                 {
                     return true;
@@ -240,6 +241,7 @@ namespace ZenHandler.Machine
             else if (Sensor == eLiftSensor.LIFT_TOPSTOP_POS)
             {
                 moveDic = 1;
+                bWait = true;       //무조건 대기
                 //상단 정지 감지 센서
                 if (GetTopTouchSensor((int)motorAxis) == true)
                 {
@@ -342,19 +344,12 @@ namespace ZenHandler.Machine
             bool isSuccess = false;
 
 
-            MotionControl.MotorAxis[] multiAxis = { MotorAxes[(int)eLift.LIFT_F_X], MotorAxes[(int)eLift.LIFT_B_X] };
+            MotionControl.MotorAxis[] multiAxis = { MotorAxes[(int)eLift.GANTRYX_L], MotorAxes[(int)eLift.GANTRYX_R] };
             double[] dMultiPos = { 0.0, 0.0 };
             double[] dOffsetPos = { 0.0, 0.0 };
 
-            dMultiPos[0] = Globalo.motionManager.liftMachine.teachingConfig.Teaching[(int)ePos].Pos[(int)eLift.LIFT_F_X];     //F x Axis
-            dMultiPos[1] = Globalo.motionManager.liftMachine.teachingConfig.Teaching[(int)ePos].Pos[(int)eLift.LIFT_B_X];      //F x Axis
-
-
-            dOffsetPos[0] = 0.0;
-            dOffsetPos[1] = 0.0;
-
-            dMultiPos[0] += dOffsetPos[0];
-            dMultiPos[1] += dOffsetPos[1];
+            dMultiPos[0] = Globalo.motionManager.liftMachine.teachingConfig.Teaching[(int)ePos].Pos[(int)eLift.GANTRYX_L];     //F x Axis
+            dMultiPos[1] = Globalo.motionManager.liftMachine.teachingConfig.Teaching[(int)ePos].Pos[(int)eLift.GANTRYX_R];      //F x Axis
 
             Console.WriteLine($"[{ePos.ToString()} :{dMultiPos[0]}, :{dMultiPos[1]}]");
 
@@ -435,7 +430,7 @@ namespace ZenHandler.Machine
                 return false;
             }
 
-            if (MotorAxes[(int)Machine.eLift.LIFT_B_X].OrgState == false || MotorAxes[(int)Machine.eLift.LIFT_F_X].OrgState == false ||
+            if (MotorAxes[(int)Machine.eLift.GANTRYX_L].OrgState == false || MotorAxes[(int)Machine.eLift.GANTRYX_R].OrgState == false ||
                 MotorAxes[(int)Machine.eLift.LIFT_L_Z].OrgState == false|| MotorAxes[(int)Machine.eLift.LIFT_R_Z].OrgState == false)
             {
                 this.RunState = OperationState.OriginRunning;
