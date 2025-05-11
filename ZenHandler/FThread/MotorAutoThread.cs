@@ -71,11 +71,45 @@ namespace ZenHandler.FThread
             {
                 this.m_nCurrentStep = this.parent.processManager.liftFlow.AutoReady(this.m_nCurrentStep);
             }
-
-            //1. Left TRAY 투입 Flow - Gantry Left 이동후 진행
-            //2. Left ---->  Right TRAY 이동 Flow -  - Gantry Right 이동후 진행
-            //3. RIGHT TRAY 배출 Flow
-            //4??
+            else if (this.m_nCurrentStep >= 3000 && this.m_nCurrentStep < 4000)
+            {
+                Globalo.motionManager.liftMachine.IsLoadingInputTray = true;
+                Globalo.motionManager.liftMachine.IsUnloadingOutputTray = true;
+                //TODO: PARALLEL에서 해던 각 Task로 할까?
+                //
+                //요청 대기
+                //1.GANTRY에 TRAY 공급
+                //2.GANTRY에서 우측 푸셔로 TRAY 공급 후 GANTRY 는 LEFT로 이동
+                //3.RIGHT 완료 TRAY 배출
+            }
+            else if (this.m_nCurrentStep >= 4000 && this.m_nCurrentStep < 5000)
+            {
+                //1LEFT LIFT -> GANTRY로 TRAY 로드
+                //1-1.gantry 후진
+                //1-2.L lift 상승
+                //1-3.클램프, 센터링 전진
+                //1-4. L lift 하강
+                //STEP - 3000 로 이동
+            }
+            else if (this.m_nCurrentStep >= 5000 && this.m_nCurrentStep < 6000)
+            {
+                //2.GANTRY의 Tray --> 우측 푸셔로 공급
+                //2-1.GANTRY UNLOAD 위치 이동
+                //2-2. 푸셔 상승 전진
+                //2-3. CLAMP 후진
+                //2-4. CENTRING 후진
+                //2-5. GANTRY LOAD POS 로 이동 -> 4000 STEP 로 다시 TRAY 공급받기 (TRAY 없으면 알람후 3000 STEP)
+                //STEP - 3000 로 이동
+            }
+            else if (this.m_nCurrentStep >= 6000 && this.m_nCurrentStep < 7000)
+            {
+                //3.RIGHT LIFT  완료 TRAY 배출
+                //3-1.r lift 상승
+                //3-2 푸셔 후진
+                //3-3 r lift 하강
+                //3-4 - 리밋 확인 , 중단 센서 감지하는지 체크
+                //STEP - 3000 로 이동
+            }
         }
         private void MagazineFlow()
         {

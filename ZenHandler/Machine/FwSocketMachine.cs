@@ -253,7 +253,7 @@ namespace ZenHandler.Machine
                 if (AutoUnitThread.GetThreadPause() == true)        //일시 정지 상태인지 확인
                 {
                     AutoUnitThread.m_nCurrentStep = Math.Abs(AutoUnitThread.m_nCurrentStep);
-
+                    AutoUnitThread.Resume();
                     RunState = OperationState.AutoRunning;
                 }
                 else

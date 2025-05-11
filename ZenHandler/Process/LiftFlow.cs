@@ -10,6 +10,9 @@ namespace ZenHandler.Process
 {
     public class LiftFlow
     {
+        public CancellationTokenSource CancelTokenLift;
+        public ManualResetEventSlim pauseEvent = new ManualResetEventSlim(true);  // true면 동작 가능
+        public Task<bool> motorTask;
         private readonly SynchronizationContext _syncContext;
         public int nTimeTick = 0;
         public int[] SensorSet = { 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 };
@@ -19,7 +22,8 @@ namespace ZenHandler.Process
         public LiftFlow()
         {
             _syncContext = SynchronizationContext.Current;
-
+            CancelTokenLift = new CancellationTokenSource();
+            motorTask = Task.FromResult(true);      //<--실제 실행하지않고,즉시 완료된 상태로 반환
         }
         #region [LIFT 원점 동작]
         public int HomeProcess(int nStep)                 //  원점(1000 ~ 2000)
@@ -1286,5 +1290,188 @@ namespace ZenHandler.Process
             return nRetStep;
         }
         #endregion
+
+        public int Auto_Waiting(int nStep)
+        {
+            string szLog = "";
+            bool result = false;
+            int nRetStep = nStep;
+            switch (nStep)
+            {
+                case 3000:
+                    //요청 대기
+                    //1.GANTRY에 TRAY 공급
+                    //2.GANTRY에서 우측 푸셔로 TRAY 공급 후 GANTRY 는 LEFT로 이동
+                    //3.RIGHT 완료 TRAY 배출
+                    break;
+                case 3100:
+                    if (motorTask == null || motorTask.IsCompleted)
+                    {
+                        CancelTokenLift?.Dispose();
+                        CancelTokenLift = new CancellationTokenSource();
+                        motorTask = Task.Run(() =>
+                        {
+                            result = GantryLoadTrayFlow();
+                            return result;
+                        }, CancelTokenLift.Token);
+                    }
+                    else
+                    {
+                        //일시정지
+                        //Console.WriteLine("motorTask still running! Skip this cycle.");
+                    }
+                    break;
+                case 3200:
+                    if (motorTask == null || motorTask.IsCompleted)
+                    {
+                        CancelTokenLift?.Dispose();
+                        CancelTokenLift = new CancellationTokenSource();
+                        motorTask = Task.Run(() =>
+                        {
+                            result = LoadTrayOnPusherFlow();
+                            return result;
+                        }, CancelTokenLift.Token);
+                    }
+                    else
+                    {
+                        //일시정지
+                        //Console.WriteLine("motorTask still running! Skip this cycle.");
+                    }
+                    break;
+                case 3300:
+                    if (motorTask == null || motorTask.IsCompleted)
+                    {
+                        CancelTokenLift?.Dispose();
+                        CancelTokenLift = new CancellationTokenSource();
+                        motorTask = Task.Run(() =>
+                        {
+                            result = UnLoadTrayFlow();
+                            return result;
+                        }, CancelTokenLift.Token);
+                    }
+                    else
+                    {
+                        //일시정지
+                        //Console.WriteLine("motorTask still running! Skip this cycle.");
+                    }
+                    break;
+
+            }
+            return nRetStep;
+        }
+        private bool GantryLoadTrayFlow()
+        {
+            bool rtn = false;
+            int step = 10;
+            while (true)
+            {
+                if (CancelTokenLift.Token.IsCancellationRequested)      //정지시 while 빠져나가는 부분
+                {
+                    Console.WriteLine("LiftChange cancelled!");
+                    rtn = false;
+                    break;
+                }
+                if(step == 10)      
+                {
+                    //리프트 z축이 상승하는 스텝 에서는 일시정지 걸어도 센서 확인하고 정지할대까지 일시정지안함
+                    //정지하면 정지함수에서 리프트 정지 시킴
+                    return false;
+                }
+                pauseEvent.Wait();  // 일시정지시 여기서 멈춰 있음
+                switch (step)
+                {
+                    case 10:
+                        //Console.WriteLine($"[LiftChange] Step: {step}, Time: {DateTime.Now:HH:mm:ss.fff}");
+                        step = 20;
+                        break;
+
+                    case 100:
+                        step = 1000;
+                        break;
+                    default:
+                        break;
+                }
+
+                if (step == 1000)
+                {
+                    Console.WriteLine("#3 LiftChange - end");
+                    break;
+                }
+                Thread.Sleep(10);       //TODO: while문안에서는 최소 10ms 꼭 필요
+            }
+            return rtn;
+        }
+        private bool LoadTrayOnPusherFlow()
+        {
+            bool rtn = false;
+            int step = 10;
+            while (true)
+            {
+                if (CancelTokenLift.Token.IsCancellationRequested)      //정지시 while 빠져나가는 부분
+                {
+                    Console.WriteLine("LiftChange cancelled!");
+                    rtn = false;
+                    break;
+                }
+                pauseEvent.Wait();  // 일시정지시 여기서 멈춰 있음
+                switch (step)
+                {
+                    case 10:
+                        //Console.WriteLine($"[LiftChange] Step: {step}, Time: {DateTime.Now:HH:mm:ss.fff}");
+                        step = 20;
+                        break;
+
+                    case 100:
+                        step = 1000;
+                        break;
+                    default:
+                        break;
+                }
+
+                if (step == 1000)
+                {
+                    Console.WriteLine("#3 LiftChange - end");
+                    break;
+                }
+                Thread.Sleep(10);       //TODO: while문안에서는 최소 10ms 꼭 필요
+            }
+            return rtn;
+        }
+        private bool UnLoadTrayFlow()
+        {
+            bool rtn = false;
+            int step = 10;
+            while (true)
+            {
+                if (CancelTokenLift.Token.IsCancellationRequested)      //정지시 while 빠져나가는 부분
+                {
+                    Console.WriteLine("LiftChange cancelled!");
+                    rtn = false;
+                    break;
+                }
+                pauseEvent.Wait();  // 일시정지시 여기서 멈춰 있음
+                switch (step)
+                {
+                    case 10:
+                        //Console.WriteLine($"[LiftChange] Step: {step}, Time: {DateTime.Now:HH:mm:ss.fff}");
+                        step = 20;
+                        break;
+
+                    case 100:
+                        step = 1000;
+                        break;
+                    default:
+                        break;
+                }
+
+                if (step == 1000)
+                {
+                    Console.WriteLine("#3 LiftChange - end");
+                    break;
+                }
+                Thread.Sleep(10);       //TODO: while문안에서는 최소 10ms 꼭 필요
+            }
+            return rtn;
+        }
     }
 }

@@ -367,6 +367,11 @@ namespace ZenHandler.Machine
         #endregion
         public override void StopAuto()
         {
+            if (processManager.liftFlow.CancelTokenLift != null && !processManager.liftFlow.CancelTokenLift.IsCancellationRequested)
+            {
+                processManager.liftFlow.CancelTokenLift.Cancel();
+            }
+           
             AutoUnitThread.Stop();
             MovingStop();
             RunState = OperationState.Stopped;
@@ -469,6 +474,8 @@ namespace ZenHandler.Machine
         {
             if (AutoUnitThread.GetThreadRun() == true)  // //TODO: 리프트상승중 일시정됐을때 모터 정지 or 계속 체크
             {
+                //TODO: LIFT는 일시 정지하면 모터 정지시키기 ? 그럼 연이어 자동 안될듯
+                processManager.liftFlow.pauseEvent.Reset();
                 AutoUnitThread.Pause();
                 RunState = OperationState.Paused;
             }
@@ -493,16 +500,21 @@ namespace ZenHandler.Machine
                 if (AutoUnitThread.GetThreadPause() == true)        //일시 정지 상태인지 확인
                 {
                     AutoUnitThread.m_nCurrentStep = Math.Abs(AutoUnitThread.m_nCurrentStep);
-
+                    AutoUnitThread.Resume();
+                    processManager.liftFlow.pauseEvent.Set();
                     RunState = OperationState.AutoRunning;
                 }
-                else
-                {
-                    rtn = false;
-                }
+                return true;
             }
             else
             {
+                //this.processManager.liftFlow.motorTask.Status == TaskStatus.Running)
+                if (this.processManager.liftFlow.motorTask != null && this.processManager.liftFlow.motorTask.IsCompleted == false)
+                {
+                    //MessageBox.Show("motorTask 동작중입니다.");
+                    return false;
+                }
+
                 AutoUnitThread.m_nCurrentStep = 3000;
                 AutoUnitThread.m_nEndStep = 10000;
                 AutoUnitThread.m_nStartStep = AutoUnitThread.m_nCurrentStep;
