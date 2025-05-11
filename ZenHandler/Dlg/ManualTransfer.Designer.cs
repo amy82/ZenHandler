@@ -298,6 +298,7 @@ namespace ZenHandler.Dlg
             this.button_Manual_Transfer_Left_Bcr_Pos_XY.TabIndex = 53;
             this.button_Manual_Transfer_Left_Bcr_Pos_XY.Text = "LEFT BCR SCAN";
             this.button_Manual_Transfer_Left_Bcr_Pos_XY.UseVisualStyleBackColor = false;
+            this.button_Manual_Transfer_Left_Bcr_Pos_XY.Click += new System.EventHandler(this.button_Manual_Transfer_Left_Bcr_Pos_XY_Click);
             // 
             // button_Manual_Transfer_D_Socket_Load_Pos_XY
             // 

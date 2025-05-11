@@ -201,13 +201,13 @@ namespace ZenHandler.Dlg
                         if (bManualStopKey) break;
                         bComplete = Globalo.motionManager.transferMachine.ChkZMotorPos(ePos);
 
-                        Thread.Sleep(50);
                         if (Environment.TickCount - nTimeTick > MotionControl.MotorSet.MOTOR_MANUAL_MOVE_TIMEOUT)
                         {
                             bComplete = false;
                             Console.WriteLine(" ===> TransFer_Z_Move TIMEOUT");
                             break;
                         }
+                        Thread.Sleep(10);
                     }
 
                     return bComplete;
@@ -303,13 +303,13 @@ namespace ZenHandler.Dlg
                             Console.WriteLine(" ===> TransFer_XY_Move Complete");
                             break;
                         }
-                        Thread.Sleep(50);
                         if (Environment.TickCount - nTimeTick > MotionControl.MotorSet.MOTOR_MANUAL_MOVE_TIMEOUT)
                         {
                             bComplete = false;
                             Console.WriteLine(" ===> TransFer_XY_Move TIMEOUT");
                             break;
                         }
+                        Thread.Sleep(10);
                     }
 
                     return bComplete;
@@ -717,6 +717,9 @@ namespace ZenHandler.Dlg
 
         }
 
-        
+        private void button_Manual_Transfer_Left_Bcr_Pos_XY_Click(object sender, EventArgs e)
+        {
+
+        }
     }
 }

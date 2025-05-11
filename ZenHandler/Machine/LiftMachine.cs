@@ -467,7 +467,7 @@ namespace ZenHandler.Machine
         }
         public override void PauseAuto()
         {
-            if (AutoUnitThread.GetThreadRun() == true)
+            if (AutoUnitThread.GetThreadRun() == true)  // //TODO: 리프트상승중 일시정됐을때 모터 정지 or 계속 체크
             {
                 AutoUnitThread.Pause();
                 RunState = OperationState.Paused;

@@ -1186,13 +1186,13 @@ namespace ZenHandler.Process
                         szLog = $"[READY] {trayName[i]} LIFT TRAY EMPTY [STEP : {nStep}]";
                         Globalo.LogPrint("ManualControl", szLog);
 
-                        nRetStep = 2900;        //jump step
+                        nRetStep = 2800;        //jump step
                     }
                     
                     break;
 
                 case 2620:
-                    
+                    nRetStep = 2640;
                     break;
                 case 2640:
                     //Gantry_X_Move
@@ -1266,8 +1266,12 @@ namespace ZenHandler.Process
                 case 2780:
 
                     break;
-                case 2800:
-
+                case 2800:  //jump step
+                    if (Globalo.motionManager.liftMachine.IsLiftOnTray[0]== false)
+                    {
+                        //로드 tray 투입해 주세요.
+                    }
+                    nRetStep = 2900;
                     break;
                 case 2900:
                     Globalo.motionManager.liftMachine.IsLoadingInputTray = false;         //투입 LIft 투입중 , 초기화
