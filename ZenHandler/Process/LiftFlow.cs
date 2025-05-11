@@ -1303,6 +1303,9 @@ namespace ZenHandler.Process
                     //1.GANTRY에 TRAY 공급
                     //2.GANTRY에서 우측 푸셔로 TRAY 공급 후 GANTRY 는 LEFT로 이동
                     //3.RIGHT 완료 TRAY 배출
+
+                    Globalo.motionManager.liftMachine.IsLoadingInputTray = true;
+                    Globalo.motionManager.liftMachine.IsUnloadingOutputTray = true;
                     break;
                 case 3100:
                     if (motorTask == null || motorTask.IsCompleted)

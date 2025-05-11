@@ -32,10 +32,10 @@ namespace ZenHandler.Machine
         private AXT_MOTION_MOVE_DIR[] MOTOR_HOME_DIR = { AXT_MOTION_MOVE_DIR.DIR_CW, AXT_MOTION_MOVE_DIR.DIR_CW, AXT_MOTION_MOVE_DIR.DIR_CW, AXT_MOTION_MOVE_DIR.DIR_CW};
 
 
-        private static double[] MaxSpeeds = { 100.0, 100.0, 200.0, 200.0};
+        private static double[] MaxSpeeds = { 100.0, 100.0, 100.0, 100.0};
         private double[] OrgFirstVel = { 20000.0, 20000.0, 20000.0, 20000.0};
-        private double[] OrgSecondVel = { 5000.0, 5000.0, 10000.0, 10000.0};
-        private double[] OrgThirdVel = { 2500.0, 2500.0, 5000.0, 5000.0};
+        private double[] OrgSecondVel = { 5000.0, 5000.0, 5000.0, 5000.0 };
+        private double[] OrgThirdVel = { 2500.0, 2500.0, 2500.0, 2500.0 };
 
         public bool[] IsLiftOnTray = { false, false };      //리프트 위 Tray 유무 확인
         public bool[] IsTopLoadOnTray = { false, false };      //상단 Gantry , Pusher Tray 로드 확인

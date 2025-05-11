@@ -73,9 +73,7 @@ namespace ZenHandler.FThread
             }
             else if (this.m_nCurrentStep >= 3000 && this.m_nCurrentStep < 4000)
             {
-                Globalo.motionManager.liftMachine.IsLoadingInputTray = true;
-                Globalo.motionManager.liftMachine.IsUnloadingOutputTray = true;
-                //TODO: PARALLEL에서 해던 각 Task로 할까?
+                this.m_nCurrentStep = this.parent.processManager.liftFlow.Auto_Waiting(this.m_nCurrentStep);
                 //
                 //요청 대기
                 //1.GANTRY에 TRAY 공급
@@ -84,7 +82,7 @@ namespace ZenHandler.FThread
             }
             else if (this.m_nCurrentStep >= 4000 && this.m_nCurrentStep < 5000)
             {
-                //1LEFT LIFT -> GANTRY로 TRAY 로드
+                //1...LEFT LIFT -> GANTRY로 TRAY 로드
                 //1-1.gantry 후진
                 //1-2.L lift 상승
                 //1-3.클램프, 센터링 전진
@@ -93,7 +91,7 @@ namespace ZenHandler.FThread
             }
             else if (this.m_nCurrentStep >= 5000 && this.m_nCurrentStep < 6000)
             {
-                //2.GANTRY의 Tray --> 우측 푸셔로 공급
+                //2...GANTRY의 Tray --> 우측 푸셔로 공급
                 //2-1.GANTRY UNLOAD 위치 이동
                 //2-2. 푸셔 상승 전진
                 //2-3. CLAMP 후진
@@ -103,7 +101,7 @@ namespace ZenHandler.FThread
             }
             else if (this.m_nCurrentStep >= 6000 && this.m_nCurrentStep < 7000)
             {
-                //3.RIGHT LIFT  완료 TRAY 배출
+                //3...RIGHT LIFT  완료 TRAY 배출
                 //3-1.r lift 상승
                 //3-2 푸셔 후진
                 //3-3 r lift 하강
