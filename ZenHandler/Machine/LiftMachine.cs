@@ -173,6 +173,16 @@ namespace ZenHandler.Machine
         {
             return false;
         }
+        public bool ChkButtonLoadTray()     //작업자 : Tary투입후 작업자 Gantry로 Tray 투입 요청
+        {
+
+            return false;
+        }
+        public bool ChkButtonUnloadTray()    //작업자 : 배출 Lift 다운 요청
+        {
+
+            return false;
+        }
         #endregion
         public override bool IsMoving()
         {
@@ -512,6 +522,7 @@ namespace ZenHandler.Machine
                         }
 
                     }
+                    this.processManager.liftFlow.nTimeTick = Environment.TickCount;
                     AutoUnitThread.m_nCurrentStep = Math.Abs(AutoUnitThread.m_nCurrentStep);
                     AutoUnitThread.Resume();
                     processManager.liftFlow.pauseEvent.Set();

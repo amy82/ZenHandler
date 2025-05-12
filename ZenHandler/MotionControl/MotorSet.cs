@@ -15,6 +15,7 @@ namespace ZenHandler.MotionControl
         //
         public static int MOTOR_MOVE_TIMEOUT = 20000;   //20s
         public static int LIFT_MOVE_TIMEOUT = 10000;   //10s
+        public static int LIFT_TRAY_CHANGE_TIMEOUT = 10000;   //10s
         public static int MOTOR_MANUAL_MOVE_TIMEOUT = 10000;   //10s
         public static int IO_TIMEOUT = 3000;   //3s
         public static double ENCORDER_GAP = 0.03;

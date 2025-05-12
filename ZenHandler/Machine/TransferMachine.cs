@@ -132,7 +132,7 @@ namespace ZenHandler.Machine
             pickedProduct = Data.TaskDataYaml.TaskLoad_Transfer(taskPath);
             productLayout = Data.TaskDataYaml.TaskLoad_Layout(LayoutPath);
 
-            TrayPosition = MotionControl.MotorSet.TrayPosition.Left;
+            TrayPosition = MotionControl.MotorSet.TrayPosition.Right;
 
             uphStartTime = DateTime.Now;
             //double elapsedMinutes = (DateTime.Now - uphStartTime).TotalSeconds;//TotalMinutes;
@@ -228,6 +228,8 @@ namespace ZenHandler.Machine
                 //TODO: TrayPosition 을 LEFT , RIGHT 변경해줘야된다.
                 //Tray 교체 요청
                 OnTrayChangedCall?.Invoke(TrayPosition); // 어떤 트레이 비었는지 전달
+
+                TrayPosition = MotionControl.MotorSet.TrayPosition.Left;        //우측 배출 요청하고 Gantry 위에서 제품 로드 LEFT 변경
             }
             int nextPosx = Globalo.motionManager.transferMachine.pickedProduct.UnloadTrayPos.X;
             int nextPosy = Globalo.motionManager.transferMachine.pickedProduct.UnloadTrayPos.Y;
