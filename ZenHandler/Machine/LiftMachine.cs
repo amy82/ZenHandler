@@ -499,8 +499,8 @@ namespace ZenHandler.Machine
 
                 if (AutoUnitThread.GetThreadPause() == true)        //일시 정지 상태인지 확인
                 {
-                    if (this.processManager.liftFlow.motorTask != null &&
-                        this.processManager.liftFlow.motorTask.IsCompleted == false)
+                    if (this.processManager.liftFlow.LoadTrayTask != null &&
+                        this.processManager.liftFlow.LoadTrayTask.IsCompleted == false)
                     {
                         bool isSet = processManager.liftFlow.pauseEvent.IsSet;      //일시정지 체크
                         if (isSet)
@@ -521,8 +521,8 @@ namespace ZenHandler.Machine
             }
             else
             {
-                //this.processManager.liftFlow.motorTask.Status == TaskStatus.Running)
-                if (this.processManager.liftFlow.motorTask != null && this.processManager.liftFlow.motorTask.IsCompleted == false)
+                //this.processManager.liftFlow.LoadTrayTask.Status == TaskStatus.Running)
+                if (this.processManager.liftFlow.LoadTrayTask != null && this.processManager.liftFlow.LoadTrayTask.IsCompleted == false)
                 {
                     //MessageBox.Show("motorTask 동작중입니다.");
                     return false;

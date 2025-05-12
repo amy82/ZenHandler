@@ -17,7 +17,7 @@ namespace ZenHandler.Machine
     public class TransferMachine : MotionControl.MotorController
     {
         public event Action<MotionControl.MotorSet.TrayPosition> OnTrayChangedCall;
-        public MotionControl.MotorSet.TrayPosition Position;        //Tray Load 위치
+        public MotionControl.MotorSet.TrayPosition TrayPosition;        //Tray Load 위치 , Lift에서는 Right만 배출 , Magazine는 LEFT , RIGHT 동시 투입/배출
         public int MotorCnt { get; private set; } = 3;
         
         public MotionControl.MotorAxis[] MotorAxes; // 배열 선언
@@ -132,7 +132,8 @@ namespace ZenHandler.Machine
             pickedProduct = Data.TaskDataYaml.TaskLoad_Transfer(taskPath);
             productLayout = Data.TaskDataYaml.TaskLoad_Layout(LayoutPath);
 
-            Position = MotionControl.MotorSet.TrayPosition.Left;
+            TrayPosition = MotionControl.MotorSet.TrayPosition.Left;
+
             uphStartTime = DateTime.Now;
             //double elapsedMinutes = (DateTime.Now - uphStartTime).TotalSeconds;//TotalMinutes;
             TimeSpan elapsed = DateTime.Now - uphStartTime;
@@ -222,6 +223,11 @@ namespace ZenHandler.Machine
             if (Globalo.motionManager.transferMachine.pickedProduct.UnloadTrayPos.Y >= Globalo.motionManager.transferMachine.productLayout.TotalTrayPos.Y)
             {
                 Globalo.motionManager.transferMachine.pickedProduct.UnloadTrayPos.Y = 0;
+
+                Console.WriteLine($"Tray Change req");
+                //TODO: TrayPosition 을 LEFT , RIGHT 변경해줘야된다.
+                //Tray 교체 요청
+                OnTrayChangedCall?.Invoke(TrayPosition); // 어떤 트레이 비었는지 전달
             }
             int nextPosx = Globalo.motionManager.transferMachine.pickedProduct.UnloadTrayPos.X;
             int nextPosy = Globalo.motionManager.transferMachine.pickedProduct.UnloadTrayPos.Y;
@@ -234,7 +240,8 @@ namespace ZenHandler.Machine
         public void CheckTrayState()
         {
             //State = TransferUnitState.TrayEmpty;
-            //OnTrayChangedCall?.Invoke(Position); // 어떤 트레이 비었는지 전달
+
+            OnTrayChangedCall?.Invoke(TrayPosition); // 어떤 트레이 비었는지 전달
         }
         public bool SetPicker(UnitPicker Picker, PickedProductState State , int index)
         {

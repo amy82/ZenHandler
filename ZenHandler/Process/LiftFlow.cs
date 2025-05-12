@@ -12,7 +12,8 @@ namespace ZenHandler.Process
     {
         public CancellationTokenSource CancelTokenLift;
         public ManualResetEventSlim pauseEvent = new ManualResetEventSlim(true);  // true면 동작 가능
-        public Task<int> motorTask;
+        public Task<int> LoadTrayTask;
+        public Task<int> UnloadTrayTask;
         private readonly SynchronizationContext _syncContext;
         public int nTimeTick = 0;
         public int[] SensorSet = { 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 };
@@ -24,7 +25,8 @@ namespace ZenHandler.Process
         {
             _syncContext = SynchronizationContext.Current;
             CancelTokenLift = new CancellationTokenSource();
-            motorTask = Task.FromResult(1);      //<--실제 실행하지않고,즉시 완료된 상태로 반환
+            LoadTrayTask = Task.FromResult(1);      //<--실제 실행하지않고,즉시 완료된 상태로 반환
+            UnloadTrayTask = Task.FromResult(1);      //<--실제 실행하지않고,즉시 완료된 상태로 반환
         }
         #region [LIFT 원점 동작]
         public int HomeProcess(int nStep)                 //  원점(1000 ~ 2000)
@@ -717,21 +719,55 @@ namespace ZenHandler.Process
 
                     //1. 푸셔 위 Tray 완료된거면 배출
                     //2. Gantry 위 Tray 로드 동작
-                    nRetStep = 2170;
+
+                    CancelTokenLift?.Dispose();
+                    CancelTokenLift = new CancellationTokenSource();
+
+                    if (Globalo.motionManager.GetTrayEjectReq(MotionControl.MotorSet.TrayPosition.Left) == true)
+                    {
+                        nRetStep = 2170;        //Pusher 위 Tray 배출
+                    }
+                    else
+                    {
+                        nRetStep = 2180;    //jump step
+                    }
+                    break;
+                case 2170:
+                    waitUnloadTray = 1;
+                    if (UnloadTrayTask == null || UnloadTrayTask.IsCompleted)
+                    {
+                        UnloadTrayTask = Task.Run(() =>
+                        {
+                            waitUnloadTray = GantryLoadTrayFlow();
+                            Console.WriteLine($"-------------- UnloadTray Task - end {waitUnloadTray}");
+
+                            return waitUnloadTray;
+                        }, CancelTokenLift.Token);
+
+                        nRetStep = 2175;
+                    }
+                    else
+                    {
+                        //일시정지
+                        szLog = $"[READY] Complete Tray Unload Move Fail [STEP : {nStep}]";
+                        Globalo.LogPrint("ManualControl", szLog, Globalo.eMessageName.M_ERROR);
+                        nRetStep *= -1;
+                        break;
+                    }
+
+                    
                     break;
                 //---------------------------------------------------
                 //  GANTRY 에 잡고있는 TRAY 없어서 로드하는 시퀀스
                 //---------------------------------------------------
-                case 2170:
+                case 2175:
                     waitLoadTray = 1;
-                    if (motorTask == null || motorTask.IsCompleted)
+                    if (LoadTrayTask == null || LoadTrayTask.IsCompleted)
                     {
-                        CancelTokenLift?.Dispose();
-                        CancelTokenLift = new CancellationTokenSource();
-                        motorTask = Task.Run(() =>
+                        LoadTrayTask = Task.Run(() =>
                         {
                             waitLoadTray = GantryLoadTrayFlow();
-                            Console.WriteLine($"-------------- motorTask - end {waitLoadTray}");
+                            Console.WriteLine($"-------------- LoadTray Task - end {waitLoadTray}");
                             
                             return waitLoadTray;
                         }, CancelTokenLift.Token);
@@ -749,12 +785,34 @@ namespace ZenHandler.Process
                     
                     break;
                 case 2180:
+                    if (waitUnloadTray == 1)
+                    {
+                        //Gantry 에 Tray 로드 되는 동안 대기
+                        break;
+                    }
+                    if (waitUnloadTray == -1)
+                    {
+                        //Gantry 에 Tray 로드 실패
+                        szLog = $"[READY] Unload Tray Fail [STEP : {nStep}]";
+                        Globalo.LogPrint("ManualControl", szLog, Globalo.eMessageName.M_ERROR);
+                        nRetStep *= -1;
+                        break;
+                    }
+                    else if (waitUnloadTray == 0)
+                    {
+                        //Tray 배출 완료
+                        nRetStep = 2190;
+                        break;
+                    }
+                    break;
+                case 2190:
                     if (waitLoadTray == 1)
                     {
                         //Gantry 에 Tray 로드 되는 동안 대기
                         break;
                     }
-                    else if (waitLoadTray == -1)
+
+                    if (waitLoadTray == -1)
                     {
                         //Gantry 에 Tray 로드 실패
                         szLog = $"[READY] Gantry Load Tray Fail [STEP : {nStep}]";
@@ -1224,11 +1282,11 @@ namespace ZenHandler.Process
                     nRetStep = 3100;
                     break;
                 case 3100:
-                    if (motorTask == null || motorTask.IsCompleted)
+                    if (LoadTrayTask == null || LoadTrayTask.IsCompleted)
                     {
                         CancelTokenLift?.Dispose();
                         CancelTokenLift = new CancellationTokenSource();
-                        motorTask = Task.Run(() =>
+                        LoadTrayTask = Task.Run(() =>
                         {
                             waitLoadTray = GantryLoadTrayFlow();
                             return waitLoadTray;
@@ -1237,16 +1295,16 @@ namespace ZenHandler.Process
                     else
                     {
                         //일시정지
-                        //Console.WriteLine("motorTask still running! Skip this cycle.");
+                        //Console.WriteLine("LoadTray Task still running! Skip this cycle.");
                     }
                     nRetStep = 3200;
                     break;
                 case 3200:
-                    if (motorTask == null || motorTask.IsCompleted)
+                    if (LoadTrayTask == null || LoadTrayTask.IsCompleted)
                     {
                         CancelTokenLift?.Dispose();
                         CancelTokenLift = new CancellationTokenSource();
-                        //motorTask = Task.Run(() =>
+                        //LoadTrayTask = Task.Run(() =>
                         //{
                         //    result = LoadTrayOnPusherFlow();
                         //    return result;
@@ -1255,16 +1313,16 @@ namespace ZenHandler.Process
                     else
                     {
                         //일시정지
-                        //Console.WriteLine("motorTask still running! Skip this cycle.");
+                        //Console.WriteLine("LoadTray Task still running! Skip this cycle.");
                     }
                     nRetStep = 3300;
                     break;
                 case 3300:
-                    if (motorTask == null || motorTask.IsCompleted)
+                    if (LoadTrayTask == null || LoadTrayTask.IsCompleted)
                     {
                         CancelTokenLift?.Dispose();
                         CancelTokenLift = new CancellationTokenSource();
-                        //motorTask = Task.Run(() =>
+                        //LoadTrayTask = Task.Run(() =>
                         //{
                         //    result = UnLoadTrayFlow();
                         //    return result;
@@ -1273,7 +1331,7 @@ namespace ZenHandler.Process
                     else
                     {
                         //일시정지
-                        //Console.WriteLine("motorTask still running! Skip this cycle.");
+                        //Console.WriteLine("LoadTray Task still running! Skip this cycle.");
                     }
                     ///nRetStep = 3000;
                     break;

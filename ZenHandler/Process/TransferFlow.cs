@@ -266,7 +266,8 @@ namespace ZenHandler.Process
                     // ++1
                     LoadPosx = Globalo.motionManager.transferMachine.pickedProduct.LoadTrayPos.X;
                     LoadPosy = Globalo.motionManager.transferMachine.pickedProduct.LoadTrayPos.Y;
-                    if (Globalo.motionManager.transferMachine.Position == MotionControl.MotorSet.TrayPosition.Left)
+
+                    if (Globalo.motionManager.transferMachine.TrayPosition == MotionControl.MotorSet.TrayPosition.Left)
                     {
                         Globalo.motionManager.liftMachine.trayProduct.LeftLoadTraySlots[LoadPosy][LoadPosx] = -1;
                     }

@@ -24,7 +24,8 @@ namespace ZenHandler.MotionControl
         public Machine.EEpromSocketMachine socketEEpromMachine;
         public Machine.FwSocketMachine socketFwMachine;
 
-        
+
+        private bool[] trayEjectRequested = {false , false };
         //#region test
         //#endregion
 
@@ -62,20 +63,37 @@ namespace ZenHandler.MotionControl
             LoadChk = socketEEpromMachine.teachingConfig.LoadTeach(Machine.EEpromSocketMachine.teachingPath, socketEEpromMachine.MotorCnt, (int)Machine.EEpromSocketMachine.eTeachingPosList.TOTAL_SOCKET_TEACHING_COUNT);
             socketEEpromMachine.MotorUse = LoadChk;
 
+
+            ClearTrayChenge(MotorSet.TrayPosition.Left);
+            ClearTrayChenge(MotorSet.TrayPosition.Right);
             //FwSocket = Teaching 없음
         }
         private void OnTrayChenge(MotorSet.TrayPosition position)
         {
-            Console.WriteLine("ToLiftUnitTrayChenge");
+            Console.WriteLine($"ToLiftUnitTrayChenge - {position}");
 
-            if (position == MotorSet.TrayPosition.Left)// && leftLift.State == LiftUnitState.Idle)
-            {
-                //leftLift.StartTrayChange();
-            }
-            else if (position == MotorSet.TrayPosition.Right)// && rightLift.State == LiftUnitState.Idle)
-            {
-                //rightLift.StartTrayChange();
-            }
+            //Magazine - LEFT , RIGHT 모두 사용
+            //Lift - 우측 리프트에서만 배출
+            //MotorSet.TrayPosition.Left
+
+            int index = (int)position;
+
+            trayEjectRequested[index] = true;
+        }
+
+        public void ClearTrayChenge(MotorSet.TrayPosition position)
+        {
+            Console.WriteLine($"ClearTrayChenge - {position}");
+            int index = (int)position;
+            trayEjectRequested[index] = false;
+        }
+        public bool GetTrayEjectReq(MotorSet.TrayPosition position)
+        {
+            int index = (int)position;
+            bool rtn = false;
+            rtn = trayEjectRequested[index];
+            return rtn;
+
         }
         private void OnPgExit(object sender, EventArgs e)
         {
