@@ -139,7 +139,18 @@ namespace ZenHandler.MotionControl
         }
         public virtual void Stop(int type = 0)
         {
-            CAXM.AxmMoveSStop(m_lAxisNo);       //감속 정지
+            if (type == 0)
+            {
+                CAXM.AxmMoveSStop(m_lAxisNo);       //감속 정지
+            }
+            else if (type == 1)
+            {
+                CAXM.AxmMoveEStop(m_lAxisNo);       //급 정지
+            }
+            else
+            {
+                CAXM.AxmMoveSStop(m_lAxisNo);       //감속 정지
+            }
 
             //AxmMoveStop(int nAxisNo, double dDecel) : 설정한 감속도로 감속 정지
             //AxmMoveEStop(int nAxisNo) : 급 정지
@@ -232,7 +243,7 @@ namespace ZenHandler.MotionControl
             }
             return false;
         }
-        public bool MoveAxisLimit(double dVel, double dAcc, AXT_MOTION_HOME_DETECT Detect, AXT_MOTION_EDGE Edge, AXT_MOTION_STOPMODE StopMode, bool bWait = false)
+        public bool MoveAxisLimit(double dVel, double dAcc, AXT_MOTION_HOME_DETECT Detect, AXT_MOTION_EDGE Edge = AXT_MOTION_EDGE.SIGNAL_UP_EDGE, AXT_MOTION_STOPMODE StopMode = AXT_MOTION_STOPMODE.EMERGENCY_STOP, bool bWait = false)
         {
             if (ProgramState.ON_LINE_MOTOR == false)
             {

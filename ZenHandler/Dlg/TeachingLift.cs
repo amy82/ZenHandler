@@ -241,11 +241,11 @@ namespace ZenHandler.Dlg
 
         private void BTN_TEACH_PCB_Z_Click(object sender, EventArgs e)
         {
-            changeBtnMotorNo((int)Machine.eLift.LIFT_F_X);
+            changeBtnMotorNo((int)Machine.eLift.GANTRYX_L);
         }
         private void BTN_TEACH_MAGAZINE_RIGHT_Z_Click(object sender, EventArgs e)
         {
-            changeBtnMotorNo((int)Machine.eLift.LIFT_B_X);
+            changeBtnMotorNo((int)Machine.eLift.GANTRYX_R);
         }
         private void BTN_TEACH_DATA_SAVE_Click(object sender, EventArgs e)
         {

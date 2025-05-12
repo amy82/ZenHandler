@@ -9,7 +9,12 @@ namespace ZenHandler.Machine
 {
     public enum eLift : int
     {
-        LIFT_L_Z = 0, LIFT_R_Z, LIFT_F_X, LIFT_B_X
+        LIFT_L_Z = 0, LIFT_R_Z, GANTRYX_L, GANTRYX_R
+    };
+
+    public enum eLiftSensor : int
+    {
+        LIFT_TOPSTOP_POS = 0, LIFT_READY_POS, LIFT_HOME_POS
     };
     public class LiftMachine : MotionControl.MotorController
     {
@@ -20,18 +25,23 @@ namespace ZenHandler.Machine
 
         public string[] axisName = { "FRONT_X", "BACK_X", "LEFT_Z", "RIGHT_Z"};
 
-        private MotorDefine.eMotorType[] motorType = { MotorDefine.eMotorType.LINEAR, MotorDefine.eMotorType.LINEAR, MotorDefine.eMotorType.LINEAR, MotorDefine.eMotorType.LINEAR, MotorDefine.eMotorType.LINEAR, MotorDefine.eMotorType.LINEAR };
-        private AXT_MOTION_LEVEL_MODE[] AXT_SET_LIMIT = { AXT_MOTION_LEVEL_MODE.LOW, AXT_MOTION_LEVEL_MODE.LOW, AXT_MOTION_LEVEL_MODE.LOW, AXT_MOTION_LEVEL_MODE.LOW, AXT_MOTION_LEVEL_MODE.LOW, AXT_MOTION_LEVEL_MODE.LOW };
-        private AXT_MOTION_LEVEL_MODE[] AXT_SET_SERVO_ALARM = { AXT_MOTION_LEVEL_MODE.HIGH, AXT_MOTION_LEVEL_MODE.LOW, AXT_MOTION_LEVEL_MODE.LOW, AXT_MOTION_LEVEL_MODE.LOW, AXT_MOTION_LEVEL_MODE.LOW, AXT_MOTION_LEVEL_MODE.LOW };
-        private AXT_MOTION_HOME_DETECT[] MOTOR_HOME_SENSOR = { AXT_MOTION_HOME_DETECT.HomeSensor, AXT_MOTION_HOME_DETECT.HomeSensor, AXT_MOTION_HOME_DETECT.HomeSensor, AXT_MOTION_HOME_DETECT.HomeSensor, AXT_MOTION_HOME_DETECT.HomeSensor, AXT_MOTION_HOME_DETECT.HomeSensor };
-        private AXT_MOTION_MOVE_DIR[] MOTOR_HOME_DIR = { AXT_MOTION_MOVE_DIR.DIR_CW, AXT_MOTION_MOVE_DIR.DIR_CW, AXT_MOTION_MOVE_DIR.DIR_CW, AXT_MOTION_MOVE_DIR.DIR_CW, AXT_MOTION_MOVE_DIR.DIR_CW, AXT_MOTION_MOVE_DIR.DIR_CW };
+        private MotorDefine.eMotorType[] motorType = { MotorDefine.eMotorType.LINEAR, MotorDefine.eMotorType.LINEAR, MotorDefine.eMotorType.LINEAR, MotorDefine.eMotorType.LINEAR};
+        private AXT_MOTION_LEVEL_MODE[] AXT_SET_LIMIT = { AXT_MOTION_LEVEL_MODE.LOW, AXT_MOTION_LEVEL_MODE.LOW, AXT_MOTION_LEVEL_MODE.LOW, AXT_MOTION_LEVEL_MODE.LOW };
+        private AXT_MOTION_LEVEL_MODE[] AXT_SET_SERVO_ALARM = { AXT_MOTION_LEVEL_MODE.HIGH, AXT_MOTION_LEVEL_MODE.LOW, AXT_MOTION_LEVEL_MODE.LOW, AXT_MOTION_LEVEL_MODE.LOW };
+        private AXT_MOTION_HOME_DETECT[] MOTOR_HOME_SENSOR = { AXT_MOTION_HOME_DETECT.HomeSensor, AXT_MOTION_HOME_DETECT.HomeSensor, AXT_MOTION_HOME_DETECT.NegEndLimit, AXT_MOTION_HOME_DETECT.NegEndLimit };
+        private AXT_MOTION_MOVE_DIR[] MOTOR_HOME_DIR = { AXT_MOTION_MOVE_DIR.DIR_CW, AXT_MOTION_MOVE_DIR.DIR_CW, AXT_MOTION_MOVE_DIR.DIR_CW, AXT_MOTION_MOVE_DIR.DIR_CW};
 
 
-        private static double[] MaxSpeeds = { 100.0, 100.0, 200.0, 200.0};
+        private static double[] MaxSpeeds = { 100.0, 100.0, 100.0, 100.0};
         private double[] OrgFirstVel = { 20000.0, 20000.0, 20000.0, 20000.0};
-        private double[] OrgSecondVel = { 5000.0, 5000.0, 10000.0, 10000.0};
-        private double[] OrgThirdVel = { 2500.0, 2500.0, 5000.0, 5000.0};
+        private double[] OrgSecondVel = { 5000.0, 5000.0, 5000.0, 5000.0 };
+        private double[] OrgThirdVel = { 2500.0, 2500.0, 2500.0, 2500.0 };
 
+        public bool[] IsLiftOnTray = { false, false };      //리프트 위 Tray 유무 확인
+        public bool[] IsTopLoadOnTray = { false, false };      //상단 Gantry , Pusher Tray 로드 확인
+
+        public bool IsLoadingInputTray = false;         //투입 LIft 투입중
+        public bool IsUnloadingOutputTray = false;      //배출 Lift 배출중
 
         public enum eTeachingPosList : int
         {
@@ -54,9 +64,7 @@ namespace ZenHandler.Machine
             int i = 0;
             this.RunState = OperationState.Stopped;
             this.MachineName = this.GetType().Name;
-
-            //MotorAxes = new MotionControl.MotorAxis[] { Gantry_X_F, Gantry_X_B, LoadLift_Z_L, LoadLift_Z_R};
-            //MotorCnt = MotorAxes.Length;
+            
             MotorAxes = new MotionControl.MotorAxis[MotorCnt];
             for (i = 0; i < MotorCnt; i++)
             {
@@ -103,6 +111,16 @@ namespace ZenHandler.Machine
 
         }
         #region Lift Machine Io 동작
+        public bool GetGantryCenteringFor(bool bFlag, bool bWait = false)
+        {
+            return false;
+        }
+        public bool GantryCenteringFor(bool bFlag, bool bWait = false)        //GANTRY 모서리 센터링 전후진
+        {
+            bool isSuccess = false;
+
+            return isSuccess;
+        }
         public bool GetGantryClampFor(bool bFlag, bool bWait = false)
         {
             return false;
@@ -135,7 +153,7 @@ namespace ZenHandler.Machine
 
             return isSuccess;
         }
-        public bool GetTraySlidePos(int index)                  //슬라이드 정위치 확인
+        public bool GetTraySlidePos(int index)          //슬라이드 정위치 확인
         {
             return false;
         }
@@ -147,7 +165,7 @@ namespace ZenHandler.Machine
         {
             return false;
         }
-        public bool GetIsTrayOnTop(int index)              //LEFT , RIGHT 상단 TRAY 유무 확인
+        public bool GetIsLoadTrayOnTop(int index)            //GANTRY, PUSHER 위 TRAY 유무 확인
         {
             return false;
         }
@@ -172,15 +190,195 @@ namespace ZenHandler.Machine
             }
             return true;
         }
-        
+        #region LIFT Motor 동작
+        public bool ChkGantryXMotorPos(eTeachingPosList teachingPos)
+        {
+            if (ProgramState.ON_LINE_MOTOR == false)
+            {
+                return true;
+            }
+
+            double dXPos = 0.0;
+            double dYPos = 0.0;
+            double currentXPos = 0.0;
+            double currentYPos = 0.0;
+
+
+            dXPos = Globalo.motionManager.liftMachine.teachingConfig.Teaching[(int)teachingPos].Pos[(int)eLift.GANTRYX_L];
+            dYPos = Globalo.motionManager.liftMachine.teachingConfig.Teaching[(int)teachingPos].Pos[(int)eLift.GANTRYX_R];
+
+
+            currentXPos = MotorAxes[(int)eLift.GANTRYX_L].EncoderPos;
+            currentYPos = MotorAxes[(int)eLift.GANTRYX_R].EncoderPos;
+
+            if (dXPos == currentXPos && dYPos == currentYPos)
+            {
+                return true;
+            }
+
+            return false;
+        }
+        public bool LIft_Z_Move_SersonDetected(eLift motorAxis, eLiftSensor Sensor, bool bWait = true)
+        {
+            if (this.MotorUse == false)
+            {
+                Console.WriteLine("No Use Machine");
+                return true;
+            }
+
+            string logStr = "";
+            bool isSuccess = false;
+            int moveDic = 1;        //1이면 상승 , 그외 하강
+            if (Sensor == eLiftSensor.LIFT_READY_POS)
+            {
+                moveDic = 1;
+                bWait = true;       //무조건 대기
+                if (MotorAxes[(int)motorAxis].GetHomeSensor() == true)
+                {
+                    return true;
+                }
+            }
+            else if (Sensor == eLiftSensor.LIFT_TOPSTOP_POS)
+            {
+                moveDic = 1;
+                bWait = true;       //무조건 대기
+                //상단 정지 감지 센서
+                if (GetTopTouchSensor((int)motorAxis) == true)
+                {
+                    return true;
+                }
+            }
+            else if (Sensor == eLiftSensor.LIFT_HOME_POS)
+            {
+                moveDic = -1;
+                if (MotorAxes[(int)motorAxis].GetNegaSensor() == true)
+                {
+                    return true;
+                }
+            }
+
+            double dSpeed = MotorAxes[(int)motorAxis].Velocity;
+
+            isSuccess = MotorAxes[(int)motorAxis].JogMove(moveDic, dSpeed);
+
+            if (bWait == false)
+            {
+                return isSuccess;
+            }
+            int step = 100;
+            int nTimeTick = 0;
+            int SkipChk = 0;
+            while (true)
+            {
+                if (MotorAxes[(int)motorAxis].MotorBreak)
+                {
+                    break;
+                }
+
+                switch (step)
+                {
+                    case 100:
+                        isSuccess = false;
+                        nTimeTick = Environment.TickCount;
+                        step = 200;
+                        break;
+                    case 200:
+                        if (Sensor == eLiftSensor.LIFT_READY_POS)
+                        {
+                            if (MotorAxes[(int)motorAxis].GetHomeSensor() == true)
+                            {
+                                MotorAxes[(int)motorAxis].Stop(1);
+                                isSuccess = true;
+                                step = 1000;
+                            }
+                        }
+                        else if (Sensor == eLiftSensor.LIFT_TOPSTOP_POS)
+                        {
+                            //상단 정지 감지 센서
+                            //g_clDioControl.ReadDIn(4);   //TODO:   <-----------필요?
+                            if (GetTopTouchSensor((int)motorAxis) == true)
+                            {
+                                MotorAxes[(int)motorAxis].Stop(1);
+                                isSuccess = true;
+                                step = 1000;
+                            }
+                        }
+                        else if (Sensor == eLiftSensor.LIFT_HOME_POS)
+                        {
+                            if (MotorAxes[(int)motorAxis].GetNegaSensor() == true)
+                            {
+                                MotorAxes[(int)motorAxis].Stop(1);
+                                isSuccess = true;
+                                step = 1000;
+                            }
+                        }
+                        break;
+
+                    default:
+                        break;
+                }
+                if (step >= 1000)
+                {
+                    break;
+                }
+
+                if (Environment.TickCount - nTimeTick > MotionControl.MotorSet.LIFT_MOVE_TIMEOUT)
+                {
+                    isSuccess = false;
+                    Console.WriteLine($"Lift Motor Stop Timeout ");
+                    break;
+                }
+                Thread.Sleep(10);
+            }
+            return isSuccess;
+        }
+        public bool Gantry_X_Move(eTeachingPosList ePos, bool bWait = true)  //Picket Index , Tray or Socekt or Ng , 
+        {
+            //TODO: PickerNo 는 없애고 CountX로 써도될듯 확인필요.
+            if (this.MotorUse == false)
+            {
+                Console.WriteLine("No Use Machine");
+                return true;
+            }
+            string logStr = "";
+            bool isSuccess = false;
+
+
+            MotionControl.MotorAxis[] multiAxis = { MotorAxes[(int)eLift.GANTRYX_L], MotorAxes[(int)eLift.GANTRYX_R] };
+            double[] dMultiPos = { 0.0, 0.0 };
+            double[] dOffsetPos = { 0.0, 0.0 };
+
+            dMultiPos[0] = Globalo.motionManager.liftMachine.teachingConfig.Teaching[(int)ePos].Pos[(int)eLift.GANTRYX_L];     //F x Axis
+            dMultiPos[1] = Globalo.motionManager.liftMachine.teachingConfig.Teaching[(int)ePos].Pos[(int)eLift.GANTRYX_R];      //F x Axis
+
+            Console.WriteLine($"[{ePos.ToString()} :{dMultiPos[0]}, :{dMultiPos[1]}]");
+
+            isSuccess = MultiAxisMove(multiAxis, dMultiPos, bWait);
+
+            if (isSuccess == false)
+            {
+                logStr = $"GANTRY X축 {ePos.ToString() } 이동 실패";
+
+                Globalo.LogPrint("ManualControl", logStr);
+            }
+
+            return isSuccess;
+        }
+        #endregion
         public override void StopAuto()
         {
+            if (processManager.liftFlow.CancelTokenLift != null && !processManager.liftFlow.CancelTokenLift.IsCancellationRequested)
+            {
+                processManager.liftFlow.CancelTokenLift.Cancel();
+            }
+           
             AutoUnitThread.Stop();
             MovingStop();
             RunState = OperationState.Stopped;
             Console.WriteLine($"[INFO] Lift Run Stop");
 
         }
+
         public override void MovingStop()
         {
             if (CancelToken != null && !CancelToken.IsCancellationRequested)
@@ -237,7 +435,7 @@ namespace ZenHandler.Machine
                 return false;
             }
 
-            if (MotorAxes[(int)Machine.eLift.LIFT_B_X].OrgState == false || MotorAxes[(int)Machine.eLift.LIFT_F_X].OrgState == false ||
+            if (MotorAxes[(int)Machine.eLift.GANTRYX_L].OrgState == false || MotorAxes[(int)Machine.eLift.GANTRYX_R].OrgState == false ||
                 MotorAxes[(int)Machine.eLift.LIFT_L_Z].OrgState == false|| MotorAxes[(int)Machine.eLift.LIFT_R_Z].OrgState == false)
             {
                 this.RunState = OperationState.OriginRunning;
@@ -274,8 +472,10 @@ namespace ZenHandler.Machine
         }
         public override void PauseAuto()
         {
-            if (AutoUnitThread.GetThreadRun() == true)
+            if (AutoUnitThread.GetThreadRun() == true)  // //TODO: 리프트상승중 일시정됐을때 모터 정지 or 계속 체크
             {
+                //TODO: LIFT는 일시 정지하면 모터 정지시키기 ? 그럼 연이어 자동 안될듯
+                processManager.liftFlow.pauseEvent.Reset();
                 AutoUnitThread.Pause();
                 RunState = OperationState.Paused;
             }
@@ -299,17 +499,35 @@ namespace ZenHandler.Machine
 
                 if (AutoUnitThread.GetThreadPause() == true)        //일시 정지 상태인지 확인
                 {
-                    AutoUnitThread.m_nCurrentStep = Math.Abs(AutoUnitThread.m_nCurrentStep);
+                    if (this.processManager.liftFlow.LoadTrayTask != null &&
+                        this.processManager.liftFlow.LoadTrayTask.IsCompleted == false)
+                    {
+                        bool isSet = processManager.liftFlow.pauseEvent.IsSet;      //일시정지 체크
+                        if (isSet)
+                        {
+                            //isSet= true진행중
+                            //isSet= false 일시정지중
+                            Console.WriteLine($"Task 자동 운전 중입니다. {isSet}");
+                            return false;
+                        }
 
+                    }
+                    AutoUnitThread.m_nCurrentStep = Math.Abs(AutoUnitThread.m_nCurrentStep);
+                    AutoUnitThread.Resume();
+                    processManager.liftFlow.pauseEvent.Set();
                     RunState = OperationState.AutoRunning;
                 }
-                else
-                {
-                    rtn = false;
-                }
+                return true;
             }
             else
             {
+                //this.processManager.liftFlow.LoadTrayTask.Status == TaskStatus.Running)
+                if (this.processManager.liftFlow.LoadTrayTask != null && this.processManager.liftFlow.LoadTrayTask.IsCompleted == false)
+                {
+                    //MessageBox.Show("motorTask 동작중입니다.");
+                    return false;
+                }
+
                 AutoUnitThread.m_nCurrentStep = 3000;
                 AutoUnitThread.m_nEndStep = 10000;
                 AutoUnitThread.m_nStartStep = AutoUnitThread.m_nCurrentStep;
