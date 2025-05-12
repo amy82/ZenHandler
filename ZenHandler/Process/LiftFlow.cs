@@ -15,7 +15,9 @@ namespace ZenHandler.Process
         public Task<int> LoadTrayTask;
         public Task<int> UnloadTrayTask;
         private readonly SynchronizationContext _syncContext;
-        public int nTimeTick = 0;
+        public int nTimeTick = 0;           //<-----동시 동작일대 같이 쓰면 안될듯
+        public int nLoadTimeTick = 0;           //<-----동시 동작일대 같이 쓰면 안될듯
+        public int nUnloadTimeTick = 0;           //<-----동시 동작일대 같이 쓰면 안될듯
         public int[] SensorSet = { 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 };
         public int[] OrgOnGoing = { 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 };
         private int waitLoadTray = 1;
@@ -659,6 +661,17 @@ namespace ZenHandler.Process
                     {
                         szLog = $"[READY] RIGHT LIFT Z (-)Limit 위치 이동 완료 [STEP : {nStep}]";
                         Globalo.LogPrint("ManualControl", szLog);
+
+
+                        if (Globalo.motionManager.liftMachine.GetMiddleWaitSensor((int)Machine.eLift.LIFT_R_Z) == true)
+                        {
+                            szLog = $"[READY] PLEASE REMOVE THE OUTPUT TRAY [STEP : {nStep}]";
+                            Globalo.LogPrint("ManualControl", szLog, Globalo.eMessageName.M_WARNING);
+                            nRetStep *= -1;
+                            break;
+                        }
+
+
                         nRetStep = 2140;
                         break;
                     }
@@ -696,10 +709,10 @@ namespace ZenHandler.Process
                     {
                         szLog = $"[READY] RIGHT LOAD 위치 이동 완료 [STEP : {nStep}]";
                         Globalo.LogPrint("ManualControl", szLog);
-                        nRetStep = 2160;
+                        nRetStep = 2152;
                         break;
                     }
-                    else if (Environment.TickCount - nTimeTick > 30000)
+                    else if (Environment.TickCount - nTimeTick > MotionControl.MotorSet.MOTOR_MOVE_TIMEOUT)
                     {
                         szLog = $"[READY] RIGHT LOAD 위치 이동 시간 초과 [STEP : {nStep}]";
                         Globalo.LogPrint("ManualControl", szLog);
@@ -708,14 +721,90 @@ namespace ZenHandler.Process
                     }
                     
                     break;
+                case 2152:
+                    //PUsher에 Tray 있는지 확인
+                    //
+                    if (Globalo.motionManager.liftMachine.GetIsLoadTrayOnTop((int)Machine.eLift.LIFT_R_Z) == false)
+                    {
+                        szLog = $"[READY] TRAY EMPTY ON PUSHER [STEP : {nStep}]";
+                        Globalo.LogPrint("ManualControl", szLog);
+
+                        Globalo.motionManager.ClearTrayChenge(MotionControl.MotorSet.TrayPosition.Left);
+
+                        //GANTRY  에 들고있는 TRAY 없으면 센터링 후진
+                        if (Globalo.motionManager.liftMachine.PusherUp(false) == false)
+                        {
+                            szLog = $"[READY] PUSHER DOWN MOTION FAIL[STEP : {nStep}]";
+                            Globalo.LogPrint("ManualControl", szLog, Globalo.eMessageName.M_WARNING);
+                            nRetStep *= -1;
+                            break;
+                        }
+                        szLog = $"[READY] PUSHER DOWN MOTION [STEP : {nStep}]";
+                        Globalo.LogPrint("ManualControl", szLog);
+
+                        if (Globalo.motionManager.liftMachine.PusherFor(false) == false)
+                        {
+                            szLog = $"[READY] PUSHER BACK MOTION FAIL[STEP : {nStep}]";
+                            Globalo.LogPrint("ManualControl", szLog, Globalo.eMessageName.M_WARNING);
+                            nRetStep *= -1;
+                            break;
+                        }
+                        szLog = $"[READY] PUSHER BACK MOTION [STEP : {nStep}]";
+                        Globalo.LogPrint("ManualControl", szLog);
+
+                        nRetStep = 2154;
+                        nTimeTick = Environment.TickCount;
+                        break;
+                    }
+                    else
+                    {
+                        szLog = $"[READY] TRAY LOADED ON PUSHER [STEP : {nStep}]";
+                        Globalo.LogPrint("ManualControl", szLog);
+                        nRetStep = 2160;    //JUMP STEP
+                    }
+                    break;
+                case 2154:
+                    //PUSHER 하강 / 후진 상태 확인
+                    if (Globalo.motionManager.liftMachine.GetPUsherFor(false) == true)
+                    {
+                        szLog = $"[READY] PUSHER BACK CHECK [STEP : {nStep}]";
+                        Globalo.LogPrint("ManualControl", szLog);
+                        nRetStep = 2156;
+                        nTimeTick = Environment.TickCount;
+                    }
+                    else if (Environment.TickCount - nTimeTick > MotionControl.MotorSet.IO_TIMEOUT)
+                    {
+                        szLog = $"[READY] PUSHER BACK CHECK TIMEOUT[STEP : {nStep}]";
+                        Globalo.LogPrint("ManualControl", szLog, Globalo.eMessageName.M_ERROR);
+                        nRetStep *= -1;
+                        break;
+                    }
+                    break;
+                case 2156:
+                    //PUSHER 하강 / 후진 상태 확인
+                    if (Globalo.motionManager.liftMachine.GetPUsherUp(false) == true)
+                    {
+                        szLog = $"[READY] PUSHER DOWN CHECK [STEP : {nStep}]";
+                        Globalo.LogPrint("ManualControl", szLog);
+                        nRetStep = 2158;
+                        nTimeTick = Environment.TickCount;
+                    }
+                    else if (Environment.TickCount - nTimeTick > MotionControl.MotorSet.IO_TIMEOUT)
+                    {
+                        szLog = $"[READY] PUSHER DOWN CHECK TIMEOUT[STEP : {nStep}]";
+                        Globalo.LogPrint("ManualControl", szLog, Globalo.eMessageName.M_ERROR);
+                        nRetStep *= -1;
+                        break;
+                    }
+                    break;
+                case 2158:
+                    nRetStep = 2160;
+                    break;
                 //---------------------------------------------------
                 //  Pusher위 Tray 전부 완료된 상태인지 확인 후 배출
                 //---------------------------------------------------
-                case 2160:
+                case 2160:      //jump step
                     //1 , 2 동작 동시 가능
-
-                    waitUnloadTray = 1;
-                    waitLoadTray = 1;
 
                     //1. 푸셔 위 Tray 완료된거면 배출
                     //2. Gantry 위 Tray 로드 동작
@@ -723,22 +812,23 @@ namespace ZenHandler.Process
                     CancelTokenLift?.Dispose();
                     CancelTokenLift = new CancellationTokenSource();
 
-                    if (Globalo.motionManager.GetTrayEjectReq(MotionControl.MotorSet.TrayPosition.Left) == true)
-                    {
-                        nRetStep = 2170;        //Pusher 위 Tray 배출
-                    }
-                    else
-                    {
-                        nRetStep = 2180;    //jump step
-                    }
+                    nRetStep = 2170;
                     break;
                 case 2170:
-                    waitUnloadTray = 1;
+                    if (Globalo.motionManager.GetTrayEjectReq(MotionControl.MotorSet.TrayPosition.Left) == false)
+                    {
+                        //배출 요청 없음
+                        waitUnloadTray = 0;
+                        nRetStep = 2175;
+                        break;
+                    }
+
                     if (UnloadTrayTask == null || UnloadTrayTask.IsCompleted)
                     {
+                        waitUnloadTray = 1;
                         UnloadTrayTask = Task.Run(() =>
                         {
-                            waitUnloadTray = GantryLoadTrayFlow();
+                            waitUnloadTray = UnLoadTrayFlow();
                             Console.WriteLine($"-------------- UnloadTray Task - end {waitUnloadTray}");
 
                             return waitUnloadTray;
@@ -754,16 +844,22 @@ namespace ZenHandler.Process
                         nRetStep *= -1;
                         break;
                     }
-
-                    
                     break;
                 //---------------------------------------------------
                 //  GANTRY 에 잡고있는 TRAY 없어서 로드하는 시퀀스
                 //---------------------------------------------------
                 case 2175:
-                    waitLoadTray = 1;
+                    if (Globalo.motionManager.liftMachine.GetIsLoadTrayOnTop((int)Machine.eLift.LIFT_L_Z) == true)
+                    {
+                        //Gantry 에 Tray 있음
+                        waitLoadTray = 0;
+                        nRetStep = 2180;
+                        break;
+                    }
+                    
                     if (LoadTrayTask == null || LoadTrayTask.IsCompleted)
                     {
+                        waitLoadTray = 1;
                         LoadTrayTask = Task.Run(() =>
                         {
                             waitLoadTray = GantryLoadTrayFlow();
@@ -828,94 +924,32 @@ namespace ZenHandler.Process
                     }
                     break;
                 case 2200:
+                    nRetStep = 2240;
+
+                    break;
+                case 2240:
+                    nRetStep = 2260;
+                    break;
+                case 2260:
+                    
+                    nRetStep = 2280;
+                    break;
+                case 2280:
+                    nRetStep = 2300;
+
+                    break;
+                case 2300:
                     //---------------------------------------------------
                     //  GANTRY 에 TRAY 로드 완료 상황
                     //---------------------------------------------------
-                    nRetStep = 2240;
-                    break;
-                case 2240:
-                    //PUsher에 Tray 있는지 확인
-                    //
-                    if (Globalo.motionManager.liftMachine.GetIsLoadTrayOnTop(1) == false)
-                    {
-                        szLog = $"[READY] TRAY EMPTY ON PUSHER [STEP : {nStep}]";
-                        Globalo.LogPrint("ManualControl", szLog);
 
-
-                        //GANTRY  에 들고있는 TRAY 없으면 센터링 후진
-                        if (Globalo.motionManager.liftMachine.PusherUp(false) == false)
-                        {
-                            szLog = $"[READY] PUSHER DOWN MOTION FAIL[STEP : {nStep}]";
-                            Globalo.LogPrint("ManualControl", szLog, Globalo.eMessageName.M_WARNING);
-                            nRetStep *= -1;
-                            break;
-                        }
-                        szLog = $"[READY] PUSHER DOWN MOTION [STEP : {nStep}]";
-                        Globalo.LogPrint("ManualControl", szLog);
-
-                        if (Globalo.motionManager.liftMachine.PusherFor(false) == false)
-                        {
-                            szLog = $"[READY] PUSHER BACK MOTION FAIL[STEP : {nStep}]";
-                            Globalo.LogPrint("ManualControl", szLog, Globalo.eMessageName.M_WARNING);
-                            nRetStep *= -1;
-                            break;
-                        }
-                        szLog = $"[READY] PUSHER BACK MOTION [STEP : {nStep}]";
-                        Globalo.LogPrint("ManualControl", szLog);
-
-                        nRetStep = 2260;
-                        nTimeTick = Environment.TickCount;
-                        break;
-                    }
-                    else
-                    {
-                        szLog = $"[READY] TRAY LOADED ON PUSHER [STEP : {nStep}]";
-                        Globalo.LogPrint("ManualControl", szLog);
-                        nRetStep = 2600;    //JUMP STEP
-                    }
-                    break;
-                case 2260:
                     //---------------------------------------------------
-                    //  PUSHER 에 TRAY 로드 하는 동작
+                    //  PUSHER 에 TRAY가 있을수도있고 , 배출한 직 후 일수 있다.
                     //---------------------------------------------------
-                    nRetStep = 2280;
-                    nTimeTick = Environment.TickCount;
-                    break;
-                case 2280:
-                    //PUSHER 하강 / 후진 상태 확인
-                    if (Globalo.motionManager.liftMachine.GetPUsherFor(false) == true)
+                    if (Globalo.motionManager.liftMachine.GetIsLoadTrayOnTop((int)Machine.eLift.LIFT_R_Z) == false)
                     {
-                        szLog = $"[READY] PUSHER BACK CHECK [STEP : {nStep}]";
-                        Globalo.LogPrint("ManualControl", szLog);
-                        nRetStep = 2300;
-                        nTimeTick = Environment.TickCount;
-                    }
-                    else if (Environment.TickCount - nTimeTick > MotionControl.MotorSet.IO_TIMEOUT)
-                    {
-                        szLog = $"[READY] PUSHER BACK CHECK TIMEOUT[STEP : {nStep}]";
-                        Globalo.LogPrint("ManualControl", szLog, Globalo.eMessageName.M_ERROR);
-                        nRetStep *= -1;
-                        break;
-                    }
-                    
-                    break;
-                case 2300:
-                    //PUSHER 하강 / 후진 상태 확인
-                    if (Globalo.motionManager.liftMachine.GetPUsherUp(false) == true)
-                    {
-                        szLog = $"[READY] PUSHER DOWN CHECK [STEP : {nStep}]";
-                        Globalo.LogPrint("ManualControl", szLog);
                         nRetStep = 2320;
-                        nTimeTick = Environment.TickCount;
                     }
-                    else if (Environment.TickCount - nTimeTick > MotionControl.MotorSet.IO_TIMEOUT)
-                    {
-                        szLog = $"[READY] PUSHER DOWN CHECK TIMEOUT[STEP : {nStep}]";
-                        Globalo.LogPrint("ManualControl", szLog, Globalo.eMessageName.M_ERROR);
-                        nRetStep *= -1;
-                        break;
-                    }
-
                     break;
                 case 2320:
                     //GANTRY X 축 배출 위치 이동
@@ -969,8 +1003,8 @@ namespace ZenHandler.Process
                     Globalo.LogPrint("ManualControl", szLog);
                     nTimeTick = Environment.TickCount;
                     nRetStep = 2350;
-
                     break;
+
                 case 2350:
                     //PUSHER 전진 확인
                     //PUSHER 하강 / 후진 상태 확인
@@ -1004,6 +1038,7 @@ namespace ZenHandler.Process
                     nTimeTick = Environment.TickCount;
                     nRetStep = 2380;
                     break;
+
                 case 2380:
                     //PUSHER 상승 확인
                     //PUSHER 하강 / 후진 상태 확인
@@ -1086,6 +1121,9 @@ namespace ZenHandler.Process
                         szLog = $"[READY] GANTRY CENTRING BACK CHECK [STEP : {nStep}]";
                         Globalo.LogPrint("ManualControl", szLog);
                         nRetStep = 2480;
+
+
+                        nTimeTick = Environment.TickCount;
                     }
                     else if (Environment.TickCount - nTimeTick > MotionControl.MotorSet.IO_TIMEOUT)
                     {
@@ -1096,14 +1134,19 @@ namespace ZenHandler.Process
                     }
                     break;
                 case 2480:
-                    nRetStep = 2500;
+                    //딜레이?
+                    if (Environment.TickCount - nTimeTick > 300)
+                    {
+                        nRetStep = 2500;
+                    }
+                        
                     break;
                 case 2500:
                     //Gantry_X_Move
                     //GANTRY X1,2 축 RIGHT 투입 위치로 이동
                     //운전준비시에는 무조건 RIGHT LIFT위로 이동해서 투입
-                    bRtn = Globalo.motionManager.liftMachine.Gantry_X_Move(Machine.LiftMachine.eTeachingPosList.LOAD_POS);
 
+                    bRtn = Globalo.motionManager.liftMachine.Gantry_X_Move(Machine.LiftMachine.eTeachingPosList.LOAD_POS);
                     if (bRtn == false)
                     {
                         szLog = $"[READY] GANTRY X LOAD POS MOVE FAIL [STEP : {nStep}]";
@@ -1143,60 +1186,48 @@ namespace ZenHandler.Process
                     nRetStep = 2540;
                     break;
                 case 2540:
-                    
-                    break;
-                case 2545:
-                    
-                    break;
-                case 2550:
-                    
-                    break;
-                case 2560:
-                    
-                    break;
-                case 2570:
-                    
-                    break;
-                case 2575:
-                    
-                    break;
-                case 2580:
-                    
-                    
-                    break;
-                case 2585:
-                    
-                    break;
-
-                case 2590:
-                    
-                    break;
-                case 2595:
-                    
-                    break;
-                
-                //---------------------------------------------------
-                //  JUMP STEP
-                //---------------------------------------------------
-
-                case 2600:  //jump Step
-                    //LEFT 투입할 TRAY 없으면 알람 후 운전 준비 완료
-                    if (Globalo.motionManager.liftMachine.GetIsTrayOnSlide(0) == true)  //좌우 SLIDE 위 TRAY 유무 확인
+                    if (Globalo.motionManager.liftMachine.GetIsLoadTrayOnTop((int)Machine.eLift.LIFT_R_Z) == true)
                     {
-                        Globalo.motionManager.liftMachine.IsLiftOnTray[0] = true;
-                        szLog = $"[READY] {trayName[i]} LIFT TRAY LOADED [STEP : {nStep}]";
-                        Globalo.LogPrint("ManualControl", szLog);
+                        //마지막 Tray 1판일때 운전 준비 돼야된다.
 
-                        nRetStep = 2620;
+                        szLog = $"[READY] TRAY LOADED ON PUSHER [STEP : {nStep}]";
+                        Globalo.LogPrint("ManualControl", szLog);
                     }
                     else
                     {
-                        Globalo.motionManager.liftMachine.IsLiftOnTray[0] = false;
-                        szLog = $"[READY] {trayName[i]} LIFT TRAY EMPTY [STEP : {nStep}]";
+                        szLog = $"[READY] TRAY EMPTY ON PUSHER [STEP : {nStep}]";
                         Globalo.LogPrint("ManualControl", szLog);
 
-                        nRetStep = 2800;        //jump step
+                        if (Globalo.motionManager.liftMachine.GetIsTrayOnSlide(0) == false)
+                        {
+                            //투입할 TRAY도 없을때 진행 한건지 묻자.
+                            szLog = $"[READY] LEFT LIFT TRAY EMPTY [STEP : {nStep}]";
+                            Globalo.LogPrint("ManualControl", szLog);
+
+                            //투입할 Tray가 없습니다.
+                            //진행 하시겠습니까?
+
+                            nRetStep = 2560;
+                        }
+                        else
+                        {
+                            //투입 진행
+
+                            nRetStep = 2560;
+                        }
                     }
+                    break;
+               
+
+                case 2560:
+                    nRetStep = 2580;
+                    break;
+                case 2580:
+                    nRetStep = 2540;
+
+                    break;
+                case 2600:
+                    
                     
                     break;
 
@@ -1210,6 +1241,7 @@ namespace ZenHandler.Process
                     
                     break;
                 case 2680:
+                    //배출하는 시쿼스로 옮기자
                     //RIGHT LIFT -LIMIT 위치인데, Middle 센서 감지하고 있으면 꽉 찬 상태라 배출 신호
                     if (Globalo.motionManager.liftMachine.GetMiddleWaitSensor((int)Machine.eLift.LIFT_R_Z) == true)
                     {
@@ -1385,7 +1417,7 @@ namespace ZenHandler.Process
                         szLog = $"[READY] GANTRY X LOAD POS MOVE [STEP : {nRetStep}]";
                         Globalo.LogPrint("ManualControl", szLog);
 
-                        nTimeTick = Environment.TickCount;
+                        nLoadTimeTick = Environment.TickCount;
                         nRetStep = 60;
                         break;
                     case 60:
@@ -1400,7 +1432,7 @@ namespace ZenHandler.Process
                             nRetStep = 2240;
                             break;
                         }
-                        else if (Environment.TickCount - nTimeTick > MotionControl.MotorSet.MOTOR_MOVE_TIMEOUT)
+                        else if (Environment.TickCount - nLoadTimeTick > MotionControl.MotorSet.MOTOR_MOVE_TIMEOUT)
                         {
                             szLog = $"[READY] LEFT LOAD 위치 이동 시간 초과 [STEP : {nRetStep}]";
                             Globalo.LogPrint("ManualControl", szLog);
@@ -1424,7 +1456,7 @@ namespace ZenHandler.Process
                         }
                         szLog = $"[READY] LEFT LIFT Z UP MOVE [STEP : {nRetStep}]";
                         Globalo.LogPrint("ManualControl", szLog);
-                        nTimeTick = Environment.TickCount;
+                        nLoadTimeTick = Environment.TickCount;
 
                         nRetStep = 120;
                         break;
@@ -1439,7 +1471,7 @@ namespace ZenHandler.Process
 
                             nRetStep = 140;
                         }
-                        else if (Environment.TickCount - nTimeTick > MotionControl.MotorSet.LIFT_MOVE_TIMEOUT)
+                        else if (Environment.TickCount - nLoadTimeTick > MotionControl.MotorSet.LIFT_MOVE_TIMEOUT)
                         {
                             Globalo.motionManager.liftMachine.MotorAxes[(int)Machine.eLift.GANTRYX_L].Stop(1);
                             szLog = $"[READY] LEFT LIFT Z LOAD 위치 이동 시간 초과 [STEP : {nRetStep}]";
@@ -1488,7 +1520,7 @@ namespace ZenHandler.Process
                             Globalo.LogPrint("ManualControl", szLog);
                             nRetStep = 200;
 
-                            nTimeTick = Environment.TickCount;
+                            nLoadTimeTick = Environment.TickCount;
                         }
                         else
                         {
@@ -1506,9 +1538,9 @@ namespace ZenHandler.Process
                             szLog = $"[READY] GANTRY CLAMP FOR CHECK [STEP : {nRetStep}]";
                             Globalo.LogPrint("ManualControl", szLog);
                             nRetStep = 220;
-                            nTimeTick = Environment.TickCount;
+                            nLoadTimeTick = Environment.TickCount;
                         }
-                        else if (Environment.TickCount - nTimeTick > MotionControl.MotorSet.IO_TIMEOUT)
+                        else if (Environment.TickCount - nLoadTimeTick > MotionControl.MotorSet.IO_TIMEOUT)
                         {
                             szLog = $"[READY] GANTRY CLAMP FOR CHECK TIMEOUT[STEP : {nRetStep}]";
                             Globalo.LogPrint("ManualControl", szLog, Globalo.eMessageName.M_ERROR);
@@ -1526,7 +1558,7 @@ namespace ZenHandler.Process
                             Globalo.LogPrint("ManualControl", szLog);
                             nRetStep = 240;
 
-                            nTimeTick = Environment.TickCount;
+                            nLoadTimeTick = Environment.TickCount;
                         }
                         else
                         {
@@ -1545,7 +1577,7 @@ namespace ZenHandler.Process
                             Globalo.LogPrint("ManualControl", szLog);
                             nRetStep = 260;
                         }
-                        else if (Environment.TickCount - nTimeTick > MotionControl.MotorSet.IO_TIMEOUT)
+                        else if (Environment.TickCount - nLoadTimeTick > MotionControl.MotorSet.IO_TIMEOUT)
                         {
                             szLog = $"[READY] GANTRY CENTRING FOR CHECK TIMEOUT[STEP : {nRetStep}]";
                             Globalo.LogPrint("ManualControl", szLog, Globalo.eMessageName.M_ERROR);
@@ -1571,7 +1603,7 @@ namespace ZenHandler.Process
                         break;
                     case 280:
                         //딜레이
-                        nTimeTick = Environment.TickCount;
+                        nLoadTimeTick = Environment.TickCount;
                         nRetStep = 300;
                         break;
                     case 300:
@@ -1584,7 +1616,7 @@ namespace ZenHandler.Process
                             nRetStep = 320;
                             break;
                         }
-                        else if (Environment.TickCount - nTimeTick > MotionControl.MotorSet.LIFT_MOVE_TIMEOUT)
+                        else if (Environment.TickCount - nLoadTimeTick > MotionControl.MotorSet.LIFT_MOVE_TIMEOUT)
                         {
                             szLog = $"[READY] LEFT LIFT (-) Limit Detect TIMEOUT [STEP : {nRetStep}]";
                             Globalo.LogPrint("ManualControl", szLog);
@@ -1664,8 +1696,9 @@ namespace ZenHandler.Process
             }
             return rtn;
         }
-        private bool UnLoadTrayFlow()
+        private int UnLoadTrayFlow()
         {
+            int nRtn = -1;
             bool rtn = false;
             int step = 10;
             while (true)
@@ -1698,7 +1731,7 @@ namespace ZenHandler.Process
                 }
                 Thread.Sleep(10);       //TODO: while문안에서는 최소 10ms 꼭 필요
             }
-            return rtn;
+            return nRtn;
         }
     }
 }
