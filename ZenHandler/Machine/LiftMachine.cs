@@ -499,6 +499,19 @@ namespace ZenHandler.Machine
 
                 if (AutoUnitThread.GetThreadPause() == true)        //일시 정지 상태인지 확인
                 {
+                    if (this.processManager.liftFlow.motorTask != null &&
+                        this.processManager.liftFlow.motorTask.IsCompleted == false)
+                    {
+                        bool isSet = processManager.liftFlow.pauseEvent.IsSet;      //일시정지 체크
+                        if (isSet)
+                        {
+                            //isSet= true진행중
+                            //isSet= false 일시정지중
+                            Console.WriteLine($"Task 자동 운전 중입니다. {isSet}");
+                            return false;
+                        }
+
+                    }
                     AutoUnitThread.m_nCurrentStep = Math.Abs(AutoUnitThread.m_nCurrentStep);
                     AutoUnitThread.Resume();
                     processManager.liftFlow.pauseEvent.Set();

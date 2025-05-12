@@ -182,15 +182,10 @@ namespace ZenHandler.FThread
                 }
                 else if (this.parent.MachineName == Globalo.motionManager.liftMachine.GetType().Name)
                 {
-                    bool rtn = Globalo.motionManager.transferMachine.IsMoving();
-
-                    Console.WriteLine($"{this.parent.MachineName} Process Start: {rtn}");
+                    //bool rtn = Globalo.motionManager.transferMachine.IsMoving();
+                    //Console.WriteLine($"{this.parent.MachineName} Process Start: {rtn}");
 
                     LiftFlow();
-
-                    rtn = Globalo.motionManager.transferMachine.IsMoving();
-
-                    Console.WriteLine($"{this.parent.MachineName} Process End: {rtn}");
                 }
                 else if (this.parent.MachineName == Globalo.motionManager.socketAoiMachine.GetType().Name ||        //TODO: 확인 필요
                     this.parent.MachineName == Globalo.motionManager.socketFwMachine.GetType().Name ||
