@@ -2131,8 +2131,53 @@ namespace ZenHandler.Process
                     case 10:
                         nRetStep = 20;
                         break;
-
+                    case 20:
+                        nRetStep = 40;
+                        break;
+                    case 40:
+                        nRetStep = 60;
+                        break;
+                    case 60:
+                        nRetStep = 80;
+                        break;
+                    case 80:
+                        nRetStep = 100;
+                        break;
                     case 100:
+                        nRetStep = 120;
+                        break;
+                    case 120:
+                        nRetStep = 140;
+                        break;
+                    case 140:
+                        nRetStep = 160;
+                        break;
+                    case 160:
+                        nRetStep = 180;
+                        break;
+                    case 180:
+                        nRetStep = 200;
+                        break;
+                    case 200:
+                        nRetStep = 220;
+                        break;
+                    case 220:
+                        nRetStep = 240;
+                        break;
+                    case 240:
+                        nRetStep = 260;
+                        break;
+                    case 260:
+                        nRetStep = 280;
+                        break;
+                    case 280:
+                        nRetStep = 20;
+                        break;
+
+                    case 800:
+                        nRetStep = 900;
+                        break;
+                    case 900:
                         nRetStep = 1000;
                         break;
                     default:

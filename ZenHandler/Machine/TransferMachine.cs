@@ -219,7 +219,11 @@ namespace ZenHandler.Machine
                 Globalo.motionManager.transferMachine.pickedProduct.UnloadTrayPos.X = 0;
                 Globalo.motionManager.transferMachine.pickedProduct.UnloadTrayPos.Y++;
             }
-
+            if (Globalo.motionManager.transferMachine.pickedProduct.UnloadTrayPos.Y == 1)
+            {
+                OnTrayChangedCall?.Invoke(TrayPosition);    //Gantry -----> Pusher로 이동 요청
+                TrayPosition = MotionControl.MotorSet.TrayPosition.Right;
+            }
             if (Globalo.motionManager.transferMachine.pickedProduct.UnloadTrayPos.Y >= Globalo.motionManager.transferMachine.productLayout.TotalTrayPos.Y)
             {
                 Globalo.motionManager.transferMachine.pickedProduct.UnloadTrayPos.Y = 0;
