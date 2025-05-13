@@ -153,6 +153,16 @@ namespace ZenHandler.Machine
 
             return isSuccess;
         }
+        public bool PusherCentringFor(bool bFlag, bool bWait = false)       //푸셔 센터링 전진 , 후진
+        {
+            bool isSuccess = false;
+
+            return isSuccess;
+        }
+        public bool GetPusherCentringFor(bool bFlag, bool bWait = false) //푸셔 센터링 전진 , 후진 센서 확인
+        {
+            return false;
+        }
         public bool GetTraySlidePos(int index)          //슬라이드 정위치 확인
         {
             return false;
@@ -227,6 +237,39 @@ namespace ZenHandler.Machine
             }
 
             return false;
+        }
+        public bool LIft_Z_Height_Move(eLift motorAxis, double dHeight, bool bWait = true)      //TODO: 확인필요
+        {
+            if (this.MotorUse == false)
+            {
+                Console.WriteLine("No Use Machine");
+                return true;
+            }
+
+            bool isSuccess = true;
+            string logStr = "";
+            double dPos = dHeight;
+
+            
+
+            try
+            {
+                isSuccess = this.MotorAxes[(int)motorAxis].MoveAxis(dPos, AXT_MOTION_ABSREL.POS_REL_MODE, bWait);
+            }
+            catch (Exception ex)
+            {
+                Globalo.LogPrint("ManualControl", $"{motorAxis.ToString()} Rel Move Exception: {ex.Message}");
+                isSuccess = false;
+            }
+
+
+            if (isSuccess == false)
+            {
+                logStr = $"{motorAxis.ToString() } Rel Move 이동 실패";
+            }
+
+
+            return isSuccess;
         }
         public bool LIft_Z_Move_SersonDetected(eLift motorAxis, eLiftSensor Sensor, bool bWait = true)
         {
