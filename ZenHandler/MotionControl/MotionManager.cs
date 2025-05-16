@@ -72,8 +72,8 @@ namespace ZenHandler.MotionControl
             socketEEpromMachine.MotorUse = LoadChk;
 
 
-            ClearTrayChenge(MotorSet.TrayPosition.Left);
-            ClearTrayChenge(MotorSet.TrayPosition.Right);
+            ClearTrayChenge(MotorSet.TrayPos.Left);
+            ClearTrayChenge(MotorSet.TrayPos.Right);
 
             if (Program.PG_SELECT == HANDLER_PG.FW)
             {
@@ -82,19 +82,17 @@ namespace ZenHandler.MotionControl
                 
             //FwSocket = Teaching 없음
         }
-        private void OnTrayChengeReq(MotorSet.TrayPosition position)
+        private void OnTrayChengeReq(MotorSet.TrayPos position)
         {
             Console.WriteLine($"ToLiftUnitTrayChenge - {position}");
 
             //Magazine - LEFT , RIGHT 모두 사용
             //Lift - 우측 리프트에서만 배출
-            //MotorSet.TrayPosition.Left
 
             int index = (int)position;
-
             trayEjectRequested[index] = true;
         }
-        public void ClearTrayChenge(MotorSet.TrayPosition position)
+        public void ClearTrayChenge(MotorSet.TrayPos position)
         {
             Console.WriteLine($"ClearTrayChenge - {position}");
             int index = (int)position;
@@ -118,7 +116,7 @@ namespace ZenHandler.MotionControl
             socketUnloadRequested[index] = false;
         }
 
-        public bool GetTrayEjectReq(MotorSet.TrayPosition position)
+        public bool GetTrayEjectReq(MotorSet.TrayPos position)
         {
             int index = (int)position;
             bool rtn = false;

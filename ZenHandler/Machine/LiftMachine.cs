@@ -40,7 +40,9 @@ namespace ZenHandler.Machine
         public bool[] IsLiftOnTray = { false, false };      //리프트 위 Tray 유무 확인
         public bool[] IsTopLoadOnTray = { false, false };      //상단 Gantry , Pusher Tray 로드 확인
 
-        public bool IsLoadingInputTray = false;         //투입 LIft 투입중
+        public bool IsLoadingTrayOnGangry = false;         //투입 LIft 투입중 On Gantry
+        public bool IsMovingTrayOnPusher = false;         //Pusher로 Tray 이동중
+
         public bool IsUnloadingOutputTray = false;      //배출 Lift 배출중
 
         public enum eTeachingPosList : int

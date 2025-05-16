@@ -16,8 +16,7 @@ namespace ZenHandler.Machine
     
     public class TransferMachine : MotionControl.MotorController
     {
-        public event Action<MotionControl.MotorSet.TrayPosition> OnTrayChangedCall;
-        public MotionControl.MotorSet.TrayPosition TrayPosition;        //Tray Load 위치 , Lift에서는 Right만 배출 , Magazine는 LEFT , RIGHT 동시 투입/배출
+        public event Action<MotionControl.MotorSet.TrayPos> OnTrayChangedCall;
         public int MotorCnt { get; private set; } = 3;
         
         public MotionControl.MotorAxis[] MotorAxes; // 배열 선언
@@ -27,7 +26,25 @@ namespace ZenHandler.Machine
         private double[] OrgFirstVel = { 20000.0, 20000.0, 20000.0 };   //수치 조심
         private double[] OrgSecondVel = { 10000.0, 10000.0, 5000.0 };
         private double[] OrgThirdVel = { 5000.0, 5000.0, 2500.0 };
+        public enum eTeachingPosList : int
+        {
+            WAIT_POS = 0,
+            LEFT_TRAY_BCR_POS, RIGHT_TRAY_BCR_POS,
+            LEFT_TRAY_LOAD_POS, LEFT_TRAY_UNLOAD_POS,
+            RIGHT_TRAY_LOAD_POS, RIGHT_TRAY_UNLOAD_POS,
+            SOCKET_A_LOAD, SOCKET_A_UNLOAD, SOCKET_B_LOAD, SOCKET_B_UNLOAD, SOCKET_C_LOAD, SOCKET_C_UNLOAD, SOCKET_D_LOAD, SOCKET_D_UNLOAD,
+            NG_A_LOAD, NG_A_UNLOAD, NG_B_LOAD, NG_B_UNLOAD,
+            TOTAL_TRANSFER_TEACHING_COUNT
+        };
 
+        public string[] TeachName = {
+            "WAIT_POS",
+            "LEFT_TRAY_BCR_POS", "RIGHT_TRAY_BCR_POS",
+            "L_TRAY_LOAD_POS", "L_TRAY_UNLOAD_POS",
+            "R_TRAY_LOAD_POS", "R_TRAY_UNLOAD_POS",
+            "SOCKET_A_LOAD", "SOCKET_A_UNLOAD", "SOCKET_B_LOAD", "SOCKET_B_UNLOAD","SOCKET_C_LOAD", "SOCKET_C_UNLOAD", "SOCKET_D_LOAD", "SOCKET_D_UNLOAD",
+            "NG_A_LOAD", "NG_A_UNLOAD","NG_B_LOAD", "NG_B_UNLOAD"
+        };
         //대기위치 1개
         //티칭위치 피커별로 로드 Tray x1: y:1 위치 하나씩 4개 * 리프트 2개 = 8개
         //티칭위치 피커별로 배출 Tray x1: y:1 위치 하나씩 4개 * 리프트 2개 = 8개
@@ -53,31 +70,9 @@ namespace ZenHandler.Machine
         //fw - 소켓 8개 투입 4 + 배출 4
         //
         //Ng 2개
-
-        //tray 간 x축, y축 Offset
-        //Socket 간 x축, y축 Offset
-
         //모터 이동 방식
         //최종 이동 위치 = 피커 1의 저장된 티칭 위치 + Try x/y Gap + Picker 별 Offset x/y;
-        public enum eTeachingPosList : int
-        {
-            WAIT_POS = 0,
-            LEFT_TRAY_BCR_POS, RIGHT_TRAY_BCR_POS,
-            LEFT_TRAY_LOAD_POS, LEFT_TRAY_UNLOAD_POS, 
-            RIGHT_TRAY_LOAD_POS, RIGHT_TRAY_UNLOAD_POS,
-            SOCKET_A_LOAD, SOCKET_A_UNLOAD, SOCKET_B_LOAD, SOCKET_B_UNLOAD, SOCKET_C_LOAD, SOCKET_C_UNLOAD, SOCKET_D_LOAD, SOCKET_D_UNLOAD,
-            NG_A_LOAD, NG_A_UNLOAD, NG_B_LOAD, NG_B_UNLOAD,
-            TOTAL_TRANSFER_TEACHING_COUNT
-        };
 
-        public string[] TeachName = { 
-            "WAIT_POS",
-            "LEFT_TRAY_BCR_POS", "RIGHT_TRAY_BCR_POS",
-            "L_TRAY_LOAD_POS", "L_TRAY_UNLOAD_POS",
-            "R_TRAY_LOAD_POS", "R_TRAY_UNLOAD_POS",
-            "SOCKET_A_LOAD", "SOCKET_A_UNLOAD", "SOCKET_B_LOAD", "SOCKET_B_UNLOAD","SOCKET_C_LOAD", "SOCKET_C_UNLOAD", "SOCKET_D_LOAD", "SOCKET_D_UNLOAD",
-            "NG_A_LOAD", "NG_A_UNLOAD","NG_B_LOAD", "NG_B_UNLOAD"
-        };
         public DateTime uphStartTime;
 
         public const string teachingPath = "Teach_Transfer.yaml";
@@ -87,6 +82,7 @@ namespace ZenHandler.Machine
         public Data.TeachingConfig teachingConfig = new Data.TeachingConfig();
         public PickedProduct pickedProduct = new PickedProduct();
         public ProductLayout productLayout = new ProductLayout();
+        public MotionControl.MotorSet.TrayPos TrayPosition;        //Tray Load 위치 , Lift에서는 Right만 배출 , Magazine는 LEFT , RIGHT 동시 투입/배출
         public int NoSocketPos;     //투입 , 배출요청하는 소켓 index
         public string CurrentScanBcr = "";
         public const int UnLoadCount = 2;
@@ -133,7 +129,7 @@ namespace ZenHandler.Machine
             pickedProduct = Data.TaskDataYaml.TaskLoad_Transfer(taskPath);
             productLayout = Data.TaskDataYaml.TaskLoad_Layout(LayoutPath);
 
-            TrayPosition = MotionControl.MotorSet.TrayPosition.Right;
+            TrayPosition = MotionControl.MotorSet.TrayPos.Right;        //init
 
             uphStartTime = DateTime.Now;
             //double elapsedMinutes = (DateTime.Now - uphStartTime).TotalSeconds;//TotalMinutes;
@@ -227,19 +223,25 @@ namespace ZenHandler.Machine
             }
             if (this.pickedProduct.UnloadTrayPos.Y == 1)
             {
-                OnTrayChangedCall?.Invoke(TrayPosition);    //Gantry -----> Pusher로 이동 요청
-                TrayPosition = MotionControl.MotorSet.TrayPosition.Right;
+                if(TrayPosition == MotionControl.MotorSet.TrayPos.Left)
+                {
+                    OnTrayChangedCall?.Invoke(TrayPosition);    //Gantry -----> Pusher로 이동 요청
+                    TrayPosition = MotionControl.MotorSet.TrayPos.Right;
+                }
+                
             }
             if (this.pickedProduct.UnloadTrayPos.Y >= this.productLayout.TotalTrayPos.Y)
             {
                 this.pickedProduct.UnloadTrayPos.Y = 0;
 
                 Console.WriteLine($"Tray Change req");
-                //TODO: TrayPosition 을 LEFT , RIGHT 변경해줘야된다.
                 //Tray 교체 요청
-                OnTrayChangedCall?.Invoke(TrayPosition); // 어떤 트레이 비었는지 전달
-
-                TrayPosition = MotionControl.MotorSet.TrayPosition.Left;        //우측 배출 요청하고 Gantry 위에서 제품 로드 LEFT 변경
+                if (TrayPosition == MotionControl.MotorSet.TrayPos.Right)
+                {
+                    OnTrayChangedCall?.Invoke(TrayPosition); // 어떤 트레이 비었는지 전달
+                    TrayPosition = MotionControl.MotorSet.TrayPos.Left;        //우측 배출 요청하고 Gantry 위에서 제품 로드 LEFT 변경
+                }
+                    
             }
             int nextPosx = this.pickedProduct.UnloadTrayPos.X;
             int nextPosy = this.pickedProduct.UnloadTrayPos.Y;
@@ -248,12 +250,6 @@ namespace ZenHandler.Machine
             Console.WriteLine("----------------------------------------------------");
             Console.WriteLine($"배출 X : {currentPosx} > {nextPosx}");
             Console.WriteLine($"배출 Y : {currentPosy} > {nextPosy}");
-        }
-        public void CheckTrayState()
-        {
-            //State = TransferUnitState.TrayEmpty;
-
-            OnTrayChangedCall?.Invoke(TrayPosition); // 어떤 트레이 비었는지 전달
         }
         public bool SetPicker(UnitPicker Picker, PickedProductState State , int index)
         {

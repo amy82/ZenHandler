@@ -193,7 +193,22 @@ namespace ZenHandler.Process
                     Globalo.motionManager.transferMachine.NoSocketPos = -1;
                     if (PickerCheck == true)
                     {
-                        if (Globalo.motionManager.liftMachine.IsLoadingInputTray == false && 
+                        //우측 Tray
+                        //좌측 Tray
+                        bool isLiftReplacing = false;
+                        if(Globalo.motionManager.transferMachine.TrayPosition == MotionControl.MotorSet.TrayPos.Left)
+                        {
+                            isLiftReplacing = Globalo.motionManager.liftMachine.IsLoadingTrayOnGangry;
+                            //IsLoadingTrayOnGangry 만 체크
+                        }
+                        else
+                        {
+                            isLiftReplacing = Globalo.motionManager.liftMachine.IsUnloadingOutputTray;
+                            //IsUnloadingOutputTray 만체크
+                            
+                        }
+                        //IsMovingTrayOnPusher 는 둘다 체크
+                        if (Globalo.motionManager.liftMachine.IsMovingTrayOnPusher == false && isLiftReplacing == false &&
                             Globalo.motionManager.liftMachine.IsUnloadingOutputTray == false) //TRAY 교체중이 아니고 , 자동운전 중이고, 로드가능한 상태 일때
                         {
                             nRetStep = 3400;
@@ -260,7 +275,7 @@ namespace ZenHandler.Process
                     
                     break;
                 case 3600:
-                    if (Globalo.motionManager.transferMachine.TrayPosition == MotionControl.MotorSet.TrayPosition.Left)
+                    if (Globalo.motionManager.transferMachine.TrayPosition == MotionControl.MotorSet.TrayPos.Left)
                     {
                         Move_Pos = Machine.TransferMachine.eTeachingPosList.LEFT_TRAY_BCR_POS;
                     }
@@ -274,7 +289,7 @@ namespace ZenHandler.Process
                     nTimeTick = Environment.TickCount;
                     break;
                 case 3700://MotorAxes[(int)eTransfer.TRANSFER_X]
-                    if (Globalo.motionManager.transferMachine.TrayPosition == MotionControl.MotorSet.TrayPosition.Left)
+                    if (Globalo.motionManager.transferMachine.TrayPosition == MotionControl.MotorSet.TrayPos.Left)
                     {
                         Move_Pos = Machine.TransferMachine.eTeachingPosList.LEFT_TRAY_BCR_POS;
                     }
@@ -511,7 +526,7 @@ namespace ZenHandler.Process
                     LoadPosx = Globalo.motionManager.transferMachine.pickedProduct.LoadTrayPos.X;
                     LoadPosy = Globalo.motionManager.transferMachine.pickedProduct.LoadTrayPos.Y;
 
-                    if (Globalo.motionManager.transferMachine.TrayPosition == MotionControl.MotorSet.TrayPosition.Left)
+                    if (Globalo.motionManager.transferMachine.TrayPosition == MotionControl.MotorSet.TrayPos.Left)
                     {
                         Globalo.motionManager.liftMachine.trayProduct.LeftLoadTraySlots[LoadPosy][LoadPosx] = -1;
                     }
