@@ -1447,10 +1447,13 @@ namespace ZenHandler.Process
                     //투입 or 배출 완료 누르면 다시 상승 ?
                     if (Globalo.motionManager.liftMachine.ChkButtonUnloadTray(true) == true && 
                         Globalo.motionManager.liftMachine.IsUnloadingOutputTray == false &&
-                        Globalo.motionManager.liftMachine.GetTraySlidePos((int)eSLIDE.ON_RIGHT) == true)
+                        Globalo.motionManager.liftMachine.GetTraySlidePos((int)eSLIDE.ON_RIGHT) == true &&
+                        Globalo.motionManager.liftMachine.MotorAxes[(int)Machine.eLift.LIFT_R_Z].GetNegaSensor() == false)
                     {
                         //배출 리프트 Home까지 하강
-                        Globalo.motionManager.liftMachine.LIft_Z_Move_SersonDetected(Machine.eLift.LIFT_R_Z, Machine.eLiftSensor.LIFT_HOME_POS);
+                        Globalo.motionManager.liftMachine.IsUnloadingOutputTray = true;
+                        Globalo.motionManager.liftMachine.LIft_Z_Move_SersonDetected(Machine.eLift.LIFT_R_Z, Machine.eLiftSensor.LIFT_HOME_POS, true);
+                        Globalo.motionManager.liftMachine.IsUnloadingOutputTray = false;
                     }
                     
                     break;
