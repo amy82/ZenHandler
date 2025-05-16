@@ -82,6 +82,35 @@ namespace ZenHandler.Machine
                 }
             }
 
+
+            // 갠트리 구동을 설정한다.
+            int m_lAxisNoMaster = (int)eLift.GANTRYX_L;
+            int m_lAxisNoSlave = (int)eLift.GANTRYX_R;       // Gantry Master/Slave 축 번호 선언 초기화
+            uint duSlaveHmUse = 0;      // TRUE : 마스터 홈센서를 찾은 후 슬레이브 홈센서도 찾음
+            double dSlaveHmOffset = 0;       // 마스터와 슬레이브 홈센서들간의 Offset
+            double dSlaveHmRange = 10;       // 원점 검색시 마스터 홈센서와 슬레이브 홈센서간의 오차 한계
+
+            uint duRetCode;
+
+            //
+            //이 함수를 이용해 Master축을 갠트리 제어로 설정하면 해당 Slave축은 Master축과 동기 시킨다.
+            //갠트리 제어 기능을 활성화 시키고 이후 Slave축에 구동명령이나 정지 명령등을 내려도 모두 무시된다.
+            //주의사항: 갠트리 ENABLE시 슬레이브축은 모션중 AxmStatusReadMotion 함수로 확인하면 InMotion 중으로 True로 확인되어야 한다.
+
+            //만약 InMotion 이 False되면 Gantry Enable이 되지 않았으므로 알람발생 여부 혹은 Limit 신호 발생 여부를 확인한다.
+
+
+            duRetCode = CAXM.AxmGantrySetEnable(m_lAxisNoMaster, m_lAxisNoSlave, duSlaveHmUse, dSlaveHmOffset, dSlaveHmRange);
+            if (duRetCode != (uint)AXT_FUNC_RESULT.AXT_RT_SUCCESS)
+            {
+                Console.WriteLine("AxmGantrySetEnable Fail");
+                //chkGantryEnable.Checked = false;
+                //MessageBox.Show(String.Format("AxmGantrySetEnable return error[Code:{0:d}]", duRetCode));
+                //AxmGantrySetEnable 함수를 이용해 마스터, 슬레이브 축을 갠트리 시스템으로 설정하면 (((슬레이브))) 축은 모션중으로 설정 된다.
+                //AxmStatusReadInMotion 함수의 Status값은 반드시 1로 읽혀야 된다. 1이 아니면 갠트리 설정이 안 된 것이다.
+
+            }
+
             trayProduct = Data.TaskDataYaml.TaskLoad_Lift(taskPath);
 
 
@@ -113,84 +142,611 @@ namespace ZenHandler.Machine
         #region Lift Machine Io 동작
         public bool GetGantryCenteringFor(bool bFlag, bool bWait = false)
         {
+            if (ProgramState.ON_LINE_MOTOR == false)
+            {
+                return true;
+            }
+            int lModuleNo = 0;
+            int lOffset = 0;
+
+            uint uFlagHigh = 0;
+            uint upValue = Globalo.motionManager.ioController.m_dwDInDict[lModuleNo][lOffset];
+            if (bFlag)
+            {
+                uFlagHigh = upValue & (uint)MotionControl.DioDefine.DIO_IN_ADDR_CH0.IN_LENS_GRIP_FOR;
+                if (uFlagHigh == 1)
+                {
+                    return true;
+                }
+            }
+            else
+            {
+                uFlagHigh = upValue & (uint)MotionControl.DioDefine.DIO_IN_ADDR_CH0.IN_LENS_GRIP_BACK;
+                if (uFlagHigh == 1)
+                {
+                    return true;
+                }
+            }
             return false;
         }
         public bool GantryCenteringFor(bool bFlag, bool bWait = false)        //GANTRY 모서리 센터링 전후진
         {
-            bool isSuccess = false;
+            if (ProgramState.ON_LINE_MOTOR == false)
+            {
+                return true;
+            }
+            int lModuleNo = 0;
+            int lOffset = 0;
 
-            return isSuccess;
+            uint uFlagHigh = 0;
+            uint upValue = Globalo.motionManager.ioController.m_dwDInDict[lModuleNo][lOffset];
+            if (bFlag)
+            {
+                uFlagHigh = upValue & (uint)MotionControl.DioDefine.DIO_IN_ADDR_CH0.IN_LENS_GRIP_FOR;
+                if (uFlagHigh == 1)
+                {
+                    return true;
+                }
+            }
+            else
+            {
+                uFlagHigh = upValue & (uint)MotionControl.DioDefine.DIO_IN_ADDR_CH0.IN_LENS_GRIP_BACK;
+                if (uFlagHigh == 1)
+                {
+                    return true;
+                }
+            }
+            return false;
         }
         public bool GetGantryClampFor(bool bFlag, bool bWait = false)
         {
+            if (ProgramState.ON_LINE_MOTOR == false)
+            {
+                return true;
+            }
+            int lModuleNo = 0;
+            int lOffset = 0;
+
+            uint uFlagHigh = 0;
+            uint upValue = Globalo.motionManager.ioController.m_dwDInDict[lModuleNo][lOffset];
+            if (bFlag)
+            {
+                uFlagHigh = upValue & (uint)MotionControl.DioDefine.DIO_IN_ADDR_CH0.IN_LENS_GRIP_FOR;
+                if (uFlagHigh == 1)
+                {
+                    return true;
+                }
+            }
+            else
+            {
+                uFlagHigh = upValue & (uint)MotionControl.DioDefine.DIO_IN_ADDR_CH0.IN_LENS_GRIP_BACK;
+                if (uFlagHigh == 1)
+                {
+                    return true;
+                }
+            }
             return false;
         }
 
         public bool GantryClampFor(bool bFlag, bool bWait = false)        //GANTRY 좌우 전후진 클램프
         {
-            bool isSuccess = false;
+            if (ProgramState.ON_LINE_MOTOR == false)
+            {
+                return true;
+            }
+            int lModuleNo = 0;
+            int lOffset = 0;
 
-            return isSuccess;
+            uint uFlagHigh = 0;
+            uint upValue = Globalo.motionManager.ioController.m_dwDInDict[lModuleNo][lOffset];
+            if (bFlag)
+            {
+                uFlagHigh = upValue & (uint)MotionControl.DioDefine.DIO_IN_ADDR_CH0.IN_LENS_GRIP_FOR;
+                if (uFlagHigh == 1)
+                {
+                    return true;
+                }
+            }
+            else
+            {
+                uFlagHigh = upValue & (uint)MotionControl.DioDefine.DIO_IN_ADDR_CH0.IN_LENS_GRIP_BACK;
+                if (uFlagHigh == 1)
+                {
+                    return true;
+                }
+            }
+            return false;
         }
         public bool GetPUsherUp(bool bFlag, bool bWait = false)
         {
+            if (ProgramState.ON_LINE_MOTOR == false)
+            {
+                return true;
+            }
+            int lModuleNo = 0;
+            int lOffset = 0;
+
+            uint uFlagHigh = 0;
+            uint upValue = Globalo.motionManager.ioController.m_dwDInDict[lModuleNo][lOffset];
+            if (bFlag)
+            {
+                uFlagHigh = upValue & (uint)MotionControl.DioDefine.DIO_IN_ADDR_CH0.IN_LENS_GRIP_FOR;
+                if (uFlagHigh == 1)
+                {
+                    return true;
+                }
+            }
+            else
+            {
+                uFlagHigh = upValue & (uint)MotionControl.DioDefine.DIO_IN_ADDR_CH0.IN_LENS_GRIP_BACK;
+                if (uFlagHigh == 1)
+                {
+                    return true;
+                }
+            }
             return false;
         }
 
         public bool PusherUp(bool bFlag, bool bWait = false)        //푸셔 상승 , 하강
         {
+            if (ProgramState.ON_LINE_MOTOR == false)
+            {
+                return true;
+            }
+            int lModuleNo = 1;
+            int lOffset = 0;
+            uint uFlagHigh = 0;
+            uint uFlagLow = 0;
+
+            if (bFlag)
+            {
+                uFlagHigh = (uint)MotionControl.DioDefine.DIO_OUT_ADDR_CH0.VACUUM_ON;
+                uFlagLow = (uint)MotionControl.DioDefine.DIO_OUT_ADDR_CH0.VACUUM_OFF;
+            }
+            else
+            {
+                uFlagHigh = (uint)MotionControl.DioDefine.DIO_OUT_ADDR_CH0.VACUUM_OFF;
+                uFlagLow = (uint)MotionControl.DioDefine.DIO_OUT_ADDR_CH0.VACUUM_ON;
+            }
+
+            bool Rtn = Globalo.motionManager.ioController.DioWriteOutportByte(lModuleNo, lOffset, uFlagHigh, uFlagLow);
+            if (Rtn == false)
+            {
+                //LENS GRIP 동작 
+                return false;
+            }
             bool isSuccess = false;
 
+            if (bWait == false)
+            {
+                return true;
+            }
+            else
+            {
+                if (bWait == false)
+                {
+                    return false;
+                }
+                else
+                {
+                    int nTimeTick = 0;
+                    while (bWait)
+                    {
+                        Rtn = GetPUsherUp(bFlag);
+                        if (Rtn == true)
+                        {
+                            isSuccess = true;
+                            break;
+                        }
+
+                        nTimeTick = Environment.TickCount;
+                        if (Environment.TickCount - nTimeTick > MotionControl.MotorSet.IO_TIMEOUT)
+                        {
+                            isSuccess = false;
+                            break;
+                        }
+
+                        Thread.Sleep(10);
+                    }
+                }
+            }
             return isSuccess;
         }
         public bool GetPUsherFor(bool bFlag, bool bWait = false)
         {
+            if (ProgramState.ON_LINE_MOTOR == false)
+            {
+                return true;
+            }
+            int lModuleNo = 0;
+            int lOffset = 0;
+
+            uint uFlagHigh = 0;
+            uint upValue = Globalo.motionManager.ioController.m_dwDInDict[lModuleNo][lOffset];
+            if (bFlag)
+            {
+                uFlagHigh = upValue & (uint)MotionControl.DioDefine.DIO_IN_ADDR_CH0.IN_LENS_GRIP_FOR;
+                if (uFlagHigh == 1)
+                {
+                    return true;
+                }
+            }
+            else
+            {
+                uFlagHigh = upValue & (uint)MotionControl.DioDefine.DIO_IN_ADDR_CH0.IN_LENS_GRIP_BACK;
+                if (uFlagHigh == 1)
+                {
+                    return true;
+                }
+            }
             return false;
         }
         public bool PusherFor(bool bFlag, bool bWait = false)       //푸셔 전진 , 후진
         {
+            if (ProgramState.ON_LINE_MOTOR == false)
+            {
+                return true;
+            }
+            int lModuleNo = 1;
+            int lOffset = 0;
+            uint uFlagHigh = 0;
+            uint uFlagLow = 0;
+
+            if (bFlag)
+            {
+                uFlagHigh = (uint)MotionControl.DioDefine.DIO_OUT_ADDR_CH0.VACUUM_ON;
+                uFlagLow = (uint)MotionControl.DioDefine.DIO_OUT_ADDR_CH0.VACUUM_OFF;
+            }
+            else
+            {
+                uFlagHigh = (uint)MotionControl.DioDefine.DIO_OUT_ADDR_CH0.VACUUM_OFF;
+                uFlagLow = (uint)MotionControl.DioDefine.DIO_OUT_ADDR_CH0.VACUUM_ON;
+            }
+
+            bool Rtn = Globalo.motionManager.ioController.DioWriteOutportByte(lModuleNo, lOffset, uFlagHigh, uFlagLow);
+            if (Rtn == false)
+            {
+                //LENS GRIP 동작 
+                return false;
+            }
             bool isSuccess = false;
 
+            if (bWait == false)
+            {
+                return true;
+            }
+            else
+            {
+                if (bWait == false)
+                {
+                    return false;
+                }
+                else
+                {
+                    int nTimeTick = 0;
+                    while (bWait)
+                    {
+                        Rtn = GetPUsherFor(bFlag);
+                        if (Rtn == true)
+                        {
+                            isSuccess = true;
+                            break;
+                        }
+
+                        nTimeTick = Environment.TickCount;
+                        if (Environment.TickCount - nTimeTick > MotionControl.MotorSet.IO_TIMEOUT)
+                        {
+                            isSuccess = false;
+                            break;
+                        }
+
+                        Thread.Sleep(10);
+                    }
+                }
+            }
             return isSuccess;
         }
         public bool PusherCentringFor(bool bFlag, bool bWait = false)       //푸셔 센터링 전진 , 후진
         {
+            if (ProgramState.ON_LINE_MOTOR == false)
+            {
+                return true;
+            }
+            int lModuleNo = 1;
+            int lOffset = 0;
+            uint uFlagHigh = 0;
+            uint uFlagLow = 0;
+
+            if (bFlag)
+            {
+                uFlagHigh = (uint)MotionControl.DioDefine.DIO_OUT_ADDR_CH0.VACUUM_ON;
+                uFlagLow = (uint)MotionControl.DioDefine.DIO_OUT_ADDR_CH0.VACUUM_OFF;
+            }
+            else
+            {
+                uFlagHigh = (uint)MotionControl.DioDefine.DIO_OUT_ADDR_CH0.VACUUM_OFF;
+                uFlagLow = (uint)MotionControl.DioDefine.DIO_OUT_ADDR_CH0.VACUUM_ON;
+            }
+
+            bool Rtn = Globalo.motionManager.ioController.DioWriteOutportByte(lModuleNo, lOffset, uFlagHigh, uFlagLow);
+            if (Rtn == false)
+            {
+                //LENS GRIP 동작 
+                return false;
+            }
             bool isSuccess = false;
 
+            if (bWait == false)
+            {
+                return true;
+            }
+            else
+            {
+                if (bWait == false)
+                {
+                    return false;
+                }
+                else
+                {
+                    int nTimeTick = 0;
+                    while (bWait)
+                    {
+                        Rtn = GetPusherCentringFor(bFlag);
+                        if (Rtn == true)
+                        {
+                            isSuccess = true;
+                            break;
+                        }
+
+                        nTimeTick = Environment.TickCount;
+                        if (Environment.TickCount - nTimeTick > MotionControl.MotorSet.IO_TIMEOUT)
+                        {
+                            isSuccess = false;
+                            break;
+                        }
+
+                        Thread.Sleep(10);
+                    }
+                }
+            }
             return isSuccess;
         }
         public bool GetPusherCentringFor(bool bFlag, bool bWait = false) //푸셔 센터링 전진 , 후진 센서 확인
         {
+            if (ProgramState.ON_LINE_MOTOR == false)
+            {
+                return true;
+            }
+            int lModuleNo = 0;
+            int lOffset = 0;
+
+            uint uFlagHigh = 0;
+            uint upValue = Globalo.motionManager.ioController.m_dwDInDict[lModuleNo][lOffset];
+            if (bFlag)
+            {
+                uFlagHigh = upValue & (uint)MotionControl.DioDefine.DIO_IN_ADDR_CH0.IN_LENS_GRIP_FOR;
+                if (uFlagHigh == 1)
+                {
+                    return true;
+                }
+            }
+            else
+            {
+                uFlagHigh = upValue & (uint)MotionControl.DioDefine.DIO_IN_ADDR_CH0.IN_LENS_GRIP_BACK;
+                if (uFlagHigh == 1)
+                {
+                    return true;
+                }
+            }
             return false;
         }
         public bool GetTraySlidePos(int index)          //슬라이드 정위치 확인
         {
+            if (ProgramState.ON_LINE_MOTOR == false)
+            {
+                return true;
+            }
+
+            int i = 0;
+            int lModuleNo = 0;
+            int lOffset = 0;
+
+            uint uFlagHigh = 0;
+            uint upValue = Globalo.motionManager.ioController.m_dwDInDict[lModuleNo][lOffset];
+
+            if (index == 0)
+            {
+                uFlagHigh |= (uint)(MotionControl.DioDefine.DIO_IN_ADDR_CH1.IN_LOAD_PICKER_UP1);
+            }
+            else
+            {
+                uFlagHigh |= (uint)(MotionControl.DioDefine.DIO_IN_ADDR_CH1.IN_LOAD_PICKER_UP2);
+            }
+
+            uFlagHigh = upValue & uFlagHigh;        //TODO: IO 되는지 확인 필요
+            if (uFlagHigh == 1)
+            {
+                return true;
+            }
+
             return false;
         }
         public bool GetTopTouchSensor(int index)        //TRAY 교체시 리프트 정지 센서
         {
+            if (ProgramState.ON_LINE_MOTOR == false)
+            {
+                return true;
+            }
+
+            int i = 0;
+            int lModuleNo = 0;
+            int lOffset = 0;
+
+            uint uFlagHigh = 0;
+            uint upValue = Globalo.motionManager.ioController.m_dwDInDict[lModuleNo][lOffset];
+
+            if (index == 0)
+            {
+                uFlagHigh |= (uint)(MotionControl.DioDefine.DIO_IN_ADDR_CH1.IN_LOAD_PICKER_UP1);
+            }
+            else
+            {
+                uFlagHigh |= (uint)(MotionControl.DioDefine.DIO_IN_ADDR_CH1.IN_LOAD_PICKER_UP2);
+            }
+
+            uFlagHigh = upValue & uFlagHigh;        //TODO: IO 되는지 확인 필요
+            if (uFlagHigh == 1)
+            {
+                return true;
+            }
             return false;
         }
         public bool GetMiddleWaitSensor(int index)        //리프트 대기 위치 확인 센서
         {
+            if (ProgramState.ON_LINE_MOTOR == false)
+            {
+                return true;
+            }
+
+            int i = 0;
+            int lModuleNo = 0;
+            int lOffset = 0;
+
+            uint uFlagHigh = 0;
+            uint upValue = Globalo.motionManager.ioController.m_dwDInDict[lModuleNo][lOffset];
+
+            if (index == 0)
+            {
+                uFlagHigh |= (uint)(MotionControl.DioDefine.DIO_IN_ADDR_CH1.IN_LOAD_PICKER_UP1);
+            }
+            else
+            {
+                uFlagHigh |= (uint)(MotionControl.DioDefine.DIO_IN_ADDR_CH1.IN_LOAD_PICKER_UP2);
+            }
+
+            uFlagHigh = upValue & uFlagHigh;        //TODO: IO 되는지 확인 필요
+            if (uFlagHigh == 1)
+            {
+                return true;
+            }
             return false;
         }
         public bool GetIsLoadTrayOnTop(int index)            //GANTRY, PUSHER 위 TRAY 유무 확인
         {
+            if (ProgramState.ON_LINE_MOTOR == false)
+            {
+                return true;
+            }
+
+            int i = 0;
+            int lModuleNo = 0;
+            int lOffset = 0;
+
+            uint uFlagHigh = 0;
+            uint upValue = Globalo.motionManager.ioController.m_dwDInDict[lModuleNo][lOffset];
+
+            if (index == 0)
+            {
+                uFlagHigh |= (uint)(MotionControl.DioDefine.DIO_IN_ADDR_CH1.IN_LOAD_PICKER_UP1);
+            }
+            else
+            {
+                uFlagHigh |= (uint)(MotionControl.DioDefine.DIO_IN_ADDR_CH1.IN_LOAD_PICKER_UP2);
+            }
+
+            uFlagHigh = upValue & uFlagHigh;        //TODO: IO 되는지 확인 필요
+            if (uFlagHigh == 1)
+            {
+                return true;
+            }
             return false;
         }
         public bool GetIsTrayOnSlide(int index)              //LEFT , RIGHT SLIDE 위 TRAY 유무 확인
         {
+            if (ProgramState.ON_LINE_MOTOR == false)
+            {
+                return true;
+            }
+
+            int i = 0;
+            int lModuleNo = 0;
+            int lOffset = 0;
+
+            uint uFlagHigh = 0;
+            uint upValue = Globalo.motionManager.ioController.m_dwDInDict[lModuleNo][lOffset];
+
+            if (index == 0)
+            {
+                uFlagHigh |= (uint)(MotionControl.DioDefine.DIO_IN_ADDR_CH1.IN_LOAD_PICKER_UP1);
+            }
+            else
+            {
+                uFlagHigh |= (uint)(MotionControl.DioDefine.DIO_IN_ADDR_CH1.IN_LOAD_PICKER_UP2);
+            }
+
+            uFlagHigh = upValue & uFlagHigh;        //TODO: IO 되는지 확인 필요
+            if (uFlagHigh == 1)
+            {
+                return true;
+            }
             return false;
         }
-        public bool ChkButtonLoadTray()     //작업자 : Tary투입후 작업자 Gantry로 Tray 투입 요청
+        public bool ChkButtonLoadTray(bool bFlag)     //작업자 : Tary투입후 작업자 Gantry로 Tray 투입 요청
         {
+            if (ProgramState.ON_LINE_MOTOR == false)
+            {
+                return true;
+            }
+            int lModuleNo = 0;
+            int lOffset = 0;
 
+            uint uFlagHigh = 0;
+            uint upValue = Globalo.motionManager.ioController.m_dwDInDict[lModuleNo][lOffset];
+            if (bFlag)
+            {
+                uFlagHigh = upValue & (uint)MotionControl.DioDefine.DIO_IN_ADDR_CH0.IN_VACUUM_ON;
+                if (uFlagHigh == 1)
+                {
+                    return true;
+                }
+            }
+            else
+            {
+                uFlagHigh = upValue & (uint)MotionControl.DioDefine.DIO_IN_ADDR_CH0.IN_VACUUM_ON;
+                if (uFlagHigh == 0)
+                {
+                    return true;
+                }
+            }
             return false;
         }
-        public bool ChkButtonUnloadTray()    //작업자 : 배출 Lift 다운 요청
+        public bool ChkButtonUnloadTray(bool bFlag)    //작업자 : 배출 Lift 다운 요청
         {
+            if (ProgramState.ON_LINE_MOTOR == false)
+            {
+                return true;
+            }
+            int lModuleNo = 0;
+            int lOffset = 0;
 
+            uint uFlagHigh = 0;
+            uint upValue = Globalo.motionManager.ioController.m_dwDInDict[lModuleNo][lOffset];
+            if (bFlag)
+            {
+                uFlagHigh = upValue & (uint)MotionControl.DioDefine.DIO_IN_ADDR_CH0.IN_VACUUM_ON;
+                if (uFlagHigh == 1)
+                {
+                    return true;
+                }
+            }
+            else
+            {
+                uFlagHigh = upValue & (uint)MotionControl.DioDefine.DIO_IN_ADDR_CH0.IN_VACUUM_ON;
+                if (uFlagHigh == 0)
+                {
+                    return true;
+                }
+            }
             return false;
         }
         #endregion

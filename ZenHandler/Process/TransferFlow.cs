@@ -26,6 +26,9 @@ namespace ZenHandler.Process
         public int Auto_Waiting(int nStep)
         {
             string szLog = "";
+            bool PickerCheck = false;
+            int i = 0;
+            Machine.TransferMachine.eTeachingPosList Move_Pos;
             int nRetStep = nStep;
             switch (nStep)
             {
@@ -33,15 +36,6 @@ namespace ZenHandler.Process
                     nRetStep = 3100;
                     break;
                 case 3100:
-                    nRetStep = 3200;
-                    break;
-                case 3200:
-                    nRetStep = 3300;
-                    break;
-                case 3300:
-                    nRetStep = 3400;
-                    break;
-                case 3400:
                     //확인 순서
                     //0.TRAY가 제품 배출할 수 있는 상태인지
                     //1.배출 피커에 배출할 제품을 들고 있는지
@@ -52,34 +46,197 @@ namespace ZenHandler.Process
                     //3.로드 피커가 비었으면 제품 로드하기
 
                     //소켓의 투입 요청인지 , 배출 요청인지 판단해서 진행
+                    nRetStep = 3120;
+                    break;
+                case 3120:
+                    nRetStep = 3140;
+                    break;
+                case 3140:
+                    nRetStep = 3160;
+                    break;
+                case 3160:
+                    nRetStep = 3180;
+                    break;
+                case 3180:
+                    nRetStep = 3200;
+                    break;
+                case 3200:
+                    //NG 배출 제품 로드
+                    PickerCheck = false;
+                    for (i = 0; i < 4; i++)
+                    {
+                        if (Globalo.motionManager.transferMachine.pickedProduct.UnLoadProductInfo[i].State == Machine.PickedProductState.TestNg ||
+                            Globalo.motionManager.transferMachine.pickedProduct.UnLoadProductInfo[i].State == Machine.PickedProductState.TestNg2 ||
+                            Globalo.motionManager.transferMachine.pickedProduct.UnLoadProductInfo[i].State == Machine.PickedProductState.TestNg3 ||
+                            Globalo.motionManager.transferMachine.pickedProduct.UnLoadProductInfo[i].State == Machine.PickedProductState.TestNg4)
+                        {
+                            PickerCheck = true;
+                            break;
+                        }
+                    }
+                    if (PickerCheck == true)
+                    {
+                        nRetStep = 8000;
+                        break;
+                    }
+                    nRetStep = 3220;
+                    break;
+                case 3220:
+                    //양품 배출 제품 로드
+                    PickerCheck = false;
+                    for (i = 0; i < 4; i++)
+                    {
+                        if (Globalo.motionManager.transferMachine.pickedProduct.UnLoadProductInfo[i].State == Machine.PickedProductState.Good ||
+                            Globalo.motionManager.transferMachine.pickedProduct.UnLoadProductInfo[i].State == Machine.PickedProductState.Good ||
+                            Globalo.motionManager.transferMachine.pickedProduct.UnLoadProductInfo[i].State == Machine.PickedProductState.Good ||
+                            Globalo.motionManager.transferMachine.pickedProduct.UnLoadProductInfo[i].State == Machine.PickedProductState.Good)
+                        {
+                            PickerCheck = true;
+                            break;
+                        }
+                    }
+                    if (PickerCheck == true)
+                    {
+                        nRetStep = 7000;
+                        break;
+                    }
+                    nRetStep = 3240;
+                    break;
+                case 3240:
+                    nRetStep = 3260;
+                    break;
+                case 3260:
+                    //투입할 제품 로드한 상태
+
+                    //1.소켓 배출 요청 체크
+                    //2.소켓 투입 요청 체크
+                    PickerCheck = false;
+                    for (i = 0; i < 4; i++)
+                    {
+                        if (Globalo.motionManager.transferMachine.pickedProduct.LoadProductInfo[i].State == Machine.PickedProductState.Bcr &&
+                            Globalo.motionManager.transferMachine.pickedProduct.LoadProductInfo[i].State == Machine.PickedProductState.Bcr &&
+                            Globalo.motionManager.transferMachine.pickedProduct.LoadProductInfo[i].State == Machine.PickedProductState.Bcr &&
+                            Globalo.motionManager.transferMachine.pickedProduct.LoadProductInfo[i].State == Machine.PickedProductState.Bcr)
+                        {
+                            PickerCheck = true;
+                            break;
+                        }
+                    }
+                    if (PickerCheck == true)
+                    {
+                        
+                        if (i == 0)
+                        {
+                            //6000 - 소켓 배출 우선 진행
+                            //몇 번 소켓인지 검색 (0 , 1 , 2 , 3)
+                            nRetStep = 6000;
+                            break;
+
+                        }
+                        else if (i == 1)
+                        {
+                            //5000 - 소켓 투입
+                            nRetStep = 5000;
+                            break;
+                        }
+
+                    }
+
+                    nRetStep = 3280;
+                    break;
+                case 3280:
+                    nRetStep = 3300;
+                    break;
+                case 3300:
+                    //양쪽 다 들고있는 제품 없는 경우
+                    //리프트 로드가능할 때 -->리프트로 바코드 스캔 이동
+                    //배출 요청오면 소켓에 제품 배출하러
+                    PickerCheck = false;
+                    for (i = 0; i < 4; i++)
+                    {
+                        if (Globalo.motionManager.transferMachine.pickedProduct.LoadProductInfo[i].State == Machine.PickedProductState.Blank &&
+                            Globalo.motionManager.transferMachine.pickedProduct.LoadProductInfo[i].State == Machine.PickedProductState.Blank &&
+                            Globalo.motionManager.transferMachine.pickedProduct.LoadProductInfo[i].State == Machine.PickedProductState.Blank &&
+                            Globalo.motionManager.transferMachine.pickedProduct.LoadProductInfo[i].State == Machine.PickedProductState.Blank &&
+                            Globalo.motionManager.transferMachine.pickedProduct.UnLoadProductInfo[i].State == Machine.PickedProductState.Blank &&
+                            Globalo.motionManager.transferMachine.pickedProduct.UnLoadProductInfo[i].State == Machine.PickedProductState.Blank &&
+                            Globalo.motionManager.transferMachine.pickedProduct.UnLoadProductInfo[i].State == Machine.PickedProductState.Blank &&
+                            Globalo.motionManager.transferMachine.pickedProduct.UnLoadProductInfo[i].State == Machine.PickedProductState.Blank)
+                        {
+                            PickerCheck = true;
+                            break;
+                        }
+                    }
+                    if (PickerCheck == true)
+                    {
+                        if (i == 0) //TRAY 교체중이 아니고 , 자동운전 중이고, 로드가능한 상태 일때
+                        {
+                            nRetStep = 3400;
+                            break;
+                        }
+
+                        if (i == 0)
+                        {
+                            //6000 - 소켓 배출 우선 진행
+                            //몇 번 소켓인지 검색 (0 , 1 , 2 , 3)
+                            nRetStep = 6000;
+                            break;
+
+                        }
+                    }
+                    nRetStep = 3000;    //Back to First
+                    break;
+
+                //-----------------------------------------------------------------------
+                //
+                //  바코드 로드 진행
+                //
+                //-----------------------------------------------------------------------
+                case 3400:
+                    
                     nRetStep = 3500;
                     break;
                 case 3500:
-                    //DialogResult result = DialogResult.None;
-                    //_syncContext.Send(_ =>
-                    //{
-                    //    result = Globalo.MessageAskPopup("제품 투입 후 진행해주세요!\n(SPACE KEY START)");
-                    //}, null);
+
                     nRetStep = 3600;
                     break;
                 case 3600:
-                    Globalo.motionManager.transferMachine.TransFer_XY_Move(Machine.TransferMachine.eTeachingPosList.LEFT_TRAY_LOAD_POS);
+                    if (Globalo.motionManager.transferMachine.TrayPosition == MotionControl.MotorSet.TrayPosition.Left)
+                    {
+                        Move_Pos = Machine.TransferMachine.eTeachingPosList.LEFT_TRAY_BCR_POS;
+                    }
+                    else
+                    {
+                        Move_Pos = Machine.TransferMachine.eTeachingPosList.RIGHT_TRAY_BCR_POS;
+                    }
+                    Globalo.motionManager.transferMachine.TransFer_XY_Move(Move_Pos);
+
                     nRetStep = 3700;
                     nTimeTick = Environment.TickCount;
                     break;
                 case 3700://MotorAxes[(int)eTransfer.TRANSFER_X]
+                    if (Globalo.motionManager.transferMachine.TrayPosition == MotionControl.MotorSet.TrayPosition.Left)
+                    {
+                        Move_Pos = Machine.TransferMachine.eTeachingPosList.LEFT_TRAY_BCR_POS;
+                    }
+                    else
+                    {
+                        Move_Pos = Machine.TransferMachine.eTeachingPosList.RIGHT_TRAY_BCR_POS;
+                    }
+
+
                     if (Globalo.motionManager.transferMachine.MotorAxes[(int)Machine.eTransfer.TRANSFER_X].GetStopAxis() == true &&
                         Globalo.motionManager.transferMachine.MotorAxes[(int)Machine.eTransfer.TRANSFER_Y].GetStopAxis() == true &&
-                        Globalo.motionManager.transferMachine.ChkXYMotorPos(Machine.TransferMachine.eTeachingPosList.LEFT_TRAY_LOAD_POS))
+                        Globalo.motionManager.transferMachine.ChkXYMotorPos(Move_Pos))
                     {
-                        szLog = $"[ORIGIN] LEFT_TRAY_LOAD_POS 위치 이동 완료 [STEP : {nStep}]";
+                        szLog = $"[ORIGIN] {Move_Pos.ToString()} 위치 이동 완료 [STEP : {nStep}]";
                         Globalo.LogPrint("ManualControl", szLog);
                         nRetStep = 3720;
                         break;
                     }
                     else if (Environment.TickCount - nTimeTick > 30000)
                     {
-                        szLog = $"[ORIGIN] LEFT_TRAY_LOAD_POS 위치 이동 시간 초과 [STEP : {nStep}]";
+                        szLog = $"[ORIGIN] {Move_Pos.ToString()} 위치 이동 시간 초과 [STEP : {nStep}]";
                         Globalo.LogPrint("ManualControl", szLog);
                         nRetStep *= -1;
                         break;

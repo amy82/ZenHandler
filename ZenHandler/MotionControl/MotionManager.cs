@@ -26,8 +26,14 @@ namespace ZenHandler.MotionControl
 
 
         private bool[] trayEjectRequested = {false , false };
-        //#region test
-        //#endregion
+
+        private bool[] socketLoadRequested = {false, false, false, false };     
+        private bool[] socketUnloadRequested = {false, false, false, false };
+        //TODO: Set 라서 4개인데 , 개별이면 달라진다. -
+        //펌웨어는 Set 로 요청 - 4개씩 4Set
+        //EEPROM는 Set 로 요청 - 4개씩 2Set
+        //AOI는 Set 로 요청 - 2개씩 2Set
+
 
         #region test
         //test 1
@@ -48,7 +54,7 @@ namespace ZenHandler.MotionControl
             socketEEpromMachine = new Machine.EEpromSocketMachine();
             socketFwMachine = new Machine.FwSocketMachine();
 
-            transferMachine.OnTrayChangedCall += OnTrayChenge;
+            transferMachine.OnTrayChangedCall += OnTrayChengeReq;
 
 
             bool LoadChk = true;
@@ -68,7 +74,7 @@ namespace ZenHandler.MotionControl
             ClearTrayChenge(MotorSet.TrayPosition.Right);
             //FwSocket = Teaching 없음
         }
-        private void OnTrayChenge(MotorSet.TrayPosition position)
+        private void OnTrayChengeReq(MotorSet.TrayPosition position)
         {
             Console.WriteLine($"ToLiftUnitTrayChenge - {position}");
 
@@ -80,13 +86,30 @@ namespace ZenHandler.MotionControl
 
             trayEjectRequested[index] = true;
         }
-
         public void ClearTrayChenge(MotorSet.TrayPosition position)
         {
             Console.WriteLine($"ClearTrayChenge - {position}");
             int index = (int)position;
             trayEjectRequested[index] = false;
         }
+
+        private void OnSocketLoadReq(int index)          //소켓에서 투입 요청
+        {
+            Console.WriteLine($"OnSocketLoadReq - {index}");
+            socketLoadRequested[index] = true;
+        }
+        private void OnSocketUnloadReq(int index)        //소켓에서 배출 요청
+        {
+            Console.WriteLine($"OnSocketUnloadReq - {index}");
+            socketUnloadRequested[index] = true;
+        }
+        public void ClearSocketReq(int index)
+        {
+            Console.WriteLine($"ClearSocketReq - {index}");
+            socketLoadRequested[index] = false;
+            socketUnloadRequested[index] = false;
+        }
+
         public bool GetTrayEjectReq(MotorSet.TrayPosition position)
         {
             int index = (int)position;
