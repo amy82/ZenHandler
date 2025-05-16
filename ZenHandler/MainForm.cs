@@ -595,6 +595,9 @@ namespace ZenHandler  //ApsMotionControl
         {
             if (ProgramState.NORINDA_MODE == true)
             {
+
+                Globalo.tcpManager.BcrClient.Send("LON\r");
+                return;
                 //int[] pickerList = { 1, 1, 1, 1 };
 
                 //Globalo.motionManager.transferMachine.LoadMultiPickerUp(pickerList, true);

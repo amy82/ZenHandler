@@ -207,6 +207,12 @@
     <Compile Include="Dlg\Config_Task.Designer.cs">
       <DependentUpon>Config_Task.cs</DependentUpon>
     </Compile>
+    <Compile Include="Dlg\TerminalMsgForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Dlg\TerminalMsgForm.designer.cs">
+      <DependentUpon>TerminalMsgForm.cs</DependentUpon>
+    </Compile>
     <Compile Include="MotionControl\FwDioDefine.cs" />
     <Compile Include="MotionControl\EEpromDioDefine.cs" />
     <Compile Include="MotionControl\AoiDioDefine.cs" />
@@ -465,7 +471,9 @@
     </Compile>
     <Compile Include="Serial\SerialCommunicator.cs" />
     <Compile Include="Serial\SerialPortManager.cs" />
+    <Compile Include="TcpSocket\BarcodeClient.cs" />
     <Compile Include="TcpSocket\packetData.cs" />
+    <Compile Include="TcpSocket\TcpClientHandler.cs" />
     <Compile Include="TcpSocket\TcpManager.cs" />
     <Compile Include="TcpSocket\TcpServer.cs" />
     <Compile Include="ThreadControl.cs" />
@@ -544,6 +552,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Dlg\TeachingTransfer.resx">
       <DependentUpon>TeachingTransfer.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Dlg\TerminalMsgForm.resx">
+      <DependentUpon>TerminalMsgForm.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Dlg\TrayStateInfo.resx">
       <DependentUpon>TrayStateInfo.cs</DependentUpon>

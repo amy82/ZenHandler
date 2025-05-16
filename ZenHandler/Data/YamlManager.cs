@@ -27,7 +27,7 @@ namespace ZenHandler.Data
         public List<string> recipeYamlFiles = new List<string>();
         public AlarmData alarmData {get; set;}
         public ImageData imageData { get; set; }
-
+        public MesManager mesManager { get; set; }
         public TaskDataYaml taskDataYaml { get; set; }
 
         public TeachingDataYaml teachData { get; set; }
