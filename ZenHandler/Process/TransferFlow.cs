@@ -27,6 +27,8 @@ namespace ZenHandler.Process
         {
             string szLog = "";
             bool PickerCheck = false;
+            bool SocketChk = false;
+            bool bRtn = false;
             int i = 0;
             Machine.TransferMachine.eTeachingPosList Move_Pos;
             int nRetStep = nStep;
@@ -124,29 +126,50 @@ namespace ZenHandler.Process
                     }
                     if (PickerCheck == true)
                     {
-                        
-                        if (i == 0)
+
+                        //6000 - 소켓 배출 우선 진행
+                        //몇 번 소켓인지 검색 (0 , 1 , 2 , 3)
+                        SocketChk = false;
+                        Globalo.motionManager.transferMachine.NoSocketPos = -1;
+                        for (i = 0; i < Globalo.motionManager.SocketSetCount; i++)     //TODO: 4는 설비마다 다름 
                         {
-                            //6000 - 소켓 배출 우선 진행
-                            //몇 번 소켓인지 검색 (0 , 1 , 2 , 3)
+                            if (Globalo.motionManager.GetSocketEjectReq(i) == true)
+                            {
+                                Globalo.motionManager.transferMachine.NoSocketPos = i;
+                                break;
+                            }
+                        }
+                        if (Globalo.motionManager.transferMachine.NoSocketPos >= 0)
+                        {
                             nRetStep = 6000;
                             break;
-
                         }
-                        else if (i == 1)
+
+                        //5000 - 소켓 투입
+                        SocketChk = false;
+                        for (i = 0; i < Globalo.motionManager.SocketSetCount; i++) 
                         {
-                            //5000 - 소켓 투입
+                            if (Globalo.motionManager.GetSocketLoadReq(i) == true)
+                            {
+                                Globalo.motionManager.transferMachine.NoSocketPos = i;
+                                break;
+                            }
+                        }
+                        if (Globalo.motionManager.transferMachine.NoSocketPos >= 0)
+                        {
                             nRetStep = 5000;
                             break;
                         }
 
                     }
 
-                    nRetStep = 3280;
+                    nRetStep = 3280;        //여기서만 아래로 이동 - Barcode Scan
                     break;
                 case 3280:
+
                     nRetStep = 3300;
                     break;
+
                 case 3300:
                     //양쪽 다 들고있는 제품 없는 경우
                     //리프트 로드가능할 때 -->리프트로 바코드 스캔 이동
@@ -167,9 +190,11 @@ namespace ZenHandler.Process
                             break;
                         }
                     }
+                    Globalo.motionManager.transferMachine.NoSocketPos = -1;
                     if (PickerCheck == true)
                     {
-                        if (i == 0) //TRAY 교체중이 아니고 , 자동운전 중이고, 로드가능한 상태 일때
+                        if (Globalo.motionManager.liftMachine.IsLoadingInputTray == false && 
+                            Globalo.motionManager.liftMachine.IsUnloadingOutputTray == false) //TRAY 교체중이 아니고 , 자동운전 중이고, 로드가능한 상태 일때
                         {
                             nRetStep = 3400;
                             break;
@@ -179,8 +204,19 @@ namespace ZenHandler.Process
                         {
                             //6000 - 소켓 배출 우선 진행
                             //몇 번 소켓인지 검색 (0 , 1 , 2 , 3)
-                            nRetStep = 6000;
-                            break;
+                            SocketChk = false;
+                            for (i = 0; i < Globalo.motionManager.SocketSetCount; i++)     //TODO: 4는 설비마다 다름 
+                            {
+                                if (Globalo.motionManager.GetSocketEjectReq(i) == true)
+                                {
+                                    Globalo.motionManager.transferMachine.NoSocketPos = i;
+                                }
+                            }
+                            if (Globalo.motionManager.transferMachine.NoSocketPos >= 0)
+                            {
+                                nRetStep = 6000;
+                                break;
+                            }
 
                         }
                     }
@@ -194,11 +230,34 @@ namespace ZenHandler.Process
                 //-----------------------------------------------------------------------
                 case 3400:
                     
+                    nRetStep = 3450;
+                    break;
+                case 3450:
+                    Globalo.motionManager.transferMachine.TransFer_Z_Move(Machine.TransferMachine.eTeachingPosList.WAIT_POS);
+
+                    szLog = $"[READY] TRANSFER Z WAIT_POS 이동 [STEP : {nStep}]";
+                    Globalo.LogPrint("ManualControl", szLog);
+
+                    nTimeTick = Environment.TickCount;
                     nRetStep = 3500;
                     break;
                 case 3500:
-
-                    nRetStep = 3600;
+                    if (Globalo.motionManager.transferMachine.MotorAxes[(int)Machine.eTransfer.TRANSFER_Z].GetStopAxis() == true &&
+                        Globalo.motionManager.transferMachine.ChkZMotorPos(Machine.TransferMachine.eTeachingPosList.WAIT_POS))
+                    {
+                        szLog = $"[READY] TRANSFER Z WAIT_POS 이동 완료 [STEP : {nStep}]";
+                        Globalo.LogPrint("ManualControl", szLog);
+                        nRetStep = 3600;
+                        break;
+                    }
+                    else if (Environment.TickCount - nTimeTick > MotionControl.MotorSet.MOTOR_MOVE_TIMEOUT)
+                    {
+                        szLog = $"[READY] TRANSFER Z WAIT_POS  이동 시간 초과 [STEP : {nStep}]";
+                        Globalo.LogPrint("ManualControl", szLog);
+                        nRetStep *= -1;
+                        break;
+                    }
+                    
                     break;
                 case 3600:
                     if (Globalo.motionManager.transferMachine.TrayPosition == MotionControl.MotorSet.TrayPosition.Left)
@@ -245,8 +304,8 @@ namespace ZenHandler.Process
                     break;
                 case 3720:
                     Globalo.motionManager.transferMachine.TransFer_XY_Move(Machine.TransferMachine.eTeachingPosList.WAIT_POS);
-                    nRetStep = 3740;
                     nTimeTick = Environment.TickCount;
+                    nRetStep = 3740;
                     break;
                 case 3740:
                     if (Globalo.motionManager.transferMachine.MotorAxes[(int)Machine.eTransfer.TRANSFER_X].GetStopAxis() == true &&
@@ -274,15 +333,10 @@ namespace ZenHandler.Process
                     nRetStep = 3800;
                     break;
                 case 3800:
-                    nRetStep = 3820;
-                    break;
-                case 3820:
-                    nRetStep = 3840;
-                    break;
-                case 3840:
+
+
                     nRetStep = 3900;
                     break;
-
                 case 3900:
                     nRetStep = 4000;
                     break;
@@ -548,12 +602,141 @@ namespace ZenHandler.Process
         {
             string szLog = "";
             int nRetStep = nStep;
+            int socketIndex = -1;
+            int i = 0;
+            Machine.TransferMachine.eTeachingPosList Move_Pos = Machine.TransferMachine.eTeachingPosList.WAIT_POS;
             switch (nStep)
             {
                 case 5000:
+                    nRetStep = 5020;
+                    break;
+                case 5020:
+                    //z축 대기위치
+                    Globalo.motionManager.transferMachine.TransFer_Z_Move(Machine.TransferMachine.eTeachingPosList.WAIT_POS);
+
+                    szLog = $"[AUTO] TRANSFER Z WAIT_POS 이동 [STEP : {nStep}]";
+                    Globalo.LogPrint("ManualControl", szLog);
+
+                    nTimeTick = Environment.TickCount;
+                    nRetStep = 5040;
+                    break;
+                case 5040:
+                    if (Globalo.motionManager.transferMachine.MotorAxes[(int)Machine.eTransfer.TRANSFER_Z].GetStopAxis() == true &&
+                        Globalo.motionManager.transferMachine.ChkZMotorPos(Machine.TransferMachine.eTeachingPosList.WAIT_POS))
+                    {
+                        szLog = $"[AUTO] TRANSFER Z WAIT_POS 이동 완료 [STEP : {nStep}]";
+                        Globalo.LogPrint("ManualControl", szLog);
+                        nRetStep = 5060;
+                        break;
+                    }
+                    else if (Environment.TickCount - nTimeTick > MotionControl.MotorSet.MOTOR_MOVE_TIMEOUT)
+                    {
+                        szLog = $"[AUTO] TRANSFER Z WAIT_POS  이동 시간 초과 [STEP : {nStep}]";
+                        Globalo.LogPrint("ManualControl", szLog);
+                        nRetStep *= -1;
+                        break;
+                    }
+                    
+                    
+                    break;
+                case 5080:
+                    //실린더 전부 성승 확인
+                    if (Globalo.motionManager.transferMachine.GetLoadMultiPickerUp(new int[] { 1, 1, 1, 1 }, true) == true)
+                    {
+                        szLog = $"[AUTO] TRANSFER LOAD PICKET UP CHECK [STEP : {nStep}]";
+                        Globalo.LogPrint("ManualControl", szLog);
+                        nRetStep = 5100;
+                    }
+                    else
+                    {
+                        szLog = $"[AUTO] TRANSFER LOAD PICKET UP CHECK FAIL [STEP : {nStep}]";
+                        Globalo.LogPrint("ManualControl", szLog);
+                        nRetStep *= -1;
+                        break;
+                    }
+                    
+                    break;
+                case 5100:
+                    nRetStep = 5120;
+                    break;
+                case 5120:
+
+                    if (Globalo.motionManager.transferMachine.NoSocketPos == 0)
+                    {
+                        Move_Pos = Machine.TransferMachine.eTeachingPosList.SOCKET_A_LOAD;
+                    }
+                    else if (Globalo.motionManager.transferMachine.NoSocketPos == 1)
+                    {
+                        Move_Pos = Machine.TransferMachine.eTeachingPosList.SOCKET_B_LOAD;
+                    }
+                    else if (Globalo.motionManager.transferMachine.NoSocketPos == 2)
+                    {
+                        Move_Pos = Machine.TransferMachine.eTeachingPosList.SOCKET_C_LOAD;
+                    }
+                    else if (Globalo.motionManager.transferMachine.NoSocketPos == 3)
+                    {
+                        Move_Pos = Machine.TransferMachine.eTeachingPosList.SOCKET_D_LOAD;
+                    }
+                    else
+                    {
+                        //err 번호 이상
+                    }
+                    //LoadPosx = Globalo.motionManager.transferMachine.pickedProduct.LoadTrayPos.X;
+                    //LoadPosy = Globalo.motionManager.transferMachine.pickedProduct.LoadTrayPos.Y;
+                    //public bool TransFer_XY_Move(eTeachingPosList ePos, int TrayX = 0, int TrayY = 0,  bool bWait = true)
+
+                    Globalo.motionManager.transferMachine.TransFer_XY_Move(Move_Pos, 0, 0);
+
+                    nRetStep = 5140;
+                    break;
+                case 5140:
+                    if (Globalo.motionManager.transferMachine.NoSocketPos == 0)
+                    {
+                        Move_Pos = Machine.TransferMachine.eTeachingPosList.SOCKET_A_LOAD;
+                    }
+                    else if (Globalo.motionManager.transferMachine.NoSocketPos == 1)
+                    {
+                        Move_Pos = Machine.TransferMachine.eTeachingPosList.SOCKET_B_LOAD;
+                    }
+                    else if (Globalo.motionManager.transferMachine.NoSocketPos == 2)
+                    {
+                        Move_Pos = Machine.TransferMachine.eTeachingPosList.SOCKET_C_LOAD;
+                    }
+                    else if (Globalo.motionManager.transferMachine.NoSocketPos == 3)
+                    {
+                        Move_Pos = Machine.TransferMachine.eTeachingPosList.SOCKET_D_LOAD;
+                    }
+                    else
+                    {
+                        //err 번호 이상
+                    }
+                    if (Globalo.motionManager.transferMachine.MotorAxes[(int)Machine.eTransfer.TRANSFER_X].GetStopAxis() == true && 
+                        Globalo.motionManager.transferMachine.MotorAxes[(int)Machine.eTransfer.TRANSFER_Y].GetStopAxis() == true &&
+                        Globalo.motionManager.transferMachine.ChkXYMotorPos(Move_Pos))
+                    {
+                        szLog = $"[READY] {Move_Pos.ToString()} 위치 이동 완료 [STEP : {nStep}]";
+                        Globalo.LogPrint("ManualControl", szLog);
+                        nRetStep = 5160;
+                        break;
+                    }
+                    else if (Environment.TickCount - nTimeTick > 30000)
+                    {
+                        szLog = $"[READY] {Move_Pos.ToString()} 위치 이동 시간 초과 [STEP : {nStep}]";
+                        Globalo.LogPrint("ManualControl", szLog);
+                        nRetStep *= -1;
+                        break;
+                    }
+                    
+                    break;
+                case 5160:
+                    nRetStep = 5180;
+                    break;
+                case 5180:
+
+                    break;
+                case 5800:
                     nRetStep = 5900;
                     break;
-
                 case 5900:
 
                     break;

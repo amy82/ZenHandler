@@ -87,7 +87,7 @@ namespace ZenHandler.Machine
         public Data.TeachingConfig teachingConfig = new Data.TeachingConfig();
         public PickedProduct pickedProduct = new PickedProduct();
         public ProductLayout productLayout = new ProductLayout();
-
+        public int NoSocketPos;     //투입 , 배출요청하는 소켓 index
         public string CurrentScanBcr = "";
         public const int UnLoadCount = 2;
         //TODO:  픽업 상태 로드 4개 , 배출 4개 / blank , LOAD , BCR OK , PASS , NG(DEFECT 1 , 2 , 3 , 4)
@@ -141,7 +141,7 @@ namespace ZenHandler.Machine
             double elapsedMinutes = elapsed.TotalMinutes;
             double elapsedSeconds = elapsed.TotalSeconds;
 
-            
+            NoSocketPos = -1;
 
         }
 

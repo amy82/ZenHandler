@@ -20,11 +20,13 @@ namespace ZenHandler.MotionControl
         public Machine.MagazineHandler magazineHandler;
         public Machine.LiftMachine liftMachine;
 
+
+        //SOCKET MACHINE
         public Machine.AoiSocketMachine socketAoiMachine;
         public Machine.EEpromSocketMachine socketEEpromMachine;
         public Machine.FwSocketMachine socketFwMachine;
 
-
+        public int SocketSetCount = 2;
         private bool[] trayEjectRequested = {false , false };
 
         private bool[] socketLoadRequested = {false, false, false, false };     
@@ -72,6 +74,12 @@ namespace ZenHandler.MotionControl
 
             ClearTrayChenge(MotorSet.TrayPosition.Left);
             ClearTrayChenge(MotorSet.TrayPosition.Right);
+
+            if (Program.PG_SELECT == HANDLER_PG.FW)
+            {
+                SocketSetCount = 4;
+            }
+                
             //FwSocket = Teaching 없음
         }
         private void OnTrayChengeReq(MotorSet.TrayPosition position)
@@ -117,6 +125,18 @@ namespace ZenHandler.MotionControl
             rtn = trayEjectRequested[index];
             return rtn;
 
+        }
+        public bool GetSocketEjectReq(int index)
+        {
+            bool rtn = false;
+            rtn = socketUnloadRequested[index];
+            return rtn;
+        }
+        public bool GetSocketLoadReq(int index)
+        {
+            bool rtn = false;
+            rtn = socketLoadRequested[index];
+            return rtn;
         }
         private void OnPgExit(object sender, EventArgs e)
         {
