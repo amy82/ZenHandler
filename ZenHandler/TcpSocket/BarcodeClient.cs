@@ -15,6 +15,9 @@ namespace ZenHandler.TcpSocket
         private TcpClient bcrSocket;
         public event Action<string> DataReceived;
         public event Action<string> ErrorOccurred;
+
+        public bool bRecvBcrScan = false;
+        private StringBuilder _recvBuffer = new StringBuilder(); // 누적 버퍼
         private Thread BcrreceiveThread;
 
         public BarcodeClient()
@@ -25,11 +28,12 @@ namespace ZenHandler.TcpSocket
         }
         private void OnBcrReceived(string data)
         {
-            Console.WriteLine($"OnBcrReceived : {data}");
+            bRecvBcrScan = true;
+            Console.WriteLine($"OnBcrReceived:({data})");
         }
         private void OnBcrError(string message)
         {
-            Console.WriteLine($"OnBcrError : {message}");
+            Console.WriteLine($"OnBcrError:{message}");
         }
         public bool Connect(string ipAddress, int port)
         {
@@ -60,6 +64,7 @@ namespace ZenHandler.TcpSocket
             {
                 if (bcrSocket?.Connected == true)
                 {
+                    bRecvBcrScan = false;
                     byte[] data = Encoding.ASCII.GetBytes(message);
                     _stream.Write(data, 0, data.Length);
                     Console.WriteLine($"[BCR] Send: {message}");
@@ -95,11 +100,27 @@ namespace ZenHandler.TcpSocket
                 while (bcrSocket.Connected)
                 {
                     int bytesRead = _stream.Read(buffer, 0, buffer.Length);
-                    if (bytesRead == 0) continue;
+                    if (bytesRead > 0)
+                    {
+                        
 
-                    string received = Encoding.ASCII.GetString(buffer, 0, bytesRead);
-                    DataReceived?.Invoke(received.Trim());
-                    
+                        string received = Encoding.ASCII.GetString(buffer, 0, bytesRead);
+
+                        _recvBuffer.Append(received);
+
+                        string bufferStr = _recvBuffer.ToString();
+                        int stx = bufferStr.IndexOf('\x02');
+                        int etx = bufferStr.IndexOf('\x03',1);
+                        if (stx != -1 && etx != -1)
+                        {
+                            // STX~ETX 사이 추출
+                            string fullMessage = bufferStr.Substring(1, etx - 1); // STX 제외하고 ETX 전까지
+                            DataReceived?.Invoke(fullMessage.Trim());
+                            _recvBuffer.Clear();
+                        }
+
+                        
+                    }
                 }
             }
             catch (Exception ex)

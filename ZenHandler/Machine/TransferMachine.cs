@@ -88,6 +88,7 @@ namespace ZenHandler.Machine
         public PickedProduct pickedProduct = new PickedProduct();
         public ProductLayout productLayout = new ProductLayout();
 
+        public string CurrentScanBcr = "";
         public const int UnLoadCount = 2;
         //TODO:  픽업 상태 로드 4개 , 배출 4개 / blank , LOAD , BCR OK , PASS , NG(DEFECT 1 , 2 , 3 , 4)
         //public Dio cylinder;
@@ -166,6 +167,11 @@ namespace ZenHandler.Machine
             }
    
 
+        }
+        public void OnTransferBcrReceived(string data)
+        {
+            CurrentScanBcr = data;
+            Console.WriteLine($"On Transfer BcrReceived:({CurrentScanBcr})");
         }
         public void LoadTryAdd(int LoadCnt = 1)
         {

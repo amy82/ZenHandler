@@ -188,19 +188,51 @@ namespace ZenHandler.Process
                     nRetStep = 4300;
                     break;
                 case 4300:
+                    Globalo.motionManager.transferMachine.CurrentScanBcr = "";
                     //바코드 스캔
+                    Globalo.tcpManager.BcrClient.bRecvBcrScan = false;
+                    Globalo.tcpManager.BcrClient.Send("LON\r");
                     nRetStep = 4320;
                     break;
                 case 4320:
                     //스캔 대기
-                    nRetStep = 4340;
+                    if (Globalo.tcpManager.BcrClient.bRecvBcrScan == true)
+                    {
+                        //if (Globalo.motionManager.transferMachine.CurrentScanBcr.Length < 1)
+                        //{
+                        //    //Scan Fail
+                        //    szLog = $"[ORIGIN] BCR SCAN DATA ERR [STEP : {nStep}]";
+                        //    Globalo.LogPrint("ManualControl", szLog);
+                        //    nRetStep *= -1;
+                        //    break;
+                        //}
+                        szLog = $"[ORIGIN] BCR SCAN OK:({Globalo.motionManager.transferMachine.CurrentScanBcr}) [STEP : {nStep}]";
+                        Globalo.LogPrint("ManualControl", szLog);
+                        nRetStep = 4340;
+                    }
+                    else if (Environment.TickCount - nTimeTick > MotionControl.MotorSet.BCR_SCAN_TIMEOUT)
+                    {
+                        //TODO: RETRY ?? , PASS ?? , 
+                        DialogResult result = DialogResult.None;
+                        _syncContext.Send(_ =>
+                        {
+                            result = Globalo.MessageAskPopup("Retry barcode scan?");
+                        }, null);
+                        if (result == DialogResult.Yes)
+                        {
+                            nRetStep = 4300;
+                        }
+                        szLog = $"[ORIGIN] BCR SCAN TIMEOUT [STEP : {nStep}]";
+                        Globalo.LogPrint("ManualControl", szLog, Globalo.eMessageName.M_ERROR);
+                        nRetStep *= -1;
+                        break;
+                    }
+
                     break;
                 case 4340:
-                    //리트라이?
                     nRetStep = 4360;
                     break;
                 case 4360:
-                    //스캔 완료
                     nRetStep = 4380;
                     break;
                 case 4380:
@@ -256,6 +288,7 @@ namespace ZenHandler.Process
                 case 4540:
                     //흡착 or 그립 확인
                     LoadPosx = Globalo.motionManager.transferMachine.pickedProduct.LoadTrayPos.X;
+                    Globalo.motionManager.transferMachine.pickedProduct.LoadProductInfo[LoadPosx].BcrLot = Globalo.motionManager.transferMachine.CurrentScanBcr;       //Bcr Scan ,Load
                     Globalo.motionManager.transferMachine.pickedProduct.LoadProductInfo[LoadPosx].State = Machine.PickedProductState.Bcr;       //Bcr Scan ,Load
                     Globalo.pickerInfo.SetLoadPickerInfo();                 //피커 상태 Display
                     Globalo.motionManager.transferMachine.TaskSave();       //피커 상태 Save
