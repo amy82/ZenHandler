@@ -780,9 +780,12 @@ namespace ZenHandler.Machine
             for (i = 0; i < pickerList.Length; i++)
             {
                 bool chk = false;
-                int index = pickerList[i];
-
-                switch (index)
+                int nUse = pickerList[i];
+                if(nUse == 0)
+                {
+                    continue;
+                }
+                switch (i)
                 {
                     case 0:
                         if (bFlag)
@@ -871,74 +874,62 @@ namespace ZenHandler.Machine
 
             for (i = 0; i < pickerList.Length; i++)
             {
-                bool chk = false;
-                if (pickerList[i] == 1)
+                int nUse = pickerList[i];
+                if (nUse == 0)
                 {
-                    chk = true;
+                    continue;
                 }
                 switch (i)
                 {
                     case 0:
-                        if (chk)
+                        if (bFlag)
                         {
-                            if (bFlag)
-                            {
-                                uFlagHigh |= (uint)(MotionControl.DioDefine.DIO_OUT_ADDR_CH1.UNLOAD_PICKER_UP1);
-                                uFlagLow |= (uint)(MotionControl.DioDefine.DIO_OUT_ADDR_CH1.UNLOAD_PICKER_DOWN1);
-                            }
-                            else
-                            {
-                                uFlagLow |= (uint)(MotionControl.DioDefine.DIO_OUT_ADDR_CH1.UNLOAD_PICKER_UP1);
-                                uFlagHigh |= (uint)(MotionControl.DioDefine.DIO_OUT_ADDR_CH1.UNLOAD_PICKER_DOWN1);
-                            }
+                            uFlagHigh |= (uint)(MotionControl.DioDefine.DIO_OUT_ADDR_CH1.UNLOAD_PICKER_UP1);
+                            uFlagLow |= (uint)(MotionControl.DioDefine.DIO_OUT_ADDR_CH1.UNLOAD_PICKER_DOWN1);
+                        }
+                        else
+                        {
+                            uFlagLow |= (uint)(MotionControl.DioDefine.DIO_OUT_ADDR_CH1.UNLOAD_PICKER_UP1);
+                            uFlagHigh |= (uint)(MotionControl.DioDefine.DIO_OUT_ADDR_CH1.UNLOAD_PICKER_DOWN1);
                         }
 
 
                         break;
                     case 1:
-                        if (chk)
+                        if (bFlag)
                         {
-                            if (bFlag)
-                            {
-                                uFlagHigh |= (uint)(MotionControl.DioDefine.DIO_OUT_ADDR_CH1.UNLOAD_PICKER_UP2);
-                                uFlagLow |= (uint)(MotionControl.DioDefine.DIO_OUT_ADDR_CH1.UNLOAD_PICKER_DOWN2);
-                            }
-                            else
-                            {
-                                uFlagLow |= (uint)(MotionControl.DioDefine.DIO_OUT_ADDR_CH1.UNLOAD_PICKER_UP2);
-                                uFlagHigh |= (uint)(MotionControl.DioDefine.DIO_OUT_ADDR_CH1.UNLOAD_PICKER_DOWN2);
-                            }
+                            uFlagHigh |= (uint)(MotionControl.DioDefine.DIO_OUT_ADDR_CH1.UNLOAD_PICKER_UP2);
+                            uFlagLow |= (uint)(MotionControl.DioDefine.DIO_OUT_ADDR_CH1.UNLOAD_PICKER_DOWN2);
+                        }
+                        else
+                        {
+                            uFlagLow |= (uint)(MotionControl.DioDefine.DIO_OUT_ADDR_CH1.UNLOAD_PICKER_UP2);
+                            uFlagHigh |= (uint)(MotionControl.DioDefine.DIO_OUT_ADDR_CH1.UNLOAD_PICKER_DOWN2);
                         }
 
                         break;
                     case 2:
-                        if (chk)
+                        if (bFlag)
                         {
-                            if (bFlag)
-                            {
-                                uFlagHigh |= (uint)(MotionControl.DioDefine.DIO_OUT_ADDR_CH1.UNLOAD_PICKER_UP3);
-                                uFlagLow |= (uint)(MotionControl.DioDefine.DIO_OUT_ADDR_CH1.UNLOAD_PICKER_DOWN3);
-                            }
-                            else
-                            {
-                                uFlagLow |= (uint)(MotionControl.DioDefine.DIO_OUT_ADDR_CH1.UNLOAD_PICKER_UP3);
-                                uFlagHigh |= (uint)(MotionControl.DioDefine.DIO_OUT_ADDR_CH1.UNLOAD_PICKER_DOWN3);
-                            }
+                            uFlagHigh |= (uint)(MotionControl.DioDefine.DIO_OUT_ADDR_CH1.UNLOAD_PICKER_UP3);
+                            uFlagLow |= (uint)(MotionControl.DioDefine.DIO_OUT_ADDR_CH1.UNLOAD_PICKER_DOWN3);
+                        }
+                        else
+                        {
+                            uFlagLow |= (uint)(MotionControl.DioDefine.DIO_OUT_ADDR_CH1.UNLOAD_PICKER_UP3);
+                            uFlagHigh |= (uint)(MotionControl.DioDefine.DIO_OUT_ADDR_CH1.UNLOAD_PICKER_DOWN3);
                         }
                         break;
                     case 3:
-                        if (chk)
+                        if (bFlag)
                         {
-                            if (bFlag)
-                            {
-                                uFlagHigh |= (uint)(MotionControl.DioDefine.DIO_OUT_ADDR_CH1.UNLOAD_PICKER_UP4);
-                                uFlagLow |= (uint)(MotionControl.DioDefine.DIO_OUT_ADDR_CH1.UNLOAD_PICKER_DOWN4);
-                            }
-                            else
-                            {
-                                uFlagLow |= (uint)(MotionControl.DioDefine.DIO_OUT_ADDR_CH1.UNLOAD_PICKER_UP4);
-                                uFlagHigh |= (uint)(MotionControl.DioDefine.DIO_OUT_ADDR_CH1.UNLOAD_PICKER_DOWN4);
-                            }
+                            uFlagHigh |= (uint)(MotionControl.DioDefine.DIO_OUT_ADDR_CH1.UNLOAD_PICKER_UP4);
+                            uFlagLow |= (uint)(MotionControl.DioDefine.DIO_OUT_ADDR_CH1.UNLOAD_PICKER_DOWN4);
+                        }
+                        else
+                        {
+                            uFlagLow |= (uint)(MotionControl.DioDefine.DIO_OUT_ADDR_CH1.UNLOAD_PICKER_UP4);
+                            uFlagHigh |= (uint)(MotionControl.DioDefine.DIO_OUT_ADDR_CH1.UNLOAD_PICKER_DOWN4);
                         }
                         break;
                     default:

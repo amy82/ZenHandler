@@ -165,7 +165,7 @@ namespace ZenHandler.MotionControl
             OUT1_DOOR_UNLOCK_FRONT_L            = 0x00000001,  //9
             OUT1_DOOR_UNLOCK_FRONT_R            = 0x00000002,
             OUT1_DOOR_UNLOCK_BACK_L             = 0x00000004,
-            OUT1_DOOR_UNLOCK_BACK_R             = 0x00000008,  //12
+            OUT1_DOOR_UNLOCK_BACK_R             = 0x00000008,   //12
             TEMP13                              = 0x00000010,
             TEMP14                              = 0x00000020,
             TEMP15                              = 0x00000040,
