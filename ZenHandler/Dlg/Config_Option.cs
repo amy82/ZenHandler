@@ -31,6 +31,13 @@ namespace ZenHandler.Dlg
             ComboBox_Language.Items.Add("en");
             ComboBox_Language.Items.Add("es");
             ComboBox_Language.SelectedIndex = 0;
+
+            maskedTextBox_BcrIp.Mask = "192\\.168\\.255\\.255"; // 0~999 까지
+            maskedTextBox_BcrIp.ValidatingType = typeof(System.Net.IPAddress);
+            maskedTextBox_BcrIp.PromptChar = '_';
+            maskedTextBox_BcrIp.Width = 150;
+            maskedTextBox_BcrIp.Text = "192.168.100.1";
+
         }
         private void label_PinCountMax_Click(object sender, EventArgs e)
         {
@@ -55,7 +62,19 @@ namespace ZenHandler.Dlg
 
         private void button_Bcr_Connect_Click(object sender, EventArgs e)
         {
-            bool connectRtn = Globalo.serialPortManager.Barcode.Open();
+            //Globalo.serialPortManager.Barcode.Close();
+            Globalo.tcpManager.BcrClient.Connect("192.168.0.15", 9004);
+            string logData = $"[SERIAL] BCR DISCONNECT";
+
+            Globalo.LogPrint("Serial", logData);
+
+        }
+
+        private void button_Bcr_DisConnect_Click(object sender, EventArgs e)
+        {
+
+            //bool connectRtn = Globalo.serialPortManager.Barcode.Open();
+            bool connectRtn = Globalo.tcpManager.BcrClient.Disconnect();
 
             string logData = "";
 
@@ -67,15 +86,6 @@ namespace ZenHandler.Dlg
             {
                 logData = $"[SERIAL] BCR CONNECT FAIL:{Globalo.yamlManager.configData.SerialPort.Bcr}";
             }
-
-            Globalo.LogPrint("Serial", logData);
-        }
-
-        private void button_Bcr_DisConnect_Click(object sender, EventArgs e)
-        {
-            Globalo.serialPortManager.Barcode.Close();
-
-            string logData = $"[SERIAL] BCR DISCONNECT";
 
             Globalo.LogPrint("Serial", logData);
         }

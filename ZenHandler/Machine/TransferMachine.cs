@@ -16,8 +16,7 @@ namespace ZenHandler.Machine
     
     public class TransferMachine : MotionControl.MotorController
     {
-        public event Action<MotionControl.MotorSet.TrayPosition> OnTrayChangedCall;
-        public MotionControl.MotorSet.TrayPosition TrayPosition;        //Tray Load 위치 , Lift에서는 Right만 배출 , Magazine는 LEFT , RIGHT 동시 투입/배출
+        public event Action<MotionControl.MotorSet.TrayPos> OnTrayChangedCall;
         public int MotorCnt { get; private set; } = 3;
         
         public MotionControl.MotorAxis[] MotorAxes; // 배열 선언
@@ -27,7 +26,25 @@ namespace ZenHandler.Machine
         private double[] OrgFirstVel = { 20000.0, 20000.0, 20000.0 };   //수치 조심
         private double[] OrgSecondVel = { 10000.0, 10000.0, 5000.0 };
         private double[] OrgThirdVel = { 5000.0, 5000.0, 2500.0 };
+        public enum eTeachingPosList : int
+        {
+            WAIT_POS = 0,
+            LEFT_TRAY_BCR_POS, RIGHT_TRAY_BCR_POS,
+            LEFT_TRAY_LOAD_POS, LEFT_TRAY_UNLOAD_POS,
+            RIGHT_TRAY_LOAD_POS, RIGHT_TRAY_UNLOAD_POS,
+            SOCKET_A_LOAD, SOCKET_A_UNLOAD, SOCKET_B_LOAD, SOCKET_B_UNLOAD, SOCKET_C_LOAD, SOCKET_C_UNLOAD, SOCKET_D_LOAD, SOCKET_D_UNLOAD,
+            NG_A_LOAD, NG_A_UNLOAD, NG_B_LOAD, NG_B_UNLOAD,
+            TOTAL_TRANSFER_TEACHING_COUNT
+        };
 
+        public string[] TeachName = {
+            "WAIT_POS",
+            "LEFT_TRAY_BCR_POS", "RIGHT_TRAY_BCR_POS",
+            "L_TRAY_LOAD_POS", "L_TRAY_UNLOAD_POS",
+            "R_TRAY_LOAD_POS", "R_TRAY_UNLOAD_POS",
+            "SOCKET_A_LOAD", "SOCKET_A_UNLOAD", "SOCKET_B_LOAD", "SOCKET_B_UNLOAD","SOCKET_C_LOAD", "SOCKET_C_UNLOAD", "SOCKET_D_LOAD", "SOCKET_D_UNLOAD",
+            "NG_A_LOAD", "NG_A_UNLOAD","NG_B_LOAD", "NG_B_UNLOAD"
+        };
         //대기위치 1개
         //티칭위치 피커별로 로드 Tray x1: y:1 위치 하나씩 4개 * 리프트 2개 = 8개
         //티칭위치 피커별로 배출 Tray x1: y:1 위치 하나씩 4개 * 리프트 2개 = 8개
@@ -53,31 +70,9 @@ namespace ZenHandler.Machine
         //fw - 소켓 8개 투입 4 + 배출 4
         //
         //Ng 2개
-
-        //tray 간 x축, y축 Offset
-        //Socket 간 x축, y축 Offset
-
         //모터 이동 방식
         //최종 이동 위치 = 피커 1의 저장된 티칭 위치 + Try x/y Gap + Picker 별 Offset x/y;
-        public enum eTeachingPosList : int
-        {
-            WAIT_POS = 0,
-            LEFT_TRAY_BCR_POS, RIGHT_TRAY_BCR_POS,
-            LEFT_TRAY_LOAD_POS, LEFT_TRAY_UNLOAD_POS, 
-            RIGHT_TRAY_LOAD_POS, RIGHT_TRAY_UNLOAD_POS,
-            SOCKET_A_LOAD, SOCKET_A_UNLOAD, SOCKET_B_LOAD, SOCKET_B_UNLOAD, SOCKET_C_LOAD, SOCKET_C_UNLOAD, SOCKET_D_LOAD, SOCKET_D_UNLOAD,
-            NG_A_LOAD, NG_A_UNLOAD, NG_B_LOAD, NG_B_UNLOAD,
-            TOTAL_TRANSFER_TEACHING_COUNT
-        };
 
-        public string[] TeachName = { 
-            "WAIT_POS",
-            "LEFT_TRAY_BCR_POS", "RIGHT_TRAY_BCR_POS",
-            "L_TRAY_LOAD_POS", "L_TRAY_UNLOAD_POS",
-            "R_TRAY_LOAD_POS", "R_TRAY_UNLOAD_POS",
-            "SOCKET_A_LOAD", "SOCKET_A_UNLOAD", "SOCKET_B_LOAD", "SOCKET_B_UNLOAD","SOCKET_C_LOAD", "SOCKET_C_UNLOAD", "SOCKET_D_LOAD", "SOCKET_D_UNLOAD",
-            "NG_A_LOAD", "NG_A_UNLOAD","NG_B_LOAD", "NG_B_UNLOAD"
-        };
         public DateTime uphStartTime;
 
         public const string teachingPath = "Teach_Transfer.yaml";
@@ -87,7 +82,9 @@ namespace ZenHandler.Machine
         public Data.TeachingConfig teachingConfig = new Data.TeachingConfig();
         public PickedProduct pickedProduct = new PickedProduct();
         public ProductLayout productLayout = new ProductLayout();
-
+        public MotionControl.MotorSet.TrayPos TrayPosition;        //Tray Load 위치 , Lift에서는 Right만 배출 , Magazine는 LEFT , RIGHT 동시 투입/배출
+        public int NoSocketPos;     //투입 , 배출요청하는 소켓 index
+        public string CurrentScanBcr = "";
         public const int UnLoadCount = 2;
         //TODO:  픽업 상태 로드 4개 , 배출 4개 / blank , LOAD , BCR OK , PASS , NG(DEFECT 1 , 2 , 3 , 4)
         //public Dio cylinder;
@@ -132,7 +129,7 @@ namespace ZenHandler.Machine
             pickedProduct = Data.TaskDataYaml.TaskLoad_Transfer(taskPath);
             productLayout = Data.TaskDataYaml.TaskLoad_Layout(LayoutPath);
 
-            TrayPosition = MotionControl.MotorSet.TrayPosition.Left;
+            TrayPosition = MotionControl.MotorSet.TrayPos.Right;        //init
 
             uphStartTime = DateTime.Now;
             //double elapsedMinutes = (DateTime.Now - uphStartTime).TotalSeconds;//TotalMinutes;
@@ -140,7 +137,7 @@ namespace ZenHandler.Machine
             double elapsedMinutes = elapsed.TotalMinutes;
             double elapsedSeconds = elapsed.TotalSeconds;
 
-            
+            NoSocketPos = -1;
 
         }
 
@@ -167,38 +164,43 @@ namespace ZenHandler.Machine
    
 
         }
+        public void OnTransferBcrReceived(string data)
+        {
+            CurrentScanBcr = data;
+            Console.WriteLine($"On Transfer BcrReceived:({CurrentScanBcr})");
+        }
         public void LoadTryAdd(int LoadCnt = 1)
         {
-            int currentPosx = Globalo.motionManager.transferMachine.pickedProduct.LoadTrayPos.X;
-            int currentPosy = Globalo.motionManager.transferMachine.pickedProduct.LoadTrayPos.Y;
+            int currentPosx = this.pickedProduct.LoadTrayPos.X;
+            int currentPosy = this.pickedProduct.LoadTrayPos.Y;
 
-            int MaxXCount = Globalo.motionManager.transferMachine.productLayout.TotalTrayPos.X;
-            int MaxYCount = Globalo.motionManager.transferMachine.productLayout.TotalTrayPos.Y;
+            int MaxXCount = this.productLayout.TotalTrayPos.X;
+            int MaxYCount = this.productLayout.TotalTrayPos.Y;
             Console.WriteLine($"Current Load X : {currentPosx} / {MaxXCount}");
             Console.WriteLine($"Current Load Y : {currentPosy} / {MaxYCount}");
 
             //배출 위치는 로드하는 위치로 지정?
             //제품 로드하면서 첫 배출 위치를 설정하는 함수
 
-            Globalo.motionManager.transferMachine.pickedProduct.UnloadTrayPos.X = currentPosx;      //TODO: 배출 위치는 어떻게 관리? Y축 라인으로 해야할듯
-            Globalo.motionManager.transferMachine.pickedProduct.UnloadTrayPos.Y = currentPosy;
+            this.pickedProduct.UnloadTrayPos.X = currentPosx;      //TODO: 배출 위치는 어떻게 관리? Y축 라인으로 해야할듯
+            this.pickedProduct.UnloadTrayPos.Y = currentPosy;
             //
             //
             //
-            Globalo.motionManager.transferMachine.pickedProduct.LoadTrayPos.X += LoadCnt;
+            this.pickedProduct.LoadTrayPos.X += LoadCnt;
 
-            if (Globalo.motionManager.transferMachine.pickedProduct.LoadTrayPos.X >= MaxXCount)
+            if (this.pickedProduct.LoadTrayPos.X >= MaxXCount)
             {
-                Globalo.motionManager.transferMachine.pickedProduct.LoadTrayPos.X = 0;
-                Globalo.motionManager.transferMachine.pickedProduct.LoadTrayPos.Y++;
+                this.pickedProduct.LoadTrayPos.X = 0;
+                this.pickedProduct.LoadTrayPos.Y++;
             }
 
-            if (Globalo.motionManager.transferMachine.pickedProduct.LoadTrayPos.Y >= MaxYCount)
+            if (this.pickedProduct.LoadTrayPos.Y >= MaxYCount)
             {
-                Globalo.motionManager.transferMachine.pickedProduct.LoadTrayPos.Y = 0;
+                this.pickedProduct.LoadTrayPos.Y = 0;
             }
-            int nextPosx = Globalo.motionManager.transferMachine.pickedProduct.LoadTrayPos.X;
-            int nextPosy = Globalo.motionManager.transferMachine.pickedProduct.LoadTrayPos.Y;
+            int nextPosx = this.pickedProduct.LoadTrayPos.X;
+            int nextPosy = this.pickedProduct.LoadTrayPos.Y;
 
 
             Console.WriteLine("----------------------------------------------------");
@@ -208,40 +210,46 @@ namespace ZenHandler.Machine
         }
         public void UnloadTryAdd(int UnloadCnt)
         {
-            int currentPosx = Globalo.motionManager.transferMachine.pickedProduct.UnloadTrayPos.X;
-            int currentPosy = Globalo.motionManager.transferMachine.pickedProduct.UnloadTrayPos.Y;
+            int currentPosx = this.pickedProduct.UnloadTrayPos.X;
+            int currentPosy = this.pickedProduct.UnloadTrayPos.Y;
 
             //여기는 배출하는 과정에 배출 개수에 따라 배출 위치 재설정하는 함수
-            Globalo.motionManager.transferMachine.pickedProduct.UnloadTrayPos.X += UnloadCnt;
+            this.pickedProduct.UnloadTrayPos.X += UnloadCnt;
 
-            if (Globalo.motionManager.transferMachine.pickedProduct.UnloadTrayPos.X >= Globalo.motionManager.transferMachine.productLayout.TotalTrayPos.X)
+            if (this.pickedProduct.UnloadTrayPos.X >= this.productLayout.TotalTrayPos.X)
             {
-                Globalo.motionManager.transferMachine.pickedProduct.UnloadTrayPos.X = 0;
-                Globalo.motionManager.transferMachine.pickedProduct.UnloadTrayPos.Y++;
+                this.pickedProduct.UnloadTrayPos.X = 0;
+                this.pickedProduct.UnloadTrayPos.Y++;
             }
-
-            if (Globalo.motionManager.transferMachine.pickedProduct.UnloadTrayPos.Y >= Globalo.motionManager.transferMachine.productLayout.TotalTrayPos.Y)
+            if (this.pickedProduct.UnloadTrayPos.Y == 1)
             {
-                Globalo.motionManager.transferMachine.pickedProduct.UnloadTrayPos.Y = 0;
+                if(TrayPosition == MotionControl.MotorSet.TrayPos.Left)
+                {
+                    OnTrayChangedCall?.Invoke(TrayPosition);    //Gantry -----> Pusher로 이동 요청
+                    TrayPosition = MotionControl.MotorSet.TrayPos.Right;
+                }
+                
+            }
+            if (this.pickedProduct.UnloadTrayPos.Y >= this.productLayout.TotalTrayPos.Y)
+            {
+                this.pickedProduct.UnloadTrayPos.Y = 0;
 
                 Console.WriteLine($"Tray Change req");
-                //TODO: TrayPosition 을 LEFT , RIGHT 변경해줘야된다.
                 //Tray 교체 요청
-                OnTrayChangedCall?.Invoke(TrayPosition); // 어떤 트레이 비었는지 전달
+                if (TrayPosition == MotionControl.MotorSet.TrayPos.Right)
+                {
+                    OnTrayChangedCall?.Invoke(TrayPosition); // 어떤 트레이 비었는지 전달
+                    TrayPosition = MotionControl.MotorSet.TrayPos.Left;        //우측 배출 요청하고 Gantry 위에서 제품 로드 LEFT 변경
+                }
+                    
             }
-            int nextPosx = Globalo.motionManager.transferMachine.pickedProduct.UnloadTrayPos.X;
-            int nextPosy = Globalo.motionManager.transferMachine.pickedProduct.UnloadTrayPos.Y;
+            int nextPosx = this.pickedProduct.UnloadTrayPos.X;
+            int nextPosy = this.pickedProduct.UnloadTrayPos.Y;
 
 
             Console.WriteLine("----------------------------------------------------");
             Console.WriteLine($"배출 X : {currentPosx} > {nextPosx}");
             Console.WriteLine($"배출 Y : {currentPosy} > {nextPosy}");
-        }
-        public void CheckTrayState()
-        {
-            //State = TransferUnitState.TrayEmpty;
-
-            OnTrayChangedCall?.Invoke(TrayPosition); // 어떤 트레이 비었는지 전달
         }
         public bool SetPicker(UnitPicker Picker, PickedProductState State , int index)
         {
@@ -771,10 +779,12 @@ namespace ZenHandler.Machine
             
             for (i = 0; i < pickerList.Length; i++)
             {
-                bool chk = false;
-                int index = pickerList[i];
-
-                switch (index)
+                int nUse = pickerList[i];
+                if(nUse == 0)
+                {
+                    continue;
+                }
+                switch (i)
                 {
                     case 0:
                         if (bFlag)
@@ -863,74 +873,62 @@ namespace ZenHandler.Machine
 
             for (i = 0; i < pickerList.Length; i++)
             {
-                bool chk = false;
-                if (pickerList[i] == 1)
+                int nUse = pickerList[i];
+                if (nUse == 0)
                 {
-                    chk = true;
+                    continue;
                 }
                 switch (i)
                 {
                     case 0:
-                        if (chk)
+                        if (bFlag)
                         {
-                            if (bFlag)
-                            {
-                                uFlagHigh |= (uint)(MotionControl.DioDefine.DIO_OUT_ADDR_CH1.UNLOAD_PICKER_UP1);
-                                uFlagLow |= (uint)(MotionControl.DioDefine.DIO_OUT_ADDR_CH1.UNLOAD_PICKER_DOWN1);
-                            }
-                            else
-                            {
-                                uFlagLow |= (uint)(MotionControl.DioDefine.DIO_OUT_ADDR_CH1.UNLOAD_PICKER_UP1);
-                                uFlagHigh |= (uint)(MotionControl.DioDefine.DIO_OUT_ADDR_CH1.UNLOAD_PICKER_DOWN1);
-                            }
+                            uFlagHigh |= (uint)(MotionControl.DioDefine.DIO_OUT_ADDR_CH1.UNLOAD_PICKER_UP1);
+                            uFlagLow |= (uint)(MotionControl.DioDefine.DIO_OUT_ADDR_CH1.UNLOAD_PICKER_DOWN1);
+                        }
+                        else
+                        {
+                            uFlagLow |= (uint)(MotionControl.DioDefine.DIO_OUT_ADDR_CH1.UNLOAD_PICKER_UP1);
+                            uFlagHigh |= (uint)(MotionControl.DioDefine.DIO_OUT_ADDR_CH1.UNLOAD_PICKER_DOWN1);
                         }
 
 
                         break;
                     case 1:
-                        if (chk)
+                        if (bFlag)
                         {
-                            if (bFlag)
-                            {
-                                uFlagHigh |= (uint)(MotionControl.DioDefine.DIO_OUT_ADDR_CH1.UNLOAD_PICKER_UP2);
-                                uFlagLow |= (uint)(MotionControl.DioDefine.DIO_OUT_ADDR_CH1.UNLOAD_PICKER_DOWN2);
-                            }
-                            else
-                            {
-                                uFlagLow |= (uint)(MotionControl.DioDefine.DIO_OUT_ADDR_CH1.UNLOAD_PICKER_UP2);
-                                uFlagHigh |= (uint)(MotionControl.DioDefine.DIO_OUT_ADDR_CH1.UNLOAD_PICKER_DOWN2);
-                            }
+                            uFlagHigh |= (uint)(MotionControl.DioDefine.DIO_OUT_ADDR_CH1.UNLOAD_PICKER_UP2);
+                            uFlagLow |= (uint)(MotionControl.DioDefine.DIO_OUT_ADDR_CH1.UNLOAD_PICKER_DOWN2);
+                        }
+                        else
+                        {
+                            uFlagLow |= (uint)(MotionControl.DioDefine.DIO_OUT_ADDR_CH1.UNLOAD_PICKER_UP2);
+                            uFlagHigh |= (uint)(MotionControl.DioDefine.DIO_OUT_ADDR_CH1.UNLOAD_PICKER_DOWN2);
                         }
 
                         break;
                     case 2:
-                        if (chk)
+                        if (bFlag)
                         {
-                            if (bFlag)
-                            {
-                                uFlagHigh |= (uint)(MotionControl.DioDefine.DIO_OUT_ADDR_CH1.UNLOAD_PICKER_UP3);
-                                uFlagLow |= (uint)(MotionControl.DioDefine.DIO_OUT_ADDR_CH1.UNLOAD_PICKER_DOWN3);
-                            }
-                            else
-                            {
-                                uFlagLow |= (uint)(MotionControl.DioDefine.DIO_OUT_ADDR_CH1.UNLOAD_PICKER_UP3);
-                                uFlagHigh |= (uint)(MotionControl.DioDefine.DIO_OUT_ADDR_CH1.UNLOAD_PICKER_DOWN3);
-                            }
+                            uFlagHigh |= (uint)(MotionControl.DioDefine.DIO_OUT_ADDR_CH1.UNLOAD_PICKER_UP3);
+                            uFlagLow |= (uint)(MotionControl.DioDefine.DIO_OUT_ADDR_CH1.UNLOAD_PICKER_DOWN3);
+                        }
+                        else
+                        {
+                            uFlagLow |= (uint)(MotionControl.DioDefine.DIO_OUT_ADDR_CH1.UNLOAD_PICKER_UP3);
+                            uFlagHigh |= (uint)(MotionControl.DioDefine.DIO_OUT_ADDR_CH1.UNLOAD_PICKER_DOWN3);
                         }
                         break;
                     case 3:
-                        if (chk)
+                        if (bFlag)
                         {
-                            if (bFlag)
-                            {
-                                uFlagHigh |= (uint)(MotionControl.DioDefine.DIO_OUT_ADDR_CH1.UNLOAD_PICKER_UP4);
-                                uFlagLow |= (uint)(MotionControl.DioDefine.DIO_OUT_ADDR_CH1.UNLOAD_PICKER_DOWN4);
-                            }
-                            else
-                            {
-                                uFlagLow |= (uint)(MotionControl.DioDefine.DIO_OUT_ADDR_CH1.UNLOAD_PICKER_UP4);
-                                uFlagHigh |= (uint)(MotionControl.DioDefine.DIO_OUT_ADDR_CH1.UNLOAD_PICKER_DOWN4);
-                            }
+                            uFlagHigh |= (uint)(MotionControl.DioDefine.DIO_OUT_ADDR_CH1.UNLOAD_PICKER_UP4);
+                            uFlagLow |= (uint)(MotionControl.DioDefine.DIO_OUT_ADDR_CH1.UNLOAD_PICKER_DOWN4);
+                        }
+                        else
+                        {
+                            uFlagLow |= (uint)(MotionControl.DioDefine.DIO_OUT_ADDR_CH1.UNLOAD_PICKER_UP4);
+                            uFlagHigh |= (uint)(MotionControl.DioDefine.DIO_OUT_ADDR_CH1.UNLOAD_PICKER_DOWN4);
                         }
                         break;
                     default:
@@ -1278,8 +1276,8 @@ namespace ZenHandler.Machine
             double currentYPos = 0.0;
 
 
-            dXPos = Globalo.motionManager.transferMachine.teachingConfig.Teaching[(int)teachingPos].Pos[(int)eTransfer.TRANSFER_X];
-            dYPos = Globalo.motionManager.transferMachine.teachingConfig.Teaching[(int)teachingPos].Pos[(int)eTransfer.TRANSFER_Y];
+            dXPos = this.teachingConfig.Teaching[(int)teachingPos].Pos[(int)eTransfer.TRANSFER_X];
+            dYPos = this.teachingConfig.Teaching[(int)teachingPos].Pos[(int)eTransfer.TRANSFER_Y];
 
 
             currentXPos = MotorAxes[(int)eTransfer.TRANSFER_X].EncoderPos;
@@ -1302,7 +1300,7 @@ namespace ZenHandler.Machine
             double currentZPos = 0.0;
 
 
-            dZTeachingPos = Globalo.motionManager.transferMachine.teachingConfig.Teaching[(int)teachingPos].Pos[(int)eTransfer.TRANSFER_Z];
+            dZTeachingPos = this.teachingConfig.Teaching[(int)teachingPos].Pos[(int)eTransfer.TRANSFER_Z];
             currentZPos = MotorAxes[(int)eTransfer.TRANSFER_Z].EncoderPos;
 
             if (dZTeachingPos == currentZPos)
@@ -1324,7 +1322,7 @@ namespace ZenHandler.Machine
                 Globalo.LogPrint("ManualControl", $"모터 작업이 이미 실행 중입니다. 기다려 주세요.");
                 return false;
             }
-            double dPos = Globalo.motionManager.transferMachine.teachingConfig.Teaching[(int)ePos].Pos[(int)eTransfer.TRANSFER_X];
+            double dPos = this.teachingConfig.Teaching[(int)ePos].Pos[(int)eTransfer.TRANSFER_X];
 
             bool isSuccess = true;
             try
@@ -1353,7 +1351,7 @@ namespace ZenHandler.Machine
             }
             bool isSuccess = true;
             string logStr = "";
-            double dPos = Globalo.motionManager.transferMachine.teachingConfig.Teaching[(int)ePos].Pos[(int)eTransfer.TRANSFER_Z];     //z Axis
+            double dPos = this.teachingConfig.Teaching[(int)ePos].Pos[(int)eTransfer.TRANSFER_Z];     //z Axis
             try
             {
                 isSuccess = MotorAxes[(int)eTransfer.TRANSFER_Z].MoveAxis(dPos, AXT_MOTION_ABSREL.POS_ABS_MODE, bWait);
@@ -1402,8 +1400,8 @@ namespace ZenHandler.Machine
                 return false;
             }
 
-            dMultiPos[0] = Globalo.motionManager.transferMachine.teachingConfig.Teaching[(int)ePos].Pos[(int)eTransfer.TRANSFER_X];     //x Axis
-            dMultiPos[1] = Globalo.motionManager.transferMachine.teachingConfig.Teaching[(int)ePos].Pos[(int)eTransfer.TRANSFER_Y];      //y Axis
+            dMultiPos[0] = this.teachingConfig.Teaching[(int)ePos].Pos[(int)eTransfer.TRANSFER_X];     //x Axis
+            dMultiPos[1] = this.teachingConfig.Teaching[(int)ePos].Pos[(int)eTransfer.TRANSFER_Y];      //y Axis
 
             //리비안 물류
             //if (g_clMotorSet.MoveTransferMotorX(TRANS_ALIGN_POS, TaskWork.m_stTrayWorkPos.nTrayX[PCB_TRAY]) == false)
@@ -1427,23 +1425,23 @@ namespace ZenHandler.Machine
             {
                 //바코드 스캔 위치
                 //
-                dOffsetPos[0] = (Globalo.motionManager.transferMachine.productLayout.TrayGap.GapX * TrayX); //( X 간격 * 가로 위치)  10.0 곱하기 (0, 1, 2, 3)
-                dOffsetPos[1] = (Globalo.motionManager.transferMachine.productLayout.TrayGap.GapY * TrayY);//( Y 간격 * 세로 위치)  10.0 곱하기 (0 ~ 전체 Tray Y 개수)
+                dOffsetPos[0] = (this.productLayout.TrayGap.GapX * TrayX); //( X 간격 * 가로 위치)  10.0 곱하기 (0, 1, 2, 3)
+                dOffsetPos[1] = (this.productLayout.TrayGap.GapY * TrayY);//( Y 간격 * 세로 위치)  10.0 곱하기 (0 ~ 전체 Tray Y 개수)
             }
             else if (ePos == eTeachingPosList.LEFT_TRAY_LOAD_POS || ePos == eTeachingPosList.RIGHT_TRAY_LOAD_POS)
             {
                 //TRAY 위 제품 로드 위치 - 1번 피커부터 바깥부터, Tray 간격 1칸 + 피커 1칸 간격 씩 이동
                 //
-                dOffsetPos[0] = (Globalo.motionManager.transferMachine.productLayout.TrayGap.GapX * TrayX) + Globalo.motionManager.transferMachine.productLayout.LoadTrayOffset[PickerNo].OffsetX;
-                dOffsetPos[1] = (Globalo.motionManager.transferMachine.productLayout.TrayGap.GapY * TrayY) + Globalo.motionManager.transferMachine.productLayout.LoadTrayOffset[PickerNo].OffsetY;
+                dOffsetPos[0] = (this.productLayout.TrayGap.GapX * TrayX) + this.productLayout.LoadTrayOffset[PickerNo].OffsetX;
+                dOffsetPos[1] = (this.productLayout.TrayGap.GapY * TrayY) + this.productLayout.LoadTrayOffset[PickerNo].OffsetY;
             }
             else if (ePos == eTeachingPosList.LEFT_TRAY_UNLOAD_POS || ePos == eTeachingPosList.RIGHT_TRAY_UNLOAD_POS)
             {
                 //MEMO: FW 모델은 TRAY 에 배출할때 무조건 하나씩 배출해야된다.
                 //TRAY 위 제품 배출 위치 - 티칭위치가 각자 바로 피커 하강해도 되는 위치라서 Tray 간격은 필요 없을듯 
                 //
-                dOffsetPos[0] = Globalo.motionManager.transferMachine.productLayout.UnLoadTrayOffset[PickerNo].OffsetX;
-                dOffsetPos[1] = Globalo.motionManager.transferMachine.productLayout.UnLoadTrayOffset[PickerNo].OffsetY;
+                dOffsetPos[0] = this.productLayout.UnLoadTrayOffset[PickerNo].OffsetX;
+                dOffsetPos[1] = this.productLayout.UnLoadTrayOffset[PickerNo].OffsetY;
                 //dOffsetPos[0] = (Globalo.motionManager.transferMachine.productLayout.TrayGap.GapX * TrayX) + Globalo.motionManager.transferMachine.productLayout.UnLoadTrayOffset[PickerNo].OffsetX;
                 //dOffsetPos[1] = (Globalo.motionManager.transferMachine.productLayout.TrayGap.GapY * TrayY) + Globalo.motionManager.transferMachine.productLayout.UnLoadTrayOffset[PickerNo].OffsetY;
             }
@@ -1453,22 +1451,22 @@ namespace ZenHandler.Machine
                 //Socket에 제품 투입 / 배출 위치
                 //Socket쪽에는 피커 전체 동시 동작 Fx = 4 , EE = 4 , Aoi = 2
                 //
-                dOffsetPos[0] = (Globalo.motionManager.transferMachine.productLayout.SocketGap.GapX * TrayX) + Globalo.motionManager.transferMachine.productLayout.LoadTrayOffset[PickerNo].OffsetX;
-                dOffsetPos[1] = (Globalo.motionManager.transferMachine.productLayout.SocketGap.GapY * TrayY) + Globalo.motionManager.transferMachine.productLayout.LoadTrayOffset[PickerNo].OffsetY;
+                dOffsetPos[0] = (this.productLayout.SocketGap.GapX * TrayX) + this.productLayout.LoadTrayOffset[PickerNo].OffsetX;
+                dOffsetPos[1] = (this.productLayout.SocketGap.GapY * TrayY) + this.productLayout.LoadTrayOffset[PickerNo].OffsetY;
             }
             else if (ePos == eTeachingPosList.SOCKET_A_UNLOAD || ePos == eTeachingPosList.SOCKET_B_UNLOAD ||
                 ePos == eTeachingPosList.SOCKET_C_UNLOAD || ePos == eTeachingPosList.SOCKET_D_UNLOAD)
             {
                 //Socket에 제품 투입 / 배출 위치
                 //
-                dOffsetPos[0] = (Globalo.motionManager.transferMachine.productLayout.SocketGap.GapX * TrayX) + Globalo.motionManager.transferMachine.productLayout.UnLoadTrayOffset[PickerNo].OffsetX;
-                dOffsetPos[1] = (Globalo.motionManager.transferMachine.productLayout.SocketGap.GapY * TrayY) + Globalo.motionManager.transferMachine.productLayout.UnLoadTrayOffset[PickerNo].OffsetY;
+                dOffsetPos[0] = (this.productLayout.SocketGap.GapX * TrayX) + this.productLayout.UnLoadTrayOffset[PickerNo].OffsetX;
+                dOffsetPos[1] = (this.productLayout.SocketGap.GapY * TrayY) + this.productLayout.UnLoadTrayOffset[PickerNo].OffsetY;
             }
             else if (ePos == eTeachingPosList.NG_A_UNLOAD || ePos == eTeachingPosList.NG_B_UNLOAD)
             {
                 //MEMO: Ng는 전모델 픽업 하나씩 내려놔야된다.
-                dOffsetPos[0] = (Globalo.motionManager.transferMachine.productLayout.NgGap.GapX * TrayX) + Globalo.motionManager.transferMachine.productLayout.NgOffset[PickerNo].OffsetX;
-                dOffsetPos[1] = (Globalo.motionManager.transferMachine.productLayout.NgGap.GapY * TrayY) + Globalo.motionManager.transferMachine.productLayout.NgOffset[PickerNo].OffsetY;
+                dOffsetPos[0] = (this.productLayout.NgGap.GapX * TrayX) + this.productLayout.NgOffset[PickerNo].OffsetX;
+                dOffsetPos[1] = (this.productLayout.NgGap.GapY * TrayY) + this.productLayout.NgOffset[PickerNo].OffsetY;
             }
             else
             {

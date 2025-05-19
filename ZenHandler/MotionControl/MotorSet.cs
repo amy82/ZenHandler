@@ -15,7 +15,9 @@ namespace ZenHandler.MotionControl
         //
         public static int MOTOR_MOVE_TIMEOUT = 20000;   //20s
         public static int LIFT_MOVE_TIMEOUT = 10000;   //10s
+        public static int LIFT_TRAY_CHANGE_TIMEOUT = 10000;   //10s
         public static int MOTOR_MANUAL_MOVE_TIMEOUT = 10000;   //10s
+        public static int BCR_SCAN_TIMEOUT = 5000;   //5s
         public static int IO_TIMEOUT = 3000;   //3s
         public static double ENCORDER_GAP = 0.03;
         public static bool MOTOR_ACC_TYPE_SEC = true;
@@ -83,7 +85,7 @@ namespace ZenHandler.MotionControl
         //EEPROM == LIFT Z 2개, GANTRY X 2개, SOCKET X축 2개 = TOTAL : 6개
         //aoi    == LIFT Z 2개, GANTRY X 2개 ,CAM X축 2개, CAM Z축 2개 = TOTAL : 8개
         //fw     == 매거진 Z 2개, Y축 2개 = TOTAL : 4개
-        public enum TrayPosition        //LIFT , MAGAZINE 왼쪽, 오른족 구분
+        public enum TrayPos        //LIFT , MAGAZINE 왼쪽, 오른족 구분
         {
             Left,
             Right,

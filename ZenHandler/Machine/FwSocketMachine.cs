@@ -124,6 +124,268 @@ namespace ZenHandler.Machine
             //index = -1 이면 전체 동작?
             return isSuccess;
         }
+
+        public bool MultiContactUp(int SetNo, int[] socketList, bool bFlag, bool bWait = false)
+        {
+            //SetNo = Socket Set A(0), B(1), C(2), D(3)
+            bool isSuccess = false;
+            int lModuleNo = 5;
+            int lOffset = 0;
+            uint uFlagHigh = 0;
+            uint uFlagLow = 0;
+            int i = 0;
+            if (SetNo == 0 || SetNo == 1)
+            {
+                lModuleNo = 5;
+            }
+            else
+            {
+                lModuleNo = 7;
+            }
+            for (i = 0; i < socketList.Length; i++)
+            {
+                int nUse = socketList[i];
+                if (nUse == 0)
+                {
+                    continue;
+                }
+
+                switch (i)
+                {
+                    case 0:
+                        if(SetNo== 0)
+                        {
+                            if (bFlag)
+                            {
+                                uFlagHigh |= (uint)(MotionControl.FwDioDefine.DIO_OUT_ADDR_CH2.OUT5_A_SOCKET_CONTACT_UP1);
+                                uFlagLow |= (uint)(MotionControl.FwDioDefine.DIO_OUT_ADDR_CH2.OUT5_A_SOCKET_CONTACT_DOWN1);
+                            }
+                            else
+                            {
+                                uFlagLow |= (uint)(MotionControl.FwDioDefine.DIO_OUT_ADDR_CH2.OUT5_A_SOCKET_CONTACT_UP1);
+                                uFlagHigh |= (uint)(MotionControl.FwDioDefine.DIO_OUT_ADDR_CH2.OUT5_A_SOCKET_CONTACT_DOWN1);
+                            }
+                        }
+                        else if (SetNo == 1)
+                        {
+                            if (bFlag)
+                            {
+                                uFlagHigh |= (uint)(MotionControl.FwDioDefine.DIO_OUT_ADDR_CH2.OUT5_B_SOCKET_CONTACT_UP1);
+                                uFlagLow |= (uint)(MotionControl.FwDioDefine.DIO_OUT_ADDR_CH2.OUT5_B_SOCKET_CONTACT_DOWN1);
+                            }
+                            else
+                            {
+                                uFlagLow |= (uint)(MotionControl.FwDioDefine.DIO_OUT_ADDR_CH2.OUT5_B_SOCKET_CONTACT_UP1);
+                                uFlagHigh |= (uint)(MotionControl.FwDioDefine.DIO_OUT_ADDR_CH2.OUT5_B_SOCKET_CONTACT_DOWN1);
+                            }
+                        }
+                        else if (SetNo == 2)
+                        {
+                            if (bFlag)
+                            {
+                                uFlagHigh |= (uint)(MotionControl.FwDioDefine.DIO_OUT_ADDR_CH3.OUT7_C_SOCKET_CONTACT_UP1);
+                                uFlagLow |= (uint)(MotionControl.FwDioDefine.DIO_OUT_ADDR_CH3.OUT7_C_SOCKET_CONTACT_DOWN1);
+                            }
+                            else
+                            {
+                                uFlagLow |= (uint)(MotionControl.FwDioDefine.DIO_OUT_ADDR_CH3.OUT7_C_SOCKET_CONTACT_UP1);
+                                uFlagHigh |= (uint)(MotionControl.FwDioDefine.DIO_OUT_ADDR_CH3.OUT7_C_SOCKET_CONTACT_DOWN1);
+                            }
+                        }
+                        else if (SetNo == 3)
+                        {
+                            if (bFlag)
+                            {
+                                uFlagHigh |= (uint)(MotionControl.FwDioDefine.DIO_OUT_ADDR_CH3.OUT7_D_SOCKET_CONTACT_UP1);
+                                uFlagLow |= (uint)(MotionControl.FwDioDefine.DIO_OUT_ADDR_CH3.OUT7_D_SOCKET_CONTACT_DOWN1);
+                            }
+                            else
+                            {
+                                uFlagLow |= (uint)(MotionControl.FwDioDefine.DIO_OUT_ADDR_CH3.OUT7_D_SOCKET_CONTACT_UP1);
+                                uFlagHigh |= (uint)(MotionControl.FwDioDefine.DIO_OUT_ADDR_CH3.OUT7_D_SOCKET_CONTACT_DOWN1);
+                            }
+                        }
+
+
+                        break;
+                    case 1:
+                        if (SetNo == 0)
+                        {
+                            if (bFlag)
+                            {
+                                uFlagHigh |= (uint)(MotionControl.FwDioDefine.DIO_OUT_ADDR_CH2.OUT5_A_SOCKET_CONTACT_UP2);
+                                uFlagLow |= (uint)(MotionControl.FwDioDefine.DIO_OUT_ADDR_CH2.OUT5_A_SOCKET_CONTACT_DOWN2);
+                            }
+                            else
+                            {
+                                uFlagLow |= (uint)(MotionControl.FwDioDefine.DIO_OUT_ADDR_CH2.OUT5_A_SOCKET_CONTACT_UP2);
+                                uFlagHigh |= (uint)(MotionControl.FwDioDefine.DIO_OUT_ADDR_CH2.OUT5_A_SOCKET_CONTACT_DOWN2);
+                            }
+                        }
+                        else if (SetNo == 1)
+                        {
+                            if (bFlag)
+                            {
+                                uFlagHigh |= (uint)(MotionControl.FwDioDefine.DIO_OUT_ADDR_CH2.OUT5_B_SOCKET_CONTACT_UP2);
+                                uFlagLow |= (uint)(MotionControl.FwDioDefine.DIO_OUT_ADDR_CH2.OUT5_B_SOCKET_CONTACT_DOWN2);
+                            }
+                            else
+                            {
+                                uFlagLow |= (uint)(MotionControl.FwDioDefine.DIO_OUT_ADDR_CH2.OUT5_B_SOCKET_CONTACT_UP2);
+                                uFlagHigh |= (uint)(MotionControl.FwDioDefine.DIO_OUT_ADDR_CH2.OUT5_B_SOCKET_CONTACT_DOWN2);
+                            }
+                        }
+                        else if (SetNo == 2)
+                        {
+                            if (bFlag)
+                            {
+                                uFlagHigh |= (uint)(MotionControl.FwDioDefine.DIO_OUT_ADDR_CH3.OUT7_C_SOCKET_CONTACT_UP2);
+                                uFlagLow |= (uint)(MotionControl.FwDioDefine.DIO_OUT_ADDR_CH3.OUT7_C_SOCKET_CONTACT_DOWN2);
+                            }
+                            else
+                            {
+                                uFlagLow |= (uint)(MotionControl.FwDioDefine.DIO_OUT_ADDR_CH3.OUT7_C_SOCKET_CONTACT_UP2);
+                                uFlagHigh |= (uint)(MotionControl.FwDioDefine.DIO_OUT_ADDR_CH3.OUT7_C_SOCKET_CONTACT_DOWN2);
+                            }
+                        }
+                        else if (SetNo == 3)
+                        {
+                            if (bFlag)
+                            {
+                                uFlagHigh |= (uint)(MotionControl.FwDioDefine.DIO_OUT_ADDR_CH3.OUT7_C_SOCKET_CONTACT_UP2);
+                                uFlagLow |= (uint)(MotionControl.FwDioDefine.DIO_OUT_ADDR_CH3.OUT7_C_SOCKET_CONTACT_DOWN2);
+                            }
+                            else
+                            {
+                                uFlagLow |= (uint)(MotionControl.FwDioDefine.DIO_OUT_ADDR_CH3.OUT7_C_SOCKET_CONTACT_UP2);
+                                uFlagHigh |= (uint)(MotionControl.FwDioDefine.DIO_OUT_ADDR_CH3.OUT7_C_SOCKET_CONTACT_DOWN2);
+                            }
+                        }
+
+                        break;
+                    case 2:
+                        if (SetNo == 0)
+                        {
+                            if (bFlag)
+                            {
+                                uFlagHigh |= (uint)(MotionControl.FwDioDefine.DIO_OUT_ADDR_CH2.OUT5_A_SOCKET_CONTACT_UP3);
+                                uFlagLow |= (uint)(MotionControl.FwDioDefine.DIO_OUT_ADDR_CH2.OUT5_A_SOCKET_CONTACT_DOWN3);
+                            }
+                            else
+                            {
+                                uFlagLow |= (uint)(MotionControl.FwDioDefine.DIO_OUT_ADDR_CH2.OUT5_A_SOCKET_CONTACT_UP3);
+                                uFlagHigh |= (uint)(MotionControl.FwDioDefine.DIO_OUT_ADDR_CH2.OUT5_A_SOCKET_CONTACT_DOWN3);
+                            }
+                        }
+                        else if (SetNo == 1)
+                        {
+                            if (bFlag)
+                            {
+                                uFlagHigh |= (uint)(MotionControl.FwDioDefine.DIO_OUT_ADDR_CH2.OUT5_A_SOCKET_CONTACT_UP3);
+                                uFlagLow |= (uint)(MotionControl.FwDioDefine.DIO_OUT_ADDR_CH2.OUT5_A_SOCKET_CONTACT_DOWN3);
+                            }
+                            else
+                            {
+                                uFlagLow |= (uint)(MotionControl.FwDioDefine.DIO_OUT_ADDR_CH2.OUT5_A_SOCKET_CONTACT_UP3);
+                                uFlagHigh |= (uint)(MotionControl.FwDioDefine.DIO_OUT_ADDR_CH2.OUT5_A_SOCKET_CONTACT_DOWN3);
+                            }
+                        }
+                        else if (SetNo == 2)
+                        {
+                            if (bFlag)
+                            {
+                                uFlagHigh |= (uint)(MotionControl.FwDioDefine.DIO_OUT_ADDR_CH3.OUT7_C_SOCKET_CONTACT_UP3);
+                                uFlagLow |= (uint)(MotionControl.FwDioDefine.DIO_OUT_ADDR_CH3.OUT7_C_SOCKET_CONTACT_DOWN3);
+                            }
+                            else
+                            {
+                                uFlagLow |= (uint)(MotionControl.FwDioDefine.DIO_OUT_ADDR_CH3.OUT7_C_SOCKET_CONTACT_UP3);
+                                uFlagHigh |= (uint)(MotionControl.FwDioDefine.DIO_OUT_ADDR_CH3.OUT7_C_SOCKET_CONTACT_DOWN3);
+                            }
+                        }
+                        else if (SetNo == 3)
+                        {
+                            if (bFlag)
+                            {
+                                uFlagHigh |= (uint)(MotionControl.FwDioDefine.DIO_OUT_ADDR_CH3.OUT7_D_SOCKET_CONTACT_UP3);
+                                uFlagLow |= (uint)(MotionControl.FwDioDefine.DIO_OUT_ADDR_CH3.OUT7_D_SOCKET_CONTACT_DOWN3);
+                            }
+                            else
+                            {
+                                uFlagLow |= (uint)(MotionControl.FwDioDefine.DIO_OUT_ADDR_CH3.OUT7_D_SOCKET_CONTACT_UP3);
+                                uFlagHigh |= (uint)(MotionControl.FwDioDefine.DIO_OUT_ADDR_CH3.OUT7_D_SOCKET_CONTACT_DOWN3);
+                            }
+                        }
+
+                        break;
+                    case 3:
+                        if (SetNo == 0)
+                        {
+                            if (bFlag)
+                            {
+                                uFlagHigh |= (uint)(MotionControl.FwDioDefine.DIO_OUT_ADDR_CH2.OUT5_A_SOCKET_CONTACT_UP4);
+                                uFlagLow |= (uint)(MotionControl.FwDioDefine.DIO_OUT_ADDR_CH2.OUT5_A_SOCKET_CONTACT_DOWN4);
+                            }
+                            else
+                            {
+                                uFlagLow |= (uint)(MotionControl.FwDioDefine.DIO_OUT_ADDR_CH2.OUT5_A_SOCKET_CONTACT_UP4);
+                                uFlagHigh |= (uint)(MotionControl.FwDioDefine.DIO_OUT_ADDR_CH2.OUT5_A_SOCKET_CONTACT_DOWN4);
+                            }
+                        }
+                        else if (SetNo == 1)
+                        {
+                            if (bFlag)
+                            {
+                                uFlagHigh |= (uint)(MotionControl.FwDioDefine.DIO_OUT_ADDR_CH2.OUT5_A_SOCKET_CONTACT_UP4);
+                                uFlagLow |= (uint)(MotionControl.FwDioDefine.DIO_OUT_ADDR_CH2.OUT5_A_SOCKET_CONTACT_DOWN4);
+                            }
+                            else
+                            {
+                                uFlagLow |= (uint)(MotionControl.FwDioDefine.DIO_OUT_ADDR_CH2.OUT5_A_SOCKET_CONTACT_UP4);
+                                uFlagHigh |= (uint)(MotionControl.FwDioDefine.DIO_OUT_ADDR_CH2.OUT5_A_SOCKET_CONTACT_DOWN4);
+                            }
+                        }
+                        else if (SetNo == 2)
+                        {
+                            if (bFlag)
+                            {
+                                uFlagHigh |= (uint)(MotionControl.FwDioDefine.DIO_OUT_ADDR_CH3.OUT7_C_SOCKET_CONTACT_UP4);
+                                uFlagLow |= (uint)(MotionControl.FwDioDefine.DIO_OUT_ADDR_CH3.OUT7_C_SOCKET_CONTACT_DOWN4);
+                            }
+                            else
+                            {
+                                uFlagLow |= (uint)(MotionControl.FwDioDefine.DIO_OUT_ADDR_CH3.OUT7_C_SOCKET_CONTACT_UP4);
+                                uFlagHigh |= (uint)(MotionControl.FwDioDefine.DIO_OUT_ADDR_CH3.OUT7_C_SOCKET_CONTACT_DOWN4);
+                            }
+                        }
+                        else if (SetNo == 3)
+                        {
+                            if (bFlag)
+                            {
+                                uFlagHigh |= (uint)(MotionControl.FwDioDefine.DIO_OUT_ADDR_CH3.OUT7_D_SOCKET_CONTACT_UP4);
+                                uFlagLow |= (uint)(MotionControl.FwDioDefine.DIO_OUT_ADDR_CH3.OUT7_D_SOCKET_CONTACT_DOWN4);
+                            }
+                            else
+                            {
+                                uFlagLow |= (uint)(MotionControl.FwDioDefine.DIO_OUT_ADDR_CH3.OUT7_D_SOCKET_CONTACT_UP4);
+                                uFlagHigh |= (uint)(MotionControl.FwDioDefine.DIO_OUT_ADDR_CH3.OUT7_D_SOCKET_CONTACT_DOWN4);
+                            }
+                        }
+
+                        break;
+                    default:
+                        break;
+                }
+            }
+            isSuccess = Globalo.motionManager.ioController.DioWriteOutportByte(lModuleNo, lOffset, uFlagHigh, uFlagLow);
+            if (isSuccess == false)
+            {
+                Console.WriteLine($" Multi ContactUp MOVE FAIL");
+                return false;
+            }
+
+            return true;
+        }
         #endregion
         public override void MovingStop()
         {

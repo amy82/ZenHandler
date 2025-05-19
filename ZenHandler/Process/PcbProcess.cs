@@ -59,7 +59,7 @@ namespace ZenHandler.Process
                     {
                         if (Globalo.yamlManager.taskDataYaml.TaskData.PintCount > Globalo.yamlManager.configData.DrivingSettings.PinCountMax)
                         {
-                            Globalo.tcpManager.SendAlarmReport("1010");
+                            //Globalo.tcpManager.SendAlarmReport("1010");
                             szLog = $"[AUTO] PIN COUNT CHECK OVER: {Globalo.yamlManager.taskDataYaml.TaskData.PintCount} / {Globalo.yamlManager.configData.DrivingSettings.PinCountMax} [STEP : {nRetStep}]";
                             Globalo.LogPrint("LotProcess", szLog, Globalo.eMessageName.M_WARNING);
                             nRetStep = -30100;
@@ -159,7 +159,7 @@ namespace ZenHandler.Process
                     sendEqipData.Command = "OBJECT_ID_REPORT";
                     sendEqipData.LotID = Globalo.dataManage.TaskWork.m_szChipID;
 
-                    Globalo.tcpManager.SendMessageToClient(sendEqipData);
+                    //Globalo.tcpManager.SendMessageToClient(sendEqipData);
 
 
                     szLog = $"[AUTO] OBJECT_ID_REPORT SEND [STEP : {nRetStep}]";

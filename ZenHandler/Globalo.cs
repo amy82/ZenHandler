@@ -41,7 +41,7 @@ namespace ZenHandler
 
         //우측 메뉴 Form
         public static Dlg.TabMenuForm tabMenuForm;
-
+        public static Dlg.TerminalMsgForm terminalMsgForm = new Dlg.TerminalMsgForm();       //terminal message 로드 
         //화면 Form
         public static Dlg.TeachingControl mTeachPanel;
         public static Dlg.MainControl mMainPanel;
@@ -63,7 +63,6 @@ namespace ZenHandler
 
         public static TcpSocket.TcpManager tcpManager;      //secs/gem connect
         public static Serial.SerialPortManager serialPortManager = new Serial.SerialPortManager();
-
 
         public const int TabLineY = 56;
         public const int MAX_PATH = 256;

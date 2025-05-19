@@ -57,6 +57,7 @@ namespace ZenHandler.Dlg
             this.label_Config_Ngtray_Max_Count = new System.Windows.Forms.Label();
             this.label_Config_Tray_Max_Layer = new System.Windows.Forms.Label();
             this.label_Config_Tray_Max_Layer_Val = new System.Windows.Forms.Label();
+            this.maskedTextBox_BcrIp = new System.Windows.Forms.MaskedTextBox();
             this.SuspendLayout();
             // 
             // button_Bcr_DisConnect
@@ -65,13 +66,13 @@ namespace ZenHandler.Dlg
             this.button_Bcr_DisConnect.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.button_Bcr_DisConnect.Font = new System.Drawing.Font("나눔고딕 ExtraBold", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(129)));
             this.button_Bcr_DisConnect.ForeColor = System.Drawing.Color.White;
-            this.button_Bcr_DisConnect.Location = new System.Drawing.Point(490, 85);
+            this.button_Bcr_DisConnect.Location = new System.Drawing.Point(593, 117);
             this.button_Bcr_DisConnect.Name = "button_Bcr_DisConnect";
             this.button_Bcr_DisConnect.Size = new System.Drawing.Size(103, 44);
             this.button_Bcr_DisConnect.TabIndex = 77;
             this.button_Bcr_DisConnect.Text = "DISCONNECT";
             this.button_Bcr_DisConnect.UseVisualStyleBackColor = false;
-            this.button_Bcr_DisConnect.Click += new System.EventHandler(this.button_Bcr_Connect_Click);
+            this.button_Bcr_DisConnect.Click += new System.EventHandler(this.button_Bcr_DisConnect_Click);
             // 
             // button_Bcr_Connect
             // 
@@ -79,13 +80,13 @@ namespace ZenHandler.Dlg
             this.button_Bcr_Connect.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.button_Bcr_Connect.Font = new System.Drawing.Font("나눔고딕 ExtraBold", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(129)));
             this.button_Bcr_Connect.ForeColor = System.Drawing.Color.White;
-            this.button_Bcr_Connect.Location = new System.Drawing.Point(593, 85);
+            this.button_Bcr_Connect.Location = new System.Drawing.Point(490, 117);
             this.button_Bcr_Connect.Name = "button_Bcr_Connect";
             this.button_Bcr_Connect.Size = new System.Drawing.Size(103, 44);
             this.button_Bcr_Connect.TabIndex = 76;
             this.button_Bcr_Connect.Text = "CONNECT";
             this.button_Bcr_Connect.UseVisualStyleBackColor = false;
-            this.button_Bcr_Connect.Click += new System.EventHandler(this.button_Bcr_DisConnect_Click);
+            this.button_Bcr_Connect.Click += new System.EventHandler(this.button_Bcr_Connect_Click);
             // 
             // label_Config_Bcr
             // 
@@ -438,10 +439,19 @@ namespace ZenHandler.Dlg
             this.label_Config_Tray_Max_Layer_Val.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             this.label_Config_Tray_Max_Layer_Val.Click += new System.EventHandler(this.label_Config_Left_Tray_Max_Layer_Val_Click);
             // 
+            // maskedTextBox_BcrIp
+            // 
+            this.maskedTextBox_BcrIp.Font = new System.Drawing.Font("나눔고딕", 14.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(129)));
+            this.maskedTextBox_BcrIp.Location = new System.Drawing.Point(490, 82);
+            this.maskedTextBox_BcrIp.Name = "maskedTextBox_BcrIp";
+            this.maskedTextBox_BcrIp.Size = new System.Drawing.Size(206, 29);
+            this.maskedTextBox_BcrIp.TabIndex = 119;
+            // 
             // Config_Option
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 12F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
+            this.Controls.Add(this.maskedTextBox_BcrIp);
             this.Controls.Add(this.label_Config_Tray_Max_Layer_Val);
             this.Controls.Add(this.label_Config_Tray_Max_Layer);
             this.Controls.Add(this.label_Config_Ngtray_Max_Count_Y);
@@ -473,6 +483,7 @@ namespace ZenHandler.Dlg
             this.Name = "Config_Option";
             this.Size = new System.Drawing.Size(770, 900);
             this.ResumeLayout(false);
+            this.PerformLayout();
 
         }
 
@@ -505,5 +516,6 @@ namespace ZenHandler.Dlg
         private System.Windows.Forms.Label label_Config_Ngtray_Max_Count;
         private System.Windows.Forms.Label label_Config_Tray_Max_Layer;
         private System.Windows.Forms.Label label_Config_Tray_Max_Layer_Val;
+        private System.Windows.Forms.MaskedTextBox maskedTextBox_BcrIp;
     }
 }

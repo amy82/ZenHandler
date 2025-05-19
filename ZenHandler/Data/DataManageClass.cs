@@ -67,7 +67,7 @@ namespace ZenHandler.Data
         public const string BASE_LOG_EEPROMDATA_PATH = "D:\\EVMS\\LOG\\EEPROM_DATA";    //DUMP 저장 위치
         public const string BASE_LOG_ALARM_PATH = "D:\\EVMS\\LOG\\ALARM";               //ALARM 저장 위치
 
-
+        public const string yamlFilePathModel = "ClientSecGemData.yaml";
 
         //설정 저장 파일
         public const string yamlTeachingData = "teachingData.yaml";

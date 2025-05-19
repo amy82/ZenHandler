@@ -57,17 +57,12 @@ namespace ZenHandler  //ApsMotionControl
 
             Globalo.yamlManager.AlarmLoad();
             Globalo.yamlManager.secsGemDataYaml.MesLoad();
-            Globalo.yamlManager.secsGemDataYaml.SensorIniLoad();
 
             string className = typeof(Machine.TransferMachine).Name;
-
-            //Globalo.yamlManager.teachData.LoadTeaching(className);
-
 
             Globalo.yamlManager.configDataLoad();
             Globalo.yamlManager.taskDataYaml.TaskDataLoad();
 
-            Globalo.yamlManager.imageDataLoad();
             Globalo.yamlManager.RecipeYamlListLoad();
 
             Globalo.motionManager = new MotionControl.MotionManager();
@@ -79,7 +74,6 @@ namespace ZenHandler  //ApsMotionControl
             // KeyEvent 이벤트 핸들러 추가
             //keyMessageFilter.KeyEvent += KeyMessageFilter_KeyEvent;
             Globalo.mlogControl = new Dlg.LogControl(dRightPanelW, dRightPanelH);
-
 
             //모터 초기화
             //
@@ -99,21 +93,15 @@ namespace ZenHandler  //ApsMotionControl
             Globalo.mTeachPanel = new Dlg.TeachingControl(dRightPanelW, dRightPanelH);
             Globalo.mCCdPanel = new Dlg.CCdControl(dRightPanelW, dRightPanelH);
             Globalo.mConfigPanel = new Dlg.ConfigControl(dRightPanelW, dRightPanelH);
-            
             Globalo.mioPanel = new Dlg.IoControl(dRightPanelW, dRightPanelH);
-
             Globalo.operationPanel = new Dlg.OperationPanel();
             Globalo.productionInfo = new Dlg.ProductionInfo();
             Globalo.trayStateInfo = new Dlg.TrayStateInfo();
             Globalo.socketStateInfo = new Dlg.SocketStateInfo();
             Globalo.pickerInfo = new Dlg.PickerInfo();
             Globalo.tabMenuForm = new Dlg.TabMenuForm(RightPanel.Width, RightPanel.Height);
-            
-            
+            //
             this.RightPanel.Controls.Add(Globalo.tabMenuForm);
-
-
-
             
             BTN_TOP_LOG.Location = new System.Drawing.Point(this.TopPanel.Width - BTN_TOP_LOG.Width, 0);
             BTN_TOP_LOG.BackColor = ColorTranslator.FromHtml("#ED6C44");
@@ -128,53 +116,20 @@ namespace ZenHandler  //ApsMotionControl
             {
                 Globalo.LogPrint("ManualControl", $"[{Globalo.dataManage.mesData.m_sMesPPID}] Recipe Load Fail");
             }
-            //CLIENT 연결되면  APS_RECIPE_CMD 받고 Recipe Load() 호출한다.
 
 
-
-            
-
-
-            
-            //if (ProgramState.ON_LINE_MIL)
-            //{
-            //    InitMilLib();
-            //}
-
-            //if (ProgramState.ON_LINE_OPENCV_IMAGE)
-            //{
-            //    Globalo.threadControl.imageGrabThread.RawInit();
-            //    Globalo.threadControl.imageGrabThread.Start();
-            //}
-            //else if (ProgramState.ON_LINE_MIL)
-            //{
-            //    Globalo.threadControl.ccdColorThread.Start();
-            //    Globalo.threadControl.ccdGrabThread.Start();
-            //    if (ProgramState.ON_LINE_CAM)
-            //    {
-            //        Globalo.threadControl.camGrabThread.Start();
-            //    }
-            //}
-
-
-            //Globalo.mTeachPanel.eLogSender += eLogPrint;
-            //Globalo.mManualPanel.eLogSender += eLogPrint;
 
             Globalo.tcpManager = new TcpSocket.TcpManager("127.0.0.1", 2001);
-            
-            //Globalo.mTeachPanel.BackColor = ColorTranslator.FromHtml("#F8F3F0");
+            Globalo.tcpManager.BcrClient.DataReceived += Globalo.motionManager.transferMachine.OnTransferBcrReceived;
             Globalo.mMainPanel.BackColor = ColorTranslator.FromHtml("#F8F3F0");
             Globalo.mCCdPanel.BackColor = ColorTranslator.FromHtml("#F8F3F0");
             Globalo.mConfigPanel.BackColor = ColorTranslator.FromHtml("#F8F3F0");
             Globalo.mAlarmPanel.BackColor = ColorTranslator.FromHtml("#F8F3F0");
             Globalo.mlogControl.BackColor = ColorTranslator.FromHtml("#F8F3F0");
 
-            //Globalo.mIoPanel.eLogSender += eLogPrint;
-            //Globalo.mCCdPanel.SetSensorIni();
-
             MainUiSet();
 
-            SerialConnect();
+            SerialConnect();    //조명 컨트롤러 , Serial Barcode
 
             serverStart();      //SECS - GEM 연결
 
@@ -184,16 +139,8 @@ namespace ZenHandler  //ApsMotionControl
             Globalo.productionInfo.BcrSet(Globalo.dataManage.TaskWork.m_szChipID);
             Globalo.productionInfo.ProductionInfoSet();
             Globalo.productionInfo.PinCountInfoSet();
-
             Globalo.pickerInfo.SetLoadPickerInfo();
             Globalo.pickerInfo.SetUnloadPickerInfo();
-
-
-            //Console.WriteLine($"Top Panel Size ({TopPanel.Width},{TopPanel.Height})");
-            //Console.WriteLine($"Left Panel Size ({LeftPanel.Width},{LeftPanel.Height})");
-            //Console.WriteLine($"Center Panel Size ({CenterPanel.Width},{CenterPanel.Height})");
-            //Console.WriteLine($"Right Panel Size ({RightPanel.Width},{RightPanel.Height})");
-            //Console.WriteLine($"Bottom Panel Size ({BottomPanel.Width},{BottomPanel.Height})");
 
             Program.SetLanguage(Globalo.yamlManager.configData.DrivingSettings.Language);
         }
@@ -415,6 +362,7 @@ namespace ZenHandler  //ApsMotionControl
             Event.EventManager.RaisePgExit();
             Globalo.threadControl.AllClose();
             Globalo.motionManager.ioController.Close();
+
             //Time Thread End
             //oGlobal.mDioControl.DioEnd();
 
@@ -595,6 +543,9 @@ namespace ZenHandler  //ApsMotionControl
         {
             if (ProgramState.NORINDA_MODE == true)
             {
+                Globalo.motionManager.socketFwMachine.MultiContactUp(0, new int[] { 1, 1, 1, 1 }, true);
+                //Globalo.tcpManager.BcrClient.Send("LON\r");
+                return;
                 //int[] pickerList = { 1, 1, 1, 1 };
 
                 //Globalo.motionManager.transferMachine.LoadMultiPickerUp(pickerList, true);

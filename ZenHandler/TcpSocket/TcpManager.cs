@@ -3,6 +3,7 @@ using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
+using System.Net.Sockets;
 using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
@@ -15,14 +16,25 @@ namespace ZenHandler.TcpSocket
         //private readonly List<TcpClientHandler> _clients = new List<TcpClientHandler>();
         
         private TcpServer _server;
+        public BarcodeClient BcrClient;
         private CancellationTokenSource _cts;
         public TcpManager(string ip, int port)
         {
+            Event.EventManager.PgExitCall += OnPgExitCall;
             _syncContext = SynchronizationContext.Current;
             _server = new TcpServer(ip, port);
             //_server.OnMessageReceived += OnMessageReceived; // 서버의 메시지 수신 이벤트 구독
             _server.OnMessageReceivedAsync += HandleClientMessageAsync;
+
+            BcrClient = new BarcodeClient();
             _cts = new CancellationTokenSource();
+        }
+        
+        private void OnPgExitCall(object sender, EventArgs e)
+        {
+            // 이벤트 처리
+            Console.WriteLine("TcpManager - OnPgExitCall");
+            StopServer();
         }
         public async void SendMessageToClient(TcpSocket.EquipmentData equipData)//string message)
         {
@@ -95,13 +107,15 @@ namespace ZenHandler.TcpSocket
             if (data.Command == "APS_PROCESS_STATE_INFO")       
             {
                 string stateInfo = data.DataID;//ProcessStateInfo 상태 받기 INIT , IDLE , SETUP , READY , EXECUTING , PAUSE
-
-                _syncContext.Send(_ =>
-                {
-                    Globalo.productionInfo.ProcessSet(stateInfo);
-                   //Globalo.MainForm.textBox_ProcessState.Text = stateInfo;
-                   
-                }, null);
+                //ProgramState.STATE_DRIVER_ONLINE = true;
+                //if (stateInfo == "OFFLINE")
+                //{
+                //    ProgramState.STATE_DRIVER_ONLINE = false;
+                //}
+                //_syncContext.Send(_ =>
+                //{
+                //   Globalo.MainForm.textBox_ProcessState.Text = stateInfo;
+                //}, null);
             }
             if (data.Command == "APS_DRIVER_CMD")
             {
@@ -220,6 +234,7 @@ namespace ZenHandler.TcpSocket
             }
             if (data.Command == "CMD_BUZZER")
             {
+                //TODO: 부저 ON
             }
             if (data.Command == SecsGemData.LGIT_PP_SELECT)        //정상적일 때 PP SELECT 보내지 않는다.
             {
@@ -292,7 +307,10 @@ namespace ZenHandler.TcpSocket
                 {
                     Globalo.LogPrint("ManualControl", $"[{Globalo.dataManage.mesData.m_sMesPPID}] Recipe Load Fail");
                 }
-                Globalo.productionInfo.ShowRecipeName();
+                //string slaveAddr = Globalo.yamlManager.vPPRecipeSpecEquip.RECIPE.ParamMap["SLAVE_ADDRESS"].value;
+                Console.WriteLine("slave address: " + Globalo.yamlManager.vPPRecipeSpecEquip.RECIPE.ParamMap["SLAVE_ADDRESS"].value);
+                //Globalo.yamlManager.secsGemDataYaml.RecipeDataSet(data.DataID);
+                //Globalo.mMainPanel.ShowRecipeName();
 
                 TcpSocket.EquipmentData sendEqipData = new TcpSocket.EquipmentData();
                 sendEqipData.Command = "APS_RECIPE_ACK";
@@ -310,7 +328,7 @@ namespace ZenHandler.TcpSocket
                     {
                         
                     }
-                    Globalo.productionInfo.ShowModelName();
+                    //Globalo.mMainPanel.ShowModelName();
                     sendEqipData.Command = "APS_MODEL_ACK";
                 }
                 else
@@ -534,7 +552,7 @@ namespace ZenHandler.TcpSocket
         // 메시지 수신 시 처리
         private async Task HandleClientMessageAsync(string receivedData)
         {
-            Console.WriteLine($"TcpManager에서 처리한 메시지: {receivedData}");
+            //Console.WriteLine($"TcpManager에서 처리한 메시지: {receivedData}");
 
             //JsonSerializerSettings settings = new JsonSerializerSettings
             //{
