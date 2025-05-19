@@ -17,7 +17,7 @@ namespace ZenHandler
         OriginRunning,      // 원점
         OriginDone
     }
-    public enum DrivingMode
+    public enum eDrivingMode
     {
         NOMAL = 0,
         DRY_RUN
@@ -38,6 +38,7 @@ namespace ZenHandler
 
 
         public static eRunMode CurrentRunMode { get; set; } = eRunMode.OPERATOR;
+        public static eDrivingMode DRIVEMODE { get; set; } = eDrivingMode.DRY_RUN;
 
 
 

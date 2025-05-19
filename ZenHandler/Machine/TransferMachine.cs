@@ -779,7 +779,6 @@ namespace ZenHandler.Machine
             
             for (i = 0; i < pickerList.Length; i++)
             {
-                bool chk = false;
                 int nUse = pickerList[i];
                 if(nUse == 0)
                 {

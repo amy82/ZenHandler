@@ -142,7 +142,7 @@ namespace ZenHandler.Machine
             {
                 lModuleNo = 7;
             }
-                for (i = 0; i < socketList.Length; i++)
+            for (i = 0; i < socketList.Length; i++)
             {
                 int nUse = socketList[i];
                 if (nUse == 0)
