@@ -28,6 +28,8 @@ namespace ZenHandler.Dlg
 
         protected CancellationTokenSource cts;  //TODO: <--이름 변경하고 사용가능하게
         private bool isMovingTransfer;
+        private int ManualLoadPosx = 0;
+        private int ManualLoadPosy = 0;
         //MEMO: 티칭 위치를 어떻게 가져올 것인가
         public ManualTransfer()
         {
@@ -273,6 +275,7 @@ namespace ZenHandler.Dlg
             Globalo.motionManager.transferMachine.RunState = OperationState.Stopped;
 
             isMovingTransfer = true;//<---이동후 기다리지 않으면 바로 true로 바껴서 얘로만 체크하면 위험
+
             string logstr = $"[MANUAL] TRANSFER XY AXIS {ePos.ToString()} Move";
             Globalo.LogPrint("", logstr);
 
@@ -382,11 +385,20 @@ namespace ZenHandler.Dlg
         //
         //
         //
+        #region [TRANSFER X,Y MOTOR MOVE]
+        
         private void BTN_MANUAL_WAIT_POS_XY_Click_1(object sender, EventArgs e)
         {
             Manual_XY_Move(Machine.TransferMachine.eTeachingPosList.WAIT_POS);
         }
-        
+        private void button_Manual_Transfer_Left_Bcr_Pos_XY_Click(object sender, EventArgs e)
+        {
+            Manual_XY_Move(Machine.TransferMachine.eTeachingPosList.LEFT_TRAY_BCR_POS);
+        }
+        private void button_Manual_Transfer_Right_Bcr_Pos_XY_Click(object sender, EventArgs e)
+        {
+            Manual_XY_Move(Machine.TransferMachine.eTeachingPosList.RIGHT_TRAY_BCR_POS);
+        }
         private void BTN_MANUAL_TRANSFER_LEFT_LOAD_POS_XY_Click(object sender, EventArgs e)
         {
             Manual_XY_Move(Machine.TransferMachine.eTeachingPosList.LEFT_TRAY_LOAD_POS);
@@ -409,18 +421,17 @@ namespace ZenHandler.Dlg
         {
             Manual_XY_Move(Machine.TransferMachine.eTeachingPosList.SOCKET_A_LOAD);
         }
+        
 
-        private void BTN_MANUAL_TRANSFER_SOCKET2_POS_XY_Click(object sender, EventArgs e)
+        private void button_Manual_Transfer_A_Socket_Unload_Pos_XY_Click(object sender, EventArgs e)
         {
             Manual_XY_Move(Machine.TransferMachine.eTeachingPosList.SOCKET_A_UNLOAD);
         }
-
         private void BTN_MANUAL_TRANSFER_SOCKET3_POS_XY_Click(object sender, EventArgs e)
         {
             Manual_XY_Move(Machine.TransferMachine.eTeachingPosList.SOCKET_B_LOAD);
         }
-
-        private void BTN_MANUAL_TRANSFER_SOCKET4_POS_XY_Click(object sender, EventArgs e)
+        private void button_Manual_Transfer_B_Socket_Unload_Pos_XY_Click(object sender, EventArgs e)
         {
             Manual_XY_Move(Machine.TransferMachine.eTeachingPosList.SOCKET_B_UNLOAD);
         }
@@ -428,8 +439,7 @@ namespace ZenHandler.Dlg
         {
             Manual_XY_Move(Machine.TransferMachine.eTeachingPosList.SOCKET_C_LOAD);
         }
-
-        private void BTN_MANUAL_TRANSFER_SOCKET_C2_POS_XY_Click(object sender, EventArgs e)
+        private void button_Manual_Transfer_C_Socket_Unload_Pos_XY_Click(object sender, EventArgs e)
         {
             Manual_XY_Move(Machine.TransferMachine.eTeachingPosList.SOCKET_C_UNLOAD);
         }
@@ -438,11 +448,11 @@ namespace ZenHandler.Dlg
         {
             Manual_XY_Move(Machine.TransferMachine.eTeachingPosList.SOCKET_D_LOAD);
         }
-
-        private void BTN_MANUAL_TRANSFER_SOCKET_D2_POS_XY_Click(object sender, EventArgs e)
+        private void button_Manual_Transfer_D_Socket_Unload_Pos_XY_Click(object sender, EventArgs e)
         {
             Manual_XY_Move(Machine.TransferMachine.eTeachingPosList.SOCKET_D_UNLOAD);
         }
+        #endregion
         //-------------------------------------------------------------------------------------------------------------------------------------
         //
         //Z 축 
@@ -451,6 +461,7 @@ namespace ZenHandler.Dlg
         //
         //
         //
+        #region [TRANSFER Z MOTOR MOVE]
 
         private void BTN_MANUAL_WAIT_POS_Z_Click_1(object sender, EventArgs e)
         {
@@ -511,7 +522,7 @@ namespace ZenHandler.Dlg
         {
             Manual_Z_Move(Machine.TransferMachine.eTeachingPosList.SOCKET_D_UNLOAD);
         }
-
+        #endregion
 
 
         //-------------------------------------------------------------------------------------------------------------------------------------
@@ -717,9 +728,52 @@ namespace ZenHandler.Dlg
 
         }
 
-        private void button_Manual_Transfer_Left_Bcr_Pos_XY_Click(object sender, EventArgs e)
+        private void ManualTransfer_PosSetX(int offset)
         {
+            ManualLoadPosx += offset;
+            if (ManualLoadPosx < 0)
+            {
+                ManualLoadPosx = Globalo.motionManager.transferMachine.pickedProduct.LoadTrayPos.X-1;
+            }
+            if (ManualLoadPosx > Globalo.motionManager.transferMachine.pickedProduct.LoadTrayPos.X-1)
+            {
+                ManualLoadPosx = 0;
+            }
 
+            label_Manual_Transfer_PosX.Text = "X : " + (ManualLoadPosx + 1);
+        }
+        private void ManualTransfer_PosSetY(int offset)
+        {
+            ManualLoadPosy += offset;
+            if (ManualLoadPosy < 0)
+            {
+                ManualLoadPosy = Globalo.motionManager.transferMachine.pickedProduct.LoadTrayPos.Y-1;
+            }
+            if (ManualLoadPosy > Globalo.motionManager.transferMachine.pickedProduct.LoadTrayPos.Y-1)
+            {
+                ManualLoadPosy = 0;
+            }
+
+            label_Manual_Transfer_PosY.Text = "Y : " + (ManualLoadPosy + 1);
+        }
+        private void button_Manual_Transfer_PosX_Prev_Click(object sender, EventArgs e)
+        {
+            ManualTransfer_PosSetX(-1);
+        }
+
+        private void button_Manual_Transfer_PosX_Next_Click(object sender, EventArgs e)
+        {
+            ManualTransfer_PosSetX(1);
+        }
+
+        private void button_Manual_Transfer_PosY_Prev_Click(object sender, EventArgs e)
+        {
+            ManualTransfer_PosSetY(-1);
+        }
+
+        private void button_Manual_Transfer_PosY_Next_Click(object sender, EventArgs e)
+        {
+            ManualTransfer_PosSetY(1);
         }
     }
 }

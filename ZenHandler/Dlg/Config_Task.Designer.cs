@@ -445,7 +445,7 @@ namespace ZenHandler.Dlg
             this.label_ConfigTask_Unload_Tray.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.label_ConfigTask_Unload_Tray.Font = new System.Drawing.Font("나눔고딕 ExtraBold", 8.999999F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(129)));
             this.label_ConfigTask_Unload_Tray.ForeColor = System.Drawing.Color.Black;
-            this.label_ConfigTask_Unload_Tray.Location = new System.Drawing.Point(21, 416);
+            this.label_ConfigTask_Unload_Tray.Location = new System.Drawing.Point(78, 603);
             this.label_ConfigTask_Unload_Tray.Name = "label_ConfigTask_Unload_Tray";
             this.label_ConfigTask_Unload_Tray.Size = new System.Drawing.Size(126, 40);
             this.label_ConfigTask_Unload_Tray.TabIndex = 94;
@@ -458,7 +458,7 @@ namespace ZenHandler.Dlg
             this.label_ConfigTask_NgTray.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.label_ConfigTask_NgTray.Font = new System.Drawing.Font("나눔고딕 ExtraBold", 8.999999F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(129)));
             this.label_ConfigTask_NgTray.ForeColor = System.Drawing.Color.Black;
-            this.label_ConfigTask_NgTray.Location = new System.Drawing.Point(21, 456);
+            this.label_ConfigTask_NgTray.Location = new System.Drawing.Point(21, 416);
             this.label_ConfigTask_NgTray.Name = "label_ConfigTask_NgTray";
             this.label_ConfigTask_NgTray.Size = new System.Drawing.Size(126, 40);
             this.label_ConfigTask_NgTray.TabIndex = 95;
@@ -499,7 +499,7 @@ namespace ZenHandler.Dlg
             this.label_ConfigTask_Unload_Tray_Y.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.label_ConfigTask_Unload_Tray_Y.Font = new System.Drawing.Font("나눔고딕", 11.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(129)));
             this.label_ConfigTask_Unload_Tray_Y.ForeColor = System.Drawing.Color.Black;
-            this.label_ConfigTask_Unload_Tray_Y.Location = new System.Drawing.Point(232, 416);
+            this.label_ConfigTask_Unload_Tray_Y.Location = new System.Drawing.Point(289, 603);
             this.label_ConfigTask_Unload_Tray_Y.Name = "label_ConfigTask_Unload_Tray_Y";
             this.label_ConfigTask_Unload_Tray_Y.Size = new System.Drawing.Size(86, 40);
             this.label_ConfigTask_Unload_Tray_Y.TabIndex = 100;
@@ -513,7 +513,7 @@ namespace ZenHandler.Dlg
             this.label_ConfigTask_Unload_Tray_X.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.label_ConfigTask_Unload_Tray_X.Font = new System.Drawing.Font("나눔고딕", 11.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(129)));
             this.label_ConfigTask_Unload_Tray_X.ForeColor = System.Drawing.Color.Black;
-            this.label_ConfigTask_Unload_Tray_X.Location = new System.Drawing.Point(147, 416);
+            this.label_ConfigTask_Unload_Tray_X.Location = new System.Drawing.Point(204, 603);
             this.label_ConfigTask_Unload_Tray_X.Name = "label_ConfigTask_Unload_Tray_X";
             this.label_ConfigTask_Unload_Tray_X.Size = new System.Drawing.Size(86, 40);
             this.label_ConfigTask_Unload_Tray_X.TabIndex = 99;
@@ -527,7 +527,7 @@ namespace ZenHandler.Dlg
             this.label_ConfigTask_NgTray_Y.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.label_ConfigTask_NgTray_Y.Font = new System.Drawing.Font("나눔고딕", 11.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(129)));
             this.label_ConfigTask_NgTray_Y.ForeColor = System.Drawing.Color.Black;
-            this.label_ConfigTask_NgTray_Y.Location = new System.Drawing.Point(232, 456);
+            this.label_ConfigTask_NgTray_Y.Location = new System.Drawing.Point(232, 416);
             this.label_ConfigTask_NgTray_Y.Name = "label_ConfigTask_NgTray_Y";
             this.label_ConfigTask_NgTray_Y.Size = new System.Drawing.Size(86, 40);
             this.label_ConfigTask_NgTray_Y.TabIndex = 102;
@@ -541,7 +541,7 @@ namespace ZenHandler.Dlg
             this.label_ConfigTask_NgTray_X.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.label_ConfigTask_NgTray_X.Font = new System.Drawing.Font("나눔고딕", 11.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(129)));
             this.label_ConfigTask_NgTray_X.ForeColor = System.Drawing.Color.Black;
-            this.label_ConfigTask_NgTray_X.Location = new System.Drawing.Point(147, 456);
+            this.label_ConfigTask_NgTray_X.Location = new System.Drawing.Point(147, 416);
             this.label_ConfigTask_NgTray_X.Name = "label_ConfigTask_NgTray_X";
             this.label_ConfigTask_NgTray_X.Size = new System.Drawing.Size(86, 40);
             this.label_ConfigTask_NgTray_X.TabIndex = 101;
@@ -555,7 +555,7 @@ namespace ZenHandler.Dlg
             this.label_ConfigTask_Left_Tray_Layer_Val.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.label_ConfigTask_Left_Tray_Layer_Val.Font = new System.Drawing.Font("나눔고딕", 11.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(129)));
             this.label_ConfigTask_Left_Tray_Layer_Val.ForeColor = System.Drawing.Color.Black;
-            this.label_ConfigTask_Left_Tray_Layer_Val.Location = new System.Drawing.Point(147, 496);
+            this.label_ConfigTask_Left_Tray_Layer_Val.Location = new System.Drawing.Point(147, 456);
             this.label_ConfigTask_Left_Tray_Layer_Val.Name = "label_ConfigTask_Left_Tray_Layer_Val";
             this.label_ConfigTask_Left_Tray_Layer_Val.Size = new System.Drawing.Size(86, 40);
             this.label_ConfigTask_Left_Tray_Layer_Val.TabIndex = 104;
@@ -569,7 +569,7 @@ namespace ZenHandler.Dlg
             this.label_ConfigTask_Left_Tray_Layer.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.label_ConfigTask_Left_Tray_Layer.Font = new System.Drawing.Font("나눔고딕 ExtraBold", 8.999999F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(129)));
             this.label_ConfigTask_Left_Tray_Layer.ForeColor = System.Drawing.Color.Black;
-            this.label_ConfigTask_Left_Tray_Layer.Location = new System.Drawing.Point(21, 496);
+            this.label_ConfigTask_Left_Tray_Layer.Location = new System.Drawing.Point(21, 456);
             this.label_ConfigTask_Left_Tray_Layer.Name = "label_ConfigTask_Left_Tray_Layer";
             this.label_ConfigTask_Left_Tray_Layer.Size = new System.Drawing.Size(126, 40);
             this.label_ConfigTask_Left_Tray_Layer.TabIndex = 103;
@@ -582,7 +582,7 @@ namespace ZenHandler.Dlg
             this.label_ConfigTask_Right_Tray_Layer_Val.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.label_ConfigTask_Right_Tray_Layer_Val.Font = new System.Drawing.Font("나눔고딕", 11.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(129)));
             this.label_ConfigTask_Right_Tray_Layer_Val.ForeColor = System.Drawing.Color.Black;
-            this.label_ConfigTask_Right_Tray_Layer_Val.Location = new System.Drawing.Point(147, 536);
+            this.label_ConfigTask_Right_Tray_Layer_Val.Location = new System.Drawing.Point(147, 496);
             this.label_ConfigTask_Right_Tray_Layer_Val.Name = "label_ConfigTask_Right_Tray_Layer_Val";
             this.label_ConfigTask_Right_Tray_Layer_Val.Size = new System.Drawing.Size(86, 40);
             this.label_ConfigTask_Right_Tray_Layer_Val.TabIndex = 106;
@@ -596,7 +596,7 @@ namespace ZenHandler.Dlg
             this.label_ConfigTask_Right_Tray_Layer.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.label_ConfigTask_Right_Tray_Layer.Font = new System.Drawing.Font("나눔고딕 ExtraBold", 8.999999F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(129)));
             this.label_ConfigTask_Right_Tray_Layer.ForeColor = System.Drawing.Color.Black;
-            this.label_ConfigTask_Right_Tray_Layer.Location = new System.Drawing.Point(21, 536);
+            this.label_ConfigTask_Right_Tray_Layer.Location = new System.Drawing.Point(21, 496);
             this.label_ConfigTask_Right_Tray_Layer.Name = "label_ConfigTask_Right_Tray_Layer";
             this.label_ConfigTask_Right_Tray_Layer.Size = new System.Drawing.Size(126, 40);
             this.label_ConfigTask_Right_Tray_Layer.TabIndex = 105;

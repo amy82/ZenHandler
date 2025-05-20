@@ -320,13 +320,13 @@ namespace ZenHandler.Dlg
                 Globalo.LogPrint("ManualControl", "[INFO] 전체 유닛 정지상태에서 변경 가능합니다.", Globalo.eMessageName.M_WARNING);
                 return;
             }
-            if (Globalo.yamlManager.configData.DrivingSettings.drivingMode == DrivingMode.NOMAL)
+            if (Globalo.yamlManager.configData.DrivingSettings.drivingMode == eDrivingMode.NOMAL)
             {
-                Globalo.yamlManager.configData.DrivingSettings.drivingMode = DrivingMode.DRY_RUN;
+                Globalo.yamlManager.configData.DrivingSettings.drivingMode = eDrivingMode.DRY_RUN;
             }
             else
             {
-                Globalo.yamlManager.configData.DrivingSettings.drivingMode = DrivingMode.NOMAL;
+                Globalo.yamlManager.configData.DrivingSettings.drivingMode = eDrivingMode.NOMAL;
             }
 
             Btn_ConfigTask_Driving_Mode.Text = Globalo.yamlManager.configData.DrivingSettings.drivingMode.ToString();
