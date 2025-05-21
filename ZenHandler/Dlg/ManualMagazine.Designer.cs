@@ -30,34 +30,27 @@ namespace ZenHandler.Dlg
         private void InitializeComponent()
         {
             this.label_Manual_Magazine_Sensor_Title = new System.Windows.Forms.Label();
-            this.label_Manual_Magazine_Layer3_Pos_Z = new System.Windows.Forms.Button();
-            this.label_Manual_Magazine_Layer3_Pos_Y = new System.Windows.Forms.Button();
-            this.label_Manual_Magazine_Wait_Pos_Z = new System.Windows.Forms.Button();
+            this.button_Manual_Magazine_Layer3_Pos_Z = new System.Windows.Forms.Button();
+            this.button_Manual_Magazine_Layer3_Pos_Y = new System.Windows.Forms.Button();
+            this.button_Manual_Magazine_Wait_Pos_Z = new System.Windows.Forms.Button();
             this.label_Manual_Magazine_Y_Title = new System.Windows.Forms.Label();
-            this.label_Manual_Magazine_Wait_Pos_Y = new System.Windows.Forms.Button();
+            this.button_Manual_Magazine_Wait_Pos_Y = new System.Windows.Forms.Button();
             this.groupBox1 = new System.Windows.Forms.GroupBox();
-            this.label_Manual_Magazine_Layer5_Pos_Z = new System.Windows.Forms.Button();
-            this.label_Manual_Magazine_Layer2_Pos_Z = new System.Windows.Forms.Button();
-            this.label_Manual_Magazine_Layer4_Pos_Z = new System.Windows.Forms.Button();
+            this.button_Manual_Magazine_Layer5_Pos_Z = new System.Windows.Forms.Button();
+            this.button_Manual_Magazine_Layer2_Pos_Z = new System.Windows.Forms.Button();
+            this.button_Manual_Magazine_Layer4_Pos_Z = new System.Windows.Forms.Button();
             this.label_Manual_Magazine_Z_Title = new System.Windows.Forms.Label();
-            this.label_Manual_Magazine_Layer1_Pos_Z = new System.Windows.Forms.Button();
-            this.label_Manual_Magazine_Layer2_Pos_Y = new System.Windows.Forms.Button();
-            this.label_Manual_Magazine_Layer1_Pos_Y = new System.Windows.Forms.Button();
-            this.label_Manual_Magazine_Layer4_Pos_Y = new System.Windows.Forms.Button();
-            this.label_Manual_Magazine_Layer5_Pos_Y = new System.Windows.Forms.Button();
+            this.button_Manual_Magazine_Layer1_Pos_Z = new System.Windows.Forms.Button();
+            this.comboBox_Manual_Magazine_Motor = new System.Windows.Forms.ComboBox();
+            this.button_Manual_Magazine_Layer2_Pos_Y = new System.Windows.Forms.Button();
+            this.button_Manual_Magazine_Layer1_Pos_Y = new System.Windows.Forms.Button();
+            this.button_Manual_Magazine_Layer4_Pos_Y = new System.Windows.Forms.Button();
+            this.button_Manual_Magazine_Layer5_Pos_Y = new System.Windows.Forms.Button();
             this.groupBox2 = new System.Windows.Forms.GroupBox();
             this.button_Manual_Magazine_Tray_Front_Detect = new System.Windows.Forms.Button();
             this.button_Manual_Magazine_Tray_Bottom_Detect = new System.Windows.Forms.Button();
             this.button_Manual_Magazine_Tray_Seat_Detect_ = new System.Windows.Forms.Button();
             this.button_Manual_Magazine_Seat_Detect = new System.Windows.Forms.Button();
-            this.comboBox_Manual_Magazine_Motor = new System.Windows.Forms.ComboBox();
-            this.label_Manual_Transfer_PosX = new System.Windows.Forms.Label();
-            this.button_Manual_Transfer_PosX_Next = new System.Windows.Forms.Button();
-            this.button_Manual_Transfer_PosX_Prev = new System.Windows.Forms.Button();
-            this.label_Manual_Transfer_PosY = new System.Windows.Forms.Label();
-            this.button_Manual_Transfer_PosY_Next = new System.Windows.Forms.Button();
-            this.button_Manual_Transfer_PosY_Prev = new System.Windows.Forms.Button();
-            this.label_Manual_Magazine_Tray_No = new System.Windows.Forms.Label();
             this.groupBox1.SuspendLayout();
             this.groupBox2.SuspendLayout();
             this.SuspendLayout();
@@ -74,47 +67,47 @@ namespace ZenHandler.Dlg
             this.label_Manual_Magazine_Sensor_Title.Text = "Detect Sensor";
             this.label_Manual_Magazine_Sensor_Title.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
-            // label_Manual_Magazine_Layer3_Pos_Z
+            // button_Manual_Magazine_Layer3_Pos_Z
             // 
-            this.label_Manual_Magazine_Layer3_Pos_Z.BackColor = System.Drawing.Color.Tan;
-            this.label_Manual_Magazine_Layer3_Pos_Z.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.label_Manual_Magazine_Layer3_Pos_Z.Font = new System.Drawing.Font("나눔고딕 ExtraBold", 8.999999F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(129)));
-            this.label_Manual_Magazine_Layer3_Pos_Z.ForeColor = System.Drawing.Color.White;
-            this.label_Manual_Magazine_Layer3_Pos_Z.Location = new System.Drawing.Point(255, 263);
-            this.label_Manual_Magazine_Layer3_Pos_Z.Name = "label_Manual_Magazine_Layer3_Pos_Z";
-            this.label_Manual_Magazine_Layer3_Pos_Z.Size = new System.Drawing.Size(155, 51);
-            this.label_Manual_Magazine_Layer3_Pos_Z.TabIndex = 37;
-            this.label_Manual_Magazine_Layer3_Pos_Z.Text = "Z LAYER 3";
-            this.label_Manual_Magazine_Layer3_Pos_Z.UseVisualStyleBackColor = false;
-            this.label_Manual_Magazine_Layer3_Pos_Z.Click += new System.EventHandler(this.BTN_MANUAL_TRANSFER_LEFT_LOAD_POS_Z_Click);
+            this.button_Manual_Magazine_Layer3_Pos_Z.BackColor = System.Drawing.Color.Tan;
+            this.button_Manual_Magazine_Layer3_Pos_Z.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.button_Manual_Magazine_Layer3_Pos_Z.Font = new System.Drawing.Font("나눔고딕 ExtraBold", 8.999999F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(129)));
+            this.button_Manual_Magazine_Layer3_Pos_Z.ForeColor = System.Drawing.Color.White;
+            this.button_Manual_Magazine_Layer3_Pos_Z.Location = new System.Drawing.Point(255, 263);
+            this.button_Manual_Magazine_Layer3_Pos_Z.Name = "button_Manual_Magazine_Layer3_Pos_Z";
+            this.button_Manual_Magazine_Layer3_Pos_Z.Size = new System.Drawing.Size(155, 51);
+            this.button_Manual_Magazine_Layer3_Pos_Z.TabIndex = 37;
+            this.button_Manual_Magazine_Layer3_Pos_Z.Text = "Z LAYER 3";
+            this.button_Manual_Magazine_Layer3_Pos_Z.UseVisualStyleBackColor = false;
+            this.button_Manual_Magazine_Layer3_Pos_Z.Click += new System.EventHandler(this.button_Manual_Magazine_Layer3_Pos_Z_Click);
             // 
-            // label_Manual_Magazine_Layer3_Pos_Y
+            // button_Manual_Magazine_Layer3_Pos_Y
             // 
-            this.label_Manual_Magazine_Layer3_Pos_Y.BackColor = System.Drawing.Color.Tan;
-            this.label_Manual_Magazine_Layer3_Pos_Y.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.label_Manual_Magazine_Layer3_Pos_Y.Font = new System.Drawing.Font("나눔고딕 ExtraBold", 8.999999F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(129)));
-            this.label_Manual_Magazine_Layer3_Pos_Y.ForeColor = System.Drawing.Color.White;
-            this.label_Manual_Magazine_Layer3_Pos_Y.Location = new System.Drawing.Point(42, 263);
-            this.label_Manual_Magazine_Layer3_Pos_Y.Name = "label_Manual_Magazine_Layer3_Pos_Y";
-            this.label_Manual_Magazine_Layer3_Pos_Y.Size = new System.Drawing.Size(155, 51);
-            this.label_Manual_Magazine_Layer3_Pos_Y.TabIndex = 33;
-            this.label_Manual_Magazine_Layer3_Pos_Y.Text = "LAYER 3";
-            this.label_Manual_Magazine_Layer3_Pos_Y.UseVisualStyleBackColor = false;
-            this.label_Manual_Magazine_Layer3_Pos_Y.Click += new System.EventHandler(this.BTN_MANUAL_TRANSFER_LEFT_LOAD_POS_XY_Click);
+            this.button_Manual_Magazine_Layer3_Pos_Y.BackColor = System.Drawing.Color.Tan;
+            this.button_Manual_Magazine_Layer3_Pos_Y.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.button_Manual_Magazine_Layer3_Pos_Y.Font = new System.Drawing.Font("나눔고딕 ExtraBold", 8.999999F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(129)));
+            this.button_Manual_Magazine_Layer3_Pos_Y.ForeColor = System.Drawing.Color.White;
+            this.button_Manual_Magazine_Layer3_Pos_Y.Location = new System.Drawing.Point(42, 263);
+            this.button_Manual_Magazine_Layer3_Pos_Y.Name = "button_Manual_Magazine_Layer3_Pos_Y";
+            this.button_Manual_Magazine_Layer3_Pos_Y.Size = new System.Drawing.Size(155, 51);
+            this.button_Manual_Magazine_Layer3_Pos_Y.TabIndex = 33;
+            this.button_Manual_Magazine_Layer3_Pos_Y.Text = "LAYER 3";
+            this.button_Manual_Magazine_Layer3_Pos_Y.UseVisualStyleBackColor = false;
+            this.button_Manual_Magazine_Layer3_Pos_Y.Click += new System.EventHandler(this.BTN_MANUAL_TRANSFER_LEFT_LOAD_POS_XY_Click);
             // 
-            // label_Manual_Magazine_Wait_Pos_Z
+            // button_Manual_Magazine_Wait_Pos_Z
             // 
-            this.label_Manual_Magazine_Wait_Pos_Z.BackColor = System.Drawing.Color.Tan;
-            this.label_Manual_Magazine_Wait_Pos_Z.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.label_Manual_Magazine_Wait_Pos_Z.Font = new System.Drawing.Font("나눔고딕 ExtraBold", 8.999999F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(129)));
-            this.label_Manual_Magazine_Wait_Pos_Z.ForeColor = System.Drawing.Color.White;
-            this.label_Manual_Magazine_Wait_Pos_Z.Location = new System.Drawing.Point(255, 104);
-            this.label_Manual_Magazine_Wait_Pos_Z.Name = "label_Manual_Magazine_Wait_Pos_Z";
-            this.label_Manual_Magazine_Wait_Pos_Z.Size = new System.Drawing.Size(155, 51);
-            this.label_Manual_Magazine_Wait_Pos_Z.TabIndex = 32;
-            this.label_Manual_Magazine_Wait_Pos_Z.Text = "Z WAIT POS";
-            this.label_Manual_Magazine_Wait_Pos_Z.UseVisualStyleBackColor = false;
-            this.label_Manual_Magazine_Wait_Pos_Z.Click += new System.EventHandler(this.BTN_MANUAL_WAIT_POS_Z_Click_1);
+            this.button_Manual_Magazine_Wait_Pos_Z.BackColor = System.Drawing.Color.Tan;
+            this.button_Manual_Magazine_Wait_Pos_Z.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.button_Manual_Magazine_Wait_Pos_Z.Font = new System.Drawing.Font("나눔고딕 ExtraBold", 8.999999F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(129)));
+            this.button_Manual_Magazine_Wait_Pos_Z.ForeColor = System.Drawing.Color.White;
+            this.button_Manual_Magazine_Wait_Pos_Z.Location = new System.Drawing.Point(255, 104);
+            this.button_Manual_Magazine_Wait_Pos_Z.Name = "button_Manual_Magazine_Wait_Pos_Z";
+            this.button_Manual_Magazine_Wait_Pos_Z.Size = new System.Drawing.Size(155, 51);
+            this.button_Manual_Magazine_Wait_Pos_Z.TabIndex = 32;
+            this.button_Manual_Magazine_Wait_Pos_Z.Text = "Z WAIT POS";
+            this.button_Manual_Magazine_Wait_Pos_Z.UseVisualStyleBackColor = false;
+            this.button_Manual_Magazine_Wait_Pos_Z.Click += new System.EventHandler(this.button_Manual_Magazine_Wait_Pos_Z_Click);
             // 
             // label_Manual_Magazine_Y_Title
             // 
@@ -128,85 +121,85 @@ namespace ZenHandler.Dlg
             this.label_Manual_Magazine_Y_Title.Text = "Y AXIS";
             this.label_Manual_Magazine_Y_Title.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
-            // label_Manual_Magazine_Wait_Pos_Y
+            // button_Manual_Magazine_Wait_Pos_Y
             // 
-            this.label_Manual_Magazine_Wait_Pos_Y.BackColor = System.Drawing.Color.Tan;
-            this.label_Manual_Magazine_Wait_Pos_Y.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.label_Manual_Magazine_Wait_Pos_Y.Font = new System.Drawing.Font("나눔고딕 ExtraBold", 8.999999F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(129)));
-            this.label_Manual_Magazine_Wait_Pos_Y.ForeColor = System.Drawing.Color.White;
-            this.label_Manual_Magazine_Wait_Pos_Y.Location = new System.Drawing.Point(42, 104);
-            this.label_Manual_Magazine_Wait_Pos_Y.Name = "label_Manual_Magazine_Wait_Pos_Y";
-            this.label_Manual_Magazine_Wait_Pos_Y.Size = new System.Drawing.Size(155, 51);
-            this.label_Manual_Magazine_Wait_Pos_Y.TabIndex = 29;
-            this.label_Manual_Magazine_Wait_Pos_Y.Text = "WAIT POS";
-            this.label_Manual_Magazine_Wait_Pos_Y.UseVisualStyleBackColor = false;
-            this.label_Manual_Magazine_Wait_Pos_Y.Click += new System.EventHandler(this.BTN_MANUAL_WAIT_POS_XY_Click_1);
+            this.button_Manual_Magazine_Wait_Pos_Y.BackColor = System.Drawing.Color.Tan;
+            this.button_Manual_Magazine_Wait_Pos_Y.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.button_Manual_Magazine_Wait_Pos_Y.Font = new System.Drawing.Font("나눔고딕 ExtraBold", 8.999999F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(129)));
+            this.button_Manual_Magazine_Wait_Pos_Y.ForeColor = System.Drawing.Color.White;
+            this.button_Manual_Magazine_Wait_Pos_Y.Location = new System.Drawing.Point(42, 104);
+            this.button_Manual_Magazine_Wait_Pos_Y.Name = "button_Manual_Magazine_Wait_Pos_Y";
+            this.button_Manual_Magazine_Wait_Pos_Y.Size = new System.Drawing.Size(155, 51);
+            this.button_Manual_Magazine_Wait_Pos_Y.TabIndex = 29;
+            this.button_Manual_Magazine_Wait_Pos_Y.Text = "WAIT POS";
+            this.button_Manual_Magazine_Wait_Pos_Y.UseVisualStyleBackColor = false;
+            this.button_Manual_Magazine_Wait_Pos_Y.Click += new System.EventHandler(this.button_Manual_Magazine_Wait_Pos_Y_Click);
             // 
             // groupBox1
             // 
             this.groupBox1.BackColor = System.Drawing.Color.White;
-            this.groupBox1.Controls.Add(this.label_Manual_Magazine_Layer5_Pos_Z);
-            this.groupBox1.Controls.Add(this.label_Manual_Magazine_Layer2_Pos_Z);
-            this.groupBox1.Controls.Add(this.label_Manual_Magazine_Layer4_Pos_Z);
+            this.groupBox1.Controls.Add(this.button_Manual_Magazine_Layer5_Pos_Z);
+            this.groupBox1.Controls.Add(this.button_Manual_Magazine_Layer2_Pos_Z);
+            this.groupBox1.Controls.Add(this.button_Manual_Magazine_Layer4_Pos_Z);
             this.groupBox1.Controls.Add(this.label_Manual_Magazine_Z_Title);
-            this.groupBox1.Controls.Add(this.label_Manual_Magazine_Layer1_Pos_Z);
+            this.groupBox1.Controls.Add(this.button_Manual_Magazine_Layer1_Pos_Z);
             this.groupBox1.Controls.Add(this.comboBox_Manual_Magazine_Motor);
-            this.groupBox1.Controls.Add(this.label_Manual_Magazine_Layer3_Pos_Z);
-            this.groupBox1.Controls.Add(this.label_Manual_Magazine_Layer2_Pos_Y);
-            this.groupBox1.Controls.Add(this.label_Manual_Magazine_Layer1_Pos_Y);
-            this.groupBox1.Controls.Add(this.label_Manual_Magazine_Layer4_Pos_Y);
-            this.groupBox1.Controls.Add(this.label_Manual_Magazine_Layer5_Pos_Y);
-            this.groupBox1.Controls.Add(this.label_Manual_Magazine_Wait_Pos_Z);
+            this.groupBox1.Controls.Add(this.button_Manual_Magazine_Layer3_Pos_Z);
+            this.groupBox1.Controls.Add(this.button_Manual_Magazine_Layer2_Pos_Y);
+            this.groupBox1.Controls.Add(this.button_Manual_Magazine_Layer1_Pos_Y);
+            this.groupBox1.Controls.Add(this.button_Manual_Magazine_Layer4_Pos_Y);
+            this.groupBox1.Controls.Add(this.button_Manual_Magazine_Layer5_Pos_Y);
+            this.groupBox1.Controls.Add(this.button_Manual_Magazine_Wait_Pos_Z);
             this.groupBox1.Controls.Add(this.label_Manual_Magazine_Y_Title);
-            this.groupBox1.Controls.Add(this.label_Manual_Magazine_Wait_Pos_Y);
-            this.groupBox1.Controls.Add(this.label_Manual_Magazine_Layer3_Pos_Y);
+            this.groupBox1.Controls.Add(this.button_Manual_Magazine_Wait_Pos_Y);
+            this.groupBox1.Controls.Add(this.button_Manual_Magazine_Layer3_Pos_Y);
             this.groupBox1.Location = new System.Drawing.Point(299, 172);
             this.groupBox1.Name = "groupBox1";
             this.groupBox1.Size = new System.Drawing.Size(451, 464);
             this.groupBox1.TabIndex = 41;
             this.groupBox1.TabStop = false;
             // 
-            // label_Manual_Magazine_Layer5_Pos_Z
+            // button_Manual_Magazine_Layer5_Pos_Z
             // 
-            this.label_Manual_Magazine_Layer5_Pos_Z.BackColor = System.Drawing.Color.Tan;
-            this.label_Manual_Magazine_Layer5_Pos_Z.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.label_Manual_Magazine_Layer5_Pos_Z.Font = new System.Drawing.Font("나눔고딕 ExtraBold", 8.999999F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(129)));
-            this.label_Manual_Magazine_Layer5_Pos_Z.ForeColor = System.Drawing.Color.White;
-            this.label_Manual_Magazine_Layer5_Pos_Z.Location = new System.Drawing.Point(255, 369);
-            this.label_Manual_Magazine_Layer5_Pos_Z.Name = "label_Manual_Magazine_Layer5_Pos_Z";
-            this.label_Manual_Magazine_Layer5_Pos_Z.Size = new System.Drawing.Size(155, 51);
-            this.label_Manual_Magazine_Layer5_Pos_Z.TabIndex = 60;
-            this.label_Manual_Magazine_Layer5_Pos_Z.Text = "Z LAYER 5";
-            this.label_Manual_Magazine_Layer5_Pos_Z.UseVisualStyleBackColor = false;
-            this.label_Manual_Magazine_Layer5_Pos_Z.Click += new System.EventHandler(this.label_Manual_Magazine_Layer5_Pos_Z_Click);
+            this.button_Manual_Magazine_Layer5_Pos_Z.BackColor = System.Drawing.Color.Tan;
+            this.button_Manual_Magazine_Layer5_Pos_Z.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.button_Manual_Magazine_Layer5_Pos_Z.Font = new System.Drawing.Font("나눔고딕 ExtraBold", 8.999999F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(129)));
+            this.button_Manual_Magazine_Layer5_Pos_Z.ForeColor = System.Drawing.Color.White;
+            this.button_Manual_Magazine_Layer5_Pos_Z.Location = new System.Drawing.Point(255, 369);
+            this.button_Manual_Magazine_Layer5_Pos_Z.Name = "button_Manual_Magazine_Layer5_Pos_Z";
+            this.button_Manual_Magazine_Layer5_Pos_Z.Size = new System.Drawing.Size(155, 51);
+            this.button_Manual_Magazine_Layer5_Pos_Z.TabIndex = 60;
+            this.button_Manual_Magazine_Layer5_Pos_Z.Text = "Z LAYER 5";
+            this.button_Manual_Magazine_Layer5_Pos_Z.UseVisualStyleBackColor = false;
+            this.button_Manual_Magazine_Layer5_Pos_Z.Click += new System.EventHandler(this.button_Manual_Magazine_Layer5_Pos_Z_Click);
             // 
-            // label_Manual_Magazine_Layer2_Pos_Z
+            // button_Manual_Magazine_Layer2_Pos_Z
             // 
-            this.label_Manual_Magazine_Layer2_Pos_Z.BackColor = System.Drawing.Color.Tan;
-            this.label_Manual_Magazine_Layer2_Pos_Z.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.label_Manual_Magazine_Layer2_Pos_Z.Font = new System.Drawing.Font("나눔고딕 ExtraBold", 8.999999F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(129)));
-            this.label_Manual_Magazine_Layer2_Pos_Z.ForeColor = System.Drawing.Color.White;
-            this.label_Manual_Magazine_Layer2_Pos_Z.Location = new System.Drawing.Point(255, 210);
-            this.label_Manual_Magazine_Layer2_Pos_Z.Name = "label_Manual_Magazine_Layer2_Pos_Z";
-            this.label_Manual_Magazine_Layer2_Pos_Z.Size = new System.Drawing.Size(155, 51);
-            this.label_Manual_Magazine_Layer2_Pos_Z.TabIndex = 55;
-            this.label_Manual_Magazine_Layer2_Pos_Z.Text = "Z LAYER 2";
-            this.label_Manual_Magazine_Layer2_Pos_Z.UseVisualStyleBackColor = false;
-            this.label_Manual_Magazine_Layer2_Pos_Z.Click += new System.EventHandler(this.button_Manual_Transfer_Right_Bcr_Pos_Z_Click);
+            this.button_Manual_Magazine_Layer2_Pos_Z.BackColor = System.Drawing.Color.Tan;
+            this.button_Manual_Magazine_Layer2_Pos_Z.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.button_Manual_Magazine_Layer2_Pos_Z.Font = new System.Drawing.Font("나눔고딕 ExtraBold", 8.999999F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(129)));
+            this.button_Manual_Magazine_Layer2_Pos_Z.ForeColor = System.Drawing.Color.White;
+            this.button_Manual_Magazine_Layer2_Pos_Z.Location = new System.Drawing.Point(255, 210);
+            this.button_Manual_Magazine_Layer2_Pos_Z.Name = "button_Manual_Magazine_Layer2_Pos_Z";
+            this.button_Manual_Magazine_Layer2_Pos_Z.Size = new System.Drawing.Size(155, 51);
+            this.button_Manual_Magazine_Layer2_Pos_Z.TabIndex = 55;
+            this.button_Manual_Magazine_Layer2_Pos_Z.Text = "Z LAYER 2";
+            this.button_Manual_Magazine_Layer2_Pos_Z.UseVisualStyleBackColor = false;
+            this.button_Manual_Magazine_Layer2_Pos_Z.Click += new System.EventHandler(this.button_Manual_Magazine_Layer2_Pos_Z_Click);
             // 
-            // label_Manual_Magazine_Layer4_Pos_Z
+            // button_Manual_Magazine_Layer4_Pos_Z
             // 
-            this.label_Manual_Magazine_Layer4_Pos_Z.BackColor = System.Drawing.Color.Tan;
-            this.label_Manual_Magazine_Layer4_Pos_Z.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.label_Manual_Magazine_Layer4_Pos_Z.Font = new System.Drawing.Font("나눔고딕 ExtraBold", 8.999999F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(129)));
-            this.label_Manual_Magazine_Layer4_Pos_Z.ForeColor = System.Drawing.Color.White;
-            this.label_Manual_Magazine_Layer4_Pos_Z.Location = new System.Drawing.Point(255, 316);
-            this.label_Manual_Magazine_Layer4_Pos_Z.Name = "label_Manual_Magazine_Layer4_Pos_Z";
-            this.label_Manual_Magazine_Layer4_Pos_Z.Size = new System.Drawing.Size(155, 51);
-            this.label_Manual_Magazine_Layer4_Pos_Z.TabIndex = 41;
-            this.label_Manual_Magazine_Layer4_Pos_Z.Text = "Z LAYER 4";
-            this.label_Manual_Magazine_Layer4_Pos_Z.UseVisualStyleBackColor = false;
-            this.label_Manual_Magazine_Layer4_Pos_Z.Click += new System.EventHandler(this.BTN_MANUAL_TRANSFER_LEFT_UNLOAD_POS_Z_Click);
+            this.button_Manual_Magazine_Layer4_Pos_Z.BackColor = System.Drawing.Color.Tan;
+            this.button_Manual_Magazine_Layer4_Pos_Z.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.button_Manual_Magazine_Layer4_Pos_Z.Font = new System.Drawing.Font("나눔고딕 ExtraBold", 8.999999F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(129)));
+            this.button_Manual_Magazine_Layer4_Pos_Z.ForeColor = System.Drawing.Color.White;
+            this.button_Manual_Magazine_Layer4_Pos_Z.Location = new System.Drawing.Point(255, 316);
+            this.button_Manual_Magazine_Layer4_Pos_Z.Name = "button_Manual_Magazine_Layer4_Pos_Z";
+            this.button_Manual_Magazine_Layer4_Pos_Z.Size = new System.Drawing.Size(155, 51);
+            this.button_Manual_Magazine_Layer4_Pos_Z.TabIndex = 41;
+            this.button_Manual_Magazine_Layer4_Pos_Z.Text = "Z LAYER 4";
+            this.button_Manual_Magazine_Layer4_Pos_Z.UseVisualStyleBackColor = false;
+            this.button_Manual_Magazine_Layer4_Pos_Z.Click += new System.EventHandler(this.button_Manual_Magazine_Layer4_Pos_Z_Click);
             // 
             // label_Manual_Magazine_Z_Title
             // 
@@ -220,75 +213,87 @@ namespace ZenHandler.Dlg
             this.label_Manual_Magazine_Z_Title.Text = "Z AXIS";
             this.label_Manual_Magazine_Z_Title.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
-            // label_Manual_Magazine_Layer1_Pos_Z
+            // button_Manual_Magazine_Layer1_Pos_Z
             // 
-            this.label_Manual_Magazine_Layer1_Pos_Z.BackColor = System.Drawing.Color.Tan;
-            this.label_Manual_Magazine_Layer1_Pos_Z.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.label_Manual_Magazine_Layer1_Pos_Z.Font = new System.Drawing.Font("나눔고딕 ExtraBold", 8.999999F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(129)));
-            this.label_Manual_Magazine_Layer1_Pos_Z.ForeColor = System.Drawing.Color.White;
-            this.label_Manual_Magazine_Layer1_Pos_Z.Location = new System.Drawing.Point(255, 157);
-            this.label_Manual_Magazine_Layer1_Pos_Z.Name = "label_Manual_Magazine_Layer1_Pos_Z";
-            this.label_Manual_Magazine_Layer1_Pos_Z.Size = new System.Drawing.Size(155, 51);
-            this.label_Manual_Magazine_Layer1_Pos_Z.TabIndex = 54;
-            this.label_Manual_Magazine_Layer1_Pos_Z.Text = "Z LAYER 1";
-            this.label_Manual_Magazine_Layer1_Pos_Z.UseVisualStyleBackColor = false;
-            this.label_Manual_Magazine_Layer1_Pos_Z.Click += new System.EventHandler(this.button_Manual_Transfer_Left_Bcr_Pos_Z_Click);
+            this.button_Manual_Magazine_Layer1_Pos_Z.BackColor = System.Drawing.Color.Tan;
+            this.button_Manual_Magazine_Layer1_Pos_Z.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.button_Manual_Magazine_Layer1_Pos_Z.Font = new System.Drawing.Font("나눔고딕 ExtraBold", 8.999999F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(129)));
+            this.button_Manual_Magazine_Layer1_Pos_Z.ForeColor = System.Drawing.Color.White;
+            this.button_Manual_Magazine_Layer1_Pos_Z.Location = new System.Drawing.Point(255, 157);
+            this.button_Manual_Magazine_Layer1_Pos_Z.Name = "button_Manual_Magazine_Layer1_Pos_Z";
+            this.button_Manual_Magazine_Layer1_Pos_Z.Size = new System.Drawing.Size(155, 51);
+            this.button_Manual_Magazine_Layer1_Pos_Z.TabIndex = 54;
+            this.button_Manual_Magazine_Layer1_Pos_Z.Text = "Z LAYER 1";
+            this.button_Manual_Magazine_Layer1_Pos_Z.UseVisualStyleBackColor = false;
+            this.button_Manual_Magazine_Layer1_Pos_Z.Click += new System.EventHandler(this.button_Manual_Magazine_Layer1_Pos_Z_Click);
             // 
-            // label_Manual_Magazine_Layer2_Pos_Y
+            // comboBox_Manual_Magazine_Motor
             // 
-            this.label_Manual_Magazine_Layer2_Pos_Y.BackColor = System.Drawing.Color.Tan;
-            this.label_Manual_Magazine_Layer2_Pos_Y.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.label_Manual_Magazine_Layer2_Pos_Y.Font = new System.Drawing.Font("나눔고딕 ExtraBold", 8.999999F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(129)));
-            this.label_Manual_Magazine_Layer2_Pos_Y.ForeColor = System.Drawing.Color.White;
-            this.label_Manual_Magazine_Layer2_Pos_Y.Location = new System.Drawing.Point(42, 210);
-            this.label_Manual_Magazine_Layer2_Pos_Y.Name = "label_Manual_Magazine_Layer2_Pos_Y";
-            this.label_Manual_Magazine_Layer2_Pos_Y.Size = new System.Drawing.Size(155, 51);
-            this.label_Manual_Magazine_Layer2_Pos_Y.TabIndex = 54;
-            this.label_Manual_Magazine_Layer2_Pos_Y.Text = "LAYER 2";
-            this.label_Manual_Magazine_Layer2_Pos_Y.UseVisualStyleBackColor = false;
-            this.label_Manual_Magazine_Layer2_Pos_Y.Click += new System.EventHandler(this.button_Manual_Transfer_Right_Bcr_Pos_XY_Click);
+            this.comboBox_Manual_Magazine_Motor.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.comboBox_Manual_Magazine_Motor.Font = new System.Drawing.Font("나눔고딕 ExtraBold", 15.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(129)));
+            this.comboBox_Manual_Magazine_Motor.FormattingEnabled = true;
+            this.comboBox_Manual_Magazine_Motor.ItemHeight = 24;
+            this.comboBox_Manual_Magazine_Motor.Location = new System.Drawing.Point(128, 20);
+            this.comboBox_Manual_Magazine_Motor.Name = "comboBox_Manual_Magazine_Motor";
+            this.comboBox_Manual_Magazine_Motor.Size = new System.Drawing.Size(201, 32);
+            this.comboBox_Manual_Magazine_Motor.TabIndex = 53;
+            this.comboBox_Manual_Magazine_Motor.DropDownClosed += new System.EventHandler(this.comboBox_Manual_Magazine_Motor_DropDownClosed);
             // 
-            // label_Manual_Magazine_Layer1_Pos_Y
+            // button_Manual_Magazine_Layer2_Pos_Y
             // 
-            this.label_Manual_Magazine_Layer1_Pos_Y.BackColor = System.Drawing.Color.Tan;
-            this.label_Manual_Magazine_Layer1_Pos_Y.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.label_Manual_Magazine_Layer1_Pos_Y.Font = new System.Drawing.Font("나눔고딕 ExtraBold", 8.999999F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(129)));
-            this.label_Manual_Magazine_Layer1_Pos_Y.ForeColor = System.Drawing.Color.White;
-            this.label_Manual_Magazine_Layer1_Pos_Y.Location = new System.Drawing.Point(42, 157);
-            this.label_Manual_Magazine_Layer1_Pos_Y.Name = "label_Manual_Magazine_Layer1_Pos_Y";
-            this.label_Manual_Magazine_Layer1_Pos_Y.Size = new System.Drawing.Size(155, 51);
-            this.label_Manual_Magazine_Layer1_Pos_Y.TabIndex = 53;
-            this.label_Manual_Magazine_Layer1_Pos_Y.Text = "LAYER 1";
-            this.label_Manual_Magazine_Layer1_Pos_Y.UseVisualStyleBackColor = false;
-            this.label_Manual_Magazine_Layer1_Pos_Y.Click += new System.EventHandler(this.button_Manual_Transfer_Left_Bcr_Pos_XY_Click);
+            this.button_Manual_Magazine_Layer2_Pos_Y.BackColor = System.Drawing.Color.Tan;
+            this.button_Manual_Magazine_Layer2_Pos_Y.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.button_Manual_Magazine_Layer2_Pos_Y.Font = new System.Drawing.Font("나눔고딕 ExtraBold", 8.999999F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(129)));
+            this.button_Manual_Magazine_Layer2_Pos_Y.ForeColor = System.Drawing.Color.White;
+            this.button_Manual_Magazine_Layer2_Pos_Y.Location = new System.Drawing.Point(42, 210);
+            this.button_Manual_Magazine_Layer2_Pos_Y.Name = "button_Manual_Magazine_Layer2_Pos_Y";
+            this.button_Manual_Magazine_Layer2_Pos_Y.Size = new System.Drawing.Size(155, 51);
+            this.button_Manual_Magazine_Layer2_Pos_Y.TabIndex = 54;
+            this.button_Manual_Magazine_Layer2_Pos_Y.Text = "LAYER 2";
+            this.button_Manual_Magazine_Layer2_Pos_Y.UseVisualStyleBackColor = false;
+            this.button_Manual_Magazine_Layer2_Pos_Y.Click += new System.EventHandler(this.button_Manual_Transfer_Right_Bcr_Pos_XY_Click);
             // 
-            // label_Manual_Magazine_Layer4_Pos_Y
+            // button_Manual_Magazine_Layer1_Pos_Y
             // 
-            this.label_Manual_Magazine_Layer4_Pos_Y.BackColor = System.Drawing.Color.Tan;
-            this.label_Manual_Magazine_Layer4_Pos_Y.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.label_Manual_Magazine_Layer4_Pos_Y.Font = new System.Drawing.Font("나눔고딕 ExtraBold", 8.999999F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(129)));
-            this.label_Manual_Magazine_Layer4_Pos_Y.ForeColor = System.Drawing.Color.White;
-            this.label_Manual_Magazine_Layer4_Pos_Y.Location = new System.Drawing.Point(42, 316);
-            this.label_Manual_Magazine_Layer4_Pos_Y.Name = "label_Manual_Magazine_Layer4_Pos_Y";
-            this.label_Manual_Magazine_Layer4_Pos_Y.Size = new System.Drawing.Size(155, 51);
-            this.label_Manual_Magazine_Layer4_Pos_Y.TabIndex = 40;
-            this.label_Manual_Magazine_Layer4_Pos_Y.Text = "LAYER 4";
-            this.label_Manual_Magazine_Layer4_Pos_Y.UseVisualStyleBackColor = false;
-            this.label_Manual_Magazine_Layer4_Pos_Y.Click += new System.EventHandler(this.BTN_MANUAL_TRANSFER_LEFT_UNLOAD_POS_XY_Click);
+            this.button_Manual_Magazine_Layer1_Pos_Y.BackColor = System.Drawing.Color.Tan;
+            this.button_Manual_Magazine_Layer1_Pos_Y.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.button_Manual_Magazine_Layer1_Pos_Y.Font = new System.Drawing.Font("나눔고딕 ExtraBold", 8.999999F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(129)));
+            this.button_Manual_Magazine_Layer1_Pos_Y.ForeColor = System.Drawing.Color.White;
+            this.button_Manual_Magazine_Layer1_Pos_Y.Location = new System.Drawing.Point(42, 157);
+            this.button_Manual_Magazine_Layer1_Pos_Y.Name = "button_Manual_Magazine_Layer1_Pos_Y";
+            this.button_Manual_Magazine_Layer1_Pos_Y.Size = new System.Drawing.Size(155, 51);
+            this.button_Manual_Magazine_Layer1_Pos_Y.TabIndex = 53;
+            this.button_Manual_Magazine_Layer1_Pos_Y.Text = "LAYER 1";
+            this.button_Manual_Magazine_Layer1_Pos_Y.UseVisualStyleBackColor = false;
+            this.button_Manual_Magazine_Layer1_Pos_Y.Click += new System.EventHandler(this.button_Manual_Transfer_Left_Bcr_Pos_XY_Click);
             // 
-            // label_Manual_Magazine_Layer5_Pos_Y
+            // button_Manual_Magazine_Layer4_Pos_Y
             // 
-            this.label_Manual_Magazine_Layer5_Pos_Y.BackColor = System.Drawing.Color.Tan;
-            this.label_Manual_Magazine_Layer5_Pos_Y.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.label_Manual_Magazine_Layer5_Pos_Y.Font = new System.Drawing.Font("나눔고딕 ExtraBold", 8.999999F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(129)));
-            this.label_Manual_Magazine_Layer5_Pos_Y.ForeColor = System.Drawing.Color.White;
-            this.label_Manual_Magazine_Layer5_Pos_Y.Location = new System.Drawing.Point(42, 369);
-            this.label_Manual_Magazine_Layer5_Pos_Y.Name = "label_Manual_Magazine_Layer5_Pos_Y";
-            this.label_Manual_Magazine_Layer5_Pos_Y.Size = new System.Drawing.Size(155, 51);
-            this.label_Manual_Magazine_Layer5_Pos_Y.TabIndex = 38;
-            this.label_Manual_Magazine_Layer5_Pos_Y.Text = "LAYER 5";
-            this.label_Manual_Magazine_Layer5_Pos_Y.UseVisualStyleBackColor = false;
-            this.label_Manual_Magazine_Layer5_Pos_Y.Click += new System.EventHandler(this.BTN_MANUAL_TRANSFER_RIGHT_LOAD_POS_XY_Click);
+            this.button_Manual_Magazine_Layer4_Pos_Y.BackColor = System.Drawing.Color.Tan;
+            this.button_Manual_Magazine_Layer4_Pos_Y.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.button_Manual_Magazine_Layer4_Pos_Y.Font = new System.Drawing.Font("나눔고딕 ExtraBold", 8.999999F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(129)));
+            this.button_Manual_Magazine_Layer4_Pos_Y.ForeColor = System.Drawing.Color.White;
+            this.button_Manual_Magazine_Layer4_Pos_Y.Location = new System.Drawing.Point(42, 316);
+            this.button_Manual_Magazine_Layer4_Pos_Y.Name = "button_Manual_Magazine_Layer4_Pos_Y";
+            this.button_Manual_Magazine_Layer4_Pos_Y.Size = new System.Drawing.Size(155, 51);
+            this.button_Manual_Magazine_Layer4_Pos_Y.TabIndex = 40;
+            this.button_Manual_Magazine_Layer4_Pos_Y.Text = "LAYER 4";
+            this.button_Manual_Magazine_Layer4_Pos_Y.UseVisualStyleBackColor = false;
+            this.button_Manual_Magazine_Layer4_Pos_Y.Click += new System.EventHandler(this.BTN_MANUAL_TRANSFER_LEFT_UNLOAD_POS_XY_Click);
+            // 
+            // button_Manual_Magazine_Layer5_Pos_Y
+            // 
+            this.button_Manual_Magazine_Layer5_Pos_Y.BackColor = System.Drawing.Color.Tan;
+            this.button_Manual_Magazine_Layer5_Pos_Y.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.button_Manual_Magazine_Layer5_Pos_Y.Font = new System.Drawing.Font("나눔고딕 ExtraBold", 8.999999F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(129)));
+            this.button_Manual_Magazine_Layer5_Pos_Y.ForeColor = System.Drawing.Color.White;
+            this.button_Manual_Magazine_Layer5_Pos_Y.Location = new System.Drawing.Point(42, 369);
+            this.button_Manual_Magazine_Layer5_Pos_Y.Name = "button_Manual_Magazine_Layer5_Pos_Y";
+            this.button_Manual_Magazine_Layer5_Pos_Y.Size = new System.Drawing.Size(155, 51);
+            this.button_Manual_Magazine_Layer5_Pos_Y.TabIndex = 38;
+            this.button_Manual_Magazine_Layer5_Pos_Y.Text = "LAYER 5";
+            this.button_Manual_Magazine_Layer5_Pos_Y.UseVisualStyleBackColor = false;
+            this.button_Manual_Magazine_Layer5_Pos_Y.Click += new System.EventHandler(this.BTN_MANUAL_TRANSFER_RIGHT_LOAD_POS_XY_Click);
             // 
             // groupBox2
             // 
@@ -356,126 +361,15 @@ namespace ZenHandler.Dlg
             this.button_Manual_Magazine_Seat_Detect.Text = "Magazine Seat";
             this.button_Manual_Magazine_Seat_Detect.UseVisualStyleBackColor = false;
             // 
-            // comboBox_Manual_Magazine_Motor
-            // 
-            this.comboBox_Manual_Magazine_Motor.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
-            this.comboBox_Manual_Magazine_Motor.Font = new System.Drawing.Font("나눔고딕 ExtraBold", 15.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(129)));
-            this.comboBox_Manual_Magazine_Motor.FormattingEnabled = true;
-            this.comboBox_Manual_Magazine_Motor.ItemHeight = 24;
-            this.comboBox_Manual_Magazine_Motor.Location = new System.Drawing.Point(128, 20);
-            this.comboBox_Manual_Magazine_Motor.Name = "comboBox_Manual_Magazine_Motor";
-            this.comboBox_Manual_Magazine_Motor.Size = new System.Drawing.Size(201, 32);
-            this.comboBox_Manual_Magazine_Motor.TabIndex = 53;
-            this.comboBox_Manual_Magazine_Motor.DropDownClosed += new System.EventHandler(this.comboBox_Manual_Magazine_Motor_DropDownClosed);
-            // 
-            // label_Manual_Transfer_PosX
-            // 
-            this.label_Manual_Transfer_PosX.BackColor = System.Drawing.Color.White;
-            this.label_Manual_Transfer_PosX.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.label_Manual_Transfer_PosX.Font = new System.Drawing.Font("나눔고딕 ExtraBold", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(129)));
-            this.label_Manual_Transfer_PosX.Location = new System.Drawing.Point(103, 199);
-            this.label_Manual_Transfer_PosX.Name = "label_Manual_Transfer_PosX";
-            this.label_Manual_Transfer_PosX.Size = new System.Drawing.Size(82, 49);
-            this.label_Manual_Transfer_PosX.TabIndex = 56;
-            this.label_Manual_Transfer_PosX.Text = "X : 1";
-            this.label_Manual_Transfer_PosX.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
-            // 
-            // button_Manual_Transfer_PosX_Next
-            // 
-            this.button_Manual_Transfer_PosX_Next.BackColor = System.Drawing.Color.Tan;
-            this.button_Manual_Transfer_PosX_Next.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.button_Manual_Transfer_PosX_Next.Font = new System.Drawing.Font("맑은 고딕", 10F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.button_Manual_Transfer_PosX_Next.ForeColor = System.Drawing.Color.White;
-            this.button_Manual_Transfer_PosX_Next.Location = new System.Drawing.Point(186, 198);
-            this.button_Manual_Transfer_PosX_Next.Name = "button_Manual_Transfer_PosX_Next";
-            this.button_Manual_Transfer_PosX_Next.Size = new System.Drawing.Size(68, 50);
-            this.button_Manual_Transfer_PosX_Next.TabIndex = 55;
-            this.button_Manual_Transfer_PosX_Next.Text = "▶";
-            this.button_Manual_Transfer_PosX_Next.UseVisualStyleBackColor = false;
-            this.button_Manual_Transfer_PosX_Next.Click += new System.EventHandler(this.button_Manual_Transfer_PosX_Next_Click);
-            // 
-            // button_Manual_Transfer_PosX_Prev
-            // 
-            this.button_Manual_Transfer_PosX_Prev.BackColor = System.Drawing.Color.Tan;
-            this.button_Manual_Transfer_PosX_Prev.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.button_Manual_Transfer_PosX_Prev.Font = new System.Drawing.Font("맑은 고딕", 10F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.button_Manual_Transfer_PosX_Prev.ForeColor = System.Drawing.Color.White;
-            this.button_Manual_Transfer_PosX_Prev.Location = new System.Drawing.Point(33, 198);
-            this.button_Manual_Transfer_PosX_Prev.Name = "button_Manual_Transfer_PosX_Prev";
-            this.button_Manual_Transfer_PosX_Prev.Size = new System.Drawing.Size(68, 50);
-            this.button_Manual_Transfer_PosX_Prev.TabIndex = 54;
-            this.button_Manual_Transfer_PosX_Prev.Text = "◀";
-            this.button_Manual_Transfer_PosX_Prev.UseVisualStyleBackColor = false;
-            this.button_Manual_Transfer_PosX_Prev.Click += new System.EventHandler(this.button_Manual_Transfer_PosX_Prev_Click);
-            // 
-            // label_Manual_Transfer_PosY
-            // 
-            this.label_Manual_Transfer_PosY.BackColor = System.Drawing.Color.White;
-            this.label_Manual_Transfer_PosY.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.label_Manual_Transfer_PosY.Font = new System.Drawing.Font("나눔고딕 ExtraBold", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(129)));
-            this.label_Manual_Transfer_PosY.Location = new System.Drawing.Point(103, 251);
-            this.label_Manual_Transfer_PosY.Name = "label_Manual_Transfer_PosY";
-            this.label_Manual_Transfer_PosY.Size = new System.Drawing.Size(82, 49);
-            this.label_Manual_Transfer_PosY.TabIndex = 59;
-            this.label_Manual_Transfer_PosY.Text = "Y : 1";
-            this.label_Manual_Transfer_PosY.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
-            // 
-            // button_Manual_Transfer_PosY_Next
-            // 
-            this.button_Manual_Transfer_PosY_Next.BackColor = System.Drawing.Color.Tan;
-            this.button_Manual_Transfer_PosY_Next.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.button_Manual_Transfer_PosY_Next.Font = new System.Drawing.Font("맑은 고딕", 10F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.button_Manual_Transfer_PosY_Next.ForeColor = System.Drawing.Color.White;
-            this.button_Manual_Transfer_PosY_Next.Location = new System.Drawing.Point(186, 250);
-            this.button_Manual_Transfer_PosY_Next.Name = "button_Manual_Transfer_PosY_Next";
-            this.button_Manual_Transfer_PosY_Next.Size = new System.Drawing.Size(68, 50);
-            this.button_Manual_Transfer_PosY_Next.TabIndex = 58;
-            this.button_Manual_Transfer_PosY_Next.Text = "▶";
-            this.button_Manual_Transfer_PosY_Next.UseVisualStyleBackColor = false;
-            this.button_Manual_Transfer_PosY_Next.Click += new System.EventHandler(this.button_Manual_Transfer_PosY_Next_Click);
-            // 
-            // button_Manual_Transfer_PosY_Prev
-            // 
-            this.button_Manual_Transfer_PosY_Prev.BackColor = System.Drawing.Color.Tan;
-            this.button_Manual_Transfer_PosY_Prev.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.button_Manual_Transfer_PosY_Prev.Font = new System.Drawing.Font("맑은 고딕", 10F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.button_Manual_Transfer_PosY_Prev.ForeColor = System.Drawing.Color.White;
-            this.button_Manual_Transfer_PosY_Prev.Location = new System.Drawing.Point(33, 250);
-            this.button_Manual_Transfer_PosY_Prev.Name = "button_Manual_Transfer_PosY_Prev";
-            this.button_Manual_Transfer_PosY_Prev.Size = new System.Drawing.Size(68, 50);
-            this.button_Manual_Transfer_PosY_Prev.TabIndex = 57;
-            this.button_Manual_Transfer_PosY_Prev.Text = "◀";
-            this.button_Manual_Transfer_PosY_Prev.UseVisualStyleBackColor = false;
-            this.button_Manual_Transfer_PosY_Prev.Click += new System.EventHandler(this.button_Manual_Transfer_PosY_Prev_Click);
-            // 
-            // label_Manual_Magazine_Tray_No
-            // 
-            this.label_Manual_Magazine_Tray_No.BackColor = System.Drawing.Color.PapayaWhip;
-            this.label_Manual_Magazine_Tray_No.Font = new System.Drawing.Font("굴림", 10F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(129)));
-            this.label_Manual_Magazine_Tray_No.ForeColor = System.Drawing.Color.Black;
-            this.label_Manual_Magazine_Tray_No.Location = new System.Drawing.Point(30, 172);
-            this.label_Manual_Magazine_Tray_No.Name = "label_Manual_Magazine_Tray_No";
-            this.label_Manual_Magazine_Tray_No.Size = new System.Drawing.Size(224, 23);
-            this.label_Manual_Magazine_Tray_No.TabIndex = 60;
-            this.label_Manual_Magazine_Tray_No.Text = "TRAY NO";
-            this.label_Manual_Magazine_Tray_No.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
-            // 
             // ManualMagazine
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 12F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.Controls.Add(this.label_Manual_Magazine_Tray_No);
-            this.Controls.Add(this.label_Manual_Transfer_PosY);
-            this.Controls.Add(this.button_Manual_Transfer_PosY_Next);
-            this.Controls.Add(this.button_Manual_Transfer_PosY_Prev);
-            this.Controls.Add(this.label_Manual_Transfer_PosX);
-            this.Controls.Add(this.button_Manual_Transfer_PosX_Next);
-            this.Controls.Add(this.button_Manual_Transfer_PosX_Prev);
             this.Controls.Add(this.groupBox2);
             this.Controls.Add(this.groupBox1);
             this.Name = "ManualMagazine";
             this.Size = new System.Drawing.Size(770, 900);
-            this.VisibleChanged += new System.EventHandler(this.ManualTransfer_VisibleChanged);
+            this.VisibleChanged += new System.EventHandler(this.ManualMagazine_VisibleChanged);
             this.groupBox1.ResumeLayout(false);
             this.groupBox2.ResumeLayout(false);
             this.ResumeLayout(false);
@@ -484,30 +378,23 @@ namespace ZenHandler.Dlg
 
         #endregion
         private System.Windows.Forms.Label label_Manual_Magazine_Sensor_Title;
-        private System.Windows.Forms.Button label_Manual_Magazine_Layer3_Pos_Z;
-        private System.Windows.Forms.Button label_Manual_Magazine_Layer3_Pos_Y;
-        private System.Windows.Forms.Button label_Manual_Magazine_Wait_Pos_Z;
+        private System.Windows.Forms.Button button_Manual_Magazine_Layer3_Pos_Z;
+        private System.Windows.Forms.Button button_Manual_Magazine_Layer3_Pos_Y;
+        private System.Windows.Forms.Button button_Manual_Magazine_Wait_Pos_Z;
         private System.Windows.Forms.Label label_Manual_Magazine_Y_Title;
-        private System.Windows.Forms.Button label_Manual_Magazine_Wait_Pos_Y;
+        private System.Windows.Forms.Button button_Manual_Magazine_Wait_Pos_Y;
         private System.Windows.Forms.GroupBox groupBox1;
         private System.Windows.Forms.GroupBox groupBox2;
-        private System.Windows.Forms.Button label_Manual_Magazine_Layer5_Pos_Y;
-        private System.Windows.Forms.Button label_Manual_Magazine_Layer4_Pos_Z;
-        private System.Windows.Forms.Button label_Manual_Magazine_Layer4_Pos_Y;
-        private System.Windows.Forms.Button label_Manual_Magazine_Layer2_Pos_Y;
-        private System.Windows.Forms.Button label_Manual_Magazine_Layer1_Pos_Y;
-        private System.Windows.Forms.Button label_Manual_Magazine_Layer2_Pos_Z;
-        private System.Windows.Forms.Button label_Manual_Magazine_Layer1_Pos_Z;
+        private System.Windows.Forms.Button button_Manual_Magazine_Layer5_Pos_Y;
+        private System.Windows.Forms.Button button_Manual_Magazine_Layer4_Pos_Z;
+        private System.Windows.Forms.Button button_Manual_Magazine_Layer4_Pos_Y;
+        private System.Windows.Forms.Button button_Manual_Magazine_Layer2_Pos_Y;
+        private System.Windows.Forms.Button button_Manual_Magazine_Layer1_Pos_Y;
+        private System.Windows.Forms.Button button_Manual_Magazine_Layer2_Pos_Z;
+        private System.Windows.Forms.Button button_Manual_Magazine_Layer1_Pos_Z;
         private System.Windows.Forms.Label label_Manual_Magazine_Z_Title;
         private System.Windows.Forms.ComboBox comboBox_Manual_Magazine_Motor;
-        private System.Windows.Forms.Label label_Manual_Transfer_PosX;
-        private System.Windows.Forms.Button button_Manual_Transfer_PosX_Next;
-        private System.Windows.Forms.Button button_Manual_Transfer_PosX_Prev;
-        private System.Windows.Forms.Label label_Manual_Transfer_PosY;
-        private System.Windows.Forms.Button button_Manual_Transfer_PosY_Next;
-        private System.Windows.Forms.Button button_Manual_Transfer_PosY_Prev;
-        private System.Windows.Forms.Label label_Manual_Magazine_Tray_No;
-        private System.Windows.Forms.Button label_Manual_Magazine_Layer5_Pos_Z;
+        private System.Windows.Forms.Button button_Manual_Magazine_Layer5_Pos_Z;
         private System.Windows.Forms.Button button_Manual_Magazine_Tray_Front_Detect;
         private System.Windows.Forms.Button button_Manual_Magazine_Tray_Bottom_Detect;
         private System.Windows.Forms.Button button_Manual_Magazine_Tray_Seat_Detect_;

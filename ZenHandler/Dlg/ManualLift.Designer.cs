@@ -31,17 +31,16 @@ namespace ZenHandler.Dlg
         {
             this.button_Manual_Lift_Gantry_Clamp_For = new System.Windows.Forms.Button();
             this.label_Manual_Magazine_Sensor_Title = new System.Windows.Forms.Label();
-            this.label_Manual_Lift_Left_Tray_Load_Pos_X = new System.Windows.Forms.Button();
-            this.label_Manual_Lift_Wait_Pos_Z = new System.Windows.Forms.Button();
+            this.button_Manual_Lift_Left_Tray_Load_Pos_X = new System.Windows.Forms.Button();
+            this.button_Manual_LoadLift_Home_Z = new System.Windows.Forms.Button();
             this.label_Manual_Lift_X_Title = new System.Windows.Forms.Label();
-            this.label_Manual_Lift_Wait_Pos_X = new System.Windows.Forms.Button();
+            this.button_Manual_Lift_Wait_Pos_X = new System.Windows.Forms.Button();
             this.groupBox1 = new System.Windows.Forms.GroupBox();
-            this.label_Manual_Lift_Right_Load_Pos_Z = new System.Windows.Forms.Button();
+            this.label2 = new System.Windows.Forms.Label();
             this.label_Manual_Lift_Z_Title = new System.Windows.Forms.Label();
-            this.label_Manual_Lift_Left_Load_Pos_Z = new System.Windows.Forms.Button();
-            this.label_Manual_Lift_Right_Load_Pos_X = new System.Windows.Forms.Button();
-            this.label_Manual_Lift_Left_Load_Pos_X = new System.Windows.Forms.Button();
-            this.label_Manual_Lift_Right_Tray_Load_Pos_X = new System.Windows.Forms.Button();
+            this.button_Manual_Lift_Right_Load_Pos_X = new System.Windows.Forms.Button();
+            this.button_Manual_Lift_Left_Load_Pos_X = new System.Windows.Forms.Button();
+            this.button_Manual_Lift_Right_Tray_Load_Pos_X = new System.Windows.Forms.Button();
             this.groupBox2 = new System.Windows.Forms.GroupBox();
             this.button_Manual_Lift_Right_Tray_Detect = new System.Windows.Forms.Button();
             this.button_Manual_Lift_Right_Slide_Detect = new System.Windows.Forms.Button();
@@ -64,7 +63,11 @@ namespace ZenHandler.Dlg
             this.button_Manual_Lift_Gantry_Clamp_Back = new System.Windows.Forms.Button();
             this.button_Manual_Lift_Left_Top_Detect = new System.Windows.Forms.Button();
             this.comboBox_Manual_LoadPicker = new System.Windows.Forms.ComboBox();
-            this.label2 = new System.Windows.Forms.Label();
+            this.button_Manual_UnloadLift_Home_Z = new System.Windows.Forms.Button();
+            this.button_Manual_UnloadLift_Ready_Z = new System.Windows.Forms.Button();
+            this.button_Manual_LoadLift_Ready_Z = new System.Windows.Forms.Button();
+            this.button_Manual_UnloadLift_Top_Z = new System.Windows.Forms.Button();
+            this.button_Manual_LoadLift_Top_Z = new System.Windows.Forms.Button();
             this.groupBox1.SuspendLayout();
             this.groupBox2.SuspendLayout();
             this.SuspendLayout();
@@ -95,33 +98,33 @@ namespace ZenHandler.Dlg
             this.label_Manual_Magazine_Sensor_Title.Text = "Detect Sensor";
             this.label_Manual_Magazine_Sensor_Title.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
-            // label_Manual_Lift_Left_Tray_Load_Pos_X
+            // button_Manual_Lift_Left_Tray_Load_Pos_X
             // 
-            this.label_Manual_Lift_Left_Tray_Load_Pos_X.BackColor = System.Drawing.Color.Tan;
-            this.label_Manual_Lift_Left_Tray_Load_Pos_X.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.label_Manual_Lift_Left_Tray_Load_Pos_X.Font = new System.Drawing.Font("나눔고딕 ExtraBold", 8.999999F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(129)));
-            this.label_Manual_Lift_Left_Tray_Load_Pos_X.ForeColor = System.Drawing.Color.White;
-            this.label_Manual_Lift_Left_Tray_Load_Pos_X.Location = new System.Drawing.Point(40, 202);
-            this.label_Manual_Lift_Left_Tray_Load_Pos_X.Name = "label_Manual_Lift_Left_Tray_Load_Pos_X";
-            this.label_Manual_Lift_Left_Tray_Load_Pos_X.Size = new System.Drawing.Size(164, 51);
-            this.label_Manual_Lift_Left_Tray_Load_Pos_X.TabIndex = 33;
-            this.label_Manual_Lift_Left_Tray_Load_Pos_X.Text = "LEFT TRAY LOAD POS";
-            this.label_Manual_Lift_Left_Tray_Load_Pos_X.UseVisualStyleBackColor = false;
-            this.label_Manual_Lift_Left_Tray_Load_Pos_X.Click += new System.EventHandler(this.BTN_MANUAL_TRANSFER_LEFT_LOAD_POS_XY_Click);
+            this.button_Manual_Lift_Left_Tray_Load_Pos_X.BackColor = System.Drawing.Color.Tan;
+            this.button_Manual_Lift_Left_Tray_Load_Pos_X.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.button_Manual_Lift_Left_Tray_Load_Pos_X.Font = new System.Drawing.Font("나눔고딕 ExtraBold", 8.999999F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(129)));
+            this.button_Manual_Lift_Left_Tray_Load_Pos_X.ForeColor = System.Drawing.Color.White;
+            this.button_Manual_Lift_Left_Tray_Load_Pos_X.Location = new System.Drawing.Point(40, 202);
+            this.button_Manual_Lift_Left_Tray_Load_Pos_X.Name = "button_Manual_Lift_Left_Tray_Load_Pos_X";
+            this.button_Manual_Lift_Left_Tray_Load_Pos_X.Size = new System.Drawing.Size(164, 51);
+            this.button_Manual_Lift_Left_Tray_Load_Pos_X.TabIndex = 33;
+            this.button_Manual_Lift_Left_Tray_Load_Pos_X.Text = "LEFT TRAY LOAD POS";
+            this.button_Manual_Lift_Left_Tray_Load_Pos_X.UseVisualStyleBackColor = false;
+            this.button_Manual_Lift_Left_Tray_Load_Pos_X.Click += new System.EventHandler(this.button_Manual_Lift_Left_Tray_Load_Pos_X_Click);
             // 
-            // label_Manual_Lift_Wait_Pos_Z
+            // button_Manual_LoadLift_Home_Z
             // 
-            this.label_Manual_Lift_Wait_Pos_Z.BackColor = System.Drawing.Color.Tan;
-            this.label_Manual_Lift_Wait_Pos_Z.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.label_Manual_Lift_Wait_Pos_Z.Font = new System.Drawing.Font("나눔고딕 ExtraBold", 8.999999F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(129)));
-            this.label_Manual_Lift_Wait_Pos_Z.ForeColor = System.Drawing.Color.White;
-            this.label_Manual_Lift_Wait_Pos_Z.Location = new System.Drawing.Point(253, 43);
-            this.label_Manual_Lift_Wait_Pos_Z.Name = "label_Manual_Lift_Wait_Pos_Z";
-            this.label_Manual_Lift_Wait_Pos_Z.Size = new System.Drawing.Size(164, 51);
-            this.label_Manual_Lift_Wait_Pos_Z.TabIndex = 32;
-            this.label_Manual_Lift_Wait_Pos_Z.Text = "Z WAIT POS";
-            this.label_Manual_Lift_Wait_Pos_Z.UseVisualStyleBackColor = false;
-            this.label_Manual_Lift_Wait_Pos_Z.Click += new System.EventHandler(this.BTN_MANUAL_WAIT_POS_Z_Click_1);
+            this.button_Manual_LoadLift_Home_Z.BackColor = System.Drawing.Color.Tan;
+            this.button_Manual_LoadLift_Home_Z.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.button_Manual_LoadLift_Home_Z.Font = new System.Drawing.Font("나눔고딕 ExtraBold", 8.999999F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(129)));
+            this.button_Manual_LoadLift_Home_Z.ForeColor = System.Drawing.Color.White;
+            this.button_Manual_LoadLift_Home_Z.Location = new System.Drawing.Point(253, 43);
+            this.button_Manual_LoadLift_Home_Z.Name = "button_Manual_LoadLift_Home_Z";
+            this.button_Manual_LoadLift_Home_Z.Size = new System.Drawing.Size(164, 51);
+            this.button_Manual_LoadLift_Home_Z.TabIndex = 32;
+            this.button_Manual_LoadLift_Home_Z.Text = "Z HOME POS";
+            this.button_Manual_LoadLift_Home_Z.UseVisualStyleBackColor = false;
+            this.button_Manual_LoadLift_Home_Z.Click += new System.EventHandler(this.BTN_MANUAL_WAIT_POS_Z_Click_1);
             // 
             // label_Manual_Lift_X_Title
             // 
@@ -135,53 +138,54 @@ namespace ZenHandler.Dlg
             this.label_Manual_Lift_X_Title.Text = "X AXIS";
             this.label_Manual_Lift_X_Title.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
-            // label_Manual_Lift_Wait_Pos_X
+            // button_Manual_Lift_Wait_Pos_X
             // 
-            this.label_Manual_Lift_Wait_Pos_X.BackColor = System.Drawing.Color.Tan;
-            this.label_Manual_Lift_Wait_Pos_X.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.label_Manual_Lift_Wait_Pos_X.Font = new System.Drawing.Font("나눔고딕 ExtraBold", 8.999999F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(129)));
-            this.label_Manual_Lift_Wait_Pos_X.ForeColor = System.Drawing.Color.White;
-            this.label_Manual_Lift_Wait_Pos_X.Location = new System.Drawing.Point(40, 43);
-            this.label_Manual_Lift_Wait_Pos_X.Name = "label_Manual_Lift_Wait_Pos_X";
-            this.label_Manual_Lift_Wait_Pos_X.Size = new System.Drawing.Size(164, 51);
-            this.label_Manual_Lift_Wait_Pos_X.TabIndex = 29;
-            this.label_Manual_Lift_Wait_Pos_X.Text = "WAIT POS";
-            this.label_Manual_Lift_Wait_Pos_X.UseVisualStyleBackColor = false;
-            this.label_Manual_Lift_Wait_Pos_X.Click += new System.EventHandler(this.BTN_MANUAL_WAIT_POS_XY_Click_1);
+            this.button_Manual_Lift_Wait_Pos_X.BackColor = System.Drawing.Color.Tan;
+            this.button_Manual_Lift_Wait_Pos_X.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.button_Manual_Lift_Wait_Pos_X.Font = new System.Drawing.Font("나눔고딕 ExtraBold", 8.999999F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(129)));
+            this.button_Manual_Lift_Wait_Pos_X.ForeColor = System.Drawing.Color.White;
+            this.button_Manual_Lift_Wait_Pos_X.Location = new System.Drawing.Point(40, 43);
+            this.button_Manual_Lift_Wait_Pos_X.Name = "button_Manual_Lift_Wait_Pos_X";
+            this.button_Manual_Lift_Wait_Pos_X.Size = new System.Drawing.Size(164, 51);
+            this.button_Manual_Lift_Wait_Pos_X.TabIndex = 29;
+            this.button_Manual_Lift_Wait_Pos_X.Text = "WAIT POS";
+            this.button_Manual_Lift_Wait_Pos_X.UseVisualStyleBackColor = false;
+            this.button_Manual_Lift_Wait_Pos_X.Click += new System.EventHandler(this.button_Manual_Lift_Wait_Pos_X_Click);
             // 
             // groupBox1
             // 
             this.groupBox1.BackColor = System.Drawing.Color.White;
+            this.groupBox1.Controls.Add(this.button_Manual_UnloadLift_Top_Z);
+            this.groupBox1.Controls.Add(this.button_Manual_LoadLift_Top_Z);
+            this.groupBox1.Controls.Add(this.button_Manual_UnloadLift_Ready_Z);
+            this.groupBox1.Controls.Add(this.button_Manual_LoadLift_Ready_Z);
+            this.groupBox1.Controls.Add(this.button_Manual_UnloadLift_Home_Z);
             this.groupBox1.Controls.Add(this.label2);
-            this.groupBox1.Controls.Add(this.label_Manual_Lift_Right_Load_Pos_Z);
             this.groupBox1.Controls.Add(this.label_Manual_Lift_Z_Title);
-            this.groupBox1.Controls.Add(this.label_Manual_Lift_Left_Load_Pos_Z);
-            this.groupBox1.Controls.Add(this.label_Manual_Lift_Right_Load_Pos_X);
-            this.groupBox1.Controls.Add(this.label_Manual_Lift_Left_Load_Pos_X);
-            this.groupBox1.Controls.Add(this.label_Manual_Lift_Right_Tray_Load_Pos_X);
-            this.groupBox1.Controls.Add(this.label_Manual_Lift_Wait_Pos_Z);
+            this.groupBox1.Controls.Add(this.button_Manual_Lift_Right_Load_Pos_X);
+            this.groupBox1.Controls.Add(this.button_Manual_Lift_Left_Load_Pos_X);
+            this.groupBox1.Controls.Add(this.button_Manual_Lift_Right_Tray_Load_Pos_X);
+            this.groupBox1.Controls.Add(this.button_Manual_LoadLift_Home_Z);
             this.groupBox1.Controls.Add(this.label_Manual_Lift_X_Title);
-            this.groupBox1.Controls.Add(this.label_Manual_Lift_Wait_Pos_X);
-            this.groupBox1.Controls.Add(this.label_Manual_Lift_Left_Tray_Load_Pos_X);
+            this.groupBox1.Controls.Add(this.button_Manual_Lift_Wait_Pos_X);
+            this.groupBox1.Controls.Add(this.button_Manual_Lift_Left_Tray_Load_Pos_X);
             this.groupBox1.Location = new System.Drawing.Point(104, 413);
             this.groupBox1.Name = "groupBox1";
             this.groupBox1.Size = new System.Drawing.Size(642, 349);
             this.groupBox1.TabIndex = 41;
             this.groupBox1.TabStop = false;
             // 
-            // label_Manual_Lift_Right_Load_Pos_Z
+            // label2
             // 
-            this.label_Manual_Lift_Right_Load_Pos_Z.BackColor = System.Drawing.Color.Tan;
-            this.label_Manual_Lift_Right_Load_Pos_Z.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.label_Manual_Lift_Right_Load_Pos_Z.Font = new System.Drawing.Font("나눔고딕 ExtraBold", 8.999999F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(129)));
-            this.label_Manual_Lift_Right_Load_Pos_Z.ForeColor = System.Drawing.Color.White;
-            this.label_Manual_Lift_Right_Load_Pos_Z.Location = new System.Drawing.Point(253, 149);
-            this.label_Manual_Lift_Right_Load_Pos_Z.Name = "label_Manual_Lift_Right_Load_Pos_Z";
-            this.label_Manual_Lift_Right_Load_Pos_Z.Size = new System.Drawing.Size(164, 51);
-            this.label_Manual_Lift_Right_Load_Pos_Z.TabIndex = 55;
-            this.label_Manual_Lift_Right_Load_Pos_Z.Text = "Z RIGHT LOAD POS";
-            this.label_Manual_Lift_Right_Load_Pos_Z.UseVisualStyleBackColor = false;
-            this.label_Manual_Lift_Right_Load_Pos_Z.Click += new System.EventHandler(this.button_Manual_Transfer_Right_Bcr_Pos_Z_Click);
+            this.label2.BackColor = System.Drawing.Color.PapayaWhip;
+            this.label2.Font = new System.Drawing.Font("굴림", 10F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(129)));
+            this.label2.ForeColor = System.Drawing.Color.Black;
+            this.label2.Location = new System.Drawing.Point(452, 17);
+            this.label2.Name = "label2";
+            this.label2.Size = new System.Drawing.Size(164, 23);
+            this.label2.TabIndex = 60;
+            this.label2.Text = "UNLOAD LIFT AXIS";
+            this.label2.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
             // label_Manual_Lift_Z_Title
             // 
@@ -195,61 +199,47 @@ namespace ZenHandler.Dlg
             this.label_Manual_Lift_Z_Title.Text = "LOAD LIFT AXIS";
             this.label_Manual_Lift_Z_Title.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
-            // label_Manual_Lift_Left_Load_Pos_Z
+            // button_Manual_Lift_Right_Load_Pos_X
             // 
-            this.label_Manual_Lift_Left_Load_Pos_Z.BackColor = System.Drawing.Color.Tan;
-            this.label_Manual_Lift_Left_Load_Pos_Z.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.label_Manual_Lift_Left_Load_Pos_Z.Font = new System.Drawing.Font("나눔고딕 ExtraBold", 8.999999F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(129)));
-            this.label_Manual_Lift_Left_Load_Pos_Z.ForeColor = System.Drawing.Color.White;
-            this.label_Manual_Lift_Left_Load_Pos_Z.Location = new System.Drawing.Point(253, 96);
-            this.label_Manual_Lift_Left_Load_Pos_Z.Name = "label_Manual_Lift_Left_Load_Pos_Z";
-            this.label_Manual_Lift_Left_Load_Pos_Z.Size = new System.Drawing.Size(164, 51);
-            this.label_Manual_Lift_Left_Load_Pos_Z.TabIndex = 54;
-            this.label_Manual_Lift_Left_Load_Pos_Z.Text = "Z LEFT LOAD POS";
-            this.label_Manual_Lift_Left_Load_Pos_Z.UseVisualStyleBackColor = false;
-            this.label_Manual_Lift_Left_Load_Pos_Z.Click += new System.EventHandler(this.button_Manual_Transfer_Left_Bcr_Pos_Z_Click);
+            this.button_Manual_Lift_Right_Load_Pos_X.BackColor = System.Drawing.Color.Tan;
+            this.button_Manual_Lift_Right_Load_Pos_X.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.button_Manual_Lift_Right_Load_Pos_X.Font = new System.Drawing.Font("나눔고딕 ExtraBold", 8.999999F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(129)));
+            this.button_Manual_Lift_Right_Load_Pos_X.ForeColor = System.Drawing.Color.White;
+            this.button_Manual_Lift_Right_Load_Pos_X.Location = new System.Drawing.Point(40, 149);
+            this.button_Manual_Lift_Right_Load_Pos_X.Name = "button_Manual_Lift_Right_Load_Pos_X";
+            this.button_Manual_Lift_Right_Load_Pos_X.Size = new System.Drawing.Size(164, 51);
+            this.button_Manual_Lift_Right_Load_Pos_X.TabIndex = 54;
+            this.button_Manual_Lift_Right_Load_Pos_X.Text = "RIGHT LOAD POS";
+            this.button_Manual_Lift_Right_Load_Pos_X.UseVisualStyleBackColor = false;
+            this.button_Manual_Lift_Right_Load_Pos_X.Click += new System.EventHandler(this.button_Manual_Lift_Right_Load_Pos_X_Click);
             // 
-            // label_Manual_Lift_Right_Load_Pos_X
+            // button_Manual_Lift_Left_Load_Pos_X
             // 
-            this.label_Manual_Lift_Right_Load_Pos_X.BackColor = System.Drawing.Color.Tan;
-            this.label_Manual_Lift_Right_Load_Pos_X.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.label_Manual_Lift_Right_Load_Pos_X.Font = new System.Drawing.Font("나눔고딕 ExtraBold", 8.999999F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(129)));
-            this.label_Manual_Lift_Right_Load_Pos_X.ForeColor = System.Drawing.Color.White;
-            this.label_Manual_Lift_Right_Load_Pos_X.Location = new System.Drawing.Point(40, 149);
-            this.label_Manual_Lift_Right_Load_Pos_X.Name = "label_Manual_Lift_Right_Load_Pos_X";
-            this.label_Manual_Lift_Right_Load_Pos_X.Size = new System.Drawing.Size(164, 51);
-            this.label_Manual_Lift_Right_Load_Pos_X.TabIndex = 54;
-            this.label_Manual_Lift_Right_Load_Pos_X.Text = "RIGHT LOAD POS";
-            this.label_Manual_Lift_Right_Load_Pos_X.UseVisualStyleBackColor = false;
-            this.label_Manual_Lift_Right_Load_Pos_X.Click += new System.EventHandler(this.button_Manual_Transfer_Right_Bcr_Pos_XY_Click);
+            this.button_Manual_Lift_Left_Load_Pos_X.BackColor = System.Drawing.Color.Tan;
+            this.button_Manual_Lift_Left_Load_Pos_X.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.button_Manual_Lift_Left_Load_Pos_X.Font = new System.Drawing.Font("나눔고딕 ExtraBold", 8.999999F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(129)));
+            this.button_Manual_Lift_Left_Load_Pos_X.ForeColor = System.Drawing.Color.White;
+            this.button_Manual_Lift_Left_Load_Pos_X.Location = new System.Drawing.Point(40, 96);
+            this.button_Manual_Lift_Left_Load_Pos_X.Name = "button_Manual_Lift_Left_Load_Pos_X";
+            this.button_Manual_Lift_Left_Load_Pos_X.Size = new System.Drawing.Size(164, 51);
+            this.button_Manual_Lift_Left_Load_Pos_X.TabIndex = 53;
+            this.button_Manual_Lift_Left_Load_Pos_X.Text = "LEFT LOAD POS";
+            this.button_Manual_Lift_Left_Load_Pos_X.UseVisualStyleBackColor = false;
+            this.button_Manual_Lift_Left_Load_Pos_X.Click += new System.EventHandler(this.button_Manual_Lift_Left_Load_Pos_X_Click);
             // 
-            // label_Manual_Lift_Left_Load_Pos_X
+            // button_Manual_Lift_Right_Tray_Load_Pos_X
             // 
-            this.label_Manual_Lift_Left_Load_Pos_X.BackColor = System.Drawing.Color.Tan;
-            this.label_Manual_Lift_Left_Load_Pos_X.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.label_Manual_Lift_Left_Load_Pos_X.Font = new System.Drawing.Font("나눔고딕 ExtraBold", 8.999999F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(129)));
-            this.label_Manual_Lift_Left_Load_Pos_X.ForeColor = System.Drawing.Color.White;
-            this.label_Manual_Lift_Left_Load_Pos_X.Location = new System.Drawing.Point(40, 96);
-            this.label_Manual_Lift_Left_Load_Pos_X.Name = "label_Manual_Lift_Left_Load_Pos_X";
-            this.label_Manual_Lift_Left_Load_Pos_X.Size = new System.Drawing.Size(164, 51);
-            this.label_Manual_Lift_Left_Load_Pos_X.TabIndex = 53;
-            this.label_Manual_Lift_Left_Load_Pos_X.Text = "LEFT LOAD POS";
-            this.label_Manual_Lift_Left_Load_Pos_X.UseVisualStyleBackColor = false;
-            this.label_Manual_Lift_Left_Load_Pos_X.Click += new System.EventHandler(this.button_Manual_Transfer_Left_Bcr_Pos_XY_Click);
-            // 
-            // label_Manual_Lift_Right_Tray_Load_Pos_X
-            // 
-            this.label_Manual_Lift_Right_Tray_Load_Pos_X.BackColor = System.Drawing.Color.Tan;
-            this.label_Manual_Lift_Right_Tray_Load_Pos_X.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.label_Manual_Lift_Right_Tray_Load_Pos_X.Font = new System.Drawing.Font("나눔고딕 ExtraBold", 8.999999F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(129)));
-            this.label_Manual_Lift_Right_Tray_Load_Pos_X.ForeColor = System.Drawing.Color.White;
-            this.label_Manual_Lift_Right_Tray_Load_Pos_X.Location = new System.Drawing.Point(40, 255);
-            this.label_Manual_Lift_Right_Tray_Load_Pos_X.Name = "label_Manual_Lift_Right_Tray_Load_Pos_X";
-            this.label_Manual_Lift_Right_Tray_Load_Pos_X.Size = new System.Drawing.Size(164, 51);
-            this.label_Manual_Lift_Right_Tray_Load_Pos_X.TabIndex = 40;
-            this.label_Manual_Lift_Right_Tray_Load_Pos_X.Text = "RIGHT TRAY LOAD POS";
-            this.label_Manual_Lift_Right_Tray_Load_Pos_X.UseVisualStyleBackColor = false;
-            this.label_Manual_Lift_Right_Tray_Load_Pos_X.Click += new System.EventHandler(this.BTN_MANUAL_TRANSFER_LEFT_UNLOAD_POS_XY_Click);
+            this.button_Manual_Lift_Right_Tray_Load_Pos_X.BackColor = System.Drawing.Color.Tan;
+            this.button_Manual_Lift_Right_Tray_Load_Pos_X.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.button_Manual_Lift_Right_Tray_Load_Pos_X.Font = new System.Drawing.Font("나눔고딕 ExtraBold", 8.999999F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(129)));
+            this.button_Manual_Lift_Right_Tray_Load_Pos_X.ForeColor = System.Drawing.Color.White;
+            this.button_Manual_Lift_Right_Tray_Load_Pos_X.Location = new System.Drawing.Point(40, 255);
+            this.button_Manual_Lift_Right_Tray_Load_Pos_X.Name = "button_Manual_Lift_Right_Tray_Load_Pos_X";
+            this.button_Manual_Lift_Right_Tray_Load_Pos_X.Size = new System.Drawing.Size(164, 51);
+            this.button_Manual_Lift_Right_Tray_Load_Pos_X.TabIndex = 40;
+            this.button_Manual_Lift_Right_Tray_Load_Pos_X.Text = "RIGHT TRAY LOAD POS";
+            this.button_Manual_Lift_Right_Tray_Load_Pos_X.UseVisualStyleBackColor = false;
+            this.button_Manual_Lift_Right_Tray_Load_Pos_X.Click += new System.EventHandler(this.button_Manual_Lift_Right_Tray_Load_Pos_X_Click);
             // 
             // groupBox2
             // 
@@ -562,17 +552,75 @@ namespace ZenHandler.Dlg
             this.comboBox_Manual_LoadPicker.Size = new System.Drawing.Size(114, 32);
             this.comboBox_Manual_LoadPicker.TabIndex = 53;
             // 
-            // label2
+            // button_Manual_UnloadLift_Home_Z
             // 
-            this.label2.BackColor = System.Drawing.Color.PapayaWhip;
-            this.label2.Font = new System.Drawing.Font("굴림", 10F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(129)));
-            this.label2.ForeColor = System.Drawing.Color.Black;
-            this.label2.Location = new System.Drawing.Point(452, 17);
-            this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(164, 23);
-            this.label2.TabIndex = 60;
-            this.label2.Text = "UNLOAD LIFT AXIS";
-            this.label2.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            this.button_Manual_UnloadLift_Home_Z.BackColor = System.Drawing.Color.Tan;
+            this.button_Manual_UnloadLift_Home_Z.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.button_Manual_UnloadLift_Home_Z.Font = new System.Drawing.Font("나눔고딕 ExtraBold", 8.999999F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(129)));
+            this.button_Manual_UnloadLift_Home_Z.ForeColor = System.Drawing.Color.White;
+            this.button_Manual_UnloadLift_Home_Z.Location = new System.Drawing.Point(452, 43);
+            this.button_Manual_UnloadLift_Home_Z.Name = "button_Manual_UnloadLift_Home_Z";
+            this.button_Manual_UnloadLift_Home_Z.Size = new System.Drawing.Size(164, 51);
+            this.button_Manual_UnloadLift_Home_Z.TabIndex = 61;
+            this.button_Manual_UnloadLift_Home_Z.Text = "Z HOME POS";
+            this.button_Manual_UnloadLift_Home_Z.UseVisualStyleBackColor = false;
+            this.button_Manual_UnloadLift_Home_Z.Click += new System.EventHandler(this.button_Manual_UnloadLift_Home_Z_Click);
+            // 
+            // button_Manual_UnloadLift_Ready_Z
+            // 
+            this.button_Manual_UnloadLift_Ready_Z.BackColor = System.Drawing.Color.Tan;
+            this.button_Manual_UnloadLift_Ready_Z.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.button_Manual_UnloadLift_Ready_Z.Font = new System.Drawing.Font("나눔고딕 ExtraBold", 8.999999F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(129)));
+            this.button_Manual_UnloadLift_Ready_Z.ForeColor = System.Drawing.Color.White;
+            this.button_Manual_UnloadLift_Ready_Z.Location = new System.Drawing.Point(452, 96);
+            this.button_Manual_UnloadLift_Ready_Z.Name = "button_Manual_UnloadLift_Ready_Z";
+            this.button_Manual_UnloadLift_Ready_Z.Size = new System.Drawing.Size(164, 51);
+            this.button_Manual_UnloadLift_Ready_Z.TabIndex = 63;
+            this.button_Manual_UnloadLift_Ready_Z.Text = "Z READY POS";
+            this.button_Manual_UnloadLift_Ready_Z.UseVisualStyleBackColor = false;
+            this.button_Manual_UnloadLift_Ready_Z.Click += new System.EventHandler(this.button_Manual_UnloadLift_Ready_Z_Click);
+            // 
+            // button_Manual_LoadLift_Ready_Z
+            // 
+            this.button_Manual_LoadLift_Ready_Z.BackColor = System.Drawing.Color.Tan;
+            this.button_Manual_LoadLift_Ready_Z.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.button_Manual_LoadLift_Ready_Z.Font = new System.Drawing.Font("나눔고딕 ExtraBold", 8.999999F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(129)));
+            this.button_Manual_LoadLift_Ready_Z.ForeColor = System.Drawing.Color.White;
+            this.button_Manual_LoadLift_Ready_Z.Location = new System.Drawing.Point(253, 96);
+            this.button_Manual_LoadLift_Ready_Z.Name = "button_Manual_LoadLift_Ready_Z";
+            this.button_Manual_LoadLift_Ready_Z.Size = new System.Drawing.Size(164, 51);
+            this.button_Manual_LoadLift_Ready_Z.TabIndex = 62;
+            this.button_Manual_LoadLift_Ready_Z.Text = "Z READY POS";
+            this.button_Manual_LoadLift_Ready_Z.UseVisualStyleBackColor = false;
+            this.button_Manual_LoadLift_Ready_Z.Click += new System.EventHandler(this.button_Manual_LoadLift_Ready_Z_Click);
+            // 
+            // button_Manual_UnloadLift_Top_Z
+            // 
+            this.button_Manual_UnloadLift_Top_Z.BackColor = System.Drawing.Color.Tan;
+            this.button_Manual_UnloadLift_Top_Z.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.button_Manual_UnloadLift_Top_Z.Font = new System.Drawing.Font("나눔고딕 ExtraBold", 8.999999F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(129)));
+            this.button_Manual_UnloadLift_Top_Z.ForeColor = System.Drawing.Color.White;
+            this.button_Manual_UnloadLift_Top_Z.Location = new System.Drawing.Point(452, 149);
+            this.button_Manual_UnloadLift_Top_Z.Name = "button_Manual_UnloadLift_Top_Z";
+            this.button_Manual_UnloadLift_Top_Z.Size = new System.Drawing.Size(164, 51);
+            this.button_Manual_UnloadLift_Top_Z.TabIndex = 65;
+            this.button_Manual_UnloadLift_Top_Z.Text = "Z READY POS";
+            this.button_Manual_UnloadLift_Top_Z.UseVisualStyleBackColor = false;
+            this.button_Manual_UnloadLift_Top_Z.Click += new System.EventHandler(this.button_Manual_UnloadLift_Top_Z_Click);
+            // 
+            // button_Manual_LoadLift_Top_Z
+            // 
+            this.button_Manual_LoadLift_Top_Z.BackColor = System.Drawing.Color.Tan;
+            this.button_Manual_LoadLift_Top_Z.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.button_Manual_LoadLift_Top_Z.Font = new System.Drawing.Font("나눔고딕 ExtraBold", 8.999999F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(129)));
+            this.button_Manual_LoadLift_Top_Z.ForeColor = System.Drawing.Color.White;
+            this.button_Manual_LoadLift_Top_Z.Location = new System.Drawing.Point(253, 149);
+            this.button_Manual_LoadLift_Top_Z.Name = "button_Manual_LoadLift_Top_Z";
+            this.button_Manual_LoadLift_Top_Z.Size = new System.Drawing.Size(164, 51);
+            this.button_Manual_LoadLift_Top_Z.TabIndex = 64;
+            this.button_Manual_LoadLift_Top_Z.Text = "Z READY POS";
+            this.button_Manual_LoadLift_Top_Z.UseVisualStyleBackColor = false;
+            this.button_Manual_LoadLift_Top_Z.Click += new System.EventHandler(this.button_Manual_LoadLift_Top_Z_Click);
             // 
             // ManualLift
             // 
@@ -593,17 +641,15 @@ namespace ZenHandler.Dlg
         #endregion
         private System.Windows.Forms.Button button_Manual_Lift_Gantry_Clamp_For;
         private System.Windows.Forms.Label label_Manual_Magazine_Sensor_Title;
-        private System.Windows.Forms.Button label_Manual_Lift_Left_Tray_Load_Pos_X;
-        private System.Windows.Forms.Button label_Manual_Lift_Wait_Pos_Z;
+        private System.Windows.Forms.Button button_Manual_Lift_Left_Tray_Load_Pos_X;
+        private System.Windows.Forms.Button button_Manual_LoadLift_Home_Z;
         private System.Windows.Forms.Label label_Manual_Lift_X_Title;
-        private System.Windows.Forms.Button label_Manual_Lift_Wait_Pos_X;
+        private System.Windows.Forms.Button button_Manual_Lift_Wait_Pos_X;
         private System.Windows.Forms.GroupBox groupBox1;
         private System.Windows.Forms.GroupBox groupBox2;
-        private System.Windows.Forms.Button label_Manual_Lift_Right_Tray_Load_Pos_X;
-        private System.Windows.Forms.Button label_Manual_Lift_Right_Load_Pos_X;
-        private System.Windows.Forms.Button label_Manual_Lift_Left_Load_Pos_X;
-        private System.Windows.Forms.Button label_Manual_Lift_Right_Load_Pos_Z;
-        private System.Windows.Forms.Button label_Manual_Lift_Left_Load_Pos_Z;
+        private System.Windows.Forms.Button button_Manual_Lift_Right_Tray_Load_Pos_X;
+        private System.Windows.Forms.Button button_Manual_Lift_Right_Load_Pos_X;
+        private System.Windows.Forms.Button button_Manual_Lift_Left_Load_Pos_X;
         private System.Windows.Forms.Label label_Manual_Lift_Z_Title;
         private System.Windows.Forms.ComboBox comboBox_Manual_LoadPicker;
         private System.Windows.Forms.Button button_Manual_Lift_Left_Top_Detect;
@@ -627,5 +673,10 @@ namespace ZenHandler.Dlg
         private System.Windows.Forms.Button button_Manual_Lift_Right_Mid_Detect;
         private System.Windows.Forms.Button button_Manual_Lift_Right_Top_Detect;
         private System.Windows.Forms.Label label2;
+        private System.Windows.Forms.Button button_Manual_UnloadLift_Home_Z;
+        private System.Windows.Forms.Button button_Manual_UnloadLift_Ready_Z;
+        private System.Windows.Forms.Button button_Manual_LoadLift_Ready_Z;
+        private System.Windows.Forms.Button button_Manual_UnloadLift_Top_Z;
+        private System.Windows.Forms.Button button_Manual_LoadLift_Top_Z;
     }
 }

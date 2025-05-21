@@ -750,6 +750,7 @@ namespace ZenHandler.Machine
             return false;
         }
         #endregion
+
         public override bool IsMoving()
         {
             if (AutoUnitThread.GetThreadRun() == true)
@@ -767,6 +768,7 @@ namespace ZenHandler.Machine
             return true;
         }
         #region LIFT Motor 동작
+
         public bool ChkGantryXMotorPos(eTeachingPosList teachingPos)
         {
             if (ProgramState.ON_LINE_MOTOR == false)
