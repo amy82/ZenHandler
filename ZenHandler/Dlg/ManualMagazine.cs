@@ -18,15 +18,17 @@ namespace ZenHandler.Dlg
         
         private System.Windows.Forms.Timer ManualTimer;
 
-        private Button[] MotorY_BtnArr = new Button[6];
-        private Button[] MotorZ_BtnArr = new Button[6];
+        private Button[] Left_MotorY_BtnArr = new Button[6];
+        private Button[] Left_MotorZ_BtnArr = new Button[6];
 
-        private Button[] MagazineSensorBtnArr = new Button[4];
+        private Button[] Right_MotorY_BtnArr = new Button[6];
+        private Button[] Right_MotorZ_BtnArr = new Button[6];
+
+        private Button[] MagazineL_SensorBtnArr = new Button[4];
+        private Button[] MagazineR_SensorBtnArr = new Button[4];
 
         protected CancellationTokenSource cts;  //TODO: <--이름 변경하고 사용가능하게
         private bool isMovingMagazine;
-        private int ManualLoadPosx = 0;
-        private int ManualLoadPosy = 0;
 
         private int CurrentMagazine = 0;        //0 = LFET , 1 = RIGHT
         //MEMO: 티칭 위치를 어떻게 가져올 것인가
@@ -48,55 +50,93 @@ namespace ZenHandler.Dlg
         private void ManualUiSet()
         {
             int i = 0;
-            MotorY_BtnArr[0] = button_Manual_Magazine_Wait_Pos_Y;
-            MotorY_BtnArr[1] = button_Manual_Magazine_Layer1_Pos_Y;
-            MotorY_BtnArr[2] = button_Manual_Magazine_Layer2_Pos_Y;
-            MotorY_BtnArr[3] = button_Manual_Magazine_Layer3_Pos_Y;
-            MotorY_BtnArr[4] = button_Manual_Magazine_Layer4_Pos_Y;
-            MotorY_BtnArr[5] = button_Manual_Magazine_Layer5_Pos_Y;
+            Left_MotorY_BtnArr[0] = button_Manual_Magazine_Wait_Pos_Y;
+            Left_MotorY_BtnArr[1] = button_Manual_Magazine_Layer1_Pos_Y;
+            Left_MotorY_BtnArr[2] = button_Manual_Magazine_Layer2_Pos_Y;
+            Left_MotorY_BtnArr[3] = button_Manual_Magazine_Layer3_Pos_Y;
+            Left_MotorY_BtnArr[4] = button_Manual_Magazine_Layer4_Pos_Y;
+            Left_MotorY_BtnArr[5] = button_Manual_Magazine_Layer5_Pos_Y;
 
-            MotorZ_BtnArr[0] = button_Manual_Magazine_Wait_Pos_Z;
-            MotorZ_BtnArr[1] = button_Manual_Magazine_Layer1_Pos_Z;
-            MotorZ_BtnArr[2] = button_Manual_Magazine_Layer2_Pos_Z;
-            MotorZ_BtnArr[3] = button_Manual_Magazine_Layer3_Pos_Z;
-            MotorZ_BtnArr[4] = button_Manual_Magazine_Layer4_Pos_Z;
-            MotorZ_BtnArr[5] = button_Manual_Magazine_Layer5_Pos_Z;
+            Left_MotorZ_BtnArr[0] = button_Manual_Magazine_Wait_Pos_Z;
+            Left_MotorZ_BtnArr[1] = button_Manual_Magazine_Layer1_Pos_Z;
+            Left_MotorZ_BtnArr[2] = button_Manual_Magazine_Layer2_Pos_Z;
+            Left_MotorZ_BtnArr[3] = button_Manual_Magazine_Layer3_Pos_Z;
+            Left_MotorZ_BtnArr[4] = button_Manual_Magazine_Layer4_Pos_Z;
+            Left_MotorZ_BtnArr[5] = button_Manual_Magazine_Layer5_Pos_Z;
 
-            MagazineSensorBtnArr[0] = button_Manual_Magazine_Seat_Detect;
-            MagazineSensorBtnArr[1] = button_Manual_Magazine_Tray_Seat_Detect_;
-            MagazineSensorBtnArr[2] = button_Manual_Magazine_Tray_Bottom_Detect;
-            MagazineSensorBtnArr[3] = button_Manual_Magazine_Tray_Front_Detect;
+            Right_MotorY_BtnArr[0] = button_Manual_Magazine_Right_Wait_Pos_Y;
+            Right_MotorY_BtnArr[1] = button_Manual_Magazine_Right_Layer1_Pos_Y;
+            Right_MotorY_BtnArr[2] = button_Manual_Magazine_Right_Layer2_Pos_Y;
+            Right_MotorY_BtnArr[3] = button_Manual_Magazine_Right_Layer3_Pos_Y;
+            Right_MotorY_BtnArr[4] = button_Manual_Magazine_Right_Layer4_Pos_Y;
+            Right_MotorY_BtnArr[5] = button_Manual_Magazine_Right_Layer5_Pos_Y;
 
-            for (i = 0; i < MagazineSensorBtnArr.Length; i++)
+            Right_MotorZ_BtnArr[0] = button_Manual_Magazine_Right_Wait_Pos_Z;
+            Right_MotorZ_BtnArr[1] = button_Manual_Magazine_Right_Layer1_Pos_Z;
+            Right_MotorZ_BtnArr[2] = button_Manual_Magazine_Right_Layer2_Pos_Z;
+            Right_MotorZ_BtnArr[3] = button_Manual_Magazine_Right_Layer3_Pos_Z;
+            Right_MotorZ_BtnArr[4] = button_Manual_Magazine_Right_Layer4_Pos_Z;
+            Right_MotorZ_BtnArr[5] = button_Manual_Magazine_Right_Layer5_Pos_Z;
+
+
+            MagazineL_SensorBtnArr[0] = button_Manual_Magazine_Seat_Detect_L;
+            MagazineL_SensorBtnArr[1] = button_Manual_Magazine_Tray_Seat_Detect_L;
+            MagazineL_SensorBtnArr[2] = button_Manual_Magazine_Tray_Bottom_Detect_L;
+            MagazineL_SensorBtnArr[3] = button_Manual_Magazine_Tray_Front_Detect_L;
+
+            MagazineR_SensorBtnArr[0] = button_Manual_Magazine_Seat_Detect_R;
+            MagazineR_SensorBtnArr[1] = button_Manual_Magazine_Tray_Seat_Detect_R;
+            MagazineR_SensorBtnArr[2] = button_Manual_Magazine_Tray_Bottom_Detect_R;
+            MagazineR_SensorBtnArr[3] = button_Manual_Magazine_Tray_Front_Detect_R;
+
+            for (i = 0; i < MagazineL_SensorBtnArr.Length; i++)
             {
-                MagazineSensorBtnArr[i].BackColor = ColorTranslator.FromHtml(ButtonColor.MANUAL_BTN_OFF);
-                MagazineSensorBtnArr[i].ForeColor = Color.White;
-                MagazineSensorBtnArr[i].FlatAppearance.BorderColor = ColorTranslator.FromHtml("#BBBBBB");
+                MagazineL_SensorBtnArr[i].BackColor = ColorTranslator.FromHtml(ButtonColor.MANUAL_BTN_OFF);
+                MagazineL_SensorBtnArr[i].ForeColor = Color.White;
+                MagazineL_SensorBtnArr[i].FlatAppearance.BorderColor = ColorTranslator.FromHtml("#BBBBBB");
             }
-
+            for (i = 0; i < MagazineR_SensorBtnArr.Length; i++)
+            {
+                MagazineR_SensorBtnArr[i].BackColor = ColorTranslator.FromHtml(ButtonColor.MANUAL_BTN_OFF);
+                MagazineR_SensorBtnArr[i].ForeColor = Color.White;
+                MagazineR_SensorBtnArr[i].FlatAppearance.BorderColor = ColorTranslator.FromHtml("#BBBBBB");
+            }
 
             //LoadVacuumOnBtnArr[1] = BTN_MANUAL_TRANSFER_LOAD_VACUUM_ON2;
 
-            for (i = 0; i < MotorY_BtnArr.Length; i++)
+            for (i = 0; i < Left_MotorY_BtnArr.Length; i++)
             {
-                MotorY_BtnArr[i].BackColor = ColorTranslator.FromHtml(ButtonColor.MANUAL_BTN_OFF);
-                MotorY_BtnArr[i].ForeColor = Color.White;
+                Left_MotorY_BtnArr[i].BackColor = ColorTranslator.FromHtml(ButtonColor.MANUAL_BTN_OFF);
+                Left_MotorY_BtnArr[i].ForeColor = Color.White;
 
-                MotorY_BtnArr[i].FlatAppearance.BorderColor = ColorTranslator.FromHtml("#BBBBBB");
+                Left_MotorY_BtnArr[i].FlatAppearance.BorderColor = ColorTranslator.FromHtml("#BBBBBB");
             }
-            for (i = 0; i < MotorZ_BtnArr.Length; i++)
+            for (i = 0; i < Left_MotorZ_BtnArr.Length; i++)
             {
-                MotorZ_BtnArr[i].BackColor = ColorTranslator.FromHtml(ButtonColor.MANUAL_BTN_OFF);
-                MotorZ_BtnArr[i].ForeColor = Color.White;
+                Left_MotorZ_BtnArr[i].BackColor = ColorTranslator.FromHtml(ButtonColor.MANUAL_BTN_OFF);
+                Left_MotorZ_BtnArr[i].ForeColor = Color.White;
 
-                MotorZ_BtnArr[i].FlatAppearance.BorderColor = ColorTranslator.FromHtml("#BBBBBB");
+                Left_MotorZ_BtnArr[i].FlatAppearance.BorderColor = ColorTranslator.FromHtml("#BBBBBB");
             }
+
+            for (i = 0; i < Right_MotorY_BtnArr.Length; i++)
+            {
+                Right_MotorY_BtnArr[i].BackColor = ColorTranslator.FromHtml(ButtonColor.MANUAL_BTN_OFF);
+                Right_MotorY_BtnArr[i].ForeColor = Color.White;
+
+                Right_MotorY_BtnArr[i].FlatAppearance.BorderColor = ColorTranslator.FromHtml("#BBBBBB");
+            }
+            for (i = 0; i < Right_MotorZ_BtnArr.Length; i++)
+            {
+                Right_MotorZ_BtnArr[i].BackColor = ColorTranslator.FromHtml(ButtonColor.MANUAL_BTN_OFF);
+                Right_MotorZ_BtnArr[i].ForeColor = Color.White;
+
+                Right_MotorZ_BtnArr[i].FlatAppearance.BorderColor = ColorTranslator.FromHtml("#BBBBBB");
+            }
+
+
             //MotorBtnArr[0].BackColor = ColorTranslator.FromHtml("#4C4743");   //모터 위치 이동 완료시 색
 
-
-
-            comboBox_Manual_Magazine_Motor.Items.Add("LEFT MAGAZINE");
-            comboBox_Manual_Magazine_Motor.Items.Add("RIGHT MAGAZINE");
 
         }
 
@@ -471,59 +511,144 @@ namespace ZenHandler.Dlg
         {
             int i = 0;
             bool bRtn = false;
-
-            Machine.eMagazine magazineMotor;
-            if (CurrentMagazine == 0)
-            {
-                magazineMotor = Machine.eMagazine.MAGAZINE_L_Y;
-            }
-            else
-            {
-                magazineMotor = Machine.eMagazine.MAGAZINE_R_Y;
-            }
-             
-            for (i = 0; i < MotorY_BtnArr.Length; i++)
+            //------------------------------------------------------------------------------------------------------
+            //
+            //
+            //  LEFT MAGAZINE
+            //
+            //
+            //------------------------------------------------------------------------------------------------------
+            for (i = 0; i < Left_MotorY_BtnArr.Length; i++)
             {
                 Machine.MagazineHandler.eTeachingPosList pos = (Machine.MagazineHandler.eTeachingPosList)i;
 
                 
-                if (Globalo.motionManager.magazineHandler.ChkYMotorPos(pos, magazineMotor) == true)
+                if (Globalo.motionManager.magazineHandler.ChkYMotorPos(pos, Machine.eMagazine.MAGAZINE_L_Y) == true)
                 {
-                    MotorY_BtnArr[i].BackColor = ColorTranslator.FromHtml(ButtonColor.MANUAL_BTN_ON);
+                    Left_MotorY_BtnArr[i].BackColor = ColorTranslator.FromHtml(ButtonColor.MANUAL_BTN_ON);
                 }
                 else
                 {
-                    MotorY_BtnArr[i].BackColor = ColorTranslator.FromHtml(ButtonColor.MANUAL_BTN_OFF);
+                    Left_MotorY_BtnArr[i].BackColor = ColorTranslator.FromHtml(ButtonColor.MANUAL_BTN_OFF);
                 }
             }
 
-            if (CurrentMagazine == 0)
-            {
-                magazineMotor = Machine.eMagazine.MAGAZINE_L_Z;
-            }
-            else
-            {
-                magazineMotor = Machine.eMagazine.MAGAZINE_R_Z;
-            }
-            for (i = 0; i < MotorZ_BtnArr.Length; i++)
+            for (i = 0; i < Left_MotorZ_BtnArr.Length; i++)
             {
                 Machine.MagazineHandler.eTeachingPosList pos = (Machine.MagazineHandler.eTeachingPosList)i;
 
-                if (Globalo.motionManager.magazineHandler.ChkZMotorPos(pos, magazineMotor) == true)
+                if (Globalo.motionManager.magazineHandler.ChkZMotorPos(pos, Machine.eMagazine.MAGAZINE_L_Y) == true)
                 {
-                    MotorZ_BtnArr[i].BackColor = ColorTranslator.FromHtml(ButtonColor.MANUAL_BTN_ON);
+                    Left_MotorZ_BtnArr[i].BackColor = ColorTranslator.FromHtml(ButtonColor.MANUAL_BTN_ON);
                 }
                 else
                 {
-                    MotorZ_BtnArr[i].BackColor = ColorTranslator.FromHtml(ButtonColor.MANUAL_BTN_OFF);
+                    Left_MotorZ_BtnArr[i].BackColor = ColorTranslator.FromHtml(ButtonColor.MANUAL_BTN_OFF);
                 }
             }
-            
 
+            if (Globalo.motionManager.magazineHandler.GetMagazineInPosition(0))
+            {
+                MagazineL_SensorBtnArr[0].BackColor = ColorTranslator.FromHtml(ButtonColor.MANUAL_BTN_ON);
+            }
+            else
+            {
+                MagazineL_SensorBtnArr[0].BackColor = ColorTranslator.FromHtml(ButtonColor.MANUAL_BTN_OFF);
+            }
+            if (Globalo.motionManager.magazineHandler.GetIsTrayOnLoader(0))
+            {
+                MagazineL_SensorBtnArr[1].BackColor = ColorTranslator.FromHtml(ButtonColor.MANUAL_BTN_ON);
+            }
+            else
+            {
+                MagazineL_SensorBtnArr[1].BackColor = ColorTranslator.FromHtml(ButtonColor.MANUAL_BTN_OFF);
+            }
+            if (Globalo.motionManager.magazineHandler.GetIsTrayFrontOfLoader(0))
+            {
+                MagazineL_SensorBtnArr[2].BackColor = ColorTranslator.FromHtml(ButtonColor.MANUAL_BTN_ON);
+            }
+            else
+            {
+                MagazineL_SensorBtnArr[2].BackColor = ColorTranslator.FromHtml(ButtonColor.MANUAL_BTN_OFF);
+            }
+            if (Globalo.motionManager.magazineHandler.GetTrayUndocked(0))
+            {
+                MagazineL_SensorBtnArr[3].BackColor = ColorTranslator.FromHtml(ButtonColor.MANUAL_BTN_ON);
+            }
+            else
+            {
+                MagazineL_SensorBtnArr[3].BackColor = ColorTranslator.FromHtml(ButtonColor.MANUAL_BTN_OFF);
+            }
+            //------------------------------------------------------------------------------------------------------
+            //
+            //
+            //  RIGHT MAGAZINE
+            //
+            //
+            //------------------------------------------------------------------------------------------------------
+            for (i = 0; i < Right_MotorY_BtnArr.Length; i++)
+            {
+                Machine.MagazineHandler.eTeachingPosList pos = (Machine.MagazineHandler.eTeachingPosList)i;
+
+
+                if (Globalo.motionManager.magazineHandler.ChkYMotorPos(pos, Machine.eMagazine.MAGAZINE_R_Y) == true)
+                {
+                    Right_MotorY_BtnArr[i].BackColor = ColorTranslator.FromHtml(ButtonColor.MANUAL_BTN_ON);
+                }
+                else
+                {
+                    Right_MotorY_BtnArr[i].BackColor = ColorTranslator.FromHtml(ButtonColor.MANUAL_BTN_OFF);
+                }
+            }
+
+            for (i = 0; i < Right_MotorZ_BtnArr.Length; i++)
+            {
+                Machine.MagazineHandler.eTeachingPosList pos = (Machine.MagazineHandler.eTeachingPosList)i;
+
+                if (Globalo.motionManager.magazineHandler.ChkZMotorPos(pos, Machine.eMagazine.MAGAZINE_R_Y) == true)
+                {
+                    Right_MotorZ_BtnArr[i].BackColor = ColorTranslator.FromHtml(ButtonColor.MANUAL_BTN_ON);
+                }
+                else
+                {
+                    Right_MotorZ_BtnArr[i].BackColor = ColorTranslator.FromHtml(ButtonColor.MANUAL_BTN_OFF);
+                }
+            }
+
+
+            if (Globalo.motionManager.magazineHandler.GetMagazineInPosition(1))
+            {
+                MagazineR_SensorBtnArr[0].BackColor = ColorTranslator.FromHtml(ButtonColor.MANUAL_BTN_ON);
+            }
+            else
+            {
+                MagazineR_SensorBtnArr[0].BackColor = ColorTranslator.FromHtml(ButtonColor.MANUAL_BTN_OFF);
+            }
+            if (Globalo.motionManager.magazineHandler.GetIsTrayOnLoader(1))
+            {
+                MagazineR_SensorBtnArr[1].BackColor = ColorTranslator.FromHtml(ButtonColor.MANUAL_BTN_ON);
+            }
+            else
+            {
+                MagazineR_SensorBtnArr[1].BackColor = ColorTranslator.FromHtml(ButtonColor.MANUAL_BTN_OFF);
+            }
+            if (Globalo.motionManager.magazineHandler.GetIsTrayFrontOfLoader(1))
+            {
+                MagazineR_SensorBtnArr[2].BackColor = ColorTranslator.FromHtml(ButtonColor.MANUAL_BTN_ON);
+            }
+            else
+            {
+                MagazineR_SensorBtnArr[2].BackColor = ColorTranslator.FromHtml(ButtonColor.MANUAL_BTN_OFF);
+            }
+            if (Globalo.motionManager.magazineHandler.GetTrayUndocked(1))
+            {
+                MagazineR_SensorBtnArr[3].BackColor = ColorTranslator.FromHtml(ButtonColor.MANUAL_BTN_ON);
+            }
+            else
+            {
+                MagazineR_SensorBtnArr[3].BackColor = ColorTranslator.FromHtml(ButtonColor.MANUAL_BTN_OFF);
+            }
         }
-        private void comboBox_Manual_Magazine_Motor_DropDownClosed(object sender, EventArgs e)
-        {
-            CurrentMagazine = comboBox_Manual_Magazine_Motor.SelectedIndex;
-        }
+
     }
 }

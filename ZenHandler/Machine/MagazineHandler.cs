@@ -82,19 +82,19 @@ namespace ZenHandler.Machine
             return rtn;
         }
         #region Magazine Machine Io 동작
-        public bool GetMagazineInPosition(int index, bool bFlag, bool bWait = false)       //Magazine 정위치 안착 확인 
+        public bool GetMagazineInPosition(int index, bool bWait = false)       //Magazine 정위치 안착 확인 
         {
             return false;
         }
-        public bool GetTrayUndocked(int index, bool bFlag, bool bWait = false)              //Magazine 과 Loader 사이 Tray 감지
+        public bool GetTrayUndocked(int index, bool bWait = false)              //Magazine 과 Loader 사이 Tray 감지
         {
             return false;
         }
-        public bool GetIsTrayOnLoader(int index, bool bFlag, bool bWait = false)              //Loader 에 Tray 유무 확인
+        public bool GetIsTrayOnLoader(int index, bool bWait = false)              //Loader 에 Tray 유무 확인
         {
             return false;
         }
-        public bool GetIsTrayFrontOfLoader(int index, bool bFlag, bool bWait = false)              //Loader 앞쪽에 Tray 감지 센서  - Magazine에서 Tray 빼기전 유무 확인
+        public bool GetIsTrayFrontOfLoader(int index, bool bWait = false)              //Loader 앞쪽에 Tray 감지 센서  - Magazine에서 Tray 빼기전 유무 확인
         {
             return false;
         }

@@ -782,7 +782,7 @@ namespace ZenHandler.Dlg
             }
             if (Globalo.motionManager.liftMachine.GetPUsherUp(false) == true)
             {
-                LiftIoBtnArr[76].BackColor = ColorTranslator.FromHtml(ButtonColor.MANUAL_BTN_ON);
+                LiftIoBtnArr[7].BackColor = ColorTranslator.FromHtml(ButtonColor.MANUAL_BTN_ON);
             }
             else
             {
