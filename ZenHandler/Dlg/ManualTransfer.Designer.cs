@@ -34,7 +34,7 @@ namespace ZenHandler.Dlg
             this.label3 = new System.Windows.Forms.Label();
             this.button_Manual_Transfer_Left_Tray_Load_Pos_Z = new System.Windows.Forms.Button();
             this.button_Manual_Transfer_Left_Tray_Load_Pos_XY = new System.Windows.Forms.Button();
-            this.BTN_MANUAL_TRANSFER_WAIT_POS_Z = new System.Windows.Forms.Button();
+            this.button_Manual_Transfer_Wait_Pos_Z = new System.Windows.Forms.Button();
             this.label_Manual_XY_Title = new System.Windows.Forms.Label();
             this.button_Manual_Transfer_Wait_Pos_XY = new System.Windows.Forms.Button();
             this.groupBox1 = new System.Windows.Forms.GroupBox();
@@ -163,19 +163,19 @@ namespace ZenHandler.Dlg
             this.button_Manual_Transfer_Left_Tray_Load_Pos_XY.UseVisualStyleBackColor = false;
             this.button_Manual_Transfer_Left_Tray_Load_Pos_XY.Click += new System.EventHandler(this.BTN_MANUAL_TRANSFER_LEFT_LOAD_POS_XY_Click);
             // 
-            // BTN_MANUAL_TRANSFER_WAIT_POS_Z
+            // button_Manual_Transfer_Wait_Pos_Z
             // 
-            this.BTN_MANUAL_TRANSFER_WAIT_POS_Z.BackColor = System.Drawing.Color.Tan;
-            this.BTN_MANUAL_TRANSFER_WAIT_POS_Z.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.BTN_MANUAL_TRANSFER_WAIT_POS_Z.Font = new System.Drawing.Font("나눔고딕 ExtraBold", 8.999999F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(129)));
-            this.BTN_MANUAL_TRANSFER_WAIT_POS_Z.ForeColor = System.Drawing.Color.White;
-            this.BTN_MANUAL_TRANSFER_WAIT_POS_Z.Location = new System.Drawing.Point(85, 43);
-            this.BTN_MANUAL_TRANSFER_WAIT_POS_Z.Name = "BTN_MANUAL_TRANSFER_WAIT_POS_Z";
-            this.BTN_MANUAL_TRANSFER_WAIT_POS_Z.Size = new System.Drawing.Size(155, 51);
-            this.BTN_MANUAL_TRANSFER_WAIT_POS_Z.TabIndex = 32;
-            this.BTN_MANUAL_TRANSFER_WAIT_POS_Z.Text = "Z WAIT POS";
-            this.BTN_MANUAL_TRANSFER_WAIT_POS_Z.UseVisualStyleBackColor = false;
-            this.BTN_MANUAL_TRANSFER_WAIT_POS_Z.Click += new System.EventHandler(this.BTN_MANUAL_WAIT_POS_Z_Click_1);
+            this.button_Manual_Transfer_Wait_Pos_Z.BackColor = System.Drawing.Color.Tan;
+            this.button_Manual_Transfer_Wait_Pos_Z.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.button_Manual_Transfer_Wait_Pos_Z.Font = new System.Drawing.Font("나눔고딕 ExtraBold", 8.999999F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(129)));
+            this.button_Manual_Transfer_Wait_Pos_Z.ForeColor = System.Drawing.Color.White;
+            this.button_Manual_Transfer_Wait_Pos_Z.Location = new System.Drawing.Point(85, 43);
+            this.button_Manual_Transfer_Wait_Pos_Z.Name = "button_Manual_Transfer_Wait_Pos_Z";
+            this.button_Manual_Transfer_Wait_Pos_Z.Size = new System.Drawing.Size(155, 51);
+            this.button_Manual_Transfer_Wait_Pos_Z.TabIndex = 32;
+            this.button_Manual_Transfer_Wait_Pos_Z.Text = "Z WAIT POS";
+            this.button_Manual_Transfer_Wait_Pos_Z.UseVisualStyleBackColor = false;
+            this.button_Manual_Transfer_Wait_Pos_Z.Click += new System.EventHandler(this.BTN_MANUAL_WAIT_POS_Z_Click_1);
             // 
             // label_Manual_XY_Title
             // 
@@ -732,7 +732,7 @@ namespace ZenHandler.Dlg
             this.groupBox3.Controls.Add(this.button_Manual_Transfer_Right_Tray_Load_Pos_Z);
             this.groupBox3.Controls.Add(this.button_Manual_Transfer_A_Socket_Load_Pos_Z);
             this.groupBox3.Controls.Add(this.button_Manual_Transfer_B_Socket_Load_Pos_Z);
-            this.groupBox3.Controls.Add(this.BTN_MANUAL_TRANSFER_WAIT_POS_Z);
+            this.groupBox3.Controls.Add(this.button_Manual_Transfer_Wait_Pos_Z);
             this.groupBox3.Controls.Add(this.button_Manual_Transfer_Left_Tray_Load_Pos_Z);
             this.groupBox3.Location = new System.Drawing.Point(389, 361);
             this.groupBox3.Name = "groupBox3";
@@ -999,7 +999,7 @@ namespace ZenHandler.Dlg
         private System.Windows.Forms.Label label3;
         private System.Windows.Forms.Button button_Manual_Transfer_Left_Tray_Load_Pos_Z;
         private System.Windows.Forms.Button button_Manual_Transfer_Left_Tray_Load_Pos_XY;
-        private System.Windows.Forms.Button BTN_MANUAL_TRANSFER_WAIT_POS_Z;
+        private System.Windows.Forms.Button button_Manual_Transfer_Wait_Pos_Z;
         private System.Windows.Forms.Label label_Manual_XY_Title;
         private System.Windows.Forms.Button button_Manual_Transfer_Wait_Pos_XY;
         private System.Windows.Forms.GroupBox groupBox1;

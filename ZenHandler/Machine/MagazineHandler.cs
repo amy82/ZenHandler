@@ -147,7 +147,101 @@ namespace ZenHandler.Machine
 
         }
         #region MAGAZINE Motor 동작
+        public bool ChkYMotorPos(eTeachingPosList teachingPos, eMagazine MotorY)
+        {
+            if (ProgramState.ON_LINE_MOTOR == false)
+            {
+                return true;
+            }
+            double dYTeachingPos = 0.0;
+            double currentYPos = 0.0;
 
+
+            dYTeachingPos = this.teachingConfig.Teaching[(int)teachingPos].Pos[(int)MotorY];    //MAGAZINE_L_Y
+            currentYPos = MotorAxes[(int)MotorY].EncoderPos;
+
+            if (dYTeachingPos == currentYPos)
+            {
+                return true;
+            }
+
+            return false;
+        }
+        public bool ChkZMotorPos(eTeachingPosList teachingPos, eMagazine MotorZ)
+        {
+            if (ProgramState.ON_LINE_MOTOR == false)
+            {
+                return true;
+            }
+            double dZTeachingPos = 0.0;
+            double currentZPos = 0.0;
+
+
+            dZTeachingPos = this.teachingConfig.Teaching[(int)teachingPos].Pos[(int)MotorZ];
+            currentZPos = MotorAxes[(int)MotorZ].EncoderPos;
+
+            if (dZTeachingPos == currentZPos)
+            {
+                return true;
+            }
+
+            return false;
+        }
+        public bool Magazine_Y_Move(eTeachingPosList ePos, eMagazine MotorY, bool bWait = true)
+        {
+            if (this.MotorUse == false)
+            {
+                Console.WriteLine("No Use Machine");
+                return true;
+            }
+            bool isSuccess = true;
+            string logStr = "";
+
+            double dPos = this.teachingConfig.Teaching[(int)ePos].Pos[(int)MotorY];     //z Axis
+            try
+            {
+                isSuccess = MotorAxes[(int)MotorY].MoveAxis(dPos, AXT_MOTION_ABSREL.POS_ABS_MODE, bWait);
+            }
+            catch (Exception ex)
+            {
+                Globalo.LogPrint("ManualControl", $"Magazine_Y_Move Exception: {ex.Message}");
+                isSuccess = false;
+            }
+            if (isSuccess == false)
+            {
+                logStr = $"Magazine Y axis {ePos.ToString() } 이동 실패";
+            }
+
+            return isSuccess;
+        }
+        public bool Magazine_Z_Move(eTeachingPosList ePos, eMagazine MotorZ, bool bWait = true)
+        {
+            if (this.MotorUse == false)
+            {
+                Console.WriteLine("No Use Machine");
+                return true;
+            }
+            bool isSuccess = true;
+            string logStr = "";
+            double dPos = this.teachingConfig.Teaching[(int)ePos].Pos[(int)MotorZ];     //z Axis
+            try
+            {
+                isSuccess = MotorAxes[(int)MotorZ].MoveAxis(dPos, AXT_MOTION_ABSREL.POS_ABS_MODE, bWait);
+            }
+            catch (Exception ex)
+            {
+                Globalo.LogPrint("ManualControl", $"Magazine_Z_Move Exception: {ex.Message}");
+                isSuccess = false;
+            }
+
+
+            if (isSuccess == false)
+            {
+                logStr = $"Magazine Z axis {ePos.ToString() } 이동 실패";
+            }
+
+            return isSuccess;
+        }
         public override void MovingStop()
         {
             if (CancelToken != null && !CancelToken.IsCancellationRequested)

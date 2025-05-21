@@ -27,6 +27,8 @@ namespace ZenHandler.Dlg
         private bool isMovingTransfer;
         private int ManualLoadPosx = 0;
         private int ManualLoadPosy = 0;
+
+        private int CurrentMagazine = 0;        //0 = LFET , 1 = RIGHT
         //MEMO: 티칭 위치를 어떻게 가져올 것인가
         public ManualMagazine()
         {
@@ -41,9 +43,9 @@ namespace ZenHandler.Dlg
             ManualTimer.Tick += new EventHandler(Manual_Timer_Tick);
 
 
-            ManualPcbUiSet();
+            ManualUiSet();
         }
-        private void ManualPcbUiSet()
+        private void ManualUiSet()
         {
             int i = 0;
             MotorY_BtnArr[0] = label_Manual_Magazine_Wait_Pos_Y;
@@ -92,6 +94,10 @@ namespace ZenHandler.Dlg
             //MotorBtnArr[0].BackColor = ColorTranslator.FromHtml("#4C4743");   //모터 위치 이동 완료시 색
 
 
+
+            comboBox_Manual_Magazine_Motor.Items.Add("LEFT MAGAZINE");
+            comboBox_Manual_Magazine_Motor.Items.Add("RIGHT MAGAZINE");
+
         }
 
 
@@ -99,95 +105,101 @@ namespace ZenHandler.Dlg
 
         private void ManualLoadVacuumOn(int index, bool bFlag)
         {
-            if (Globalo.motionManager.transferMachine.RunState == OperationState.AutoRunning)
+            if (Globalo.motionManager.magazineHandler.RunState == OperationState.AutoRunning)
             {
                 Globalo.LogPrint("ManualControl", "[INFO] 자동 운전 중 사용 불가", Globalo.eMessageName.M_WARNING);
                 return;
             }
-            if (Globalo.motionManager.transferMachine.RunState == OperationState.Paused)
+            if (Globalo.motionManager.magazineHandler.RunState == OperationState.Paused)
             {
                 Globalo.LogPrint("ManualControl", "[INFO] 일시 정지 중 사용 불가", Globalo.eMessageName.M_WARNING);
                 return;
             }
-            Globalo.motionManager.transferMachine.RunState = OperationState.Stopped;
-            Globalo.motionManager.transferMachine.LoadVacuumOn(index, bFlag);
+            Globalo.motionManager.magazineHandler.RunState = OperationState.Stopped;
+            //Globalo.motionManager.magazineHandler.LoadVacuumOn(index, bFlag);
         }
         private void ManualUnLoadVacuumOn(int index, bool bFlag)
         {
-            if (Globalo.motionManager.transferMachine.RunState == OperationState.AutoRunning)
+            if (Globalo.motionManager.magazineHandler.RunState == OperationState.AutoRunning)
             {
                 Globalo.LogPrint("ManualControl", "[INFO] 자동 운전 중 사용 불가", Globalo.eMessageName.M_WARNING);
                 return;
             }
-            if (Globalo.motionManager.transferMachine.RunState == OperationState.Paused)
+            if (Globalo.motionManager.magazineHandler.RunState == OperationState.Paused)
             {
                 Globalo.LogPrint("ManualControl", "[INFO] 일시 정지 중 사용 불가", Globalo.eMessageName.M_WARNING);
                 return;
             }
-            Globalo.motionManager.transferMachine.RunState = OperationState.Stopped;
-            Globalo.motionManager.transferMachine.UnLoadVacuumOn(index, bFlag);
+            Globalo.motionManager.magazineHandler.RunState = OperationState.Stopped;
+            //Globalo.motionManager.magazineHandler.UnLoadVacuumOn(index, bFlag);
         }
 
 
-        private async void Manual_Z_Move(Machine.TransferMachine.eTeachingPosList ePos)
+        private async void Manual_Z_Move(Machine.MagazineHandler.eTeachingPosList ePos)
         {
-            if (Globalo.motionManager.transferMachine.RunState == OperationState.AutoRunning)
+            if (Globalo.motionManager.magazineHandler.RunState == OperationState.AutoRunning)
             {
                 Globalo.LogPrint("ManualControl", "[INFO] 자동 운전 중 사용 불가", Globalo.eMessageName.M_WARNING);
                 return;
             }
-            if (Globalo.motionManager.transferMachine.RunState == OperationState.Paused)
+            if (Globalo.motionManager.magazineHandler.RunState == OperationState.Paused)
             {
                 Globalo.LogPrint("ManualControl", "[INFO] 일시 정지 중 사용 불가", Globalo.eMessageName.M_WARNING);
                 return;
             }
-            if (Globalo.motionManager.transferMachine.RunState == OperationState.Preparing)
+            if (Globalo.motionManager.magazineHandler.RunState == OperationState.Preparing)
             {
                 Globalo.LogPrint("ManualControl", "[INFO] 운전 준비 중 사용 불가", Globalo.eMessageName.M_WARNING);
                 return;
             }
-            if (Globalo.motionManager.transferMachine.RunState == OperationState.OriginRunning)
+            if (Globalo.motionManager.magazineHandler.RunState == OperationState.OriginRunning)
             {
                 Globalo.LogPrint("ManualControl", "[INFO] 원점 동작 중 사용 불가", Globalo.eMessageName.M_WARNING);
                 return;
             }
-            if (isMovingTransfer == true || Globalo.motionManager.transferMachine.IsMoving())
+            if (isMovingTransfer == true || Globalo.motionManager.magazineHandler.IsMoving())
             {
-                Globalo.LogPrint("", "TRANSFER Z AXIS MOTOR RUNNING.", Globalo.eMessageName.M_INFO);
+                Globalo.LogPrint("", "MAGAZINE Z AXIS MOTOR RUNNING.", Globalo.eMessageName.M_INFO);
                 Console.WriteLine("Z motor running...");
                 return;
             }
-            Globalo.motionManager.transferMachine.RunState = OperationState.Stopped;
+            Globalo.motionManager.magazineHandler.RunState = OperationState.Stopped;
             isMovingTransfer = true;        //<---이동후 기다리지 않으면 바로 true로 바껴서 얘로만 체크하면 위험
 
             cts?.Dispose();
             cts = new CancellationTokenSource();
             CancellationToken token = cts.Token;
-
-
             
-
-            string logstr = $"[MANUAL] TRANSFER Z AXIS {ePos.ToString()} Move";
-
+            string logstr = $"[MANUAL] MAGAZINE Z AXIS {ePos.ToString()} Move";
             Globalo.LogPrint("", logstr);
+
+            Machine.eMagazine magazineMotor;
+            if (CurrentMagazine == 0)
+            {
+                magazineMotor = Machine.eMagazine.MAGAZINE_L_Y;
+            }
+            else
+            {
+                magazineMotor = Machine.eMagazine.MAGAZINE_R_Y;
+            }
             try
             {
                 Task<bool> motorTask = Task.Run(() =>
                 {
-                    Console.WriteLine(" ------------------> TransFer_Z_Move");
-                    bool rtn = Globalo.motionManager.transferMachine.TransFer_Z_Move(ePos);
+                    Console.WriteLine(" ------------------> ManualZ_Move");
+                    bool rtn = Globalo.motionManager.magazineHandler.Magazine_Z_Move(ePos, magazineMotor);
                     bool bComplete = true;
 
                     int nTimeTick = Environment.TickCount;
                     while (rtn)
                     {
                         if (bManualStopKey) break;
-                        bComplete = Globalo.motionManager.transferMachine.ChkZMotorPos(ePos);
+                        bComplete = Globalo.motionManager.magazineHandler.ChkZMotorPos(ePos, magazineMotor);
 
                         if (Environment.TickCount - nTimeTick > MotionControl.MotorSet.MOTOR_MANUAL_MOVE_TIMEOUT)
                         {
                             bComplete = false;
-                            Console.WriteLine(" ===> TransFer_Z_Move TIMEOUT");
+                            Console.WriteLine(" ===> ManualZ_Move TIMEOUT");
                             break;
                         }
                         Thread.Sleep(10);
@@ -202,12 +214,12 @@ namespace ZenHandler.Dlg
                 if (result)
                 {
                     Console.WriteLine("Move okok");
-                    logstr = $"[MANUAL] TRANSFER Z AXIS {ePos.ToString()} Move Complete";
+                    logstr = $"[MANUAL] MAGAZINE Z AXIS {ePos.ToString()} Move Complete";
                 }
                 else
                 {
                     Console.WriteLine("Move fail");
-                    logstr = $"[MANUAL] TRANSFER Z AXIS {ePos.ToString()} Move Fail";
+                    logstr = $"[MANUAL] MAGAZINE Z AXIS {ePos.ToString()} Move Fail";
                 }
                 Globalo.LogPrint("", logstr);
             }
@@ -225,42 +237,50 @@ namespace ZenHandler.Dlg
         }
 
 
-        private async void Manual_XY_Move(Machine.TransferMachine.eTeachingPosList ePos, int PickernoX = 0 , int PickernoY = 0)
+        private async void Manual_Y_Move(Machine.MagazineHandler.eTeachingPosList ePos)
         {
-            if (Globalo.motionManager.transferMachine.RunState == OperationState.AutoRunning)
+            if (Globalo.motionManager.magazineHandler.RunState == OperationState.AutoRunning)
             {
                 Globalo.LogPrint("ManualControl", "[INFO] 자동 운전 중 사용 불가", Globalo.eMessageName.M_WARNING);
                 return;
             }
-            if (Globalo.motionManager.transferMachine.RunState == OperationState.Paused)
+            if (Globalo.motionManager.magazineHandler.RunState == OperationState.Paused)
             {
                 Globalo.LogPrint("ManualControl", "[INFO] 일시 정지 중 사용 불가", Globalo.eMessageName.M_WARNING);
                 return;
             }
-            if (Globalo.motionManager.transferMachine.RunState == OperationState.Preparing)
+            if (Globalo.motionManager.magazineHandler.RunState == OperationState.Preparing)
             {
                 Globalo.LogPrint("ManualControl", "[INFO] 운전 준비 중 사용 불가", Globalo.eMessageName.M_WARNING);
                 return;
             }
-            if (Globalo.motionManager.transferMachine.RunState == OperationState.OriginRunning)
+            if (Globalo.motionManager.magazineHandler.RunState == OperationState.OriginRunning)
             {
                 Globalo.LogPrint("ManualControl", "[INFO] 원점 동작 중 사용 불가", Globalo.eMessageName.M_WARNING);
                 return;
             }
-            if (isMovingTransfer || Globalo.motionManager.transferMachine.IsMoving())
+            if (isMovingTransfer || Globalo.motionManager.magazineHandler.IsMoving())
             {
-                Console.WriteLine("XY motor running...");
-                Globalo.LogPrint("", "TRANSFER XY AXIS MOTOR RUNNING.", Globalo.eMessageName.M_INFO);
+                Console.WriteLine("Y motor running...");
+                Globalo.LogPrint("", "MAGAZINE Y AXIS MOTOR RUNNING.", Globalo.eMessageName.M_INFO);
                 return;
             }
-            Globalo.motionManager.transferMachine.RunState = OperationState.Stopped;
+            Globalo.motionManager.magazineHandler.RunState = OperationState.Stopped;
 
             isMovingTransfer = true;//<---이동후 기다리지 않으면 바로 true로 바껴서 얘로만 체크하면 위험
 
-            string logstr = $"[MANUAL] TRANSFER XY AXIS {ePos.ToString()} Move";
+            string logstr = $"[MANUAL] MAGAZINE Y  AXIS {ePos.ToString()} Move";
             Globalo.LogPrint("", logstr);
 
-            
+            Machine.eMagazine magazineMotor;
+            if (CurrentMagazine == 0)
+            {
+                magazineMotor = Machine.eMagazine.MAGAZINE_L_Y;
+            }
+            else
+            {
+                magazineMotor = Machine.eMagazine.MAGAZINE_R_Y;
+            }
 
             try
             {
@@ -272,7 +292,7 @@ namespace ZenHandler.Dlg
                 {
                     Console.WriteLine(" ------------------> TransFer_XY_Move");
 
-                    bool rtn = Globalo.motionManager.transferMachine.TransFer_XY_Move(ePos, PickernoX, PickernoY);
+                    bool rtn = Globalo.motionManager.magazineHandler.Magazine_Y_Move(ePos, magazineMotor);
                     bool bComplete = true;
 
                     int nTimeTick = Environment.TickCount;
@@ -280,17 +300,17 @@ namespace ZenHandler.Dlg
                     {
                         if (bManualStopKey) break;
 
-                        bComplete = Globalo.motionManager.transferMachine.ChkXYMotorPos(ePos);
+                        bComplete = Globalo.motionManager.magazineHandler.ChkYMotorPos(ePos, magazineMotor);
                         if (bComplete)
                         {
                             //위치 확인 완료
-                            Console.WriteLine(" ===> TransFer_XY_Move Complete");
+                            Console.WriteLine(" ===> MagazineYMove Complete");
                             break;
                         }
                         if (Environment.TickCount - nTimeTick > MotionControl.MotorSet.MOTOR_MANUAL_MOVE_TIMEOUT)
                         {
                             bComplete = false;
-                            Console.WriteLine(" ===> TransFer_XY_Move TIMEOUT");
+                            Console.WriteLine(" ===> MagazineYMove TIMEOUT");
                             break;
                         }
                         Thread.Sleep(10);
@@ -305,13 +325,13 @@ namespace ZenHandler.Dlg
                 if (result)
                 {
                     Console.WriteLine("Move okok");
-                    logstr = $"[MANUAL] TRANSFER XY AXIS {ePos.ToString()} Move Complete";
+                    logstr = $"[MANUAL] MAGAZINE Y AXIS {ePos.ToString()} Move Complete";
                     Globalo.LogPrint("", logstr);
                 }
                 else
                 {
                     Console.WriteLine("Move fail");
-                    logstr = $"[MANUAL] TRANSFER XY AXIS {ePos.ToString()} Move Fail";
+                    logstr = $"[MANUAL] MAGAZINE Y AXIS {ePos.ToString()} Move Fail";
                     Globalo.LogPrint("", logstr);
                 }
 
@@ -370,79 +390,32 @@ namespace ZenHandler.Dlg
         
         private void BTN_MANUAL_WAIT_POS_XY_Click_1(object sender, EventArgs e)
         {
-            Manual_XY_Move(Machine.TransferMachine.eTeachingPosList.WAIT_POS);
+            Manual_Y_Move(Machine.MagazineHandler.eTeachingPosList.WAIT_POS);
         }
 
         // X,Y BCR SCAN
         private void button_Manual_Transfer_Left_Bcr_Pos_XY_Click(object sender, EventArgs e)
         {
-            Manual_XY_Move(Machine.TransferMachine.eTeachingPosList.LEFT_TRAY_BCR_POS, ManualLoadPosx, ManualLoadPosy);
+            Manual_Y_Move(Machine.MagazineHandler.eTeachingPosList.LAYER1);
         }
         private void button_Manual_Transfer_Right_Bcr_Pos_XY_Click(object sender, EventArgs e)
         {
-            Manual_XY_Move(Machine.TransferMachine.eTeachingPosList.RIGHT_TRAY_BCR_POS, ManualLoadPosx, ManualLoadPosy);
+            Manual_Y_Move(Machine.MagazineHandler.eTeachingPosList.LAYER2);
         }
         // X,Y TRAY 제품 로드
         private void BTN_MANUAL_TRANSFER_LEFT_LOAD_POS_XY_Click(object sender, EventArgs e)
         {
-            Manual_XY_Move(Machine.TransferMachine.eTeachingPosList.LEFT_TRAY_LOAD_POS, ManualLoadPosx, ManualLoadPosy);
-        }
-        private void BTN_MANUAL_TRANSFER_RIGHT_LOAD_POS_XY_Click(object sender, EventArgs e)
-        {
-            Manual_XY_Move(Machine.TransferMachine.eTeachingPosList.RIGHT_TRAY_LOAD_POS, ManualLoadPosx, ManualLoadPosy);
+            Manual_Y_Move(Machine.MagazineHandler.eTeachingPosList.LAYER3);
         }
         private void BTN_MANUAL_TRANSFER_LEFT_UNLOAD_POS_XY_Click(object sender, EventArgs e)
         {
-            Manual_XY_Move(Machine.TransferMachine.eTeachingPosList.LEFT_TRAY_UNLOAD_POS, ManualLoadPosx, ManualLoadPosy);
+            Manual_Y_Move(Machine.MagazineHandler.eTeachingPosList.LAYER4);
         }
-        private void BTN_MANUAL_TRANSFER_LEFT_UNLOAD_POS_Z_Click(object sender, EventArgs e)
-        {
-            Manual_XY_Move(Machine.TransferMachine.eTeachingPosList.RIGHT_TRAY_UNLOAD_POS, ManualLoadPosx, ManualLoadPosy);
-        }
-        private void BTN_MANUAL_TRANSFER_SOCKET1_POS_XY_Click(object sender, EventArgs e)
-        {
-            Manual_XY_Move(Machine.TransferMachine.eTeachingPosList.SOCKET_A_LOAD, ManualLoadPosx, ManualLoadPosy);
-        }
-
-        // X,Y SOCKET 제품 로드
-        private void button_Manual_Transfer_A_Socket_Unload_Pos_XY_Click(object sender, EventArgs e)
-        {
-            Manual_XY_Move(Machine.TransferMachine.eTeachingPosList.SOCKET_A_UNLOAD);
-        }
-        private void BTN_MANUAL_TRANSFER_SOCKET3_POS_XY_Click(object sender, EventArgs e)
-        {
-            Manual_XY_Move(Machine.TransferMachine.eTeachingPosList.SOCKET_B_LOAD);
-        }
-        private void button_Manual_Transfer_B_Socket_Unload_Pos_XY_Click(object sender, EventArgs e)
-        {
-            Manual_XY_Move(Machine.TransferMachine.eTeachingPosList.SOCKET_B_UNLOAD);
-        }
-        private void BTN_MANUAL_TRANSFER_SOCKET_C1_POS_XY_Click(object sender, EventArgs e)
-        {
-            Manual_XY_Move(Machine.TransferMachine.eTeachingPosList.SOCKET_C_LOAD);
-        }
-        private void button_Manual_Transfer_C_Socket_Unload_Pos_XY_Click(object sender, EventArgs e)
-        {
-            Manual_XY_Move(Machine.TransferMachine.eTeachingPosList.SOCKET_C_UNLOAD);
-        }
-
-        private void BTN_MANUAL_TRANSFER_SOCKET_D1_POS_XY_Click(object sender, EventArgs e)
-        {
-            Manual_XY_Move(Machine.TransferMachine.eTeachingPosList.SOCKET_D_LOAD);
-        }
-        private void button_Manual_Transfer_D_Socket_Unload_Pos_XY_Click(object sender, EventArgs e)
-        {
-            Manual_XY_Move(Machine.TransferMachine.eTeachingPosList.SOCKET_D_UNLOAD);
-        }
-
         
-
-        
-
-        
-
-        
-
+        private void BTN_MANUAL_TRANSFER_RIGHT_LOAD_POS_XY_Click(object sender, EventArgs e)
+        {
+            Manual_Y_Move(Machine.MagazineHandler.eTeachingPosList.LAYER5);
+        }
         
         #endregion
         //-------------------------------------------------------------------------------------------------------------------------------------
@@ -457,67 +430,31 @@ namespace ZenHandler.Dlg
 
         private void BTN_MANUAL_WAIT_POS_Z_Click_1(object sender, EventArgs e)
         {
-            Manual_Z_Move(Machine.TransferMachine.eTeachingPosList.WAIT_POS);
+            Manual_Z_Move(Machine.MagazineHandler.eTeachingPosList.WAIT_POS);
         }
         //Z BCR
         private void button_Manual_Transfer_Left_Bcr_Pos_Z_Click(object sender, EventArgs e)
         {
-            Manual_Z_Move(Machine.TransferMachine.eTeachingPosList.LEFT_TRAY_BCR_POS);
+            Manual_Z_Move(Machine.MagazineHandler.eTeachingPosList.LAYER1);
         }
         private void button_Manual_Transfer_Right_Bcr_Pos_Z_Click(object sender, EventArgs e)
         {
-            Manual_Z_Move(Machine.TransferMachine.eTeachingPosList.RIGHT_TRAY_BCR_POS);
+            Manual_Z_Move(Machine.MagazineHandler.eTeachingPosList.LAYER2);
         }
         //Z TRAY 제품 로드
         private void BTN_MANUAL_TRANSFER_LEFT_LOAD_POS_Z_Click(object sender, EventArgs e)
         {
-            Manual_Z_Move(Machine.TransferMachine.eTeachingPosList.LEFT_TRAY_LOAD_POS);
+            Manual_Z_Move(Machine.MagazineHandler.eTeachingPosList.LAYER3);
         }
-        private void BTN_MANUAL_TRANSFER_RIGHT_LOAD_POS_Z_Click(object sender, EventArgs e)
+        private void BTN_MANUAL_TRANSFER_LEFT_UNLOAD_POS_Z_Click(object sender, EventArgs e)
         {
-            Manual_Z_Move(Machine.TransferMachine.eTeachingPosList.RIGHT_TRAY_LOAD_POS);
+            Manual_Y_Move(Machine.MagazineHandler.eTeachingPosList.LAYER4);
         }
-        private void BTN_MANUAL_TRANSFER_RIGHT_UNLOAD_POS_XY_Click(object sender, EventArgs e)
+        private void label_Manual_Magazine_Layer5_Pos_Z_Click(object sender, EventArgs e)
         {
-            Manual_XY_Move(Machine.TransferMachine.eTeachingPosList.RIGHT_TRAY_UNLOAD_POS);
+            Manual_Z_Move(Machine.MagazineHandler.eTeachingPosList.LAYER5);
         }
-        private void BTN_MANUAL_TRANSFER_RIGHT_UNLOAD_POS_Z_Click(object sender, EventArgs e)
-        {
-            Manual_Z_Move(Machine.TransferMachine.eTeachingPosList.RIGHT_TRAY_UNLOAD_POS);
-        }
-        //Z SOCKET 
-        private void BTN_MANUAL_TRANSFER_SOCKET1_POS_Z_Click(object sender, EventArgs e)
-        {
-            Manual_Z_Move(Machine.TransferMachine.eTeachingPosList.SOCKET_A_LOAD);
-        }
-        private void button_Manual_Transfer_A_Socket_Unload_Pos_Z_Click(object sender, EventArgs e)
-        {
-            Manual_Z_Move(Machine.TransferMachine.eTeachingPosList.SOCKET_A_UNLOAD);
-        }
-        private void BTN_MANUAL_TRANSFER_SOCKET3_POS_Z_Click(object sender, EventArgs e)
-        {
-            Manual_Z_Move(Machine.TransferMachine.eTeachingPosList.SOCKET_B_LOAD);
-        }
-        private void button_Manual_Transfer_B_Socket_Unload_Pos_Z_Click(object sender, EventArgs e)
-        {
-            Manual_Z_Move(Machine.TransferMachine.eTeachingPosList.SOCKET_B_UNLOAD);
-        }
-        private void BTN_MANUAL_TRANSFER_SOCKET_C1_POS_Z_Click(object sender, EventArgs e)
-        {
-            Manual_Z_Move(Machine.TransferMachine.eTeachingPosList.SOCKET_C_LOAD);
-        }
-        private void button_Manual_Transfer_C_Socket_Unload_Pos_Z_Click(object sender, EventArgs e)
-        {
-            Manual_Z_Move(Machine.TransferMachine.eTeachingPosList.SOCKET_C_UNLOAD);
-        }
-        private void BTN_MANUAL_TRANSFER_SOCKET_D1_POS_Z_Click(object sender, EventArgs e)
-        {
-            Manual_Z_Move(Machine.TransferMachine.eTeachingPosList.SOCKET_D_LOAD);
-        }
-        private void button_Manual_Transfer_D_Socket_Unload_Pos_Z_Click(object sender, EventArgs e)
-        {
-            Manual_Z_Move(Machine.TransferMachine.eTeachingPosList.SOCKET_D_UNLOAD);
-        }
+        
         #endregion
 
 
@@ -662,43 +599,53 @@ namespace ZenHandler.Dlg
             //        UnLoadVacuumOnBtnArr[i].BackColor = ColorTranslator.FromHtml(ButtonColor.MANUAL_BTN_OFF);
             //    }
             //}
-
-
-
-            //WAIT_POS = 0, LEFT_TRAY_LOAD_POS, RIGHT_TRAY_LOAD_POS, SOCKET_POS1, SOCKET_POS2, SOCKET_POS3, SOCKET_POS4
-            //X,Y 축 모터 위치
-            label_Manual_Magazine_Wait_Pos_Y.BackColor = ColorTranslator.FromHtml(ButtonColor.MANUAL_BTN_OFF);
-            label_Manual_Magazine_Layer3_Pos_Y.BackColor = ColorTranslator.FromHtml(ButtonColor.MANUAL_BTN_OFF);
-            label_Manual_Magazine_Layer5_Pos_Y.BackColor = ColorTranslator.FromHtml(ButtonColor.MANUAL_BTN_OFF);
-
-            if (Globalo.motionManager.transferMachine.ChkXYMotorPos(Machine.TransferMachine.eTeachingPosList.WAIT_POS) == true)
+            Machine.eMagazine magazineMotor;
+            if (CurrentMagazine == 0)
             {
-                label_Manual_Magazine_Wait_Pos_Y.BackColor = ColorTranslator.FromHtml(ButtonColor.MANUAL_BTN_ON);
+                magazineMotor = Machine.eMagazine.MAGAZINE_L_Y;
             }
-            else if (Globalo.motionManager.transferMachine.ChkXYMotorPos(Machine.TransferMachine.eTeachingPosList.LEFT_TRAY_LOAD_POS) == true)
+            else
             {
-                label_Manual_Magazine_Layer3_Pos_Y.BackColor = ColorTranslator.FromHtml(ButtonColor.MANUAL_BTN_ON);
+                magazineMotor = Machine.eMagazine.MAGAZINE_R_Y;
             }
-            else if (Globalo.motionManager.transferMachine.ChkXYMotorPos(Machine.TransferMachine.eTeachingPosList.RIGHT_TRAY_LOAD_POS) == true)
+             
+            for (i = 0; i < MotorY_BtnArr.Length; i++)
             {
-                label_Manual_Magazine_Layer5_Pos_Y.BackColor = ColorTranslator.FromHtml(ButtonColor.MANUAL_BTN_ON);
-            }
+                Machine.MagazineHandler.eTeachingPosList pos = (Machine.MagazineHandler.eTeachingPosList)i;
 
-
-            //Z 축 모터 위치
-
-            label_Manual_Magazine_Wait_Pos_Z.BackColor = ColorTranslator.FromHtml(ButtonColor.MANUAL_BTN_OFF);
-            label_Manual_Magazine_Layer3_Pos_Z.BackColor = ColorTranslator.FromHtml(ButtonColor.MANUAL_BTN_OFF);
-
-            if (Globalo.motionManager.transferMachine.ChkZMotorPos(Machine.TransferMachine.eTeachingPosList.WAIT_POS) == true)
-            {
-                label_Manual_Magazine_Wait_Pos_Z.BackColor = ColorTranslator.FromHtml(ButtonColor.MANUAL_BTN_ON);
-            }
-            else if (Globalo.motionManager.transferMachine.ChkZMotorPos(Machine.TransferMachine.eTeachingPosList.LEFT_TRAY_LOAD_POS) == true)
-            {
-                label_Manual_Magazine_Layer3_Pos_Z.BackColor = ColorTranslator.FromHtml(ButtonColor.MANUAL_BTN_ON);
+                
+                if (Globalo.motionManager.magazineHandler.ChkYMotorPos(pos, magazineMotor) == true)
+                {
+                    MotorY_BtnArr[i].BackColor = ColorTranslator.FromHtml(ButtonColor.MANUAL_BTN_ON);
+                }
+                else
+                {
+                    MotorY_BtnArr[i].BackColor = ColorTranslator.FromHtml(ButtonColor.MANUAL_BTN_OFF);
+                }
             }
 
+            if (CurrentMagazine == 0)
+            {
+                magazineMotor = Machine.eMagazine.MAGAZINE_L_Z;
+            }
+            else
+            {
+                magazineMotor = Machine.eMagazine.MAGAZINE_R_Z;
+            }
+            for (i = 0; i < MotorZ_BtnArr.Length; i++)
+            {
+                Machine.MagazineHandler.eTeachingPosList pos = (Machine.MagazineHandler.eTeachingPosList)i;
+
+                if (Globalo.motionManager.magazineHandler.ChkZMotorPos(pos, magazineMotor) == true)
+                {
+                    MotorZ_BtnArr[i].BackColor = ColorTranslator.FromHtml(ButtonColor.MANUAL_BTN_ON);
+                }
+                else
+                {
+                    MotorZ_BtnArr[i].BackColor = ColorTranslator.FromHtml(ButtonColor.MANUAL_BTN_OFF);
+                }
+            }
+            
 
         }
 
@@ -750,5 +697,9 @@ namespace ZenHandler.Dlg
             ManualTransfer_PosSetY(1);
         }
 
+        private void comboBox_Manual_Magazine_Motor_DropDownClosed(object sender, EventArgs e)
+        {
+            CurrentMagazine = comboBox_Manual_Magazine_Motor.SelectedIndex;
+        }
     }
 }
