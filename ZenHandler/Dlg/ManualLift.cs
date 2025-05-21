@@ -18,19 +18,18 @@ namespace ZenHandler.Dlg
         
         private System.Windows.Forms.Timer ManualTimer;
 
-        private Button[] MotorBtnArr = new Button[4];
+        private Button[] MotorX_BtnArr = new Button[5];
+        private Button[] MotorZ_BtnArr = new Button[5];
 
-        private Button[] LoadVacuumOnBtnArr = new Button[4];
-        private Button[] LoadVacuumOffBtnArr = new Button[4];
-
-        private Button[] UnLoadVacuumOnBtnArr = new Button[4];
-        private Button[] UnLoadVacuumOffBtnArr = new Button[4];
+        private Button[] LiftIoBtnArr = new Button[10];
 
         protected CancellationTokenSource cts;  //TODO: <--이름 변경하고 사용가능하게
         private bool isMovingTransfer;
         private int ManualLoadPosx = 0;
         private int ManualLoadPosy = 0;
+
         //MEMO: 티칭 위치를 어떻게 가져올 것인가
+
         public ManualLift()
         {
             InitializeComponent();
@@ -49,72 +48,48 @@ namespace ZenHandler.Dlg
         private void ManualPcbUiSet()
         {
             int i = 0;
-            MotorBtnArr[0] = label_Manual_Lift_Wait_Pos_X;
-            MotorBtnArr[1] = label_Manual_Lift_Left_Tray_Load_Pos_X;
-            MotorBtnArr[2] = label_Manual_Lift_Wait_Pos_Z;
-            MotorBtnArr[3] = label_Manual_Lift_Left_Tray_Load_Pos_Z;
-
-            LoadVacuumOnBtnArr[0] = BTN_MANUAL_TRANSFER_LOAD_VACUUM_ON1;
-            LoadVacuumOnBtnArr[1] = BTN_MANUAL_TRANSFER_LOAD_VACUUM_ON2;
-            LoadVacuumOnBtnArr[2] = BTN_MANUAL_TRANSFER_LOAD_VACUUM_ON3;
-            LoadVacuumOnBtnArr[3] = BTN_MANUAL_TRANSFER_LOAD_VACUUM_ON4;
-
-            LoadVacuumOffBtnArr[0] = BTN_MANUAL_TRANSFER_LOAD_VACUUM_OFF1;
-            LoadVacuumOffBtnArr[1] = BTN_MANUAL_TRANSFER_LOAD_VACUUM_OFF2;
-            LoadVacuumOffBtnArr[2] = BTN_MANUAL_TRANSFER_LOAD_VACUUM_OFF3;
-            LoadVacuumOffBtnArr[3] = BTN_MANUAL_TRANSFER_LOAD_VACUUM_OFF4;
-
-            UnLoadVacuumOnBtnArr[0] = BTN_MANUAL_TRANSFER_UNLOAD_VACUUM_ON1;
-            UnLoadVacuumOnBtnArr[1] = BTN_MANUAL_TRANSFER_UNLOAD_VACUUM_ON2;
-            UnLoadVacuumOnBtnArr[2] = BTN_MANUAL_TRANSFER_UNLOAD_VACUUM_ON3;
-            UnLoadVacuumOnBtnArr[3] = BTN_MANUAL_TRANSFER_UNLOAD_VACUUM_ON4;
-
-            UnLoadVacuumOffBtnArr[0] = BTN_MANUAL_TRANSFER_UNLOAD_VACUUM_OFF1;
-            UnLoadVacuumOffBtnArr[1] = BTN_MANUAL_TRANSFER_UNLOAD_VACUUM_OFF2;
-            UnLoadVacuumOffBtnArr[2] = BTN_MANUAL_TRANSFER_UNLOAD_VACUUM_OFF3;
-            UnLoadVacuumOffBtnArr[3] = BTN_MANUAL_TRANSFER_UNLOAD_VACUUM_OFF4;
-
-            //for (i = 0; i < MotorBtnArr.Length; i++)
-            //{
-            //    MotorBtnArr[i].BackColor = ColorTranslator.FromHtml(ButtonColor.MANUAL_BTN_OFF);
-            //    MotorBtnArr[i].ForeColor = Color.White;
-
-            //    MotorBtnArr[i].FlatAppearance.BorderColor = ColorTranslator.FromHtml("#BBBBBB");
-            //}
-            //MotorBtnArr[0].BackColor = ColorTranslator.FromHtml("#4C4743");   //모터 위치 이동 완료시 색
+            MotorX_BtnArr[0] = label_Manual_Lift_Wait_Pos_X;
+            MotorX_BtnArr[1] = label_Manual_Lift_Left_Load_Pos_X;
+            MotorX_BtnArr[2] = label_Manual_Lift_Right_Load_Pos_X;
+            MotorX_BtnArr[3] = label_Manual_Lift_Left_Tray_Load_Pos_X;
+            MotorX_BtnArr[4] = label_Manual_Lift_Right_Tray_Load_Pos_X;
 
 
-            for (i = 0; i < LoadVacuumOnBtnArr.Length; i++)
+
+            LiftIoBtnArr[0] = button_Manual_Lift_Gantry_Clamp_For;
+            LiftIoBtnArr[1] = button_Manual_Lift_Gantry_Clamp_Back;
+
+            LiftIoBtnArr[2] = button_Manual_Lift_Gantry_Centring_For;
+            LiftIoBtnArr[3] = button_Manual_Lift_Gantry_Centring_Back;
+
+            LiftIoBtnArr[4] = button_Manual_Lift_Pusher_For;
+            LiftIoBtnArr[5] = button_Manual_Lift_Pusher_Back;
+
+            LiftIoBtnArr[6] = button_Manual_Lift_Pusher_Up;
+            LiftIoBtnArr[7] = button_Manual_Lift_Pusher_Down;
+
+            LiftIoBtnArr[8] = button_Manual_Lift_Pusher_Centring_For;
+            LiftIoBtnArr[9] = button_Manual_Lift_Pusher_Centring_Back;
+
+            for (i = 0; i < MotorX_BtnArr.Length; i++)
             {
-                LoadVacuumOnBtnArr[i].BackColor = ColorTranslator.FromHtml(ButtonColor.MANUAL_BTN_OFF);
-                LoadVacuumOnBtnArr[i].ForeColor = Color.White;
-                LoadVacuumOnBtnArr[i].FlatAppearance.BorderColor = ColorTranslator.FromHtml("#BBBBBB");
+                MotorX_BtnArr[i].BackColor = ColorTranslator.FromHtml(ButtonColor.MANUAL_BTN_OFF);
+                MotorX_BtnArr[i].ForeColor = Color.White;
+                MotorX_BtnArr[i].FlatAppearance.BorderColor = ColorTranslator.FromHtml("#BBBBBB");
             }
+            MotorX_BtnArr[0].BackColor = ColorTranslator.FromHtml("#4C4743");   //모터 위치 이동 완료시 색
 
-            for (i = 0; i < LoadVacuumOffBtnArr.Length; i++)
-            {
-                LoadVacuumOffBtnArr[i].BackColor = ColorTranslator.FromHtml(ButtonColor.MANUAL_BTN_OFF);
-                LoadVacuumOffBtnArr[i].ForeColor = Color.White;
-                LoadVacuumOffBtnArr[i].FlatAppearance.BorderColor = ColorTranslator.FromHtml("#BBBBBB");
-            }
 
-            for (i = 0; i < UnLoadVacuumOnBtnArr.Length; i++)
+            for (i = 0; i < LiftIoBtnArr.Length; i++)
             {
-                UnLoadVacuumOnBtnArr[i].BackColor = ColorTranslator.FromHtml(ButtonColor.MANUAL_BTN_OFF);
-                UnLoadVacuumOnBtnArr[i].ForeColor = Color.White;
-                UnLoadVacuumOnBtnArr[i].FlatAppearance.BorderColor = ColorTranslator.FromHtml("#BBBBBB");
-            }
-
-            for (i = 0; i < UnLoadVacuumOffBtnArr.Length; i++)
-            {
-                UnLoadVacuumOffBtnArr[i].BackColor = ColorTranslator.FromHtml(ButtonColor.MANUAL_BTN_OFF);
-                UnLoadVacuumOffBtnArr[i].ForeColor = Color.White;
-                UnLoadVacuumOffBtnArr[i].FlatAppearance.BorderColor = ColorTranslator.FromHtml("#BBBBBB");
+                LiftIoBtnArr[i].BackColor = ColorTranslator.FromHtml(ButtonColor.MANUAL_BTN_OFF);
+                LiftIoBtnArr[i].ForeColor = Color.White;
+                LiftIoBtnArr[i].FlatAppearance.BorderColor = ColorTranslator.FromHtml("#BBBBBB");
             }
         }
-        
 
-        
+
+
 
         private void ManualLoadVacuumOn(int index, bool bFlag)
         {
@@ -131,6 +106,7 @@ namespace ZenHandler.Dlg
             Globalo.motionManager.transferMachine.RunState = OperationState.Stopped;
             Globalo.motionManager.transferMachine.LoadVacuumOn(index, bFlag);
         }
+
         private void ManualUnLoadVacuumOn(int index, bool bFlag)
         {
             if (Globalo.motionManager.transferMachine.RunState == OperationState.AutoRunning)
@@ -444,7 +420,6 @@ namespace ZenHandler.Dlg
         {
             Manual_XY_Move(Machine.TransferMachine.eTeachingPosList.SOCKET_C_UNLOAD);
         }
-
         private void BTN_MANUAL_TRANSFER_SOCKET_D1_POS_XY_Click(object sender, EventArgs e)
         {
             Manual_XY_Move(Machine.TransferMachine.eTeachingPosList.SOCKET_D_LOAD);
@@ -453,15 +428,6 @@ namespace ZenHandler.Dlg
         {
             Manual_XY_Move(Machine.TransferMachine.eTeachingPosList.SOCKET_D_UNLOAD);
         }
-
-        
-
-        
-
-        
-
-        
-
         
         #endregion
         //-------------------------------------------------------------------------------------------------------------------------------------
@@ -656,31 +622,19 @@ namespace ZenHandler.Dlg
             bool bRtn = false;
             //IO 동작 상태
 
-            for (i = 0; i < 4; i++)
-            {
-                bRtn = Globalo.motionManager.transferMachine.GetLoadVacuumState(i, true);
+            //for (i = 0; i < 4; i++)
+            //{
+            //    bRtn = Globalo.motionManager.transferMachine.GetLoadVacuumState(i, true);
 
-                if (bRtn)
-                {
-                    LoadVacuumOnBtnArr[i].BackColor = ColorTranslator.FromHtml(ButtonColor.MANUAL_BTN_ON);
-                }
-                else
-                {
-                    LoadVacuumOnBtnArr[i].BackColor = ColorTranslator.FromHtml(ButtonColor.MANUAL_BTN_OFF);
-                }
-
-
-                bRtn = Globalo.motionManager.transferMachine.GetUnLoadVacuumState(i, true);
-
-                if (bRtn)
-                {
-                    UnLoadVacuumOnBtnArr[i].BackColor = ColorTranslator.FromHtml(ButtonColor.MANUAL_BTN_ON);
-                }
-                else
-                {
-                    UnLoadVacuumOnBtnArr[i].BackColor = ColorTranslator.FromHtml(ButtonColor.MANUAL_BTN_OFF);
-                }
-            }
+            //    if (bRtn)
+            //    {
+            //        LoadVacuumOnBtnArr[i].BackColor = ColorTranslator.FromHtml(ButtonColor.MANUAL_BTN_ON);
+            //    }
+            //    else
+            //    {
+            //        LoadVacuumOnBtnArr[i].BackColor = ColorTranslator.FromHtml(ButtonColor.MANUAL_BTN_OFF);
+            //    }
+            //}
 
 
 
@@ -688,12 +642,7 @@ namespace ZenHandler.Dlg
             //X,Y 축 모터 위치
             label_Manual_Lift_Wait_Pos_X.BackColor = ColorTranslator.FromHtml(ButtonColor.MANUAL_BTN_OFF);
             label_Manual_Lift_Left_Tray_Load_Pos_X.BackColor = ColorTranslator.FromHtml(ButtonColor.MANUAL_BTN_OFF);
-            label_Manual_Magazine_Layer5_Pos_Y.BackColor = ColorTranslator.FromHtml(ButtonColor.MANUAL_BTN_OFF);
-            button_Manual_Transfer_A_Socket_Load_Pos_XY.BackColor = ColorTranslator.FromHtml(ButtonColor.MANUAL_BTN_OFF);
-            //BTN_MANUAL_TRANSFER_SOCKET_A2_POS_XY.BackColor = ColorTranslator.FromHtml(ButtonColor.MANUAL_BTN_OFF);
-            button_Manual_Transfer_B_Socket_Load_Pos_XY.BackColor = ColorTranslator.FromHtml(ButtonColor.MANUAL_BTN_OFF);
-            //BTN_MANUAL_TRANSFER_SOCKET_B2_POS_XY.BackColor = ColorTranslator.FromHtml(ButtonColor.MANUAL_BTN_OFF);
-
+            
             if (Globalo.motionManager.transferMachine.ChkXYMotorPos(Machine.TransferMachine.eTeachingPosList.WAIT_POS) == true)
             {
                 label_Manual_Lift_Wait_Pos_X.BackColor = ColorTranslator.FromHtml(ButtonColor.MANUAL_BTN_ON);
@@ -702,93 +651,16 @@ namespace ZenHandler.Dlg
             {
                 label_Manual_Lift_Left_Tray_Load_Pos_X.BackColor = ColorTranslator.FromHtml(ButtonColor.MANUAL_BTN_ON);
             }
-            else if (Globalo.motionManager.transferMachine.ChkXYMotorPos(Machine.TransferMachine.eTeachingPosList.RIGHT_TRAY_LOAD_POS) == true)
-            {
-                label_Manual_Magazine_Layer5_Pos_Y.BackColor = ColorTranslator.FromHtml(ButtonColor.MANUAL_BTN_ON);
-            }
-            else if (Globalo.motionManager.transferMachine.ChkXYMotorPos(Machine.TransferMachine.eTeachingPosList.SOCKET_A_LOAD) == true)
-            {
-                button_Manual_Transfer_A_Socket_Load_Pos_XY.BackColor = ColorTranslator.FromHtml(ButtonColor.MANUAL_BTN_ON);
-            }
 
 
             //Z 축 모터 위치
 
             label_Manual_Lift_Wait_Pos_Z.BackColor = ColorTranslator.FromHtml(ButtonColor.MANUAL_BTN_OFF);
-            label_Manual_Lift_Left_Tray_Load_Pos_Z.BackColor = ColorTranslator.FromHtml(ButtonColor.MANUAL_BTN_OFF);
-            button_Manual_Transfer_Right_Tray_Load_Pos_Z.BackColor = ColorTranslator.FromHtml(ButtonColor.MANUAL_BTN_OFF);
-            button_Manual_Transfer_A_Socket_Load_Pos_Z.BackColor = ColorTranslator.FromHtml(ButtonColor.MANUAL_BTN_OFF);
-            //BTN_MANUAL_TRANSFER_SOCKET_A2_POS_Z.BackColor = ColorTranslator.FromHtml(ButtonColor.MANUAL_BTN_OFF);
-            button_Manual_Transfer_B_Socket_Load_Pos_Z.BackColor = ColorTranslator.FromHtml(ButtonColor.MANUAL_BTN_OFF);
-            //BTN_MANUAL_TRANSFER_SOCKET_B2_POS_Z.BackColor = ColorTranslator.FromHtml(ButtonColor.MANUAL_BTN_OFF);
-
 
             if (Globalo.motionManager.transferMachine.ChkZMotorPos(Machine.TransferMachine.eTeachingPosList.WAIT_POS) == true)
             {
                 label_Manual_Lift_Wait_Pos_Z.BackColor = ColorTranslator.FromHtml(ButtonColor.MANUAL_BTN_ON);
             }
-            else if (Globalo.motionManager.transferMachine.ChkZMotorPos(Machine.TransferMachine.eTeachingPosList.LEFT_TRAY_LOAD_POS) == true)
-            {
-                label_Manual_Lift_Left_Tray_Load_Pos_Z.BackColor = ColorTranslator.FromHtml(ButtonColor.MANUAL_BTN_ON);
-            }
-            else if (Globalo.motionManager.transferMachine.ChkZMotorPos(Machine.TransferMachine.eTeachingPosList.RIGHT_TRAY_LOAD_POS) == true)
-            {
-                button_Manual_Transfer_Right_Tray_Load_Pos_Z.BackColor = ColorTranslator.FromHtml(ButtonColor.MANUAL_BTN_ON);
-            }
-            else if (Globalo.motionManager.transferMachine.ChkZMotorPos(Machine.TransferMachine.eTeachingPosList.SOCKET_A_LOAD) == true)
-            {
-                button_Manual_Transfer_A_Socket_Load_Pos_Z.BackColor = ColorTranslator.FromHtml(ButtonColor.MANUAL_BTN_ON);
-            }
-
-
-        }
-
-        private void ManualTransfer_PosSetX(int offset)
-        {
-            ManualLoadPosx += offset;
-            if (ManualLoadPosx < 0)
-            {
-                ManualLoadPosx = Globalo.motionManager.transferMachine.pickedProduct.LoadTrayPos.X-1;
-            }
-            if (ManualLoadPosx > Globalo.motionManager.transferMachine.pickedProduct.LoadTrayPos.X-1)
-            {
-                ManualLoadPosx = 0;
-            }
-
-            label_Manual_Transfer_PosX.Text = "X : " + (ManualLoadPosx + 1);
-        }
-        private void ManualTransfer_PosSetY(int offset)
-        {
-            ManualLoadPosy += offset;
-            if (ManualLoadPosy < 0)
-            {
-                ManualLoadPosy = Globalo.motionManager.transferMachine.pickedProduct.LoadTrayPos.Y-1;
-            }
-            if (ManualLoadPosy > Globalo.motionManager.transferMachine.pickedProduct.LoadTrayPos.Y-1)
-            {
-                ManualLoadPosy = 0;
-            }
-
-            label_Manual_Transfer_PosY.Text = "Y : " + (ManualLoadPosy + 1);
-        }
-        private void button_Manual_Transfer_PosX_Prev_Click(object sender, EventArgs e)
-        {
-            ManualTransfer_PosSetX(-1);
-        }
-
-        private void button_Manual_Transfer_PosX_Next_Click(object sender, EventArgs e)
-        {
-            ManualTransfer_PosSetX(1);
-        }
-
-        private void button_Manual_Transfer_PosY_Prev_Click(object sender, EventArgs e)
-        {
-            ManualTransfer_PosSetY(-1);
-        }
-
-        private void button_Manual_Transfer_PosY_Next_Click(object sender, EventArgs e)
-        {
-            ManualTransfer_PosSetY(1);
         }
 
     }

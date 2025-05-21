@@ -29,8 +29,6 @@ namespace ZenHandler.Dlg
         /// </summary>
         private void InitializeComponent()
         {
-            this.BTN_MANUAL_TRANSFER_LOAD_VACUUM_OFF1 = new System.Windows.Forms.Button();
-            this.BTN_MANUAL_TRANSFER_LOAD_VACUUM_ON1 = new System.Windows.Forms.Button();
             this.label_Manual_Magazine_Sensor_Title = new System.Windows.Forms.Label();
             this.label_Manual_Magazine_Layer3_Pos_Z = new System.Windows.Forms.Button();
             this.label_Manual_Magazine_Layer3_Pos_Y = new System.Windows.Forms.Button();
@@ -38,17 +36,20 @@ namespace ZenHandler.Dlg
             this.label_Manual_Magazine_Y_Title = new System.Windows.Forms.Label();
             this.label_Manual_Magazine_Wait_Pos_Y = new System.Windows.Forms.Button();
             this.groupBox1 = new System.Windows.Forms.GroupBox();
+            this.label_Manual_Magazine_Layer5_Pos_Z = new System.Windows.Forms.Button();
+            this.label_Manual_Magazine_Layer2_Pos_Z = new System.Windows.Forms.Button();
+            this.label_Manual_Magazine_Layer4_Pos_Z = new System.Windows.Forms.Button();
+            this.label_Manual_Magazine_Z_Title = new System.Windows.Forms.Label();
+            this.label_Manual_Magazine_Layer1_Pos_Z = new System.Windows.Forms.Button();
             this.label_Manual_Magazine_Layer2_Pos_Y = new System.Windows.Forms.Button();
             this.label_Manual_Magazine_Layer1_Pos_Y = new System.Windows.Forms.Button();
             this.label_Manual_Magazine_Layer4_Pos_Y = new System.Windows.Forms.Button();
             this.label_Manual_Magazine_Layer5_Pos_Y = new System.Windows.Forms.Button();
-            this.label_Manual_Magazine_Layer4_Pos_Z = new System.Windows.Forms.Button();
             this.groupBox2 = new System.Windows.Forms.GroupBox();
-            this.BTN_MANUAL_TRANSFER_LOAD_VACUUM_OFF2 = new System.Windows.Forms.Button();
-            this.BTN_MANUAL_TRANSFER_LOAD_VACUUM_ON2 = new System.Windows.Forms.Button();
-            this.label_Manual_Magazine_Z_Title = new System.Windows.Forms.Label();
-            this.label_Manual_Magazine_Layer2_Pos_Z = new System.Windows.Forms.Button();
-            this.label_Manual_Magazine_Layer1_Pos_Z = new System.Windows.Forms.Button();
+            this.button_Manual_Magazine_Tray_Front_Detect = new System.Windows.Forms.Button();
+            this.button_Manual_Magazine_Tray_Bottom_Detect = new System.Windows.Forms.Button();
+            this.button_Manual_Magazine_Tray_Seat_Detect_ = new System.Windows.Forms.Button();
+            this.button_Manual_Magazine_Seat_Detect = new System.Windows.Forms.Button();
             this.comboBox_Manual_LoadPicker = new System.Windows.Forms.ComboBox();
             this.label_Manual_Transfer_PosX = new System.Windows.Forms.Label();
             this.button_Manual_Transfer_PosX_Next = new System.Windows.Forms.Button();
@@ -57,42 +58,9 @@ namespace ZenHandler.Dlg
             this.button_Manual_Transfer_PosY_Next = new System.Windows.Forms.Button();
             this.button_Manual_Transfer_PosY_Prev = new System.Windows.Forms.Button();
             this.label_Manual_Magazine_Tray_No = new System.Windows.Forms.Label();
-            this.label_Manual_Magazine_Layer5_Pos_Z = new System.Windows.Forms.Button();
-            this.button_Manual_Magazine_Seat_Detect_LT = new System.Windows.Forms.Button();
-            this.button_Manual_Magazine_Seat_Detect_RT = new System.Windows.Forms.Button();
-            this.button_Manual_Magazine_Seat_Detect_BL = new System.Windows.Forms.Button();
-            this.button_Manual_Magazine_Seat_Detect_BR = new System.Windows.Forms.Button();
             this.groupBox1.SuspendLayout();
             this.groupBox2.SuspendLayout();
             this.SuspendLayout();
-            // 
-            // BTN_MANUAL_TRANSFER_LOAD_VACUUM_OFF1
-            // 
-            this.BTN_MANUAL_TRANSFER_LOAD_VACUUM_OFF1.BackColor = System.Drawing.Color.Tan;
-            this.BTN_MANUAL_TRANSFER_LOAD_VACUUM_OFF1.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.BTN_MANUAL_TRANSFER_LOAD_VACUUM_OFF1.Font = new System.Drawing.Font("Microsoft Sans Serif", 11F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(129)));
-            this.BTN_MANUAL_TRANSFER_LOAD_VACUUM_OFF1.ForeColor = System.Drawing.Color.White;
-            this.BTN_MANUAL_TRANSFER_LOAD_VACUUM_OFF1.Location = new System.Drawing.Point(105, 39);
-            this.BTN_MANUAL_TRANSFER_LOAD_VACUUM_OFF1.Name = "BTN_MANUAL_TRANSFER_LOAD_VACUUM_OFF1";
-            this.BTN_MANUAL_TRANSFER_LOAD_VACUUM_OFF1.Size = new System.Drawing.Size(82, 46);
-            this.BTN_MANUAL_TRANSFER_LOAD_VACUUM_OFF1.TabIndex = 28;
-            this.BTN_MANUAL_TRANSFER_LOAD_VACUUM_OFF1.Text = "OFF";
-            this.BTN_MANUAL_TRANSFER_LOAD_VACUUM_OFF1.UseVisualStyleBackColor = false;
-            this.BTN_MANUAL_TRANSFER_LOAD_VACUUM_OFF1.Click += new System.EventHandler(this.BTN_MANUAL_VACUUM_OFF_Click_1);
-            // 
-            // BTN_MANUAL_TRANSFER_LOAD_VACUUM_ON1
-            // 
-            this.BTN_MANUAL_TRANSFER_LOAD_VACUUM_ON1.BackColor = System.Drawing.Color.Tan;
-            this.BTN_MANUAL_TRANSFER_LOAD_VACUUM_ON1.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.BTN_MANUAL_TRANSFER_LOAD_VACUUM_ON1.Font = new System.Drawing.Font("Microsoft Sans Serif", 11F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(129)));
-            this.BTN_MANUAL_TRANSFER_LOAD_VACUUM_ON1.ForeColor = System.Drawing.Color.White;
-            this.BTN_MANUAL_TRANSFER_LOAD_VACUUM_ON1.Location = new System.Drawing.Point(23, 39);
-            this.BTN_MANUAL_TRANSFER_LOAD_VACUUM_ON1.Name = "BTN_MANUAL_TRANSFER_LOAD_VACUUM_ON1";
-            this.BTN_MANUAL_TRANSFER_LOAD_VACUUM_ON1.Size = new System.Drawing.Size(82, 46);
-            this.BTN_MANUAL_TRANSFER_LOAD_VACUUM_ON1.TabIndex = 27;
-            this.BTN_MANUAL_TRANSFER_LOAD_VACUUM_ON1.Text = "ON";
-            this.BTN_MANUAL_TRANSFER_LOAD_VACUUM_ON1.UseVisualStyleBackColor = false;
-            this.BTN_MANUAL_TRANSFER_LOAD_VACUUM_ON1.Click += new System.EventHandler(this.BTN_MANUAL_VACUUM_ON_Click_1);
             // 
             // label_Manual_Magazine_Sensor_Title
             // 
@@ -197,6 +165,73 @@ namespace ZenHandler.Dlg
             this.groupBox1.TabIndex = 41;
             this.groupBox1.TabStop = false;
             // 
+            // label_Manual_Magazine_Layer5_Pos_Z
+            // 
+            this.label_Manual_Magazine_Layer5_Pos_Z.BackColor = System.Drawing.Color.Tan;
+            this.label_Manual_Magazine_Layer5_Pos_Z.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.label_Manual_Magazine_Layer5_Pos_Z.Font = new System.Drawing.Font("나눔고딕 ExtraBold", 8.999999F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(129)));
+            this.label_Manual_Magazine_Layer5_Pos_Z.ForeColor = System.Drawing.Color.White;
+            this.label_Manual_Magazine_Layer5_Pos_Z.Location = new System.Drawing.Point(253, 308);
+            this.label_Manual_Magazine_Layer5_Pos_Z.Name = "label_Manual_Magazine_Layer5_Pos_Z";
+            this.label_Manual_Magazine_Layer5_Pos_Z.Size = new System.Drawing.Size(155, 51);
+            this.label_Manual_Magazine_Layer5_Pos_Z.TabIndex = 60;
+            this.label_Manual_Magazine_Layer5_Pos_Z.Text = "Z LAYER 5";
+            this.label_Manual_Magazine_Layer5_Pos_Z.UseVisualStyleBackColor = false;
+            // 
+            // label_Manual_Magazine_Layer2_Pos_Z
+            // 
+            this.label_Manual_Magazine_Layer2_Pos_Z.BackColor = System.Drawing.Color.Tan;
+            this.label_Manual_Magazine_Layer2_Pos_Z.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.label_Manual_Magazine_Layer2_Pos_Z.Font = new System.Drawing.Font("나눔고딕 ExtraBold", 8.999999F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(129)));
+            this.label_Manual_Magazine_Layer2_Pos_Z.ForeColor = System.Drawing.Color.White;
+            this.label_Manual_Magazine_Layer2_Pos_Z.Location = new System.Drawing.Point(253, 149);
+            this.label_Manual_Magazine_Layer2_Pos_Z.Name = "label_Manual_Magazine_Layer2_Pos_Z";
+            this.label_Manual_Magazine_Layer2_Pos_Z.Size = new System.Drawing.Size(155, 51);
+            this.label_Manual_Magazine_Layer2_Pos_Z.TabIndex = 55;
+            this.label_Manual_Magazine_Layer2_Pos_Z.Text = "Z LAYER 2";
+            this.label_Manual_Magazine_Layer2_Pos_Z.UseVisualStyleBackColor = false;
+            this.label_Manual_Magazine_Layer2_Pos_Z.Click += new System.EventHandler(this.button_Manual_Transfer_Right_Bcr_Pos_Z_Click);
+            // 
+            // label_Manual_Magazine_Layer4_Pos_Z
+            // 
+            this.label_Manual_Magazine_Layer4_Pos_Z.BackColor = System.Drawing.Color.Tan;
+            this.label_Manual_Magazine_Layer4_Pos_Z.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.label_Manual_Magazine_Layer4_Pos_Z.Font = new System.Drawing.Font("나눔고딕 ExtraBold", 8.999999F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(129)));
+            this.label_Manual_Magazine_Layer4_Pos_Z.ForeColor = System.Drawing.Color.White;
+            this.label_Manual_Magazine_Layer4_Pos_Z.Location = new System.Drawing.Point(253, 255);
+            this.label_Manual_Magazine_Layer4_Pos_Z.Name = "label_Manual_Magazine_Layer4_Pos_Z";
+            this.label_Manual_Magazine_Layer4_Pos_Z.Size = new System.Drawing.Size(155, 51);
+            this.label_Manual_Magazine_Layer4_Pos_Z.TabIndex = 41;
+            this.label_Manual_Magazine_Layer4_Pos_Z.Text = "Z LAYER 4";
+            this.label_Manual_Magazine_Layer4_Pos_Z.UseVisualStyleBackColor = false;
+            this.label_Manual_Magazine_Layer4_Pos_Z.Click += new System.EventHandler(this.BTN_MANUAL_TRANSFER_LEFT_UNLOAD_POS_Z_Click);
+            // 
+            // label_Manual_Magazine_Z_Title
+            // 
+            this.label_Manual_Magazine_Z_Title.BackColor = System.Drawing.Color.PapayaWhip;
+            this.label_Manual_Magazine_Z_Title.Font = new System.Drawing.Font("굴림", 10F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(129)));
+            this.label_Manual_Magazine_Z_Title.ForeColor = System.Drawing.Color.Black;
+            this.label_Manual_Magazine_Z_Title.Location = new System.Drawing.Point(253, 17);
+            this.label_Manual_Magazine_Z_Title.Name = "label_Manual_Magazine_Z_Title";
+            this.label_Manual_Magazine_Z_Title.Size = new System.Drawing.Size(155, 23);
+            this.label_Manual_Magazine_Z_Title.TabIndex = 59;
+            this.label_Manual_Magazine_Z_Title.Text = "Z AXIS";
+            this.label_Manual_Magazine_Z_Title.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            // 
+            // label_Manual_Magazine_Layer1_Pos_Z
+            // 
+            this.label_Manual_Magazine_Layer1_Pos_Z.BackColor = System.Drawing.Color.Tan;
+            this.label_Manual_Magazine_Layer1_Pos_Z.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.label_Manual_Magazine_Layer1_Pos_Z.Font = new System.Drawing.Font("나눔고딕 ExtraBold", 8.999999F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(129)));
+            this.label_Manual_Magazine_Layer1_Pos_Z.ForeColor = System.Drawing.Color.White;
+            this.label_Manual_Magazine_Layer1_Pos_Z.Location = new System.Drawing.Point(253, 96);
+            this.label_Manual_Magazine_Layer1_Pos_Z.Name = "label_Manual_Magazine_Layer1_Pos_Z";
+            this.label_Manual_Magazine_Layer1_Pos_Z.Size = new System.Drawing.Size(155, 51);
+            this.label_Manual_Magazine_Layer1_Pos_Z.TabIndex = 54;
+            this.label_Manual_Magazine_Layer1_Pos_Z.Text = "Z LAYER 1";
+            this.label_Manual_Magazine_Layer1_Pos_Z.UseVisualStyleBackColor = false;
+            this.label_Manual_Magazine_Layer1_Pos_Z.Click += new System.EventHandler(this.button_Manual_Transfer_Left_Bcr_Pos_Z_Click);
+            // 
             // label_Manual_Magazine_Layer2_Pos_Y
             // 
             this.label_Manual_Magazine_Layer2_Pos_Y.BackColor = System.Drawing.Color.Tan;
@@ -253,105 +288,71 @@ namespace ZenHandler.Dlg
             this.label_Manual_Magazine_Layer5_Pos_Y.UseVisualStyleBackColor = false;
             this.label_Manual_Magazine_Layer5_Pos_Y.Click += new System.EventHandler(this.BTN_MANUAL_TRANSFER_RIGHT_LOAD_POS_XY_Click);
             // 
-            // label_Manual_Magazine_Layer4_Pos_Z
-            // 
-            this.label_Manual_Magazine_Layer4_Pos_Z.BackColor = System.Drawing.Color.Tan;
-            this.label_Manual_Magazine_Layer4_Pos_Z.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.label_Manual_Magazine_Layer4_Pos_Z.Font = new System.Drawing.Font("나눔고딕 ExtraBold", 8.999999F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(129)));
-            this.label_Manual_Magazine_Layer4_Pos_Z.ForeColor = System.Drawing.Color.White;
-            this.label_Manual_Magazine_Layer4_Pos_Z.Location = new System.Drawing.Point(253, 255);
-            this.label_Manual_Magazine_Layer4_Pos_Z.Name = "label_Manual_Magazine_Layer4_Pos_Z";
-            this.label_Manual_Magazine_Layer4_Pos_Z.Size = new System.Drawing.Size(155, 51);
-            this.label_Manual_Magazine_Layer4_Pos_Z.TabIndex = 41;
-            this.label_Manual_Magazine_Layer4_Pos_Z.Text = "Z LAYER 4";
-            this.label_Manual_Magazine_Layer4_Pos_Z.UseVisualStyleBackColor = false;
-            this.label_Manual_Magazine_Layer4_Pos_Z.Click += new System.EventHandler(this.BTN_MANUAL_TRANSFER_LEFT_UNLOAD_POS_Z_Click);
-            // 
             // groupBox2
             // 
             this.groupBox2.BackColor = System.Drawing.Color.White;
-            this.groupBox2.Controls.Add(this.button_Manual_Magazine_Seat_Detect_BR);
-            this.groupBox2.Controls.Add(this.button_Manual_Magazine_Seat_Detect_BL);
-            this.groupBox2.Controls.Add(this.button_Manual_Magazine_Seat_Detect_RT);
-            this.groupBox2.Controls.Add(this.button_Manual_Magazine_Seat_Detect_LT);
-            this.groupBox2.Controls.Add(this.BTN_MANUAL_TRANSFER_LOAD_VACUUM_OFF2);
-            this.groupBox2.Controls.Add(this.BTN_MANUAL_TRANSFER_LOAD_VACUUM_ON2);
-            this.groupBox2.Controls.Add(this.BTN_MANUAL_TRANSFER_LOAD_VACUUM_OFF1);
+            this.groupBox2.Controls.Add(this.button_Manual_Magazine_Tray_Front_Detect);
+            this.groupBox2.Controls.Add(this.button_Manual_Magazine_Tray_Bottom_Detect);
+            this.groupBox2.Controls.Add(this.button_Manual_Magazine_Tray_Seat_Detect_);
+            this.groupBox2.Controls.Add(this.button_Manual_Magazine_Seat_Detect);
             this.groupBox2.Controls.Add(this.label_Manual_Magazine_Sensor_Title);
-            this.groupBox2.Controls.Add(this.BTN_MANUAL_TRANSFER_LOAD_VACUUM_ON1);
             this.groupBox2.Location = new System.Drawing.Point(10, 6);
             this.groupBox2.Name = "groupBox2";
             this.groupBox2.Size = new System.Drawing.Size(753, 144);
             this.groupBox2.TabIndex = 42;
             this.groupBox2.TabStop = false;
             // 
-            // BTN_MANUAL_TRANSFER_LOAD_VACUUM_OFF2
+            // button_Manual_Magazine_Tray_Front_Detect
             // 
-            this.BTN_MANUAL_TRANSFER_LOAD_VACUUM_OFF2.BackColor = System.Drawing.Color.Tan;
-            this.BTN_MANUAL_TRANSFER_LOAD_VACUUM_OFF2.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.BTN_MANUAL_TRANSFER_LOAD_VACUUM_OFF2.Font = new System.Drawing.Font("Microsoft Sans Serif", 11F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(129)));
-            this.BTN_MANUAL_TRANSFER_LOAD_VACUUM_OFF2.ForeColor = System.Drawing.Color.White;
-            this.BTN_MANUAL_TRANSFER_LOAD_VACUUM_OFF2.Location = new System.Drawing.Point(289, 39);
-            this.BTN_MANUAL_TRANSFER_LOAD_VACUUM_OFF2.Name = "BTN_MANUAL_TRANSFER_LOAD_VACUUM_OFF2";
-            this.BTN_MANUAL_TRANSFER_LOAD_VACUUM_OFF2.Size = new System.Drawing.Size(82, 46);
-            this.BTN_MANUAL_TRANSFER_LOAD_VACUUM_OFF2.TabIndex = 31;
-            this.BTN_MANUAL_TRANSFER_LOAD_VACUUM_OFF2.Text = "OFF";
-            this.BTN_MANUAL_TRANSFER_LOAD_VACUUM_OFF2.UseVisualStyleBackColor = false;
-            this.BTN_MANUAL_TRANSFER_LOAD_VACUUM_OFF2.Click += new System.EventHandler(this.BTN_MANUAL_TRANSFER_LOAD_VACUUM_OFF2_Click);
+            this.button_Manual_Magazine_Tray_Front_Detect.BackColor = System.Drawing.Color.Tan;
+            this.button_Manual_Magazine_Tray_Front_Detect.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.button_Manual_Magazine_Tray_Front_Detect.Font = new System.Drawing.Font("나눔고딕", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(129)));
+            this.button_Manual_Magazine_Tray_Front_Detect.ForeColor = System.Drawing.Color.White;
+            this.button_Manual_Magazine_Tray_Front_Detect.Location = new System.Drawing.Point(377, 49);
+            this.button_Manual_Magazine_Tray_Front_Detect.Name = "button_Manual_Magazine_Tray_Front_Detect";
+            this.button_Manual_Magazine_Tray_Front_Detect.Size = new System.Drawing.Size(107, 46);
+            this.button_Manual_Magazine_Tray_Front_Detect.TabIndex = 35;
+            this.button_Manual_Magazine_Tray_Front_Detect.Text = "Magazine Front";
+            this.button_Manual_Magazine_Tray_Front_Detect.UseVisualStyleBackColor = false;
             // 
-            // BTN_MANUAL_TRANSFER_LOAD_VACUUM_ON2
+            // button_Manual_Magazine_Tray_Bottom_Detect
             // 
-            this.BTN_MANUAL_TRANSFER_LOAD_VACUUM_ON2.BackColor = System.Drawing.Color.Tan;
-            this.BTN_MANUAL_TRANSFER_LOAD_VACUUM_ON2.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.BTN_MANUAL_TRANSFER_LOAD_VACUUM_ON2.Font = new System.Drawing.Font("Microsoft Sans Serif", 11F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(129)));
-            this.BTN_MANUAL_TRANSFER_LOAD_VACUUM_ON2.ForeColor = System.Drawing.Color.White;
-            this.BTN_MANUAL_TRANSFER_LOAD_VACUUM_ON2.Location = new System.Drawing.Point(207, 39);
-            this.BTN_MANUAL_TRANSFER_LOAD_VACUUM_ON2.Name = "BTN_MANUAL_TRANSFER_LOAD_VACUUM_ON2";
-            this.BTN_MANUAL_TRANSFER_LOAD_VACUUM_ON2.Size = new System.Drawing.Size(82, 46);
-            this.BTN_MANUAL_TRANSFER_LOAD_VACUUM_ON2.TabIndex = 30;
-            this.BTN_MANUAL_TRANSFER_LOAD_VACUUM_ON2.Text = "ON";
-            this.BTN_MANUAL_TRANSFER_LOAD_VACUUM_ON2.UseVisualStyleBackColor = false;
-            this.BTN_MANUAL_TRANSFER_LOAD_VACUUM_ON2.Click += new System.EventHandler(this.BTN_MANUAL_TRANSFER_LOAD_VACUUM_ON2_Click);
+            this.button_Manual_Magazine_Tray_Bottom_Detect.BackColor = System.Drawing.Color.Tan;
+            this.button_Manual_Magazine_Tray_Bottom_Detect.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.button_Manual_Magazine_Tray_Bottom_Detect.Font = new System.Drawing.Font("나눔고딕", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(129)));
+            this.button_Manual_Magazine_Tray_Bottom_Detect.ForeColor = System.Drawing.Color.White;
+            this.button_Manual_Magazine_Tray_Bottom_Detect.Location = new System.Drawing.Point(264, 49);
+            this.button_Manual_Magazine_Tray_Bottom_Detect.Name = "button_Manual_Magazine_Tray_Bottom_Detect";
+            this.button_Manual_Magazine_Tray_Bottom_Detect.Size = new System.Drawing.Size(107, 46);
+            this.button_Manual_Magazine_Tray_Bottom_Detect.TabIndex = 34;
+            this.button_Manual_Magazine_Tray_Bottom_Detect.Text = "Magazine Bottom";
+            this.button_Manual_Magazine_Tray_Bottom_Detect.UseVisualStyleBackColor = false;
             // 
-            // label_Manual_Magazine_Z_Title
+            // button_Manual_Magazine_Tray_Seat_Detect_
             // 
-            this.label_Manual_Magazine_Z_Title.BackColor = System.Drawing.Color.PapayaWhip;
-            this.label_Manual_Magazine_Z_Title.Font = new System.Drawing.Font("굴림", 10F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(129)));
-            this.label_Manual_Magazine_Z_Title.ForeColor = System.Drawing.Color.Black;
-            this.label_Manual_Magazine_Z_Title.Location = new System.Drawing.Point(253, 17);
-            this.label_Manual_Magazine_Z_Title.Name = "label_Manual_Magazine_Z_Title";
-            this.label_Manual_Magazine_Z_Title.Size = new System.Drawing.Size(155, 23);
-            this.label_Manual_Magazine_Z_Title.TabIndex = 59;
-            this.label_Manual_Magazine_Z_Title.Text = "Z AXIS";
-            this.label_Manual_Magazine_Z_Title.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            this.button_Manual_Magazine_Tray_Seat_Detect_.BackColor = System.Drawing.Color.Tan;
+            this.button_Manual_Magazine_Tray_Seat_Detect_.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.button_Manual_Magazine_Tray_Seat_Detect_.Font = new System.Drawing.Font("나눔고딕", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(129)));
+            this.button_Manual_Magazine_Tray_Seat_Detect_.ForeColor = System.Drawing.Color.White;
+            this.button_Manual_Magazine_Tray_Seat_Detect_.Location = new System.Drawing.Point(153, 49);
+            this.button_Manual_Magazine_Tray_Seat_Detect_.Name = "button_Manual_Magazine_Tray_Seat_Detect_";
+            this.button_Manual_Magazine_Tray_Seat_Detect_.Size = new System.Drawing.Size(107, 46);
+            this.button_Manual_Magazine_Tray_Seat_Detect_.TabIndex = 33;
+            this.button_Manual_Magazine_Tray_Seat_Detect_.Text = "Tray Seat";
+            this.button_Manual_Magazine_Tray_Seat_Detect_.UseVisualStyleBackColor = false;
             // 
-            // label_Manual_Magazine_Layer2_Pos_Z
+            // button_Manual_Magazine_Seat_Detect
             // 
-            this.label_Manual_Magazine_Layer2_Pos_Z.BackColor = System.Drawing.Color.Tan;
-            this.label_Manual_Magazine_Layer2_Pos_Z.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.label_Manual_Magazine_Layer2_Pos_Z.Font = new System.Drawing.Font("나눔고딕 ExtraBold", 8.999999F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(129)));
-            this.label_Manual_Magazine_Layer2_Pos_Z.ForeColor = System.Drawing.Color.White;
-            this.label_Manual_Magazine_Layer2_Pos_Z.Location = new System.Drawing.Point(253, 149);
-            this.label_Manual_Magazine_Layer2_Pos_Z.Name = "label_Manual_Magazine_Layer2_Pos_Z";
-            this.label_Manual_Magazine_Layer2_Pos_Z.Size = new System.Drawing.Size(155, 51);
-            this.label_Manual_Magazine_Layer2_Pos_Z.TabIndex = 55;
-            this.label_Manual_Magazine_Layer2_Pos_Z.Text = "Z LAYER 2";
-            this.label_Manual_Magazine_Layer2_Pos_Z.UseVisualStyleBackColor = false;
-            this.label_Manual_Magazine_Layer2_Pos_Z.Click += new System.EventHandler(this.button_Manual_Transfer_Right_Bcr_Pos_Z_Click);
-            // 
-            // label_Manual_Magazine_Layer1_Pos_Z
-            // 
-            this.label_Manual_Magazine_Layer1_Pos_Z.BackColor = System.Drawing.Color.Tan;
-            this.label_Manual_Magazine_Layer1_Pos_Z.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.label_Manual_Magazine_Layer1_Pos_Z.Font = new System.Drawing.Font("나눔고딕 ExtraBold", 8.999999F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(129)));
-            this.label_Manual_Magazine_Layer1_Pos_Z.ForeColor = System.Drawing.Color.White;
-            this.label_Manual_Magazine_Layer1_Pos_Z.Location = new System.Drawing.Point(253, 96);
-            this.label_Manual_Magazine_Layer1_Pos_Z.Name = "label_Manual_Magazine_Layer1_Pos_Z";
-            this.label_Manual_Magazine_Layer1_Pos_Z.Size = new System.Drawing.Size(155, 51);
-            this.label_Manual_Magazine_Layer1_Pos_Z.TabIndex = 54;
-            this.label_Manual_Magazine_Layer1_Pos_Z.Text = "Z LAYER 1";
-            this.label_Manual_Magazine_Layer1_Pos_Z.UseVisualStyleBackColor = false;
-            this.label_Manual_Magazine_Layer1_Pos_Z.Click += new System.EventHandler(this.button_Manual_Transfer_Left_Bcr_Pos_Z_Click);
+            this.button_Manual_Magazine_Seat_Detect.BackColor = System.Drawing.Color.Tan;
+            this.button_Manual_Magazine_Seat_Detect.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.button_Manual_Magazine_Seat_Detect.Font = new System.Drawing.Font("나눔고딕", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(129)));
+            this.button_Manual_Magazine_Seat_Detect.ForeColor = System.Drawing.Color.White;
+            this.button_Manual_Magazine_Seat_Detect.Location = new System.Drawing.Point(40, 49);
+            this.button_Manual_Magazine_Seat_Detect.Name = "button_Manual_Magazine_Seat_Detect";
+            this.button_Manual_Magazine_Seat_Detect.Size = new System.Drawing.Size(107, 46);
+            this.button_Manual_Magazine_Seat_Detect.TabIndex = 32;
+            this.button_Manual_Magazine_Seat_Detect.Text = "Magazine Seat";
+            this.button_Manual_Magazine_Seat_Detect.UseVisualStyleBackColor = false;
             // 
             // comboBox_Manual_LoadPicker
             // 
@@ -368,7 +369,7 @@ namespace ZenHandler.Dlg
             // 
             this.label_Manual_Transfer_PosX.BackColor = System.Drawing.Color.White;
             this.label_Manual_Transfer_PosX.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.label_Manual_Transfer_PosX.Font = new System.Drawing.Font("나눔고딕", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(129)));
+            this.label_Manual_Transfer_PosX.Font = new System.Drawing.Font("나눔고딕 ExtraBold", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(129)));
             this.label_Manual_Transfer_PosX.Location = new System.Drawing.Point(103, 199);
             this.label_Manual_Transfer_PosX.Name = "label_Manual_Transfer_PosX";
             this.label_Manual_Transfer_PosX.Size = new System.Drawing.Size(82, 49);
@@ -408,7 +409,7 @@ namespace ZenHandler.Dlg
             // 
             this.label_Manual_Transfer_PosY.BackColor = System.Drawing.Color.White;
             this.label_Manual_Transfer_PosY.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.label_Manual_Transfer_PosY.Font = new System.Drawing.Font("나눔고딕", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(129)));
+            this.label_Manual_Transfer_PosY.Font = new System.Drawing.Font("나눔고딕 ExtraBold", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(129)));
             this.label_Manual_Transfer_PosY.Location = new System.Drawing.Point(103, 251);
             this.label_Manual_Transfer_PosY.Name = "label_Manual_Transfer_PosY";
             this.label_Manual_Transfer_PosY.Size = new System.Drawing.Size(82, 49);
@@ -456,71 +457,6 @@ namespace ZenHandler.Dlg
             this.label_Manual_Magazine_Tray_No.Text = "TRAY NO";
             this.label_Manual_Magazine_Tray_No.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
-            // label_Manual_Magazine_Layer5_Pos_Z
-            // 
-            this.label_Manual_Magazine_Layer5_Pos_Z.BackColor = System.Drawing.Color.Tan;
-            this.label_Manual_Magazine_Layer5_Pos_Z.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.label_Manual_Magazine_Layer5_Pos_Z.Font = new System.Drawing.Font("나눔고딕 ExtraBold", 8.999999F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(129)));
-            this.label_Manual_Magazine_Layer5_Pos_Z.ForeColor = System.Drawing.Color.White;
-            this.label_Manual_Magazine_Layer5_Pos_Z.Location = new System.Drawing.Point(253, 308);
-            this.label_Manual_Magazine_Layer5_Pos_Z.Name = "label_Manual_Magazine_Layer5_Pos_Z";
-            this.label_Manual_Magazine_Layer5_Pos_Z.Size = new System.Drawing.Size(155, 51);
-            this.label_Manual_Magazine_Layer5_Pos_Z.TabIndex = 60;
-            this.label_Manual_Magazine_Layer5_Pos_Z.Text = "Z LAYER 5";
-            this.label_Manual_Magazine_Layer5_Pos_Z.UseVisualStyleBackColor = false;
-            // 
-            // button_Manual_Magazine_Seat_Detect_LT
-            // 
-            this.button_Manual_Magazine_Seat_Detect_LT.BackColor = System.Drawing.Color.Tan;
-            this.button_Manual_Magazine_Seat_Detect_LT.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.button_Manual_Magazine_Seat_Detect_LT.Font = new System.Drawing.Font("Microsoft Sans Serif", 11F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(129)));
-            this.button_Manual_Magazine_Seat_Detect_LT.ForeColor = System.Drawing.Color.White;
-            this.button_Manual_Magazine_Seat_Detect_LT.Location = new System.Drawing.Point(500, 20);
-            this.button_Manual_Magazine_Seat_Detect_LT.Name = "button_Manual_Magazine_Seat_Detect_LT";
-            this.button_Manual_Magazine_Seat_Detect_LT.Size = new System.Drawing.Size(107, 46);
-            this.button_Manual_Magazine_Seat_Detect_LT.TabIndex = 32;
-            this.button_Manual_Magazine_Seat_Detect_LT.Text = "Magazine Seat LT";
-            this.button_Manual_Magazine_Seat_Detect_LT.UseVisualStyleBackColor = false;
-            // 
-            // button_Manual_Magazine_Seat_Detect_RT
-            // 
-            this.button_Manual_Magazine_Seat_Detect_RT.BackColor = System.Drawing.Color.Tan;
-            this.button_Manual_Magazine_Seat_Detect_RT.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.button_Manual_Magazine_Seat_Detect_RT.Font = new System.Drawing.Font("Microsoft Sans Serif", 11F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(129)));
-            this.button_Manual_Magazine_Seat_Detect_RT.ForeColor = System.Drawing.Color.White;
-            this.button_Manual_Magazine_Seat_Detect_RT.Location = new System.Drawing.Point(613, 20);
-            this.button_Manual_Magazine_Seat_Detect_RT.Name = "button_Manual_Magazine_Seat_Detect_RT";
-            this.button_Manual_Magazine_Seat_Detect_RT.Size = new System.Drawing.Size(107, 46);
-            this.button_Manual_Magazine_Seat_Detect_RT.TabIndex = 33;
-            this.button_Manual_Magazine_Seat_Detect_RT.Text = "Magazine Seat RT";
-            this.button_Manual_Magazine_Seat_Detect_RT.UseVisualStyleBackColor = false;
-            // 
-            // button_Manual_Magazine_Seat_Detect_BL
-            // 
-            this.button_Manual_Magazine_Seat_Detect_BL.BackColor = System.Drawing.Color.Tan;
-            this.button_Manual_Magazine_Seat_Detect_BL.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.button_Manual_Magazine_Seat_Detect_BL.Font = new System.Drawing.Font("Microsoft Sans Serif", 11F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(129)));
-            this.button_Manual_Magazine_Seat_Detect_BL.ForeColor = System.Drawing.Color.White;
-            this.button_Manual_Magazine_Seat_Detect_BL.Location = new System.Drawing.Point(500, 72);
-            this.button_Manual_Magazine_Seat_Detect_BL.Name = "button_Manual_Magazine_Seat_Detect_BL";
-            this.button_Manual_Magazine_Seat_Detect_BL.Size = new System.Drawing.Size(107, 46);
-            this.button_Manual_Magazine_Seat_Detect_BL.TabIndex = 34;
-            this.button_Manual_Magazine_Seat_Detect_BL.Text = "Magazine Seat BL";
-            this.button_Manual_Magazine_Seat_Detect_BL.UseVisualStyleBackColor = false;
-            // 
-            // button_Manual_Magazine_Seat_Detect_BR
-            // 
-            this.button_Manual_Magazine_Seat_Detect_BR.BackColor = System.Drawing.Color.Tan;
-            this.button_Manual_Magazine_Seat_Detect_BR.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.button_Manual_Magazine_Seat_Detect_BR.Font = new System.Drawing.Font("Microsoft Sans Serif", 11F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(129)));
-            this.button_Manual_Magazine_Seat_Detect_BR.ForeColor = System.Drawing.Color.White;
-            this.button_Manual_Magazine_Seat_Detect_BR.Location = new System.Drawing.Point(613, 72);
-            this.button_Manual_Magazine_Seat_Detect_BR.Name = "button_Manual_Magazine_Seat_Detect_BR";
-            this.button_Manual_Magazine_Seat_Detect_BR.Size = new System.Drawing.Size(107, 46);
-            this.button_Manual_Magazine_Seat_Detect_BR.TabIndex = 35;
-            this.button_Manual_Magazine_Seat_Detect_BR.Text = "Magazine Seat BR";
-            this.button_Manual_Magazine_Seat_Detect_BR.UseVisualStyleBackColor = false;
-            // 
             // ManualMagazine
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 12F);
@@ -545,9 +481,6 @@ namespace ZenHandler.Dlg
         }
 
         #endregion
-
-        private System.Windows.Forms.Button BTN_MANUAL_TRANSFER_LOAD_VACUUM_OFF1;
-        private System.Windows.Forms.Button BTN_MANUAL_TRANSFER_LOAD_VACUUM_ON1;
         private System.Windows.Forms.Label label_Manual_Magazine_Sensor_Title;
         private System.Windows.Forms.Button label_Manual_Magazine_Layer3_Pos_Z;
         private System.Windows.Forms.Button label_Manual_Magazine_Layer3_Pos_Y;
@@ -556,8 +489,6 @@ namespace ZenHandler.Dlg
         private System.Windows.Forms.Button label_Manual_Magazine_Wait_Pos_Y;
         private System.Windows.Forms.GroupBox groupBox1;
         private System.Windows.Forms.GroupBox groupBox2;
-        private System.Windows.Forms.Button BTN_MANUAL_TRANSFER_LOAD_VACUUM_OFF2;
-        private System.Windows.Forms.Button BTN_MANUAL_TRANSFER_LOAD_VACUUM_ON2;
         private System.Windows.Forms.Button label_Manual_Magazine_Layer5_Pos_Y;
         private System.Windows.Forms.Button label_Manual_Magazine_Layer4_Pos_Z;
         private System.Windows.Forms.Button label_Manual_Magazine_Layer4_Pos_Y;
@@ -575,9 +506,9 @@ namespace ZenHandler.Dlg
         private System.Windows.Forms.Button button_Manual_Transfer_PosY_Prev;
         private System.Windows.Forms.Label label_Manual_Magazine_Tray_No;
         private System.Windows.Forms.Button label_Manual_Magazine_Layer5_Pos_Z;
-        private System.Windows.Forms.Button button_Manual_Magazine_Seat_Detect_BR;
-        private System.Windows.Forms.Button button_Manual_Magazine_Seat_Detect_BL;
-        private System.Windows.Forms.Button button_Manual_Magazine_Seat_Detect_RT;
-        private System.Windows.Forms.Button button_Manual_Magazine_Seat_Detect_LT;
+        private System.Windows.Forms.Button button_Manual_Magazine_Tray_Front_Detect;
+        private System.Windows.Forms.Button button_Manual_Magazine_Tray_Bottom_Detect;
+        private System.Windows.Forms.Button button_Manual_Magazine_Tray_Seat_Detect_;
+        private System.Windows.Forms.Button button_Manual_Magazine_Seat_Detect;
     }
 }

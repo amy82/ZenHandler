@@ -552,7 +552,6 @@ namespace ZenHandler.Machine
                 return true;
             }
 
-            int i = 0;
             int lModuleNo = 0;
             int lOffset = 0;
 
@@ -583,7 +582,6 @@ namespace ZenHandler.Machine
                 return true;
             }
 
-            int i = 0;
             int lModuleNo = 0;
             int lOffset = 0;
 
@@ -613,7 +611,6 @@ namespace ZenHandler.Machine
                 return true;
             }
 
-            int i = 0;
             int lModuleNo = 0;
             int lOffset = 0;
 
@@ -643,7 +640,6 @@ namespace ZenHandler.Machine
                 return true;
             }
 
-            int i = 0;
             int lModuleNo = 0;
             int lOffset = 0;
 
@@ -673,7 +669,6 @@ namespace ZenHandler.Machine
                 return true;
             }
 
-            int i = 0;
             int lModuleNo = 0;
             int lOffset = 0;
 
@@ -840,7 +835,7 @@ namespace ZenHandler.Machine
                 return true;
             }
 
-            string logStr = "";
+            //string logStr = "";
             bool isSuccess = false;
             int moveDic = 1;        //1이면 상승 , 그외 하강
             if (Sensor == eLiftSensor.LIFT_READY_POS)
@@ -881,7 +876,7 @@ namespace ZenHandler.Machine
             }
             int step = 100;
             int nTimeTick = 0;
-            int SkipChk = 0;
+            //int SkipChk = 0;
             while (true)
             {
                 if (MotorAxes[(int)motorAxis].MotorBreak)
