@@ -22,6 +22,7 @@ namespace ZenHandler.Dlg
         private Button[] MotorZ_BtnArr = new Button[5];
 
         private Button[] LiftIoBtnArr = new Button[10];
+        private Button[] LiftDetectBtnArr = new Button[10];
 
         protected CancellationTokenSource cts;  //TODO: <--이름 변경하고 사용가능하게
         private bool isMovingLift;
@@ -58,26 +59,36 @@ namespace ZenHandler.Dlg
 
             LiftIoBtnArr[0] = button_Manual_Lift_Gantry_Clamp_For;
             LiftIoBtnArr[1] = button_Manual_Lift_Gantry_Clamp_Back;
-
             LiftIoBtnArr[2] = button_Manual_Lift_Gantry_Centring_For;
             LiftIoBtnArr[3] = button_Manual_Lift_Gantry_Centring_Back;
-
             LiftIoBtnArr[4] = button_Manual_Lift_Pusher_For;
             LiftIoBtnArr[5] = button_Manual_Lift_Pusher_Back;
-
             LiftIoBtnArr[6] = button_Manual_Lift_Pusher_Up;
             LiftIoBtnArr[7] = button_Manual_Lift_Pusher_Down;
-
             LiftIoBtnArr[8] = button_Manual_Lift_Pusher_Centring_For;
             LiftIoBtnArr[9] = button_Manual_Lift_Pusher_Centring_Back;
 
+
+            LiftDetectBtnArr[0] = button_Manual_Lift_Left_Top_Detect;
+            LiftDetectBtnArr[1] = button_Manual_Lift_Left_Mid_Detect;
+            LiftDetectBtnArr[2] = button_Manual_Lift_Left_Bottom_Detect;
+            LiftDetectBtnArr[3] = button_Manual_Lift_Left_Tray_Detect;
+            LiftDetectBtnArr[4] = button_Manual_Lift_Left_Slide_Detect;
+            //
+            LiftDetectBtnArr[5] = button_Manual_Lift_Right_Top_Detect;
+            LiftDetectBtnArr[6] = button_Manual_Lift_Right_Mid_Detect;
+            LiftDetectBtnArr[7] = button_Manual_Lift_Right_Bottom_Detect;
+            LiftDetectBtnArr[8] = button_Manual_Lift_Right_Tray_Detect;
+            LiftDetectBtnArr[9] = button_Manual_Lift_Right_Slide_Detect;
+
+            
             for (i = 0; i < MotorX_BtnArr.Length; i++)
             {
                 MotorX_BtnArr[i].BackColor = ColorTranslator.FromHtml(ButtonColor.MANUAL_BTN_OFF);
                 MotorX_BtnArr[i].ForeColor = Color.White;
                 MotorX_BtnArr[i].FlatAppearance.BorderColor = ColorTranslator.FromHtml("#BBBBBB");
             }
-            MotorX_BtnArr[0].BackColor = ColorTranslator.FromHtml("#4C4743");   //모터 위치 이동 완료시 색
+            ///MotorX_BtnArr[0].BackColor = ColorTranslator.FromHtml("#4C4743");   //모터 위치 이동 완료시 색
 
 
             for (i = 0; i < LiftIoBtnArr.Length; i++)
@@ -86,6 +97,14 @@ namespace ZenHandler.Dlg
                 LiftIoBtnArr[i].ForeColor = Color.White;
                 LiftIoBtnArr[i].FlatAppearance.BorderColor = ColorTranslator.FromHtml("#BBBBBB");
             }
+            for (i = 0; i < LiftDetectBtnArr.Length; i++)
+            {
+                LiftDetectBtnArr[i].BackColor = ColorTranslator.FromHtml(ButtonColor.MANUAL_BTN_OFF);
+                LiftDetectBtnArr[i].ForeColor = Color.White;
+                LiftDetectBtnArr[i].FlatAppearance.BorderColor = ColorTranslator.FromHtml("#BBBBBB");
+            }
+            
+
         }
 
 
@@ -449,7 +468,7 @@ namespace ZenHandler.Dlg
         {
             Manual_Lift_Z_Move(Machine.eLift.LIFT_R_Z, Machine.eLiftSensor.LIFT_TOPSTOP_POS);
         }
-        
+
 
         #endregion
 
@@ -462,11 +481,133 @@ namespace ZenHandler.Dlg
         //
         //
         //
-
-        private void BTN_MANUAL_VACUUM_ON_Click_1(object sender, EventArgs e)
+        private bool ManualLiftRunChk()
         {
-            ManualLoadVacuumOn(0, true);
-            Globalo.LogPrint("ManualControl", "[TRANSFER] #1 LOAD PICKER VACUUM ON");
+            if (Globalo.motionManager.liftMachine.RunState == OperationState.AutoRunning)
+            {
+                Globalo.LogPrint("ManualControl", "[INFO] 자동 운전 중 사용 불가", Globalo.eMessageName.M_WARNING);
+                return false;
+            }
+            if (Globalo.motionManager.liftMachine.RunState == OperationState.Paused)
+            {
+                Globalo.LogPrint("ManualControl", "[INFO] 일시 정지 중 사용 불가", Globalo.eMessageName.M_WARNING);
+                return false;
+            }
+            if (Globalo.motionManager.liftMachine.RunState == OperationState.Preparing)
+            {
+                Globalo.LogPrint("ManualControl", "[INFO] 운전 준비 중 사용 불가", Globalo.eMessageName.M_WARNING);
+                return false;
+            }
+            if (Globalo.motionManager.liftMachine.RunState == OperationState.OriginRunning)
+            {
+                Globalo.LogPrint("ManualControl", "[INFO] 원점 동작 중 사용 불가", Globalo.eMessageName.M_WARNING);
+                return false;
+            }
+            if (Globalo.motionManager.liftMachine.RunState == OperationState.ManualTesting)
+            {
+                Globalo.LogPrint("ManualControl", "[INFO] 수동 조작 중 사용 불가", Globalo.eMessageName.M_WARNING);
+                return false;
+            }
+
+            return true;
+        }
+        private void button_Manual_Lift_Gantry_Clamp_For_Click(object sender, EventArgs e)
+        {
+            if (ManualLiftRunChk() == false)
+            {
+                return;
+            }
+            Globalo.motionManager.liftMachine.GantryClampFor(true);
+            Globalo.LogPrint("ManualControl", "[LIFT] GANTRY CLAMP FOR");
+        }
+        private void button_Manual_Lift_Gantry_Clamp_Back_Click(object sender, EventArgs e)
+        {
+            if (ManualLiftRunChk() == false)
+            {
+                return;
+            }
+            Globalo.motionManager.liftMachine.GantryClampFor(false);
+            Globalo.LogPrint("ManualControl", "[LIFT] GANTRY CLAMP BACK");
+        }
+
+        private void button_Manual_Lift_Gantry_Centring_For_Click(object sender, EventArgs e)
+        {
+            if (ManualLiftRunChk() == false)
+            {
+                return;
+            }
+            Globalo.motionManager.liftMachine.GantryCenteringFor(true);
+            Globalo.LogPrint("ManualControl", "[LIFT] GANTRY CENTRING FOR");
+        }
+
+        private void button_Manual_Lift_Gantry_Centring_Back_Click(object sender, EventArgs e)
+        {
+            if (ManualLiftRunChk() == false)
+            {
+                return;
+            }
+            Globalo.motionManager.liftMachine.GantryCenteringFor(false);
+            Globalo.LogPrint("ManualControl", "[LIFT] GANTRY CENTRING BACK");
+        }
+
+        private void button_Manual_Lift_Pusher_For_Click(object sender, EventArgs e)
+        {
+            if (ManualLiftRunChk() == false)
+            {
+                return;
+            }
+            Globalo.motionManager.liftMachine.PusherFor(true);
+            Globalo.LogPrint("ManualControl", "[LIFT] PUSHER FOR");
+        }
+
+        private void button_Manual_Lift_Pusher_Back_Click(object sender, EventArgs e)
+        {
+            if (ManualLiftRunChk() == false)
+            {
+                return;
+            }
+            Globalo.motionManager.liftMachine.PusherFor(false);
+            Globalo.LogPrint("ManualControl", "[LIFT] PUSHER BACK");
+        }
+
+        private void button_Manual_Lift_Pusher_Up_Click(object sender, EventArgs e)
+        {
+            if (ManualLiftRunChk() == false)
+            {
+                return;
+            }
+            Globalo.motionManager.liftMachine.PusherUp(true);
+            Globalo.LogPrint("ManualControl", "[LIFT] PUSHER UP");
+        }
+
+        private void button_Manual_Lift_Pusher_Down_Click(object sender, EventArgs e)
+        {
+            if (ManualLiftRunChk() == false)
+            {
+                return;
+            }
+            Globalo.motionManager.liftMachine.PusherUp(false);
+            Globalo.LogPrint("ManualControl", "[LIFT] PUSHER DOWN");
+        }
+
+        private void button_Manual_Lift_Pusher_Centring_For_Click(object sender, EventArgs e)
+        {
+            if (ManualLiftRunChk() == false)
+            {
+                return;
+            }
+            Globalo.motionManager.liftMachine.PusherCentringFor(true);
+            Globalo.LogPrint("ManualControl", "[LIFT] PUSHER CENTRING FOR");
+        }
+
+        private void button_Manual_Lift_Pusher_Centring_Back_Click(object sender, EventArgs e)
+        {
+            if (ManualLiftRunChk() == false)
+            {
+                return;
+            }
+            Globalo.motionManager.liftMachine.PusherCentringFor(false);
+            Globalo.LogPrint("ManualControl", "[LIFT] PUSHER CENTRING BACK");
         }
 
         private void BTN_MANUAL_VACUUM_OFF_Click_1(object sender, EventArgs e)
@@ -571,20 +712,199 @@ namespace ZenHandler.Dlg
             bool bRtn = false;
             //IO 동작 상태
 
-            //for (i = 0; i < 4; i++)
-            //{
-            //    bRtn = Globalo.motionManager.transferMachine.GetLoadVacuumState(i, true);
+            //----------------------------------------------------------------------------------------------------------------
+            //
+            //
+            //  IO 동작 감지
+            //
+            //
+            //----------------------------------------------------------------------------------------------------------------
+            //GANTRY CLAMP 동작
+            if (Globalo.motionManager.liftMachine.GetGantryClampFor(true) == true)
+            {
+                LiftIoBtnArr[0].BackColor = ColorTranslator.FromHtml(ButtonColor.MANUAL_BTN_ON);
+            }
+            else
+            {
+                LiftIoBtnArr[0].BackColor = ColorTranslator.FromHtml(ButtonColor.MANUAL_BTN_OFF);
+            }
+            if (Globalo.motionManager.liftMachine.GetGantryClampFor(false) == true)
+            {
+                LiftIoBtnArr[1].BackColor = ColorTranslator.FromHtml(ButtonColor.MANUAL_BTN_ON);
+            }
+            else
+            {
+                LiftIoBtnArr[1].BackColor = ColorTranslator.FromHtml(ButtonColor.MANUAL_BTN_OFF);
+            }
+            //GANTRY CENTRING 동작
+            if (Globalo.motionManager.liftMachine.GetGantryCenteringFor(true) == true)
+            {
+                LiftIoBtnArr[2].BackColor = ColorTranslator.FromHtml(ButtonColor.MANUAL_BTN_ON);
+            }
+            else
+            {
+                LiftIoBtnArr[2].BackColor = ColorTranslator.FromHtml(ButtonColor.MANUAL_BTN_OFF);
+            }
+            if (Globalo.motionManager.liftMachine.GetGantryCenteringFor(false) == true)
+            {
+                LiftIoBtnArr[3].BackColor = ColorTranslator.FromHtml(ButtonColor.MANUAL_BTN_ON);
+            }
+            else
+            {
+                LiftIoBtnArr[3].BackColor = ColorTranslator.FromHtml(ButtonColor.MANUAL_BTN_OFF);
+            }
+            //PUSHER FOR 동작
+            if (Globalo.motionManager.liftMachine.GetPUsherFor(true) == true)
+            {
+                LiftIoBtnArr[4].BackColor = ColorTranslator.FromHtml(ButtonColor.MANUAL_BTN_ON);
+            }
+            else
+            {
+                LiftIoBtnArr[4].BackColor = ColorTranslator.FromHtml(ButtonColor.MANUAL_BTN_OFF);
+            }
+            if (Globalo.motionManager.liftMachine.GetPUsherFor(false) == true)
+            {
+                LiftIoBtnArr[5].BackColor = ColorTranslator.FromHtml(ButtonColor.MANUAL_BTN_ON);
+            }
+            else
+            {
+                LiftIoBtnArr[5].BackColor = ColorTranslator.FromHtml(ButtonColor.MANUAL_BTN_OFF);
+            }
 
-            //    if (bRtn)
-            //    {
-            //        LoadVacuumOnBtnArr[i].BackColor = ColorTranslator.FromHtml(ButtonColor.MANUAL_BTN_ON);
-            //    }
-            //    else
-            //    {
-            //        LoadVacuumOnBtnArr[i].BackColor = ColorTranslator.FromHtml(ButtonColor.MANUAL_BTN_OFF);
-            //    }
-            //}
+            //PUSHER UP 동작
+            if (Globalo.motionManager.liftMachine.GetPUsherUp(true) == true)
+            {
+                LiftIoBtnArr[6].BackColor = ColorTranslator.FromHtml(ButtonColor.MANUAL_BTN_ON);
+            }
+            else
+            {
+                LiftIoBtnArr[6].BackColor = ColorTranslator.FromHtml(ButtonColor.MANUAL_BTN_OFF);
+            }
+            if (Globalo.motionManager.liftMachine.GetPUsherUp(false) == true)
+            {
+                LiftIoBtnArr[76].BackColor = ColorTranslator.FromHtml(ButtonColor.MANUAL_BTN_ON);
+            }
+            else
+            {
+                LiftIoBtnArr[7].BackColor = ColorTranslator.FromHtml(ButtonColor.MANUAL_BTN_OFF);
+            }
 
+            //PUSHER CENTRING 동작
+            if (Globalo.motionManager.liftMachine.GetPusherCentringFor(true) == true)
+            {
+                LiftIoBtnArr[8].BackColor = ColorTranslator.FromHtml(ButtonColor.MANUAL_BTN_ON);
+            }
+            else
+            {
+                LiftIoBtnArr[8].BackColor = ColorTranslator.FromHtml(ButtonColor.MANUAL_BTN_OFF);
+            }
+            if (Globalo.motionManager.liftMachine.GetPusherCentringFor(false) == true)
+            {
+                LiftIoBtnArr[9].BackColor = ColorTranslator.FromHtml(ButtonColor.MANUAL_BTN_ON);
+            }
+            else
+            {
+                LiftIoBtnArr[9].BackColor = ColorTranslator.FromHtml(ButtonColor.MANUAL_BTN_OFF);
+            }
+
+            //----------------------------------------------------------------------------------------------------------------
+            //
+            //
+            //  LIFT 감지 센서
+            //
+            //
+            //----------------------------------------------------------------------------------------------------------------
+            if (Globalo.motionManager.liftMachine.GetTopTouchSensor((int)Machine.eLift.LIFT_L_Z) == true)
+            {
+                LiftDetectBtnArr[0].BackColor = ColorTranslator.FromHtml(ButtonColor.MANUAL_BTN_ON);
+            }
+            else
+            {
+                LiftDetectBtnArr[0].BackColor = ColorTranslator.FromHtml(ButtonColor.MANUAL_BTN_OFF);
+            }
+            if (Globalo.motionManager.liftMachine.GetMiddleWaitSensor((int)Machine.eLift.LIFT_L_Z) == true)
+            {
+                LiftDetectBtnArr[1].BackColor = ColorTranslator.FromHtml(ButtonColor.MANUAL_BTN_ON);
+            }
+            else
+            {
+                LiftDetectBtnArr[1].BackColor = ColorTranslator.FromHtml(ButtonColor.MANUAL_BTN_OFF);
+            }
+            if (Globalo.motionManager.liftMachine.GetBottomSensor((int)Machine.eLift.LIFT_L_Z) == true)
+            {
+                LiftDetectBtnArr[2].BackColor = ColorTranslator.FromHtml(ButtonColor.MANUAL_BTN_ON);
+            }
+            else
+            {
+                LiftDetectBtnArr[2].BackColor = ColorTranslator.FromHtml(ButtonColor.MANUAL_BTN_OFF);
+            }
+            if (Globalo.motionManager.liftMachine.GetIsTrayOnSlide((int)Machine.eLift.LIFT_L_Z) == true)
+            {
+                LiftDetectBtnArr[3].BackColor = ColorTranslator.FromHtml(ButtonColor.MANUAL_BTN_ON);
+            }
+            else
+            {
+                LiftDetectBtnArr[3].BackColor = ColorTranslator.FromHtml(ButtonColor.MANUAL_BTN_OFF);
+            }
+            if (Globalo.motionManager.liftMachine.GetTraySlidePos((int)Machine.eLift.LIFT_L_Z) == true)
+            {
+                LiftDetectBtnArr[4].BackColor = ColorTranslator.FromHtml(ButtonColor.MANUAL_BTN_ON);
+            }
+            else
+            {
+                LiftDetectBtnArr[4].BackColor = ColorTranslator.FromHtml(ButtonColor.MANUAL_BTN_OFF);
+            }
+            //---
+            //---
+            //---
+            if (Globalo.motionManager.liftMachine.GetTopTouchSensor((int)Machine.eLift.LIFT_R_Z) == true)
+            {
+                LiftDetectBtnArr[5].BackColor = ColorTranslator.FromHtml(ButtonColor.MANUAL_BTN_ON);
+            }
+            else
+            {
+                LiftDetectBtnArr[5].BackColor = ColorTranslator.FromHtml(ButtonColor.MANUAL_BTN_OFF);
+            }
+            if (Globalo.motionManager.liftMachine.GetMiddleWaitSensor((int)Machine.eLift.LIFT_R_Z) == true)
+            {
+                LiftDetectBtnArr[6].BackColor = ColorTranslator.FromHtml(ButtonColor.MANUAL_BTN_ON);
+            }
+            else
+            {
+                LiftDetectBtnArr[6].BackColor = ColorTranslator.FromHtml(ButtonColor.MANUAL_BTN_OFF);
+            }
+            if (Globalo.motionManager.liftMachine.GetBottomSensor((int)Machine.eLift.LIFT_R_Z) == true)
+            {
+                LiftDetectBtnArr[7].BackColor = ColorTranslator.FromHtml(ButtonColor.MANUAL_BTN_ON);
+            }
+            else
+            {
+                LiftDetectBtnArr[7].BackColor = ColorTranslator.FromHtml(ButtonColor.MANUAL_BTN_OFF);
+            }
+            if (Globalo.motionManager.liftMachine.GetIsTrayOnSlide((int)Machine.eLift.LIFT_R_Z) == true)
+            {
+                LiftDetectBtnArr[8].BackColor = ColorTranslator.FromHtml(ButtonColor.MANUAL_BTN_ON);
+            }
+            else
+            {
+                LiftDetectBtnArr[8].BackColor = ColorTranslator.FromHtml(ButtonColor.MANUAL_BTN_OFF);
+            }
+            if (Globalo.motionManager.liftMachine.GetTraySlidePos((int)Machine.eLift.LIFT_R_Z) == true)
+            {
+                LiftDetectBtnArr[9].BackColor = ColorTranslator.FromHtml(ButtonColor.MANUAL_BTN_ON);
+            }
+            else
+            {
+                LiftDetectBtnArr[9].BackColor = ColorTranslator.FromHtml(ButtonColor.MANUAL_BTN_OFF);
+            }
+            //----------------------------------------------------------------------------------------------------------------
+            //
+            //
+            //  MOTOR 위치 확인
+            //
+            //
+            //----------------------------------------------------------------------------------------------------------------
+            //LiftIoBtnArr
             for (i = 0; i < MotorX_BtnArr.Length; i++)
             {
                 Machine.LiftMachine.eTeachingPosList pos = (Machine.LiftMachine.eTeachingPosList)i;
@@ -601,6 +921,6 @@ namespace ZenHandler.Dlg
 
         }
 
-        
+       
     }
 }

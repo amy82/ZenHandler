@@ -84,7 +84,7 @@ namespace ZenHandler.Dlg
             this.button_Manual_Lift_Gantry_Clamp_For.TabIndex = 27;
             this.button_Manual_Lift_Gantry_Clamp_For.Text = "GANTRY CLAMP FOR";
             this.button_Manual_Lift_Gantry_Clamp_For.UseVisualStyleBackColor = false;
-            this.button_Manual_Lift_Gantry_Clamp_For.Click += new System.EventHandler(this.BTN_MANUAL_VACUUM_ON_Click_1);
+            this.button_Manual_Lift_Gantry_Clamp_For.Click += new System.EventHandler(this.button_Manual_Lift_Gantry_Clamp_For_Click);
             // 
             // label_Manual_Magazine_Sensor_Title
             // 
@@ -422,6 +422,7 @@ namespace ZenHandler.Dlg
             this.button_Manual_Lift_Pusher_Centring_Back.TabIndex = 44;
             this.button_Manual_Lift_Pusher_Centring_Back.Text = "PUSHER \r\nALIGN BACK";
             this.button_Manual_Lift_Pusher_Centring_Back.UseVisualStyleBackColor = false;
+            this.button_Manual_Lift_Pusher_Centring_Back.Click += new System.EventHandler(this.button_Manual_Lift_Pusher_Centring_Back_Click);
             // 
             // button_Manual_Lift_Pusher_Centring_For
             // 
@@ -435,6 +436,7 @@ namespace ZenHandler.Dlg
             this.button_Manual_Lift_Pusher_Centring_For.TabIndex = 43;
             this.button_Manual_Lift_Pusher_Centring_For.Text = "PUSHER \r\nALIGN FOR";
             this.button_Manual_Lift_Pusher_Centring_For.UseVisualStyleBackColor = false;
+            this.button_Manual_Lift_Pusher_Centring_For.Click += new System.EventHandler(this.button_Manual_Lift_Pusher_Centring_For_Click);
             // 
             // button_Manual_Lift_Pusher_Down
             // 
@@ -448,6 +450,7 @@ namespace ZenHandler.Dlg
             this.button_Manual_Lift_Pusher_Down.TabIndex = 42;
             this.button_Manual_Lift_Pusher_Down.Text = "PUSHER DOWN";
             this.button_Manual_Lift_Pusher_Down.UseVisualStyleBackColor = false;
+            this.button_Manual_Lift_Pusher_Down.Click += new System.EventHandler(this.button_Manual_Lift_Pusher_Down_Click);
             // 
             // button_Manual_Lift_Pusher_Up
             // 
@@ -461,6 +464,7 @@ namespace ZenHandler.Dlg
             this.button_Manual_Lift_Pusher_Up.TabIndex = 41;
             this.button_Manual_Lift_Pusher_Up.Text = "PUSHER \r\nUP";
             this.button_Manual_Lift_Pusher_Up.UseVisualStyleBackColor = false;
+            this.button_Manual_Lift_Pusher_Up.Click += new System.EventHandler(this.button_Manual_Lift_Pusher_Up_Click);
             // 
             // button_Manual_Lift_Pusher_Back
             // 
@@ -474,6 +478,7 @@ namespace ZenHandler.Dlg
             this.button_Manual_Lift_Pusher_Back.TabIndex = 40;
             this.button_Manual_Lift_Pusher_Back.Text = "PUSHER BACK";
             this.button_Manual_Lift_Pusher_Back.UseVisualStyleBackColor = false;
+            this.button_Manual_Lift_Pusher_Back.Click += new System.EventHandler(this.button_Manual_Lift_Pusher_Back_Click);
             // 
             // button_Manual_Lift_Pusher_For
             // 
@@ -487,6 +492,7 @@ namespace ZenHandler.Dlg
             this.button_Manual_Lift_Pusher_For.TabIndex = 39;
             this.button_Manual_Lift_Pusher_For.Text = "PUSHER \r\nFOR";
             this.button_Manual_Lift_Pusher_For.UseVisualStyleBackColor = false;
+            this.button_Manual_Lift_Pusher_For.Click += new System.EventHandler(this.button_Manual_Lift_Pusher_For_Click);
             // 
             // button_Manual_Lift_Gantry_Centring_Back
             // 
@@ -500,6 +506,7 @@ namespace ZenHandler.Dlg
             this.button_Manual_Lift_Gantry_Centring_Back.TabIndex = 38;
             this.button_Manual_Lift_Gantry_Centring_Back.Text = "GANTRY ALIGN FOR";
             this.button_Manual_Lift_Gantry_Centring_Back.UseVisualStyleBackColor = false;
+            this.button_Manual_Lift_Gantry_Centring_Back.Click += new System.EventHandler(this.button_Manual_Lift_Gantry_Centring_Back_Click);
             // 
             // button_Manual_Lift_Gantry_Centring_For
             // 
@@ -513,6 +520,7 @@ namespace ZenHandler.Dlg
             this.button_Manual_Lift_Gantry_Centring_For.TabIndex = 37;
             this.button_Manual_Lift_Gantry_Centring_For.Text = "GANTRY ALIGN FOR";
             this.button_Manual_Lift_Gantry_Centring_For.UseVisualStyleBackColor = false;
+            this.button_Manual_Lift_Gantry_Centring_For.Click += new System.EventHandler(this.button_Manual_Lift_Gantry_Centring_For_Click);
             // 
             // button_Manual_Lift_Gantry_Clamp_Back
             // 
@@ -526,6 +534,7 @@ namespace ZenHandler.Dlg
             this.button_Manual_Lift_Gantry_Clamp_Back.TabIndex = 36;
             this.button_Manual_Lift_Gantry_Clamp_Back.Text = "GANTRY CLAMP FOR";
             this.button_Manual_Lift_Gantry_Clamp_Back.UseVisualStyleBackColor = false;
+            this.button_Manual_Lift_Gantry_Clamp_Back.Click += new System.EventHandler(this.button_Manual_Lift_Gantry_Clamp_Back_Click);
             // 
             // button_Manual_Lift_Left_Top_Detect
             // 

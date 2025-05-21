@@ -633,6 +633,17 @@ namespace ZenHandler.Machine
             }
             return false;
         }
+        public bool GetBottomSensor(int index)        //리프트 대기 위치 확인 센서
+        {
+            if (ProgramState.ON_LINE_MOTOR == false)
+            {
+                return true;
+            }
+            bool rtn = MotorAxes[index].GetNegaSensor();
+
+            return rtn;
+        }
+        
         public bool GetIsLoadTrayOnTop(int index)            //GANTRY, PUSHER 위 TRAY 유무 확인
         {
             if (ProgramState.ON_LINE_MOTOR == false)
