@@ -29,8 +29,10 @@
         private void InitializeComponent()
         {
             this.TeachingTitleLabel = new System.Windows.Forms.Label();
-            this.BTN_TEACH_LENS = new System.Windows.Forms.Button();
+            this.button_Manual_Magazine = new System.Windows.Forms.Button();
             this.button_Manual_Transfer = new System.Windows.Forms.Button();
+            this.button_Manual_Lift = new System.Windows.Forms.Button();
+            this.button_Manual_Socket = new System.Windows.Forms.Button();
             this.SuspendLayout();
             // 
             // TeachingTitleLabel
@@ -43,27 +45,27 @@
             this.TeachingTitleLabel.Text = "| MANUAL";
             this.TeachingTitleLabel.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
             // 
-            // BTN_TEACH_LENS
+            // button_Manual_Magazine
             // 
-            this.BTN_TEACH_LENS.BackColor = System.Drawing.Color.Tan;
-            this.BTN_TEACH_LENS.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.BTN_TEACH_LENS.Font = new System.Drawing.Font("나눔고딕 ExtraBold", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(129)));
-            this.BTN_TEACH_LENS.ForeColor = System.Drawing.Color.White;
-            this.BTN_TEACH_LENS.Location = new System.Drawing.Point(677, 14);
-            this.BTN_TEACH_LENS.Name = "BTN_TEACH_LENS";
-            this.BTN_TEACH_LENS.Size = new System.Drawing.Size(87, 44);
-            this.BTN_TEACH_LENS.TabIndex = 34;
-            this.BTN_TEACH_LENS.Text = "LENS";
-            this.BTN_TEACH_LENS.UseVisualStyleBackColor = false;
-            this.BTN_TEACH_LENS.Click += new System.EventHandler(this.BTN_TEACH_LENS_Click);
+            this.button_Manual_Magazine.BackColor = System.Drawing.Color.Tan;
+            this.button_Manual_Magazine.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.button_Manual_Magazine.Font = new System.Drawing.Font("나눔고딕 ExtraBold", 8.999999F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(129)));
+            this.button_Manual_Magazine.ForeColor = System.Drawing.Color.White;
+            this.button_Manual_Magazine.Location = new System.Drawing.Point(492, 14);
+            this.button_Manual_Magazine.Name = "button_Manual_Magazine";
+            this.button_Manual_Magazine.Size = new System.Drawing.Size(87, 44);
+            this.button_Manual_Magazine.TabIndex = 34;
+            this.button_Manual_Magazine.Text = "MAGAZINE";
+            this.button_Manual_Magazine.UseVisualStyleBackColor = false;
+            this.button_Manual_Magazine.Click += new System.EventHandler(this.BTN_TEACH_LENS_Click);
             // 
             // button_Manual_Transfer
             // 
             this.button_Manual_Transfer.BackColor = System.Drawing.Color.Tan;
             this.button_Manual_Transfer.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.button_Manual_Transfer.Font = new System.Drawing.Font("나눔고딕 ExtraBold", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(129)));
+            this.button_Manual_Transfer.Font = new System.Drawing.Font("나눔고딕 ExtraBold", 8.999999F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(129)));
             this.button_Manual_Transfer.ForeColor = System.Drawing.Color.White;
-            this.button_Manual_Transfer.Location = new System.Drawing.Point(584, 14);
+            this.button_Manual_Transfer.Location = new System.Drawing.Point(403, 14);
             this.button_Manual_Transfer.Name = "button_Manual_Transfer";
             this.button_Manual_Transfer.Size = new System.Drawing.Size(87, 44);
             this.button_Manual_Transfer.TabIndex = 33;
@@ -71,12 +73,42 @@
             this.button_Manual_Transfer.UseVisualStyleBackColor = false;
             this.button_Manual_Transfer.Click += new System.EventHandler(this.BTN_TEACH_PCB_Click);
             // 
+            // button_Manual_Lift
+            // 
+            this.button_Manual_Lift.BackColor = System.Drawing.Color.Tan;
+            this.button_Manual_Lift.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.button_Manual_Lift.Font = new System.Drawing.Font("나눔고딕 ExtraBold", 8.999999F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(129)));
+            this.button_Manual_Lift.ForeColor = System.Drawing.Color.White;
+            this.button_Manual_Lift.Location = new System.Drawing.Point(581, 14);
+            this.button_Manual_Lift.Name = "button_Manual_Lift";
+            this.button_Manual_Lift.Size = new System.Drawing.Size(87, 44);
+            this.button_Manual_Lift.TabIndex = 35;
+            this.button_Manual_Lift.Text = "LIFT";
+            this.button_Manual_Lift.UseVisualStyleBackColor = false;
+            this.button_Manual_Lift.Click += new System.EventHandler(this.button_Manual_Lift_Click);
+            // 
+            // button_Manual_Socket
+            // 
+            this.button_Manual_Socket.BackColor = System.Drawing.Color.Tan;
+            this.button_Manual_Socket.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.button_Manual_Socket.Font = new System.Drawing.Font("나눔고딕 ExtraBold", 8.999999F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(129)));
+            this.button_Manual_Socket.ForeColor = System.Drawing.Color.White;
+            this.button_Manual_Socket.Location = new System.Drawing.Point(670, 14);
+            this.button_Manual_Socket.Name = "button_Manual_Socket";
+            this.button_Manual_Socket.Size = new System.Drawing.Size(87, 44);
+            this.button_Manual_Socket.TabIndex = 36;
+            this.button_Manual_Socket.Text = "SOCKET";
+            this.button_Manual_Socket.UseVisualStyleBackColor = false;
+            this.button_Manual_Socket.Click += new System.EventHandler(this.button_Manual_Socket_Click);
+            // 
             // ManualControl
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 12F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.SystemColors.ButtonShadow;
-            this.Controls.Add(this.BTN_TEACH_LENS);
+            this.Controls.Add(this.button_Manual_Socket);
+            this.Controls.Add(this.button_Manual_Lift);
+            this.Controls.Add(this.button_Manual_Magazine);
             this.Controls.Add(this.button_Manual_Transfer);
             this.Controls.Add(this.TeachingTitleLabel);
             this.Name = "ManualControl";
@@ -88,7 +120,9 @@
 
         #endregion
         private System.Windows.Forms.Label TeachingTitleLabel;
-        private System.Windows.Forms.Button BTN_TEACH_LENS;
+        private System.Windows.Forms.Button button_Manual_Magazine;
         private System.Windows.Forms.Button button_Manual_Transfer;
+        private System.Windows.Forms.Button button_Manual_Lift;
+        private System.Windows.Forms.Button button_Manual_Socket;
     }
 }

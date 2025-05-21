@@ -11,7 +11,7 @@ using System.Windows.Forms;
 
 namespace ZenHandler.Dlg
 {
-    public partial class ManualTransfer : UserControl
+    public partial class ManualLift : UserControl
     {
         public bool bManualStopKey;
         //private int MovePos;
@@ -31,7 +31,7 @@ namespace ZenHandler.Dlg
         private int ManualLoadPosx = 0;
         private int ManualLoadPosy = 0;
         //MEMO: 티칭 위치를 어떻게 가져올 것인가
-        public ManualTransfer()
+        public ManualLift()
         {
             InitializeComponent();
             bManualStopKey = false;
@@ -49,10 +49,10 @@ namespace ZenHandler.Dlg
         private void ManualPcbUiSet()
         {
             int i = 0;
-            MotorBtnArr[0] = button_Manual_Transfer_Wait_Pos_XY;
-            MotorBtnArr[1] = button_Manual_Transfer_Left_Tray_Load_Pos_XY;
-            MotorBtnArr[2] = BTN_MANUAL_TRANSFER_WAIT_POS_Z;
-            MotorBtnArr[3] = button_Manual_Transfer_Left_Tray_Load_Pos_Z;
+            MotorBtnArr[0] = label_Manual_Lift_Wait_Pos_X;
+            MotorBtnArr[1] = label_Manual_Lift_Left_Tray_Load_Pos_X;
+            MotorBtnArr[2] = label_Manual_Lift_Wait_Pos_Z;
+            MotorBtnArr[3] = label_Manual_Lift_Left_Tray_Load_Pos_Z;
 
             LoadVacuumOnBtnArr[0] = BTN_MANUAL_TRANSFER_LOAD_VACUUM_ON1;
             LoadVacuumOnBtnArr[1] = BTN_MANUAL_TRANSFER_LOAD_VACUUM_ON2;
@@ -686,9 +686,9 @@ namespace ZenHandler.Dlg
 
             //WAIT_POS = 0, LEFT_TRAY_LOAD_POS, RIGHT_TRAY_LOAD_POS, SOCKET_POS1, SOCKET_POS2, SOCKET_POS3, SOCKET_POS4
             //X,Y 축 모터 위치
-            button_Manual_Transfer_Wait_Pos_XY.BackColor = ColorTranslator.FromHtml(ButtonColor.MANUAL_BTN_OFF);
-            button_Manual_Transfer_Left_Tray_Load_Pos_XY.BackColor = ColorTranslator.FromHtml(ButtonColor.MANUAL_BTN_OFF);
-            button_Manual_Transfer_Right_Tray_Load_Pos_XY.BackColor = ColorTranslator.FromHtml(ButtonColor.MANUAL_BTN_OFF);
+            label_Manual_Lift_Wait_Pos_X.BackColor = ColorTranslator.FromHtml(ButtonColor.MANUAL_BTN_OFF);
+            label_Manual_Lift_Left_Tray_Load_Pos_X.BackColor = ColorTranslator.FromHtml(ButtonColor.MANUAL_BTN_OFF);
+            label_Manual_Magazine_Layer5_Pos_Y.BackColor = ColorTranslator.FromHtml(ButtonColor.MANUAL_BTN_OFF);
             button_Manual_Transfer_A_Socket_Load_Pos_XY.BackColor = ColorTranslator.FromHtml(ButtonColor.MANUAL_BTN_OFF);
             //BTN_MANUAL_TRANSFER_SOCKET_A2_POS_XY.BackColor = ColorTranslator.FromHtml(ButtonColor.MANUAL_BTN_OFF);
             button_Manual_Transfer_B_Socket_Load_Pos_XY.BackColor = ColorTranslator.FromHtml(ButtonColor.MANUAL_BTN_OFF);
@@ -696,15 +696,15 @@ namespace ZenHandler.Dlg
 
             if (Globalo.motionManager.transferMachine.ChkXYMotorPos(Machine.TransferMachine.eTeachingPosList.WAIT_POS) == true)
             {
-                button_Manual_Transfer_Wait_Pos_XY.BackColor = ColorTranslator.FromHtml(ButtonColor.MANUAL_BTN_ON);
+                label_Manual_Lift_Wait_Pos_X.BackColor = ColorTranslator.FromHtml(ButtonColor.MANUAL_BTN_ON);
             }
             else if (Globalo.motionManager.transferMachine.ChkXYMotorPos(Machine.TransferMachine.eTeachingPosList.LEFT_TRAY_LOAD_POS) == true)
             {
-                button_Manual_Transfer_Left_Tray_Load_Pos_XY.BackColor = ColorTranslator.FromHtml(ButtonColor.MANUAL_BTN_ON);
+                label_Manual_Lift_Left_Tray_Load_Pos_X.BackColor = ColorTranslator.FromHtml(ButtonColor.MANUAL_BTN_ON);
             }
             else if (Globalo.motionManager.transferMachine.ChkXYMotorPos(Machine.TransferMachine.eTeachingPosList.RIGHT_TRAY_LOAD_POS) == true)
             {
-                button_Manual_Transfer_Right_Tray_Load_Pos_XY.BackColor = ColorTranslator.FromHtml(ButtonColor.MANUAL_BTN_ON);
+                label_Manual_Magazine_Layer5_Pos_Y.BackColor = ColorTranslator.FromHtml(ButtonColor.MANUAL_BTN_ON);
             }
             else if (Globalo.motionManager.transferMachine.ChkXYMotorPos(Machine.TransferMachine.eTeachingPosList.SOCKET_A_LOAD) == true)
             {
@@ -714,8 +714,8 @@ namespace ZenHandler.Dlg
 
             //Z 축 모터 위치
 
-            BTN_MANUAL_TRANSFER_WAIT_POS_Z.BackColor = ColorTranslator.FromHtml(ButtonColor.MANUAL_BTN_OFF);
-            button_Manual_Transfer_Left_Tray_Load_Pos_Z.BackColor = ColorTranslator.FromHtml(ButtonColor.MANUAL_BTN_OFF);
+            label_Manual_Lift_Wait_Pos_Z.BackColor = ColorTranslator.FromHtml(ButtonColor.MANUAL_BTN_OFF);
+            label_Manual_Lift_Left_Tray_Load_Pos_Z.BackColor = ColorTranslator.FromHtml(ButtonColor.MANUAL_BTN_OFF);
             button_Manual_Transfer_Right_Tray_Load_Pos_Z.BackColor = ColorTranslator.FromHtml(ButtonColor.MANUAL_BTN_OFF);
             button_Manual_Transfer_A_Socket_Load_Pos_Z.BackColor = ColorTranslator.FromHtml(ButtonColor.MANUAL_BTN_OFF);
             //BTN_MANUAL_TRANSFER_SOCKET_A2_POS_Z.BackColor = ColorTranslator.FromHtml(ButtonColor.MANUAL_BTN_OFF);
@@ -725,11 +725,11 @@ namespace ZenHandler.Dlg
 
             if (Globalo.motionManager.transferMachine.ChkZMotorPos(Machine.TransferMachine.eTeachingPosList.WAIT_POS) == true)
             {
-                BTN_MANUAL_TRANSFER_WAIT_POS_Z.BackColor = ColorTranslator.FromHtml(ButtonColor.MANUAL_BTN_ON);
+                label_Manual_Lift_Wait_Pos_Z.BackColor = ColorTranslator.FromHtml(ButtonColor.MANUAL_BTN_ON);
             }
             else if (Globalo.motionManager.transferMachine.ChkZMotorPos(Machine.TransferMachine.eTeachingPosList.LEFT_TRAY_LOAD_POS) == true)
             {
-                button_Manual_Transfer_Left_Tray_Load_Pos_Z.BackColor = ColorTranslator.FromHtml(ButtonColor.MANUAL_BTN_ON);
+                label_Manual_Lift_Left_Tray_Load_Pos_Z.BackColor = ColorTranslator.FromHtml(ButtonColor.MANUAL_BTN_ON);
             }
             else if (Globalo.motionManager.transferMachine.ChkZMotorPos(Machine.TransferMachine.eTeachingPosList.RIGHT_TRAY_LOAD_POS) == true)
             {

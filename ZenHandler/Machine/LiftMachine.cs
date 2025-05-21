@@ -47,10 +47,13 @@ namespace ZenHandler.Machine
 
         public enum eTeachingPosList : int
         {
-            WAIT_POS = 0, LOAD_POS, UNLOAD_POS, TOTAL_LIFT_TEACHING_COUNT
+            WAIT_POS = 0, LEFT_LOAD_POS, RIGHT_LOAD_POS, TRAY_LOAD_LEFT_POS, TRAY_LOAD_RIGHT_POS, TOTAL_LIFT_TEACHING_COUNT   //UNLOAD_POS
         };
-
-        public string[] TeachName = { "WAIT_POS" , "LOAD_POS", "UNLOAD_POS" };
+        //아래 두개 나눠야 될수도
+        //GANTRY 가 TRAY 받는 위치
+        //GANTRY 위에서 제품 로드 하는 위치
+        //Item , part , Unit , Goods , Piece , Obj
+        public string[] TeachName = { "WAIT_POS" , "L_LOAD_POS", "R_LOAD_POS", "TRAY_LOAD_LEFT", "TRAY_LOAD_RIGHT" };
 
 
         public const string teachingPath = "Teach_Lift.yaml";

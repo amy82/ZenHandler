@@ -14,16 +14,13 @@ namespace ZenHandler.Dlg
     public partial class ManualControl : UserControl
     {
         //public event delLogSender eLogSender;       //외부에서 호출할때 사용
-
         private eManualBtn manualBtnTab;
-
         private ManualTransfer manualTransfer;
-
 
 
         public enum eManualBtn : int
         {
-            TransferTab = 0, MagazineTab, LiftTab, pcbTab, lensTab
+            TransferTab = 0, MagazineTab, LiftTab, SocketTab
         };
         public ManualControl(int _w , int _h)
         {
@@ -81,13 +78,13 @@ namespace ZenHandler.Dlg
             TeachingTitleLabel.ForeColor = ColorTranslator.FromHtml("#6F6F6F");
 
             button_Manual_Transfer.FlatAppearance.BorderColor = ColorTranslator.FromHtml("#BBBBBB");
-            BTN_TEACH_LENS.FlatAppearance.BorderColor = ColorTranslator.FromHtml("#BBBBBB");
+            button_Manual_Magazine.FlatAppearance.BorderColor = ColorTranslator.FromHtml("#BBBBBB");
 
         }
         private void TeachingBtnChange(eManualBtn index)
         {
             button_Manual_Transfer.BackColor = ColorTranslator.FromHtml("#E1E0DF");
-            BTN_TEACH_LENS.BackColor = ColorTranslator.FromHtml("#E1E0DF");
+            button_Manual_Magazine.BackColor = ColorTranslator.FromHtml("#E1E0DF");
 
             manualBtnTab = index;
 
@@ -100,9 +97,22 @@ namespace ZenHandler.Dlg
                 //teachingLens.hidePanel();
                 manualTransfer.showPanel();
             }
+
+            else if (manualBtnTab == eManualBtn.MagazineTab)
+            {
+
+            }
+            else if (manualBtnTab == eManualBtn.LiftTab)
+            {
+
+            }
+            else if (manualBtnTab == eManualBtn.SocketTab)
+            {
+
+            }
             else
             {
-                BTN_TEACH_LENS.BackColor = ColorTranslator.FromHtml("#FFB230");
+                button_Manual_Magazine.BackColor = ColorTranslator.FromHtml("#FFB230");
                 //teachingLens.Visible = true;
                 manualTransfer.Visible = false;
 
@@ -114,12 +124,18 @@ namespace ZenHandler.Dlg
         {
             TeachingBtnChange(eManualBtn.TransferTab);
         }
-
         private void BTN_TEACH_LENS_Click(object sender, EventArgs e)
         {
-            TeachingBtnChange(eManualBtn.lensTab);
+            TeachingBtnChange(eManualBtn.MagazineTab);
         }
-
+        private void button_Manual_Lift_Click(object sender, EventArgs e)
+        {
+            TeachingBtnChange(eManualBtn.LiftTab);
+        }
+        private void button_Manual_Socket_Click(object sender, EventArgs e)
+        {
+            TeachingBtnChange(eManualBtn.SocketTab);
+        }
         private void ManualControl_VisibleChanged(object sender, EventArgs e)
         {
             if (this.Visible)
@@ -132,5 +148,7 @@ namespace ZenHandler.Dlg
                 manualTransfer.hidePanel();
             }
         }
+
+        
     }
 }
