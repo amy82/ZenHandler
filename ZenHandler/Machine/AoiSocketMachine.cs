@@ -34,11 +34,11 @@ namespace ZenHandler.Machine
 
         public enum eTeachingAoiPosList : int
         {
-            WAIT_POS = 0, LOAD_POS, UN_LOAD_POS, CAPTURE_L_POS, CAPTURE_R_POS, HOUSING_POS , KEY_POS, TOTAL_AOI_SOCKET_TEACHING_COUNT
+            WAIT_POS = 0, LOAD_POS, UN_LOAD_POS, CAPTURE_L_POS, CAPTURE_R_POS, HOUSING_IN_POS , HOUSING_OUT_POS, TOTAL_AOI_SOCKET_TEACHING_COUNT
         };
         public string[] TeachName =
         {
-            "WAIT_POS", "LOAD_POS", "UN_LOAD_POS", "CAPTURE_L_POS", "CAPTURE_R_POS", "HOUSING_POS", "KEY_POS"
+            "WAIT_POS", "LOAD_POS", "UN_LOAD_POS", "CAPTURE_L_POS", "CAPTURE_R_POS", "HOUSING_IN_POS", "HOUSING_OUT_POS"
         };
 
         public const string teachingPath = "Teach_AoiSocket.yaml";
@@ -112,7 +112,36 @@ namespace ZenHandler.Machine
             //GroupNo = 좌,우 2Set
             return false;
         }
+
+        public bool GetVacuumOn(int GroupNo, int index, bool bFlag, bool bWait = false)      //각 소켓의 흡착 유무 감지
+        {
+            //GroupNo = 좌,우 2Set
+            return false;
+        }
         #endregion
+
+        #region Aoi Socekt Motor 동작
+        public bool ChkMotorPos(eTeachingAoiPosList teachingPos, eAoiSocket Motor)
+        {
+            if (ProgramState.ON_LINE_MOTOR == false)
+            {
+                return true;
+            }
+            double dTeachingPos = 0.0;
+            double currentPos = 0.0;
+
+            dTeachingPos = this.teachingConfig.Teaching[(int)teachingPos].Pos[(int)Motor];
+            currentPos = MotorAxes[(int)Motor].EncoderPos;
+
+            if (dTeachingPos == currentPos)
+            {
+                return true;
+            }
+
+            return false;
+        }
+
+
         public override void MovingStop()
         {
             if (CancelToken != null && !CancelToken.IsCancellationRequested)
@@ -140,6 +169,7 @@ namespace ZenHandler.Machine
             }
             return false;
         }
+        #endregion
         public override void StopAuto()
         {
             AutoUnitThread.Stop();
