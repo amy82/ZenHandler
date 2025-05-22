@@ -91,6 +91,28 @@ namespace ZenHandler.Dlg
             EEprom_R_MotorX_BtnArr[3] = button_ManualEEprom_Socket_R_Write_Pos_X;
             EEprom_R_MotorX_BtnArr[4] = button_ManualEEprom_Socket_R_Verify_Pos_X;
 
+            EEprom_R_PiecerBtnArr[0] = button_ManualEEprom_Socket_Right_Piece_Detect1;
+            EEprom_R_PiecerBtnArr[1] = button_ManualEEprom_Socket_Right_Piece_Detect2;
+            EEprom_R_PiecerBtnArr[2] = button_ManualEEprom_Socket_Right_Piece_Detect3;
+            EEprom_R_PiecerBtnArr[3] = button_ManualEEprom_Socket_Right_Piece_Detect4;
+
+            EEprom_R_ContactUpBtnArr[0] = button_ManualEEprom_R_Socket_Contact_Up1;
+            EEprom_R_ContactUpBtnArr[1] = button_ManualEEprom_R_Socket_Contact_Up2;
+            EEprom_R_ContactUpBtnArr[2] = button_ManualEEprom_R_Socket_Contact_Up3;
+            EEprom_R_ContactUpBtnArr[3] = button_ManualEEprom_R_Socket_Contact_Up4;
+            EEprom_R_ContactUpBtnArr[4] = button_ManualEEprom_R_Socket_Contact_Down1;
+            EEprom_R_ContactUpBtnArr[5] = button_ManualEEprom_R_Socket_Contact_Down2;
+            EEprom_R_ContactUpBtnArr[6] = button_ManualEEprom_R_Socket_Contact_Down3;
+            EEprom_R_ContactUpBtnArr[7] = button_ManualEEprom_R_Socket_Contact_Down4;
+
+            EEprom_R_ContactForBtnArr[0] = button_ManualEEprom_R_Socket_Contact_For1;
+            EEprom_R_ContactForBtnArr[1] = button_ManualEEprom_R_Socket_Contact_For2;
+            EEprom_R_ContactForBtnArr[2] = button_ManualEEprom_R_Socket_Contact_For3;
+            EEprom_R_ContactForBtnArr[3] = button_ManualEEprom_R_Socket_Contact_For4;
+            EEprom_R_ContactForBtnArr[4] = button_ManualEEprom_R_Socket_Contact_Back1;
+            EEprom_R_ContactForBtnArr[5] = button_ManualEEprom_R_Socket_Contact_Back2;
+            EEprom_R_ContactForBtnArr[6] = button_ManualEEprom_R_Socket_Contact_Back3;
+            EEprom_R_ContactForBtnArr[7] = button_ManualEEprom_R_Socket_Contact_Back4;
 
 
             for (i = 0; i < EEprom_L_MotorX_BtnArr.Length; i++)
@@ -130,6 +152,15 @@ namespace ZenHandler.Dlg
                 EEprom_L_ContactForBtnArr[i].FlatAppearance.BorderColor = ColorTranslator.FromHtml("#BBBBBB");
             }
 
+
+
+            button_ManualEEprom_Cylinder_Y_For.BackColor = ColorTranslator.FromHtml(ButtonColor.MANUAL_BTN_OFF);
+            button_ManualEEprom_Cylinder_Y_For.ForeColor = Color.White;
+            button_ManualEEprom_Cylinder_Y_For.FlatAppearance.BorderColor = ColorTranslator.FromHtml("#BBBBBB");
+
+            button_ManualEEprom_Cylinder_Y_Back.BackColor = ColorTranslator.FromHtml(ButtonColor.MANUAL_BTN_OFF);
+            button_ManualEEprom_Cylinder_Y_Back.ForeColor = Color.White;
+            button_ManualEEprom_Cylinder_Y_Back.FlatAppearance.BorderColor = ColorTranslator.FromHtml("#BBBBBB");
         }
 
 
@@ -443,54 +474,13 @@ namespace ZenHandler.Dlg
         {
             Manual_X_Move(Machine.AoiSocketMachine.eTeachingAoiPosList.WAIT_POS, Machine.eAoiSocket.SOCKET_R_X);
         }
-
-        private void button_ManualAoi_Socket_R_TestR_Pos_X_Click(object sender, EventArgs e)
+        private void button_ManualEEprom_Socket_R_Verify_Pos_X_Click(object sender, EventArgs e)
         {
             Manual_X_Move(Machine.AoiSocketMachine.eTeachingAoiPosList.WAIT_POS, Machine.eAoiSocket.SOCKET_R_X);
         }
 
 
-
         #endregion
-        //-------------------------------------------------------------------------------------------------------------------------------------
-        //
-        //Z 축 
-        //
-        //
-        //
-        //
-        //
-        #region [AOI SOCKET Z MOTOR MOVE]
-
-        private void button_ManualAoi_Socket_L_Wait_Pos_Z_Click(object sender, EventArgs e)
-        {
-            Manual_Z_Move(Machine.AoiSocketMachine.eTeachingAoiPosList.WAIT_POS, Machine.eAoiSocket.SOCKET_L_Z);
-        }
-        private void button_ManualAoi_Socket_L_H_In_Pos_Z_Click(object sender, EventArgs e)
-        {
-            Manual_Z_Move(Machine.AoiSocketMachine.eTeachingAoiPosList.HOUSING_IN_POS, Machine.eAoiSocket.SOCKET_L_Z);
-        }
-        private void button_ManualAoi_Socket_L_H_Out_Pos_Z_Click(object sender, EventArgs e)
-        {
-            Manual_Z_Move(Machine.AoiSocketMachine.eTeachingAoiPosList.HOUSING_OUT_POS, Machine.eAoiSocket.SOCKET_L_Z);
-        }
-
-        private void button_ManualAoi_Socket_R_Wait_Pos_Z_Click(object sender, EventArgs e)
-        {
-            Manual_Z_Move(Machine.AoiSocketMachine.eTeachingAoiPosList.WAIT_POS, Machine.eAoiSocket.SOCKET_R_Z);
-        }
-
-        private void button_ManualAoi_Socket_R_H_In_Pos_Z_Click(object sender, EventArgs e)
-        {
-            Manual_Z_Move(Machine.AoiSocketMachine.eTeachingAoiPosList.HOUSING_IN_POS, Machine.eAoiSocket.SOCKET_R_Z);
-        }
-
-        private void button_ManualAoi_Socket_R_H_Out_Pos_Z_Click(object sender, EventArgs e)
-        {
-            Manual_Z_Move(Machine.AoiSocketMachine.eTeachingAoiPosList.HOUSING_OUT_POS, Machine.eAoiSocket.SOCKET_R_Z);
-        }
-        #endregion
-
 
         //-------------------------------------------------------------------------------------------------------------------------------------
         //
@@ -500,7 +490,251 @@ namespace ZenHandler.Dlg
         //
         //
         //
+        private void ManualContactUp(int Group, int index, bool bFlag)
+        {
+            if (Globalo.motionManager.socketEEpromMachine.RunState == OperationState.AutoRunning)
+            {
+                Globalo.LogPrint("ManualControl", "[INFO] 자동 운전 중 사용 불가", Globalo.eMessageName.M_WARNING);
+                return;
+            }
+            if (Globalo.motionManager.socketEEpromMachine.RunState == OperationState.Paused)
+            {
+                Globalo.LogPrint("ManualControl", "[INFO] 일시 정지 중 사용 불가", Globalo.eMessageName.M_WARNING);
+                return;
+            }
+            Globalo.motionManager.socketEEpromMachine.RunState = OperationState.Stopped;
+            Globalo.motionManager.socketEEpromMachine.ContactUp(Group, index, bFlag);
 
+
+        }
+        private void ManualContactFor(int Group, int index, bool bFlag)
+        {
+            if (Globalo.motionManager.socketEEpromMachine.RunState == OperationState.AutoRunning)
+            {
+                Globalo.LogPrint("ManualControl", "[INFO] 자동 운전 중 사용 불가", Globalo.eMessageName.M_WARNING);
+                return;
+            }
+            if (Globalo.motionManager.socketEEpromMachine.RunState == OperationState.Paused)
+            {
+                Globalo.LogPrint("ManualControl", "[INFO] 일시 정지 중 사용 불가", Globalo.eMessageName.M_WARNING);
+                return;
+            }
+            if (Globalo.motionManager.socketEEpromMachine.GetContactUp(Group, index, true) == false)
+            {
+                Globalo.LogPrint("ManualControl", "[INFO] CONTACT 하강 상태 사용 불가", Globalo.eMessageName.M_WARNING);
+                return;
+            }
+            Globalo.motionManager.socketEEpromMachine.RunState = OperationState.Stopped;
+            Globalo.motionManager.socketEEpromMachine.ContactFor(Group, index, bFlag);
+
+
+        }
+        //
+        // L
+        //
+        private void button_ManualEEprom_Socket_Contact_Up1_Click(object sender, EventArgs e)
+        {
+            ManualContactUp(0, 0, true);
+            Globalo.LogPrint("ManualControl", "[SOCKET] #1 CONTACT UP");
+        }
+
+        private void button_ManualEEprom_Socket_Contact_Up2_Click(object sender, EventArgs e)
+        {
+            ManualContactUp(0, 1, true);
+            Globalo.LogPrint("ManualControl", "[SOCKET] #2 CONTACT UP");
+        }
+
+        private void button_ManualEEprom_Socket_Contact_Up3_Click(object sender, EventArgs e)
+        {
+            ManualContactUp(0, 2, true);
+            Globalo.LogPrint("ManualControl", "[SOCKET] #3 CONTACT UP");
+        }
+
+        private void button_ManualEEprom_Socket_Contact_Up4_Click(object sender, EventArgs e)
+        {
+            ManualContactUp(0, 3, true);
+            Globalo.LogPrint("ManualControl", "[SOCKET] #4 CONTACT UP");
+        }
+
+        private void button_ManualEEprom_Socket_Contact_Down1_Click(object sender, EventArgs e)
+        {
+            ManualContactUp(0, 0, false);
+            Globalo.LogPrint("ManualControl", "[SOCKET] #1 CONTACT DOWN");
+        }
+
+        private void button_ManualEEprom_Socket_Contact_Down2_Click(object sender, EventArgs e)
+        {
+            ManualContactUp(0, 1, false);
+            Globalo.LogPrint("ManualControl", "[SOCKET] #2 CONTACT DOWN");
+        }
+
+        private void button_ManualEEprom_Socket_Contact_Down3_Click(object sender, EventArgs e)
+        {
+            ManualContactUp(0, 2, false);
+            Globalo.LogPrint("ManualControl", "[SOCKET] #3 CONTACT DOWN");
+        }
+
+        private void button_ManualEEprom_Socket_Contact_Down4_Click(object sender, EventArgs e)
+        {
+            ManualContactUp(0, 3, false);
+            Globalo.LogPrint("ManualControl", "[SOCKET] #4 CONTACT DOWN");
+        }
+
+        private void button_ManualEEprom_Socket_Contact_For1_Click(object sender, EventArgs e)
+        {
+            ManualContactFor(0, 0, true);
+            Globalo.LogPrint("ManualControl", "[SOCKET] #1 CONTACT FOR");
+        }
+
+        private void button_ManualEEprom_Socket_Contact_For2_Click(object sender, EventArgs e)
+        {
+            ManualContactFor(0, 1, true);
+            Globalo.LogPrint("ManualControl", "[SOCKET] #2 CONTACT FOR");
+        }
+
+        private void button_ManualEEprom_Socket_Contact_For3_Click(object sender, EventArgs e)
+        {
+            ManualContactFor(0, 2, true);
+            Globalo.LogPrint("ManualControl", "[SOCKET] #3 CONTACT FOR");
+        }
+
+        private void button_ManualEEprom_Socket_Contact_For4_Click(object sender, EventArgs e)
+        {
+            ManualContactFor(0, 3, true);
+            Globalo.LogPrint("ManualControl", "[SOCKET] #4 CONTACT FOR");
+        }
+
+        private void button_ManualEEprom_Socket_Contact_Back1_Click(object sender, EventArgs e)
+        {
+            ManualContactFor(0, 0, false);
+            Globalo.LogPrint("ManualControl", "[SOCKET] #1 CONTACT BACK");
+        }
+
+        private void button_ManualEEprom_Socket_Contact_Back2_Click(object sender, EventArgs e)
+        {
+            ManualContactFor(0, 1, false);
+            Globalo.LogPrint("ManualControl", "[SOCKET] #2 CONTACT BACK");
+        }
+
+        private void button_ManualEEprom_Socket_Contact_Back3_Click(object sender, EventArgs e)
+        {
+            ManualContactFor(0, 2, false);
+            Globalo.LogPrint("ManualControl", "[SOCKET] #3 CONTACT BACK");
+        }
+
+        private void button_ManualEEprom_Socket_Contact_Back4_Click(object sender, EventArgs e)
+        {
+            ManualContactFor(0, 3, false);
+            Globalo.LogPrint("ManualControl", "[SOCKET] #4 CONTACT BACK");
+        }
+
+        //
+        //  R
+        //
+        private void button_ManualEEprom_R_Socket_Contact_Up1_Click(object sender, EventArgs e)
+        {
+            ManualContactUp(1, 0, true);
+            Globalo.LogPrint("ManualControl", "[SOCKET-R] #1 CONTACT UP");
+        }
+
+        private void button_ManualEEprom_R_Socket_Contact_Up2_Click(object sender, EventArgs e)
+        {
+            ManualContactUp(1, 1, true);
+            Globalo.LogPrint("ManualControl", "[SOCKET-R] #2 CONTACT UP");
+        }
+
+        private void button_ManualEEprom_R_Socket_Contact_Up3_Click(object sender, EventArgs e)
+        {
+            ManualContactUp(1, 2, true);
+            Globalo.LogPrint("ManualControl", "[SOCKET-R] #3 CONTACT UP");
+        }
+
+        private void button_ManualEEprom_R_Socket_Contact_Up4_Click(object sender, EventArgs e)
+        {
+            ManualContactUp(1, 3, true);
+            Globalo.LogPrint("ManualControl", "[SOCKET-R] #4 CONTACT UP");
+        }
+
+        private void button_ManualEEprom_R_Socket_Contact_Down1_Click(object sender, EventArgs e)
+        {
+            ManualContactUp(1, 0, false);
+            Globalo.LogPrint("ManualControl", "[SOCKET-R] #1 CONTACT DOWN");
+        }
+
+        private void button_ManualEEprom_R_Socket_Contact_Down2_Click(object sender, EventArgs e)
+        {
+            ManualContactUp(1, 1, false);
+            Globalo.LogPrint("ManualControl", "[SOCKET-R] #2 CONTACT DOWN");
+        }
+
+        private void button_ManualEEprom_R_Socket_Contact_Down3_Click(object sender, EventArgs e)
+        {
+            ManualContactUp(1, 2, false);
+            Globalo.LogPrint("ManualControl", "[SOCKET-R] #3 CONTACT DOWN");
+        }
+
+        private void button_ManualEEprom_R_Socket_Contact_Down4_Click(object sender, EventArgs e)
+        {
+            ManualContactUp(1, 3, false);
+            Globalo.LogPrint("ManualControl", "[SOCKET-R] #4 CONTACT DOWN");
+        }
+
+        private void button_ManualEEprom_R_Socket_Contact_For1_Click(object sender, EventArgs e)
+        {
+            ManualContactFor(1, 0, true);
+            Globalo.LogPrint("ManualControl", "[SOCKET-R] #1 CONTACT FOR");
+        }
+
+        private void button_ManualEEprom_R_Socket_Contact_For2_Click(object sender, EventArgs e)
+        {
+            ManualContactFor(1, 1, true);
+            Globalo.LogPrint("ManualControl", "[SOCKET-R] #2 CONTACT FOR");
+        }
+
+        private void button_ManualEEprom_R_Socket_Contact_For3_Click(object sender, EventArgs e)
+        {
+            ManualContactFor(1, 2, true);
+            Globalo.LogPrint("ManualControl", "[SOCKET-R] #3 CONTACT FOR");
+        }
+
+        private void button_ManualEEprom_R_Socket_Contact_For4_Click(object sender, EventArgs e)
+        {
+            ManualContactFor(1, 3, true);
+            Globalo.LogPrint("ManualControl", "[SOCKET-R] #4 CONTACT FOR");
+        }
+
+        private void button_ManualEEprom_R_Socket_Contact_Back1_Click(object sender, EventArgs e)
+        {
+            ManualContactFor(1, 0, false);
+            Globalo.LogPrint("ManualControl", "[SOCKET-R] #1 CONTACT BACK");
+        }
+
+        private void button_ManualEEprom_R_Socket_Contact_Back2_Click(object sender, EventArgs e)
+        {
+            ManualContactFor(1, 1, false);
+            Globalo.LogPrint("ManualControl", "[SOCKET-R] #2 CONTACT BACK");
+        }
+
+        private void button_ManualEEprom_R_Socket_Contact_Back3_Click(object sender, EventArgs e)
+        {
+            ManualContactFor(1, 2, false);
+            Globalo.LogPrint("ManualControl", "[SOCKET-R] #3 CONTACT BACK");
+        }
+
+        private void button_ManualEEprom_R_Socket_Contact_Back4_Click(object sender, EventArgs e)
+        {
+            ManualContactFor(1, 3, false);
+            Globalo.LogPrint("ManualControl", "[SOCKET-R] #4 CONTACT BACK");
+        }
+        private void button_ManualAoi_Socket_R_Wait_Pos_Z_Click(object sender, EventArgs e)
+        {
+            Manual_Z_Move(Machine.AoiSocketMachine.eTeachingAoiPosList.WAIT_POS, Machine.eAoiSocket.SOCKET_R_Z);
+        }
+
+        private void button_ManualAoi_Socket_R_H_In_Pos_Z_Click(object sender, EventArgs e)
+        {
+            Manual_Z_Move(Machine.AoiSocketMachine.eTeachingAoiPosList.HOUSING_IN_POS, Machine.eAoiSocket.SOCKET_R_Z);
+        }
         private void Manual_Timer_Tick(object sender, EventArgs e)
         {
             int i = 0;
@@ -585,8 +819,60 @@ namespace ZenHandler.Dlg
                     EEprom_R_MotorX_BtnArr[i].BackColor = ColorTranslator.FromHtml(ButtonColor.MANUAL_BTN_OFF);
                 }
             }
+
+            for (i = 0; i < EEprom_R_PiecerBtnArr.Length; i++)
+            {
+                if (Globalo.motionManager.socketEEpromMachine.GetIsProductInSocket(1, 0, true))
+                {
+                    EEprom_R_PiecerBtnArr[i].BackColor = ColorTranslator.FromHtml(ButtonColor.MANUAL_BTN_ON);
+                }
+                else
+                {
+                    EEprom_R_PiecerBtnArr[i].BackColor = ColorTranslator.FromHtml(ButtonColor.MANUAL_BTN_OFF);
+                }
+            }
+
+            for (i = 0; i < EEprom_R_ContactUpBtnArr.Length; i++)
+            {
+                if (Globalo.motionManager.socketEEpromMachine.GetContactUp(1, 0, true))
+                {
+                    EEprom_R_ContactUpBtnArr[i].BackColor = ColorTranslator.FromHtml(ButtonColor.MANUAL_BTN_ON);
+                }
+                else
+                {
+                    EEprom_R_ContactUpBtnArr[i].BackColor = ColorTranslator.FromHtml(ButtonColor.MANUAL_BTN_OFF);
+                }
+            }
+
+            for (i = 0; i < EEprom_R_ContactForBtnArr.Length; i++)
+            {
+                if (Globalo.motionManager.socketEEpromMachine.GetContactFor(1, 0, true))
+                {
+                    EEprom_R_ContactForBtnArr[i].BackColor = ColorTranslator.FromHtml(ButtonColor.MANUAL_BTN_ON);
+                }
+                else
+                {
+                    EEprom_R_ContactForBtnArr[i].BackColor = ColorTranslator.FromHtml(ButtonColor.MANUAL_BTN_OFF);
+                }
+            }
+
+
+            if (Globalo.motionManager.socketEEpromMachine.GetSocketFor(true))
+            {
+                button_ManualEEprom_Cylinder_Y_For.BackColor = ColorTranslator.FromHtml(ButtonColor.MANUAL_BTN_ON);
+            }
+            else if (Globalo.motionManager.socketEEpromMachine.GetSocketFor(false))
+            {
+                button_ManualEEprom_Cylinder_Y_Back.BackColor = ColorTranslator.FromHtml(ButtonColor.MANUAL_BTN_ON);
+            }
+            else
+            {
+                button_ManualEEprom_Cylinder_Y_For.BackColor = ColorTranslator.FromHtml(ButtonColor.MANUAL_BTN_OFF);
+                button_ManualEEprom_Cylinder_Y_Back.BackColor = ColorTranslator.FromHtml(ButtonColor.MANUAL_BTN_OFF);
+            }
+
         }
 
-       
+        
     }
 }

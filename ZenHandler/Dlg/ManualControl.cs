@@ -18,8 +18,9 @@ namespace ZenHandler.Dlg
         private ManualTransfer manualTransfer;
         private ManualMagazine manualMagazine;
         private ManualLift manualLift;
+
         //private ManualFwSocket manualFwSocket;
-        //private ManualEEpromSocket manualEEpromSocket;
+        private ManualEEpromSocket manualEEpromSocket;
         private ManualAoiSocket manualAoiSocket;
 
         public enum eManualBtn : int
@@ -34,6 +35,7 @@ namespace ZenHandler.Dlg
             manualMagazine = new ManualMagazine();
             manualLift = new ManualLift();
             manualAoiSocket = new ManualAoiSocket();
+            manualEEpromSocket = new ManualEEpromSocket();
 
             //teachingLens = new TeachingLens();
             this.Paint += new PaintEventHandler(Form_Paint);
@@ -47,16 +49,19 @@ namespace ZenHandler.Dlg
             manualMagazine.Visible = false;
             manualLift.Visible = false;
             manualAoiSocket.Visible = false;
+            manualEEpromSocket.Visible = false;
 
             this.Controls.Add(manualTransfer);
             this.Controls.Add(manualMagazine);
             this.Controls.Add(manualLift);
             this.Controls.Add(manualAoiSocket);
+            this.Controls.Add(manualEEpromSocket);
 
             manualTransfer.Location = new System.Drawing.Point(0, 89);
             manualMagazine.Location = new System.Drawing.Point(0, 89);
             manualLift.Location = new System.Drawing.Point(0, 89);
             manualAoiSocket.Location = new System.Drawing.Point(0, 89);
+            manualEEpromSocket.Location = new System.Drawing.Point(0, 89);
 
 
             setInterface();
@@ -117,7 +122,9 @@ namespace ZenHandler.Dlg
                 manualTransfer.Visible = true;
                 manualMagazine.Visible = false;
                 manualLift.Visible = false;
-                //teachingLens.Visible = false;
+                //manualFwSocket.Visible = false;
+                manualEEpromSocket.Visible = false;
+                manualAoiSocket.Visible = false;
 
                 manualMagazine.hidePanel();
                 manualLift.hidePanel();
@@ -130,6 +137,9 @@ namespace ZenHandler.Dlg
                 manualMagazine.Visible = true;
                 manualTransfer.Visible = false;
                 manualLift.Visible = false;
+                //manualFwSocket.Visible = false;
+                manualEEpromSocket.Visible = false;
+                manualAoiSocket.Visible = false;
 
                 manualTransfer.hidePanel();
                 manualLift.hidePanel();
@@ -141,6 +151,9 @@ namespace ZenHandler.Dlg
                 manualLift.Visible = true;
                 manualTransfer.Visible = false;
                 manualMagazine.Visible = false;
+                //manualFwSocket.Visible = false;
+                manualEEpromSocket.Visible = false;
+                manualAoiSocket.Visible = false;
 
                 manualTransfer.hidePanel();
                 manualMagazine.hidePanel();
@@ -153,13 +166,15 @@ namespace ZenHandler.Dlg
                 manualTransfer.Visible = false;
                 manualMagazine.Visible = false;
 
+
                 if (Program.PG_SELECT == HANDLER_PG.FW)
                 {
 
                 }
                 if (Program.PG_SELECT == HANDLER_PG.EEPROM)
                 {
-
+                    manualEEpromSocket.Visible = true;
+                    manualEEpromSocket.showPanel();
                 }
                 if (Program.PG_SELECT == HANDLER_PG.AOI)
                 {

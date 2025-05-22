@@ -100,15 +100,35 @@ namespace ZenHandler.Machine
             //GroupNo = 앞,뒤 2Set
             return false;
         }
-
-        public bool GetContactUp(int GroupNo, int index, bool bFlag, bool bWait = false)      //각 소켓의 제품 유무 확인 센서
+        public bool ContactUp(int GroupNo, int index, bool bFlag, bool bWait = false)      //컨텍 상승 / 하강
+        {
+            //GroupNo = 앞,뒤 2Set
+            return false;
+        }
+        public bool GetContactUp(int GroupNo, int index, bool bFlag, bool bWait = false)      //컨텍 상승 / 하강 확인 센서
+        {
+            //GroupNo = 앞,뒤 2Set
+            return false;
+        }
+        public bool ContactFor(int GroupNo, int index, bool bFlag, bool bWait = false)      //컨텍 전진 / 후진
         {
             //GroupNo = 앞,뒤 2Set
             return false;
         }
 
+        public bool GetContactFor(int GroupNo, int index, bool bFlag, bool bWait = false)      //컨텍 전진 / 후진 확인 센서
+        {
+            //GroupNo = 앞,뒤 2Set
+            return false;
+        }
 
-        public bool GetContactFor(int GroupNo, int index, bool bFlag, bool bWait = false)      //각 소켓의 제품 유무 확인 센서
+        public bool SocketFor(bool bFlag, bool bWait = false)      //소켓 Y축 실린더 전진 / 후진
+        {
+            //GroupNo = 앞,뒤 2Set
+            return false;
+        }
+
+        public bool GetSocketFor(bool bFlag, bool bWait = false)      //아래쪽 소켓 Y축 실린더 전진 / 후진 
         {
             //GroupNo = 앞,뒤 2Set
             return false;

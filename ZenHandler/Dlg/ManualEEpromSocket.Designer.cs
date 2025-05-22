@@ -244,6 +244,7 @@ namespace ZenHandler.Dlg
             this.button_ManualEEprom_Socket_Contact_Back4.TabIndex = 77;
             this.button_ManualEEprom_Socket_Contact_Back4.Text = "#4 Back";
             this.button_ManualEEprom_Socket_Contact_Back4.UseVisualStyleBackColor = false;
+            this.button_ManualEEprom_Socket_Contact_Back4.Click += new System.EventHandler(this.button_ManualEEprom_Socket_Contact_Back4_Click);
             // 
             // button_ManualEEprom_Socket_Contact_For4
             // 
@@ -257,6 +258,7 @@ namespace ZenHandler.Dlg
             this.button_ManualEEprom_Socket_Contact_For4.TabIndex = 76;
             this.button_ManualEEprom_Socket_Contact_For4.Text = "#4 For";
             this.button_ManualEEprom_Socket_Contact_For4.UseVisualStyleBackColor = false;
+            this.button_ManualEEprom_Socket_Contact_For4.Click += new System.EventHandler(this.button_ManualEEprom_Socket_Contact_For4_Click);
             // 
             // button_ManualEEprom_Socket_Contact_Back3
             // 
@@ -270,6 +272,7 @@ namespace ZenHandler.Dlg
             this.button_ManualEEprom_Socket_Contact_Back3.TabIndex = 75;
             this.button_ManualEEprom_Socket_Contact_Back3.Text = "#3 Back";
             this.button_ManualEEprom_Socket_Contact_Back3.UseVisualStyleBackColor = false;
+            this.button_ManualEEprom_Socket_Contact_Back3.Click += new System.EventHandler(this.button_ManualEEprom_Socket_Contact_Back3_Click);
             // 
             // button_ManualEEprom_Socket_Contact_For3
             // 
@@ -283,6 +286,7 @@ namespace ZenHandler.Dlg
             this.button_ManualEEprom_Socket_Contact_For3.TabIndex = 74;
             this.button_ManualEEprom_Socket_Contact_For3.Text = "#3 For";
             this.button_ManualEEprom_Socket_Contact_For3.UseVisualStyleBackColor = false;
+            this.button_ManualEEprom_Socket_Contact_For3.Click += new System.EventHandler(this.button_ManualEEprom_Socket_Contact_For3_Click);
             // 
             // button_ManualEEprom_Socket_Contact_Back2
             // 
@@ -296,6 +300,7 @@ namespace ZenHandler.Dlg
             this.button_ManualEEprom_Socket_Contact_Back2.TabIndex = 73;
             this.button_ManualEEprom_Socket_Contact_Back2.Text = "#2 Back";
             this.button_ManualEEprom_Socket_Contact_Back2.UseVisualStyleBackColor = false;
+            this.button_ManualEEprom_Socket_Contact_Back2.Click += new System.EventHandler(this.button_ManualEEprom_Socket_Contact_Back2_Click);
             // 
             // button_ManualEEprom_Socket_Contact_For2
             // 
@@ -309,6 +314,7 @@ namespace ZenHandler.Dlg
             this.button_ManualEEprom_Socket_Contact_For2.TabIndex = 72;
             this.button_ManualEEprom_Socket_Contact_For2.Text = "#2 For";
             this.button_ManualEEprom_Socket_Contact_For2.UseVisualStyleBackColor = false;
+            this.button_ManualEEprom_Socket_Contact_For2.Click += new System.EventHandler(this.button_ManualEEprom_Socket_Contact_For2_Click);
             // 
             // button_ManualEEprom_Socket_Contact_Back1
             // 
@@ -322,6 +328,7 @@ namespace ZenHandler.Dlg
             this.button_ManualEEprom_Socket_Contact_Back1.TabIndex = 71;
             this.button_ManualEEprom_Socket_Contact_Back1.Text = "#1 Back";
             this.button_ManualEEprom_Socket_Contact_Back1.UseVisualStyleBackColor = false;
+            this.button_ManualEEprom_Socket_Contact_Back1.Click += new System.EventHandler(this.button_ManualEEprom_Socket_Contact_Back1_Click);
             // 
             // button_ManualEEprom_Socket_Contact_For1
             // 
@@ -335,6 +342,7 @@ namespace ZenHandler.Dlg
             this.button_ManualEEprom_Socket_Contact_For1.TabIndex = 70;
             this.button_ManualEEprom_Socket_Contact_For1.Text = "#1 For";
             this.button_ManualEEprom_Socket_Contact_For1.UseVisualStyleBackColor = false;
+            this.button_ManualEEprom_Socket_Contact_For1.Click += new System.EventHandler(this.button_ManualEEprom_Socket_Contact_For1_Click);
             // 
             // button_ManualEEprom_Socket_Contact_Down4
             // 
@@ -348,6 +356,7 @@ namespace ZenHandler.Dlg
             this.button_ManualEEprom_Socket_Contact_Down4.TabIndex = 69;
             this.button_ManualEEprom_Socket_Contact_Down4.Text = "#4 Down";
             this.button_ManualEEprom_Socket_Contact_Down4.UseVisualStyleBackColor = false;
+            this.button_ManualEEprom_Socket_Contact_Down4.Click += new System.EventHandler(this.button_ManualEEprom_Socket_Contact_Down4_Click);
             // 
             // button_ManualEEprom_Socket_Contact_Up4
             // 
@@ -361,6 +370,7 @@ namespace ZenHandler.Dlg
             this.button_ManualEEprom_Socket_Contact_Up4.TabIndex = 68;
             this.button_ManualEEprom_Socket_Contact_Up4.Text = "#4 Up";
             this.button_ManualEEprom_Socket_Contact_Up4.UseVisualStyleBackColor = false;
+            this.button_ManualEEprom_Socket_Contact_Up4.Click += new System.EventHandler(this.button_ManualEEprom_Socket_Contact_Up4_Click);
             // 
             // button_ManualEEprom_Socket_Contact_Down3
             // 
@@ -374,6 +384,7 @@ namespace ZenHandler.Dlg
             this.button_ManualEEprom_Socket_Contact_Down3.TabIndex = 67;
             this.button_ManualEEprom_Socket_Contact_Down3.Text = "#3 Down";
             this.button_ManualEEprom_Socket_Contact_Down3.UseVisualStyleBackColor = false;
+            this.button_ManualEEprom_Socket_Contact_Down3.Click += new System.EventHandler(this.button_ManualEEprom_Socket_Contact_Down3_Click);
             // 
             // button_ManualEEprom_Socket_Contact_Up3
             // 
@@ -387,6 +398,7 @@ namespace ZenHandler.Dlg
             this.button_ManualEEprom_Socket_Contact_Up3.TabIndex = 66;
             this.button_ManualEEprom_Socket_Contact_Up3.Text = "#3 Up";
             this.button_ManualEEprom_Socket_Contact_Up3.UseVisualStyleBackColor = false;
+            this.button_ManualEEprom_Socket_Contact_Up3.Click += new System.EventHandler(this.button_ManualEEprom_Socket_Contact_Up3_Click);
             // 
             // button_ManualEEprom_Socket_Contact_Down2
             // 
@@ -400,6 +412,7 @@ namespace ZenHandler.Dlg
             this.button_ManualEEprom_Socket_Contact_Down2.TabIndex = 65;
             this.button_ManualEEprom_Socket_Contact_Down2.Text = "#2 Down";
             this.button_ManualEEprom_Socket_Contact_Down2.UseVisualStyleBackColor = false;
+            this.button_ManualEEprom_Socket_Contact_Down2.Click += new System.EventHandler(this.button_ManualEEprom_Socket_Contact_Down2_Click);
             // 
             // button_ManualEEprom_Socket_Contact_Up2
             // 
@@ -413,6 +426,7 @@ namespace ZenHandler.Dlg
             this.button_ManualEEprom_Socket_Contact_Up2.TabIndex = 64;
             this.button_ManualEEprom_Socket_Contact_Up2.Text = "#2 Up";
             this.button_ManualEEprom_Socket_Contact_Up2.UseVisualStyleBackColor = false;
+            this.button_ManualEEprom_Socket_Contact_Up2.Click += new System.EventHandler(this.button_ManualEEprom_Socket_Contact_Up2_Click);
             // 
             // button_ManualEEprom_Socket_L_Verify_Pos_X
             // 
@@ -439,6 +453,7 @@ namespace ZenHandler.Dlg
             this.button_ManualEEprom_Socket_Contact_Down1.TabIndex = 35;
             this.button_ManualEEprom_Socket_Contact_Down1.Text = "#1 Down";
             this.button_ManualEEprom_Socket_Contact_Down1.UseVisualStyleBackColor = false;
+            this.button_ManualEEprom_Socket_Contact_Down1.Click += new System.EventHandler(this.button_ManualEEprom_Socket_Contact_Down1_Click);
             // 
             // button_ManualEEprom_Socket_Contact_Up1
             // 
@@ -452,6 +467,7 @@ namespace ZenHandler.Dlg
             this.button_ManualEEprom_Socket_Contact_Up1.TabIndex = 32;
             this.button_ManualEEprom_Socket_Contact_Up1.Text = "#1 Up";
             this.button_ManualEEprom_Socket_Contact_Up1.UseVisualStyleBackColor = false;
+            this.button_ManualEEprom_Socket_Contact_Up1.Click += new System.EventHandler(this.button_ManualEEprom_Socket_Contact_Up1_Click);
             // 
             // button_ManualEEprom_Socket_L_Unload_Pos_X
             // 
@@ -584,6 +600,7 @@ namespace ZenHandler.Dlg
             this.button_ManualEEprom_R_Socket_Contact_Back4.TabIndex = 97;
             this.button_ManualEEprom_R_Socket_Contact_Back4.Text = "#4 Back";
             this.button_ManualEEprom_R_Socket_Contact_Back4.UseVisualStyleBackColor = false;
+            this.button_ManualEEprom_R_Socket_Contact_Back4.Click += new System.EventHandler(this.button_ManualEEprom_R_Socket_Contact_Back4_Click);
             // 
             // button_ManualEEprom_R_Socket_Contact_For4
             // 
@@ -597,6 +614,7 @@ namespace ZenHandler.Dlg
             this.button_ManualEEprom_R_Socket_Contact_For4.TabIndex = 96;
             this.button_ManualEEprom_R_Socket_Contact_For4.Text = "#4 For";
             this.button_ManualEEprom_R_Socket_Contact_For4.UseVisualStyleBackColor = false;
+            this.button_ManualEEprom_R_Socket_Contact_For4.Click += new System.EventHandler(this.button_ManualEEprom_R_Socket_Contact_For4_Click);
             // 
             // button_ManualEEprom_R_Socket_Contact_Back3
             // 
@@ -610,6 +628,7 @@ namespace ZenHandler.Dlg
             this.button_ManualEEprom_R_Socket_Contact_Back3.TabIndex = 95;
             this.button_ManualEEprom_R_Socket_Contact_Back3.Text = "#3 Back";
             this.button_ManualEEprom_R_Socket_Contact_Back3.UseVisualStyleBackColor = false;
+            this.button_ManualEEprom_R_Socket_Contact_Back3.Click += new System.EventHandler(this.button_ManualEEprom_R_Socket_Contact_Back3_Click);
             // 
             // button_ManualEEprom_R_Socket_Contact_For3
             // 
@@ -623,6 +642,7 @@ namespace ZenHandler.Dlg
             this.button_ManualEEprom_R_Socket_Contact_For3.TabIndex = 94;
             this.button_ManualEEprom_R_Socket_Contact_For3.Text = "#3 For";
             this.button_ManualEEprom_R_Socket_Contact_For3.UseVisualStyleBackColor = false;
+            this.button_ManualEEprom_R_Socket_Contact_For3.Click += new System.EventHandler(this.button_ManualEEprom_R_Socket_Contact_For3_Click);
             // 
             // button_ManualEEprom_R_Socket_Contact_Back2
             // 
@@ -636,6 +656,7 @@ namespace ZenHandler.Dlg
             this.button_ManualEEprom_R_Socket_Contact_Back2.TabIndex = 93;
             this.button_ManualEEprom_R_Socket_Contact_Back2.Text = "#2 Back";
             this.button_ManualEEprom_R_Socket_Contact_Back2.UseVisualStyleBackColor = false;
+            this.button_ManualEEprom_R_Socket_Contact_Back2.Click += new System.EventHandler(this.button_ManualEEprom_R_Socket_Contact_Back2_Click);
             // 
             // button_ManualEEprom_R_Socket_Contact_For2
             // 
@@ -649,6 +670,7 @@ namespace ZenHandler.Dlg
             this.button_ManualEEprom_R_Socket_Contact_For2.TabIndex = 92;
             this.button_ManualEEprom_R_Socket_Contact_For2.Text = "#2 For";
             this.button_ManualEEprom_R_Socket_Contact_For2.UseVisualStyleBackColor = false;
+            this.button_ManualEEprom_R_Socket_Contact_For2.Click += new System.EventHandler(this.button_ManualEEprom_R_Socket_Contact_For2_Click);
             // 
             // button_ManualEEprom_R_Socket_Contact_Back1
             // 
@@ -662,6 +684,7 @@ namespace ZenHandler.Dlg
             this.button_ManualEEprom_R_Socket_Contact_Back1.TabIndex = 91;
             this.button_ManualEEprom_R_Socket_Contact_Back1.Text = "#1 Back";
             this.button_ManualEEprom_R_Socket_Contact_Back1.UseVisualStyleBackColor = false;
+            this.button_ManualEEprom_R_Socket_Contact_Back1.Click += new System.EventHandler(this.button_ManualEEprom_R_Socket_Contact_Back1_Click);
             // 
             // button_ManualEEprom_R_Socket_Contact_For1
             // 
@@ -675,6 +698,7 @@ namespace ZenHandler.Dlg
             this.button_ManualEEprom_R_Socket_Contact_For1.TabIndex = 90;
             this.button_ManualEEprom_R_Socket_Contact_For1.Text = "#1 For";
             this.button_ManualEEprom_R_Socket_Contact_For1.UseVisualStyleBackColor = false;
+            this.button_ManualEEprom_R_Socket_Contact_For1.Click += new System.EventHandler(this.button_ManualEEprom_R_Socket_Contact_For1_Click);
             // 
             // button_ManualEEprom_R_Socket_Contact_Down4
             // 
@@ -688,6 +712,7 @@ namespace ZenHandler.Dlg
             this.button_ManualEEprom_R_Socket_Contact_Down4.TabIndex = 89;
             this.button_ManualEEprom_R_Socket_Contact_Down4.Text = "#4 Down";
             this.button_ManualEEprom_R_Socket_Contact_Down4.UseVisualStyleBackColor = false;
+            this.button_ManualEEprom_R_Socket_Contact_Down4.Click += new System.EventHandler(this.button_ManualEEprom_R_Socket_Contact_Down4_Click);
             // 
             // button_ManualEEprom_R_Socket_Contact_Up4
             // 
@@ -701,6 +726,7 @@ namespace ZenHandler.Dlg
             this.button_ManualEEprom_R_Socket_Contact_Up4.TabIndex = 88;
             this.button_ManualEEprom_R_Socket_Contact_Up4.Text = "#4 Up";
             this.button_ManualEEprom_R_Socket_Contact_Up4.UseVisualStyleBackColor = false;
+            this.button_ManualEEprom_R_Socket_Contact_Up4.Click += new System.EventHandler(this.button_ManualEEprom_R_Socket_Contact_Up4_Click);
             // 
             // button_ManualEEprom_R_Socket_Contact_Down3
             // 
@@ -714,6 +740,7 @@ namespace ZenHandler.Dlg
             this.button_ManualEEprom_R_Socket_Contact_Down3.TabIndex = 87;
             this.button_ManualEEprom_R_Socket_Contact_Down3.Text = "#3 Down";
             this.button_ManualEEprom_R_Socket_Contact_Down3.UseVisualStyleBackColor = false;
+            this.button_ManualEEprom_R_Socket_Contact_Down3.Click += new System.EventHandler(this.button_ManualEEprom_R_Socket_Contact_Down3_Click);
             // 
             // button_ManualEEprom_R_Socket_Contact_Up3
             // 
@@ -727,6 +754,7 @@ namespace ZenHandler.Dlg
             this.button_ManualEEprom_R_Socket_Contact_Up3.TabIndex = 86;
             this.button_ManualEEprom_R_Socket_Contact_Up3.Text = "#3 Up";
             this.button_ManualEEprom_R_Socket_Contact_Up3.UseVisualStyleBackColor = false;
+            this.button_ManualEEprom_R_Socket_Contact_Up3.Click += new System.EventHandler(this.button_ManualEEprom_R_Socket_Contact_Up3_Click);
             // 
             // button_ManualEEprom_R_Socket_Contact_Down2
             // 
@@ -740,6 +768,7 @@ namespace ZenHandler.Dlg
             this.button_ManualEEprom_R_Socket_Contact_Down2.TabIndex = 85;
             this.button_ManualEEprom_R_Socket_Contact_Down2.Text = "#2 Down";
             this.button_ManualEEprom_R_Socket_Contact_Down2.UseVisualStyleBackColor = false;
+            this.button_ManualEEprom_R_Socket_Contact_Down2.Click += new System.EventHandler(this.button_ManualEEprom_R_Socket_Contact_Down2_Click);
             // 
             // button_ManualEEprom_R_Socket_Contact_Up2
             // 
@@ -753,6 +782,7 @@ namespace ZenHandler.Dlg
             this.button_ManualEEprom_R_Socket_Contact_Up2.TabIndex = 84;
             this.button_ManualEEprom_R_Socket_Contact_Up2.Text = "#2 Up";
             this.button_ManualEEprom_R_Socket_Contact_Up2.UseVisualStyleBackColor = false;
+            this.button_ManualEEprom_R_Socket_Contact_Up2.Click += new System.EventHandler(this.button_ManualEEprom_R_Socket_Contact_Up2_Click);
             // 
             // button_ManualEEprom_R_Socket_Contact_Down1
             // 
@@ -766,6 +796,7 @@ namespace ZenHandler.Dlg
             this.button_ManualEEprom_R_Socket_Contact_Down1.TabIndex = 83;
             this.button_ManualEEprom_R_Socket_Contact_Down1.Text = "#1 Down";
             this.button_ManualEEprom_R_Socket_Contact_Down1.UseVisualStyleBackColor = false;
+            this.button_ManualEEprom_R_Socket_Contact_Down1.Click += new System.EventHandler(this.button_ManualEEprom_R_Socket_Contact_Down1_Click);
             // 
             // button_ManualEEprom_R_Socket_Contact_Up1
             // 
@@ -779,6 +810,7 @@ namespace ZenHandler.Dlg
             this.button_ManualEEprom_R_Socket_Contact_Up1.TabIndex = 82;
             this.button_ManualEEprom_R_Socket_Contact_Up1.Text = "#1 Up";
             this.button_ManualEEprom_R_Socket_Contact_Up1.UseVisualStyleBackColor = false;
+            this.button_ManualEEprom_R_Socket_Contact_Up1.Click += new System.EventHandler(this.button_ManualEEprom_R_Socket_Contact_Up1_Click);
             // 
             // button_ManualEEprom_Socket_R_Verify_Pos_X
             // 
@@ -792,6 +824,7 @@ namespace ZenHandler.Dlg
             this.button_ManualEEprom_Socket_R_Verify_Pos_X.TabIndex = 63;
             this.button_ManualEEprom_Socket_R_Verify_Pos_X.Text = "VERIFY POS";
             this.button_ManualEEprom_Socket_R_Verify_Pos_X.UseVisualStyleBackColor = false;
+            this.button_ManualEEprom_Socket_R_Verify_Pos_X.Click += new System.EventHandler(this.button_ManualEEprom_Socket_R_Verify_Pos_X_Click);
             // 
             // label_ManualAoi_R_Socket_Right_Title
             // 
