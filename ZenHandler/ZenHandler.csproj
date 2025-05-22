@@ -207,6 +207,12 @@
     <Compile Include="Dlg\Config_Task.Designer.cs">
       <DependentUpon>Config_Task.cs</DependentUpon>
     </Compile>
+    <Compile Include="Dlg\ManualEEpromSocket.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Dlg\ManualEEpromSocket.Designer.cs">
+      <DependentUpon>ManualEEpromSocket.cs</DependentUpon>
+    </Compile>
     <Compile Include="Dlg\ManualLift.cs">
       <SubType>UserControl</SubType>
     </Compile>
@@ -528,6 +534,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Dlg\MainControl.resx">
       <DependentUpon>MainControl.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Dlg\ManualEEpromSocket.resx">
+      <DependentUpon>ManualEEpromSocket.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Dlg\ManualLift.resx">
       <DependentUpon>ManualLift.cs</DependentUpon>

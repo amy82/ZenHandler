@@ -29,6 +29,7 @@ namespace ZenHandler.Dlg
         /// </summary>
         private void InitializeComponent()
         {
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(ManualAoiSocket));
             this.label_ManualAoi_L_Socket_Left_Title = new System.Windows.Forms.Label();
             this.button_ManualAoi_Socket_L_H_In_Pos_Z = new System.Windows.Forms.Button();
             this.button_ManualAoi_Socket_L_TestL_Pos_X = new System.Windows.Forms.Button();
@@ -67,8 +68,10 @@ namespace ZenHandler.Dlg
             this.label4 = new System.Windows.Forms.Label();
             this.button_ManualAoi_Socket_R_Wait_Pos_X = new System.Windows.Forms.Button();
             this.button_ManualAoi_Socket_R_TestL_Pos_X = new System.Windows.Forms.Button();
+            this.pictureBox1 = new System.Windows.Forms.PictureBox();
             this.groupBox1.SuspendLayout();
             this.groupBox2.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
             this.SuspendLayout();
             // 
             // label_ManualAoi_L_Socket_Left_Title
@@ -601,10 +604,21 @@ namespace ZenHandler.Dlg
             this.button_ManualAoi_Socket_R_TestL_Pos_X.UseVisualStyleBackColor = false;
             this.button_ManualAoi_Socket_R_TestL_Pos_X.Click += new System.EventHandler(this.button_ManualAoi_Socket_R_TestL_Pos_X_Click);
             // 
+            // pictureBox1
+            // 
+            this.pictureBox1.Image = ((System.Drawing.Image)(resources.GetObject("pictureBox1.Image")));
+            this.pictureBox1.Location = new System.Drawing.Point(70, 644);
+            this.pictureBox1.Name = "pictureBox1";
+            this.pictureBox1.Size = new System.Drawing.Size(242, 228);
+            this.pictureBox1.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
+            this.pictureBox1.TabIndex = 43;
+            this.pictureBox1.TabStop = false;
+            // 
             // ManualAoiSocket
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 12F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
+            this.Controls.Add(this.pictureBox1);
             this.Controls.Add(this.groupBox2);
             this.Controls.Add(this.groupBox1);
             this.Name = "ManualAoiSocket";
@@ -612,6 +626,7 @@ namespace ZenHandler.Dlg
             this.VisibleChanged += new System.EventHandler(this.ManualMagazine_VisibleChanged);
             this.groupBox1.ResumeLayout(false);
             this.groupBox2.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).EndInit();
             this.ResumeLayout(false);
 
         }
@@ -655,5 +670,6 @@ namespace ZenHandler.Dlg
         private System.Windows.Forms.Label label4;
         private System.Windows.Forms.Button button_ManualAoi_Socket_R_Wait_Pos_X;
         private System.Windows.Forms.Button button_ManualAoi_Socket_R_TestL_Pos_X;
+        private System.Windows.Forms.PictureBox pictureBox1;
     }
 }

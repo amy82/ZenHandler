@@ -20,7 +20,7 @@ namespace ZenHandler.Dlg
         private ManualLift manualLift;
         //private ManualFwSocket manualFwSocket;
         //private ManualEEpromSocket manualEEpromSocket;
-        //private ManualAoiSocket manualAoiSocket;
+        private ManualAoiSocket manualAoiSocket;
 
         public enum eManualBtn : int
         {
@@ -33,6 +33,7 @@ namespace ZenHandler.Dlg
             manualTransfer = new ManualTransfer();
             manualMagazine = new ManualMagazine();
             manualLift = new ManualLift();
+            manualAoiSocket = new ManualAoiSocket();
 
             //teachingLens = new TeachingLens();
             this.Paint += new PaintEventHandler(Form_Paint);
@@ -45,14 +46,17 @@ namespace ZenHandler.Dlg
             manualTransfer.Visible = false;
             manualMagazine.Visible = false;
             manualLift.Visible = false;
+            manualAoiSocket.Visible = false;
 
             this.Controls.Add(manualTransfer);
             this.Controls.Add(manualMagazine);
             this.Controls.Add(manualLift);
+            this.Controls.Add(manualAoiSocket);
 
             manualTransfer.Location = new System.Drawing.Point(0, 89);
             manualMagazine.Location = new System.Drawing.Point(0, 89);
             manualLift.Location = new System.Drawing.Point(0, 89);
+            manualAoiSocket.Location = new System.Drawing.Point(0, 89);
 
 
             setInterface();
@@ -145,9 +149,10 @@ namespace ZenHandler.Dlg
             else if (manualBtnTab == eManualBtn.SocketTab)
             {
                 button_Manual_Socket.BackColor = ColorTranslator.FromHtml("#FFB230");
-                manualLift.Visible = true;
+                manualLift.Visible = false;
                 manualTransfer.Visible = false;
                 manualMagazine.Visible = false;
+
                 if (Program.PG_SELECT == HANDLER_PG.FW)
                 {
 
@@ -158,8 +163,13 @@ namespace ZenHandler.Dlg
                 }
                 if (Program.PG_SELECT == HANDLER_PG.AOI)
                 {
-
+                    manualAoiSocket.Visible = true;
+                    manualAoiSocket.showPanel();
                 }
+
+                manualTransfer.hidePanel();
+                manualMagazine.hidePanel();
+                manualLift.hidePanel();
             }
             else
             {
