@@ -9,7 +9,10 @@ namespace ZenHandler.Machine
 
     public enum eAoiSocket : int
     {
-        SOCKET_L_X = 0, SOCKET_L_Z, SOCKET_R_X, SOCKET_R_Z
+        SOCKET_L_X = 0, 
+        SOCKET_L_Z, 
+        SOCKET_R_X, 
+        SOCKET_R_Z
     };
     public class AoiSocketMachine : MotionControl.MotorController
     {
@@ -141,7 +144,70 @@ namespace ZenHandler.Machine
             return false;
         }
 
+        public bool Socket_X_Move(eTeachingAoiPosList ePos, eAoiSocket Motor, bool bWait = true)
+        {
+            if (this.MotorUse == false)
+            {
+                Console.WriteLine("No Use Machine");
+                return true;
+            }
+            if (MotorAxes[(int)Motor].IsMotorBusy == true)
+            {
+                Globalo.LogPrint("ManualControl", $"모터 작업이 이미 실행 중입니다. 기다려 주세요.");
+                return false;
+            }
+            double dPos = this.teachingConfig.Teaching[(int)ePos].Pos[(int)Motor];
 
+            bool isSuccess = true;
+            try
+            {
+                isSuccess = MotorAxes[(int)Motor].MoveAxis(dPos, AXT_MOTION_ABSREL.POS_ABS_MODE, bWait);
+
+            }
+            catch (Exception ex)
+            {
+                Globalo.LogPrint("ManualControl", $"Socket_X_Move Exception: {ex.Message}");
+                isSuccess = false;
+            }
+            finally
+            {
+            }
+            Globalo.LogPrint("ManualControl", $"[AOI SOCKET] X AXIS Move End");
+
+            return isSuccess;
+        }
+        public bool Socket_Z_Move(eTeachingAoiPosList ePos, eAoiSocket Motor, bool bWait = true)
+        {
+            if (this.MotorUse == false)
+            {
+                Console.WriteLine("No Use Machine");
+                return true;
+            }
+            if (MotorAxes[(int)Motor].IsMotorBusy == true)
+            {
+                Globalo.LogPrint("ManualControl", $"모터 작업이 이미 실행 중입니다. 기다려 주세요.");
+                return false;
+            }
+            double dPos = this.teachingConfig.Teaching[(int)ePos].Pos[(int)Motor];
+
+            bool isSuccess = true;
+            try
+            {
+                isSuccess = MotorAxes[(int)Motor].MoveAxis(dPos, AXT_MOTION_ABSREL.POS_ABS_MODE, bWait);
+
+            }
+            catch (Exception ex)
+            {
+                Globalo.LogPrint("ManualControl", $"Socket_Z_Move Exception: {ex.Message}");
+                isSuccess = false;
+            }
+            finally
+            {
+            }
+            Globalo.LogPrint("ManualControl", $"[AOI SOCKET] Z AXIS Move End");
+
+            return isSuccess;
+        }
         public override void MovingStop()
         {
             if (CancelToken != null && !CancelToken.IsCancellationRequested)

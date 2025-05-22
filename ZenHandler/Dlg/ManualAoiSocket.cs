@@ -18,19 +18,20 @@ namespace ZenHandler.Dlg
         
         private System.Windows.Forms.Timer ManualTimer;
 
-        private Button[] Left_MotorX_BtnArr = new Button[5];
-        private Button[] Left_MotorZ_BtnArr = new Button[5];
+        private Button[] Aoi_L_MotorX_BtnArr = new Button[5];
+        private Button[] Aoi_L_MotorZ_BtnArr = new Button[3];
 
-        private Button[] Right_MotorX_BtnArr = new Button[5];
-        private Button[] Right_MotorZ_BtnArr = new Button[5];
+        private Button[] Aoi_R_MotorX_BtnArr = new Button[5];
+        private Button[] Aoi_R_MotorZ_BtnArr = new Button[3];
 
-        private Button[] AoiL_SensorBtnArr = new Button[4];
-        private Button[] AoiR_SensorBtnArr = new Button[4];
+
+        private Button[] Aoi_L_SensorBtnArr = new Button[6];
+        private Button[] Aoi_R_SensorBtnArr = new Button[6];
 
         protected CancellationTokenSource cts;  //TODO: <--이름 변경하고 사용가능하게
         private bool isMovingMagazine;
 
-        private int CurrentMagazine = 0;        //0 = LFET , 1 = RIGHT
+        private int CurrentAoiMotor = 0;        //0 = LFET , 1 = RIGHT
         //MEMO: 티칭 위치를 어떻게 가져올 것인가
         public ManualAoiSocket()
         {
@@ -50,92 +51,93 @@ namespace ZenHandler.Dlg
         private void ManualUiSet()
         {
             int i = 0;
-            Left_MotorX_BtnArr[0] = button_ManualAoi_Socket_L_Wait_Pos_X;
-            Left_MotorX_BtnArr[1] = button_ManualAoi_Socket_L_Load_Pos_X;
-            Left_MotorX_BtnArr[2] = button_ManualAoi_Socket_L_Unload_Pos_X;
-            Left_MotorX_BtnArr[3] = button_ManualAoi_Socket_L_TestL_Pos_X;
-            Left_MotorX_BtnArr[4] = button_ManualAoi_Socket_L_TestR_Pos_X;
+            Aoi_L_MotorX_BtnArr[0] = button_ManualAoi_Socket_L_Wait_Pos_X;
+            Aoi_L_MotorX_BtnArr[1] = button_ManualAoi_Socket_L_Load_Pos_X;
+            Aoi_L_MotorX_BtnArr[2] = button_ManualAoi_Socket_L_Unload_Pos_X;
+            Aoi_L_MotorX_BtnArr[3] = button_ManualAoi_Socket_L_TestL_Pos_X;
+            Aoi_L_MotorX_BtnArr[4] = button_ManualAoi_Socket_L_TestR_Pos_X;
+            //
+            Aoi_L_MotorZ_BtnArr[0] = button_ManualAoi_Socket_L_Wait_Pos_Z;
+            Aoi_L_MotorZ_BtnArr[1] = button_ManualAoi_Socket_L_H_In_Pos_Z;
+            Aoi_L_MotorZ_BtnArr[2] = button_ManualAoi_Socket_L_H_Out_Pos_Z;
 
-            Left_MotorZ_BtnArr[0] = button_ManualAoi_Socket_L_Wait_Pos_Z;
-            Left_MotorZ_BtnArr[1] = button_ManualAoi_Socket_L_Load_Pos_Z;
-            Left_MotorZ_BtnArr[2] = button_ManualAoi_Socket_L_Unload_Pos_Z;
-            Left_MotorZ_BtnArr[3] = button_ManualAoi_Socket_L_H_In_Pos_Z;
-            Left_MotorZ_BtnArr[4] = button_ManualAoi_Socket_L_H_Out_Pos_Z;
 
-            Right_MotorX_BtnArr[0] = button_ManualAoi_Socket_R_Wait_Pos_X;
-            Right_MotorX_BtnArr[1] = button_ManualAoi_Socket_R_Load_Pos_X;
-            Right_MotorX_BtnArr[2] = button_ManualAoi_Socket_R_Unload_Pos_X;
-            Right_MotorX_BtnArr[3] = button_ManualAoi_Socket_R_TestL_Pos_X;
-            Right_MotorX_BtnArr[4] = button_ManualAoi_Socket_R_TestR_Pos_X;
+            Aoi_R_MotorX_BtnArr[0] = button_ManualAoi_Socket_R_Wait_Pos_X;
+            Aoi_R_MotorX_BtnArr[1] = button_ManualAoi_Socket_R_Load_Pos_X;
+            Aoi_R_MotorX_BtnArr[2] = button_ManualAoi_Socket_R_Unload_Pos_X;
+            Aoi_R_MotorX_BtnArr[3] = button_ManualAoi_Socket_R_TestL_Pos_X;
+            Aoi_R_MotorX_BtnArr[4] = button_ManualAoi_Socket_R_TestR_Pos_X;
 
-            Right_MotorZ_BtnArr[0] = button_ManualAoi_Socket_R_Wait_Pos_Z;
-            Right_MotorZ_BtnArr[1] = button_ManualAoi_Socket_R_Load_Pos_Z;
-            Right_MotorZ_BtnArr[2] = button_ManualAoi_Socket_R_Unload_Pos_Z;
-            Right_MotorZ_BtnArr[3] = button_ManualAoi_Socket_R_H_In_Pos_Z;
-            Right_MotorZ_BtnArr[4] = button_ManualAoi_Socket_R_H_Out_Pos_Z;
+            Aoi_R_MotorZ_BtnArr[0] = button_ManualAoi_Socket_R_Wait_Pos_Z;
+            Aoi_R_MotorZ_BtnArr[1] = button_ManualAoi_Socket_R_H_In_Pos_Z;
+            Aoi_R_MotorZ_BtnArr[2] = button_ManualAoi_Socket_R_H_Out_Pos_Z;
 
-            for (i = 0; i < Left_MotorX_BtnArr.Length; i++)
+            for (i = 0; i < Aoi_L_MotorX_BtnArr.Length; i++)
             {
-                Left_MotorX_BtnArr[i].BackColor = ColorTranslator.FromHtml(ButtonColor.MANUAL_BTN_OFF);
-                Left_MotorX_BtnArr[i].ForeColor = Color.White;
+                Aoi_L_MotorX_BtnArr[i].BackColor = ColorTranslator.FromHtml(ButtonColor.MANUAL_BTN_OFF);
+                Aoi_L_MotorX_BtnArr[i].ForeColor = Color.White;
 
-                Left_MotorX_BtnArr[i].FlatAppearance.BorderColor = ColorTranslator.FromHtml("#BBBBBB");
+                Aoi_L_MotorX_BtnArr[i].FlatAppearance.BorderColor = ColorTranslator.FromHtml("#BBBBBB");
             }
-            for (i = 0; i < Left_MotorZ_BtnArr.Length; i++)
+            for (i = 0; i < Aoi_L_MotorZ_BtnArr.Length; i++)
             {
-                Left_MotorZ_BtnArr[i].BackColor = ColorTranslator.FromHtml(ButtonColor.MANUAL_BTN_OFF);
-                Left_MotorZ_BtnArr[i].ForeColor = Color.White;
+                Aoi_L_MotorZ_BtnArr[i].BackColor = ColorTranslator.FromHtml(ButtonColor.MANUAL_BTN_OFF);
+                Aoi_L_MotorZ_BtnArr[i].ForeColor = Color.White;
 
-                Left_MotorZ_BtnArr[i].FlatAppearance.BorderColor = ColorTranslator.FromHtml("#BBBBBB");
+                Aoi_L_MotorZ_BtnArr[i].FlatAppearance.BorderColor = ColorTranslator.FromHtml("#BBBBBB");
             }
-
-            for (i = 0; i < Right_MotorX_BtnArr.Length; i++)
+            for (i = 0; i < Aoi_R_MotorX_BtnArr.Length; i++)
             {
-                Right_MotorX_BtnArr[i].BackColor = ColorTranslator.FromHtml(ButtonColor.MANUAL_BTN_OFF);
-                Right_MotorX_BtnArr[i].ForeColor = Color.White;
+                Aoi_R_MotorX_BtnArr[i].BackColor = ColorTranslator.FromHtml(ButtonColor.MANUAL_BTN_OFF);
+                Aoi_R_MotorX_BtnArr[i].ForeColor = Color.White;
 
-                Right_MotorX_BtnArr[i].FlatAppearance.BorderColor = ColorTranslator.FromHtml("#BBBBBB");
+                Aoi_R_MotorX_BtnArr[i].FlatAppearance.BorderColor = ColorTranslator.FromHtml("#BBBBBB");
             }
-            for (i = 0; i < Right_MotorZ_BtnArr.Length; i++)
+            for (i = 0; i < Aoi_R_MotorZ_BtnArr.Length; i++)
             {
-                Right_MotorZ_BtnArr[i].BackColor = ColorTranslator.FromHtml(ButtonColor.MANUAL_BTN_OFF);
-                Right_MotorZ_BtnArr[i].ForeColor = Color.White;
+                Aoi_R_MotorZ_BtnArr[i].BackColor = ColorTranslator.FromHtml(ButtonColor.MANUAL_BTN_OFF);
+                Aoi_R_MotorZ_BtnArr[i].ForeColor = Color.White;
 
-                Right_MotorZ_BtnArr[i].FlatAppearance.BorderColor = ColorTranslator.FromHtml("#BBBBBB");
+                Aoi_R_MotorZ_BtnArr[i].FlatAppearance.BorderColor = ColorTranslator.FromHtml("#BBBBBB");
             }
 
 
             //MotorBtnArr[0].BackColor = ColorTranslator.FromHtml("#4C4743");   //모터 위치 이동 완료시 색
 
 
-            AoiL_SensorBtnArr[0] = button_ManualAoi_Socket_Left_L_Vacuum_On;
-            AoiL_SensorBtnArr[1] = button_ManualAoi_Socket_Left_L_Piece_Detect;
-            AoiL_SensorBtnArr[2] = button_ManualAoi_Socket_Left_R_Piece_Detect;
-            AoiL_SensorBtnArr[3] = button_ManualAoi_Socket_Left_R_Vacuum_On;
+            Aoi_L_SensorBtnArr[0] = button_ManualAoi_Socket_Left_L_Piece_Detect;
+            Aoi_L_SensorBtnArr[1] = button_ManualAoi_Socket_Left_L_Vacuum_On;
+            Aoi_L_SensorBtnArr[2] = button_ManualAoi_Socket_Left_L_Vacuum_Off;
 
-            AoiR_SensorBtnArr[0] = button_ManualAoi_Socket_Right_L_Vacuum_On;
-            AoiR_SensorBtnArr[1] = button_ManualAoi_Socket_Right_L_Piece_Detect;
-            AoiR_SensorBtnArr[2] = button_ManualAoi_Socket_Right_R_Piece_Detect;
-            AoiR_SensorBtnArr[3] = button_ManualAoi_Socket_Right_R_Vacuum_On;
+            Aoi_L_SensorBtnArr[3] = button_ManualAoi_Socket_Left_R_Piece_Detect;
+            Aoi_L_SensorBtnArr[4] = button_ManualAoi_Socket_Left_R_Vacuum_On;
+            Aoi_L_SensorBtnArr[5] = button_ManualAoi_Socket_Left_R_Vacuum_Off;
 
 
-            for (i = 0; i < AoiL_SensorBtnArr.Length; i++)
+
+            for (i = 0; i < Aoi_L_SensorBtnArr.Length; i++)
             {
-                AoiL_SensorBtnArr[i].BackColor = ColorTranslator.FromHtml(ButtonColor.MANUAL_BTN_OFF);
-                AoiL_SensorBtnArr[i].ForeColor = Color.White;
-                AoiL_SensorBtnArr[i].FlatAppearance.BorderColor = ColorTranslator.FromHtml("#BBBBBB");
-            }
-            for (i = 0; i < AoiR_SensorBtnArr.Length; i++)
-            {
-                AoiR_SensorBtnArr[i].BackColor = ColorTranslator.FromHtml(ButtonColor.MANUAL_BTN_OFF);
-                AoiR_SensorBtnArr[i].ForeColor = Color.White;
-                AoiR_SensorBtnArr[i].FlatAppearance.BorderColor = ColorTranslator.FromHtml("#BBBBBB");
+                Aoi_L_SensorBtnArr[i].BackColor = ColorTranslator.FromHtml(ButtonColor.MANUAL_BTN_OFF);
+                Aoi_L_SensorBtnArr[i].ForeColor = Color.White;
+                Aoi_L_SensorBtnArr[i].FlatAppearance.BorderColor = ColorTranslator.FromHtml("#BBBBBB");
             }
 
-            
-            
 
 
+            Aoi_R_SensorBtnArr[0] = button_ManualAoi_Socket_Right_L_Piece_Detect;
+            Aoi_R_SensorBtnArr[1] = button_ManualAoi_Socket_Right_L_Vacuum_On;
+            Aoi_R_SensorBtnArr[2] = button_ManualAoi_Socket_Right_L_Vacuum_Off;
+
+            Aoi_R_SensorBtnArr[3] = button_ManualAoi_Socket_Right_R_Piece_Detect;
+            Aoi_R_SensorBtnArr[4] = button_ManualAoi_Socket_Right_R_Vacuum_On;
+            Aoi_R_SensorBtnArr[5] = button_ManualAoi_Socket_Right_R_Vacuum_Off;
+
+            for (i = 0; i < Aoi_R_SensorBtnArr.Length; i++)
+            {
+                Aoi_R_SensorBtnArr[i].BackColor = ColorTranslator.FromHtml(ButtonColor.MANUAL_BTN_OFF);
+                Aoi_R_SensorBtnArr[i].ForeColor = Color.White;
+                Aoi_R_SensorBtnArr[i].FlatAppearance.BorderColor = ColorTranslator.FromHtml("#BBBBBB");
+            }
         }
 
 
@@ -173,7 +175,7 @@ namespace ZenHandler.Dlg
         }
 
 
-        private async void Manual_Z_Move(Machine.MagazineHandler.eTeachingPosList ePos)
+        private async void Manual_Z_Move(Machine.AoiSocketMachine.eTeachingAoiPosList ePos, Machine.eAoiSocket aoiMotor)
         {
             if (Globalo.motionManager.magazineHandler.RunState == OperationState.AutoRunning)
             {
@@ -197,7 +199,7 @@ namespace ZenHandler.Dlg
             }
             if (isMovingMagazine == true || Globalo.motionManager.magazineHandler.IsMoving())
             {
-                Globalo.LogPrint("", "MAGAZINE Z AXIS MOTOR RUNNING.", Globalo.eMessageName.M_INFO);
+                Globalo.LogPrint("", "AOI SOCKET Z AXIS MOTOR RUNNING.", Globalo.eMessageName.M_INFO);
                 Console.WriteLine("Z motor running...");
                 return;
             }
@@ -208,31 +210,23 @@ namespace ZenHandler.Dlg
             cts = new CancellationTokenSource();
             CancellationToken token = cts.Token;
             
-            string logstr = $"[MANUAL] MAGAZINE Z AXIS {ePos.ToString()} Move";
+            string logstr = $"[MANUAL] AOI SOCKET Z AXIS {ePos.ToString()} Move";
             Globalo.LogPrint("", logstr);
 
-            Machine.eMagazine magazineMotor;
-            if (CurrentMagazine == 0)
-            {
-                magazineMotor = Machine.eMagazine.MAGAZINE_L_Y;
-            }
-            else
-            {
-                magazineMotor = Machine.eMagazine.MAGAZINE_R_Y;
-            }
+
             try
             {
                 Task<bool> motorTask = Task.Run(() =>
                 {
                     Console.WriteLine(" ------------------> ManualZ_Move");
-                    bool rtn = Globalo.motionManager.magazineHandler.Magazine_Z_Move(ePos, magazineMotor);
+                    bool rtn = Globalo.motionManager.socketAoiMachine.Socket_Z_Move(ePos, aoiMotor);
                     bool bComplete = true;
 
                     int nTimeTick = Environment.TickCount;
                     while (rtn)
                     {
                         if (bManualStopKey) break;
-                        bComplete = Globalo.motionManager.magazineHandler.ChkZMotorPos(ePos, magazineMotor);
+                        bComplete = Globalo.motionManager.socketAoiMachine.ChkMotorPos(ePos, aoiMotor);
 
                         if (Environment.TickCount - nTimeTick > MotionControl.MotorSet.MOTOR_MANUAL_MOVE_TIMEOUT)
                         {
@@ -252,12 +246,12 @@ namespace ZenHandler.Dlg
                 if (result)
                 {
                     Console.WriteLine("Move okok");
-                    logstr = $"[MANUAL] MAGAZINE Z AXIS {ePos.ToString()} Move Complete";
+                    logstr = $"[MANUAL] AOI SOCKET Z AXIS {ePos.ToString()} Move Complete";
                 }
                 else
                 {
                     Console.WriteLine("Move fail");
-                    logstr = $"[MANUAL] MAGAZINE Z AXIS {ePos.ToString()} Move Fail";
+                    logstr = $"[MANUAL] AOI SOCKET Z AXIS {ePos.ToString()} Move Fail";
                 }
                 Globalo.LogPrint("", logstr);
             }
@@ -275,7 +269,7 @@ namespace ZenHandler.Dlg
         }
 
 
-        private async void Manual_Y_Move(Machine.MagazineHandler.eTeachingPosList ePos)
+        private async void Manual_X_Move(Machine.AoiSocketMachine.eTeachingAoiPosList ePos, Machine.eAoiSocket aoiMotor)
         {
             if (Globalo.motionManager.magazineHandler.RunState == OperationState.AutoRunning)
             {
@@ -300,25 +294,16 @@ namespace ZenHandler.Dlg
             if (isMovingMagazine || Globalo.motionManager.magazineHandler.IsMoving())
             {
                 Console.WriteLine("Y motor running...");
-                Globalo.LogPrint("", "MAGAZINE Y AXIS MOTOR RUNNING.", Globalo.eMessageName.M_INFO);
+                Globalo.LogPrint("", "AOI SOCKET X AXIS MOTOR RUNNING.", Globalo.eMessageName.M_INFO);
                 return;
             }
             Globalo.motionManager.magazineHandler.RunState = OperationState.Stopped;
 
             isMovingMagazine = true;//<---이동후 기다리지 않으면 바로 true로 바껴서 얘로만 체크하면 위험
 
-            string logstr = $"[MANUAL] MAGAZINE Y  AXIS {ePos.ToString()} Move";
+            string logstr = $"[MANUAL] AOI SOCKET X  AXIS {ePos.ToString()} Move";
             Globalo.LogPrint("", logstr);
 
-            Machine.eMagazine magazineMotor;
-            if (CurrentMagazine == 0)
-            {
-                magazineMotor = Machine.eMagazine.MAGAZINE_L_Y;
-            }
-            else
-            {
-                magazineMotor = Machine.eMagazine.MAGAZINE_R_Y;
-            }
 
             try
             {
@@ -328,9 +313,9 @@ namespace ZenHandler.Dlg
 
                 Task<bool> motorTask = Task.Run(() =>
                 {
-                    Console.WriteLine(" ------------------> TransFer_XY_Move");
+                    Console.WriteLine(" ------------------> Manual_X_Move");
 
-                    bool rtn = Globalo.motionManager.magazineHandler.Magazine_Y_Move(ePos, magazineMotor);
+                    bool rtn = Globalo.motionManager.socketAoiMachine.Socket_X_Move(ePos, aoiMotor);
                     bool bComplete = true;
 
                     int nTimeTick = Environment.TickCount;
@@ -338,17 +323,17 @@ namespace ZenHandler.Dlg
                     {
                         if (bManualStopKey) break;
 
-                        bComplete = Globalo.motionManager.magazineHandler.ChkYMotorPos(ePos, magazineMotor);
+                        bComplete = Globalo.motionManager.socketAoiMachine.ChkMotorPos(ePos, aoiMotor);
                         if (bComplete)
                         {
                             //위치 확인 완료
-                            Console.WriteLine(" ===> MagazineYMove Complete");
+                            Console.WriteLine(" ===> SocketX Move Complete");
                             break;
                         }
                         if (Environment.TickCount - nTimeTick > MotionControl.MotorSet.MOTOR_MANUAL_MOVE_TIMEOUT)
                         {
                             bComplete = false;
-                            Console.WriteLine(" ===> MagazineYMove TIMEOUT");
+                            Console.WriteLine(" ===> SocketX Move TIMEOUT");
                             break;
                         }
                         Thread.Sleep(10);
@@ -363,13 +348,13 @@ namespace ZenHandler.Dlg
                 if (result)
                 {
                     Console.WriteLine("Move okok");
-                    logstr = $"[MANUAL] MAGAZINE Y AXIS {ePos.ToString()} Move Complete";
+                    logstr = $"[MANUAL] AOI SOCKET X AXIS {ePos.ToString()} Move Complete";
                     Globalo.LogPrint("", logstr);
                 }
                 else
                 {
                     Console.WriteLine("Move fail");
-                    logstr = $"[MANUAL] MAGAZINE Y AXIS {ePos.ToString()} Move Fail";
+                    logstr = $"[MANUAL] AOI SOCKET X AXIS {ePos.ToString()} Move Fail";
                     Globalo.LogPrint("", logstr);
                 }
 
@@ -424,37 +409,56 @@ namespace ZenHandler.Dlg
         //
         //
         //
-        #region [TRANSFER X,Y MOTOR MOVE]
+        #region [AOI SOCKET X MOTOR MOVE]
         
-        private void button_Manual_Magazine_Wait_Pos_Y_Click(object sender, EventArgs e)
+        private void button_ManualAoi_Socket_L_Wait_Pos_X_Click(object sender, EventArgs e)
         {
-            Manual_Y_Move(Machine.MagazineHandler.eTeachingPosList.WAIT_POS);
+            Manual_X_Move(Machine.AoiSocketMachine.eTeachingAoiPosList.WAIT_POS, Machine.eAoiSocket.SOCKET_L_X);
+        }
+        private void button_ManualAoi_Socket_L_Load_Pos_X_Click(object sender, EventArgs e)
+        {
+            Manual_X_Move(Machine.AoiSocketMachine.eTeachingAoiPosList.LOAD_POS, Machine.eAoiSocket.SOCKET_L_X);
+        }
+        private void button_ManualAoi_Socket_L_Unload_Pos_X_Click(object sender, EventArgs e)
+        {
+            Manual_X_Move(Machine.AoiSocketMachine.eTeachingAoiPosList.UN_LOAD_POS, Machine.eAoiSocket.SOCKET_L_X);
+        }
+        private void button_ManualAoi_Socket_L_TestL_Pos_X_Click(object sender, EventArgs e)
+        {
+            Manual_X_Move(Machine.AoiSocketMachine.eTeachingAoiPosList.CAPTURE_L_POS, Machine.eAoiSocket.SOCKET_L_X);
+        }
+        private void button_ManualAoi_Socket_L_TestR_Pos_X_Click(object sender, EventArgs e)
+        {
+            Manual_X_Move(Machine.AoiSocketMachine.eTeachingAoiPosList.CAPTURE_R_POS, Machine.eAoiSocket.SOCKET_L_X);
         }
 
-        // X,Y BCR SCAN
-        private void button_Manual_Transfer_Left_Bcr_Pos_XY_Click(object sender, EventArgs e)
+        private void button_ManualAoi_Socket_R_Wait_Pos_X_Click(object sender, EventArgs e)
         {
-            Manual_Y_Move(Machine.MagazineHandler.eTeachingPosList.LAYER1);
+            Manual_X_Move(Machine.AoiSocketMachine.eTeachingAoiPosList.WAIT_POS, Machine.eAoiSocket.SOCKET_R_X);
         }
-        private void button_Manual_Transfer_Right_Bcr_Pos_XY_Click(object sender, EventArgs e)
+
+        private void button_ManualAoi_Socket_R_Load_Pos_X_Click(object sender, EventArgs e)
         {
-            Manual_Y_Move(Machine.MagazineHandler.eTeachingPosList.LAYER2);
+            Manual_X_Move(Machine.AoiSocketMachine.eTeachingAoiPosList.WAIT_POS, Machine.eAoiSocket.SOCKET_R_X);
         }
-        // X,Y TRAY 제품 로드
-        private void BTN_MANUAL_TRANSFER_LEFT_LOAD_POS_XY_Click(object sender, EventArgs e)
+
+        private void button_ManualAoi_Socket_R_Unload_Pos_X_Click(object sender, EventArgs e)
         {
-            Manual_Y_Move(Machine.MagazineHandler.eTeachingPosList.LAYER3);
+            Manual_X_Move(Machine.AoiSocketMachine.eTeachingAoiPosList.WAIT_POS, Machine.eAoiSocket.SOCKET_R_X);
         }
-        private void BTN_MANUAL_TRANSFER_LEFT_UNLOAD_POS_XY_Click(object sender, EventArgs e)
+
+        private void button_ManualAoi_Socket_R_TestL_Pos_X_Click(object sender, EventArgs e)
         {
-            Manual_Y_Move(Machine.MagazineHandler.eTeachingPosList.LAYER4);
+            Manual_X_Move(Machine.AoiSocketMachine.eTeachingAoiPosList.WAIT_POS, Machine.eAoiSocket.SOCKET_R_X);
         }
-        
-        private void BTN_MANUAL_TRANSFER_RIGHT_LOAD_POS_XY_Click(object sender, EventArgs e)
+
+        private void button_ManualAoi_Socket_R_TestR_Pos_X_Click(object sender, EventArgs e)
         {
-            Manual_Y_Move(Machine.MagazineHandler.eTeachingPosList.LAYER5);
+            Manual_X_Move(Machine.AoiSocketMachine.eTeachingAoiPosList.WAIT_POS, Machine.eAoiSocket.SOCKET_R_X);
         }
-        
+
+
+
         #endregion
         //-------------------------------------------------------------------------------------------------------------------------------------
         //
@@ -464,35 +468,35 @@ namespace ZenHandler.Dlg
         //
         //
         //
-        #region [TRANSFER Z MOTOR MOVE]
+        #region [AOI SOCKET Z MOTOR MOVE]
 
-        private void button_Manual_Magazine_Wait_Pos_Z_Click(object sender, EventArgs e)
+        private void button_ManualAoi_Socket_L_Wait_Pos_Z_Click(object sender, EventArgs e)
         {
-            Manual_Z_Move(Machine.MagazineHandler.eTeachingPosList.WAIT_POS);
+            Manual_Z_Move(Machine.AoiSocketMachine.eTeachingAoiPosList.WAIT_POS, Machine.eAoiSocket.SOCKET_L_Z);
         }
-        //Z BCR
-        private void button_Manual_Magazine_Layer1_Pos_Z_Click(object sender, EventArgs e)
+        private void button_ManualAoi_Socket_L_H_In_Pos_Z_Click(object sender, EventArgs e)
         {
-            Manual_Z_Move(Machine.MagazineHandler.eTeachingPosList.LAYER1);
+            Manual_Z_Move(Machine.AoiSocketMachine.eTeachingAoiPosList.HOUSING_IN_POS, Machine.eAoiSocket.SOCKET_L_Z);
         }
-        private void button_Manual_Magazine_Layer2_Pos_Z_Click(object sender, EventArgs e)
+        private void button_ManualAoi_Socket_L_H_Out_Pos_Z_Click(object sender, EventArgs e)
         {
-            Manual_Z_Move(Machine.MagazineHandler.eTeachingPosList.LAYER2);
+            Manual_Z_Move(Machine.AoiSocketMachine.eTeachingAoiPosList.HOUSING_OUT_POS, Machine.eAoiSocket.SOCKET_L_Z);
         }
-        //Z TRAY 제품 로드
-        private void button_Manual_Magazine_Layer3_Pos_Z_Click(object sender, EventArgs e)
+
+        private void button_ManualAoi_Socket_R_Wait_Pos_Z_Click(object sender, EventArgs e)
         {
-            Manual_Z_Move(Machine.MagazineHandler.eTeachingPosList.LAYER3);
+            Manual_Z_Move(Machine.AoiSocketMachine.eTeachingAoiPosList.WAIT_POS, Machine.eAoiSocket.SOCKET_R_Z);
         }
-        private void button_Manual_Magazine_Layer4_Pos_Z_Click(object sender, EventArgs e)
+
+        private void button_ManualAoi_Socket_R_H_In_Pos_Z_Click(object sender, EventArgs e)
         {
-            Manual_Y_Move(Machine.MagazineHandler.eTeachingPosList.LAYER4);
+            Manual_Z_Move(Machine.AoiSocketMachine.eTeachingAoiPosList.HOUSING_IN_POS, Machine.eAoiSocket.SOCKET_R_Z);
         }
-        private void button_Manual_Magazine_Layer5_Pos_Z_Click(object sender, EventArgs e)
+
+        private void button_ManualAoi_Socket_R_H_Out_Pos_Z_Click(object sender, EventArgs e)
         {
-            Manual_Z_Move(Machine.MagazineHandler.eTeachingPosList.LAYER5);
+            Manual_Z_Move(Machine.AoiSocketMachine.eTeachingAoiPosList.HOUSING_OUT_POS, Machine.eAoiSocket.SOCKET_R_Z);
         }
-        
         #endregion
 
 
@@ -517,7 +521,7 @@ namespace ZenHandler.Dlg
             //
             //------------------------------------------------------------------------------------------------------
             int index = 0;
-            for (i = 0; i < Left_MotorX_BtnArr.Length; i++)
+            for (i = 0; i < Aoi_L_MotorX_BtnArr.Length; i++)
             {
                 index = i;
                 Machine.AoiSocketMachine.eTeachingAoiPosList pos = (Machine.AoiSocketMachine.eTeachingAoiPosList)index;
@@ -525,36 +529,36 @@ namespace ZenHandler.Dlg
                 
                 if (Globalo.motionManager.socketAoiMachine.ChkMotorPos(pos, Machine.eAoiSocket.SOCKET_L_X) == true)
                 {
-                    Left_MotorX_BtnArr[i].BackColor = ColorTranslator.FromHtml(ButtonColor.MANUAL_BTN_ON);
+                    Aoi_L_MotorX_BtnArr[i].BackColor = ColorTranslator.FromHtml(ButtonColor.MANUAL_BTN_ON);
                 }
                 else
                 {
-                    Left_MotorX_BtnArr[i].BackColor = ColorTranslator.FromHtml(ButtonColor.MANUAL_BTN_OFF);
+                    Aoi_L_MotorX_BtnArr[i].BackColor = ColorTranslator.FromHtml(ButtonColor.MANUAL_BTN_OFF);
                 }
             }
 
             
-            for (i = 0; i < Left_MotorZ_BtnArr.Length; i++)
+            for (i = 0; i < Aoi_L_MotorZ_BtnArr.Length; i++)
             {
                 
                 //2칸 건너띄어야함
-                if (i < 3)
+                if (i < 1)
                 {
                     index = i;
                 }
                 else
                 {
-                    index = i + 2;
+                    index = i + 4;
                 }
                 Machine.AoiSocketMachine.eTeachingAoiPosList pos = (Machine.AoiSocketMachine.eTeachingAoiPosList)index;
 
                 if (Globalo.motionManager.socketAoiMachine.ChkMotorPos(pos, Machine.eAoiSocket.SOCKET_L_Z) == true)
                 {
-                    Left_MotorZ_BtnArr[i].BackColor = ColorTranslator.FromHtml(ButtonColor.MANUAL_BTN_ON);
+                    Aoi_L_MotorZ_BtnArr[i].BackColor = ColorTranslator.FromHtml(ButtonColor.MANUAL_BTN_ON);
                 }
                 else
                 {
-                    Left_MotorZ_BtnArr[i].BackColor = ColorTranslator.FromHtml(ButtonColor.MANUAL_BTN_OFF);
+                    Aoi_L_MotorZ_BtnArr[i].BackColor = ColorTranslator.FromHtml(ButtonColor.MANUAL_BTN_OFF);
                 }
             }
 
@@ -562,37 +566,38 @@ namespace ZenHandler.Dlg
 
             if (Globalo.motionManager.socketAoiMachine.GetIsProductInSocket(0, 0, true))
             {
-                AoiL_SensorBtnArr[0].BackColor = ColorTranslator.FromHtml(ButtonColor.MANUAL_BTN_ON);
+                Aoi_L_SensorBtnArr[0].BackColor = ColorTranslator.FromHtml(ButtonColor.MANUAL_BTN_ON);
             }
             else
             {
-                AoiL_SensorBtnArr[0].BackColor = ColorTranslator.FromHtml(ButtonColor.MANUAL_BTN_OFF);
+                Aoi_L_SensorBtnArr[0].BackColor = ColorTranslator.FromHtml(ButtonColor.MANUAL_BTN_OFF);
             }
             if (Globalo.motionManager.socketAoiMachine.GetVacuumOn(0, 0, true))
             {
-                AoiL_SensorBtnArr[1].BackColor = ColorTranslator.FromHtml(ButtonColor.MANUAL_BTN_ON);
+                Aoi_L_SensorBtnArr[1].BackColor = ColorTranslator.FromHtml(ButtonColor.MANUAL_BTN_ON);
             }
             else
             {
-                AoiL_SensorBtnArr[1].BackColor = ColorTranslator.FromHtml(ButtonColor.MANUAL_BTN_OFF);
+                Aoi_L_SensorBtnArr[1].BackColor = ColorTranslator.FromHtml(ButtonColor.MANUAL_BTN_OFF);
             }
 
             if (Globalo.motionManager.socketAoiMachine.GetIsProductInSocket(0, 1, true))
             {
-                AoiL_SensorBtnArr[2].BackColor = ColorTranslator.FromHtml(ButtonColor.MANUAL_BTN_ON);
+                Aoi_L_SensorBtnArr[3].BackColor = ColorTranslator.FromHtml(ButtonColor.MANUAL_BTN_ON);
             }
             else
             {
-                AoiL_SensorBtnArr[2].BackColor = ColorTranslator.FromHtml(ButtonColor.MANUAL_BTN_OFF);
+                Aoi_L_SensorBtnArr[3].BackColor = ColorTranslator.FromHtml(ButtonColor.MANUAL_BTN_OFF);
             }
             if (Globalo.motionManager.socketAoiMachine.GetVacuumOn(0, 2, true))
             {
-                AoiL_SensorBtnArr[3].BackColor = ColorTranslator.FromHtml(ButtonColor.MANUAL_BTN_ON);
+                Aoi_L_SensorBtnArr[4].BackColor = ColorTranslator.FromHtml(ButtonColor.MANUAL_BTN_ON);
             }
             else
             {
-                AoiL_SensorBtnArr[3].BackColor = ColorTranslator.FromHtml(ButtonColor.MANUAL_BTN_OFF);
+                Aoi_L_SensorBtnArr[4].BackColor = ColorTranslator.FromHtml(ButtonColor.MANUAL_BTN_OFF);
             }
+
 
             //------------------------------------------------------------------------------------------------------
             //
@@ -601,70 +606,47 @@ namespace ZenHandler.Dlg
             //
             //
             //------------------------------------------------------------------------------------------------------
-            for (i = 0; i < Right_MotorX_BtnArr.Length; i++)
+            for (i = 0; i < Aoi_R_MotorX_BtnArr.Length; i++)
             {
-                Machine.MagazineHandler.eTeachingPosList pos = (Machine.MagazineHandler.eTeachingPosList)i;
+                index = i;
+                Machine.AoiSocketMachine.eTeachingAoiPosList pos = (Machine.AoiSocketMachine.eTeachingAoiPosList)index;
 
 
-                if (Globalo.motionManager.magazineHandler.ChkYMotorPos(pos, Machine.eMagazine.MAGAZINE_R_Y) == true)
+                if (Globalo.motionManager.socketAoiMachine.ChkMotorPos(pos, Machine.eAoiSocket.SOCKET_R_X) == true)
                 {
-                    Right_MotorX_BtnArr[i].BackColor = ColorTranslator.FromHtml(ButtonColor.MANUAL_BTN_ON);
+                    Aoi_R_MotorX_BtnArr[i].BackColor = ColorTranslator.FromHtml(ButtonColor.MANUAL_BTN_ON);
                 }
                 else
                 {
-                    Right_MotorX_BtnArr[i].BackColor = ColorTranslator.FromHtml(ButtonColor.MANUAL_BTN_OFF);
+                    Aoi_R_MotorX_BtnArr[i].BackColor = ColorTranslator.FromHtml(ButtonColor.MANUAL_BTN_OFF);
                 }
             }
 
-            for (i = 0; i < Right_MotorZ_BtnArr.Length; i++)
+            for (i = 0; i < Aoi_R_MotorZ_BtnArr.Length; i++)
             {
-                Machine.MagazineHandler.eTeachingPosList pos = (Machine.MagazineHandler.eTeachingPosList)i;
 
-                if (Globalo.motionManager.magazineHandler.ChkZMotorPos(pos, Machine.eMagazine.MAGAZINE_R_Y) == true)
+                //2칸 건너띄어야함
+                if (i < 1)
                 {
-                    Right_MotorZ_BtnArr[i].BackColor = ColorTranslator.FromHtml(ButtonColor.MANUAL_BTN_ON);
+                    index = i;
                 }
                 else
                 {
-                    Right_MotorZ_BtnArr[i].BackColor = ColorTranslator.FromHtml(ButtonColor.MANUAL_BTN_OFF);
+                    index = i + 4;
                 }
-            }
+                Machine.AoiSocketMachine.eTeachingAoiPosList pos = (Machine.AoiSocketMachine.eTeachingAoiPosList)index;
 
-
-            if (Globalo.motionManager.socketAoiMachine.GetIsProductInSocket(1, 0, true))
-            {
-                AoiR_SensorBtnArr[0].BackColor = ColorTranslator.FromHtml(ButtonColor.MANUAL_BTN_ON);
-            }
-            else
-            {
-                AoiR_SensorBtnArr[0].BackColor = ColorTranslator.FromHtml(ButtonColor.MANUAL_BTN_OFF);
-            }
-            if (Globalo.motionManager.socketAoiMachine.GetVacuumOn(1, 0, true))
-            {
-                AoiR_SensorBtnArr[1].BackColor = ColorTranslator.FromHtml(ButtonColor.MANUAL_BTN_ON);
-            }
-            else
-            {
-                AoiR_SensorBtnArr[1].BackColor = ColorTranslator.FromHtml(ButtonColor.MANUAL_BTN_OFF);
-            }
-
-            if (Globalo.motionManager.socketAoiMachine.GetIsProductInSocket(1, 1, true))
-            {
-                AoiR_SensorBtnArr[2].BackColor = ColorTranslator.FromHtml(ButtonColor.MANUAL_BTN_ON);
-            }
-            else
-            {
-                AoiR_SensorBtnArr[2].BackColor = ColorTranslator.FromHtml(ButtonColor.MANUAL_BTN_OFF);
-            }
-            if (Globalo.motionManager.socketAoiMachine.GetVacuumOn(1, 2, true))
-            {
-                AoiR_SensorBtnArr[3].BackColor = ColorTranslator.FromHtml(ButtonColor.MANUAL_BTN_ON);
-            }
-            else
-            {
-                AoiR_SensorBtnArr[3].BackColor = ColorTranslator.FromHtml(ButtonColor.MANUAL_BTN_OFF);
+                if (Globalo.motionManager.socketAoiMachine.ChkMotorPos(pos, Machine.eAoiSocket.SOCKET_L_Z) == true)
+                {
+                    Aoi_R_MotorZ_BtnArr[i].BackColor = ColorTranslator.FromHtml(ButtonColor.MANUAL_BTN_ON);
+                }
+                else
+                {
+                    Aoi_L_MotorZ_BtnArr[i].BackColor = ColorTranslator.FromHtml(ButtonColor.MANUAL_BTN_OFF);
+                }
             }
         }
 
+       
     }
 }
