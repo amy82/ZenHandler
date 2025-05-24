@@ -544,12 +544,34 @@ namespace ZenHandler.Dlg
                 Globalo.LogPrint("ManualControl", "[INFO] 일시 정지 중 사용 불가", Globalo.eMessageName.M_WARNING);
                 return;
             }
-            Globalo.motionManager.socketEEpromMachine.RunState = OperationState.Stopped;
-            Globalo.motionManager.socketEEpromMachine.ContactUp(Group, index, bFlag);
+            Globalo.motionManager.socketFwMachine.RunState = OperationState.Stopped;
+            Globalo.motionManager.socketFwMachine.ContactPusherUp(Group, index, bFlag);
 
 
         }
         private void ManualContactFor(int Group, int index, bool bFlag)
+        {
+            if (Globalo.motionManager.socketEEpromMachine.RunState == OperationState.AutoRunning)
+            {
+                Globalo.LogPrint("ManualControl", "[INFO] 자동 운전 중 사용 불가", Globalo.eMessageName.M_WARNING);
+                return;
+            }
+            if (Globalo.motionManager.socketEEpromMachine.RunState == OperationState.Paused)
+            {
+                Globalo.LogPrint("ManualControl", "[INFO] 일시 정지 중 사용 불가", Globalo.eMessageName.M_WARNING);
+                return;
+            }
+            if (Globalo.motionManager.socketFwMachine.GetIsContactUp(Group, index, true) == false)
+            {
+                Globalo.LogPrint("ManualControl", "[INFO] CONTACT 하강 상태 사용 불가", Globalo.eMessageName.M_WARNING);
+                return;
+            }
+            Globalo.motionManager.socketFwMachine.RunState = OperationState.Stopped;
+            Globalo.motionManager.socketFwMachine.ContactPusherFor(Group, index, bFlag);
+
+
+        }
+        private void ManualRotatorUp(int Group, int index, bool bFlag)
         {
             if (Globalo.motionManager.socketEEpromMachine.RunState == OperationState.AutoRunning)
             {
@@ -566,216 +588,281 @@ namespace ZenHandler.Dlg
                 Globalo.LogPrint("ManualControl", "[INFO] CONTACT 하강 상태 사용 불가", Globalo.eMessageName.M_WARNING);
                 return;
             }
-            Globalo.motionManager.socketEEpromMachine.RunState = OperationState.Stopped;
-            Globalo.motionManager.socketEEpromMachine.ContactFor(Group, index, bFlag);
+            Globalo.motionManager.socketFwMachine.RunState = OperationState.Stopped;
+            Globalo.motionManager.socketFwMachine.FlipperUp(Group, index, bFlag);
 
 
         }
+        
+        private void ManualRotatorFlip(int Group, int index, bool bFlag)
+        {
+            if (Globalo.motionManager.socketEEpromMachine.RunState == OperationState.AutoRunning)
+            {
+                Globalo.LogPrint("ManualControl", "[INFO] 자동 운전 중 사용 불가", Globalo.eMessageName.M_WARNING);
+                return;
+            }
+            if (Globalo.motionManager.socketEEpromMachine.RunState == OperationState.Paused)
+            {
+                Globalo.LogPrint("ManualControl", "[INFO] 일시 정지 중 사용 불가", Globalo.eMessageName.M_WARNING);
+                return;
+            }
+            if (Globalo.motionManager.socketFwMachine.GetIsContactUp(Group, index, true) == false)
+            {
+                Globalo.LogPrint("ManualControl", "[INFO] CONTACT 하강 상태 사용 불가", Globalo.eMessageName.M_WARNING);
+                return;
+            }
+            Globalo.motionManager.socketFwMachine.RunState = OperationState.Stopped;
+            Globalo.motionManager.socketFwMachine.FlipperRotate(Group, index, bFlag);
+
+
+        }
+
+        private void ManualRotatorGrip(int Group, int index, bool bFlag)
+        {
+            if (Globalo.motionManager.socketEEpromMachine.RunState == OperationState.AutoRunning)
+            {
+                Globalo.LogPrint("ManualControl", "[INFO] 자동 운전 중 사용 불가", Globalo.eMessageName.M_WARNING);
+                return;
+            }
+            if (Globalo.motionManager.socketEEpromMachine.RunState == OperationState.Paused)
+            {
+                Globalo.LogPrint("ManualControl", "[INFO] 일시 정지 중 사용 불가", Globalo.eMessageName.M_WARNING);
+                return;
+            }
+            if (Globalo.motionManager.socketEEpromMachine.GetContactUp(Group, index, true) == false)
+            {
+                Globalo.LogPrint("ManualControl", "[INFO] CONTACT 하강 상태 사용 불가", Globalo.eMessageName.M_WARNING);
+                return;
+            }
+            Globalo.motionManager.socketFwMachine.RunState = OperationState.Stopped;
+            Globalo.motionManager.socketFwMachine.FlipperGrip(Group, index, bFlag);
+
+
+        }
+        
         //
         // L
         //
-        private void button_ManualEEprom_Socket_Contact_Up1_Click(object sender, EventArgs e)
+        private void button_ManualFw_Socket_Contact_Up1_Click(object sender, EventArgs e)
         {
-            ManualContactUp(0, 0, true);
+            ManualContactUp(CurrentFwSocket, 0, true);
             Globalo.LogPrint("ManualControl", "[SOCKET] #1 CONTACT UP");
         }
 
-        private void button_ManualEEprom_Socket_Contact_Up2_Click(object sender, EventArgs e)
+        private void button_ManualFw_Socket_Contact_Up2_Click(object sender, EventArgs e)
         {
-            ManualContactUp(0, 1, true);
+            ManualContactUp(CurrentFwSocket, 1, true);
             Globalo.LogPrint("ManualControl", "[SOCKET] #2 CONTACT UP");
         }
 
-        private void button_ManualEEprom_Socket_Contact_Up3_Click(object sender, EventArgs e)
+        private void button_ManualFw_Socket_Contact_Up3_Click(object sender, EventArgs e)
         {
-            ManualContactUp(0, 2, true);
+            ManualContactUp(CurrentFwSocket, 2, true);
             Globalo.LogPrint("ManualControl", "[SOCKET] #3 CONTACT UP");
         }
 
-        private void button_ManualEEprom_Socket_Contact_Up4_Click(object sender, EventArgs e)
+        private void button_ManualFw_Socket_Contact_Up4_Click(object sender, EventArgs e)
         {
-            ManualContactUp(0, 3, true);
+            ManualContactUp(CurrentFwSocket, 3, true);
             Globalo.LogPrint("ManualControl", "[SOCKET] #4 CONTACT UP");
         }
 
-        private void button_ManualEEprom_Socket_Contact_Down1_Click(object sender, EventArgs e)
+        private void button_ManualFw_Socket_Contact_Down1_Click(object sender, EventArgs e)
         {
-            ManualContactUp(0, 0, false);
+            ManualContactUp(CurrentFwSocket, 0, false);
             Globalo.LogPrint("ManualControl", "[SOCKET] #1 CONTACT DOWN");
         }
 
-        private void button_ManualEEprom_Socket_Contact_Down2_Click(object sender, EventArgs e)
+        private void button_ManualFw_Socket_Contact_Down2_Click(object sender, EventArgs e)
         {
-            ManualContactUp(0, 1, false);
+            ManualContactUp(CurrentFwSocket, 1, false);
             Globalo.LogPrint("ManualControl", "[SOCKET] #2 CONTACT DOWN");
         }
 
-        private void button_ManualEEprom_Socket_Contact_Down3_Click(object sender, EventArgs e)
+        private void button_ManualFw_Socket_Contact_Down3_Click(object sender, EventArgs e)
         {
-            ManualContactUp(0, 2, false);
+            ManualContactUp(CurrentFwSocket, 2, false);
             Globalo.LogPrint("ManualControl", "[SOCKET] #3 CONTACT DOWN");
         }
 
-        private void button_ManualEEprom_Socket_Contact_Down4_Click(object sender, EventArgs e)
+        private void button_ManualFw_Socket_Contact_Down4_Click(object sender, EventArgs e)
         {
-            ManualContactUp(0, 3, false);
+            ManualContactUp(CurrentFwSocket, 3, false);
             Globalo.LogPrint("ManualControl", "[SOCKET] #4 CONTACT DOWN");
         }
 
-        private void button_ManualEEprom_Socket_Contact_For1_Click(object sender, EventArgs e)
+
+
+
+
+
+        private void button_ManualFw_Socket_Contact_For1_Click(object sender, EventArgs e)
         {
-            ManualContactFor(0, 0, true);
+            ManualContactFor(CurrentFwSocket, 0, true);
             Globalo.LogPrint("ManualControl", "[SOCKET] #1 CONTACT FOR");
         }
 
-        private void button_ManualEEprom_Socket_Contact_For2_Click(object sender, EventArgs e)
+        private void button_ManualFw_Socket_Contact_For2_Click(object sender, EventArgs e)
         {
-            ManualContactFor(0, 1, true);
+            ManualContactFor(CurrentFwSocket, 1, true);
             Globalo.LogPrint("ManualControl", "[SOCKET] #2 CONTACT FOR");
         }
 
-        private void button_ManualEEprom_Socket_Contact_For3_Click(object sender, EventArgs e)
+        private void button_ManualFw_Socket_Contact_For3_Click(object sender, EventArgs e)
         {
-            ManualContactFor(0, 2, true);
+            ManualContactFor(CurrentFwSocket, 2, true);
             Globalo.LogPrint("ManualControl", "[SOCKET] #3 CONTACT FOR");
         }
 
-        private void button_ManualEEprom_Socket_Contact_For4_Click(object sender, EventArgs e)
+        private void button_ManualFw_Socket_Contact_For4_Click(object sender, EventArgs e)
         {
-            ManualContactFor(0, 3, true);
+            ManualContactFor(CurrentFwSocket, 3, true);
             Globalo.LogPrint("ManualControl", "[SOCKET] #4 CONTACT FOR");
         }
 
-        private void button_ManualEEprom_Socket_Contact_Back1_Click(object sender, EventArgs e)
+        private void button_ManualFw_Socket_Contact_Back1_Click(object sender, EventArgs e)
         {
-            ManualContactFor(0, 0, false);
+            ManualContactFor(CurrentFwSocket, 0, false);
             Globalo.LogPrint("ManualControl", "[SOCKET] #1 CONTACT BACK");
         }
 
-        private void button_ManualEEprom_Socket_Contact_Back2_Click(object sender, EventArgs e)
+        private void button_ManualFw_Socket_Contact_Back2_Click(object sender, EventArgs e)
         {
-            ManualContactFor(0, 1, false);
+            ManualContactFor(CurrentFwSocket, 1, false);
             Globalo.LogPrint("ManualControl", "[SOCKET] #2 CONTACT BACK");
         }
 
-        private void button_ManualEEprom_Socket_Contact_Back3_Click(object sender, EventArgs e)
+        private void button_ManualFw_Socket_Contact_Back3_Click(object sender, EventArgs e)
         {
-            ManualContactFor(0, 2, false);
+            ManualContactFor(CurrentFwSocket, 2, false);
             Globalo.LogPrint("ManualControl", "[SOCKET] #3 CONTACT BACK");
         }
 
-        private void button_ManualEEprom_Socket_Contact_Back4_Click(object sender, EventArgs e)
+        private void button_ManualFw_Socket_Contact_Back4_Click(object sender, EventArgs e)
         {
-            ManualContactFor(0, 3, false);
+            ManualContactFor(CurrentFwSocket, 3, false);
             Globalo.LogPrint("ManualControl", "[SOCKET] #4 CONTACT BACK");
         }
 
-        //
-        //  R
-        //
-        private void button_ManualEEprom_R_Socket_Contact_Up1_Click(object sender, EventArgs e)
+
+        //ROTATOR
+        private void button_ManualFw_LT_Socket_Rotator_Up1_Click(object sender, EventArgs e)
         {
-            ManualContactUp(1, 0, true);
-            Globalo.LogPrint("ManualControl", "[SOCKET-R] #1 CONTACT UP");
+            ManualRotatorUp(CurrentFwSocket, 0, true);
         }
 
-        private void button_ManualEEprom_R_Socket_Contact_Up2_Click(object sender, EventArgs e)
+        private void button_ManualFw_LT_Socket_Rotator_Up2_Click(object sender, EventArgs e)
         {
-            ManualContactUp(1, 1, true);
-            Globalo.LogPrint("ManualControl", "[SOCKET-R] #2 CONTACT UP");
+            ManualRotatorUp(CurrentFwSocket, 1, true);
         }
 
-        private void button_ManualEEprom_R_Socket_Contact_Up3_Click(object sender, EventArgs e)
+        private void button_ManualFw_LT_Socket_Rotator_Up3_Click(object sender, EventArgs e)
         {
-            ManualContactUp(1, 2, true);
-            Globalo.LogPrint("ManualControl", "[SOCKET-R] #3 CONTACT UP");
+            ManualRotatorUp(CurrentFwSocket, 2, true);
         }
 
-        private void button_ManualEEprom_R_Socket_Contact_Up4_Click(object sender, EventArgs e)
+        private void button_ManualFw_LT_Socket_Rotator_Up4_Click(object sender, EventArgs e)
         {
-            ManualContactUp(1, 3, true);
-            Globalo.LogPrint("ManualControl", "[SOCKET-R] #4 CONTACT UP");
+            ManualRotatorUp(CurrentFwSocket, 3, true);
         }
 
-        private void button_ManualEEprom_R_Socket_Contact_Down1_Click(object sender, EventArgs e)
+        private void button_ManualFw_LT_Socket_Rotator_Down1_Click(object sender, EventArgs e)
         {
-            ManualContactUp(1, 0, false);
-            Globalo.LogPrint("ManualControl", "[SOCKET-R] #1 CONTACT DOWN");
+            ManualRotatorUp(CurrentFwSocket, 0, false);
         }
 
-        private void button_ManualEEprom_R_Socket_Contact_Down2_Click(object sender, EventArgs e)
+        private void button_ManualFw_LT_Socket_Rotator_Down2_Click(object sender, EventArgs e)
         {
-            ManualContactUp(1, 1, false);
-            Globalo.LogPrint("ManualControl", "[SOCKET-R] #2 CONTACT DOWN");
+            ManualRotatorUp(CurrentFwSocket, 1, false);
         }
 
-        private void button_ManualEEprom_R_Socket_Contact_Down3_Click(object sender, EventArgs e)
+        private void button_ManualFw_LT_Socket_Rotator_Down3_Click(object sender, EventArgs e)
         {
-            ManualContactUp(1, 2, false);
-            Globalo.LogPrint("ManualControl", "[SOCKET-R] #3 CONTACT DOWN");
+            ManualRotatorUp(CurrentFwSocket, 2, false);
         }
 
-        private void button_ManualEEprom_R_Socket_Contact_Down4_Click(object sender, EventArgs e)
+        private void button_ManualFw_LT_Socket_Rotator_Down4_Click(object sender, EventArgs e)
         {
-            ManualContactUp(1, 3, false);
-            Globalo.LogPrint("ManualControl", "[SOCKET-R] #4 CONTACT DOWN");
+            ManualRotatorUp(CurrentFwSocket, 3, false);
+        }
+        private void button_ManualFw_LT_Socket_Rotator_Flip1_Click(object sender, EventArgs e)
+        {
+            ManualRotatorFlip(CurrentFwSocket, 0, true);
         }
 
-        private void button_ManualEEprom_R_Socket_Contact_For1_Click(object sender, EventArgs e)
+        private void button_ManualFw_LT_Socket_Rotator_Flip2_Click(object sender, EventArgs e)
         {
-            ManualContactFor(1, 0, true);
-            Globalo.LogPrint("ManualControl", "[SOCKET-R] #1 CONTACT FOR");
+            ManualRotatorFlip(CurrentFwSocket, 1, true);
         }
 
-        private void button_ManualEEprom_R_Socket_Contact_For2_Click(object sender, EventArgs e)
+        private void button_ManualFw_LT_Socket_Rotator_Flip3_Click(object sender, EventArgs e)
         {
-            ManualContactFor(1, 1, true);
-            Globalo.LogPrint("ManualControl", "[SOCKET-R] #2 CONTACT FOR");
+            ManualRotatorFlip(CurrentFwSocket, 2, true);
         }
 
-        private void button_ManualEEprom_R_Socket_Contact_For3_Click(object sender, EventArgs e)
+        private void button_ManualFw_LT_Socket_Rotator_Flip4_Click(object sender, EventArgs e)
         {
-            ManualContactFor(1, 2, true);
-            Globalo.LogPrint("ManualControl", "[SOCKET-R] #3 CONTACT FOR");
+            ManualRotatorFlip(CurrentFwSocket, 3, true);
         }
 
-        private void button_ManualEEprom_R_Socket_Contact_For4_Click(object sender, EventArgs e)
+        private void button_ManualFw_LT_Socket_Rotator_Unflip1_Click(object sender, EventArgs e)
         {
-            ManualContactFor(1, 3, true);
-            Globalo.LogPrint("ManualControl", "[SOCKET-R] #4 CONTACT FOR");
+            ManualRotatorFlip(CurrentFwSocket, 0, false);
         }
 
-        private void button_ManualEEprom_R_Socket_Contact_Back1_Click(object sender, EventArgs e)
+        private void button_ManualFw_LT_Socket_Rotator_Unflip2_Click(object sender, EventArgs e)
         {
-            ManualContactFor(1, 0, false);
-            Globalo.LogPrint("ManualControl", "[SOCKET-R] #1 CONTACT BACK");
+            ManualRotatorFlip(CurrentFwSocket, 1, false);
         }
 
-        private void button_ManualEEprom_R_Socket_Contact_Back2_Click(object sender, EventArgs e)
+        private void button_ManualFw_LT_Socket_Rotator_Unflip3_Click(object sender, EventArgs e)
         {
-            ManualContactFor(1, 1, false);
-            Globalo.LogPrint("ManualControl", "[SOCKET-R] #2 CONTACT BACK");
+            ManualRotatorFlip(CurrentFwSocket, 2, false);
         }
 
-        private void button_ManualEEprom_R_Socket_Contact_Back3_Click(object sender, EventArgs e)
+        private void button_ManualFw_LT_Socket_Rotator_Unflip4_Click(object sender, EventArgs e)
         {
-            ManualContactFor(1, 2, false);
-            Globalo.LogPrint("ManualControl", "[SOCKET-R] #3 CONTACT BACK");
+            ManualRotatorFlip(CurrentFwSocket, 3, false);
         }
 
-        private void button_ManualEEprom_R_Socket_Contact_Back4_Click(object sender, EventArgs e)
+        private void button_ManualFw_LT_Socket_Rotator_Grip1_Click(object sender, EventArgs e)
         {
-            ManualContactFor(1, 3, false);
-            Globalo.LogPrint("ManualControl", "[SOCKET-R] #4 CONTACT BACK");
-        }
-        private void button_ManualAoi_Socket_R_Wait_Pos_Z_Click(object sender, EventArgs e)
-        {
-            Manual_Z_Move(Machine.AoiSocketMachine.eTeachingAoiPosList.WAIT_POS, Machine.eAoiSocket.SOCKET_R_Z);
+            ManualRotatorGrip(CurrentFwSocket, 0, true);
         }
 
-        private void button_ManualAoi_Socket_R_H_In_Pos_Z_Click(object sender, EventArgs e)
+        private void button_ManualFw_LT_Socket_Rotator_Grip2_Click(object sender, EventArgs e)
         {
-            Manual_Z_Move(Machine.AoiSocketMachine.eTeachingAoiPosList.HOUSING_IN_POS, Machine.eAoiSocket.SOCKET_R_Z);
+            ManualRotatorGrip(CurrentFwSocket, 1, true);
+        }
+
+        private void button_ManualFw_LT_Socket_Rotator_Grip3_Click(object sender, EventArgs e)
+        {
+            ManualRotatorGrip(CurrentFwSocket, 2, true);
+        }
+
+        private void button_ManualFw_LT_Socket_Rotator_Grip4_Click(object sender, EventArgs e)
+        {
+            ManualRotatorGrip(CurrentFwSocket, 3, true);
+        }
+
+        private void button_ManualFw_LT_Socket_Rotator_Ungrip1_Click(object sender, EventArgs e)
+        {
+            ManualRotatorGrip(CurrentFwSocket, 0, false);
+        }
+
+        private void button_ManualFw_LT_Socket_Rotator_Ungrip2_Click(object sender, EventArgs e)
+        {
+            ManualRotatorGrip(CurrentFwSocket, 1, false);
+        }
+
+        private void button_ManualFw_LT_Socket_Rotator_Ungrip3_Click(object sender, EventArgs e)
+        {
+            ManualRotatorGrip(CurrentFwSocket, 2, false);
+        }
+
+        private void button_ManualFw_LT_Socket_Rotator_Ungrip4_Click(object sender, EventArgs e)
+        {
+            ManualRotatorGrip(CurrentFwSocket, 3, false);
         }
         private void Manual_Timer_Tick(object sender, EventArgs e)
         {
@@ -1033,5 +1120,7 @@ namespace ZenHandler.Dlg
         {
             FwSocektSelect(3);
         }
+
+        
     }
 }

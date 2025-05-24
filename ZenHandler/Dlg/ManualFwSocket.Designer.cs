@@ -153,7 +153,7 @@ namespace ZenHandler.Dlg
             this.button_ManualFw_LT_Socket_Contact_Back4.TabIndex = 77;
             this.button_ManualFw_LT_Socket_Contact_Back4.Text = "Contact Back4";
             this.button_ManualFw_LT_Socket_Contact_Back4.UseVisualStyleBackColor = false;
-            this.button_ManualFw_LT_Socket_Contact_Back4.Click += new System.EventHandler(this.button_ManualEEprom_Socket_Contact_Back4_Click);
+            this.button_ManualFw_LT_Socket_Contact_Back4.Click += new System.EventHandler(this.button_ManualFw_Socket_Contact_Back4_Click);
             // 
             // button_ManualFw_LT_Socket_Contact_For4
             // 
@@ -167,7 +167,7 @@ namespace ZenHandler.Dlg
             this.button_ManualFw_LT_Socket_Contact_For4.TabIndex = 76;
             this.button_ManualFw_LT_Socket_Contact_For4.Text = "Contact For4";
             this.button_ManualFw_LT_Socket_Contact_For4.UseVisualStyleBackColor = false;
-            this.button_ManualFw_LT_Socket_Contact_For4.Click += new System.EventHandler(this.button_ManualEEprom_Socket_Contact_For4_Click);
+            this.button_ManualFw_LT_Socket_Contact_For4.Click += new System.EventHandler(this.button_ManualFw_Socket_Contact_For4_Click);
             // 
             // button_ManualFw_LT_Socket_Contact_Back3
             // 
@@ -181,7 +181,7 @@ namespace ZenHandler.Dlg
             this.button_ManualFw_LT_Socket_Contact_Back3.TabIndex = 75;
             this.button_ManualFw_LT_Socket_Contact_Back3.Text = "Contact Back3";
             this.button_ManualFw_LT_Socket_Contact_Back3.UseVisualStyleBackColor = false;
-            this.button_ManualFw_LT_Socket_Contact_Back3.Click += new System.EventHandler(this.button_ManualEEprom_Socket_Contact_Back3_Click);
+            this.button_ManualFw_LT_Socket_Contact_Back3.Click += new System.EventHandler(this.button_ManualFw_Socket_Contact_Back3_Click);
             // 
             // button_ManualFw_LT_Socket_Contact_For3
             // 
@@ -195,7 +195,7 @@ namespace ZenHandler.Dlg
             this.button_ManualFw_LT_Socket_Contact_For3.TabIndex = 74;
             this.button_ManualFw_LT_Socket_Contact_For3.Text = "Contact For3";
             this.button_ManualFw_LT_Socket_Contact_For3.UseVisualStyleBackColor = false;
-            this.button_ManualFw_LT_Socket_Contact_For3.Click += new System.EventHandler(this.button_ManualEEprom_Socket_Contact_For3_Click);
+            this.button_ManualFw_LT_Socket_Contact_For3.Click += new System.EventHandler(this.button_ManualFw_Socket_Contact_For3_Click);
             // 
             // button_ManualFw_LT_Socket_Contact_Back2
             // 
@@ -209,7 +209,7 @@ namespace ZenHandler.Dlg
             this.button_ManualFw_LT_Socket_Contact_Back2.TabIndex = 73;
             this.button_ManualFw_LT_Socket_Contact_Back2.Text = "Contact Back2";
             this.button_ManualFw_LT_Socket_Contact_Back2.UseVisualStyleBackColor = false;
-            this.button_ManualFw_LT_Socket_Contact_Back2.Click += new System.EventHandler(this.button_ManualEEprom_Socket_Contact_Back2_Click);
+            this.button_ManualFw_LT_Socket_Contact_Back2.Click += new System.EventHandler(this.button_ManualFw_Socket_Contact_Back2_Click);
             // 
             // button_ManualFw_LT_Socket_Contact_For2
             // 
@@ -223,7 +223,7 @@ namespace ZenHandler.Dlg
             this.button_ManualFw_LT_Socket_Contact_For2.TabIndex = 72;
             this.button_ManualFw_LT_Socket_Contact_For2.Text = "Contact For2";
             this.button_ManualFw_LT_Socket_Contact_For2.UseVisualStyleBackColor = false;
-            this.button_ManualFw_LT_Socket_Contact_For2.Click += new System.EventHandler(this.button_ManualEEprom_Socket_Contact_For2_Click);
+            this.button_ManualFw_LT_Socket_Contact_For2.Click += new System.EventHandler(this.button_ManualFw_Socket_Contact_For2_Click);
             // 
             // button_ManualFw_LT_Socket_Contact_Back1
             // 
@@ -237,7 +237,7 @@ namespace ZenHandler.Dlg
             this.button_ManualFw_LT_Socket_Contact_Back1.TabIndex = 71;
             this.button_ManualFw_LT_Socket_Contact_Back1.Text = "Contact Back1";
             this.button_ManualFw_LT_Socket_Contact_Back1.UseVisualStyleBackColor = false;
-            this.button_ManualFw_LT_Socket_Contact_Back1.Click += new System.EventHandler(this.button_ManualEEprom_Socket_Contact_Back1_Click);
+            this.button_ManualFw_LT_Socket_Contact_Back1.Click += new System.EventHandler(this.button_ManualFw_Socket_Contact_Back1_Click);
             // 
             // button_ManualFw_LT_Socket_Contact_For1
             // 
@@ -251,7 +251,7 @@ namespace ZenHandler.Dlg
             this.button_ManualFw_LT_Socket_Contact_For1.TabIndex = 70;
             this.button_ManualFw_LT_Socket_Contact_For1.Text = "Contact For1";
             this.button_ManualFw_LT_Socket_Contact_For1.UseVisualStyleBackColor = false;
-            this.button_ManualFw_LT_Socket_Contact_For1.Click += new System.EventHandler(this.button_ManualEEprom_Socket_Contact_For1_Click);
+            this.button_ManualFw_LT_Socket_Contact_For1.Click += new System.EventHandler(this.button_ManualFw_Socket_Contact_For1_Click);
             // 
             // button_ManualFw_LT_Socket_Contact_Down4
             // 
@@ -265,7 +265,7 @@ namespace ZenHandler.Dlg
             this.button_ManualFw_LT_Socket_Contact_Down4.TabIndex = 69;
             this.button_ManualFw_LT_Socket_Contact_Down4.Text = "Contact Down4";
             this.button_ManualFw_LT_Socket_Contact_Down4.UseVisualStyleBackColor = false;
-            this.button_ManualFw_LT_Socket_Contact_Down4.Click += new System.EventHandler(this.button_ManualEEprom_Socket_Contact_Down4_Click);
+            this.button_ManualFw_LT_Socket_Contact_Down4.Click += new System.EventHandler(this.button_ManualFw_Socket_Contact_Down4_Click);
             // 
             // button_ManualFw_LT_Socket_Contact_Up4
             // 
@@ -279,7 +279,7 @@ namespace ZenHandler.Dlg
             this.button_ManualFw_LT_Socket_Contact_Up4.TabIndex = 68;
             this.button_ManualFw_LT_Socket_Contact_Up4.Text = "Contact Up4";
             this.button_ManualFw_LT_Socket_Contact_Up4.UseVisualStyleBackColor = false;
-            this.button_ManualFw_LT_Socket_Contact_Up4.Click += new System.EventHandler(this.button_ManualEEprom_Socket_Contact_Up4_Click);
+            this.button_ManualFw_LT_Socket_Contact_Up4.Click += new System.EventHandler(this.button_ManualFw_Socket_Contact_Up4_Click);
             // 
             // button_ManualFw_LT_Socket_Contact_Down3
             // 
@@ -293,7 +293,7 @@ namespace ZenHandler.Dlg
             this.button_ManualFw_LT_Socket_Contact_Down3.TabIndex = 67;
             this.button_ManualFw_LT_Socket_Contact_Down3.Text = "Contact Down3";
             this.button_ManualFw_LT_Socket_Contact_Down3.UseVisualStyleBackColor = false;
-            this.button_ManualFw_LT_Socket_Contact_Down3.Click += new System.EventHandler(this.button_ManualEEprom_Socket_Contact_Down3_Click);
+            this.button_ManualFw_LT_Socket_Contact_Down3.Click += new System.EventHandler(this.button_ManualFw_Socket_Contact_Down3_Click);
             // 
             // button_ManualFw_LT_Socket_Contact_Up3
             // 
@@ -307,7 +307,7 @@ namespace ZenHandler.Dlg
             this.button_ManualFw_LT_Socket_Contact_Up3.TabIndex = 66;
             this.button_ManualFw_LT_Socket_Contact_Up3.Text = "Contact Up3";
             this.button_ManualFw_LT_Socket_Contact_Up3.UseVisualStyleBackColor = false;
-            this.button_ManualFw_LT_Socket_Contact_Up3.Click += new System.EventHandler(this.button_ManualEEprom_Socket_Contact_Up3_Click);
+            this.button_ManualFw_LT_Socket_Contact_Up3.Click += new System.EventHandler(this.button_ManualFw_Socket_Contact_Up3_Click);
             // 
             // button_ManualFw_LT_Socket_Contact_Down2
             // 
@@ -321,7 +321,7 @@ namespace ZenHandler.Dlg
             this.button_ManualFw_LT_Socket_Contact_Down2.TabIndex = 65;
             this.button_ManualFw_LT_Socket_Contact_Down2.Text = "Contact Down2";
             this.button_ManualFw_LT_Socket_Contact_Down2.UseVisualStyleBackColor = false;
-            this.button_ManualFw_LT_Socket_Contact_Down2.Click += new System.EventHandler(this.button_ManualEEprom_Socket_Contact_Down2_Click);
+            this.button_ManualFw_LT_Socket_Contact_Down2.Click += new System.EventHandler(this.button_ManualFw_Socket_Contact_Down2_Click);
             // 
             // button_ManualFw_LT_Socket_Contact_Up2
             // 
@@ -335,7 +335,7 @@ namespace ZenHandler.Dlg
             this.button_ManualFw_LT_Socket_Contact_Up2.TabIndex = 64;
             this.button_ManualFw_LT_Socket_Contact_Up2.Text = "Contact Up2";
             this.button_ManualFw_LT_Socket_Contact_Up2.UseVisualStyleBackColor = false;
-            this.button_ManualFw_LT_Socket_Contact_Up2.Click += new System.EventHandler(this.button_ManualEEprom_Socket_Contact_Up2_Click);
+            this.button_ManualFw_LT_Socket_Contact_Up2.Click += new System.EventHandler(this.button_ManualFw_Socket_Contact_Up2_Click);
             // 
             // button_ManualFw_LT_Socket_Contact_Down1
             // 
@@ -349,7 +349,7 @@ namespace ZenHandler.Dlg
             this.button_ManualFw_LT_Socket_Contact_Down1.TabIndex = 35;
             this.button_ManualFw_LT_Socket_Contact_Down1.Text = "Contact Down1";
             this.button_ManualFw_LT_Socket_Contact_Down1.UseVisualStyleBackColor = false;
-            this.button_ManualFw_LT_Socket_Contact_Down1.Click += new System.EventHandler(this.button_ManualEEprom_Socket_Contact_Down1_Click);
+            this.button_ManualFw_LT_Socket_Contact_Down1.Click += new System.EventHandler(this.button_ManualFw_Socket_Contact_Down1_Click);
             // 
             // button_ManualFw_LT_Socket_Contact_Up1
             // 
@@ -363,7 +363,7 @@ namespace ZenHandler.Dlg
             this.button_ManualFw_LT_Socket_Contact_Up1.TabIndex = 32;
             this.button_ManualFw_LT_Socket_Contact_Up1.Text = "Contact Up1";
             this.button_ManualFw_LT_Socket_Contact_Up1.UseVisualStyleBackColor = false;
-            this.button_ManualFw_LT_Socket_Contact_Up1.Click += new System.EventHandler(this.button_ManualEEprom_Socket_Contact_Up1_Click);
+            this.button_ManualFw_LT_Socket_Contact_Up1.Click += new System.EventHandler(this.button_ManualFw_Socket_Contact_Up1_Click);
             // 
             // button_ManualFw_LT_Socket_Rotator_Flip4
             // 
@@ -377,6 +377,7 @@ namespace ZenHandler.Dlg
             this.button_ManualFw_LT_Socket_Rotator_Flip4.TabIndex = 93;
             this.button_ManualFw_LT_Socket_Rotator_Flip4.Text = "Rotator Flip4";
             this.button_ManualFw_LT_Socket_Rotator_Flip4.UseVisualStyleBackColor = false;
+            this.button_ManualFw_LT_Socket_Rotator_Flip4.Click += new System.EventHandler(this.button_ManualFw_LT_Socket_Rotator_Flip4_Click);
             // 
             // button_ManualFw_LT_Socket_Rotator_Flip3
             // 
@@ -390,6 +391,7 @@ namespace ZenHandler.Dlg
             this.button_ManualFw_LT_Socket_Rotator_Flip3.TabIndex = 92;
             this.button_ManualFw_LT_Socket_Rotator_Flip3.Text = "Rotator Flip3";
             this.button_ManualFw_LT_Socket_Rotator_Flip3.UseVisualStyleBackColor = false;
+            this.button_ManualFw_LT_Socket_Rotator_Flip3.Click += new System.EventHandler(this.button_ManualFw_LT_Socket_Rotator_Flip3_Click);
             // 
             // button_ManualFw_LT_Socket_Rotator_Flip2
             // 
@@ -403,6 +405,7 @@ namespace ZenHandler.Dlg
             this.button_ManualFw_LT_Socket_Rotator_Flip2.TabIndex = 91;
             this.button_ManualFw_LT_Socket_Rotator_Flip2.Text = "Rotator Flip2";
             this.button_ManualFw_LT_Socket_Rotator_Flip2.UseVisualStyleBackColor = false;
+            this.button_ManualFw_LT_Socket_Rotator_Flip2.Click += new System.EventHandler(this.button_ManualFw_LT_Socket_Rotator_Flip2_Click);
             // 
             // button_ManualFw_LT_Socket_Rotator_Flip1
             // 
@@ -416,6 +419,7 @@ namespace ZenHandler.Dlg
             this.button_ManualFw_LT_Socket_Rotator_Flip1.TabIndex = 90;
             this.button_ManualFw_LT_Socket_Rotator_Flip1.Text = "Rotator Flip1";
             this.button_ManualFw_LT_Socket_Rotator_Flip1.UseVisualStyleBackColor = false;
+            this.button_ManualFw_LT_Socket_Rotator_Flip1.Click += new System.EventHandler(this.button_ManualFw_LT_Socket_Rotator_Flip1_Click);
             // 
             // button_ManualFw_LT_Socket_Rotator_Down4
             // 
@@ -429,6 +433,7 @@ namespace ZenHandler.Dlg
             this.button_ManualFw_LT_Socket_Rotator_Down4.TabIndex = 89;
             this.button_ManualFw_LT_Socket_Rotator_Down4.Text = "Rotator Down4";
             this.button_ManualFw_LT_Socket_Rotator_Down4.UseVisualStyleBackColor = false;
+            this.button_ManualFw_LT_Socket_Rotator_Down4.Click += new System.EventHandler(this.button_ManualFw_LT_Socket_Rotator_Down4_Click);
             // 
             // button_ManualFw_LT_Socket_Rotator_Up4
             // 
@@ -442,6 +447,7 @@ namespace ZenHandler.Dlg
             this.button_ManualFw_LT_Socket_Rotator_Up4.TabIndex = 88;
             this.button_ManualFw_LT_Socket_Rotator_Up4.Text = "Rotator Up4";
             this.button_ManualFw_LT_Socket_Rotator_Up4.UseVisualStyleBackColor = false;
+            this.button_ManualFw_LT_Socket_Rotator_Up4.Click += new System.EventHandler(this.button_ManualFw_LT_Socket_Rotator_Up4_Click);
             // 
             // button_ManualFw_LT_Socket_Rotator_Down3
             // 
@@ -455,6 +461,7 @@ namespace ZenHandler.Dlg
             this.button_ManualFw_LT_Socket_Rotator_Down3.TabIndex = 87;
             this.button_ManualFw_LT_Socket_Rotator_Down3.Text = "Rotator Down3";
             this.button_ManualFw_LT_Socket_Rotator_Down3.UseVisualStyleBackColor = false;
+            this.button_ManualFw_LT_Socket_Rotator_Down3.Click += new System.EventHandler(this.button_ManualFw_LT_Socket_Rotator_Down3_Click);
             // 
             // button_ManualFw_LT_Socket_Rotator_Up3
             // 
@@ -468,6 +475,7 @@ namespace ZenHandler.Dlg
             this.button_ManualFw_LT_Socket_Rotator_Up3.TabIndex = 86;
             this.button_ManualFw_LT_Socket_Rotator_Up3.Text = "Rotator Up3";
             this.button_ManualFw_LT_Socket_Rotator_Up3.UseVisualStyleBackColor = false;
+            this.button_ManualFw_LT_Socket_Rotator_Up3.Click += new System.EventHandler(this.button_ManualFw_LT_Socket_Rotator_Up3_Click);
             // 
             // button_ManualFw_LT_Socket_Rotator_Down2
             // 
@@ -481,6 +489,7 @@ namespace ZenHandler.Dlg
             this.button_ManualFw_LT_Socket_Rotator_Down2.TabIndex = 85;
             this.button_ManualFw_LT_Socket_Rotator_Down2.Text = "Rotator Down2";
             this.button_ManualFw_LT_Socket_Rotator_Down2.UseVisualStyleBackColor = false;
+            this.button_ManualFw_LT_Socket_Rotator_Down2.Click += new System.EventHandler(this.button_ManualFw_LT_Socket_Rotator_Down2_Click);
             // 
             // button_ManualFw_LT_Socket_Rotator_Up2
             // 
@@ -494,6 +503,7 @@ namespace ZenHandler.Dlg
             this.button_ManualFw_LT_Socket_Rotator_Up2.TabIndex = 84;
             this.button_ManualFw_LT_Socket_Rotator_Up2.Text = "Rotator Up2";
             this.button_ManualFw_LT_Socket_Rotator_Up2.UseVisualStyleBackColor = false;
+            this.button_ManualFw_LT_Socket_Rotator_Up2.Click += new System.EventHandler(this.button_ManualFw_LT_Socket_Rotator_Up2_Click);
             // 
             // button_ManualFw_LT_Socket_Rotator_Down1
             // 
@@ -507,6 +517,7 @@ namespace ZenHandler.Dlg
             this.button_ManualFw_LT_Socket_Rotator_Down1.TabIndex = 83;
             this.button_ManualFw_LT_Socket_Rotator_Down1.Text = "Rotator Down1";
             this.button_ManualFw_LT_Socket_Rotator_Down1.UseVisualStyleBackColor = false;
+            this.button_ManualFw_LT_Socket_Rotator_Down1.Click += new System.EventHandler(this.button_ManualFw_LT_Socket_Rotator_Down1_Click);
             // 
             // button_ManualFw_LT_Socket_Rotator_Up1
             // 
@@ -520,6 +531,7 @@ namespace ZenHandler.Dlg
             this.button_ManualFw_LT_Socket_Rotator_Up1.TabIndex = 82;
             this.button_ManualFw_LT_Socket_Rotator_Up1.Text = "Rotator Up1";
             this.button_ManualFw_LT_Socket_Rotator_Up1.UseVisualStyleBackColor = false;
+            this.button_ManualFw_LT_Socket_Rotator_Up1.Click += new System.EventHandler(this.button_ManualFw_LT_Socket_Rotator_Up1_Click);
             // 
             // button_ManualFw_Socket_LT_Piece_Detect4
             // 
@@ -585,6 +597,7 @@ namespace ZenHandler.Dlg
             this.button_ManualFw_LT_Socket_Rotator_Unflip4.TabIndex = 97;
             this.button_ManualFw_LT_Socket_Rotator_Unflip4.Text = "Rotator Unflip4";
             this.button_ManualFw_LT_Socket_Rotator_Unflip4.UseVisualStyleBackColor = false;
+            this.button_ManualFw_LT_Socket_Rotator_Unflip4.Click += new System.EventHandler(this.button_ManualFw_LT_Socket_Rotator_Unflip4_Click);
             // 
             // button_ManualFw_LT_Socket_Rotator_Unflip3
             // 
@@ -598,6 +611,7 @@ namespace ZenHandler.Dlg
             this.button_ManualFw_LT_Socket_Rotator_Unflip3.TabIndex = 96;
             this.button_ManualFw_LT_Socket_Rotator_Unflip3.Text = "Rotator Unflip3";
             this.button_ManualFw_LT_Socket_Rotator_Unflip3.UseVisualStyleBackColor = false;
+            this.button_ManualFw_LT_Socket_Rotator_Unflip3.Click += new System.EventHandler(this.button_ManualFw_LT_Socket_Rotator_Unflip3_Click);
             // 
             // button_ManualFw_LT_Socket_Rotator_Unflip2
             // 
@@ -611,6 +625,7 @@ namespace ZenHandler.Dlg
             this.button_ManualFw_LT_Socket_Rotator_Unflip2.TabIndex = 95;
             this.button_ManualFw_LT_Socket_Rotator_Unflip2.Text = "Rotator Unflip2";
             this.button_ManualFw_LT_Socket_Rotator_Unflip2.UseVisualStyleBackColor = false;
+            this.button_ManualFw_LT_Socket_Rotator_Unflip2.Click += new System.EventHandler(this.button_ManualFw_LT_Socket_Rotator_Unflip2_Click);
             // 
             // button_ManualFw_LT_Socket_Rotator_Unflip1
             // 
@@ -624,6 +639,7 @@ namespace ZenHandler.Dlg
             this.button_ManualFw_LT_Socket_Rotator_Unflip1.TabIndex = 94;
             this.button_ManualFw_LT_Socket_Rotator_Unflip1.Text = "Rotator Unflip1";
             this.button_ManualFw_LT_Socket_Rotator_Unflip1.UseVisualStyleBackColor = false;
+            this.button_ManualFw_LT_Socket_Rotator_Unflip1.Click += new System.EventHandler(this.button_ManualFw_LT_Socket_Rotator_Unflip1_Click);
             // 
             // button_ManualFw_LT_Socket_Rotator_Ungrip4
             // 
@@ -637,6 +653,7 @@ namespace ZenHandler.Dlg
             this.button_ManualFw_LT_Socket_Rotator_Ungrip4.TabIndex = 105;
             this.button_ManualFw_LT_Socket_Rotator_Ungrip4.Text = "Rotator UnGrip4";
             this.button_ManualFw_LT_Socket_Rotator_Ungrip4.UseVisualStyleBackColor = false;
+            this.button_ManualFw_LT_Socket_Rotator_Ungrip4.Click += new System.EventHandler(this.button_ManualFw_LT_Socket_Rotator_Ungrip4_Click);
             // 
             // button_ManualFw_LT_Socket_Rotator_Ungrip3
             // 
@@ -650,6 +667,7 @@ namespace ZenHandler.Dlg
             this.button_ManualFw_LT_Socket_Rotator_Ungrip3.TabIndex = 104;
             this.button_ManualFw_LT_Socket_Rotator_Ungrip3.Text = "Rotator UnGrip3";
             this.button_ManualFw_LT_Socket_Rotator_Ungrip3.UseVisualStyleBackColor = false;
+            this.button_ManualFw_LT_Socket_Rotator_Ungrip3.Click += new System.EventHandler(this.button_ManualFw_LT_Socket_Rotator_Ungrip3_Click);
             // 
             // button_ManualFw_LT_Socket_Rotator_Ungrip2
             // 
@@ -663,6 +681,7 @@ namespace ZenHandler.Dlg
             this.button_ManualFw_LT_Socket_Rotator_Ungrip2.TabIndex = 103;
             this.button_ManualFw_LT_Socket_Rotator_Ungrip2.Text = "Rotator UnGrip2";
             this.button_ManualFw_LT_Socket_Rotator_Ungrip2.UseVisualStyleBackColor = false;
+            this.button_ManualFw_LT_Socket_Rotator_Ungrip2.Click += new System.EventHandler(this.button_ManualFw_LT_Socket_Rotator_Ungrip2_Click);
             // 
             // button_ManualFw_LT_Socket_Rotator_Ungrip1
             // 
@@ -676,6 +695,7 @@ namespace ZenHandler.Dlg
             this.button_ManualFw_LT_Socket_Rotator_Ungrip1.TabIndex = 102;
             this.button_ManualFw_LT_Socket_Rotator_Ungrip1.Text = "Rotator UnGrip1";
             this.button_ManualFw_LT_Socket_Rotator_Ungrip1.UseVisualStyleBackColor = false;
+            this.button_ManualFw_LT_Socket_Rotator_Ungrip1.Click += new System.EventHandler(this.button_ManualFw_LT_Socket_Rotator_Ungrip1_Click);
             // 
             // button_ManualFw_LT_Socket_Rotator_Grip4
             // 
@@ -689,6 +709,7 @@ namespace ZenHandler.Dlg
             this.button_ManualFw_LT_Socket_Rotator_Grip4.TabIndex = 101;
             this.button_ManualFw_LT_Socket_Rotator_Grip4.Text = "Rotator Grip4";
             this.button_ManualFw_LT_Socket_Rotator_Grip4.UseVisualStyleBackColor = false;
+            this.button_ManualFw_LT_Socket_Rotator_Grip4.Click += new System.EventHandler(this.button_ManualFw_LT_Socket_Rotator_Grip4_Click);
             // 
             // button_ManualFw_LT_Socket_Rotator_Grip3
             // 
@@ -702,6 +723,7 @@ namespace ZenHandler.Dlg
             this.button_ManualFw_LT_Socket_Rotator_Grip3.TabIndex = 100;
             this.button_ManualFw_LT_Socket_Rotator_Grip3.Text = "Rotator Grip3";
             this.button_ManualFw_LT_Socket_Rotator_Grip3.UseVisualStyleBackColor = false;
+            this.button_ManualFw_LT_Socket_Rotator_Grip3.Click += new System.EventHandler(this.button_ManualFw_LT_Socket_Rotator_Grip3_Click);
             // 
             // button_ManualFw_LT_Socket_Rotator_Grip2
             // 
@@ -715,6 +737,7 @@ namespace ZenHandler.Dlg
             this.button_ManualFw_LT_Socket_Rotator_Grip2.TabIndex = 99;
             this.button_ManualFw_LT_Socket_Rotator_Grip2.Text = "Rotator Grip2";
             this.button_ManualFw_LT_Socket_Rotator_Grip2.UseVisualStyleBackColor = false;
+            this.button_ManualFw_LT_Socket_Rotator_Grip2.Click += new System.EventHandler(this.button_ManualFw_LT_Socket_Rotator_Grip2_Click);
             // 
             // button_ManualFw_LT_Socket_Rotator_Grip1
             // 
@@ -728,6 +751,7 @@ namespace ZenHandler.Dlg
             this.button_ManualFw_LT_Socket_Rotator_Grip1.TabIndex = 98;
             this.button_ManualFw_LT_Socket_Rotator_Grip1.Text = "Rotator Grip1";
             this.button_ManualFw_LT_Socket_Rotator_Grip1.UseVisualStyleBackColor = false;
+            this.button_ManualFw_LT_Socket_Rotator_Grip1.Click += new System.EventHandler(this.button_ManualFw_LT_Socket_Rotator_Grip1_Click);
             // 
             // label_ManualFw_Socket_Priduct_Detect_Title
             // 
