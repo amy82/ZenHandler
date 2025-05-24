@@ -241,6 +241,7 @@ namespace ZenHandler.Dlg
                 manualLift.Visible = false;
                 manualFwSocket.Visible = false;
                 manualEEpromSocket.Visible = false;
+                manualEEpromSocket.Visible = false;
                 manualAoiSocket.Visible = false;
 
 

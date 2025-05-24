@@ -17,50 +17,28 @@ namespace ZenHandler.Dlg
         //private int MovePos;
         
         private System.Windows.Forms.Timer ManualTimer;
-        private Button[] Fw_LT_PiecerBtnArr = new Button[4];         //제품감지
-        private Button[] Fw_RT_PiecerBtnArr = new Button[4];         //제품감지
-        private Button[] Fw_BL_PiecerBtnArr = new Button[4];         //제품감지
-        private Button[] Fw_BR_PiecerBtnArr = new Button[4];         //제품감지
+        private Button[] Fw_Socket_BtnArr = new Button[4];         //소켓 구분
 
 
-        private Button[] Fw_LT_ContactUpBtnArr = new Button[8];      //컨택 Up / Down
-        private Button[] Fw_RT_ContactUpBtnArr = new Button[8];      //컨택 Up / Down
-        private Button[] Fw_BL_ContactUpBtnArr = new Button[8];      //컨택 Up / Down
-        private Button[] Fw_BR_ContactUpBtnArr = new Button[8];      //컨택 Up / Down
 
-        private Button[] Fw_LT_ContactForBtnArr = new Button[8];     //컨택 For / back
-        private Button[] Fw_RT_ContactForBtnArr = new Button[8];     //컨택 For / back
-        private Button[] Fw_BL_ContactForBtnArr = new Button[8];     //컨택 For / back
-        private Button[] Fw_BR_ContactForBtnArr = new Button[8];     //컨택 For / back
-
-        private Button[] Fw_LT_RotateUpBtnArr = new Button[8];      //로테이트 Up / Down
-        private Button[] Fw_RT_RotateUpBtnArr = new Button[8];      //로테이트 Up / Down
-        private Button[] Fw_BL_RotateUpBtnArr = new Button[8];      //로테이트 Up / Down
-        private Button[] Fw_BR_RotateUpBtnArr = new Button[8];      //로테이트 Up / Down
-
-        private Button[] Fw_LT_RotateGripBtnArr = new Button[8];     //로테이트 Grip / Ungrip
-        private Button[] Fw_RT_RotateGripBtnArr = new Button[8];     //로테이트 Grip / Ungrip
-        private Button[] Fw_BL_RotateGripBtnArr = new Button[8];     //로테이트 Grip / Ungrip
-        private Button[] Fw_BR_RotateGripBtnArr = new Button[8];     //로테이트 Grip / Ungrip
-
-        private Button[] Fw_LT_RotateFlipBtnArr = new Button[8];      //로테이트 Flip / Down
-        private Button[] Fw_RT_RotateFlipBtnArr = new Button[8];      //로테이트 Flip / Down
-        private Button[] Fw_BL_RotateFlipBtnArr = new Button[8];      //로테이트 Flip / Down
-        private Button[] Fw_BR_RotateFlipBtnArr = new Button[8];      //로테이트 Flip / Down
+        private Button[] Fw_LT_PiecerBtnArr = new Button[4];         //제품감지 LT
+        private Button[] Fw_RT_PiecerBtnArr = new Button[4];         //제품감지 RT
+        private Button[] Fw_BL_PiecerBtnArr = new Button[4];         //제품감지 BL
+        private Button[] Fw_BR_PiecerBtnArr = new Button[4];         //제품감지 BR
 
 
-        private Button[] EEprom_L_PiecerBtnArr = new Button[4];         //제품감지
-        private Button[] EEprom_L_ContactUpBtnArr = new Button[8];      //컨택 Up / Down
-        private Button[] EEprom_L_ContactForBtnArr = new Button[8];     //컨택 For / back
+        private Button[] Fw_ContactUpBtnArr = new Button[8];      //컨택 Up / Down
+        private Button[] Fw_ContactForBtnArr = new Button[8];     //컨택 For / back
+        private Button[] Fw_RotateUpBtnArr = new Button[8];       //로테이트 Up / Down
+        private Button[] Fw_RotateFlipBtnArr = new Button[8];     //로테이트 Flip / Down
+        private Button[] Fw_RotateGripBtnArr = new Button[8];     //로테이트 Grip / Ungrip
 
-        private Button[] EEprom_R_PiecerBtnArr = new Button[4];         //제품감지
-        private Button[] EEprom_R_ContactUpBtnArr = new Button[8];      //컨택 Up / Down
-        private Button[] EEprom_R_ContactForBtnArr = new Button[8];     //컨택 For / back
+
 
         protected CancellationTokenSource cts;  //TODO: <--이름 변경하고 사용가능하게
         private bool isMovingMagazine;
 
-        private int CurrentAoiMotor = 0;        //0 = LFET , 1 = RIGHT
+        private int CurrentFwSocket = 0;        //0 = LFET , 1 = RIGHT
         //MEMO: 티칭 위치를 어떻게 가져올 것인가
         public ManualFwSocket()
         {
@@ -80,92 +58,150 @@ namespace ZenHandler.Dlg
         private void ManualUiSet()
         {
             int i = 0;
-            EEprom_L_PiecerBtnArr[0] = button_ManualFw_Socket_LT_Piece_Detect1;
-            EEprom_L_PiecerBtnArr[1] = button_ManualFw_Socket_LT_Piece_Detect2;
-            EEprom_L_PiecerBtnArr[2] = button_ManualFw_Socket_LT_Piece_Detec3;
-            EEprom_L_PiecerBtnArr[3] = button_ManualFw_Socket_LT_Piece_Detect4;
+            //소켓 내 제품 감지
+            Fw_Socket_BtnArr[0] = button_ManualFw_Socket_Select_LT;
+            Fw_Socket_BtnArr[1] = button_ManualFw_Socket_Select_RT;
+            Fw_Socket_BtnArr[2] = button_ManualFw_Socket_Select_BL;
+            Fw_Socket_BtnArr[3] = button_ManualFw_Socket_Select_BR;
 
-            EEprom_L_ContactUpBtnArr[0] = button_ManualFw_LT_Socket_Contact_Up1;
-            EEprom_L_ContactUpBtnArr[1] = button_ManualFw_LT_Socket_Contact_Up2;
-            EEprom_L_ContactUpBtnArr[2] = button_ManualFw_LT_Socket_Contact_Up3;
-            EEprom_L_ContactUpBtnArr[3] = button_ManualFw_LT_Socket_Contact_Up4;
-            EEprom_L_ContactUpBtnArr[4] = button_ManualFw_LT_Socket_Contact_Down1;
-            EEprom_L_ContactUpBtnArr[5] = button_ManualFw_LT_Socket_Contact_Down2;
-            EEprom_L_ContactUpBtnArr[6] = button_ManualFw_LT_Socket_Contact_Down3;
-            EEprom_L_ContactUpBtnArr[7] = button_ManualFw_LT_Socket_Contact_Down4;
+            Fw_LT_PiecerBtnArr[0] = button_ManualFw_Socket_LT_Piece_Detect1;
+            Fw_LT_PiecerBtnArr[1] = button_ManualFw_Socket_LT_Piece_Detect2;
+            Fw_LT_PiecerBtnArr[2] = button_ManualFw_Socket_LT_Piece_Detect3;
+            Fw_LT_PiecerBtnArr[3] = button_ManualFw_Socket_LT_Piece_Detect4;
 
-            EEprom_L_ContactForBtnArr[0] = button_ManualFw_LT_Socket_Contact_For1;
-            EEprom_L_ContactForBtnArr[1] = button_ManualFw_LT_Socket_Contact_For2;
-            EEprom_L_ContactForBtnArr[2] = button_ManualFw_LT_Socket_Contact_For3;
-            EEprom_L_ContactForBtnArr[3] = button_ManualFw_LT_Socket_Contact_For4;
-            EEprom_L_ContactForBtnArr[4] = button_ManualFw_LT_Socket_Contact_Back1;
-            EEprom_L_ContactForBtnArr[5] = button_ManualFw_LT_Socket_Contact_Back2;
-            EEprom_L_ContactForBtnArr[6] = button_ManualFw_LT_Socket_Contact_Back3;
-            EEprom_L_ContactForBtnArr[7] = button_ManualFw_LT_Socket_Contact_Back4;
-            //
-            //
-            //
-            EEprom_R_PiecerBtnArr[0] = button_ManualFw_Socket_RT_Piece_Detect1;
-            EEprom_R_PiecerBtnArr[1] = button_ManualFw_Socket_RT_Piece_Detect2;
-            EEprom_R_PiecerBtnArr[2] = button_ManualFw_Socket_RT_Piece_Detect3;
-            EEprom_R_PiecerBtnArr[3] = button_ManualFw_Socket_RT_Piece_Detect4;
+            Fw_RT_PiecerBtnArr[0] = button_ManualFw_Socket_RT_Piece_Detect1;
+            Fw_RT_PiecerBtnArr[1] = button_ManualFw_Socket_RT_Piece_Detect2;
+            Fw_RT_PiecerBtnArr[2] = button_ManualFw_Socket_RT_Piece_Detect3;
+            Fw_RT_PiecerBtnArr[3] = button_ManualFw_Socket_RT_Piece_Detect4;
 
-            EEprom_R_ContactUpBtnArr[0] = button_ManualFw_RT_Socket_Contact_Up1;
-            EEprom_R_ContactUpBtnArr[1] = button_ManualFw_RT_Socket_Contact_Up2;
-            EEprom_R_ContactUpBtnArr[2] = button_ManualFw_RT_Socket_Contact_Up3;
-            EEprom_R_ContactUpBtnArr[3] = button_ManualFw_RT_Socket_Contact_Up4;
-            EEprom_R_ContactUpBtnArr[4] = button_ManualFw_RT_Socket_Contact_Down1;
-            EEprom_R_ContactUpBtnArr[5] = button_ManualFw_RT_Socket_Contact_Down2;
-            EEprom_R_ContactUpBtnArr[6] = button_ManualFw_RT_Socket_Contact_Down3;
-            EEprom_R_ContactUpBtnArr[7] = button_ManualFw_RT_Socket_Contact_Down4;
+            Fw_BL_PiecerBtnArr[0] = button_ManualFw_Socket_BL_Piece_Detect1;
+            Fw_BL_PiecerBtnArr[1] = button_ManualFw_Socket_BL_Piece_Detect2;
+            Fw_BL_PiecerBtnArr[2] = button_ManualFw_Socket_BL_Piece_Detect3;
+            Fw_BL_PiecerBtnArr[3] = button_ManualFw_Socket_BL_Piece_Detect4;
 
-            EEprom_R_ContactForBtnArr[0] = button_ManualFw_RT_Socket_Contact_For1;
-            EEprom_R_ContactForBtnArr[1] = button_ManualFw_RT_Socket_Contact_For2;
-            EEprom_R_ContactForBtnArr[2] = button_ManualFw_RT_Socket_Contact_For3;
-            EEprom_R_ContactForBtnArr[3] = button_ManualFw_RT_Socket_Contact_For4;
-            EEprom_R_ContactForBtnArr[4] = button_ManualFw_RT_Socket_Contact_Back1;
-            EEprom_R_ContactForBtnArr[5] = button_ManualFw_RT_Socket_Contact_Back2;
-            EEprom_R_ContactForBtnArr[6] = button_ManualFw_RT_Socket_Contact_Back3;
-            EEprom_R_ContactForBtnArr[7] = button_ManualFw_RT_Socket_Contact_Back4;
+            Fw_BR_PiecerBtnArr[0] = button_ManualFw_Socket_BR_Piece_Detect1;
+            Fw_BR_PiecerBtnArr[1] = button_ManualFw_Socket_BR_Piece_Detect2;
+            Fw_BR_PiecerBtnArr[2] = button_ManualFw_Socket_BR_Piece_Detect3;
+            Fw_BR_PiecerBtnArr[3] = button_ManualFw_Socket_BR_Piece_Detect4;
+
+            //I /O 동작
+
+            //컨택 상승 , 하강
+            Fw_ContactUpBtnArr[0] = button_ManualFw_LT_Socket_Contact_Up1;
+            Fw_ContactUpBtnArr[1] = button_ManualFw_LT_Socket_Contact_Up2;
+            Fw_ContactUpBtnArr[2] = button_ManualFw_LT_Socket_Contact_Up3;
+            Fw_ContactUpBtnArr[3] = button_ManualFw_LT_Socket_Contact_Up4;
+            Fw_ContactUpBtnArr[4] = button_ManualFw_LT_Socket_Contact_Down1;
+            Fw_ContactUpBtnArr[5] = button_ManualFw_LT_Socket_Contact_Down2;
+            Fw_ContactUpBtnArr[6] = button_ManualFw_LT_Socket_Contact_Down3;
+            Fw_ContactUpBtnArr[7] = button_ManualFw_LT_Socket_Contact_Down4;
+
+            //컨택 전진 , 후진
+            Fw_ContactForBtnArr[0] = button_ManualFw_LT_Socket_Contact_For1;
+            Fw_ContactForBtnArr[1] = button_ManualFw_LT_Socket_Contact_For2;
+            Fw_ContactForBtnArr[2] = button_ManualFw_LT_Socket_Contact_For3;
+            Fw_ContactForBtnArr[3] = button_ManualFw_LT_Socket_Contact_For4;
+            Fw_ContactForBtnArr[4] = button_ManualFw_LT_Socket_Contact_Back1;
+            Fw_ContactForBtnArr[5] = button_ManualFw_LT_Socket_Contact_Back2;
+            Fw_ContactForBtnArr[6] = button_ManualFw_LT_Socket_Contact_Back3;
+            Fw_ContactForBtnArr[7] = button_ManualFw_LT_Socket_Contact_Back4;
 
 
-            //for (i = 0; i < EEprom_L_MotorX_BtnArr.Length; i++)
-            //{
-            //    EEprom_L_MotorX_BtnArr[i].BackColor = ColorTranslator.FromHtml(ButtonColor.MANUAL_BTN_OFF);
-            //    EEprom_L_MotorX_BtnArr[i].ForeColor = Color.White;
+            // ROTATOR 상승 , 하강
+            Fw_RotateUpBtnArr[0] = button_ManualFw_LT_Socket_Rotator_Up1;
+            Fw_RotateUpBtnArr[1] = button_ManualFw_LT_Socket_Rotator_Up2;
+            Fw_RotateUpBtnArr[2] = button_ManualFw_LT_Socket_Rotator_Up3;
+            Fw_RotateUpBtnArr[3] = button_ManualFw_LT_Socket_Rotator_Up4;
+            Fw_RotateUpBtnArr[4] = button_ManualFw_LT_Socket_Rotator_Down1;
+            Fw_RotateUpBtnArr[5] = button_ManualFw_LT_Socket_Rotator_Down2;
+            Fw_RotateUpBtnArr[6] = button_ManualFw_LT_Socket_Rotator_Down3;
+            Fw_RotateUpBtnArr[7] = button_ManualFw_LT_Socket_Rotator_Down4;
 
-            //    EEprom_L_MotorX_BtnArr[i].FlatAppearance.BorderColor = ColorTranslator.FromHtml("#BBBBBB");
-            //}
-            //for (i = 0; i < EEprom_R_MotorX_BtnArr.Length; i++)
-            //{
-            //    EEprom_R_MotorX_BtnArr[i].BackColor = ColorTranslator.FromHtml(ButtonColor.MANUAL_BTN_OFF);
-            //    EEprom_R_MotorX_BtnArr[i].ForeColor = Color.White;
+            // ROTATOR FLIP , UNFLIP
+            Fw_RotateFlipBtnArr[0] = button_ManualFw_LT_Socket_Rotator_Flip1;
+            Fw_RotateFlipBtnArr[1] = button_ManualFw_LT_Socket_Rotator_Flip2;
+            Fw_RotateFlipBtnArr[2] = button_ManualFw_LT_Socket_Rotator_Flip3;
+            Fw_RotateFlipBtnArr[3] = button_ManualFw_LT_Socket_Rotator_Flip4;
+            Fw_RotateFlipBtnArr[4] = button_ManualFw_LT_Socket_Rotator_Unflip1;
+            Fw_RotateFlipBtnArr[5] = button_ManualFw_LT_Socket_Rotator_Unflip2;
+            Fw_RotateFlipBtnArr[6] = button_ManualFw_LT_Socket_Rotator_Unflip3;
+            Fw_RotateFlipBtnArr[7] = button_ManualFw_LT_Socket_Rotator_Unflip4;
 
-            //    EEprom_R_MotorX_BtnArr[i].FlatAppearance.BorderColor = ColorTranslator.FromHtml("#BBBBBB");
-            //}
 
-            //MotorBtnArr[0].BackColor = ColorTranslator.FromHtml("#4C4743");   //모터 위치 이동 완료시 색
+            // ROTATOR GRIP , UNGRIP
+            Fw_RotateGripBtnArr[0] = button_ManualFw_LT_Socket_Rotator_Grip1;
+            Fw_RotateGripBtnArr[1] = button_ManualFw_LT_Socket_Rotator_Grip2;
+            Fw_RotateGripBtnArr[2] = button_ManualFw_LT_Socket_Rotator_Grip3;
+            Fw_RotateGripBtnArr[3] = button_ManualFw_LT_Socket_Rotator_Grip4;
+            Fw_RotateGripBtnArr[4] = button_ManualFw_LT_Socket_Rotator_Ungrip1;
+            Fw_RotateGripBtnArr[5] = button_ManualFw_LT_Socket_Rotator_Ungrip2;
+            Fw_RotateGripBtnArr[6] = button_ManualFw_LT_Socket_Rotator_Ungrip3;
+            Fw_RotateGripBtnArr[7] = button_ManualFw_LT_Socket_Rotator_Ungrip4;
 
-            for (i = 0; i < EEprom_L_PiecerBtnArr.Length; i++)
+            for (i = 0; i < Fw_Socket_BtnArr.Length; i++)
             {
-                EEprom_L_PiecerBtnArr[i].BackColor = ColorTranslator.FromHtml(ButtonColor.MANUAL_BTN_OFF);
-                EEprom_L_PiecerBtnArr[i].ForeColor = Color.White;
-                EEprom_L_PiecerBtnArr[i].FlatAppearance.BorderColor = ColorTranslator.FromHtml("#BBBBBB");
+                Fw_Socket_BtnArr[i].BackColor = ButtonColor.FW_SOCKET_BACK_BTN_OFF;
+                Fw_Socket_BtnArr[i].ForeColor = ButtonColor.FW_SOCKET_FORE_BTN_OFF;
             }
 
-            for (i = 0; i < EEprom_L_ContactUpBtnArr.Length; i++)
+
+            for (i = 0; i < Fw_LT_PiecerBtnArr.Length; i++)
             {
-                EEprom_L_ContactUpBtnArr[i].BackColor = ColorTranslator.FromHtml(ButtonColor.MANUAL_BTN_OFF);
-                EEprom_L_ContactUpBtnArr[i].ForeColor = Color.White;
-                EEprom_L_ContactUpBtnArr[i].FlatAppearance.BorderColor = ColorTranslator.FromHtml("#BBBBBB");
+                Fw_LT_PiecerBtnArr[i].BackColor = ColorTranslator.FromHtml(ButtonColor.MANUAL_BTN_OFF);
+                Fw_LT_PiecerBtnArr[i].ForeColor = Color.White;
+                Fw_LT_PiecerBtnArr[i].FlatAppearance.BorderColor = ColorTranslator.FromHtml("#BBBBBB");
             }
-            for (i = 0; i < EEprom_L_ContactForBtnArr.Length; i++)
+            for (i = 0; i < Fw_RT_PiecerBtnArr.Length; i++)
             {
-                EEprom_L_ContactForBtnArr[i].BackColor = ColorTranslator.FromHtml(ButtonColor.MANUAL_BTN_OFF);
-                EEprom_L_ContactForBtnArr[i].ForeColor = Color.White;
-                EEprom_L_ContactForBtnArr[i].FlatAppearance.BorderColor = ColorTranslator.FromHtml("#BBBBBB");
+                Fw_RT_PiecerBtnArr[i].BackColor = ColorTranslator.FromHtml(ButtonColor.MANUAL_BTN_OFF);
+                Fw_RT_PiecerBtnArr[i].ForeColor = Color.White;
+                Fw_RT_PiecerBtnArr[i].FlatAppearance.BorderColor = ColorTranslator.FromHtml("#BBBBBB");
+            }
+            for (i = 0; i < Fw_BL_PiecerBtnArr.Length; i++)
+            {
+                Fw_BL_PiecerBtnArr[i].BackColor = ColorTranslator.FromHtml(ButtonColor.MANUAL_BTN_OFF);
+                Fw_BL_PiecerBtnArr[i].ForeColor = Color.White;
+                Fw_BL_PiecerBtnArr[i].FlatAppearance.BorderColor = ColorTranslator.FromHtml("#BBBBBB");
+            }
+            for (i = 0; i < Fw_BR_PiecerBtnArr.Length; i++)
+            {
+                Fw_BR_PiecerBtnArr[i].BackColor = ColorTranslator.FromHtml(ButtonColor.MANUAL_BTN_OFF);
+                Fw_BR_PiecerBtnArr[i].ForeColor = Color.White;
+                Fw_BR_PiecerBtnArr[i].FlatAppearance.BorderColor = ColorTranslator.FromHtml("#BBBBBB");
             }
 
+            //IO 동작
+
+            for (i = 0; i < Fw_ContactUpBtnArr.Length; i++)
+            {
+                Fw_ContactUpBtnArr[i].BackColor = ColorTranslator.FromHtml(ButtonColor.MANUAL_BTN_OFF);
+                Fw_ContactUpBtnArr[i].ForeColor = Color.White;
+                Fw_ContactUpBtnArr[i].FlatAppearance.BorderColor = ColorTranslator.FromHtml("#BBBBBB");
+            }
+            for (i = 0; i < Fw_ContactForBtnArr.Length; i++)
+            {
+                Fw_ContactForBtnArr[i].BackColor = ColorTranslator.FromHtml(ButtonColor.MANUAL_BTN_OFF);
+                Fw_ContactForBtnArr[i].ForeColor = Color.White;
+                Fw_ContactForBtnArr[i].FlatAppearance.BorderColor = ColorTranslator.FromHtml("#BBBBBB");
+            }
+            for (i = 0; i < Fw_RotateUpBtnArr.Length; i++)
+            {
+                Fw_RotateUpBtnArr[i].BackColor = ColorTranslator.FromHtml(ButtonColor.MANUAL_BTN_OFF);
+                Fw_RotateUpBtnArr[i].ForeColor = Color.White;
+                Fw_RotateUpBtnArr[i].FlatAppearance.BorderColor = ColorTranslator.FromHtml("#BBBBBB");
+            }
+            for (i = 0; i < Fw_RotateGripBtnArr.Length; i++)
+            {
+                Fw_RotateGripBtnArr[i].BackColor = ColorTranslator.FromHtml(ButtonColor.MANUAL_BTN_OFF);
+                Fw_RotateGripBtnArr[i].ForeColor = Color.White;
+                Fw_RotateGripBtnArr[i].FlatAppearance.BorderColor = ColorTranslator.FromHtml("#BBBBBB");
+            }
+            for (i = 0; i < Fw_RotateFlipBtnArr.Length; i++)
+            {
+                Fw_RotateFlipBtnArr[i].BackColor = ColorTranslator.FromHtml(ButtonColor.MANUAL_BTN_OFF);
+                Fw_RotateFlipBtnArr[i].ForeColor = Color.White;
+                Fw_RotateFlipBtnArr[i].FlatAppearance.BorderColor = ColorTranslator.FromHtml("#BBBBBB");
+            }
         }
 
 
@@ -778,6 +814,24 @@ namespace ZenHandler.Dlg
            
         }
 
-        
+        private void button_ManualFw_Socket_Select_LT_Click(object sender, EventArgs e)
+        {
+            CurrentFwSocket = 0;
+        }
+
+        private void button_ManualFw_Socket_Select_RT_Click(object sender, EventArgs e)
+        {
+            CurrentFwSocket = 1;
+        }
+
+        private void button_ManualFw_Socket_Select_BL_Click(object sender, EventArgs e)
+        {
+            CurrentFwSocket = 2;
+        }
+
+        private void button_ManualFw_Socket_Select_BR_Click(object sender, EventArgs e)
+        {
+            CurrentFwSocket = 3;
+        }
     }
 }
