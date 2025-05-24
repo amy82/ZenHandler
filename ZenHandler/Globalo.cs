@@ -202,9 +202,10 @@ namespace ZenHandler
 
 
 
-        public static readonly Color FW_SOCKET_BACK_BTN_ON = Color.Pink;
-        public static readonly Color FW_SOCKET_BACK_BTN_OFF = Color.SeaShell;
+        public static readonly Color FW_SOCKET_BACK_BTN_ON = Color.Crimson;
         public static readonly Color FW_SOCKET_FORE_BTN_ON = Color.White;
+
+        public static readonly Color FW_SOCKET_BACK_BTN_OFF = Color.SeaShell;
         public static readonly Color FW_SOCKET_FORE_BTN_OFF = Color.DimGray;
 
     }

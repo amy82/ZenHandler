@@ -72,12 +72,12 @@ namespace ZenHandler.Machine
             //GroupNo = 앞2 , 뒤2 4Set
             return false;
         }
-        public bool GetIsPusherForward(int GroupNo, int index, bool bFlag, bool bWait = false)      //각 소켓의 푸셔 전/후진 확인 센서
+        public bool GetIsContactForward(int GroupNo, int index, bool bFlag, bool bWait = false)      //각 소켓의 푸셔 전/후진 확인 센서
         {
             //GroupNo = 앞2 , 뒤2 4Set
             return false;
         }
-        public bool GetIsPusherUp(int GroupNo, int index, bool bFlag, bool bWait = false)      //각 소켓의 푸셔 상/하강 확인 센서
+        public bool GetIsContactUp(int GroupNo, int index, bool bFlag, bool bWait = false)      //각 소켓의 푸셔 상/하강 확인 센서
         {
             //GroupNo = 앞2 , 뒤2 4Set
             return false;

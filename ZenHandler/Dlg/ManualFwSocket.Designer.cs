@@ -967,10 +967,10 @@ namespace ZenHandler.Dlg
             // 
             // button_ManualFw_Socket_Select_RT
             // 
-            this.button_ManualFw_Socket_Select_RT.BackColor = System.Drawing.Color.Pink;
+            this.button_ManualFw_Socket_Select_RT.BackColor = System.Drawing.Color.Crimson;
             this.button_ManualFw_Socket_Select_RT.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.button_ManualFw_Socket_Select_RT.Font = new System.Drawing.Font("나눔고딕", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(129)));
-            this.button_ManualFw_Socket_Select_RT.ForeColor = System.Drawing.Color.Black;
+            this.button_ManualFw_Socket_Select_RT.ForeColor = System.Drawing.Color.White;
             this.button_ManualFw_Socket_Select_RT.Location = new System.Drawing.Point(185, 64);
             this.button_ManualFw_Socket_Select_RT.Name = "button_ManualFw_Socket_Select_RT";
             this.button_ManualFw_Socket_Select_RT.Size = new System.Drawing.Size(140, 59);

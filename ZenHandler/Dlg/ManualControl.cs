@@ -178,7 +178,9 @@ namespace ZenHandler.Dlg
                 manualLift.Visible = false;
                 manualTransfer.Visible = false;
                 manualMagazine.Visible = false;
-
+                manualAoiSocket.Visible = false;
+                manualEEpromSocket.Visible = false;
+                manualFwSocket.Visible = false;
 
                 if (Program.PG_SELECT == HANDLER_PG.FW)
                 {

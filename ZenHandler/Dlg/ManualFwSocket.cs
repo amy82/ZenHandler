@@ -456,6 +456,7 @@ namespace ZenHandler.Dlg
         {
             if (this.Visible)
             {
+                FwSocektSelect(CurrentFwSocket);
                 bManualStopKey = false;
                 ManualTimer.Start();
             }
@@ -783,55 +784,254 @@ namespace ZenHandler.Dlg
             //------------------------------------------------------------------------------------------------------
             //
             //
-            //  LEFT SOCKET
+            //  제품 감지
             //
             //
             //------------------------------------------------------------------------------------------------------
             int index = 0;
-            //for (i = 0; i < EEprom_L_MotorX_BtnArr.Length; i++)
-            //{
-            //    index = i;
-            //    Machine.EEpromSocketMachine.eTeachingPosList pos = (Machine.EEpromSocketMachine.eTeachingPosList)index;
-
+            for (i = 0; i < Fw_LT_PiecerBtnArr.Length; i++)
+            {
+                if (Globalo.motionManager.socketFwMachine.GetIsProductInSocket(CurrentFwSocket, i, true) == true)
+                {
+                    Fw_LT_PiecerBtnArr[i].BackColor = ColorTranslator.FromHtml(ButtonColor.MANUAL_BTN_ON);
+                }
+                else
+                {
+                    Fw_LT_PiecerBtnArr[i].BackColor = ColorTranslator.FromHtml(ButtonColor.MANUAL_BTN_OFF);
+                }
+            }
+            for (i = 0; i < Fw_RT_PiecerBtnArr.Length; i++)
+            {
+                if (Globalo.motionManager.socketFwMachine.GetIsProductInSocket(CurrentFwSocket, i, true) == true)
+                {
+                    Fw_RT_PiecerBtnArr[i].BackColor = ColorTranslator.FromHtml(ButtonColor.MANUAL_BTN_ON);
+                }
+                else
+                {
+                    Fw_RT_PiecerBtnArr[i].BackColor = ColorTranslator.FromHtml(ButtonColor.MANUAL_BTN_OFF);
+                }
+            }
+            for (i = 0; i < Fw_BL_PiecerBtnArr.Length; i++)
+            {
+                if (Globalo.motionManager.socketFwMachine.GetIsProductInSocket(CurrentFwSocket, i, true) == true)
+                {
+                    Fw_BL_PiecerBtnArr[i].BackColor = ColorTranslator.FromHtml(ButtonColor.MANUAL_BTN_ON);
+                }
+                else
+                {
+                    Fw_BL_PiecerBtnArr[i].BackColor = ColorTranslator.FromHtml(ButtonColor.MANUAL_BTN_OFF);
+                }
+            }
+            for (i = 0; i < Fw_BR_PiecerBtnArr.Length; i++)
+            {
+                if (Globalo.motionManager.socketFwMachine.GetIsProductInSocket(CurrentFwSocket, i, true) == true)
+                {
+                    Fw_BR_PiecerBtnArr[i].BackColor = ColorTranslator.FromHtml(ButtonColor.MANUAL_BTN_ON);
+                }
+                else
+                {
+                    Fw_BR_PiecerBtnArr[i].BackColor = ColorTranslator.FromHtml(ButtonColor.MANUAL_BTN_OFF);
+                }
+            }
+            //------------------------------------------------------------------------------------------------------
+            //
+            //
+            //  CONTACT
+            //
+            //
+            //------------------------------------------------------------------------------------------------------
+            //컨택 상승 , 하강
+            for (i = 0; i < Fw_ContactUpBtnArr.Length; i++)
+            {
+                index = i%4;    //0,1,2,3 반복
+                if (i < 4)
+                {
+                    if (Globalo.motionManager.socketFwMachine.GetIsContactUp(CurrentFwSocket, i, true) == true)
+                    {
+                        Fw_ContactUpBtnArr[i].BackColor = ColorTranslator.FromHtml(ButtonColor.MANUAL_BTN_ON);
+                    }
+                    else
+                    {
+                        Fw_ContactUpBtnArr[i].BackColor = ColorTranslator.FromHtml(ButtonColor.MANUAL_BTN_OFF);
+                    }
+                }
+                else
+                {
+                    if (Globalo.motionManager.socketFwMachine.GetIsContactUp(CurrentFwSocket, index, false) == true)
+                    {
+                        Fw_ContactUpBtnArr[i].BackColor = ColorTranslator.FromHtml(ButtonColor.MANUAL_BTN_ON);
+                    }
+                    else
+                    {
+                        Fw_ContactUpBtnArr[i].BackColor = ColorTranslator.FromHtml(ButtonColor.MANUAL_BTN_OFF);
+                    }
+                }
                 
-            //    if (Globalo.motionManager.socketEEpromMachine.ChkMotorPos(pos, Machine.eEEpromSocket.SOCKET_F_X) == true)
-            //    {
-            //        EEprom_L_MotorX_BtnArr[i].BackColor = ColorTranslator.FromHtml(ButtonColor.MANUAL_BTN_ON);
-            //    }
-            //    else
-            //    {
-            //        EEprom_L_MotorX_BtnArr[i].BackColor = ColorTranslator.FromHtml(ButtonColor.MANUAL_BTN_OFF);
-            //    }
-            //}
-            
+            }
+            //컨택 전진, 후진
+            for (i = 0; i < Fw_ContactForBtnArr.Length; i++)
+            {
+                index = i % 4;    //0,1,2,3 반복
+                if (i < 4)
+                {
+                    if (Globalo.motionManager.socketFwMachine.GetIsContactForward(CurrentFwSocket, i, true) == true)
+                    {
+                        Fw_ContactForBtnArr[i].BackColor = ColorTranslator.FromHtml(ButtonColor.MANUAL_BTN_ON);
+                    }
+                    else
+                    {
+                        Fw_ContactForBtnArr[i].BackColor = ColorTranslator.FromHtml(ButtonColor.MANUAL_BTN_OFF);
+                    }
+                }
+                else
+                {
+                    if (Globalo.motionManager.socketFwMachine.GetIsContactForward(CurrentFwSocket, index, false) == true)
+                    {
+                        Fw_ContactForBtnArr[i].BackColor = ColorTranslator.FromHtml(ButtonColor.MANUAL_BTN_ON);
+                    }
+                    else
+                    {
+                        Fw_ContactForBtnArr[i].BackColor = ColorTranslator.FromHtml(ButtonColor.MANUAL_BTN_OFF);
+                    }
+                }
+
+            }
             //------------------------------------------------------------------------------------------------------
             //
             //
-            //  RIGHT SOCKET
+            //  ROTATOR
             //
             //
             //------------------------------------------------------------------------------------------------------
-           
+            //로테이션 상승, 하강
+            for (i = 0; i < Fw_RotateUpBtnArr.Length; i++)
+            {
+                index = i % 4;    //0,1,2,3 반복
+                if (i < 4)
+                {
+                    if (Globalo.motionManager.socketFwMachine.GetIsFlipperUp(CurrentFwSocket, i, true) == true)
+                    {
+                        Fw_RotateUpBtnArr[i].BackColor = ColorTranslator.FromHtml(ButtonColor.MANUAL_BTN_ON);
+                    }
+                    else
+                    {
+                        Fw_RotateUpBtnArr[i].BackColor = ColorTranslator.FromHtml(ButtonColor.MANUAL_BTN_OFF);
+                    }
+                }
+                else
+                {
+                    if (Globalo.motionManager.socketFwMachine.GetIsFlipperUp(CurrentFwSocket, index, false) == true)
+                    {
+                        Fw_RotateUpBtnArr[i].BackColor = ColorTranslator.FromHtml(ButtonColor.MANUAL_BTN_ON);
+                    }
+                    else
+                    {
+                        Fw_RotateUpBtnArr[i].BackColor = ColorTranslator.FromHtml(ButtonColor.MANUAL_BTN_OFF);
+                    }
+                }
+
+            }
+
+            //로테이션 Flip , Unflip
+            for (i = 0; i < Fw_RotateFlipBtnArr.Length; i++)
+            {
+                index = i % 4;    //0,1,2,3 반복
+                if (i < 4)
+                {
+                    if (Globalo.motionManager.socketFwMachine.GetIsFlipperRotated(CurrentFwSocket, i, true) == true)
+                    {
+                        Fw_RotateFlipBtnArr[i].BackColor = ColorTranslator.FromHtml(ButtonColor.MANUAL_BTN_ON);
+                    }
+                    else
+                    {
+                        Fw_RotateFlipBtnArr[i].BackColor = ColorTranslator.FromHtml(ButtonColor.MANUAL_BTN_OFF);
+                    }
+                }
+                else
+                {
+                    if (Globalo.motionManager.socketFwMachine.GetIsFlipperRotated(CurrentFwSocket, index, false) == true)
+                    {
+                        Fw_RotateFlipBtnArr[i].BackColor = ColorTranslator.FromHtml(ButtonColor.MANUAL_BTN_ON);
+                    }
+                    else
+                    {
+                        Fw_RotateFlipBtnArr[i].BackColor = ColorTranslator.FromHtml(ButtonColor.MANUAL_BTN_OFF);
+                    }
+                }
+
+            }
+
+            //로테이션 Grip , UnGrip
+            for (i = 0; i < Fw_RotateGripBtnArr.Length; i++)
+            {
+                index = i % 4;    //0,1,2,3 반복
+                if (i < 4)
+                {
+                    if (Globalo.motionManager.socketFwMachine.GetIsFlipperRotated(CurrentFwSocket, i, true) == true)
+                    {
+                        Fw_RotateGripBtnArr[i].BackColor = ColorTranslator.FromHtml(ButtonColor.MANUAL_BTN_ON);
+                    }
+                    else
+                    {
+                        Fw_RotateGripBtnArr[i].BackColor = ColorTranslator.FromHtml(ButtonColor.MANUAL_BTN_OFF);
+                    }
+                }
+                else
+                {
+                    if (Globalo.motionManager.socketFwMachine.GetIsFlipperRotated(CurrentFwSocket, index, false) == true)
+                    {
+                        Fw_RotateGripBtnArr[i].BackColor = ColorTranslator.FromHtml(ButtonColor.MANUAL_BTN_ON);
+                    }
+                    else
+                    {
+                        Fw_RotateGripBtnArr[i].BackColor = ColorTranslator.FromHtml(ButtonColor.MANUAL_BTN_OFF);
+                    }
+                }
+
+            }
         }
 
+        private void FwSocektSelect(int index)
+        {
+            int i = 0;
+            CurrentFwSocket = index;
+
+
+            for (i = 0; i < Fw_Socket_BtnArr.Length; i++)
+            {
+                if(i == index)
+                {
+                    Fw_Socket_BtnArr[i].BackColor = ButtonColor.FW_SOCKET_BACK_BTN_ON;
+                    Fw_Socket_BtnArr[i].ForeColor = ButtonColor.FW_SOCKET_FORE_BTN_ON;
+                }
+                else
+                {
+                    Fw_Socket_BtnArr[i].BackColor = ButtonColor.FW_SOCKET_BACK_BTN_OFF;
+                    Fw_Socket_BtnArr[i].ForeColor = ButtonColor.FW_SOCKET_FORE_BTN_OFF;
+                }
+                
+            }
+
+        }
         private void button_ManualFw_Socket_Select_LT_Click(object sender, EventArgs e)
         {
-            CurrentFwSocket = 0;
+            FwSocektSelect(0);
+            
         }
 
         private void button_ManualFw_Socket_Select_RT_Click(object sender, EventArgs e)
         {
-            CurrentFwSocket = 1;
+            FwSocektSelect(1);
         }
 
         private void button_ManualFw_Socket_Select_BL_Click(object sender, EventArgs e)
         {
-            CurrentFwSocket = 2;
+            FwSocektSelect(2);
         }
 
         private void button_ManualFw_Socket_Select_BR_Click(object sender, EventArgs e)
         {
-            CurrentFwSocket = 3;
+            FwSocektSelect(3);
         }
     }
 }
