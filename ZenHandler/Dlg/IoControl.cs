@@ -26,8 +26,8 @@ namespace ZenHandler.Dlg
 
         private int mOldInSelectedRow = -1;
         //int mOldOutSelectedRow = -1;
-        private uint[] m_dwPrevDIn = new uint[] { 0, 0, 0, 0, 0 };
-        private uint[] m_dwPrevDOut = new uint[] { 0, 0, 0, 0, 0 };
+        private uint[] m_dwPrevDIn = new uint[] { 0, 0, 0, 0, 0, 0, 0, 0 };
+        private uint[] m_dwPrevDOut = new uint[] { 0, 0, 0, 0, 0, 0, 0, 0 };
 
         private int MaxInModuleCount = 0;
         private int MaxOutModuleCount = 0;
@@ -48,12 +48,16 @@ namespace ZenHandler.Dlg
             this.Height = _h;
 
 
-            MaxInModuleCount = Globalo.motionManager.ioController.m_dwDInDict.Count;
+            //MaxInModuleCount = Globalo.motionManager.ioController.m_dwDInDict.Count;      //실제 io 접속된 모듈 개수
+            MaxInModuleCount = (Globalo.dataManage.ioData.dataTable.Rows.Count) / 32;        //excel에서 로드한 io 모듈 개수,Header -1
+            MaxOutModuleCount = (Globalo.dataManage.ioData.dataTable.Rows.Count) / 32;        //excel에서 로드한 io 모듈 개수,Header -1
 
 
             Console.WriteLine($"In 모듈 개수: {MaxInModuleCount}");
+            Console.WriteLine($"Excel Module 개수: {Globalo.dataManage.ioData.dataTable.Rows.Count / 32}");
 
-
+            InIndexLabel.Text = (dCurReadModuleCh + 1).ToString() + " / " + MaxInModuleCount.ToString();
+            OutIndexLabel.Text = (dCurOutModuleCh + 1).ToString() + " / " + MaxOutModuleCount.ToString();
 
 
             foreach (var entry in Globalo.motionManager.ioController.m_dwDInDict)
@@ -370,7 +374,11 @@ namespace ZenHandler.Dlg
             {
                 return;
             }
-            
+            if(Globalo.motionManager.ioController.m_dwDOutDict.Count < e.ColumnIndex)
+            {
+                Console.WriteLine($"Out Io Count:{e.ColumnIndex}/{Globalo.motionManager.ioController.m_dwDOutDict.Count}");
+                return;
+            }
             DataGridView Grid = (DataGridView)sender;
             DataGridViewTextBoxCell cell = (DataGridViewTextBoxCell)Grid.Rows[e.RowIndex].Cells[e.ColumnIndex];
 
