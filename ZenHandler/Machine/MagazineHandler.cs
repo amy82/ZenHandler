@@ -30,6 +30,10 @@ namespace ZenHandler.Machine
         public double[] OrgSecondVel = { 2500.0, 2500.0, 2500.0, 2500.0 };
         public double[] OrgThirdVel = { 500.0, 500.0, 500.0, 500.0 };
 
+
+        public bool[] IsLoadingTray = { false, false };      //Tray 로드중
+        public bool[] IsUnloadingTray = { false, false };      //Tray 배출중
+
         public enum eTeachingPosList : int
         {
             WAIT_POS = 0, 
@@ -82,19 +86,19 @@ namespace ZenHandler.Machine
             return rtn;
         }
         #region Magazine Machine Io 동작
-        public bool GetMagazineInPosition(int index, bool bWait = false)       //Magazine 정위치 안착 확인 
+        public bool GetMagazineInPosition(int index, bool bWait = false)       //Magazine 정위치 안착 확인 ,1개 센서, 0 = left , 1 = right
         {
             return false;
         }
-        public bool GetTrayUndocked(int index, bool bWait = false)              //Magazine 과 Loader 사이 Tray 감지
+        public bool GetTrayUndocked(int index, bool bWait = false)              //Magazine 과 Loader 사이 Tray 감지 0 = left , 1 = right
         {
             return false;
         }
-        public bool GetIsTrayOnLoader(int index, bool bWait = false)              //Loader 에 Tray 유무 확인
+        public bool GetIsTrayOnLoader(int index, bool bWait = false)              //Loader 에 Tray 유무 확인 0 = left , 1 = right
         {
             return false;
         }
-        public bool GetIsTrayFrontOfLoader(int index, bool bWait = false)              //Loader 앞쪽에 Tray 감지 센서  - Magazine에서 Tray 빼기전 유무 확인
+        public bool GetIsTrayFrontOfLoader(int index, bool bWait = false)              //Loader 앞쪽에 Tray 감지 센서  - Magazine에서 Tray 빼기전 유무 확인  0 = left , 1 = right
         {
             return false;
         }

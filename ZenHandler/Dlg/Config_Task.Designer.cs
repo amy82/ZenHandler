@@ -384,7 +384,7 @@ namespace ZenHandler.Dlg
             this.label_ConfigTask_Delay.ForeColor = System.Drawing.Color.Black;
             this.label_ConfigTask_Delay.Location = new System.Drawing.Point(379, 29);
             this.label_ConfigTask_Delay.Name = "label_ConfigTask_Delay";
-            this.label_ConfigTask_Delay.Size = new System.Drawing.Size(297, 32);
+            this.label_ConfigTask_Delay.Size = new System.Drawing.Size(300, 32);
             this.label_ConfigTask_Delay.TabIndex = 89;
             this.label_ConfigTask_Delay.Text = "Delay Time ";
             this.label_ConfigTask_Delay.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;

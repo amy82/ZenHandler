@@ -7,12 +7,7 @@ using System.Threading.Tasks;
 
 namespace ZenHandler.Data
 {
-    public class _TaskData
-    {
-        public LOTDATA LotData;
-        public PRODUCTION_INFO ProductionInfo;
-        public int PintCount;
-    }
+    
 
     public class LOTDATA
     {
@@ -23,6 +18,20 @@ namespace ZenHandler.Data
         public int OkCount { get; set; }
         public int NgCount { get; set; }
         public int TotalCount { get; set; }
+    }
+    public class DelayData
+    {
+        public string Name { get; set; } = "";
+        public double Delay { get; set; } = 0.0;
+        public DelayData() { }  // <- 이게 필요해!
+
+    }
+    public class _TaskData
+    {
+        public LOTDATA LotData;
+        public PRODUCTION_INFO ProductionInfo;
+        public int PintCount;
+        public List<DelayData> delayData { get; set; } = new List<DelayData>();
     }
     public class TaskDataYaml
     {

@@ -14,9 +14,6 @@ namespace ZenHandler.Data
         public TaskWork TaskWork = new TaskWork();
         public CMesData mesData = new CMesData();
         public CEEpromData eepromData = new CEEpromData();
-
-
-
     }
     public class CPath
     {
