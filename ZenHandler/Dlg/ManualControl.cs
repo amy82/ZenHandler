@@ -14,22 +14,29 @@ namespace ZenHandler.Dlg
     public partial class ManualControl : UserControl
     {
         //public event delLogSender eLogSender;       //외부에서 호출할때 사용
-
         private eManualBtn manualBtnTab;
-
         private ManualTransfer manualTransfer;
+        private ManualMagazine manualMagazine;
+        private ManualLift manualLift;
 
-
+        private ManualFwSocket manualFwSocket;
+        private ManualEEpromSocket manualEEpromSocket;
+        private ManualAoiSocket manualAoiSocket;
 
         public enum eManualBtn : int
         {
-            TransferTab = 0, MagazineTab, LiftTab, pcbTab, lensTab
+            TransferTab = 0, MagazineTab, LiftTab, SocketTab
         };
         public ManualControl(int _w , int _h)
         {
             InitializeComponent();
 
             manualTransfer = new ManualTransfer();
+            manualMagazine = new ManualMagazine();
+            manualLift = new ManualLift();
+            manualAoiSocket = new ManualAoiSocket();
+            manualEEpromSocket = new ManualEEpromSocket();
+            manualFwSocket = new ManualFwSocket();
 
             //teachingLens = new TeachingLens();
             this.Paint += new PaintEventHandler(Form_Paint);
@@ -40,12 +47,27 @@ namespace ZenHandler.Dlg
 
 
             manualTransfer.Visible = false;
-            //teachingLens.Visible = false;
-            this.Controls.Add(manualTransfer);
-            //TeachingPanel.Controls.Add(teachingLens);
+            manualMagazine.Visible = false;
+            manualLift.Visible = false;
+            manualAoiSocket.Visible = false;
+            manualEEpromSocket.Visible = false;
+            manualFwSocket.Visible = false;
 
-            //
+            this.Controls.Add(manualTransfer);
+            this.Controls.Add(manualMagazine);
+            this.Controls.Add(manualLift);
+            this.Controls.Add(manualAoiSocket);
+            this.Controls.Add(manualEEpromSocket);
+            this.Controls.Add(manualFwSocket);
+
             manualTransfer.Location = new System.Drawing.Point(0, 89);
+            manualMagazine.Location = new System.Drawing.Point(0, 89);
+            manualLift.Location = new System.Drawing.Point(0, 89);
+            manualAoiSocket.Location = new System.Drawing.Point(0, 89);
+            manualEEpromSocket.Location = new System.Drawing.Point(0, 89);
+            manualFwSocket.Location = new System.Drawing.Point(0, 89);
+
+
             setInterface();
 
             manualBtnTab = eManualBtn.TransferTab;
@@ -54,6 +76,9 @@ namespace ZenHandler.Dlg
         public void ManualDlgStop()
         {
             manualTransfer.bManualStopKey = true;       //수동 모터 이동 중 빠져나오게
+            manualMagazine.bManualStopKey = true;       //수동 모터 이동 중 빠져나오게
+            manualLift.bManualStopKey = true;       //수동 모터 이동 중 빠져나오게
+
             //manualSocket.bManualStopKey = true;       //수동 모터 이동 중 빠져나오게
             //manualLift.bManualStopKey = true;       //수동 모터 이동 중 빠져나오게
             //manualMagazine.bManualStopKey = true;       //수동 모터 이동 중 빠져나오게
@@ -81,13 +106,17 @@ namespace ZenHandler.Dlg
             TeachingTitleLabel.ForeColor = ColorTranslator.FromHtml("#6F6F6F");
 
             button_Manual_Transfer.FlatAppearance.BorderColor = ColorTranslator.FromHtml("#BBBBBB");
-            BTN_TEACH_LENS.FlatAppearance.BorderColor = ColorTranslator.FromHtml("#BBBBBB");
+            button_Manual_Magazine.FlatAppearance.BorderColor = ColorTranslator.FromHtml("#BBBBBB");
+            button_Manual_Lift.FlatAppearance.BorderColor = ColorTranslator.FromHtml("#BBBBBB");
+            button_Manual_Socket.FlatAppearance.BorderColor = ColorTranslator.FromHtml("#BBBBBB");
 
         }
         private void TeachingBtnChange(eManualBtn index)
         {
             button_Manual_Transfer.BackColor = ColorTranslator.FromHtml("#E1E0DF");
-            BTN_TEACH_LENS.BackColor = ColorTranslator.FromHtml("#E1E0DF");
+            button_Manual_Magazine.BackColor = ColorTranslator.FromHtml("#E1E0DF");
+            button_Manual_Lift.BackColor = ColorTranslator.FromHtml("#E1E0DF");
+            button_Manual_Socket.BackColor = ColorTranslator.FromHtml("#E1E0DF");
 
             manualBtnTab = index;
 
@@ -95,31 +124,112 @@ namespace ZenHandler.Dlg
             {
                 button_Manual_Transfer.BackColor = ColorTranslator.FromHtml("#FFB230");
                 manualTransfer.Visible = true;
-                //teachingLens.Visible = false;
+                manualMagazine.Visible = false;
+                manualLift.Visible = false;
+                manualFwSocket.Visible = false;
+                manualEEpromSocket.Visible = false;
+                manualAoiSocket.Visible = false;
 
-                //teachingLens.hidePanel();
+                manualMagazine.hidePanel();
+                manualLift.hidePanel();
+                manualFwSocket.hidePanel();
+                manualEEpromSocket.hidePanel();
+                manualAoiSocket.hidePanel();
                 manualTransfer.showPanel();
+            }
+
+            else if (manualBtnTab == eManualBtn.MagazineTab)
+            {
+                button_Manual_Magazine.BackColor = ColorTranslator.FromHtml("#FFB230");
+                manualMagazine.Visible = true;
+                manualTransfer.Visible = false;
+                manualLift.Visible = false;
+                manualFwSocket.Visible = false;
+                manualEEpromSocket.Visible = false;
+                manualAoiSocket.Visible = false;
+
+                manualTransfer.hidePanel();
+                manualLift.hidePanel();
+                manualFwSocket.hidePanel();
+                manualEEpromSocket.hidePanel();
+                manualAoiSocket.hidePanel();
+                manualMagazine.showPanel();
+            }
+            else if (manualBtnTab == eManualBtn.LiftTab)
+            {
+                button_Manual_Lift.BackColor = ColorTranslator.FromHtml("#FFB230");
+                manualLift.Visible = true;
+                manualTransfer.Visible = false;
+                manualMagazine.Visible = false;
+                manualFwSocket.Visible = false;
+                manualEEpromSocket.Visible = false;
+                manualAoiSocket.Visible = false;
+
+                manualFwSocket.hidePanel();
+                manualEEpromSocket.hidePanel();
+                manualAoiSocket.hidePanel();
+                manualTransfer.hidePanel();
+                manualMagazine.hidePanel();
+                manualLift.showPanel();
+            }
+            else if (manualBtnTab == eManualBtn.SocketTab)
+            {
+                button_Manual_Socket.BackColor = ColorTranslator.FromHtml("#FFB230");
+                manualLift.Visible = false;
+                manualTransfer.Visible = false;
+                manualMagazine.Visible = false;
+                manualAoiSocket.Visible = false;
+                manualEEpromSocket.Visible = false;
+                manualFwSocket.Visible = false;
+
+                if (Program.PG_SELECT == HANDLER_PG.FW)
+                {
+                    manualFwSocket.Visible = true;
+                    manualFwSocket.showPanel();
+                }
+                if (Program.PG_SELECT == HANDLER_PG.EEPROM)
+                {
+                    manualEEpromSocket.Visible = true;
+                    manualEEpromSocket.showPanel();
+                }
+                if (Program.PG_SELECT == HANDLER_PG.AOI)
+                {
+                    manualAoiSocket.Visible = true;
+                    manualAoiSocket.showPanel();
+                }
+
+                manualTransfer.hidePanel();
+                manualMagazine.hidePanel();
+                manualLift.hidePanel();
             }
             else
             {
-                BTN_TEACH_LENS.BackColor = ColorTranslator.FromHtml("#FFB230");
-                //teachingLens.Visible = true;
+                button_Manual_Magazine.BackColor = ColorTranslator.FromHtml("#FFB230");
                 manualTransfer.Visible = false;
+                manualMagazine.Visible = false;
+                manualLift.Visible = false;
 
                 manualTransfer.hidePanel();
-                //teachingLens.showPanel();
+                manualMagazine.hidePanel();
+                manualLift.hidePanel();
             }
         }
         private void BTN_TEACH_PCB_Click(object sender, EventArgs e)
         {
             TeachingBtnChange(eManualBtn.TransferTab);
         }
-
         private void BTN_TEACH_LENS_Click(object sender, EventArgs e)
         {
-            TeachingBtnChange(eManualBtn.lensTab);
+            TeachingBtnChange(eManualBtn.MagazineTab);
         }
-
+        private void button_Manual_Lift_Click(object sender, EventArgs e)
+        {
+            TeachingBtnChange(eManualBtn.LiftTab);
+        }
+        private void button_Manual_Socket_Click(object sender, EventArgs e)
+        {
+            TeachingBtnChange(eManualBtn.SocketTab);
+        }
         private void ManualControl_VisibleChanged(object sender, EventArgs e)
         {
             if (this.Visible)
@@ -129,8 +239,23 @@ namespace ZenHandler.Dlg
             else
             {
                 manualTransfer.Visible = false;
+                manualMagazine.Visible = false;
+                manualLift.Visible = false;
+                manualFwSocket.Visible = false;
+                manualEEpromSocket.Visible = false;
+                manualEEpromSocket.Visible = false;
+                manualAoiSocket.Visible = false;
+
+
                 manualTransfer.hidePanel();
+                manualMagazine.hidePanel();
+                manualLift.hidePanel();
+                manualFwSocket.hidePanel();
+                manualEEpromSocket.hidePanel();
+                manualAoiSocket.hidePanel();
             }
         }
+
+        
     }
 }

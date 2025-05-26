@@ -136,7 +136,7 @@ namespace ZenHandler.Process
                         //몇 번 소켓인지 검색 (0 , 1 , 2 , 3)
                         SocketChk = false;
                         Globalo.motionManager.transferMachine.NoSocketPos = -1;
-                        for (i = 0; i < Globalo.motionManager.SocketSetCount; i++)     //TODO: 4는 설비마다 다름 
+                        for (i = 0; i < Globalo.motionManager.SocketSetCount; i++)     //TODO: 4는 설비마다 다름
                         {
                             if (Globalo.motionManager.GetSocketEjectReq(i) == true)
                             {

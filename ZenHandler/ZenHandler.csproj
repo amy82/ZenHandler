@@ -207,6 +207,36 @@
     <Compile Include="Dlg\Config_Task.Designer.cs">
       <DependentUpon>Config_Task.cs</DependentUpon>
     </Compile>
+    <Compile Include="Dlg\ManualFwSocket.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Dlg\ManualFwSocket.Designer.cs">
+      <DependentUpon>ManualFwSocket.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Dlg\ManualEEpromSocket.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Dlg\ManualEEpromSocket.Designer.cs">
+      <DependentUpon>ManualEEpromSocket.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Dlg\ManualLift.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Dlg\ManualLift.Designer.cs">
+      <DependentUpon>ManualLift.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Dlg\ManualAoiSocket.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Dlg\ManualAoiSocket.Designer.cs">
+      <DependentUpon>ManualAoiSocket.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Dlg\ManualMagazine.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Dlg\ManualMagazine.Designer.cs">
+      <DependentUpon>ManualMagazine.cs</DependentUpon>
+    </Compile>
     <Compile Include="Dlg\TerminalMsgForm.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -510,6 +540,21 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Dlg\MainControl.resx">
       <DependentUpon>MainControl.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Dlg\ManualFwSocket.resx">
+      <DependentUpon>ManualFwSocket.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Dlg\ManualEEpromSocket.resx">
+      <DependentUpon>ManualEEpromSocket.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Dlg\ManualLift.resx">
+      <DependentUpon>ManualLift.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Dlg\ManualAoiSocket.resx">
+      <DependentUpon>ManualAoiSocket.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Dlg\ManualMagazine.resx">
+      <DependentUpon>ManualMagazine.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Dlg\ManualTransfer.resx">
       <DependentUpon>ManualTransfer.cs</DependentUpon>

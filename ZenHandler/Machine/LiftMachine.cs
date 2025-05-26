@@ -47,10 +47,13 @@ namespace ZenHandler.Machine
 
         public enum eTeachingPosList : int
         {
-            WAIT_POS = 0, LOAD_POS, UNLOAD_POS, TOTAL_LIFT_TEACHING_COUNT
+            WAIT_POS = 0, LEFT_LOAD_POS, RIGHT_LOAD_POS, TRAY_LOAD_LEFT_POS, TRAY_LOAD_RIGHT_POS, TOTAL_LIFT_TEACHING_COUNT   //UNLOAD_POS
         };
-
-        public string[] TeachName = { "WAIT_POS" , "LOAD_POS", "UNLOAD_POS" };
+        //아래 두개 나눠야 될수도
+        //GANTRY 가 TRAY 받는 위치
+        //GANTRY 위에서 제품 로드 하는 위치
+        //Item , part , Unit , Goods , Piece , Obj
+        public string[] TeachName = { "WAIT_POS" , "L_LOAD_POS", "R_LOAD_POS", "TRAY_LOAD_LEFT", "TRAY_LOAD_RIGHT" };
 
 
         public const string teachingPath = "Teach_Lift.yaml";
@@ -549,7 +552,6 @@ namespace ZenHandler.Machine
                 return true;
             }
 
-            int i = 0;
             int lModuleNo = 0;
             int lOffset = 0;
 
@@ -580,7 +582,6 @@ namespace ZenHandler.Machine
                 return true;
             }
 
-            int i = 0;
             int lModuleNo = 0;
             int lOffset = 0;
 
@@ -610,7 +611,6 @@ namespace ZenHandler.Machine
                 return true;
             }
 
-            int i = 0;
             int lModuleNo = 0;
             int lOffset = 0;
 
@@ -633,6 +633,17 @@ namespace ZenHandler.Machine
             }
             return false;
         }
+        public bool GetBottomSensor(int index)        //리프트 대기 위치 확인 센서
+        {
+            if (ProgramState.ON_LINE_MOTOR == false)
+            {
+                return true;
+            }
+            bool rtn = MotorAxes[index].GetNegaSensor();
+
+            return rtn;
+        }
+        
         public bool GetIsLoadTrayOnTop(int index)            //GANTRY, PUSHER 위 TRAY 유무 확인
         {
             if (ProgramState.ON_LINE_MOTOR == false)
@@ -640,7 +651,6 @@ namespace ZenHandler.Machine
                 return true;
             }
 
-            int i = 0;
             int lModuleNo = 0;
             int lOffset = 0;
 
@@ -670,7 +680,6 @@ namespace ZenHandler.Machine
                 return true;
             }
 
-            int i = 0;
             int lModuleNo = 0;
             int lOffset = 0;
 
@@ -752,6 +761,7 @@ namespace ZenHandler.Machine
             return false;
         }
         #endregion
+
         public override bool IsMoving()
         {
             if (AutoUnitThread.GetThreadRun() == true)
@@ -769,6 +779,7 @@ namespace ZenHandler.Machine
             return true;
         }
         #region LIFT Motor 동작
+
         public bool ChkGantryXMotorPos(eTeachingPosList teachingPos)
         {
             if (ProgramState.ON_LINE_MOTOR == false)
@@ -837,7 +848,7 @@ namespace ZenHandler.Machine
                 return true;
             }
 
-            string logStr = "";
+            //string logStr = "";
             bool isSuccess = false;
             int moveDic = 1;        //1이면 상승 , 그외 하강
             if (Sensor == eLiftSensor.LIFT_READY_POS)
@@ -878,7 +889,7 @@ namespace ZenHandler.Machine
             }
             int step = 100;
             int nTimeTick = 0;
-            int SkipChk = 0;
+            //int SkipChk = 0;
             while (true)
             {
                 if (MotorAxes[(int)motorAxis].MotorBreak)

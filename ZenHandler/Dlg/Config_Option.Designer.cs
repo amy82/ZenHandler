@@ -368,7 +368,7 @@ namespace ZenHandler.Dlg
             this.label_Config_Tray_Max_Count.Name = "label_Config_Tray_Max_Count";
             this.label_Config_Tray_Max_Count.Size = new System.Drawing.Size(126, 40);
             this.label_Config_Tray_Max_Count.TabIndex = 110;
-            this.label_Config_Tray_Max_Count.Text = "Tray Gap";
+            this.label_Config_Tray_Max_Count.Text = "Tray Count";
             this.label_Config_Tray_Max_Count.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
             // label_Config_Ngtray_Max_Count_Y
@@ -409,7 +409,7 @@ namespace ZenHandler.Dlg
             this.label_Config_Ngtray_Max_Count.Name = "label_Config_Ngtray_Max_Count";
             this.label_Config_Ngtray_Max_Count.Size = new System.Drawing.Size(126, 40);
             this.label_Config_Ngtray_Max_Count.TabIndex = 113;
-            this.label_Config_Ngtray_Max_Count.Text = "Ngtray Gap";
+            this.label_Config_Ngtray_Max_Count.Text = "Ngtray Count";
             this.label_Config_Ngtray_Max_Count.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
             // label_Config_Tray_Max_Layer

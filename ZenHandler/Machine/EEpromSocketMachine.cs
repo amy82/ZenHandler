@@ -100,6 +100,39 @@ namespace ZenHandler.Machine
             //GroupNo = 앞,뒤 2Set
             return false;
         }
+        public bool ContactUp(int GroupNo, int index, bool bFlag, bool bWait = false)      //컨텍 상승 / 하강
+        {
+            //GroupNo = 앞,뒤 2Set
+            return false;
+        }
+        public bool GetContactUp(int GroupNo, int index, bool bFlag, bool bWait = false)      //컨텍 상승 / 하강 확인 센서
+        {
+            //GroupNo = 앞,뒤 2Set
+            return false;
+        }
+        public bool ContactFor(int GroupNo, int index, bool bFlag, bool bWait = false)      //컨텍 전진 / 후진
+        {
+            //GroupNo = 앞,뒤 2Set
+            return false;
+        }
+
+        public bool GetContactFor(int GroupNo, int index, bool bFlag, bool bWait = false)      //컨텍 전진 / 후진 확인 센서
+        {
+            //GroupNo = 앞,뒤 2Set
+            return false;
+        }
+
+        public bool SocketFor(bool bFlag, bool bWait = false)      //소켓 Y축 실린더 전진 / 후진
+        {
+            //GroupNo = 앞,뒤 2Set
+            return false;
+        }
+
+        public bool GetSocketFor(bool bFlag, bool bWait = false)      //아래쪽 소켓 Y축 실린더 전진 / 후진 
+        {
+            //GroupNo = 앞,뒤 2Set
+            return false;
+        }
         #endregion
         public override void MotorDataSet()
         {
@@ -119,6 +152,28 @@ namespace ZenHandler.Machine
 
 
         }
+        #region EEPROM Socekt Motor 동작
+
+        public bool ChkMotorPos(eTeachingPosList teachingPos, eEEpromSocket Motor)
+        {
+            if (ProgramState.ON_LINE_MOTOR == false)
+            {
+                return true;
+            }
+            double dTeachingPos = 0.0;
+            double currentPos = 0.0;
+
+            dTeachingPos = this.teachingConfig.Teaching[(int)teachingPos].Pos[(int)Motor];
+            currentPos = MotorAxes[(int)Motor].EncoderPos;
+
+            if (dTeachingPos == currentPos)
+            {
+                return true;
+            }
+
+            return false;
+        }
+        
         public override void MovingStop()
         {
             if (CancelToken != null && !CancelToken.IsCancellationRequested)
@@ -146,6 +201,8 @@ namespace ZenHandler.Machine
             }
             return false;
         }
+        #endregion
+
         public override void StopAuto()
         {
             AutoUnitThread.Stop();

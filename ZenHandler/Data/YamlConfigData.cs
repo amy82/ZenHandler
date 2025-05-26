@@ -16,7 +16,7 @@ namespace ZenHandler.Data
         public bool PinCountUse { get; set; }
         public int PinCountMax { get; set; }
         public string Language { get; set; }
-        public DrivingMode drivingMode { get; set; }
+        public eDrivingMode drivingMode { get; set; }
 
     }
     public class ConfigData

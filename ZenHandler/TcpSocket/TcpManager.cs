@@ -15,16 +15,17 @@ namespace ZenHandler.TcpSocket
         private readonly SynchronizationContext _syncContext;
         //private readonly List<TcpClientHandler> _clients = new List<TcpClientHandler>();
         
-        private TcpServer _server;
         public BarcodeClient BcrClient;
+        private TcpServer _HandlerServer;   //<-----Tester Client1,2,3,4... 이쪽으로 붙기 + Secsgem Client 도
+
         private CancellationTokenSource _cts;
         public TcpManager(string ip, int port)
         {
             Event.EventManager.PgExitCall += OnPgExitCall;
             _syncContext = SynchronizationContext.Current;
-            _server = new TcpServer(ip, port);
+            _HandlerServer = new TcpServer(ip, port);
             //_server.OnMessageReceived += OnMessageReceived; // 서버의 메시지 수신 이벤트 구독
-            _server.OnMessageReceivedAsync += HandleClientMessageAsync;
+            _HandlerServer.OnMessageReceivedAsync += HandleClientMessageAsync;
 
             BcrClient = new BarcodeClient();
             _cts = new CancellationTokenSource();
@@ -38,26 +39,26 @@ namespace ZenHandler.TcpSocket
         }
         public async void SendMessageToClient(TcpSocket.EquipmentData equipData)//string message)
         {
-            if (_server.bClientConnectedState() == false)
+            if (_HandlerServer.bClientConnectedState() == false)
             {
                 return;
             }
             //await _server.SendMessageAsync(message);   //클라이언트 하나만 허용  secGemApp
             //
             string jsonData = JsonConvert.SerializeObject(equipData);
-            await _server.BroadcastMessageAsync(jsonData);
+            await _HandlerServer.BroadcastMessageAsync(jsonData);
         }
         // 서버 시작
         public async Task StartServerAsync()
         {
-            await _server.StartAsync(_cts.Token);
+            await _HandlerServer.StartAsync(_cts.Token);
         }
 
         // 서버 중지
         public void StopServer()
         {
             _cts.Cancel();
-            _server.Stop();
+            _HandlerServer.Stop();
         }
         public void SendAlarmReport(string nAlarmID)
         {

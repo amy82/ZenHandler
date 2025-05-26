@@ -318,7 +318,7 @@ namespace ZenHandler.MotionControl
         private bool Axl_Init()
         {
             int lBoardCount = 0;
-            int i = 0;
+            //int i = 0;
             int SetTotalMotorCnt = MotorSet.MAX_MOTOR_COUNT;
             // ※ [CAUTION] 아래와 다른 Mot파일(모션 설정파일)을 사용할 경우 경로를 변경하십시요.
             //String szFilePath = "C:\\Program Files\\EzSoftware RM\\EzSoftware\\MotionDefault.mot";

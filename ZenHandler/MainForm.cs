@@ -68,7 +68,22 @@ namespace ZenHandler  //ApsMotionControl
             Globalo.motionManager = new MotionControl.MotionManager();
             Globalo.motionManager.AllMotorParameterSet();
 
-            string fileName = string.Format(@"{0}\iomap.xlsx", Application.StartupPath); //file path
+            string fileName = "";
+            if (Program.PG_SELECT == HANDLER_PG.FW)
+            {
+                fileName = string.Format(@"{0}\Fw_Handler_IoMap_v1.0.xlsx", Application.StartupPath);
+            }
+            else if (Program.PG_SELECT == HANDLER_PG.AOI)
+            {
+                fileName = string.Format(@"{0}\iomap.xlsx", Application.StartupPath);
+            }
+            else
+            {
+                //eeprom
+                fileName = string.Format(@"{0}\iomap.xlsx", Application.StartupPath);
+            }
+
+
             Globalo.dataManage.ioData.ReadEpplusData(fileName);
 
             // KeyEvent 이벤트 핸들러 추가

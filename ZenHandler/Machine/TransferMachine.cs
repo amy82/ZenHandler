@@ -82,6 +82,7 @@ namespace ZenHandler.Machine
         public Data.TeachingConfig teachingConfig = new Data.TeachingConfig();
         public PickedProduct pickedProduct = new PickedProduct();
         public ProductLayout productLayout = new ProductLayout();
+
         public MotionControl.MotorSet.TrayPos TrayPosition;        //Tray Load 위치 , Lift에서는 Right만 배출 , Magazine는 LEFT , RIGHT 동시 투입/배출
         public int NoSocketPos;     //투입 , 배출요청하는 소켓 index
         public string CurrentScanBcr = "";

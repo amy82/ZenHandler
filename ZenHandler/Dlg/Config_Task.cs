@@ -14,15 +14,87 @@ namespace ZenHandler.Dlg
     {
         private Label[] LoadLabel;
         private Label[] UnloadLabel;
-
+        private Controls.DefaultGridView DelayGridView;
+        private int GridCol = 2;                                //name , time
+        private int[] StartPos = new int[] { 379, 50 };        //Grid Pos
+        private int[] inGridWid = new int[] { 226, 70 };        //Grid Col Width
         public Config_Task()
         {
             InitializeComponent();
 
             LoadLabel = new Label[] { label_ConfigTask_Load_P1, label_ConfigTask_Load_P2, label_ConfigTask_Load_P3, label_ConfigTask_Load_P4 };
             UnloadLabel = new Label[] { label_ConfigTask_Unload_P1, label_ConfigTask_Unload_P2, label_ConfigTask_Unload_P3, label_ConfigTask_Unload_P4 };
-        }
 
+            InitDelayGrid();
+        }
+        public void InitDelayGrid()
+        {
+            int i = 0;
+            int count = Globalo.yamlManager.taskDataYaml.TaskData.delayData.Count;
+            DelayGridView = new Controls.DefaultGridView(GridCol, count, inGridWid);
+            DelayGridView.Location = new Point(label_ConfigTask_Delay.Location.X, label_ConfigTask_Delay.Location.Y + label_ConfigTask_Delay.Height + 1);
+            this.Controls.Add(DelayGridView);
+
+            string[] title = new string[] { "name", "time(s)" };         //Grid Width
+            for (i = 0; i < DelayGridView.ColumnCount; i++)
+            {
+                DelayGridView.Columns[i].Name = title[i];
+            }
+
+            string posName = "";
+            for (i = 0; i < count; i++)
+            {
+                posName = Globalo.yamlManager.taskDataYaml.TaskData.delayData[i].Name;
+                //DelayGridView.Rows[i].SetValues(posName);
+                DelayGridView[0, i].Value = posName;
+                posName = Globalo.yamlManager.taskDataYaml.TaskData.delayData[i].Delay.ToString("0.0#");
+                DelayGridView[1, i].Value = posName;
+            }
+
+
+            DelayGridView.CellClick += DelayGrid_CellClick;
+        }
+        private void DelayGrid_CellClick(object sender, DataGridViewCellEventArgs e)
+        {
+            int nRow = e.RowIndex;      //세로줄 티칭위치
+            int nCol = e.ColumnIndex;   //가로줄 모터
+
+            if (nRow >= 0 && nCol >= 1)//(nRow > RowLimit && nRow < nGridRowCount - 1) && )
+            {
+                string cellStr = DelayGridView.Rows[e.RowIndex].Cells[e.ColumnIndex].Value.ToString();
+                decimal decimalValue = 0;
+                if (decimal.TryParse(cellStr, out decimalValue))
+                {
+                    string formattedValue = decimalValue.ToString("0.0#");
+                    NumPadForm popupForm = new NumPadForm(formattedValue);
+
+                    if (popupForm.ShowDialog() == DialogResult.OK)
+                    {
+                        double dNumData = 0.0;// double.Parse(popupForm.NumPadResult);
+                        if (!string.IsNullOrWhiteSpace(popupForm.NumPadResult) && double.TryParse(popupForm.NumPadResult, out dNumData))
+                        {
+                            // dNumData 값이 성공적으로 변환됨
+                            if (dNumData < 0.0)
+                            {
+                                dNumData = 0.0;
+                            }
+                            if (dNumData > 600.0)
+                            {
+                                dNumData = 600.0;
+                            }
+                        }
+                        else
+                        {
+                            // 변환 실패: 기본값 사용 또는 사용자에게 알림
+                            dNumData = 0.0; // 기본값
+                        }
+                        
+
+                        DelayGridView[e.ColumnIndex, e.RowIndex].Value = dNumData.ToString("0.0#");
+                    }
+                }
+            }
+        }
         public void ShowTaskData()
         {
             int i = 0;
@@ -143,7 +215,15 @@ namespace ZenHandler.Dlg
                 Globalo.motionManager.liftMachine.trayProduct.RightTrayLayer = int.Parse(label_ConfigTask_Right_Tray_Layer_Val.Text);
             }
 
-            
+
+
+            string delaydata = "";
+            for (i = 0; i < DelayGridView.RowCount; i++)
+            {
+                Globalo.yamlManager.taskDataYaml.TaskData.delayData[i].Delay = double.Parse(DelayGridView[1, i].Value.ToString());
+
+            }
+
 
         }
         public void showPanel()
@@ -290,7 +370,7 @@ namespace ZenHandler.Dlg
         {
             GetTaskData();
             Globalo.motionManager.transferMachine.TaskSave();
-
+            Globalo.yamlManager.taskDataYaml.TaskDataSave();
 
             Globalo.pickerInfo.SetLoadPickerInfo();
             Globalo.pickerInfo.SetUnloadPickerInfo();
@@ -320,13 +400,13 @@ namespace ZenHandler.Dlg
                 Globalo.LogPrint("ManualControl", "[INFO] 전체 유닛 정지상태에서 변경 가능합니다.", Globalo.eMessageName.M_WARNING);
                 return;
             }
-            if (Globalo.yamlManager.configData.DrivingSettings.drivingMode == DrivingMode.NOMAL)
+            if (Globalo.yamlManager.configData.DrivingSettings.drivingMode == eDrivingMode.NOMAL)
             {
-                Globalo.yamlManager.configData.DrivingSettings.drivingMode = DrivingMode.DRY_RUN;
+                Globalo.yamlManager.configData.DrivingSettings.drivingMode = eDrivingMode.DRY_RUN;
             }
             else
             {
-                Globalo.yamlManager.configData.DrivingSettings.drivingMode = DrivingMode.NOMAL;
+                Globalo.yamlManager.configData.DrivingSettings.drivingMode = eDrivingMode.NOMAL;
             }
 
             Btn_ConfigTask_Driving_Mode.Text = Globalo.yamlManager.configData.DrivingSettings.drivingMode.ToString();

@@ -811,7 +811,7 @@ namespace ZenHandler.Process
                     break;
                 case 2150:
                     //GANTRY X1,2 축 RIGHT 투입 위치로 이동
-                    bRtn = Globalo.motionManager.liftMachine.Gantry_X_Move(Machine.LiftMachine.eTeachingPosList.LOAD_POS);
+                    bRtn = Globalo.motionManager.liftMachine.Gantry_X_Move(Machine.LiftMachine.eTeachingPosList.RIGHT_LOAD_POS);
 
                     if (bRtn == false)
                     {
@@ -831,7 +831,7 @@ namespace ZenHandler.Process
                     //GANTRY X1,2 위치 RIGHT 투입 이동 확인
                     if (Globalo.motionManager.liftMachine.MotorAxes[(int)Machine.eLift.GANTRYX_L].GetStopAxis() == true &&
                         Globalo.motionManager.liftMachine.MotorAxes[(int)Machine.eLift.GANTRYX_R].GetStopAxis() == true &&
-                        Globalo.motionManager.liftMachine.ChkGantryXMotorPos(Machine.LiftMachine.eTeachingPosList.LOAD_POS))
+                        Globalo.motionManager.liftMachine.ChkGantryXMotorPos(Machine.LiftMachine.eTeachingPosList.RIGHT_LOAD_POS))
                     {
                         szLog = $"[READY] RIGHT LOAD 위치 이동 완료 [STEP : {nStep}]";
                         Globalo.LogPrint("ManualControl", szLog);
@@ -1699,7 +1699,7 @@ namespace ZenHandler.Process
                         break;
                     case 40:
                         //GANTRY X 축 LEFT TRAY LOAD 위치로 이동
-                        bRtn = Globalo.motionManager.liftMachine.Gantry_X_Move(Machine.LiftMachine.eTeachingPosList.LOAD_POS);
+                        bRtn = Globalo.motionManager.liftMachine.Gantry_X_Move(Machine.LiftMachine.eTeachingPosList.TRAY_LOAD_LEFT_POS);
                         if (bRtn == false)
                         {
                             szLog = $"[READY] GANTRY X LOAD POS MOVE FAIL [STEP : {nRetStep}]";
@@ -1719,7 +1719,7 @@ namespace ZenHandler.Process
                         //GANTRY X1,2 위치 RIGHT 투입 이동 확인
                         if (Globalo.motionManager.liftMachine.MotorAxes[(int)Machine.eLift.GANTRYX_L].GetStopAxis() == true &&
                             Globalo.motionManager.liftMachine.MotorAxes[(int)Machine.eLift.GANTRYX_R].GetStopAxis() == true &&
-                            Globalo.motionManager.liftMachine.ChkGantryXMotorPos(Machine.LiftMachine.eTeachingPosList.LOAD_POS))
+                            Globalo.motionManager.liftMachine.ChkGantryXMotorPos(Machine.LiftMachine.eTeachingPosList.TRAY_LOAD_LEFT_POS))
                         {
                             szLog = $"[READY] GANTRY LEFT LOAD 위치 이동 완료 [STEP : {nRetStep}]";
                             Globalo.LogPrint("ManualControl", szLog);
@@ -1983,7 +1983,7 @@ namespace ZenHandler.Process
                         break;
                     case 40:
                         //GANTRY X 축 배출 위치 이동
-                        bRtn = Globalo.motionManager.liftMachine.Gantry_X_Move(Machine.LiftMachine.eTeachingPosList.UNLOAD_POS);
+                        bRtn = Globalo.motionManager.liftMachine.Gantry_X_Move(Machine.LiftMachine.eTeachingPosList.TRAY_LOAD_RIGHT_POS);
                         if (bRtn == false)
                         {
                             szLog = $"[READY] GANTRY X UNLOAD POS MOVE FAIL [STEP : {nRetStep}]";
@@ -2004,7 +2004,7 @@ namespace ZenHandler.Process
                         //GANTRY X1,2 위치 RIGHT 투입 이동 확인
                         if (Globalo.motionManager.liftMachine.MotorAxes[(int)Machine.eLift.GANTRYX_L].GetStopAxis() == true &&
                             Globalo.motionManager.liftMachine.MotorAxes[(int)Machine.eLift.GANTRYX_R].GetStopAxis() == true &&
-                            Globalo.motionManager.liftMachine.ChkGantryXMotorPos(Machine.LiftMachine.eTeachingPosList.UNLOAD_POS))
+                            Globalo.motionManager.liftMachine.ChkGantryXMotorPos(Machine.LiftMachine.eTeachingPosList.TRAY_LOAD_RIGHT_POS))
                         {
                             szLog = $"[READY] GANTRY LEFT UNLOAD 위치 이동 완료 [STEP : {nRetStep}]";
                             Globalo.LogPrint("ManualControl", szLog);
@@ -2207,7 +2207,7 @@ namespace ZenHandler.Process
                         //GANTRY X1,2 축 RIGHT 투입 위치로 이동
                         //운전준비시에는 무조건 RIGHT LIFT위로 이동해서 투입
 
-                        bRtn = Globalo.motionManager.liftMachine.Gantry_X_Move(Machine.LiftMachine.eTeachingPosList.LOAD_POS);
+                        bRtn = Globalo.motionManager.liftMachine.Gantry_X_Move(Machine.LiftMachine.eTeachingPosList.TRAY_LOAD_LEFT_POS);
                         if (bRtn == false)
                         {
                             szLog = $"[READY] GANTRY X LOAD POS MOVE FAIL [STEP : {nRetStep}]";
@@ -2225,7 +2225,7 @@ namespace ZenHandler.Process
                         //GANTRY X1,2 위치 RIGHT 투입 이동 확인
                         if (Globalo.motionManager.liftMachine.MotorAxes[(int)Machine.eLift.GANTRYX_L].GetStopAxis() == true &&
                             Globalo.motionManager.liftMachine.MotorAxes[(int)Machine.eLift.GANTRYX_R].GetStopAxis() == true &&
-                            Globalo.motionManager.liftMachine.ChkGantryXMotorPos(Machine.LiftMachine.eTeachingPosList.LOAD_POS))
+                            Globalo.motionManager.liftMachine.ChkGantryXMotorPos(Machine.LiftMachine.eTeachingPosList.TRAY_LOAD_LEFT_POS))
                         {
                             szLog = $"[READY] RIGHT LOAD 위치 이동 완료 [STEP : {nRetStep}]";
                             Globalo.LogPrint("ManualControl", szLog);

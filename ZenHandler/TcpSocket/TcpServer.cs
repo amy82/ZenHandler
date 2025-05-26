@@ -10,13 +10,31 @@ using System.Threading.Tasks;
 
 namespace ZenHandler.TcpSocket
 {
+    public enum ClientSlotIndex
+    {
+        Tester1 = 0,    // IP 뒷자리 1
+        Tester2 = 1,    // IP 뒷자리 2
+        Tester3 = 2,    // IP 뒷자리 3
+        Tester4 = 3,    // IP 뒷자리 4
+        SecsGem = 4     // IP 뒷자리 100 → 배열엔 5개니까 마지막 인덱스 4
+    }
     public class TcpServer
     {
         private TcpListener _listener;
         //private bool _isRunning;
         private bool bConnected;
 
-        private readonly List<TcpClient> _clientsList = new List<TcpClient>();
+        //private readonly List<TcpClient> _clientsList = new List<TcpClient>();
+        //private Dictionary<int, TcpClient> _clientMap = new Dictionary<int, TcpClient>();
+        private readonly TcpClient[] _clients = new TcpClient[5];
+        private readonly Dictionary<int, ClientSlotIndex> ipToSlotIndex = new Dictionary<int, ClientSlotIndex>
+        {
+            { 1, ClientSlotIndex.Tester1 },
+            { 2, ClientSlotIndex.Tester2 },
+            { 3, ClientSlotIndex.Tester3 },
+            { 4, ClientSlotIndex.Tester4 },
+            { 100, ClientSlotIndex.SecsGem }
+        };
         //public event Action<string> OnMessageReceived; // 메시지 수신 이벤트
         public event Func<string, Task> OnMessageReceivedAsync; // 비동기 이벤트
 
@@ -35,7 +53,7 @@ namespace ZenHandler.TcpSocket
         // 🎯 **클라이언트로 메시지 보내는 함수**
         public async Task SendMessageAsync(TcpClient client, string message)
         {
-            if(_clientsList.Count < 1)
+            if(_clients.Length < 1)
             {
                 return;
             }
@@ -58,25 +76,41 @@ namespace ZenHandler.TcpSocket
         // 🎯 **모든 클라이언트에게 메시지 보내는 함수**
         public async Task BroadcastMessageAsync(string message)
         {
-            List<TcpClient> disconnectedClients = new List<TcpClient>();
+            List<int> disconnectedClientKeys = new List<int>();
 
-            foreach (var client in _clientsList)
+            for (int i = 0; i < _clients.Length; i++)
             {
-                if (client.Connected)
+                var client = _clients[i];
+                if (client != null && client.Connected)
                 {
                     await SendMessageAsync(client, message);
                 }
                 else
                 {
-                    disconnectedClients.Add(client); // 연결 끊긴 클라이언트 목록 저장
+                    // 연결 끊긴 클라이언트 처리
+                    _clients[i] = null;
                 }
             }
+            //foreach (var kvp in _clientMap) // Key: 클라이언트 ID (ex. IP 뒷자리), Value: TcpClient
+            //{
+            //    int key = kvp.Key;
+            //    TcpClient client = kvp.Value;
 
-            // 연결 끊긴 클라이언트 제거
-            foreach (var client in disconnectedClients)
-            {
-                _clientsList.Remove(client);
-            }
+            //    if (client.Connected)
+            //    {
+            //        await SendMessageAsync(client, message);
+            //    }
+            //    else
+            //    {
+            //        disconnectedClientKeys.Add(key); // 연결 끊긴 클라이언트 key 저장
+            //    }
+            //}
+
+                // 연결 끊긴 클라이언트 제거
+            //foreach (int key in disconnectedClientKeys)
+            //{
+            //    _clientMap.Remove(key);
+            //}
         }
         // 서버 시작
         public async Task StartAsync(CancellationToken cancellationToken)
@@ -92,16 +126,54 @@ namespace ZenHandler.TcpSocket
                     if (_listener.Pending()) // 대기 중인 연결이 있는지 확인
                     {
                         TcpClient client = await _listener.AcceptTcpClientAsync();
-                        _clientsList.Add(client); // 클라이언트 추가
 
-                        Console.WriteLine("클라이언트가 연결되었습니다.");
+                        // 클라이언트 IP 주소 가져오기
+                        IPEndPoint remoteIpEndPoint = client.Client.RemoteEndPoint as IPEndPoint;
+                        string clientIP = remoteIpEndPoint?.Address.ToString();
 
+                        // 출력
+                        
+                        // IP 주소의 마지막 자리 추출
+                        int lastOctet = -1;
+                        if (!string.IsNullOrEmpty(clientIP))
+                        {
+                            string[] parts = clientIP.Split('.');
+                            if (parts.Length == 4 && int.TryParse(parts[3], out int parsed))
+                            {
+                                lastOctet = parsed;
+                                Console.WriteLine($"Client Connect IP: {clientIP},ID: {lastOctet}");
+                            }
+                        }
+                        //_clientsList.Add(client); // 클라이언트 추가
+                        //// _clientMap[lastOctet] = client;
+                        // 클라이언트 접속 시 (IP 뒷자리 lastOctet)
+                        int clientNo = -1;
+                        if (ipToSlotIndex.TryGetValue(lastOctet, out ClientSlotIndex slot))
+                        {
+                            clientNo = (int)slot;
+                            _clients[(int)slot] = client; // 배열 인덱스에 저장
+                        }
+                        else
+                        {
+                            // 정의되지 않은 IP 뒷자리 처리
+                        }
+
+                        if(clientNo == -1)
+                        {
+                            return;
+                        }
+                        
                         bConnected = true;
 
                         logData = $"[tcp] Client Connected";
                         Globalo.LogPrint("CCdControl", logData);
-                        Globalo.MainForm.ClientConnected(true);
-                        _ = HandleClientAsync(client, cancellationToken); // 클라이언트 연결 처리
+
+                        if (clientNo == (int)ClientSlotIndex.SecsGem)
+                        {
+                            Globalo.MainForm.ClientConnected(true);
+                        }
+
+                        _ = HandleClientAsync(client, clientNo, cancellationToken); // 클라이언트 연결 처리
                     }
                     await Task.Delay(100); // CPU 점유율을 낮추기 위해 약간의 대기
                 }
@@ -114,7 +186,7 @@ namespace ZenHandler.TcpSocket
         }
         
         // 클라이언트 연결 처리
-        private async Task HandleClientAsync(TcpClient client, CancellationToken cancellationToken)
+        private async Task HandleClientAsync(TcpClient client, int clientIndex, CancellationToken cancellationToken)
         {
             using (NetworkStream stream = client.GetStream())
             {
@@ -180,6 +252,15 @@ namespace ZenHandler.TcpSocket
                     Console.WriteLine($"클라이언트 처리 중 예외 발생: {ex.Message}");
                 }
             }
+
+            // 클라이언트 연결 종료 시 배열에서 null 처리 및 소켓 닫기
+            if (_clients[clientIndex] == client)
+            {
+                client.Close();
+                _clients[clientIndex] = null;
+                Console.WriteLine($"클라이언트 인덱스 {clientIndex} 연결 종료, 배열에서 제거");
+            }
+
             bConnected = false;
             string logData = $"[tcp] Client DisConnected";
             Globalo.LogPrint("CCdControl", logData);
