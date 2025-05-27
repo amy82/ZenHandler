@@ -105,6 +105,24 @@ namespace ZenHandler.Dlg
 
             ShowTaskPicker();
             ShowTrayPos();
+            ShowMagazineLayer();
+        }
+        public void ShowMagazineLayer()
+        {
+            label_ConfigTask_Left_Magazine_Layer1.Text = Globalo.motionManager.magazineHandler.magazineTray.LeftMagazineInfo[0].State.ToString();
+            label_ConfigTask_Left_Magazine_Layer2.Text = Globalo.motionManager.magazineHandler.magazineTray.LeftMagazineInfo[1].State.ToString();
+            label_ConfigTask_Left_Magazine_Layer3.Text = Globalo.motionManager.magazineHandler.magazineTray.LeftMagazineInfo[2].State.ToString();
+            label_ConfigTask_Left_Magazine_Layer4.Text = Globalo.motionManager.magazineHandler.magazineTray.LeftMagazineInfo[3].State.ToString();
+            label_ConfigTask_Left_Magazine_Layer5.Text = Globalo.motionManager.magazineHandler.magazineTray.LeftMagazineInfo[4].State.ToString();
+
+            label_ConfigTask_Right_Magazine_Layer1.Text = Globalo.motionManager.magazineHandler.magazineTray.RightMagazineInfo[0].State.ToString();
+            label_ConfigTask_Right_Magazine_Layer2.Text = Globalo.motionManager.magazineHandler.magazineTray.RightMagazineInfo[1].State.ToString();
+            label_ConfigTask_Right_Magazine_Layer3.Text = Globalo.motionManager.magazineHandler.magazineTray.RightMagazineInfo[2].State.ToString();
+            label_ConfigTask_Right_Magazine_Layer4.Text = Globalo.motionManager.magazineHandler.magazineTray.RightMagazineInfo[3].State.ToString();
+            label_ConfigTask_Right_Magazine_Layer5.Text = Globalo.motionManager.magazineHandler.magazineTray.RightMagazineInfo[4].State.ToString();
+
+
+
         }
         public void ShowTrayPos()
         {
@@ -208,6 +226,18 @@ namespace ZenHandler.Dlg
             {
                 Globalo.motionManager.magazineHandler.magazineTray.LeftTrayLayer = int.Parse(label_ConfigTask_Left_Tray_Layer_Val.Text);
                 Globalo.motionManager.magazineHandler.magazineTray.RightTrayLayer = int.Parse(label_ConfigTask_Right_Tray_Layer_Val.Text);
+
+                Globalo.motionManager.magazineHandler.magazineTray.LeftMagazineInfo[0].State = (Machine.LayerState)Enum.Parse(typeof(Machine.LayerState), label_ConfigTask_Left_Magazine_Layer1.Text);
+                Globalo.motionManager.magazineHandler.magazineTray.LeftMagazineInfo[1].State = (Machine.LayerState)Enum.Parse(typeof(Machine.LayerState), label_ConfigTask_Left_Magazine_Layer2.Text);
+                Globalo.motionManager.magazineHandler.magazineTray.LeftMagazineInfo[2].State = (Machine.LayerState)Enum.Parse(typeof(Machine.LayerState), label_ConfigTask_Left_Magazine_Layer3.Text);
+                Globalo.motionManager.magazineHandler.magazineTray.LeftMagazineInfo[3].State = (Machine.LayerState)Enum.Parse(typeof(Machine.LayerState), label_ConfigTask_Left_Magazine_Layer4.Text);
+                Globalo.motionManager.magazineHandler.magazineTray.LeftMagazineInfo[4].State = (Machine.LayerState)Enum.Parse(typeof(Machine.LayerState), label_ConfigTask_Left_Magazine_Layer5.Text);
+
+                Globalo.motionManager.magazineHandler.magazineTray.RightMagazineInfo[0].State = (Machine.LayerState)Enum.Parse(typeof(Machine.LayerState), label_ConfigTask_Right_Magazine_Layer1.Text);
+                Globalo.motionManager.magazineHandler.magazineTray.RightMagazineInfo[1].State = (Machine.LayerState)Enum.Parse(typeof(Machine.LayerState), label_ConfigTask_Right_Magazine_Layer2.Text);
+                Globalo.motionManager.magazineHandler.magazineTray.RightMagazineInfo[2].State = (Machine.LayerState)Enum.Parse(typeof(Machine.LayerState), label_ConfigTask_Right_Magazine_Layer3.Text);
+                Globalo.motionManager.magazineHandler.magazineTray.RightMagazineInfo[3].State = (Machine.LayerState)Enum.Parse(typeof(Machine.LayerState), label_ConfigTask_Right_Magazine_Layer4.Text);
+                Globalo.motionManager.magazineHandler.magazineTray.RightMagazineInfo[4].State = (Machine.LayerState)Enum.Parse(typeof(Machine.LayerState), label_ConfigTask_Right_Magazine_Layer5.Text);
             }
             else
             {
@@ -241,6 +271,47 @@ namespace ZenHandler.Dlg
         {
             this.Visible = false;
             //myTeachingGrid.MotorStateRun(false);
+        }
+        private void SetMagazineLayer(int Pos, int index, Label label, bool UserSet = false)
+        {
+            if (Globalo.motionManager.magazineHandler.RunState != OperationState.Stopped)
+            {
+                //Transfer Unit 정지상태에서만 설정 가능합니다.
+                Globalo.LogPrint("ManualControl", "[INFO] MAGAZINE UNIT 정지 상태에서 변경 가능합니다.", Globalo.eMessageName.M_WARNING);
+                return;
+            }
+            if (Pos == 0)
+            {
+                //Left Magazine
+                if (Globalo.motionManager.magazineHandler.magazineTray.LeftMagazineInfo[index].State == Machine.LayerState.After)
+                {
+                    Globalo.motionManager.magazineHandler.magazineTray.LeftMagazineInfo[index].State = Machine.LayerState.Before;
+                    label.BackColor = Color.White;
+                }
+                else
+                {
+                    Globalo.motionManager.magazineHandler.magazineTray.LeftMagazineInfo[index].State = Machine.LayerState.After;
+                    label.BackColor = Color.Green;
+                    //Globalo.motionManager.magazineHandler.magazineTray.LeftMagazineInfo[index].State = (Machine.LayerState)((int)Globalo.motionManager.magazineHandler.magazineTray.LeftMagazineInfo[index].State + 1);
+                }
+                label.Text = Globalo.motionManager.magazineHandler.magazineTray.LeftMagazineInfo[index].State.ToString();
+            }
+            else
+            {
+                //Right Magazine
+                if (Globalo.motionManager.magazineHandler.magazineTray.RightMagazineInfo[index].State == Machine.LayerState.After)
+                {
+                    Globalo.motionManager.magazineHandler.magazineTray.RightMagazineInfo[index].State = Machine.LayerState.Before;
+                    label.BackColor = Color.White;
+                }
+                else
+                {
+                    //Globalo.motionManager.magazineHandler.magazineTray.RightMagazineInfo[index].State = (Machine.LayerState)((int)Globalo.motionManager.magazineHandler.magazineTray.RightMagazineInfo[index].State + 1);
+                    Globalo.motionManager.magazineHandler.magazineTray.RightMagazineInfo[index].State = Machine.LayerState.After;
+                    label.BackColor = Color.Green;
+                }
+                label.Text = Globalo.motionManager.magazineHandler.magazineTray.RightMagazineInfo[index].State.ToString();
+            }
         }
         private void SetLoadPicker(int index, Label label , bool UserSet = false)
         {
@@ -529,16 +600,23 @@ namespace ZenHandler.Dlg
 
                 if (dialogResult == DialogResult.OK)
                 {
-                    int dNumData = int.Parse(popupForm.NumPadResult);
-
-                    if (dNumData < 0)
+                    int dNumData = 0;// int.Parse(popupForm.NumPadResult);
+                    if (!string.IsNullOrWhiteSpace(popupForm.NumPadResult) && int.TryParse(popupForm.NumPadResult, out dNumData))
+                    {
+                        if (dNumData < -1) 
+                        {
+                            dNumData = -1;
+                        }
+                        if (dNumData > Globalo.motionManager.transferMachine.productLayout.TotalTrayLayer - 1)
+                        {
+                            dNumData = Globalo.motionManager.transferMachine.productLayout.TotalTrayLayer - 1;
+                        }
+                    }
+                    else
                     {
                         dNumData = 0;
                     }
-                    if (dNumData > Globalo.motionManager.transferMachine.productLayout.TotalTrayLayer - 1)
-                    {
-                        dNumData = Globalo.motionManager.transferMachine.productLayout.TotalTrayLayer - 1;
-                    }
+                    
                     label.Text = dNumData.ToString();
                 }
             }
@@ -588,6 +666,76 @@ namespace ZenHandler.Dlg
         {
             Label label = sender as Label;
             SetTrayLayer(label, true);
+        }
+
+        private void label_ConfigTask_Left_Magazine_Layer1_Click(object sender, EventArgs e)
+        {
+            //Left Magazine1
+            Label label = sender as Label;
+            SetMagazineLayer(0, 0, label);
+        }
+
+        private void label_ConfigTask_Left_Magazine_Layer2_Click(object sender, EventArgs e)
+        {
+            //Left Magazine2
+            Label label = sender as Label;
+            SetMagazineLayer(0, 1, label);
+        }
+
+        private void label_ConfigTask_Left_Magazine_Layer3_Click(object sender, EventArgs e)
+        {
+            //Left Magazine3
+            Label label = sender as Label;
+            SetMagazineLayer(0, 2, label);
+        }
+
+        private void label_ConfigTask_Left_Magazine_Layer4_Click(object sender, EventArgs e)
+        {
+            //Left Magazine4
+            Label label = sender as Label;
+            SetMagazineLayer(0, 3, label);
+        }
+
+        private void label_ConfigTask_Left_Magazine_Layer5_Click(object sender, EventArgs e)
+        {
+            //Left Magazine5
+            Label label = sender as Label;
+            SetMagazineLayer(0, 4, label);
+        }
+
+        private void label_ConfigTask_Right_Magazine_Layer1_Click(object sender, EventArgs e)
+        {
+            //Right Magazine1
+            Label label = sender as Label;
+            SetMagazineLayer(1, 0, label);
+        }
+
+        private void label_ConfigTask_Right_Magazine_Layer2_Click(object sender, EventArgs e)
+        {
+            //Right Magazine2
+            Label label = sender as Label;
+            SetMagazineLayer(1, 1, label);
+        }
+
+        private void label_ConfigTask_Right_Magazine_Layer3_Click(object sender, EventArgs e)
+        {
+            //Right Magazine3
+            Label label = sender as Label;
+            SetMagazineLayer(1, 2, label);
+        }
+
+        private void label_ConfigTask_Right_Magazine_Layer4_Click(object sender, EventArgs e)
+        {
+            //Right Magazine4
+            Label label = sender as Label;
+            SetMagazineLayer(1, 3, label);
+        }
+
+        private void label_ConfigTask_Right_Magazine_Layer5_Click(object sender, EventArgs e)
+        {
+            //Right Magazine5
+            Label label = sender as Label;
+            SetMagazineLayer(1, 4, label);
         }
     }
 }

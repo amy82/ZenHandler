@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using static ZenHandler.MotorDefine;
 
 namespace ZenHandler.Machine
 {
@@ -31,27 +32,29 @@ namespace ZenHandler.Machine
         public double[] OrgThirdVel = { 500.0, 500.0, 500.0, 500.0 };
 
 
-        public bool[] IsLoadingTray = { false, false };      //Tray 로드중
-        public bool[] IsUnloadingTray = { false, false };      //Tray 배출중
+        public bool[] IsTryChanging = { false, false };      //Tray 교체중
+        public bool[] isTrayReadyToLoad = { false, false };  //Tray 로드 완료 상태
 
         public enum eTeachingPosList : int
         {
             WAIT_POS = 0, 
-            LEFT_TRAY_LOAD_POS, LEFT_TRAY_UNLOAD_POS,
+            TRAY_LOAD_POS, //LEFT_TRAY_UNLOAD_POS,   //TODO: UNLOAD 위치는 빼도될듯
             LAYER1, LAYER2, LAYER3, LAYER4, LAYER5,
             TOTAL_MAGAZINE_TEACHING_COUNT
         };
 
         public string[] TeachName = { "WAIT_POS",
-            "LEFT_TRAY_LOAD", "LEFT_TRAY_UNLOAD",
+            "TRAY_LOAD", //"LEFT_TRAY_UNLOAD",
             "LAYER1","LAYER2","LAYER3","LAYER4","LAYER5"
         };
 
         //TRAY 꺼내는 층별 위치 다 따로 해야될수도
         public const string teachingPath = "Teach_Magazine.yaml";
         public const string taskPath = "Task_Magazine.yaml";
+
         public Data.TeachingConfig teachingConfig = new Data.TeachingConfig();
         //public LayerTray pickedProduct = new LayerTray();
+
         public MagazineTray magazineTray = new MagazineTray();
 
         
@@ -79,6 +82,30 @@ namespace ZenHandler.Machine
             }
 
             magazineTray = Data.TaskDataYaml.TaskLoad_Magazine(taskPath);
+        }
+        public void LeftMagazineLayerAdd()
+        {
+            int index = Globalo.motionManager.magazineHandler.magazineTray.LeftTrayLayer;
+            Globalo.motionManager.magazineHandler.magazineTray.LeftMagazineInfo[index].State = Machine.LayerState.After;
+
+            Globalo.motionManager.magazineHandler.magazineTray.LeftTrayLayer++;
+
+            if (Globalo.motionManager.magazineHandler.magazineTray.LeftTrayLayer > 4)
+            {
+                Globalo.motionManager.magazineHandler.magazineTray.LeftTrayLayer = -1;
+            }
+        }
+        public void RightMagazineLayerAdd()
+        {
+            int index = Globalo.motionManager.magazineHandler.magazineTray.RightTrayLayer;
+            Globalo.motionManager.magazineHandler.magazineTray.RightMagazineInfo[index].State = Machine.LayerState.After;
+
+
+            Globalo.motionManager.magazineHandler.magazineTray.RightTrayLayer++;
+            if (Globalo.motionManager.magazineHandler.magazineTray.RightTrayLayer > 4)
+            {
+                Globalo.motionManager.magazineHandler.magazineTray.RightTrayLayer = -1;
+            }
         }
         public override bool TaskSave()
         {
@@ -225,6 +252,21 @@ namespace ZenHandler.Machine
                 Console.WriteLine("No Use Machine");
                 return true;
             }
+            if(MotorZ == eMagazine.MAGAZINE_L_Z)
+            {
+                if (GetTrayUndocked(0) == true)
+                {
+                    return false;
+                }
+            }
+            else
+            {
+                if (GetTrayUndocked(1) == true)
+                {
+                    return false;
+                }
+            }
+            
             bool isSuccess = true;
             string logStr = "";
             double dPos = this.teachingConfig.Teaching[(int)ePos].Pos[(int)MotorZ];     //z Axis

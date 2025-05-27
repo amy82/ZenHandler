@@ -92,30 +92,28 @@ namespace ZenHandler.Machine
     //
     public enum LayerState
     {
-        Blank = 0,   // Tray 없음
-        Disabled,   //사용 못함
-        BeforeTest, //검사 전
-        AfterTest,  //검사 완료
-        Inspecting, //검사 중      <---하나의 tray 만 적용돼야된다.
-        Unknown     // 미확인 (필요 시)
+        //Blank = 0,      //Tray 없음
+        Before = 0,         //검사 전
+        After          //검사 완료
+        //Test         //검사 중      <---하나의 tray 만 적용돼야된다.
     }
     public class MagazineInfo
     {
         public int Index { get; set; }      //위에서 부터 0
-        public LayerState State { get; set; } = LayerState.Blank;
+        public LayerState State { get; set; } = LayerState.Before;
 
         public MagazineInfo() { }  // <- 이게 없으면 yaml 로드 안됨
-        public MagazineInfo(int index)
+        public MagazineInfo(int No)
         {
-            Index = index;
+            Index = No;
         }
     }
     public class MagazineTray
     {
-        public List<MagazineInfo> LeftMagazineInfo { get; set; } = new List<MagazineInfo>();  
-        public List<MagazineInfo> RightMagazineInfo { get; set; } = new List<MagazineInfo>();  
-        public int LeftTrayLayer { get; set; } = 0;
-        public int RightTrayLayer { get; set; } = 0;
+        public List<MagazineInfo> LeftMagazineInfo { get; set; } = new List<MagazineInfo>();
+        public List<MagazineInfo> RightMagazineInfo { get; set; } = new List<MagazineInfo>();
+        public int LeftTrayLayer { get; set; } = 0;     //TODO: Tray 로드 상태에선 작업자 변경불가하도록 하자
+        public int RightTrayLayer { get; set; } = 0;    //TODO: Tray 로드 상태에선 작업자 변경불가하도록 하자
     }
 
 
