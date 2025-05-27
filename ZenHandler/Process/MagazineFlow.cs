@@ -426,7 +426,10 @@ namespace ZenHandler.Process
 
                     //#1 Left Loader Tray 완료 상태 확인 ---> 다했으면 배출
                     //#2 Right Loader Tray 완료 상태 확인---> 다했으면 배출
+                    Globalo.motionManager.magazineHandler.isTrayReadyToLoad[0] = false;
+                    Globalo.motionManager.magazineHandler.isTrayReadyToLoad[1] = false;
 
+                    
                     nRetStep = 2010;
                     break;
                 case 2010:
@@ -778,13 +781,13 @@ namespace ZenHandler.Process
                     break;
 
                 case 2240:
-
+                    nRetStep = 2260;
                     break;
                 case 2260:
-
+                    nRetStep = 2280;
                     break;
                 case 2280:
-
+                    nRetStep = 2300;
                     break;
                 case 2300:
                     //#1 Left  Loader 로드 시퀀스 From Magazine
@@ -941,55 +944,194 @@ namespace ZenHandler.Process
                     //#1 Left Loader 로드 위치로 이동 , 가장 상단
                     //#2 Right Loader 로드 위치로 이동 , 가장 상단
 
+                    bRtn = Globalo.motionManager.magazineHandler.Magazine_Y_Move(Machine.MagazineHandler.eTeachingPosList.WAIT_POS, Machine.eMagazine.MAGAZINE_L_Y, false);
+                    if (bRtn == false)
+                    {
+                        szLog = $"[READY] LEFT Loader Y WAIT POS MOVE FAIL [STEP : {nStep}]";
+                        Globalo.LogPrint("ManualControl", szLog, Globalo.eMessageName.M_ERROR);
+                        nRetStep *= -1;
+                        break;
+                    }
+                    szLog = $"[READY] LEFT Loader Y WAIT POS MOVE [STEP : {nStep}]";
+                    Globalo.LogPrint("ManualControl", szLog);
+
+                    bRtn = Globalo.motionManager.magazineHandler.Magazine_Y_Move(Machine.MagazineHandler.eTeachingPosList.WAIT_POS, Machine.eMagazine.MAGAZINE_R_Y, false);
+                    if (bRtn == false)
+                    {
+                        szLog = $"[READY] RIGHT Loader Y WAIT POS MOVE FAIL [STEP : {nStep}]";
+                        Globalo.LogPrint("ManualControl", szLog, Globalo.eMessageName.M_ERROR);
+                        nRetStep *= -1;
+                        break;
+                    }
+
+                    szLog = $"[READY] RIGHT Loader Y WAIT POS MOVE [STEP : {nStep}]";
+                    Globalo.LogPrint("ManualControl", szLog);
+
+                    nTimeTick = Environment.TickCount;
+
+                    nRetStep = 2620;
+                    break;
+                case 2620:
+                    if (Globalo.motionManager.magazineHandler.MotorAxes[(int)Machine.eMagazine.MAGAZINE_L_Y].GetStopAxis() == true &&
+                        Globalo.motionManager.magazineHandler.ChkYMotorPos(Machine.MagazineHandler.eTeachingPosList.WAIT_POS, Machine.eMagazine.MAGAZINE_L_Y))
+                    {
+                        szLog = $"[READY] LEFT Loader Y WAIT POS 이동 완료 [STEP : {nStep}]";
+                        Globalo.LogPrint("ManualControl", szLog);
+                        nRetStep = 2640;
+
+                        nTimeTick = Environment.TickCount;
+                        break;
+                    }
+                    else if (Environment.TickCount - nTimeTick > MotionControl.MotorSet.MOTOR_MOVE_TIMEOUT)
+                    {
+                        szLog = $"[READY] LEFT Loader Y WAIT POS 이동 시간 초과 [STEP : {nStep}]";
+                        Globalo.LogPrint("ManualControl", szLog);
+                        nRetStep *= -1;
+                        break;
+                    }
+
+                    
+                    break;
+                case 2640:
+                    if (Globalo.motionManager.magazineHandler.MotorAxes[(int)Machine.eMagazine.MAGAZINE_R_Y].GetStopAxis() == true &&
+                        Globalo.motionManager.magazineHandler.ChkYMotorPos(Machine.MagazineHandler.eTeachingPosList.WAIT_POS, Machine.eMagazine.MAGAZINE_R_Y))
+                    {
+                        szLog = $"[READY] RIGHT Loader Y WAIT POS 이동 완료 [STEP : {nStep}]";
+                        Globalo.LogPrint("ManualControl", szLog);
+                        nRetStep = 2660;
+
+                        nTimeTick = Environment.TickCount;
+                        break;
+                    }
+                    else if (Environment.TickCount - nTimeTick > MotionControl.MotorSet.MOTOR_MOVE_TIMEOUT)
+                    {
+                        szLog = $"[READY] RIGHT Loader Y WAIT POS 이동 시간 초과 [STEP : {nStep}]";
+                        Globalo.LogPrint("ManualControl", szLog);
+                        nRetStep *= -1;
+                        break;
+                    }
+                    
+                    break;
+                case 2660:
+
+                    nRetStep = 2680;
+                    break;
+                case 2680:
+                    bRtn = Globalo.motionManager.magazineHandler.Magazine_Z_Move(Machine.MagazineHandler.eTeachingPosList.TRAY_LOAD_POS, Machine.eMagazine.MAGAZINE_L_Z, false);
+                    if (bRtn == false)
+                    {
+                        szLog = $"[READY] LEFT Loader Z LOAD POS MOVE FAIL [STEP : {nStep}]";
+                        Globalo.LogPrint("ManualControl", szLog, Globalo.eMessageName.M_ERROR);
+                        nRetStep *= -1;
+                        break;
+                    }
+                    szLog = $"[READY] LEFT Loader Z LOAD POS MOVE [STEP : {nStep}]";
+                    Globalo.LogPrint("ManualControl", szLog);
+
+                    bRtn = Globalo.motionManager.magazineHandler.Magazine_Z_Move(Machine.MagazineHandler.eTeachingPosList.TRAY_LOAD_POS, Machine.eMagazine.MAGAZINE_R_Z, false);
+                    if (bRtn == false)
+                    {
+                        szLog = $"[READY] RIGHT Loader Z LOAD POS MOVE FAIL [STEP : {nStep}]";
+                        Globalo.LogPrint("ManualControl", szLog, Globalo.eMessageName.M_ERROR);
+                        nRetStep *= -1;
+                        break;
+                    }
+                    szLog = $"[READY] RIGHT Loader Z LOAD POS MOVE [STEP : {nStep}]";
+                    Globalo.LogPrint("ManualControl", szLog);
+
+                    nRetStep = 2700;
+                    break;
+                case 2700:
+                    if (Globalo.motionManager.magazineHandler.MotorAxes[(int)Machine.eMagazine.MAGAZINE_L_Z].GetStopAxis() == true &&
+                        Globalo.motionManager.magazineHandler.ChkZMotorPos(Machine.MagazineHandler.eTeachingPosList.TRAY_LOAD_POS, Machine.eMagazine.MAGAZINE_L_Z))
+                    {
+                        szLog = $"[READY] LEFT Loader Z LOAD POS 이동 완료 [STEP : {nStep}]";
+                        Globalo.LogPrint("ManualControl", szLog);
+                        nRetStep = 2720;
+
+                        nTimeTick = Environment.TickCount;
+                        break;
+                    }
+                    else if (Environment.TickCount - nTimeTick > MotionControl.MotorSet.MOTOR_MOVE_TIMEOUT)
+                    {
+                        szLog = $"[READY] LEFT Loader Z LOAD POS 이동 시간 초과 [STEP : {nStep}]";
+                        Globalo.LogPrint("ManualControl", szLog);
+                        nRetStep *= -1;
+                        break;
+                    }
+                    break;
+                case 2720:
+                    if (Globalo.motionManager.magazineHandler.MotorAxes[(int)Machine.eMagazine.MAGAZINE_R_Z].GetStopAxis() == true &&
+                        Globalo.motionManager.magazineHandler.ChkZMotorPos(Machine.MagazineHandler.eTeachingPosList.TRAY_LOAD_POS, Machine.eMagazine.MAGAZINE_R_Z))
+                    {
+                        szLog = $"[READY] RIGHT Loader Z LOAD POS 이동 완료 [STEP : {nStep}]";
+                        Globalo.LogPrint("ManualControl", szLog);
+                        nRetStep = 2740;
+
+                        nTimeTick = Environment.TickCount;
+                        break;
+                    }
+                    else if (Environment.TickCount - nTimeTick > MotionControl.MotorSet.MOTOR_MOVE_TIMEOUT)
+                    {
+                        szLog = $"[READY] RIGHT Loader Z LOAD POS 이동 시간 초과 [STEP : {nStep}]";
+                        Globalo.LogPrint("ManualControl", szLog);
+                        nRetStep *= -1;
+                        break;
+                    }
+                    break;
+                case 2740:
+                    nRetStep = 2760;
+                    break;
+                case 2760:
+                    nRetStep = 2780;
+                    break;
+                case 2780:
+                    nRetStep = 2800;
+                    break;
+                case 2800:
                     if (Globalo.motionManager.magazineHandler.GetIsTrayOnLoader((int)eMag.ON_LEFT) == true)
                     {
                         szLog = $"[READY] Left Loader TRAY LOADED [STEP : {nStep}]";
                         Globalo.LogPrint("ManualControl", szLog);
 
-
+                        Globalo.motionManager.magazineHandler.isTrayReadyToLoad[0] = true;
                         //Left 로드 위치로 이동
 
-                        Globalo.motionManager.magazineHandler.Magazine_Y_Move(Machine.MagazineHandler.eTeachingPosList.WAIT_POS, Machine.eMagazine.MAGAZINE_L_Y, false);
                     }
                     else
                     {
+                        Globalo.motionManager.magazineHandler.isTrayReadyToLoad[0] = false;
+                        Globalo.motionManager.magazineHandler.magazineTray.LeftTrayLayer = -1;
                         szLog = $"[READY] Left Loader TRAY EMPTY [STEP : {nStep}]";
                         Globalo.LogPrint("ManualControl", szLog);
-                        nRetStep *= -1;
-                        break;
+
+
                     }
-                    nRetStep = 2620;
-                    break;
-                case 2620:
+
                     if (Globalo.motionManager.magazineHandler.GetIsTrayOnLoader((int)eMag.ON_RIGHT) == true)
                     {
                         szLog = $"[READY] Right Loader TRAY LOADED [STEP : {nStep}]";
                         Globalo.LogPrint("ManualControl", szLog);
+                        
+                        Globalo.motionManager.magazineHandler.isTrayReadyToLoad[1] = true;
 
-
-                        //Right 로드 위치로 이동
-
-                        Globalo.motionManager.magazineHandler.Magazine_Y_Move(Machine.MagazineHandler.eTeachingPosList.WAIT_POS, Machine.eMagazine.MAGAZINE_R_Y, false);
                     }
                     else
                     {
+                        Globalo.motionManager.magazineHandler.isTrayReadyToLoad[1] = false;
+                        Globalo.motionManager.magazineHandler.magazineTray.RightTrayLayer = -1;
                         szLog = $"[READY] Right Loader TRAY EMPTY [STEP : {nStep}]";
                         Globalo.LogPrint("ManualControl", szLog);
-                        nRetStep *= -1;
-                        break;
                     }
-
-                    nRetStep = 2640;
-                    break;
-                case 2640:
-
-                    break;
-                case 2800:
-
+                    nRetStep = 2900;
                     break;
                 case 2900:
+                    Globalo.motionManager.magazineHandler.IsTryChanging[0] = false;
+                    Globalo.motionManager.magazineHandler.IsTryChanging[1] = false;
+
+
                     Globalo.motionManager.magazineHandler.RunState = OperationState.Standby;
-                    szLog = $"[READY] LIFT 운전준비 완료 [STEP : {nStep}]";
+                    szLog = $"[READY] MAGAZINE 운전준비 완료 [STEP : {nStep}]";
                     Globalo.LogPrint("ManualControl", szLog);
                     nRetStep = 3000;
                     break;
@@ -1002,6 +1144,7 @@ namespace ZenHandler.Process
         public int Auto_Waiting(int nStep)
         {
             string szLog = "";
+            int LayerNum = 0;
             bool result = false;
             int nRetStep = nStep;
             switch (nStep)
@@ -1012,40 +1155,97 @@ namespace ZenHandler.Process
                     //2.Tray 배출 to Magazine
                     //
 
-                    Globalo.motionManager.magazineHandler.IsLoadingTray[0] = true;
-                    Globalo.motionManager.magazineHandler.IsUnloadingTray[0] = true;
-
-                    Globalo.motionManager.magazineHandler.IsLoadingTray[1] = true;
-                    Globalo.motionManager.magazineHandler.IsUnloadingTray[1] = true;
+                    if (Globalo.motionManager.GetTrayEjectReq(MotionControl.MotorSet.TrayPos.Left) == true)
+                    {
+                        //left 배출 요청
+                        nRetStep = 3100;
+                        //Globalo.motionManager.ClearTrayChange(MotionControl.MotorSet.TrayPos.Left);
+                        break;
+                    }
+                    if (Globalo.motionManager.GetTrayEjectReq(MotionControl.MotorSet.TrayPos.Right) == true)
+                    {
+                        //right 배출 요청
+                        nRetStep = 3200;
+                        //Globalo.motionManager.ClearTrayChange(MotionControl.MotorSet.TrayPos.Right);
+                        break;
+                    }
                     break;
                 case 3100:
                     //---------------------------------------------------
-                    //  Tray 로드
+                    //  LEFT LOADER 교체 - 배출 > 로드
                     //---------------------------------------------------
-                    //if (LoadTrayTask == null || LoadTrayTask.IsCompleted)
-                    //{
-                    //    waitLoadTray = 1;
-                    //    LoadTrayTask = Task.Run(() =>
-                    //    {
-                    //        waitLoadTray = MagazineTrayLoadFlow();
-                    //        Console.WriteLine($"-------------- LoadTray Task - end {waitLoadTray}");
+                    if (Globalo.motionManager.magazineHandler.GetIsTrayOnLoader((int)eMag.ON_LEFT) == false)
+                    {
+                        waitLeftMagazine = 0;
+                        nRetStep = 3140;        //go load
+                        break;
+                    }
+                    LayerNum = Globalo.motionManager.magazineHandler.magazineTray.LeftTrayLayer;
+                    if (LeftMagazineTask == null || LeftMagazineTask.IsCompleted)
+                    {
+                        waitLeftMagazine = 1;
+                        LeftMagazineTask = Task.Run(() =>
+                        {
+                            waitLeftMagazine = MagazineTrayUnloadFlow((int)eMag.ON_LEFT, LayerNum);
+                            Console.WriteLine($"-------------- MagazineTrayUnloadFlow Task - end {waitLeftMagazine}");
 
-                    //        return waitLoadTray;
-                    //    }, CancelTokenMagazine.Token);
-                    //    nRetStep = 3120;
-                    //}
-                    //else
-                    //{
-                    //    //일시정지
-                    //    szLog = $"[AUTO] Tray Load Move Fail [STEP : {nStep}]";
-                    //    Globalo.LogPrint("ManualControl", szLog, Globalo.eMessageName.M_ERROR);
-                    //    nRetStep *= -1;
-                    //    break;
-                    //}
+                            return waitLeftMagazine;
+                        }, CancelTokenMagazine.Token);
+
+                        nRetStep = 3120;
+                    }
+                    else
+                    {
+                        //일시정지
+                        szLog = $"[READY] Complete Tray Unload Move Fail [STEP : {nStep}]";
+                        Globalo.LogPrint("ManualControl", szLog, Globalo.eMessageName.M_ERROR);
+                        nRetStep *= -1;
+                        break;
+                    }
                     break;
                 case 3120:
+                    if (waitLeftMagazine == 1)
+                    {
+                        //Left tray 배출하는 중
+                        break;
+                    }
+                    else if (Environment.TickCount - nTimeTick > MotionControl.MotorSet.LIFT_TRAY_CHANGE_TIMEOUT)
+                    {
+                        szLog = $"[AUTO] LEFT TRAY UNLOAD TIMEOUT [STEP : {nStep}]";
+                        Globalo.LogPrint("ManualControl", szLog, Globalo.eMessageName.M_ERROR);
+                        nRetStep *= -1;
+                        break;
+                    }
+                    if (waitLeftMagazine == -1)
+                    {
+                        //Gantry 에 Tray 로드 실패
+                        szLog = $"[AUTO] LEFT Unload Tray Fail [STEP : {nStep}]";
+                        Globalo.LogPrint("ManualControl", szLog, Globalo.eMessageName.M_ERROR);
+                        nRetStep *= -1;
+                        break;
+                    }
+                    else if (waitLeftMagazine == 0)
+                    {
+                        //Tray 배출 완료
+                        Console.WriteLine($"waitLeftMagazine - {waitLeftMagazine}");
+                        nTimeTick = Environment.TickCount;
+                        nRetStep = 3140;
+                        break;
+                    }
                     break;
                 case 3140:
+                    if (Globalo.motionManager.magazineHandler.GetIsTrayOnLoader((int)eMag.ON_LEFT) == false)
+                    {
+                        
+                        if (Globalo.motionManager.magazineHandler.magazineTray.LeftTrayLayer == -1)
+                        {
+                            //메거진 교체 알람
+                        }
+                        else
+                        {
+                            //투입 진행
+                        }
+                    }
                     break;
                 case 3160:
                     break;
@@ -1053,7 +1253,7 @@ namespace ZenHandler.Process
                     break;
                 case 3200:
                     //---------------------------------------------------
-                    //  Tray 배출
+                    //  RIGHT LOADER 교체 - 배출 > 로드
                     //---------------------------------------------------
                     //if (UnloadTrayTask == null || UnloadTrayTask.IsCompleted)
                     //{
@@ -1071,7 +1271,7 @@ namespace ZenHandler.Process
                     //else
                     //{
                     //    //Globalo.motionManager.liftMachine.IsUnloadingOutputTray = false;
-                        
+
                     //    //일시정지
                     //    szLog = $"[AUTO] Complete Tray Unload Move Fail [STEP : {nStep}]";
                     //    Globalo.LogPrint("ManualControl", szLog, Globalo.eMessageName.M_ERROR);
@@ -1082,6 +1282,18 @@ namespace ZenHandler.Process
                 case 3220:
                     break;
                 case 3240:
+                    if (Globalo.motionManager.magazineHandler.GetIsTrayOnLoader((int)eMag.ON_RIGHT) == false)
+                    {
+
+                        if (Globalo.motionManager.magazineHandler.magazineTray.RightTrayLayer == -1)
+                        {
+                            //메거진 교체 알람
+                        }
+                        else
+                        {
+                            //투입 진행
+                        }
+                    }
                     break;
                 case 3260:
                     break;
@@ -1111,15 +1323,9 @@ namespace ZenHandler.Process
             {
                 if (CancelTokenMagazine.Token.IsCancellationRequested)      //정지시 while 빠져나가는 부분
                 {
-                    Console.WriteLine("Gantry LoadTray Flow cancelled!");
+                    Console.WriteLine("LoadTray Flow cancelled!");
                     nRtn = -1;
                     break;
-                }
-                if (nRetStep != 100 && nRetStep != 120)
-                {
-                    //리프트 z축이 상승하는 스텝 에서는 일시정지 걸어도 센서 확인하고 정지할대까지 일시정지안함
-                    //정지하면 정지함수에서 리프트 정지 시킴
-                    pauseEvent.Wait();  // 일시정지시 여기서 멈춰 있음
                 }
                 switch (nRetStep)
                 {
@@ -1128,6 +1334,85 @@ namespace ZenHandler.Process
                         break;
                     case 20:
                         nRetStep = 40;
+                        break;
+                    case 40:
+                        //Y 대기 위치
+                        nRetStep = 60;
+                        break;
+                    case 60:
+                        //Y 대기 위치 확인
+                        nRetStep = 80;
+                        break;
+                    case 80:
+
+                        nRetStep = 100;
+                        break;
+                    case 100:
+                        //로드할 곳 TRAY 유무 확인
+                        nRetStep = 120;
+                        break;
+                    case 120:
+
+                        nRetStep = 140;
+                        break;
+                    case 140:
+                        //z 로드 위치
+                        nRetStep = 160;
+                        break;
+                    case 160:
+                        //z 로드 위치 확인
+                        nRetStep = 180;
+                        break;
+                    case 180:
+                        //Y 로드 위치 밀어넣기
+                        nRetStep = 200;
+                        break;
+                    case 200:
+                        //Y 로드 위치 이동 확인
+                        nRetStep = 220;
+                        break;
+                    case 220:
+                        //z 로드 위치 + Offset
+                        nRetStep = 240;
+                        break;
+                    case 240:
+                        //z 로드 위치 + Offset 확인
+                        nRetStep = 260;
+                        break;
+                    case 260:
+
+                        nRetStep = 280;
+                        break;
+                    case 280:
+                        //Y 대기 위치
+                        nRetStep = 300;
+                        break;
+                    case 300:
+                        //Y 대기 위치 확인
+                        nRetStep = 320;
+                        break;
+                    case 320:
+                        
+
+                        nRetStep = 340;
+                        break;
+                    case 340:
+                        //loader 위 Tray 감지 되면 ok
+                        //하부 interlock 감지도 안되면 ok
+                        nRetStep = 360;
+                        break;
+                    case 360:
+                        nRetStep = 380;
+                        break;
+                    case 380:
+                        nRetStep = 400;
+                        break;
+                    case 400:
+                        nRetStep = 900;
+                        break;
+                    case 900:
+                        Globalo.motionManager.magazineHandler.isTrayReadyToLoad[index] = true;
+
                         break;
                     default:
                         break;
@@ -1172,15 +1457,9 @@ namespace ZenHandler.Process
             {
                 if (CancelTokenMagazine.Token.IsCancellationRequested)      //정지시 while 빠져나가는 부분
                 {
-                    Console.WriteLine("Gantry LoadTray Flow cancelled!");
+                    Console.WriteLine("UnLoadTray Flow cancelled!");
                     nRtn = -1;
                     break;
-                }
-                if (nRetStep != 100 && nRetStep != 120)
-                {
-                    //리프트 z축이 상승하는 스텝 에서는 일시정지 걸어도 센서 확인하고 정지할대까지 일시정지안함
-                    //정지하면 정지함수에서 리프트 정지 시킴
-                    pauseEvent.Wait();  // 일시정지시 여기서 멈춰 있음
                 }
                 switch (nRetStep)
                 {
@@ -1189,6 +1468,89 @@ namespace ZenHandler.Process
                         break;
                     case 20:
                         nRetStep = 40;
+                        break;
+                    case 40:
+                        //Y 대기 위치
+                        nRetStep = 60;
+                        break;
+                    case 60:
+                        //Y 대기 위치 확인
+                        nRetStep = 80;
+                        break;
+                    case 80:
+
+                        nRetStep = 100;
+                        break;
+                    case 100:
+                        //배출할 곳 TRAY 유무 확인
+                        nRetStep = 120;
+                        break;
+                    case 120:
+                        
+                        nRetStep = 140;
+                        break;
+                    case 140:
+                        //z 배출 위치
+                        nRetStep = 160;
+                        break;
+                    case 160:
+                        //z 배출 위치 확인
+                        nRetStep = 180;
+                        break;
+                    case 180:
+                        //Y 배출 위치 밀어넣기
+                        nRetStep = 200;
+                        break;
+                    case 200:
+                        //Y 배출 위치 이동 확인
+                        nRetStep = 220;
+                        break;
+                    case 220:
+                        //z 배출 위치 + Offset
+                        nRetStep = 240;
+                        break;
+                    case 240:
+                        //z 배출 위치 + Offset 확인
+                        nRetStep = 260;
+                        break;
+                    case 260:
+
+                        nRetStep = 280;
+                        break;
+                    case 280:
+                        //Y 대기 위치
+                        nRetStep = 300;
+                        break;
+                    case 300:
+                        //Y 대기 위치 확인
+                        nRetStep = 320;
+                        break;
+                    case 320:
+                        //loader 위 Tray 감지 안되면 ok
+                        //하부 interlock 감지도 안되면 ok
+
+                        if (index == 0)
+                        {
+                            Globalo.motionManager.magazineHandler.LeftMagazineLayerAdd();
+                        }
+                        else
+                        {
+                            Globalo.motionManager.magazineHandler.RightMagazineLayerAdd();
+                        }
+                        nRetStep = 340;
+                        break;
+                    case 340:
+                        
+                        
+                        nRetStep = 360;
+                        break;
+                    case 360:
+                        nRetStep = 900;
+                        break;
+                    case 900:
+
+                        
+                        
                         break;
                     default:
                         break;

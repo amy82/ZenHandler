@@ -862,7 +862,7 @@ namespace ZenHandler.Process
                     {
                         //Pusher 위에 Tray 없으면 배출 요청 초기화
                         
-                        Globalo.motionManager.ClearTrayChenge(MotionControl.MotorSet.TrayPos.Left);
+                        Globalo.motionManager.ClearTrayChange(MotionControl.MotorSet.TrayPos.Left);
                         //배출 요청 없음
                         waitUnloadTray = 0;
                         nRetStep = 2175;
@@ -1530,7 +1530,7 @@ namespace ZenHandler.Process
                     if (Globalo.motionManager.liftMachine.GetIsLoadTrayOnTop((int)eTRAY.ON_PUSHER) == false)
                     {
                         Globalo.motionManager.liftMachine.IsUnloadingOutputTray = false;
-                        Globalo.motionManager.ClearTrayChenge(MotionControl.MotorSet.TrayPos.Right);
+                        Globalo.motionManager.ClearTrayChange(MotionControl.MotorSet.TrayPos.Right);
                         szLog = $"[AUTO] Empty Tray On Pusher [STEP : {nStep}]";
                         Globalo.LogPrint("ManualControl", szLog, Globalo.eMessageName.M_ERROR);
                         nRetStep *= -1;
@@ -2481,7 +2481,7 @@ namespace ZenHandler.Process
                         //Pusher 위 tray 미감지 확인
                         if (Globalo.motionManager.liftMachine.GetIsLoadTrayOnTop((int)eTRAY.ON_PUSHER) == true)
                         {
-                            Globalo.motionManager.ClearTrayChenge(MotionControl.MotorSet.TrayPos.Right);
+                            Globalo.motionManager.ClearTrayChange(MotionControl.MotorSet.TrayPos.Right);
                             szLog = $"[AUTO] Tray Unload Fail On Pusher [STEP : {nRetStep}]";
                             Globalo.LogPrint("ManualControl", szLog, Globalo.eMessageName.M_ERROR);
                             nRetStep *= -1;

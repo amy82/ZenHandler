@@ -29,7 +29,7 @@ namespace ZenHandler.MotionControl
         public int SocketSetCount = 2;
         private bool[] trayEjectRequested = {false , false };
 
-        private bool[] socketLoadRequested = {false, false, false, false };     
+        private bool[] socketLoadRequested = {false, false, false, false };
         private bool[] socketUnloadRequested = {false, false, false, false };
         //TODO: Set 라서 4개인데 , 개별이면 달라진다. -
         //펌웨어는 Set 로 요청 - 4개씩 4Set
@@ -72,8 +72,8 @@ namespace ZenHandler.MotionControl
             socketEEpromMachine.MotorUse = LoadChk;
 
 
-            ClearTrayChenge(MotorSet.TrayPos.Left);
-            ClearTrayChenge(MotorSet.TrayPos.Right);
+            ClearTrayChange(MotorSet.TrayPos.Left);
+            ClearTrayChange(MotorSet.TrayPos.Right);
 
             if (Program.PG_SELECT == HANDLER_PG.FW)
             {
@@ -92,9 +92,9 @@ namespace ZenHandler.MotionControl
             int index = (int)position;
             trayEjectRequested[index] = true;
         }
-        public void ClearTrayChenge(MotorSet.TrayPos position)
+        public void ClearTrayChange(MotorSet.TrayPos position)
         {
-            Console.WriteLine($"ClearTrayChenge - {position}");
+            Console.WriteLine($"ClearTrayChange - {position}");
             int index = (int)position;
             trayEjectRequested[index] = false;
         }
