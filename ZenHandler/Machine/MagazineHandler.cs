@@ -82,6 +82,30 @@ namespace ZenHandler.Machine
 
             magazineTray = Data.TaskDataYaml.TaskLoad_Magazine(taskPath);
         }
+        public void LeftMagazineLayerAdd()
+        {
+            int index = Globalo.motionManager.magazineHandler.magazineTray.LeftTrayLayer;
+            Globalo.motionManager.magazineHandler.magazineTray.LeftMagazineInfo[index].State = Machine.LayerState.After;
+
+            Globalo.motionManager.magazineHandler.magazineTray.LeftTrayLayer++;
+
+            if (Globalo.motionManager.magazineHandler.magazineTray.LeftTrayLayer > 4)
+            {
+                Globalo.motionManager.magazineHandler.magazineTray.LeftTrayLayer = -1;
+            }
+        }
+        public void RightMagazineLayerAdd()
+        {
+            int index = Globalo.motionManager.magazineHandler.magazineTray.RightTrayLayer;
+            Globalo.motionManager.magazineHandler.magazineTray.RightMagazineInfo[index].State = Machine.LayerState.After;
+
+
+            Globalo.motionManager.magazineHandler.magazineTray.RightTrayLayer++;
+            if (Globalo.motionManager.magazineHandler.magazineTray.RightTrayLayer > 4)
+            {
+                Globalo.motionManager.magazineHandler.magazineTray.RightTrayLayer = -1;
+            }
+        }
         public override bool TaskSave()
         {
             bool rtn = Data.TaskDataYaml.TaskSave_Magazine(magazineTray, taskPath);

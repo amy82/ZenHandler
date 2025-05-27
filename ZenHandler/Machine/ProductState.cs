@@ -112,8 +112,8 @@ namespace ZenHandler.Machine
     {
         public List<MagazineInfo> LeftMagazineInfo { get; set; } = new List<MagazineInfo>();
         public List<MagazineInfo> RightMagazineInfo { get; set; } = new List<MagazineInfo>();
-        public int LeftTrayLayer { get; set; } = 0;
-        public int RightTrayLayer { get; set; } = 0; 
+        public int LeftTrayLayer { get; set; } = 0;     //TODO: Tray 로드 상태에선 작업자 변경불가하도록 하자
+        public int RightTrayLayer { get; set; } = 0;    //TODO: Tray 로드 상태에선 작업자 변경불가하도록 하자
     }
 
 
