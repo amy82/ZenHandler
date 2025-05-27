@@ -50,8 +50,10 @@ namespace ZenHandler.Machine
         //TRAY 꺼내는 층별 위치 다 따로 해야될수도
         public const string teachingPath = "Teach_Magazine.yaml";
         public const string taskPath = "Task_Magazine.yaml";
+
         public Data.TeachingConfig teachingConfig = new Data.TeachingConfig();
         //public LayerTray pickedProduct = new LayerTray();
+
         public MagazineTray magazineTray = new MagazineTray();
 
         

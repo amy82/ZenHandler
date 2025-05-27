@@ -68,6 +68,22 @@ namespace ZenHandler.Dlg
             this.label_ConfigTask_Left_Tray_Layer = new System.Windows.Forms.Label();
             this.label_ConfigTask_Right_Tray_Layer_Val = new System.Windows.Forms.Label();
             this.label_ConfigTask_Right_Tray_Layer = new System.Windows.Forms.Label();
+            this.label_ConfigTask_Magazine_Layer = new System.Windows.Forms.Label();
+            this.label_ConfigTask_Magazine_Layer5 = new System.Windows.Forms.Label();
+            this.label_ConfigTask_Magazine_Layer4 = new System.Windows.Forms.Label();
+            this.label_ConfigTask_Magazine_Layer3 = new System.Windows.Forms.Label();
+            this.label_ConfigTask_Magazine_Layer2 = new System.Windows.Forms.Label();
+            this.label_ConfigTask_Magazine_Layer1 = new System.Windows.Forms.Label();
+            this.label_ConfigTask_Right_Magazine_Layer1 = new System.Windows.Forms.Label();
+            this.label_ConfigTask_Left_Magazine_Layer1 = new System.Windows.Forms.Label();
+            this.label_ConfigTask_Left_Magazine_Layer2 = new System.Windows.Forms.Label();
+            this.label_ConfigTask_Left_Magazine_Layer3 = new System.Windows.Forms.Label();
+            this.label_ConfigTask_Left_Magazine_Layer4 = new System.Windows.Forms.Label();
+            this.label_ConfigTask_Left_Magazine_Layer5 = new System.Windows.Forms.Label();
+            this.label_ConfigTask_Right_Magazine_Layer2 = new System.Windows.Forms.Label();
+            this.label_ConfigTask_Right_Magazine_Layer3 = new System.Windows.Forms.Label();
+            this.label_ConfigTask_Right_Magazine_Layer4 = new System.Windows.Forms.Label();
+            this.label_ConfigTask_Right_Magazine_Layer5 = new System.Windows.Forms.Label();
             this.SuspendLayout();
             // 
             // hopeCheckBox_ImageGrabUse
@@ -419,7 +435,7 @@ namespace ZenHandler.Dlg
             this.label_ConfigTask_Tray_Pos.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.label_ConfigTask_Tray_Pos.Font = new System.Drawing.Font("나눔고딕", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(129)));
             this.label_ConfigTask_Tray_Pos.ForeColor = System.Drawing.Color.Black;
-            this.label_ConfigTask_Tray_Pos.Location = new System.Drawing.Point(21, 344);
+            this.label_ConfigTask_Tray_Pos.Location = new System.Drawing.Point(21, 308);
             this.label_ConfigTask_Tray_Pos.Name = "label_ConfigTask_Tray_Pos";
             this.label_ConfigTask_Tray_Pos.Size = new System.Drawing.Size(297, 32);
             this.label_ConfigTask_Tray_Pos.TabIndex = 92;
@@ -432,7 +448,7 @@ namespace ZenHandler.Dlg
             this.label_ConfigTask_Load_Tray.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.label_ConfigTask_Load_Tray.Font = new System.Drawing.Font("나눔고딕 ExtraBold", 8.999999F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(129)));
             this.label_ConfigTask_Load_Tray.ForeColor = System.Drawing.Color.Black;
-            this.label_ConfigTask_Load_Tray.Location = new System.Drawing.Point(21, 376);
+            this.label_ConfigTask_Load_Tray.Location = new System.Drawing.Point(21, 340);
             this.label_ConfigTask_Load_Tray.Name = "label_ConfigTask_Load_Tray";
             this.label_ConfigTask_Load_Tray.Size = new System.Drawing.Size(126, 40);
             this.label_ConfigTask_Load_Tray.TabIndex = 93;
@@ -445,7 +461,7 @@ namespace ZenHandler.Dlg
             this.label_ConfigTask_Unload_Tray.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.label_ConfigTask_Unload_Tray.Font = new System.Drawing.Font("나눔고딕 ExtraBold", 8.999999F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(129)));
             this.label_ConfigTask_Unload_Tray.ForeColor = System.Drawing.Color.Black;
-            this.label_ConfigTask_Unload_Tray.Location = new System.Drawing.Point(21, 415);
+            this.label_ConfigTask_Unload_Tray.Location = new System.Drawing.Point(21, 379);
             this.label_ConfigTask_Unload_Tray.Name = "label_ConfigTask_Unload_Tray";
             this.label_ConfigTask_Unload_Tray.Size = new System.Drawing.Size(126, 40);
             this.label_ConfigTask_Unload_Tray.TabIndex = 94;
@@ -458,7 +474,7 @@ namespace ZenHandler.Dlg
             this.label_ConfigTask_NgTray.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.label_ConfigTask_NgTray.Font = new System.Drawing.Font("나눔고딕 ExtraBold", 8.999999F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(129)));
             this.label_ConfigTask_NgTray.ForeColor = System.Drawing.Color.Black;
-            this.label_ConfigTask_NgTray.Location = new System.Drawing.Point(21, 454);
+            this.label_ConfigTask_NgTray.Location = new System.Drawing.Point(21, 418);
             this.label_ConfigTask_NgTray.Name = "label_ConfigTask_NgTray";
             this.label_ConfigTask_NgTray.Size = new System.Drawing.Size(126, 40);
             this.label_ConfigTask_NgTray.TabIndex = 95;
@@ -471,7 +487,7 @@ namespace ZenHandler.Dlg
             this.label_ConfigTask_Load_Tray_Y.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.label_ConfigTask_Load_Tray_Y.Font = new System.Drawing.Font("나눔고딕", 11.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(129)));
             this.label_ConfigTask_Load_Tray_Y.ForeColor = System.Drawing.Color.Black;
-            this.label_ConfigTask_Load_Tray_Y.Location = new System.Drawing.Point(232, 376);
+            this.label_ConfigTask_Load_Tray_Y.Location = new System.Drawing.Point(232, 340);
             this.label_ConfigTask_Load_Tray_Y.Name = "label_ConfigTask_Load_Tray_Y";
             this.label_ConfigTask_Load_Tray_Y.Size = new System.Drawing.Size(86, 40);
             this.label_ConfigTask_Load_Tray_Y.TabIndex = 98;
@@ -485,7 +501,7 @@ namespace ZenHandler.Dlg
             this.label_ConfigTask_Load_Tray_X.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.label_ConfigTask_Load_Tray_X.Font = new System.Drawing.Font("나눔고딕", 11.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(129)));
             this.label_ConfigTask_Load_Tray_X.ForeColor = System.Drawing.Color.Black;
-            this.label_ConfigTask_Load_Tray_X.Location = new System.Drawing.Point(147, 376);
+            this.label_ConfigTask_Load_Tray_X.Location = new System.Drawing.Point(147, 340);
             this.label_ConfigTask_Load_Tray_X.Name = "label_ConfigTask_Load_Tray_X";
             this.label_ConfigTask_Load_Tray_X.Size = new System.Drawing.Size(86, 40);
             this.label_ConfigTask_Load_Tray_X.TabIndex = 97;
@@ -499,7 +515,7 @@ namespace ZenHandler.Dlg
             this.label_ConfigTask_Unload_Tray_Y.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.label_ConfigTask_Unload_Tray_Y.Font = new System.Drawing.Font("나눔고딕", 11.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(129)));
             this.label_ConfigTask_Unload_Tray_Y.ForeColor = System.Drawing.Color.Black;
-            this.label_ConfigTask_Unload_Tray_Y.Location = new System.Drawing.Point(232, 415);
+            this.label_ConfigTask_Unload_Tray_Y.Location = new System.Drawing.Point(232, 379);
             this.label_ConfigTask_Unload_Tray_Y.Name = "label_ConfigTask_Unload_Tray_Y";
             this.label_ConfigTask_Unload_Tray_Y.Size = new System.Drawing.Size(86, 40);
             this.label_ConfigTask_Unload_Tray_Y.TabIndex = 100;
@@ -513,7 +529,7 @@ namespace ZenHandler.Dlg
             this.label_ConfigTask_Unload_Tray_X.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.label_ConfigTask_Unload_Tray_X.Font = new System.Drawing.Font("나눔고딕", 11.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(129)));
             this.label_ConfigTask_Unload_Tray_X.ForeColor = System.Drawing.Color.Black;
-            this.label_ConfigTask_Unload_Tray_X.Location = new System.Drawing.Point(147, 415);
+            this.label_ConfigTask_Unload_Tray_X.Location = new System.Drawing.Point(147, 379);
             this.label_ConfigTask_Unload_Tray_X.Name = "label_ConfigTask_Unload_Tray_X";
             this.label_ConfigTask_Unload_Tray_X.Size = new System.Drawing.Size(86, 40);
             this.label_ConfigTask_Unload_Tray_X.TabIndex = 99;
@@ -527,7 +543,7 @@ namespace ZenHandler.Dlg
             this.label_ConfigTask_NgTray_Y.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.label_ConfigTask_NgTray_Y.Font = new System.Drawing.Font("나눔고딕", 11.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(129)));
             this.label_ConfigTask_NgTray_Y.ForeColor = System.Drawing.Color.Black;
-            this.label_ConfigTask_NgTray_Y.Location = new System.Drawing.Point(232, 454);
+            this.label_ConfigTask_NgTray_Y.Location = new System.Drawing.Point(232, 418);
             this.label_ConfigTask_NgTray_Y.Name = "label_ConfigTask_NgTray_Y";
             this.label_ConfigTask_NgTray_Y.Size = new System.Drawing.Size(86, 40);
             this.label_ConfigTask_NgTray_Y.TabIndex = 102;
@@ -541,7 +557,7 @@ namespace ZenHandler.Dlg
             this.label_ConfigTask_NgTray_X.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.label_ConfigTask_NgTray_X.Font = new System.Drawing.Font("나눔고딕", 11.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(129)));
             this.label_ConfigTask_NgTray_X.ForeColor = System.Drawing.Color.Black;
-            this.label_ConfigTask_NgTray_X.Location = new System.Drawing.Point(147, 454);
+            this.label_ConfigTask_NgTray_X.Location = new System.Drawing.Point(147, 418);
             this.label_ConfigTask_NgTray_X.Name = "label_ConfigTask_NgTray_X";
             this.label_ConfigTask_NgTray_X.Size = new System.Drawing.Size(86, 40);
             this.label_ConfigTask_NgTray_X.TabIndex = 101;
@@ -555,7 +571,7 @@ namespace ZenHandler.Dlg
             this.label_ConfigTask_Left_Tray_Layer_Val.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.label_ConfigTask_Left_Tray_Layer_Val.Font = new System.Drawing.Font("나눔고딕", 11.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(129)));
             this.label_ConfigTask_Left_Tray_Layer_Val.ForeColor = System.Drawing.Color.Black;
-            this.label_ConfigTask_Left_Tray_Layer_Val.Location = new System.Drawing.Point(147, 493);
+            this.label_ConfigTask_Left_Tray_Layer_Val.Location = new System.Drawing.Point(147, 457);
             this.label_ConfigTask_Left_Tray_Layer_Val.Name = "label_ConfigTask_Left_Tray_Layer_Val";
             this.label_ConfigTask_Left_Tray_Layer_Val.Size = new System.Drawing.Size(86, 40);
             this.label_ConfigTask_Left_Tray_Layer_Val.TabIndex = 104;
@@ -569,7 +585,7 @@ namespace ZenHandler.Dlg
             this.label_ConfigTask_Left_Tray_Layer.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.label_ConfigTask_Left_Tray_Layer.Font = new System.Drawing.Font("나눔고딕 ExtraBold", 8.999999F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(129)));
             this.label_ConfigTask_Left_Tray_Layer.ForeColor = System.Drawing.Color.Black;
-            this.label_ConfigTask_Left_Tray_Layer.Location = new System.Drawing.Point(21, 493);
+            this.label_ConfigTask_Left_Tray_Layer.Location = new System.Drawing.Point(21, 457);
             this.label_ConfigTask_Left_Tray_Layer.Name = "label_ConfigTask_Left_Tray_Layer";
             this.label_ConfigTask_Left_Tray_Layer.Size = new System.Drawing.Size(126, 40);
             this.label_ConfigTask_Left_Tray_Layer.TabIndex = 103;
@@ -582,7 +598,7 @@ namespace ZenHandler.Dlg
             this.label_ConfigTask_Right_Tray_Layer_Val.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.label_ConfigTask_Right_Tray_Layer_Val.Font = new System.Drawing.Font("나눔고딕", 11.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(129)));
             this.label_ConfigTask_Right_Tray_Layer_Val.ForeColor = System.Drawing.Color.Black;
-            this.label_ConfigTask_Right_Tray_Layer_Val.Location = new System.Drawing.Point(147, 532);
+            this.label_ConfigTask_Right_Tray_Layer_Val.Location = new System.Drawing.Point(147, 496);
             this.label_ConfigTask_Right_Tray_Layer_Val.Name = "label_ConfigTask_Right_Tray_Layer_Val";
             this.label_ConfigTask_Right_Tray_Layer_Val.Size = new System.Drawing.Size(86, 40);
             this.label_ConfigTask_Right_Tray_Layer_Val.TabIndex = 106;
@@ -596,17 +612,251 @@ namespace ZenHandler.Dlg
             this.label_ConfigTask_Right_Tray_Layer.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.label_ConfigTask_Right_Tray_Layer.Font = new System.Drawing.Font("나눔고딕 ExtraBold", 8.999999F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(129)));
             this.label_ConfigTask_Right_Tray_Layer.ForeColor = System.Drawing.Color.Black;
-            this.label_ConfigTask_Right_Tray_Layer.Location = new System.Drawing.Point(21, 532);
+            this.label_ConfigTask_Right_Tray_Layer.Location = new System.Drawing.Point(21, 496);
             this.label_ConfigTask_Right_Tray_Layer.Name = "label_ConfigTask_Right_Tray_Layer";
             this.label_ConfigTask_Right_Tray_Layer.Size = new System.Drawing.Size(126, 40);
             this.label_ConfigTask_Right_Tray_Layer.TabIndex = 105;
             this.label_ConfigTask_Right_Tray_Layer.Text = "Right Tray Layer";
             this.label_ConfigTask_Right_Tray_Layer.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
+            // label_ConfigTask_Magazine_Layer
+            // 
+            this.label_ConfigTask_Magazine_Layer.BackColor = System.Drawing.Color.DarkSalmon;
+            this.label_ConfigTask_Magazine_Layer.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.label_ConfigTask_Magazine_Layer.Font = new System.Drawing.Font("나눔고딕", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(129)));
+            this.label_ConfigTask_Magazine_Layer.ForeColor = System.Drawing.Color.Black;
+            this.label_ConfigTask_Magazine_Layer.Location = new System.Drawing.Point(21, 576);
+            this.label_ConfigTask_Magazine_Layer.Name = "label_ConfigTask_Magazine_Layer";
+            this.label_ConfigTask_Magazine_Layer.Size = new System.Drawing.Size(297, 32);
+            this.label_ConfigTask_Magazine_Layer.TabIndex = 107;
+            this.label_ConfigTask_Magazine_Layer.Text = "Magazine Layer [ L,R ]";
+            this.label_ConfigTask_Magazine_Layer.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            // 
+            // label_ConfigTask_Magazine_Layer5
+            // 
+            this.label_ConfigTask_Magazine_Layer5.BackColor = System.Drawing.Color.MistyRose;
+            this.label_ConfigTask_Magazine_Layer5.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.label_ConfigTask_Magazine_Layer5.Font = new System.Drawing.Font("나눔고딕 ExtraBold", 8.999999F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(129)));
+            this.label_ConfigTask_Magazine_Layer5.ForeColor = System.Drawing.Color.Black;
+            this.label_ConfigTask_Magazine_Layer5.Location = new System.Drawing.Point(127, 764);
+            this.label_ConfigTask_Magazine_Layer5.Name = "label_ConfigTask_Magazine_Layer5";
+            this.label_ConfigTask_Magazine_Layer5.Size = new System.Drawing.Size(85, 40);
+            this.label_ConfigTask_Magazine_Layer5.TabIndex = 112;
+            this.label_ConfigTask_Magazine_Layer5.Text = "Layer 5";
+            this.label_ConfigTask_Magazine_Layer5.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            // 
+            // label_ConfigTask_Magazine_Layer4
+            // 
+            this.label_ConfigTask_Magazine_Layer4.BackColor = System.Drawing.Color.MistyRose;
+            this.label_ConfigTask_Magazine_Layer4.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.label_ConfigTask_Magazine_Layer4.Font = new System.Drawing.Font("나눔고딕 ExtraBold", 8.999999F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(129)));
+            this.label_ConfigTask_Magazine_Layer4.ForeColor = System.Drawing.Color.Black;
+            this.label_ConfigTask_Magazine_Layer4.Location = new System.Drawing.Point(127, 725);
+            this.label_ConfigTask_Magazine_Layer4.Name = "label_ConfigTask_Magazine_Layer4";
+            this.label_ConfigTask_Magazine_Layer4.Size = new System.Drawing.Size(85, 40);
+            this.label_ConfigTask_Magazine_Layer4.TabIndex = 111;
+            this.label_ConfigTask_Magazine_Layer4.Text = "Layer 4";
+            this.label_ConfigTask_Magazine_Layer4.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            // 
+            // label_ConfigTask_Magazine_Layer3
+            // 
+            this.label_ConfigTask_Magazine_Layer3.BackColor = System.Drawing.Color.MistyRose;
+            this.label_ConfigTask_Magazine_Layer3.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.label_ConfigTask_Magazine_Layer3.Font = new System.Drawing.Font("나눔고딕 ExtraBold", 8.999999F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(129)));
+            this.label_ConfigTask_Magazine_Layer3.ForeColor = System.Drawing.Color.Black;
+            this.label_ConfigTask_Magazine_Layer3.Location = new System.Drawing.Point(127, 686);
+            this.label_ConfigTask_Magazine_Layer3.Name = "label_ConfigTask_Magazine_Layer3";
+            this.label_ConfigTask_Magazine_Layer3.Size = new System.Drawing.Size(85, 40);
+            this.label_ConfigTask_Magazine_Layer3.TabIndex = 110;
+            this.label_ConfigTask_Magazine_Layer3.Text = "Layer 3";
+            this.label_ConfigTask_Magazine_Layer3.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            // 
+            // label_ConfigTask_Magazine_Layer2
+            // 
+            this.label_ConfigTask_Magazine_Layer2.BackColor = System.Drawing.Color.MistyRose;
+            this.label_ConfigTask_Magazine_Layer2.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.label_ConfigTask_Magazine_Layer2.Font = new System.Drawing.Font("나눔고딕 ExtraBold", 8.999999F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(129)));
+            this.label_ConfigTask_Magazine_Layer2.ForeColor = System.Drawing.Color.Black;
+            this.label_ConfigTask_Magazine_Layer2.Location = new System.Drawing.Point(127, 647);
+            this.label_ConfigTask_Magazine_Layer2.Name = "label_ConfigTask_Magazine_Layer2";
+            this.label_ConfigTask_Magazine_Layer2.Size = new System.Drawing.Size(85, 40);
+            this.label_ConfigTask_Magazine_Layer2.TabIndex = 109;
+            this.label_ConfigTask_Magazine_Layer2.Text = "Layer 2";
+            this.label_ConfigTask_Magazine_Layer2.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            // 
+            // label_ConfigTask_Magazine_Layer1
+            // 
+            this.label_ConfigTask_Magazine_Layer1.BackColor = System.Drawing.Color.MistyRose;
+            this.label_ConfigTask_Magazine_Layer1.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.label_ConfigTask_Magazine_Layer1.Font = new System.Drawing.Font("나눔고딕 ExtraBold", 8.999999F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(129)));
+            this.label_ConfigTask_Magazine_Layer1.ForeColor = System.Drawing.Color.Black;
+            this.label_ConfigTask_Magazine_Layer1.Location = new System.Drawing.Point(127, 608);
+            this.label_ConfigTask_Magazine_Layer1.Name = "label_ConfigTask_Magazine_Layer1";
+            this.label_ConfigTask_Magazine_Layer1.Size = new System.Drawing.Size(85, 40);
+            this.label_ConfigTask_Magazine_Layer1.TabIndex = 108;
+            this.label_ConfigTask_Magazine_Layer1.Text = "Layer 1";
+            this.label_ConfigTask_Magazine_Layer1.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            // 
+            // label_ConfigTask_Right_Magazine_Layer1
+            // 
+            this.label_ConfigTask_Right_Magazine_Layer1.BackColor = System.Drawing.Color.White;
+            this.label_ConfigTask_Right_Magazine_Layer1.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.label_ConfigTask_Right_Magazine_Layer1.Font = new System.Drawing.Font("나눔고딕", 11.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(129)));
+            this.label_ConfigTask_Right_Magazine_Layer1.ForeColor = System.Drawing.Color.Black;
+            this.label_ConfigTask_Right_Magazine_Layer1.Location = new System.Drawing.Point(212, 608);
+            this.label_ConfigTask_Right_Magazine_Layer1.Name = "label_ConfigTask_Right_Magazine_Layer1";
+            this.label_ConfigTask_Right_Magazine_Layer1.Size = new System.Drawing.Size(106, 40);
+            this.label_ConfigTask_Right_Magazine_Layer1.TabIndex = 114;
+            this.label_ConfigTask_Right_Magazine_Layer1.Text = "검사완료";
+            this.label_ConfigTask_Right_Magazine_Layer1.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            this.label_ConfigTask_Right_Magazine_Layer1.Click += new System.EventHandler(this.label_ConfigTask_Right_Magazine_Layer1_Click);
+            // 
+            // label_ConfigTask_Left_Magazine_Layer1
+            // 
+            this.label_ConfigTask_Left_Magazine_Layer1.BackColor = System.Drawing.Color.White;
+            this.label_ConfigTask_Left_Magazine_Layer1.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.label_ConfigTask_Left_Magazine_Layer1.Font = new System.Drawing.Font("나눔고딕", 11.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(129)));
+            this.label_ConfigTask_Left_Magazine_Layer1.ForeColor = System.Drawing.Color.Black;
+            this.label_ConfigTask_Left_Magazine_Layer1.Location = new System.Drawing.Point(21, 608);
+            this.label_ConfigTask_Left_Magazine_Layer1.Name = "label_ConfigTask_Left_Magazine_Layer1";
+            this.label_ConfigTask_Left_Magazine_Layer1.Size = new System.Drawing.Size(106, 40);
+            this.label_ConfigTask_Left_Magazine_Layer1.TabIndex = 113;
+            this.label_ConfigTask_Left_Magazine_Layer1.Text = "검사전";
+            this.label_ConfigTask_Left_Magazine_Layer1.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            this.label_ConfigTask_Left_Magazine_Layer1.Click += new System.EventHandler(this.label_ConfigTask_Left_Magazine_Layer1_Click);
+            // 
+            // label_ConfigTask_Left_Magazine_Layer2
+            // 
+            this.label_ConfigTask_Left_Magazine_Layer2.BackColor = System.Drawing.Color.White;
+            this.label_ConfigTask_Left_Magazine_Layer2.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.label_ConfigTask_Left_Magazine_Layer2.Font = new System.Drawing.Font("나눔고딕", 11.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(129)));
+            this.label_ConfigTask_Left_Magazine_Layer2.ForeColor = System.Drawing.Color.Black;
+            this.label_ConfigTask_Left_Magazine_Layer2.Location = new System.Drawing.Point(21, 647);
+            this.label_ConfigTask_Left_Magazine_Layer2.Name = "label_ConfigTask_Left_Magazine_Layer2";
+            this.label_ConfigTask_Left_Magazine_Layer2.Size = new System.Drawing.Size(106, 40);
+            this.label_ConfigTask_Left_Magazine_Layer2.TabIndex = 115;
+            this.label_ConfigTask_Left_Magazine_Layer2.Text = "검사전";
+            this.label_ConfigTask_Left_Magazine_Layer2.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            this.label_ConfigTask_Left_Magazine_Layer2.Click += new System.EventHandler(this.label_ConfigTask_Left_Magazine_Layer2_Click);
+            // 
+            // label_ConfigTask_Left_Magazine_Layer3
+            // 
+            this.label_ConfigTask_Left_Magazine_Layer3.BackColor = System.Drawing.Color.White;
+            this.label_ConfigTask_Left_Magazine_Layer3.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.label_ConfigTask_Left_Magazine_Layer3.Font = new System.Drawing.Font("나눔고딕", 11.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(129)));
+            this.label_ConfigTask_Left_Magazine_Layer3.ForeColor = System.Drawing.Color.Black;
+            this.label_ConfigTask_Left_Magazine_Layer3.Location = new System.Drawing.Point(21, 686);
+            this.label_ConfigTask_Left_Magazine_Layer3.Name = "label_ConfigTask_Left_Magazine_Layer3";
+            this.label_ConfigTask_Left_Magazine_Layer3.Size = new System.Drawing.Size(106, 40);
+            this.label_ConfigTask_Left_Magazine_Layer3.TabIndex = 116;
+            this.label_ConfigTask_Left_Magazine_Layer3.Text = "검사전";
+            this.label_ConfigTask_Left_Magazine_Layer3.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            this.label_ConfigTask_Left_Magazine_Layer3.Click += new System.EventHandler(this.label_ConfigTask_Left_Magazine_Layer3_Click);
+            // 
+            // label_ConfigTask_Left_Magazine_Layer4
+            // 
+            this.label_ConfigTask_Left_Magazine_Layer4.BackColor = System.Drawing.Color.White;
+            this.label_ConfigTask_Left_Magazine_Layer4.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.label_ConfigTask_Left_Magazine_Layer4.Font = new System.Drawing.Font("나눔고딕", 11.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(129)));
+            this.label_ConfigTask_Left_Magazine_Layer4.ForeColor = System.Drawing.Color.Black;
+            this.label_ConfigTask_Left_Magazine_Layer4.Location = new System.Drawing.Point(21, 725);
+            this.label_ConfigTask_Left_Magazine_Layer4.Name = "label_ConfigTask_Left_Magazine_Layer4";
+            this.label_ConfigTask_Left_Magazine_Layer4.Size = new System.Drawing.Size(106, 40);
+            this.label_ConfigTask_Left_Magazine_Layer4.TabIndex = 117;
+            this.label_ConfigTask_Left_Magazine_Layer4.Text = "검사전";
+            this.label_ConfigTask_Left_Magazine_Layer4.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            this.label_ConfigTask_Left_Magazine_Layer4.Click += new System.EventHandler(this.label_ConfigTask_Left_Magazine_Layer4_Click);
+            // 
+            // label_ConfigTask_Left_Magazine_Layer5
+            // 
+            this.label_ConfigTask_Left_Magazine_Layer5.BackColor = System.Drawing.Color.White;
+            this.label_ConfigTask_Left_Magazine_Layer5.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.label_ConfigTask_Left_Magazine_Layer5.Font = new System.Drawing.Font("나눔고딕", 11.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(129)));
+            this.label_ConfigTask_Left_Magazine_Layer5.ForeColor = System.Drawing.Color.Black;
+            this.label_ConfigTask_Left_Magazine_Layer5.Location = new System.Drawing.Point(21, 764);
+            this.label_ConfigTask_Left_Magazine_Layer5.Name = "label_ConfigTask_Left_Magazine_Layer5";
+            this.label_ConfigTask_Left_Magazine_Layer5.Size = new System.Drawing.Size(106, 40);
+            this.label_ConfigTask_Left_Magazine_Layer5.TabIndex = 118;
+            this.label_ConfigTask_Left_Magazine_Layer5.Text = "검사전";
+            this.label_ConfigTask_Left_Magazine_Layer5.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            this.label_ConfigTask_Left_Magazine_Layer5.Click += new System.EventHandler(this.label_ConfigTask_Left_Magazine_Layer5_Click);
+            // 
+            // label_ConfigTask_Right_Magazine_Layer2
+            // 
+            this.label_ConfigTask_Right_Magazine_Layer2.BackColor = System.Drawing.Color.White;
+            this.label_ConfigTask_Right_Magazine_Layer2.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.label_ConfigTask_Right_Magazine_Layer2.Font = new System.Drawing.Font("나눔고딕", 11.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(129)));
+            this.label_ConfigTask_Right_Magazine_Layer2.ForeColor = System.Drawing.Color.Black;
+            this.label_ConfigTask_Right_Magazine_Layer2.Location = new System.Drawing.Point(212, 647);
+            this.label_ConfigTask_Right_Magazine_Layer2.Name = "label_ConfigTask_Right_Magazine_Layer2";
+            this.label_ConfigTask_Right_Magazine_Layer2.Size = new System.Drawing.Size(106, 40);
+            this.label_ConfigTask_Right_Magazine_Layer2.TabIndex = 119;
+            this.label_ConfigTask_Right_Magazine_Layer2.Text = "검사완료";
+            this.label_ConfigTask_Right_Magazine_Layer2.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            this.label_ConfigTask_Right_Magazine_Layer2.Click += new System.EventHandler(this.label_ConfigTask_Right_Magazine_Layer2_Click);
+            // 
+            // label_ConfigTask_Right_Magazine_Layer3
+            // 
+            this.label_ConfigTask_Right_Magazine_Layer3.BackColor = System.Drawing.Color.White;
+            this.label_ConfigTask_Right_Magazine_Layer3.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.label_ConfigTask_Right_Magazine_Layer3.Font = new System.Drawing.Font("나눔고딕", 11.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(129)));
+            this.label_ConfigTask_Right_Magazine_Layer3.ForeColor = System.Drawing.Color.Black;
+            this.label_ConfigTask_Right_Magazine_Layer3.Location = new System.Drawing.Point(212, 686);
+            this.label_ConfigTask_Right_Magazine_Layer3.Name = "label_ConfigTask_Right_Magazine_Layer3";
+            this.label_ConfigTask_Right_Magazine_Layer3.Size = new System.Drawing.Size(106, 40);
+            this.label_ConfigTask_Right_Magazine_Layer3.TabIndex = 120;
+            this.label_ConfigTask_Right_Magazine_Layer3.Text = "검사완료";
+            this.label_ConfigTask_Right_Magazine_Layer3.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            this.label_ConfigTask_Right_Magazine_Layer3.Click += new System.EventHandler(this.label_ConfigTask_Right_Magazine_Layer3_Click);
+            // 
+            // label_ConfigTask_Right_Magazine_Layer4
+            // 
+            this.label_ConfigTask_Right_Magazine_Layer4.BackColor = System.Drawing.Color.White;
+            this.label_ConfigTask_Right_Magazine_Layer4.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.label_ConfigTask_Right_Magazine_Layer4.Font = new System.Drawing.Font("나눔고딕", 11.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(129)));
+            this.label_ConfigTask_Right_Magazine_Layer4.ForeColor = System.Drawing.Color.Black;
+            this.label_ConfigTask_Right_Magazine_Layer4.Location = new System.Drawing.Point(212, 725);
+            this.label_ConfigTask_Right_Magazine_Layer4.Name = "label_ConfigTask_Right_Magazine_Layer4";
+            this.label_ConfigTask_Right_Magazine_Layer4.Size = new System.Drawing.Size(106, 40);
+            this.label_ConfigTask_Right_Magazine_Layer4.TabIndex = 121;
+            this.label_ConfigTask_Right_Magazine_Layer4.Text = "검사완료";
+            this.label_ConfigTask_Right_Magazine_Layer4.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            this.label_ConfigTask_Right_Magazine_Layer4.Click += new System.EventHandler(this.label_ConfigTask_Right_Magazine_Layer4_Click);
+            // 
+            // label_ConfigTask_Right_Magazine_Layer5
+            // 
+            this.label_ConfigTask_Right_Magazine_Layer5.BackColor = System.Drawing.Color.White;
+            this.label_ConfigTask_Right_Magazine_Layer5.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.label_ConfigTask_Right_Magazine_Layer5.Font = new System.Drawing.Font("나눔고딕", 11.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(129)));
+            this.label_ConfigTask_Right_Magazine_Layer5.ForeColor = System.Drawing.Color.Black;
+            this.label_ConfigTask_Right_Magazine_Layer5.Location = new System.Drawing.Point(212, 764);
+            this.label_ConfigTask_Right_Magazine_Layer5.Name = "label_ConfigTask_Right_Magazine_Layer5";
+            this.label_ConfigTask_Right_Magazine_Layer5.Size = new System.Drawing.Size(106, 40);
+            this.label_ConfigTask_Right_Magazine_Layer5.TabIndex = 122;
+            this.label_ConfigTask_Right_Magazine_Layer5.Text = "검사완료";
+            this.label_ConfigTask_Right_Magazine_Layer5.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            this.label_ConfigTask_Right_Magazine_Layer5.Click += new System.EventHandler(this.label_ConfigTask_Right_Magazine_Layer5_Click);
+            // 
             // Config_Task
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 12F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
+            this.Controls.Add(this.label_ConfigTask_Right_Magazine_Layer5);
+            this.Controls.Add(this.label_ConfigTask_Right_Magazine_Layer4);
+            this.Controls.Add(this.label_ConfigTask_Right_Magazine_Layer3);
+            this.Controls.Add(this.label_ConfigTask_Right_Magazine_Layer2);
+            this.Controls.Add(this.label_ConfigTask_Left_Magazine_Layer5);
+            this.Controls.Add(this.label_ConfigTask_Left_Magazine_Layer4);
+            this.Controls.Add(this.label_ConfigTask_Left_Magazine_Layer3);
+            this.Controls.Add(this.label_ConfigTask_Left_Magazine_Layer2);
+            this.Controls.Add(this.label_ConfigTask_Right_Magazine_Layer1);
+            this.Controls.Add(this.label_ConfigTask_Left_Magazine_Layer1);
+            this.Controls.Add(this.label_ConfigTask_Magazine_Layer5);
+            this.Controls.Add(this.label_ConfigTask_Magazine_Layer4);
+            this.Controls.Add(this.label_ConfigTask_Magazine_Layer3);
+            this.Controls.Add(this.label_ConfigTask_Magazine_Layer2);
+            this.Controls.Add(this.label_ConfigTask_Magazine_Layer1);
+            this.Controls.Add(this.label_ConfigTask_Magazine_Layer);
             this.Controls.Add(this.label_ConfigTask_Right_Tray_Layer_Val);
             this.Controls.Add(this.label_ConfigTask_Right_Tray_Layer);
             this.Controls.Add(this.label_ConfigTask_Left_Tray_Layer_Val);
@@ -692,5 +942,21 @@ namespace ZenHandler.Dlg
         private System.Windows.Forms.Label label_ConfigTask_Left_Tray_Layer;
         private System.Windows.Forms.Label label_ConfigTask_Right_Tray_Layer_Val;
         private System.Windows.Forms.Label label_ConfigTask_Right_Tray_Layer;
+        private System.Windows.Forms.Label label_ConfigTask_Magazine_Layer;
+        private System.Windows.Forms.Label label_ConfigTask_Magazine_Layer5;
+        private System.Windows.Forms.Label label_ConfigTask_Magazine_Layer4;
+        private System.Windows.Forms.Label label_ConfigTask_Magazine_Layer3;
+        private System.Windows.Forms.Label label_ConfigTask_Magazine_Layer2;
+        private System.Windows.Forms.Label label_ConfigTask_Magazine_Layer1;
+        private System.Windows.Forms.Label label_ConfigTask_Right_Magazine_Layer1;
+        private System.Windows.Forms.Label label_ConfigTask_Left_Magazine_Layer1;
+        private System.Windows.Forms.Label label_ConfigTask_Left_Magazine_Layer2;
+        private System.Windows.Forms.Label label_ConfigTask_Left_Magazine_Layer3;
+        private System.Windows.Forms.Label label_ConfigTask_Left_Magazine_Layer4;
+        private System.Windows.Forms.Label label_ConfigTask_Left_Magazine_Layer5;
+        private System.Windows.Forms.Label label_ConfigTask_Right_Magazine_Layer2;
+        private System.Windows.Forms.Label label_ConfigTask_Right_Magazine_Layer3;
+        private System.Windows.Forms.Label label_ConfigTask_Right_Magazine_Layer4;
+        private System.Windows.Forms.Label label_ConfigTask_Right_Magazine_Layer5;
     }
 }
