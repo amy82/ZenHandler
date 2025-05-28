@@ -10,6 +10,7 @@ namespace ZenHandler.Machine
     {
         SOCKET_F_X = 0, SOCKET_B_X
     };
+    //SOCKET_F_X = Y실린더 있는 소켓
     public class EEpromSocketMachine : MotionControl.MotorController
     {
         public int MotorCnt { get; private set; } = 2;
@@ -105,6 +106,29 @@ namespace ZenHandler.Machine
             //GroupNo = 앞,뒤 2Set
             return false;
         }
+        public bool MultiContactUp(int GroupNo, bool bFlag, bool bWait = false)      //컨텍 전체 상승 / 하강
+        {
+            //GroupNo: 0 = Write , 1 = Verify
+            return false;
+        }
+        public bool MultiContactFor(int GroupNo, bool bFlag, bool bWait = false)      //컨텍 전체 전진 / 후진
+        {
+            //GroupNo: 0 = Write , 1 = Verify
+            return false;
+        }
+        public bool GetMultiContactUp(int GroupNo, bool bFlag, bool bWait = false)      //컨텍 상승 / 하강 확인 센서
+        {
+            return false;
+        }
+        public bool GetMultiContactFor(int GroupNo, bool bFlag, bool bWait = false)      //컨텍 전진 / 후진 확인 센서
+        {
+            return false;
+        }
+        public bool AllContactFor(int GroupNo, int index, bool bFlag, bool bWait = false)      //컨텍 전체 상승 / 하강
+        {
+            //GroupNo = 앞,뒤 2Set
+            return false;
+        }
         public bool GetContactUp(int GroupNo, int index, bool bFlag, bool bWait = false)      //컨텍 상승 / 하강 확인 센서
         {
             //GroupNo = 앞,뒤 2Set
@@ -127,6 +151,7 @@ namespace ZenHandler.Machine
             //GroupNo = 앞,뒤 2Set
             return false;
         }
+
 
         public bool GetSocketFor(bool bFlag, bool bWait = false)      //아래쪽 소켓 Y축 실린더 전진 / 후진 
         {
@@ -154,7 +179,35 @@ namespace ZenHandler.Machine
         }
         #region EEPROM Socekt Motor 동작
 
-        public bool ChkMotorPos(eTeachingPosList teachingPos, eEEpromSocket Motor)
+        public bool Socket_X_Move(eTeachingPosList ePos, eEEpromSocket MotorX, bool bWait = true)
+        {
+            if (this.MotorUse == false)
+            {
+                Console.WriteLine("No Use Machine");
+                return true;
+            }
+            bool isSuccess = true;
+            string logStr = "";
+
+            double dPos = this.teachingConfig.Teaching[(int)ePos].Pos[(int)MotorX];     //x Axis
+            try
+            {
+                isSuccess = this.MotorAxes[(int)MotorX].MoveAxis(dPos, AXT_MOTION_ABSREL.POS_ABS_MODE, bWait);
+            }
+            catch (Exception ex)
+            {
+                Globalo.LogPrint("ManualControl", $"Socket_X_Move Exception: {ex.Message}");
+                isSuccess = false;
+            }
+            if (isSuccess == false)
+            {
+                logStr = $"Socket X axis {ePos.ToString() } 이동 실패";
+            }
+
+            return isSuccess;
+        }
+
+        public bool ChkMotorXPos(eTeachingPosList teachingPos, eEEpromSocket Motor)
         {
             if (ProgramState.ON_LINE_MOTOR == false)
             {
