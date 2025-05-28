@@ -426,10 +426,12 @@ namespace ZenHandler.Process
 
                     //#1 Left Loader Tray 완료 상태 확인 ---> 다했으면 배출
                     //#2 Right Loader Tray 완료 상태 확인---> 다했으면 배출
+                    Globalo.motionManager.magazineHandler.IsTryChanging[0] = false;
+                    Globalo.motionManager.magazineHandler.IsTryChanging[1] = false;
                     Globalo.motionManager.magazineHandler.isTrayReadyToLoad[0] = false;
                     Globalo.motionManager.magazineHandler.isTrayReadyToLoad[1] = false;
 
-                    
+
                     nRetStep = 2010;
                     break;
                 case 2010:
@@ -456,9 +458,6 @@ namespace ZenHandler.Process
                         szLog = $"[READY] Right Loader TRAY EMPTY [STEP : {nStep}]";
                         Globalo.LogPrint("ManualControl", szLog);
                     }
-
-                        
-
                     nRetStep = 2015;
                     break;
                 case 2015:
@@ -496,7 +495,6 @@ namespace ZenHandler.Process
 
                     if (IsLeftMagazine == false && IsRightMagazine == false)        //둘다 없을 경우, 진행 불가
                     {
-
                         szLog = $"[READY] LEFT , RIGHT MAGAZINE EMPTY [STEP : {nStep}]";
                         Globalo.LogPrint("ManualControl", szLog, Globalo.eMessageName.M_ERROR);
                         nRetStep *= -1;
@@ -513,15 +511,15 @@ namespace ZenHandler.Process
                     }
                     //
 
-                    if (Globalo.motionManager.magazineHandler.magazineTray.LeftTrayLayer == -1)        //둘다 없을 경우, 진행 불가
+                    if (Globalo.motionManager.magazineHandler.magazineTray.LeftTrayLayer == -1) 
                     {
 
-                        szLog = $"[READY] LPLEASE CHANGE THE LEFT MEGAZINE [STEP : {nStep}]";
+                        szLog = $"[READY] PLEASE CHANGE THE LEFT MEGAZINE [STEP : {nStep}]";
                         Globalo.LogPrint("ManualControl", szLog, Globalo.eMessageName.M_INFO);
                         nRetStep *= -1;
                         break;
                     }
-                    if (Globalo.motionManager.magazineHandler.magazineTray.RightTrayLayer == -1)        //둘다 없을 경우, 진행 불가
+                    if (Globalo.motionManager.magazineHandler.magazineTray.RightTrayLayer == -1)
                     {
 
                         szLog = $"[READY] PLEASE CHANGE THE RIGHT MEGAZINE [STEP : {nStep}]";
@@ -694,6 +692,7 @@ namespace ZenHandler.Process
                         nRetStep *= -1;
                         break;
                     }
+
                     if (waitLeftMagazine == -1)
                     {
                         //Gantry 에 Tray 로드 실패
@@ -1126,8 +1125,8 @@ namespace ZenHandler.Process
                     nRetStep = 2900;
                     break;
                 case 2900:
-                    Globalo.motionManager.magazineHandler.IsTryChanging[0] = false;
-                    Globalo.motionManager.magazineHandler.IsTryChanging[1] = false;
+                    Globalo.motionManager.magazineHandler.IsTryChanging[0] = false;     //Auto Ready
+                    Globalo.motionManager.magazineHandler.IsTryChanging[1] = false;     //Auto Ready
 
 
                     Globalo.motionManager.magazineHandler.RunState = OperationState.Standby;
@@ -1155,19 +1154,69 @@ namespace ZenHandler.Process
                     //2.Tray 배출 to Magazine
                     //
                     //
-                    if (Globalo.motionManager.GetTrayEjectReq(MotionControl.MotorSet.TrayPos.Left) == true)
+                    if (Globalo.motionManager.GetTrayEjectReq(MotionControl.MotorSet.TrayPos.Left) == true && Globalo.motionManager.magazineHandler.IsTryChanging[(int)eMag.ON_LEFT] == false)
                     {
                         //left 배출 후 로드 요청
                         nRetStep = 3100;
-                        
                         break;
                     }
-                    if (Globalo.motionManager.GetTrayEjectReq(MotionControl.MotorSet.TrayPos.Right) == true)
+
+                    if (Globalo.motionManager.GetTrayEjectReq(MotionControl.MotorSet.TrayPos.Right) == true && Globalo.motionManager.magazineHandler.IsTryChanging[(int)eMag.ON_RIGHT] == false)
                     {
                         //right 배출 후 로드 요청
                         nRetStep = 3200;
                         break;
                     }
+
+                    if (Globalo.motionManager.magazineHandler.GetLeftCompleteModeButton() == true)      //외부 완료 버튼
+                    {
+                        if (Globalo.motionManager.magazineHandler.GetMagazineInPosition((int)eMag.ON_LEFT) == false)
+                        {
+                            Console.WriteLine("Left Magazine Empty");
+                            break;
+                        }
+                        if (Globalo.motionManager.magazineHandler.GetIsTrayOnLoader((int)eMag.ON_LEFT) == true)
+                        {
+                            Console.WriteLine("Left Loaded Tray");
+                            break;
+                        }
+                        if (Globalo.motionManager.magazineHandler.IsTryChanging[(int)eMag.ON_LEFT] == true &&
+                        Globalo.motionManager.magazineHandler.isTrayReadyToLoad[(int)eMag.ON_LEFT] == false &&
+                        Globalo.motionManager.magazineHandler.magazineTray.LeftTrayLayer == -1)
+                        {
+                            //TODO: 작업자가 매거진 넣고 외부에서 버튼 누르면 로드하기
+                            //비어있어서 로드해야된다.
+                            Globalo.motionManager.magazineHandler.magazineTray.LeftTrayLayer = 0;
+                            nRetStep = 3150;
+                            break;
+                        }
+                    }
+                    if (Globalo.motionManager.magazineHandler.GetRightCompleteModeButton() == true)     //외부 완료 버튼
+                    {
+                        if (Globalo.motionManager.magazineHandler.GetMagazineInPosition((int)eMag.ON_RIGHT) == false)
+                        {
+                            Console.WriteLine("Right Magazine Empty");
+                            break;
+                        }
+                        if (Globalo.motionManager.magazineHandler.GetIsTrayOnLoader((int)eMag.ON_RIGHT) == true)
+                        {
+                            Console.WriteLine("Right Loaded Tray");
+                            break;
+                        }
+                        if (Globalo.motionManager.magazineHandler.IsTryChanging[(int)eMag.ON_RIGHT] == true &&
+                        Globalo.motionManager.magazineHandler.isTrayReadyToLoad[(int)eMag.ON_RIGHT] == false &&
+                        Globalo.motionManager.magazineHandler.magazineTray.RightTrayLayer == -1)
+                        {
+                            //TODO: 작업자가 매거진 넣고 외부에서 버튼 누르면 로드하기
+                            //비어있어서 로드해야된다.
+                            Globalo.motionManager.magazineHandler.magazineTray.RightTrayLayer = 0;
+                            nRetStep = 3250;
+                            break;
+                        }
+                    }
+
+
+                        
                     break;
                 case 3100:
                     //---------------------------------------------------
@@ -1811,6 +1860,7 @@ namespace ZenHandler.Process
                         Globalo.LogPrint("ManualControl", szLog);
                         nRetStep = 380;
                         break;
+
                     case 380:
                         if (Globalo.motionManager.magazineHandler.MotorAxes[(int)MotorZ].GetStopAxis() == true &&
                         Globalo.motionManager.magazineHandler.ChkZMotorPos(Machine.MagazineHandler.eTeachingPosList.TRAY_LOAD_POS, MotorZ, 0.0))
@@ -1838,6 +1888,7 @@ namespace ZenHandler.Process
                         szLog = $"[READY] LOAD COMPLETE [STEP : {nRetStep}]";
                         Globalo.LogPrint("ManualControl", szLog);
                         Globalo.motionManager.magazineHandler.isTrayReadyToLoad[index] = true;
+                        Globalo.motionManager.magazineHandler.IsTryChanging[MagNum] = false;          //투입 완료
 
                         break;
                     default:
@@ -1933,6 +1984,7 @@ namespace ZenHandler.Process
                 switch (nRetStep)
                 {
                     case 10:
+                        Globalo.motionManager.magazineHandler.IsTryChanging[MagNum] = true;          //배출 중
                         nRetStep = 20;
                         break;
                     case 20:
@@ -2164,6 +2216,8 @@ namespace ZenHandler.Process
                     case 380:
                         if (Globalo.motionManager.magazineHandler.GetIsTrayOnLoader(MagNum) == false)
                         {
+                            
+                            Globalo.motionManager.magazineHandler.isTrayReadyToLoad[index] = false;
                             szLog = $"[AUTO] TRAY UNLOAD COMPLETE[STEP : {nRetStep}]";
                             Globalo.LogPrint("ManualControl", szLog);
                             nRetStep = 400;
@@ -2188,19 +2242,6 @@ namespace ZenHandler.Process
                         {
                             Globalo.motionManager.magazineHandler.RightMagazineLayerAdd();
                         }
-                        nRetStep = 420;
-                        break;
-                    case 420:
-                        
-                        nRetStep = 440;
-                        break;
-                    case 440:
-                        nRetStep = 460;
-                        break;
-                    case 460:
-                        nRetStep = 480;
-                        break;
-                    case 480:
                         nRetStep = 500;
                         break;
                     case 500:
@@ -2211,8 +2252,8 @@ namespace ZenHandler.Process
                         nRetStep = 900;
                         break;
                     case 900:
-
-                        
+                        szLog = $"[READY] UNLOAD COMPLETE [STEP : {nRetStep}]";
+                        Globalo.LogPrint("ManualControl", szLog);
                         
                         break;
                     default:

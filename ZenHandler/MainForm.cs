@@ -71,7 +71,7 @@ namespace ZenHandler  //ApsMotionControl
             string fileName = "";
             if (Program.PG_SELECT == HANDLER_PG.FW)
             {
-                fileName = string.Format(@"{0}\Fw_Handler_IoMap_v1.0.xlsx", Application.StartupPath);
+                fileName = string.Format(@"{0}\Fw_Handler_IoMap_v1.3.xlsx", Application.StartupPath);
             }
             else if (Program.PG_SELECT == HANDLER_PG.AOI)
             {

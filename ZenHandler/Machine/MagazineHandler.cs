@@ -113,6 +113,16 @@ namespace ZenHandler.Machine
             return rtn;
         }
         #region Magazine Machine Io 동작
+        public bool LeftDoorLock(int index, bool bFlag, bool bWait = false)
+        {
+
+            return false;
+        }
+        public bool RightDoorLock(int index, bool bFlag, bool bWait = false)
+        {
+
+            return false;
+        }
         public bool GetMagazineInPosition(int index, bool bWait = false)       //Magazine 정위치 안착 확인 ,1개 센서, 0 = left , 1 = right
         {
             return false;
@@ -130,6 +140,84 @@ namespace ZenHandler.Machine
             return false;
         }
 
+        public bool GetLeftInModeButton()           //좌측 매거진 투입 대기 버튼
+        {
+            if (ProgramState.ON_LINE_MOTOR == false)
+            {
+                return true;
+            }
+            int lModuleNo = 0;
+            int lOffset = 2;
+
+            uint uFlagHigh = 0;
+            uint upValue = Globalo.motionManager.ioController.m_dwDInDict[lModuleNo][lOffset];
+
+            uFlagHigh = upValue & (uint)MotionControl.FwDioDefine.DIO_IN_ADDR_CH0.IN0_LEFT_MAGAZINE_LOAD_MODE;
+            if (uFlagHigh == 1)
+            {
+                return true;
+            }
+
+
+            return false;
+        }
+        public bool GetRightInModeButton()          //우측 매거진 투입 대기 버튼
+        {
+            if (ProgramState.ON_LINE_MOTOR == false)
+            {
+                return true;
+            }
+            int lModuleNo = 0;
+            int lOffset = 2;
+
+            uint uFlagHigh = 0;
+            uint upValue = Globalo.motionManager.ioController.m_dwDInDict[lModuleNo][lOffset];
+
+            uFlagHigh = upValue & (uint)MotionControl.FwDioDefine.DIO_IN_ADDR_CH0.IN0_RIGHT_MAGAZINE_LOAD_MODE;
+            if (uFlagHigh == 1)
+            {
+                return true;
+            }
+            return false;
+        }
+        public bool GetLeftCompleteModeButton()     //좌측 매거진 투입 완료 버튼
+        {
+            if (ProgramState.ON_LINE_MOTOR == false)
+            {
+                return true;
+            }
+            int lModuleNo = 0;
+            int lOffset = 2;
+
+            uint uFlagHigh = 0;
+            uint upValue = Globalo.motionManager.ioController.m_dwDInDict[lModuleNo][lOffset];
+
+            uFlagHigh = upValue & (uint)MotionControl.FwDioDefine.DIO_IN_ADDR_CH0.IN0_LEFT_MAGAZINE_COMPLETE_MODE;
+            if (uFlagHigh == 1)
+            {
+                return true;
+            }
+            return false;
+        }
+        public bool GetRightCompleteModeButton()    //우측 매거진 투입 완료 버튼
+        {
+            if (ProgramState.ON_LINE_MOTOR == false)
+            {
+                return true;
+            }
+            int lModuleNo = 0;
+            int lOffset = 2;
+
+            uint uFlagHigh = 0;
+            uint upValue = Globalo.motionManager.ioController.m_dwDInDict[lModuleNo][lOffset];
+
+            uFlagHigh = upValue & (uint)MotionControl.FwDioDefine.DIO_IN_ADDR_CH0.IN0_RIGHT_MAGAZINE_COMPLETE_MODE;
+            if (uFlagHigh == 1)
+            {
+                return true;
+            }
+            return false;
+        }
         #endregion
         public override bool IsMoving()
         {

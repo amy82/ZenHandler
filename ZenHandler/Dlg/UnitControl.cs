@@ -163,8 +163,8 @@ namespace ZenHandler.Dlg
             
 
             this.label_TransferUnit_State_Val.Text = Globalo.motionManager.transferMachine.RunState.ToString();
-            this.label_LiftUnit_State_Val.Text = Globalo.motionManager.transferMachine.RunState.ToString();
-            this.label_MagazineUnit_State_Val.Text = Globalo.motionManager.transferMachine.RunState.ToString();
+            this.label_LiftUnit_State_Val.Text = Globalo.motionManager.liftMachine.RunState.ToString();
+            this.label_MagazineUnit_State_Val.Text = Globalo.motionManager.magazineHandler.RunState.ToString();
             
 
             if (Program.PG_SELECT == HANDLER_PG.FW)
