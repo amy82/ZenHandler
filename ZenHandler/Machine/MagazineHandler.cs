@@ -198,7 +198,7 @@ namespace ZenHandler.Machine
 
             return false;
         }
-        public bool ChkZMotorPos(eTeachingPosList teachingPos, eMagazine MotorZ)
+        public bool ChkZMotorPos(eTeachingPosList teachingPos, eMagazine MotorZ, double OffsetZ = 0.0)
         {
             if (ProgramState.ON_LINE_MOTOR == false)
             {
@@ -208,7 +208,7 @@ namespace ZenHandler.Machine
             double currentZPos = 0.0;
 
 
-            dZTeachingPos = this.teachingConfig.Teaching[(int)teachingPos].Pos[(int)MotorZ];
+            dZTeachingPos = this.teachingConfig.Teaching[(int)teachingPos].Pos[(int)MotorZ] + OffsetZ;
             currentZPos = MotorAxes[(int)MotorZ].EncoderPos;
 
             if (dZTeachingPos == currentZPos)
@@ -245,13 +245,14 @@ namespace ZenHandler.Machine
 
             return isSuccess;
         }
-        public bool Magazine_Z_Move(eTeachingPosList ePos, eMagazine MotorZ, bool bWait = true)
+        public bool Magazine_Z_Move(eTeachingPosList ePos, eMagazine MotorZ, double OffsetZ = 0.0, bool bWait = true)
         {
             if (this.MotorUse == false)
             {
                 Console.WriteLine("No Use Machine");
                 return true;
             }
+            //TODO: Y 축 대기위치인지 확인 
             if(MotorZ == eMagazine.MAGAZINE_L_Z)
             {
                 if (GetTrayUndocked(0) == true)
