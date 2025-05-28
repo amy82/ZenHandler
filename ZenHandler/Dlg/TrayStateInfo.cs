@@ -247,22 +247,22 @@ namespace ZenHandler.Dlg
                 
             }
 
-            SetLoadTraySlot(0, 0, TRAY_KIND.LOAD_TRAY_L, LoadTraySlotState.AfterTest);
+            //SetLoadTraySlot(0, 0, TRAY_KIND.LOAD_TRAY_L, LoadTraySlotState.AfterTest);
 
-            SetLoadTraySlot(0, 0, TRAY_KIND.LOAD_TRAY_R, LoadTraySlotState.AfterTest);
-            SetLoadTraySlot(0, 1, TRAY_KIND.LOAD_TRAY_R, LoadTraySlotState.AfterTest);
-            SetLoadTraySlot(0, 2, TRAY_KIND.LOAD_TRAY_R, LoadTraySlotState.AfterTest);
+            //SetLoadTraySlot(0, 0, TRAY_KIND.LOAD_TRAY_R, LoadTraySlotState.AfterTest);
+            //SetLoadTraySlot(0, 1, TRAY_KIND.LOAD_TRAY_R, LoadTraySlotState.AfterTest);
+            //SetLoadTraySlot(0, 2, TRAY_KIND.LOAD_TRAY_R, LoadTraySlotState.AfterTest);
 
-            SetNgTraySlot(0, 0, TRAY_KIND.NG_TRAY_L, NgTraySlotState.NgInspection);
+            //SetNgTraySlot(0, 0, TRAY_KIND.NG_TRAY_L, NgTraySlotState.NgInspection);
 
-            SetNgTraySlot(0, 0, TRAY_KIND.NG_TRAY_R, NgTraySlotState.NgInspection);
-            SetNgTraySlot(0, 1, TRAY_KIND.NG_TRAY_R, NgTraySlotState.NgInspection);
+            //SetNgTraySlot(0, 0, TRAY_KIND.NG_TRAY_R, NgTraySlotState.NgInspection);
+            //SetNgTraySlot(0, 1, TRAY_KIND.NG_TRAY_R, NgTraySlotState.NgInspection);
 
 
-            SetUpdateLoadTray(TRAY_KIND.LOAD_TRAY_L);
-            SetUpdateLoadTray(TRAY_KIND.LOAD_TRAY_R);
-            SetUpdateLoadTray(TRAY_KIND.NG_TRAY_L);
-            SetUpdateLoadTray(TRAY_KIND.NG_TRAY_R);
+            //SetUpdateLoadTray(TRAY_KIND.LOAD_TRAY_L);
+            //SetUpdateLoadTray(TRAY_KIND.LOAD_TRAY_R);
+            //SetUpdateLoadTray(TRAY_KIND.NG_TRAY_L);
+            //SetUpdateLoadTray(TRAY_KIND.NG_TRAY_R);
 
             //UpdateTrayColors(TRAY_KIND.LOAD_TRAY_L, 2, 3);      //가로 3번째 , 세로 4번째 로드 할 차례
             //UpdateTrayColors(TRAY_KIND.LOAD_TRAY_R, 3, 5);      //가로 4 번째 , 세로 6 번째 배출 할 차례

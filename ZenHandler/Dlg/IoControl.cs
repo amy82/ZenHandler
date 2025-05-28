@@ -50,6 +50,10 @@ namespace ZenHandler.Dlg
 
             MaxInModuleCount = Globalo.motionManager.ioController.m_dwDInDict.Count;
 
+            int rowCount = Globalo.dataManage.ioData.dataTable.Rows.Count;
+
+            MaxInModuleCount = (int)Math.Ceiling(rowCount / 32.0);
+            MaxOutModuleCount = (int)Math.Ceiling(rowCount / 32.0);
 
             Console.WriteLine($"In 모듈 개수: {MaxInModuleCount}");
 
@@ -93,6 +97,9 @@ namespace ZenHandler.Dlg
             ControlSet();
             InGridDraw();
             OutGridDraw();
+
+            InIndexLabel.Text = (dCurReadModuleCh + 1).ToString() + " / " + MaxInModuleCount.ToString();
+            OutIndexLabel.Text = (dCurOutModuleCh + 1).ToString() + " / " + MaxOutModuleCount.ToString();
 
             mIoTimer = new System.Windows.Forms.Timer();
             mIoTimer.Interval = 100;
@@ -407,18 +414,42 @@ namespace ZenHandler.Dlg
         }
         public void InGridContentChange(int index)
         {
+            //for (int i = 0; i < 32; i++)
+            //{
+            //    string str = Globalo.dataManage.ioData.dataTable.Rows[i + (32 * index)][0].ToString();
+            //    InDataGridView.Rows[i].SetValues((i + 1).ToString(), str, "");
+            //    InDataGridView.Rows[i].DefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleCenter;
+            //}
             for (int i = 0; i < 32; i++)
             {
-                string str = Globalo.dataManage.ioData.dataTable.Rows[i + (32 * index)][0].ToString();
+                int rowIndex = i + (32 * index);
+                string str = "";
+
+                if (rowIndex < Globalo.dataManage.ioData.dataTable.Rows.Count)
+                {
+                    str = Globalo.dataManage.ioData.dataTable.Rows[rowIndex][0].ToString();
+                }
+
                 InDataGridView.Rows[i].SetValues((i + 1).ToString(), str, "");
                 InDataGridView.Rows[i].DefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleCenter;
             }
         }
         public void OutGridContentChange(int index)
         {
+            //for (int i = 0; i < 32; i++)
+            //{
+            //    string str = Globalo.dataManage.ioData.dataTable.Rows[i + (32 * index)][1].ToString();
+            //    OutDataGridView.Rows[i].SetValues((i + 1).ToString(), str, "");
+            //    OutDataGridView.Rows[i].DefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleCenter;
+            //}
             for (int i = 0; i < 32; i++)
             {
-                string str = Globalo.dataManage.ioData.dataTable.Rows[i + (32 * index)][1].ToString();
+                int rowIndex = i + (32 * index);
+                string str = "";
+                if (rowIndex < Globalo.dataManage.ioData.dataTable.Rows.Count)
+                {
+                    str = Globalo.dataManage.ioData.dataTable.Rows[rowIndex][1].ToString();
+                }
                 OutDataGridView.Rows[i].SetValues((i + 1).ToString(), str, "");
                 OutDataGridView.Rows[i].DefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleCenter;
             }

@@ -40,11 +40,11 @@ namespace ZenHandler.Machine
 
         public enum eTeachingPosList : int
         {
-            WAIT_POS = 0, LOAD_POS, UN_LOAD_POS, CAPTURE_POS, TOTAL_SOCKET_TEACHING_COUNT
+            WAIT_POS = 0, LOAD_POS, UN_LOAD_POS, CAPTURE_L_POS, CAPTURE_R_POS, HOUSING_POS, KEY_POS,TOTAL_SOCKET_TEACHING_COUNT
         };
         public string[] TeachName =
         {
-            "WAIT_POS", "LOAD_POS", "UN_LOAD_POS", "CAPTURE_POS"
+            "WAIT_POS", "LOAD_POS", "UN_LOAD_POS", "CAPTURE_L_POS", "CAPTURE_R_POS", "HOUSING_POS", "KEY_POS"
         };
 
         public const string teachingPath = "Teach_AoiSocket.yaml";
