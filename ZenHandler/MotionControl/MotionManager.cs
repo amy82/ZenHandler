@@ -22,15 +22,16 @@ namespace ZenHandler.MotionControl
 
 
         //SOCKET MACHINE
-        public Machine.AoiSocketMachine socketAoiMachine;
-        public Machine.EEpromSocketMachine socketEEpromMachine;
-        public Machine.FwSocketMachine socketFwMachine;
+        //TODO: Socket 머신 하나두고 , 그 아래 소켓 Set마트 Class 추가?
+        public Machine.AoiSocketMachine socketAoiMachine;           //TODO: 배열로 2개로 나눠?
+        public Machine.EEpromSocketMachine socketEEpromMachine;     //TODO: 배열로 2개로 나눠?
+        public Machine.FwSocketMachine socketFwMachine;             //TODO: 배열로 4개로 나눠?
 
-        public int SocketSetCount = 2;
+        public int SocketSetCount = 2;      //or 4(fw)
         private bool[] trayEjectRequested = {false , false };
 
-        private bool[] socketLoadRequested = {false, false, false, false };
-        private bool[] socketUnloadRequested = {false, false, false, false };
+        private int[] socketLoadRequested = {-1, -1, -1, -1 };      //-1 = 초기화 , 1 = 공급요청 , 0 = 공급완료
+        private int[] socketUnloadRequested = { -1, -1, -1, -1 };   //-1 = 초기화 , 1 = 배출요청 , 0 = 배출완료
         //TODO: Set 라서 4개인데 , 개별이면 달라진다. -
         //펌웨어는 Set 로 요청 - 4개씩 4Set
         //EEPROM는 Set 로 요청 - 4개씩 2Set
@@ -57,7 +58,12 @@ namespace ZenHandler.MotionControl
             socketFwMachine = new Machine.FwSocketMachine();
 
             transferMachine.OnTrayChangedCall += OnTrayChengeReq;
+            transferMachine.OnLoadSocketComplete += OnSocketLoadReq;
+            transferMachine.OnUnloadSocketComplete += OnSocketUnloadReq;
 
+
+            socketEEpromMachine.OnSocketLoadCall += OnSocketLoadReq;
+            socketEEpromMachine.OnSocketUnloadCall += OnSocketUnloadReq;
 
             bool LoadChk = true;
             LoadChk = transferMachine.teachingConfig.LoadTeach(Machine.TransferMachine.teachingPath, transferMachine.MotorCnt, (int)Machine.TransferMachine.eTeachingPosList.TOTAL_TRANSFER_TEACHING_COUNT);   //TODO: 티칭 개수만큼 불러와야되는데 파일에 없으면 못 불러온다
@@ -98,24 +104,6 @@ namespace ZenHandler.MotionControl
             int index = (int)position;
             trayEjectRequested[index] = false;
         }
-
-        private void OnSocketLoadReq(int index)          //소켓에서 투입 요청
-        {
-            Console.WriteLine($"OnSocketLoadReq - {index}");
-            socketLoadRequested[index] = true;
-        }
-        private void OnSocketUnloadReq(int index)        //소켓에서 배출 요청
-        {
-            Console.WriteLine($"OnSocketUnloadReq - {index}");
-            socketUnloadRequested[index] = true;
-        }
-        public void ClearSocketReq(int index)
-        {
-            Console.WriteLine($"ClearSocketReq - {index}");
-            socketLoadRequested[index] = false;
-            socketUnloadRequested[index] = false;
-        }
-
         public bool GetTrayEjectReq(MotorSet.TrayPos position)
         {
             int index = (int)position;
@@ -124,18 +112,35 @@ namespace ZenHandler.MotionControl
             return rtn;
 
         }
-        public bool GetSocketEjectReq(int index)
+        //---------------------------------------------------------------------------------------------------------
+        //
+        //
+        //  소켓 공급 / 배출 요청
+        //
+        //---------------------------------------------------------------------------------------------------------
+        private void OnSocketLoadReq(int index, int nReq)          //소켓에서 투입 요청
         {
-            bool rtn = false;
-            rtn = socketUnloadRequested[index];
+            Console.WriteLine($"OnSocketLoadReq - {index},{nReq}");
+            socketLoadRequested[index] = nReq;
+        }
+        private void OnSocketUnloadReq(int index, int nReq)        //소켓에서 배출 요청
+        {
+            Console.WriteLine($"OnSocketUnloadReq - {index},{nReq}");
+            socketUnloadRequested[index] = nReq;
+        }
+        
+        public int GetSocketEjectReq(int index)
+        {
+            int rtn = socketUnloadRequested[index];
             return rtn;
         }
-        public bool GetSocketLoadReq(int index)
+        public int GetSocketLoadReq(int index)
         {
-            bool rtn = false;
-            rtn = socketLoadRequested[index];
+            int rtn = socketLoadRequested[index];
             return rtn;
         }
+
+        //---------------------------------------------------------------------------------------------------------
         private void OnPgExit(object sender, EventArgs e)
         {
             Console.WriteLine("MotionManager - OnPgExit");

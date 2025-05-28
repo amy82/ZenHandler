@@ -119,7 +119,10 @@ namespace ZenHandler.FThread
             {
                 this.m_nCurrentStep = this.parent.processManager.magazineFlow.AutoReady(this.m_nCurrentStep);
             }
-
+            else if (this.m_nCurrentStep >= 3000 && this.m_nCurrentStep < 4000)
+            {
+                this.m_nCurrentStep = this.parent.processManager.magazineFlow.Auto_Waiting(this.m_nCurrentStep);
+            }
             //1.L,R 공통 TRAY Load <-- Magazine Flow (Magazine Load 위치로 Z축 이동후 -> Tray 꺼내서 투입 위치로 Z축 이동)
             //2.L,R 공통 TRAY Unload --> Magazine Flow (Magazine 원래 위치로 Z축 이동후 -> Y축 이동해서 집어넣기)
             //3.??
@@ -142,7 +145,8 @@ namespace ZenHandler.FThread
                     this.m_nCurrentStep = this.parent.processManager.eepromSocketFlow.HomeProcess(this.m_nCurrentStep);
                 }
                     
-            }else if (this.m_nCurrentStep >= 2000 && this.m_nCurrentStep < 3000)
+            }
+            else if (this.m_nCurrentStep >= 2000 && this.m_nCurrentStep < 3000)
             {
                 if (Program.PG_SELECT == HANDLER_PG.FW)
                 {
@@ -155,6 +159,23 @@ namespace ZenHandler.FThread
                 if (Program.PG_SELECT == HANDLER_PG.EEPROM)
                 {
                     this.m_nCurrentStep = this.parent.processManager.eepromSocketFlow.AutoReady(this.m_nCurrentStep);
+                }
+
+            }
+            else if (this.m_nCurrentStep >= 3000 && this.m_nCurrentStep < 4000)
+            {
+                if (Program.PG_SELECT == HANDLER_PG.FW)
+                {
+                    //소켓 4Set * 4 = 16개
+                }
+                if (Program.PG_SELECT == HANDLER_PG.AOI)
+                {
+                    //소켓 2Set * 2 = 4개
+                }
+                if (Program.PG_SELECT == HANDLER_PG.EEPROM)
+                {
+                    //소켓 2Set * 4 = 8개
+                    this.m_nCurrentStep = this.parent.processManager.eepromSocketFlow.Auto_Waiting(this.m_nCurrentStep);
                 }
 
             }

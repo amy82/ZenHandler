@@ -13,6 +13,8 @@ namespace ZenHandler.Machine
     //SOCKET_F_X = Y실린더 있는 소켓
     public class EEpromSocketMachine : MotionControl.MotorController
     {
+        public event Action<int, int> OnSocketLoadCall;   //공급요청
+        public event Action<int, int> OnSocketUnloadCall;   //배출요청
         public int MotorCnt { get; private set; } = 2;
 
         //소켓4개 2세트 = 총 8개
@@ -89,11 +91,21 @@ namespace ZenHandler.Machine
                 socketProduct.SocketInfo_B.Add(new SocketProductInfo());
             }
 
+            
         }
         public override bool TaskSave()
         {
             bool rtn = Data.TaskDataYaml.TaskSave_Socket(socketProduct, taskPath);
             return rtn;
+        }
+        public void RaiseLoadCall(int index, int nReq)
+        {
+            OnSocketLoadCall?.Invoke(index, nReq);
+            
+        }
+        public void RaiseUnloadCall(int index, int nReq)
+        {
+            OnSocketUnloadCall?.Invoke(index, nReq);
         }
         #region EEprom Socket Machine Io 동작
         public bool GetIsProductInSocket(int GroupNo, int index, bool bFlag, bool bWait = false)      //각 소켓의 제품 유무 확인 센서

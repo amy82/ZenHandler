@@ -138,7 +138,7 @@ namespace ZenHandler.Process
                         Globalo.motionManager.transferMachine.NoSocketPos = -1;
                         for (i = 0; i < Globalo.motionManager.SocketSetCount; i++)     //TODO: 4는 설비마다 다름
                         {
-                            if (Globalo.motionManager.GetSocketEjectReq(i) == true)
+                            if (Globalo.motionManager.GetSocketEjectReq(i) == 1)
                             {
                                 Globalo.motionManager.transferMachine.NoSocketPos = i;      //TODO: 낱개가 아닌 세트로 4or2개 전체 배출
                                 break;
@@ -154,7 +154,7 @@ namespace ZenHandler.Process
                         SocketChk = false;
                         for (i = 0; i < Globalo.motionManager.SocketSetCount; i++) 
                         {
-                            if (Globalo.motionManager.GetSocketLoadReq(i) == true)
+                            if (Globalo.motionManager.GetSocketLoadReq(i) == 1)
                             {
                                 Globalo.motionManager.transferMachine.NoSocketPos = i;  //TODO: 낱개가 아닌 세트로 4or2개 전체 투입
                                 break;
@@ -223,7 +223,7 @@ namespace ZenHandler.Process
                             SocketChk = false;
                             for (i = 0; i < Globalo.motionManager.SocketSetCount; i++)     //TODO: 4는 설비마다 다름 
                             {
-                                if (Globalo.motionManager.GetSocketEjectReq(i) == true)
+                                if (Globalo.motionManager.GetSocketEjectReq(i) == 1)
                                 {
                                     Globalo.motionManager.transferMachine.NoSocketPos = i;
                                 }

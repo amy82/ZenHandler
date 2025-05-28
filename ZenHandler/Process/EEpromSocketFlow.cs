@@ -13,6 +13,52 @@ namespace ZenHandler.Process
         {
 
         }
+        #region [Auto_Waiting]
+
+        public int Auto_Waiting(int nStep)
+        {
+            string szLog = "";
+            bool result = false;
+            int nRetStep = nStep;
+            switch (nStep)
+            {
+                case 3000:
+                    //back 소켓에 제품 상태 확인
+                    //front 소켓에 제품 상태 확인
+
+
+                    //둘다 제품이 없으면 공급 요청
+
+                    //소켓 하나마다 pc 1대
+
+                    //Back소켓은 좌우로만 이동
+                    //Fromt 소켓은 Y실린더 앞위이동 + 좌우 이동
+                    Globalo.motionManager.socketEEpromMachine.RaiseLoadCall(0, 1);         //공급 요청, 0은 공급완료
+                    Globalo.motionManager.socketEEpromMachine.RaiseUnloadCall(0, 1);       //배출 요청, 0은 공급완료
+
+                    Globalo.motionManager.socketEEpromMachine.RaiseLoadCall(0, -1);         //공급 요청 초기화
+                    Globalo.motionManager.socketEEpromMachine.RaiseUnloadCall(0, -1);       //배출 요청 초기화
+
+                    //Globalo.motionManager.ClearSocketLoadReq(0);                        //공급 취소
+                    //Globalo.motionManager.ClearSocketUnloadReq(0);                      //배출 취소
+
+                    //검사는 별도 Task 에서 진행
+
+                    break;
+                case 3100:
+
+                    break;
+                case 3200:
+
+                    break;
+                case 3900:
+
+                    break;
+            }
+
+            return nRetStep;
+        }
+        #endregion
         #region [운전 준비]
         public int AutoReady(int nStep)                 //  운전준비(2000 ~ 3000)
         {
@@ -23,6 +69,10 @@ namespace ZenHandler.Process
             switch (nStep)
             {
                 case 2000:
+                    Globalo.motionManager.socketEEpromMachine.RaiseLoadCall(0, -1);         //#1 Socket 공급 요청 초기화
+                    Globalo.motionManager.socketEEpromMachine.RaiseLoadCall(1, -1);         //#2 Socket 공급 요청 초기화
+                    Globalo.motionManager.socketEEpromMachine.RaiseUnloadCall(0, -1);       //#1 Socket 배출 요청 초기화
+                    Globalo.motionManager.socketEEpromMachine.RaiseUnloadCall(1, -1);       //#2 Socket 배출 요청 초기화
                     nRetStep = 2020;
                     break;
                 case 2020:
