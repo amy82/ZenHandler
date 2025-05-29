@@ -118,15 +118,15 @@ namespace ZenHandler.MotionControl
         //  소켓 공급 / 배출 요청
         //
         //---------------------------------------------------------------------------------------------------------
-        private void OnSocketLoadReq(int index, int nReq)          //소켓에서 투입 요청
+        private void OnSocketLoadReq(int index, int[] nReq)          //소켓에서 투입 요청
         {
             Console.WriteLine($"OnSocketLoadReq - {index},{nReq}");
-            socketLoadRequested[index] = nReq;
+            socketLoadRequested = (int[])nReq.Clone();
         }
-        private void OnSocketUnloadReq(int index, int nReq)        //소켓에서 배출 요청
+        private void OnSocketUnloadReq(int index, int[] nReq)        //소켓에서 배출 요청
         {
             Console.WriteLine($"OnSocketUnloadReq - {index},{nReq}");
-            socketUnloadRequested[index] = nReq;
+            socketUnloadRequested = (int[])nReq.Clone();
         }
         
         public int GetSocketEjectReq(int index)

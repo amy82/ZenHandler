@@ -9,6 +9,7 @@ namespace ZenHandler.Process
     public class EEpromSocketFlow
     {
         public int nTimeTick = 0;
+
         public EEpromSocketFlow()
         {
 
@@ -20,6 +21,8 @@ namespace ZenHandler.Process
             string szLog = "";
             bool result = false;
             int nRetStep = nStep;
+
+            int[] socketState = { -1, -1, -1, -1 };
             switch (nStep)
             {
                 case 3000:
@@ -39,10 +42,10 @@ namespace ZenHandler.Process
                     {
                         break;
                     }
-                    
+                    socketState = new int[] { -1, -1, -1, -1 };
 
-                    Globalo.motionManager.socketEEpromMachine.RaiseLoadCall(0, -1);         //공급 요청 초기화
-                    Globalo.motionManager.socketEEpromMachine.RaiseUnloadCall(0, -1);       //배출 요청 초기화
+                    Globalo.motionManager.socketEEpromMachine.RaiseLoadCall(0, socketState);         //공급 요청 초기화
+                    Globalo.motionManager.socketEEpromMachine.RaiseUnloadCall(0, socketState);       //배출 요청 초기화
 
                     //검사는 별도 Task 에서 진행
 
@@ -81,7 +84,7 @@ namespace ZenHandler.Process
                     break;
                 case 3100:
                     //BACK X 소켓 공급요청
-                    Globalo.motionManager.socketEEpromMachine.RaiseLoadCall(0, 1);         //1: 공급 요청, 0은 공급완료
+                    //Globalo.motionManager.socketEEpromMachine.RaiseLoadCall(0, 1);         //1: 공급 요청, 0은 공급완료
                     
                     break;
                 case 3120:
@@ -89,7 +92,7 @@ namespace ZenHandler.Process
                     break;
                 case 3200:
                     //FRONT XY 소켓 공급요청
-                    Globalo.motionManager.socketEEpromMachine.RaiseUnloadCall(1, 1);       //1: 배출 요청, 0은 공급완료
+                    //Globalo.motionManager.socketEEpromMachine.RaiseUnloadCall(1, 1);       //1: 배출 요청, 0은 공급완료
                     break;
                 case 3220:
 
@@ -130,10 +133,10 @@ namespace ZenHandler.Process
             switch (nStep)
             {
                 case 2000:
-                    Globalo.motionManager.socketEEpromMachine.RaiseLoadCall(0, -1);         //#1 Socket 공급 요청 초기화
-                    Globalo.motionManager.socketEEpromMachine.RaiseLoadCall(1, -1);         //#2 Socket 공급 요청 초기화
-                    Globalo.motionManager.socketEEpromMachine.RaiseUnloadCall(0, -1);       //#1 Socket 배출 요청 초기화
-                    Globalo.motionManager.socketEEpromMachine.RaiseUnloadCall(1, -1);       //#2 Socket 배출 요청 초기화
+                    Globalo.motionManager.socketEEpromMachine.RaiseLoadCall(0, new int[] { -1, -1, -1, -1 });         //#1 Socket 공급 요청 초기화
+                    Globalo.motionManager.socketEEpromMachine.RaiseLoadCall(1, new int[] { -1, -1, -1, -1 });         //#2 Socket 공급 요청 초기화
+                    Globalo.motionManager.socketEEpromMachine.RaiseUnloadCall(0, new int[] { -1, -1, -1, -1 });       //#1 Socket 배출 요청 초기화
+                    Globalo.motionManager.socketEEpromMachine.RaiseUnloadCall(1, new int[] { -1, -1, -1, -1 });       //#2 Socket 배출 요청 초기화
 
                     Globalo.motionManager.socketEEpromMachine.IsTesting[0] = false;
                     Globalo.motionManager.socketEEpromMachine.IsTesting[1] = false;

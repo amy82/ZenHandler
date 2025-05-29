@@ -14,6 +14,8 @@ namespace ZenHandler.FThread
         public int m_nStartStep = 0;
         public int m_nEndStep = 0;
 
+        public int[] m_nSocketStep = { 0, 0, 0, 0 };
+
         public MotorAutoThread(MotionControl.MotorController _parent)
         {
             this.parent = _parent;
@@ -144,7 +146,7 @@ namespace ZenHandler.FThread
                 {
                     this.m_nCurrentStep = this.parent.processManager.eepromSocketFlow.HomeProcess(this.m_nCurrentStep);
                 }
-                    
+
             }
             else if (this.m_nCurrentStep >= 2000 && this.m_nCurrentStep < 3000)
             {
@@ -176,9 +178,17 @@ namespace ZenHandler.FThread
                 {
                     //소켓 2Set * 4 = 8개
                     this.m_nCurrentStep = this.parent.processManager.eepromSocketFlow.Auto_Waiting(this.m_nCurrentStep);
+
+                    if (this.m_nSocketStep[0] > -1)
+                    {
+                        this.m_nSocketStep[0] = this.parent.processManager.eepromSocketFlow.Auto_Waiting(this.m_nSocketStep[0]);
+                    }
+                    
                 }
 
+                
             }
+            
 
             //EEprom  , Aoi 설비만 Socket 모터 있음 
         }
