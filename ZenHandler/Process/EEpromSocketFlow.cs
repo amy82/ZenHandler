@@ -22,7 +22,8 @@ namespace ZenHandler.Process
             bool result = false;
             int nRetStep = nStep;
 
-            int[] socketState = { -1, -1, -1, -1 };
+            int[] socketStateA = { -1, -1, -1, -1 };     // 1: 공급 요청, 0은 공급완료
+            int[] socketStateB = { -1, -1, -1, -1 };     // 1: 공급 요청, 0은 공급완료
             switch (nStep)
             {
                 case 3000:
@@ -42,29 +43,61 @@ namespace ZenHandler.Process
                     {
                         break;
                     }
-                    socketState = new int[] { -1, -1, -1, -1 };
 
-                    Globalo.motionManager.socketEEpromMachine.RaiseLoadCall(0, socketState);         //공급 요청 초기화
-                    Globalo.motionManager.socketEEpromMachine.RaiseUnloadCall(0, socketState);       //배출 요청 초기화
+                    socketStateA = new int[] { -1, -1, -1, -1 };
+                    socketStateB = new int[] { -1, -1, -1, -1 };
+
+                    Globalo.motionManager.socketEEpromMachine.RaiseProductCall(0, socketStateA);         //공급 요청 초기화, Auto_Waiting
+                    Globalo.motionManager.socketEEpromMachine.RaiseProductCall(1, socketStateA);         //공급 요청 초기화, Auto_Waiting
 
                     //검사는 별도 Task 에서 진행
+                    for (i = 0; i < 4; i++)
+                    {
+                        if (Globalo.motionManager.socketEEpromMachine.GetIsProductInSocket(0, i, true) == false)
+                        {
+                            socketStateA[i] = 1;        //1 = 공급요청
+                        }
+                        else
+                        {
+                            socketStateA[i] = -1;
+                        }
+
+                        if (Globalo.motionManager.socketEEpromMachine.GetIsProductInSocket(1, i, true) == false)
+                        {
+                            //제품 없음
+                            socketStateB[i] = 1;       //1 = 공급요청
+                        }
+                        else
+                        {
+                            socketStateA[i] = -1;
+                        }
+                    }
 
                     for (i = 0; i < Globalo.motionManager.socketEEpromMachine.socketProduct.SocketInfo_A.Count; i++)
                     {
-                        if (Globalo.motionManager.socketEEpromMachine.socketProduct.SocketInfo_A[i].State == Machine.SocketProductState.Test)
+                        if (Globalo.motionManager.socketEEpromMachine.socketProduct.SocketInfo_A[i].State == Machine.SocketProductState.Blank)
                         {
                             //하나라도 제품이 있고, 검사 전이면 검사 진행
+                            socketStateA[i] = 1;
                         }
+                    }
+
+                    for (i = 0; i < Globalo.motionManager.socketEEpromMachine.socketProduct.SocketInfo_A.Count; i++)
+                    {
                         if (Globalo.motionManager.socketEEpromMachine.socketProduct.SocketInfo_A[i].State == Machine.SocketProductState.Good)
                         {
                             //검사 완료 제품이 있으면 배출 요청
+                            socketStateA[i] = 1;
                         }
                         if (Globalo.motionManager.socketEEpromMachine.socketProduct.SocketInfo_A[i].State == Machine.SocketProductState.NG)
                         {
                             //검사 완료 제품이 있으면 배출 요청
+                            socketStateA[i] = 1;
                         }
 
                     }
+
+                    bool allMinusOne = !socketStateA.Any(v => v != -1);  // 하나라도 -1이 아니면 false
 
                     for (i = 0; i < Globalo.motionManager.socketEEpromMachine.socketProduct.SocketInfo_B.Count; i++)
                     {
@@ -84,15 +117,13 @@ namespace ZenHandler.Process
                     break;
                 case 3100:
                     //BACK X 소켓 공급요청
-                    //Globalo.motionManager.socketEEpromMachine.RaiseLoadCall(0, 1);         //1: 공급 요청, 0은 공급완료
-                    
+
                     break;
                 case 3120:
 
                     break;
                 case 3200:
                     //FRONT XY 소켓 공급요청
-                    //Globalo.motionManager.socketEEpromMachine.RaiseUnloadCall(1, 1);       //1: 배출 요청, 0은 공급완료
                     break;
                 case 3220:
 
@@ -133,10 +164,8 @@ namespace ZenHandler.Process
             switch (nStep)
             {
                 case 2000:
-                    Globalo.motionManager.socketEEpromMachine.RaiseLoadCall(0, new int[] { -1, -1, -1, -1 });         //#1 Socket 공급 요청 초기화
-                    Globalo.motionManager.socketEEpromMachine.RaiseLoadCall(1, new int[] { -1, -1, -1, -1 });         //#2 Socket 공급 요청 초기화
-                    Globalo.motionManager.socketEEpromMachine.RaiseUnloadCall(0, new int[] { -1, -1, -1, -1 });       //#1 Socket 배출 요청 초기화
-                    Globalo.motionManager.socketEEpromMachine.RaiseUnloadCall(1, new int[] { -1, -1, -1, -1 });       //#2 Socket 배출 요청 초기화
+                    Globalo.motionManager.socketEEpromMachine.RaiseProductCall(0, new int[] { -1, -1, -1, -1 });         //#1 Socket 요청 초기화 , Ready
+                    Globalo.motionManager.socketEEpromMachine.RaiseProductCall(1, new int[] { -1, -1, -1, -1 });         //#2 Socket 요청 초기화 , Ready
 
                     Globalo.motionManager.socketEEpromMachine.IsTesting[0] = false;
                     Globalo.motionManager.socketEEpromMachine.IsTesting[1] = false;

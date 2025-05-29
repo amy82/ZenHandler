@@ -181,7 +181,7 @@ namespace ZenHandler.FThread
 
                     if (this.m_nSocketStep[0] > -1)
                     {
-                        this.m_nSocketStep[0] = this.parent.processManager.eepromSocketFlow.Auto_Waiting(this.m_nSocketStep[0]);
+                        //this.m_nSocketStep[0] = this.parent.processManager.eepromSocketFlow.Auto_Waiting(this.m_nSocketStep[0]);
                     }
                     
                 }

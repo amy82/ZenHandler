@@ -30,8 +30,14 @@ namespace ZenHandler.MotionControl
         public int SocketSetCount = 2;      //or 4(fw)
         private bool[] trayEjectRequested = {false , false };
 
-        private int[] socketLoadRequested = {-1, -1, -1, -1 };      //-1 = 초기화 , 1 = 공급요청 , 0 = 공급완료
-        private int[] socketUnloadRequested = { -1, -1, -1, -1 };   //-1 = 초기화 , 1 = 배출요청 , 0 = 배출완료
+        private int[] socketA_Requested = {-1, -1, -1, -1 };        //-1 = 초기화 , 0 = 공급 완료, 1 = 공급요청 ,  2 = 배출요청
+        private int[] socketB_Requested = { -1, -1, -1, -1 };       //-1 = 초기화 , 0 = 공급 완료, 1 = 공급요청 ,  2 = 배출요청
+        private int[] socketC_Requested = { -1, -1, -1, -1 };       //-1 = 초기화 , 0 = 공급 완료, 1 = 공급요청 ,  2 = 배출요청
+        private int[] socketD_Requested = { -1, -1, -1, -1 };       //-1 = 초기화 , 0 = 공급 완료, 1 = 공급요청 ,  2 = 배출요청
+
+
+
+
         //TODO: Set 라서 4개인데 , 개별이면 달라진다. -
         //펌웨어는 Set 로 요청 - 4개씩 4Set
         //EEPROM는 Set 로 요청 - 4개씩 2Set
@@ -58,12 +64,10 @@ namespace ZenHandler.MotionControl
             socketFwMachine = new Machine.FwSocketMachine();
 
             transferMachine.OnTrayChangedCall += OnTrayChengeReq;
-            transferMachine.OnLoadSocketComplete += OnSocketLoadReq;
-            transferMachine.OnUnloadSocketComplete += OnSocketUnloadReq;
+            transferMachine.OnSocketReqComplete += OnSocketLoadReq;     //공급, 배출 완료 0으로 변경
 
 
-            socketEEpromMachine.OnSocketLoadCall += OnSocketLoadReq;
-            socketEEpromMachine.OnSocketUnloadCall += OnSocketUnloadReq;
+            socketEEpromMachine.OnSocketCall += OnSocketLoadReq;        //공급, 배출 요청 1 or 2
 
             bool LoadChk = true;
             LoadChk = transferMachine.teachingConfig.LoadTeach(Machine.TransferMachine.teachingPath, transferMachine.MotorCnt, (int)Machine.TransferMachine.eTeachingPosList.TOTAL_TRANSFER_TEACHING_COUNT);   //TODO: 티칭 개수만큼 불러와야되는데 파일에 없으면 못 불러온다
@@ -121,24 +125,35 @@ namespace ZenHandler.MotionControl
         private void OnSocketLoadReq(int index, int[] nReq)          //소켓에서 투입 요청
         {
             Console.WriteLine($"OnSocketLoadReq - {index},{nReq}");
-            socketLoadRequested = (int[])nReq.Clone();
+            if (index == 0)
+            {
+                socketA_Requested = (int[])nReq.Clone();
+            }
+            else
+            {
+                socketB_Requested = (int[])nReq.Clone();
+            }
+            
         }
-        private void OnSocketUnloadReq(int index, int[] nReq)        //소켓에서 배출 요청
+        public int GetSocketReq(int index, int no)//public int GetSocketEjectReq(int index)
         {
-            Console.WriteLine($"OnSocketUnloadReq - {index},{nReq}");
-            socketUnloadRequested = (int[])nReq.Clone();
+            int nRtn = -1;
+            if (index == 0)
+            {
+                nRtn = socketA_Requested[no];
+            }
+            else
+            {
+                nRtn = socketB_Requested[no];
+            }
+            return nRtn;
         }
-        
-        public int GetSocketEjectReq(int index)
-        {
-            int rtn = socketUnloadRequested[index];
-            return rtn;
-        }
-        public int GetSocketLoadReq(int index)
-        {
-            int rtn = socketLoadRequested[index];
-            return rtn;
-        }
+
+        //public int GetSocketLoadReq(int index)//public int GetSocketLoadReq(int index)
+        //{
+        //    int rtn = socketA_Requested[index];
+        //    return rtn;
+        //}
 
         //---------------------------------------------------------------------------------------------------------
         private void OnPgExit(object sender, EventArgs e)

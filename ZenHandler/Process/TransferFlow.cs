@@ -30,6 +30,7 @@ namespace ZenHandler.Process
             bool SocketChk = false;
             bool bRtn = false;
             int i = 0;
+            int j = 0;
             Machine.TransferMachine.eTeachingPosList Move_Pos;
             int nRetStep = nStep;
             switch (nStep)
@@ -138,11 +139,15 @@ namespace ZenHandler.Process
                         Globalo.motionManager.transferMachine.NoSocketPos = -1;
                         for (i = 0; i < Globalo.motionManager.SocketSetCount; i++)     //TODO: 4는 설비마다 다름
                         {
-                            if (Globalo.motionManager.GetSocketEjectReq(i) == 1)
+                            for (j = 0; j < 4; j++)
                             {
-                                Globalo.motionManager.transferMachine.NoSocketPos = i;      //TODO: 낱개가 아닌 세트로 4or2개 전체 배출
-                                break;
+                                if (Globalo.motionManager.GetSocketReq(i, j) == 1)
+                                {
+                                    Globalo.motionManager.transferMachine.NoSocketPos = i;      //TODO: 낱개가 아닌 세트로 4or2개 전체 배출
+                                    break;
+                                }
                             }
+                            
                         }
                         if (Globalo.motionManager.transferMachine.NoSocketPos >= 0)
                         {
@@ -154,11 +159,15 @@ namespace ZenHandler.Process
                         SocketChk = false;
                         for (i = 0; i < Globalo.motionManager.SocketSetCount; i++) 
                         {
-                            if (Globalo.motionManager.GetSocketLoadReq(i) == 1)
+                            for (j = 0; j < 4; j++)
                             {
-                                Globalo.motionManager.transferMachine.NoSocketPos = i;  //TODO: 낱개가 아닌 세트로 4or2개 전체 투입
-                                break;
+                                if (Globalo.motionManager.GetSocketReq(i, j) == 1)
+                                {
+                                    Globalo.motionManager.transferMachine.NoSocketPos = i;  //TODO: 낱개가 아닌 세트로 4or2개 전체 투입
+                                    break;
+                                }
                             }
+                                
                         }
                         if (Globalo.motionManager.transferMachine.NoSocketPos >= 0)
                         {
@@ -223,10 +232,14 @@ namespace ZenHandler.Process
                             SocketChk = false;
                             for (i = 0; i < Globalo.motionManager.SocketSetCount; i++)     //TODO: 4는 설비마다 다름 
                             {
-                                if (Globalo.motionManager.GetSocketEjectReq(i) == 1)
+                                for (j = 0; j < 4; j++)
                                 {
-                                    Globalo.motionManager.transferMachine.NoSocketPos = i;
+                                    if (Globalo.motionManager.GetSocketReq(i, j) == 1)
+                                    {
+                                        Globalo.motionManager.transferMachine.NoSocketPos = i;
+                                    }
                                 }
+                                    
                             }
                             if (Globalo.motionManager.transferMachine.NoSocketPos >= 0)
                             {
