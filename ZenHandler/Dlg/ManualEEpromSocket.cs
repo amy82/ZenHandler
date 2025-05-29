@@ -292,7 +292,7 @@ namespace ZenHandler.Dlg
         }
 
 
-        private async void Manual_X_Move(Machine.AoiSocketMachine.eTeachingAoiPosList ePos, Machine.eAoiSocket aoiMotor)
+        private async void Manual_X_Move(Machine.EEpromSocketMachine.eTeachingPosList ePos, Machine.eEEpromSocket EEpMotor)
         {
             if (Globalo.motionManager.magazineHandler.RunState == OperationState.AutoRunning)
             {
@@ -338,7 +338,7 @@ namespace ZenHandler.Dlg
                 {
                     Console.WriteLine(" ------------------> Manual_X_Move");
 
-                    bool rtn = Globalo.motionManager.socketAoiMachine.Socket_X_Move(ePos, aoiMotor);
+                    bool rtn = Globalo.motionManager.socketEEpromMachine.Socket_X_Move(ePos, EEpMotor);
                     bool bComplete = true;
 
                     int nTimeTick = Environment.TickCount;
@@ -346,7 +346,7 @@ namespace ZenHandler.Dlg
                     {
                         if (bManualStopKey) break;
 
-                        bComplete = Globalo.motionManager.socketAoiMachine.ChkMotorPos(ePos, aoiMotor);
+                        bComplete = Globalo.motionManager.socketEEpromMachine.ChkMotorXPos(ePos, EEpMotor);
                         if (bComplete)
                         {
                             //위치 확인 완료
@@ -436,47 +436,47 @@ namespace ZenHandler.Dlg
         
         private void button_ManualAoi_Socket_L_Wait_Pos_X_Click(object sender, EventArgs e)
         {
-            Manual_X_Move(Machine.AoiSocketMachine.eTeachingAoiPosList.WAIT_POS, Machine.eAoiSocket.SOCKET_L_X);
+            Manual_X_Move(Machine.EEpromSocketMachine.eTeachingPosList.WAIT_POS, Machine.eEEpromSocket.BACK_X);
         }
         private void button_ManualAoi_Socket_L_Load_Pos_X_Click(object sender, EventArgs e)
         {
-            Manual_X_Move(Machine.AoiSocketMachine.eTeachingAoiPosList.LOAD_POS, Machine.eAoiSocket.SOCKET_L_X);
+            Manual_X_Move(Machine.EEpromSocketMachine.eTeachingPosList.LOAD_POS, Machine.eEEpromSocket.BACK_X);
         }
         private void button_ManualAoi_Socket_L_Unload_Pos_X_Click(object sender, EventArgs e)
         {
-            Manual_X_Move(Machine.AoiSocketMachine.eTeachingAoiPosList.UN_LOAD_POS, Machine.eAoiSocket.SOCKET_L_X);
+            Manual_X_Move(Machine.EEpromSocketMachine.eTeachingPosList.UN_LOAD_POS, Machine.eEEpromSocket.BACK_X);
         }
         private void button_ManualAoi_Socket_L_TestL_Pos_X_Click(object sender, EventArgs e)
         {
-            Manual_X_Move(Machine.AoiSocketMachine.eTeachingAoiPosList.CAPTURE_L_POS, Machine.eAoiSocket.SOCKET_L_X);
+            Manual_X_Move(Machine.EEpromSocketMachine.eTeachingPosList.WRITE_POS, Machine.eEEpromSocket.BACK_X);
         }
         private void button_ManualAoi_Socket_L_TestR_Pos_X_Click(object sender, EventArgs e)
         {
-            Manual_X_Move(Machine.AoiSocketMachine.eTeachingAoiPosList.CAPTURE_R_POS, Machine.eAoiSocket.SOCKET_L_X);
+            Manual_X_Move(Machine.EEpromSocketMachine.eTeachingPosList.VERIFY_POS, Machine.eEEpromSocket.BACK_X);
         }
 
         private void button_ManualAoi_Socket_R_Wait_Pos_X_Click(object sender, EventArgs e)
         {
-            Manual_X_Move(Machine.AoiSocketMachine.eTeachingAoiPosList.WAIT_POS, Machine.eAoiSocket.SOCKET_R_X);
+            Manual_X_Move(Machine.EEpromSocketMachine.eTeachingPosList.WAIT_POS, Machine.eEEpromSocket.FRONT_XY);
         }
 
         private void button_ManualAoi_Socket_R_Load_Pos_X_Click(object sender, EventArgs e)
         {
-            Manual_X_Move(Machine.AoiSocketMachine.eTeachingAoiPosList.WAIT_POS, Machine.eAoiSocket.SOCKET_R_X);
+            Manual_X_Move(Machine.EEpromSocketMachine.eTeachingPosList.LOAD_POS, Machine.eEEpromSocket.FRONT_XY);
         }
 
         private void button_ManualAoi_Socket_R_Unload_Pos_X_Click(object sender, EventArgs e)
         {
-            Manual_X_Move(Machine.AoiSocketMachine.eTeachingAoiPosList.WAIT_POS, Machine.eAoiSocket.SOCKET_R_X);
+            Manual_X_Move(Machine.EEpromSocketMachine.eTeachingPosList.UN_LOAD_POS, Machine.eEEpromSocket.FRONT_XY);
         }
 
         private void button_ManualAoi_Socket_R_TestL_Pos_X_Click(object sender, EventArgs e)
         {
-            Manual_X_Move(Machine.AoiSocketMachine.eTeachingAoiPosList.WAIT_POS, Machine.eAoiSocket.SOCKET_R_X);
+            Manual_X_Move(Machine.EEpromSocketMachine.eTeachingPosList.WRITE_POS, Machine.eEEpromSocket.FRONT_XY);
         }
         private void button_ManualEEprom_Socket_R_Verify_Pos_X_Click(object sender, EventArgs e)
         {
-            Manual_X_Move(Machine.AoiSocketMachine.eTeachingAoiPosList.WAIT_POS, Machine.eAoiSocket.SOCKET_R_X);
+            Manual_X_Move(Machine.EEpromSocketMachine.eTeachingPosList.VERIFY_POS, Machine.eEEpromSocket.FRONT_XY);
         }
 
 
@@ -753,7 +753,7 @@ namespace ZenHandler.Dlg
                 Machine.EEpromSocketMachine.eTeachingPosList pos = (Machine.EEpromSocketMachine.eTeachingPosList)index;
 
                 
-                if (Globalo.motionManager.socketEEpromMachine.ChkMotorPos(pos, Machine.eEEpromSocket.SOCKET_F_X) == true)
+                if (Globalo.motionManager.socketEEpromMachine.ChkMotorXPos(pos, Machine.eEEpromSocket.FRONT_XY) == true)
                 {
                     EEprom_L_MotorX_BtnArr[i].BackColor = ColorTranslator.FromHtml(ButtonColor.MANUAL_BTN_ON);
                 }
@@ -810,7 +810,7 @@ namespace ZenHandler.Dlg
                 Machine.EEpromSocketMachine.eTeachingPosList pos = (Machine.EEpromSocketMachine.eTeachingPosList)index;
 
 
-                if (Globalo.motionManager.socketEEpromMachine.ChkMotorPos(pos, Machine.eEEpromSocket.SOCKET_B_X) == true)
+                if (Globalo.motionManager.socketEEpromMachine.ChkMotorXPos(pos, Machine.eEEpromSocket.BACK_X) == true)
                 {
                     EEprom_R_MotorX_BtnArr[i].BackColor = ColorTranslator.FromHtml(ButtonColor.MANUAL_BTN_ON);
                 }

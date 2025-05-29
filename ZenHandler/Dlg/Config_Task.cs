@@ -18,6 +18,10 @@ namespace ZenHandler.Dlg
         private int GridCol = 2;                                //name , time
         private int[] StartPos = new int[] { 379, 50 };        //Grid Pos
         private int[] inGridWid = new int[] { 226, 70 };        //Grid Col Width
+
+
+        public List<Machine.ProductInfo> tempLoadInfo { get; set; } = new List<Machine.ProductInfo>();
+        public List<Machine.ProductInfo> tempUnloadInfo { get; set; } = new List<Machine.ProductInfo>();
         public Config_Task()
         {
             InitializeComponent();
@@ -101,6 +105,19 @@ namespace ZenHandler.Dlg
 
             hopeCheckBox_PinCountUse.Checked = Globalo.yamlManager.configData.DrivingSettings.PinCountUse;
             Btn_ConfigTask_Driving_Mode.Text = Globalo.yamlManager.configData.DrivingSettings.drivingMode.ToString();
+            tempLoadInfo.Clear();
+            tempUnloadInfo.Clear();
+            tempLoadInfo.Add(Globalo.motionManager.transferMachine.pickedProduct.LoadProductInfo[0].Clone());
+            tempLoadInfo.Add(Globalo.motionManager.transferMachine.pickedProduct.LoadProductInfo[1].Clone());
+            tempLoadInfo.Add(Globalo.motionManager.transferMachine.pickedProduct.LoadProductInfo[2].Clone());
+            tempLoadInfo.Add(Globalo.motionManager.transferMachine.pickedProduct.LoadProductInfo[3].Clone());
+
+            tempUnloadInfo.Add(Globalo.motionManager.transferMachine.pickedProduct.UnLoadProductInfo[0].Clone());
+            tempUnloadInfo.Add(Globalo.motionManager.transferMachine.pickedProduct.UnLoadProductInfo[1].Clone());
+            tempUnloadInfo.Add(Globalo.motionManager.transferMachine.pickedProduct.UnLoadProductInfo[2].Clone());
+            tempUnloadInfo.Add(Globalo.motionManager.transferMachine.pickedProduct.UnLoadProductInfo[3].Clone());
+
+
 
 
             ShowTaskPicker();
@@ -153,9 +170,11 @@ namespace ZenHandler.Dlg
             int i = 0;
             for (i = 0; i < 4; i++)
             {
-                LoadLabel[i].Text = Globalo.motionManager.transferMachine.pickedProduct.LoadProductInfo[i].State.ToString();
+                //LoadLabel[i].Text = Globalo.motionManager.transferMachine.pickedProduct.LoadProductInfo[i].State.ToString();
+                LoadLabel[i].Text = tempLoadInfo[i].State.ToString();
 
-                if (Globalo.motionManager.transferMachine.pickedProduct.LoadProductInfo[i].State == Machine.PickedProductState.Bcr)
+               // if (Globalo.motionManager.transferMachine.pickedProduct.LoadProductInfo[i].State == Machine.PickedProductState.Bcr)
+                if (tempLoadInfo[i].State == Machine.PickedProductState.Bcr)
                 {
                     LoadLabel[i].BackColor = Color.Yellow;
                 }
@@ -165,12 +184,15 @@ namespace ZenHandler.Dlg
                 }
 
 
-                UnloadLabel[i].Text = Globalo.motionManager.transferMachine.pickedProduct.UnLoadProductInfo[i].State.ToString();
-                if (Globalo.motionManager.transferMachine.pickedProduct.UnLoadProductInfo[i].State == Machine.PickedProductState.Good)
+                //UnloadLabel[i].Text = Globalo.motionManager.transferMachine.pickedProduct.UnLoadProductInfo[i].State.ToString();
+                UnloadLabel[i].Text = tempUnloadInfo[i].State.ToString();
+                //if (Globalo.motionManager.transferMachine.pickedProduct.UnLoadProductInfo[i].State == Machine.PickedProductState.Good)
+                if (tempUnloadInfo[i].State == Machine.PickedProductState.Good)
                 {
                     UnloadLabel[i].BackColor = Color.Green;
                 }
-                else if (Globalo.motionManager.transferMachine.pickedProduct.UnLoadProductInfo[i].State == Machine.PickedProductState.Blank)
+                //else if (Globalo.motionManager.transferMachine.pickedProduct.UnLoadProductInfo[i].State == Machine.PickedProductState.Blank)
+                else if (tempUnloadInfo[i].State == Machine.PickedProductState.Blank)
                 {
                     UnloadLabel[i].BackColor = Color.White;
                 }
@@ -324,18 +346,22 @@ namespace ZenHandler.Dlg
                     return;
                 }
             }
-            if (Globalo.motionManager.transferMachine.pickedProduct.LoadProductInfo[index].State == Machine.PickedProductState.Blank)
+            //if (Globalo.motionManager.transferMachine.pickedProduct.LoadProductInfo[index].State == Machine.PickedProductState.Blank)
+            if (tempLoadInfo[index].State == Machine.PickedProductState.Blank)
             {
-                Globalo.motionManager.transferMachine.pickedProduct.LoadProductInfo[index].State = Machine.PickedProductState.Bcr;
+                //Globalo.motionManager.transferMachine.pickedProduct.LoadProductInfo[index].State = Machine.PickedProductState.Bcr;
+                tempLoadInfo[index].State = Machine.PickedProductState.Bcr;
                 label.BackColor = Color.Yellow;
             }
             else
             {
-                Globalo.motionManager.transferMachine.pickedProduct.LoadProductInfo[index].State = Machine.PickedProductState.Blank;
+                //Globalo.motionManager.transferMachine.pickedProduct.LoadProductInfo[index].State = Machine.PickedProductState.Blank;
+                tempLoadInfo[index].State = Machine.PickedProductState.Blank;
                 label.BackColor = Color.White;
             }
 
-            label.Text = Globalo.motionManager.transferMachine.pickedProduct.LoadProductInfo[index].State.ToString();
+            //label.Text = Globalo.motionManager.transferMachine.pickedProduct.LoadProductInfo[index].State.ToString();
+            label.Text = tempLoadInfo[index].State.ToString();
         }
 
         private void SetUnloadPicker(int index, Label label, bool UserSet = false)
@@ -359,32 +385,41 @@ namespace ZenHandler.Dlg
              */
 
             //Blank, Bcr, Good, BcrNg, TestNg, TestNg_2, TestNg_3, TestNg_4
+            //Machine.PickedProductState tempState = Globalo.motionManager.transferMachine.pickedProduct.UnLoadProductInfo[index].State;
 
-            if (Globalo.motionManager.transferMachine.pickedProduct.UnLoadProductInfo[index].State == Machine.PickedProductState.Blank)
+
+
+            //if (Globalo.motionManager.transferMachine.pickedProduct.UnLoadProductInfo[index].State == Machine.PickedProductState.Blank)
+            if (tempUnloadInfo[index].State == Machine.PickedProductState.Blank)
             {
-                Globalo.motionManager.transferMachine.pickedProduct.UnLoadProductInfo[index].State = Machine.PickedProductState.Good;
+                //Globalo.motionManager.transferMachine.pickedProduct.UnLoadProductInfo[index].State = Machine.PickedProductState.Good;
+                tempUnloadInfo[index].State = Machine.PickedProductState.Good;
                 label.BackColor = Color.Yellow;
             }
             else
             {
                 var values = (Machine.PickedProductState[])Enum.GetValues(typeof(Machine.PickedProductState));
                 int maxCount = values.Length;
-                int currentIndex = Array.IndexOf(values, Globalo.motionManager.transferMachine.pickedProduct.UnLoadProductInfo[index].State);
+                //int currentIndex = Array.IndexOf(values, Globalo.motionManager.transferMachine.pickedProduct.UnLoadProductInfo[index].State);
+                int currentIndex = Array.IndexOf(values, tempUnloadInfo[index].State);
 
                 if (currentIndex < maxCount - 1)
                 {
                     label.BackColor = Color.Red;
                     currentIndex++;
-                    Globalo.motionManager.transferMachine.pickedProduct.UnLoadProductInfo[index].State = values[currentIndex];
+                    //Globalo.motionManager.transferMachine.pickedProduct.UnLoadProductInfo[index].State = values[currentIndex];
+                    tempUnloadInfo[index].State = values[currentIndex];
                 }
                 else
                 {
                     label.BackColor = Color.White;
-                    Globalo.motionManager.transferMachine.pickedProduct.UnLoadProductInfo[index].State = Machine.PickedProductState.Blank;
+                    // Globalo.motionManager.transferMachine.pickedProduct.UnLoadProductInfo[index].State = Machine.PickedProductState.Blank;
+                    tempUnloadInfo[index].State = Machine.PickedProductState.Blank;
                 }
                 
             }
-            label.Text = Globalo.motionManager.transferMachine.pickedProduct.UnLoadProductInfo[index].State.ToString();
+            //label.Text = Globalo.motionManager.transferMachine.pickedProduct.UnLoadProductInfo[index].State.ToString();
+            label.Text = tempUnloadInfo[index].State.ToString();
         }
         //로드
         private void label_ConfigTask_Load_P1_Click(object sender, EventArgs e)

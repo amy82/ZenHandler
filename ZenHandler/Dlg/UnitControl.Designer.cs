@@ -164,7 +164,7 @@ namespace ZenHandler.Dlg
             this.BTN_LIFT_UNIT_PAUSE.BackColor = System.Drawing.Color.LightCoral;
             this.BTN_LIFT_UNIT_PAUSE.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.BTN_LIFT_UNIT_PAUSE.Font = new System.Drawing.Font("맑은 고딕", 11.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(129)));
-            this.BTN_LIFT_UNIT_PAUSE.ForeColor = System.Drawing.Color.White;
+            this.BTN_LIFT_UNIT_PAUSE.ForeColor = System.Drawing.Color.Black;
             this.BTN_LIFT_UNIT_PAUSE.Location = new System.Drawing.Point(503, 155);
             this.BTN_LIFT_UNIT_PAUSE.Name = "BTN_LIFT_UNIT_PAUSE";
             this.BTN_LIFT_UNIT_PAUSE.Size = new System.Drawing.Size(100, 85);
@@ -178,7 +178,7 @@ namespace ZenHandler.Dlg
             this.BTN_LIFT_UNIT_STOP.BackColor = System.Drawing.Color.LightCoral;
             this.BTN_LIFT_UNIT_STOP.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.BTN_LIFT_UNIT_STOP.Font = new System.Drawing.Font("맑은 고딕", 11.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(129)));
-            this.BTN_LIFT_UNIT_STOP.ForeColor = System.Drawing.Color.White;
+            this.BTN_LIFT_UNIT_STOP.ForeColor = System.Drawing.Color.Black;
             this.BTN_LIFT_UNIT_STOP.Location = new System.Drawing.Point(402, 155);
             this.BTN_LIFT_UNIT_STOP.Name = "BTN_LIFT_UNIT_STOP";
             this.BTN_LIFT_UNIT_STOP.Size = new System.Drawing.Size(100, 85);
@@ -192,7 +192,7 @@ namespace ZenHandler.Dlg
             this.BTN_LIFT_UNIT_AUTORUN.BackColor = System.Drawing.Color.LightCoral;
             this.BTN_LIFT_UNIT_AUTORUN.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.BTN_LIFT_UNIT_AUTORUN.Font = new System.Drawing.Font("맑은 고딕", 11.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(129)));
-            this.BTN_LIFT_UNIT_AUTORUN.ForeColor = System.Drawing.Color.White;
+            this.BTN_LIFT_UNIT_AUTORUN.ForeColor = System.Drawing.Color.Black;
             this.BTN_LIFT_UNIT_AUTORUN.Location = new System.Drawing.Point(503, 69);
             this.BTN_LIFT_UNIT_AUTORUN.Name = "BTN_LIFT_UNIT_AUTORUN";
             this.BTN_LIFT_UNIT_AUTORUN.Size = new System.Drawing.Size(100, 85);
@@ -206,7 +206,7 @@ namespace ZenHandler.Dlg
             this.BTN_LIFT_UNIT_READY.BackColor = System.Drawing.Color.LightCoral;
             this.BTN_LIFT_UNIT_READY.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.BTN_LIFT_UNIT_READY.Font = new System.Drawing.Font("맑은 고딕", 11.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(129)));
-            this.BTN_LIFT_UNIT_READY.ForeColor = System.Drawing.Color.White;
+            this.BTN_LIFT_UNIT_READY.ForeColor = System.Drawing.Color.Black;
             this.BTN_LIFT_UNIT_READY.Location = new System.Drawing.Point(402, 69);
             this.BTN_LIFT_UNIT_READY.Name = "BTN_LIFT_UNIT_READY";
             this.BTN_LIFT_UNIT_READY.Size = new System.Drawing.Size(100, 85);
@@ -220,7 +220,7 @@ namespace ZenHandler.Dlg
             this.BTN_SOCKET_UNIT_PAUSE.BackColor = System.Drawing.Color.Tan;
             this.BTN_SOCKET_UNIT_PAUSE.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.BTN_SOCKET_UNIT_PAUSE.Font = new System.Drawing.Font("맑은 고딕", 11.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(129)));
-            this.BTN_SOCKET_UNIT_PAUSE.ForeColor = System.Drawing.Color.White;
+            this.BTN_SOCKET_UNIT_PAUSE.ForeColor = System.Drawing.Color.Maroon;
             this.BTN_SOCKET_UNIT_PAUSE.Location = new System.Drawing.Point(164, 438);
             this.BTN_SOCKET_UNIT_PAUSE.Name = "BTN_SOCKET_UNIT_PAUSE";
             this.BTN_SOCKET_UNIT_PAUSE.Size = new System.Drawing.Size(100, 85);
@@ -234,7 +234,7 @@ namespace ZenHandler.Dlg
             this.BTN_SOCKET_UNIT_STOP.BackColor = System.Drawing.Color.Tan;
             this.BTN_SOCKET_UNIT_STOP.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.BTN_SOCKET_UNIT_STOP.Font = new System.Drawing.Font("맑은 고딕", 11.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(129)));
-            this.BTN_SOCKET_UNIT_STOP.ForeColor = System.Drawing.Color.White;
+            this.BTN_SOCKET_UNIT_STOP.ForeColor = System.Drawing.Color.Maroon;
             this.BTN_SOCKET_UNIT_STOP.Location = new System.Drawing.Point(63, 438);
             this.BTN_SOCKET_UNIT_STOP.Name = "BTN_SOCKET_UNIT_STOP";
             this.BTN_SOCKET_UNIT_STOP.Size = new System.Drawing.Size(100, 85);
@@ -248,7 +248,7 @@ namespace ZenHandler.Dlg
             this.BTN_SOCKET_UNIT_AUTORUN.BackColor = System.Drawing.Color.Tan;
             this.BTN_SOCKET_UNIT_AUTORUN.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.BTN_SOCKET_UNIT_AUTORUN.Font = new System.Drawing.Font("맑은 고딕", 11.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(129)));
-            this.BTN_SOCKET_UNIT_AUTORUN.ForeColor = System.Drawing.Color.White;
+            this.BTN_SOCKET_UNIT_AUTORUN.ForeColor = System.Drawing.Color.Maroon;
             this.BTN_SOCKET_UNIT_AUTORUN.Location = new System.Drawing.Point(164, 352);
             this.BTN_SOCKET_UNIT_AUTORUN.Name = "BTN_SOCKET_UNIT_AUTORUN";
             this.BTN_SOCKET_UNIT_AUTORUN.Size = new System.Drawing.Size(100, 85);
@@ -262,7 +262,7 @@ namespace ZenHandler.Dlg
             this.BTN_SOCKET_UNIT_READY.BackColor = System.Drawing.Color.Tan;
             this.BTN_SOCKET_UNIT_READY.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.BTN_SOCKET_UNIT_READY.Font = new System.Drawing.Font("맑은 고딕", 11.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(129)));
-            this.BTN_SOCKET_UNIT_READY.ForeColor = System.Drawing.Color.White;
+            this.BTN_SOCKET_UNIT_READY.ForeColor = System.Drawing.Color.Maroon;
             this.BTN_SOCKET_UNIT_READY.Location = new System.Drawing.Point(63, 352);
             this.BTN_SOCKET_UNIT_READY.Name = "BTN_SOCKET_UNIT_READY";
             this.BTN_SOCKET_UNIT_READY.Size = new System.Drawing.Size(100, 85);

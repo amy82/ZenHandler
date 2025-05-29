@@ -71,7 +71,7 @@ namespace ZenHandler  //ApsMotionControl
             string fileName = "";
             if (Program.PG_SELECT == HANDLER_PG.FW)
             {
-                fileName = string.Format(@"{0}\Fw_Handler_IoMap_v1.0.xlsx", Application.StartupPath);
+                fileName = string.Format(@"{0}\Fw_Handler_IoMap_v1.3.xlsx", Application.StartupPath);
             }
             else if (Program.PG_SELECT == HANDLER_PG.AOI)
             {
@@ -558,8 +558,11 @@ namespace ZenHandler  //ApsMotionControl
         {
             if (ProgramState.NORINDA_MODE == true)
             {
-                Globalo.motionManager.socketFwMachine.MultiContactUp(0, new int[] { 1, 1, 1, 1 }, true);
+                // Globalo.motionManager.socketFwMachine.MultiContactUp(0, new int[] { 1, 1, 1, 1 }, true);
                 //Globalo.tcpManager.BcrClient.Send("LON\r");
+
+                LeeTest leeTest = new LeeTest();
+                leeTest.ShowDialog();
                 return;
                 //int[] pickerList = { 1, 1, 1, 1 };
 

@@ -11,6 +11,8 @@ namespace ZenHandler.MotionControl
     public abstract class MotorController
     {
         public FThread.MotorAutoThread AutoUnitThread;
+
+
         //protected FThread.MotorManualThread motorManualThread;
         
         public Process.ProcessManager processManager;

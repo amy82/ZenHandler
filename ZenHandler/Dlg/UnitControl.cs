@@ -163,8 +163,8 @@ namespace ZenHandler.Dlg
             
 
             this.label_TransferUnit_State_Val.Text = Globalo.motionManager.transferMachine.RunState.ToString();
-            this.label_LiftUnit_State_Val.Text = Globalo.motionManager.transferMachine.RunState.ToString();
-            this.label_MagazineUnit_State_Val.Text = Globalo.motionManager.transferMachine.RunState.ToString();
+            this.label_LiftUnit_State_Val.Text = Globalo.motionManager.liftMachine.RunState.ToString();
+            this.label_MagazineUnit_State_Val.Text = Globalo.motionManager.magazineHandler.RunState.ToString();
             
 
             if (Program.PG_SELECT == HANDLER_PG.FW)
@@ -223,7 +223,7 @@ namespace ZenHandler.Dlg
 
         public bool UnitOrigin(euNIT UNIT)
         {
-            bool bRtn = true;
+            bool bRtn = false;
             if (UNIT == euNIT.TRANSFER_UNIT)
             {
                 bRtn = Globalo.motionManager.transferMachine.OriginRun();
@@ -291,7 +291,7 @@ namespace ZenHandler.Dlg
 
         public bool UnitReady(euNIT UNIT)
         {
-            bool bRtn = true;
+            bool bRtn = false;
             if (UNIT == euNIT.TRANSFER_UNIT)
             {
                 bRtn = Globalo.motionManager.transferMachine.ReadyRun();
@@ -322,7 +322,8 @@ namespace ZenHandler.Dlg
                     }
                 }
             }
-            else if (UNIT == euNIT.SOCKET_UNIT)
+
+            if (UNIT == euNIT.SOCKET_UNIT)
             {
                 if (Program.PG_SELECT == HANDLER_PG.FW)
                 {
@@ -359,7 +360,7 @@ namespace ZenHandler.Dlg
 
         public bool UnitAutoRun(euNIT UNIT)
         {
-            bool bRtn = true;
+            bool bRtn = false;
             if (UNIT == euNIT.TRANSFER_UNIT)
             {
                 bRtn = Globalo.motionManager.transferMachine.AutoRun();
@@ -390,7 +391,7 @@ namespace ZenHandler.Dlg
                     }
                 }
             }
-            else if (UNIT == euNIT.SOCKET_UNIT)
+            if (UNIT == euNIT.SOCKET_UNIT)
             {
                 if (Program.PG_SELECT == HANDLER_PG.FW)
                 {
@@ -447,7 +448,7 @@ namespace ZenHandler.Dlg
                     Globalo.motionManager.liftMachine.PauseAuto();
                 }
             }
-            else if (UNIT == euNIT.SOCKET_UNIT)
+            if (UNIT == euNIT.SOCKET_UNIT)
             {
                 if (Program.PG_SELECT == HANDLER_PG.FW)
                 {
@@ -493,7 +494,7 @@ namespace ZenHandler.Dlg
                     Globalo.motionManager.liftMachine.StopAuto();
                 }
             }
-            else if (UNIT == euNIT.SOCKET_UNIT)
+            if (UNIT == euNIT.SOCKET_UNIT)
             {
                 if (Program.PG_SELECT == HANDLER_PG.FW)
                 {

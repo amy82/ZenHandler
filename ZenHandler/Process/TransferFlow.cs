@@ -30,6 +30,7 @@ namespace ZenHandler.Process
             bool SocketChk = false;
             bool bRtn = false;
             int i = 0;
+            int j = 0;
             Machine.TransferMachine.eTeachingPosList Move_Pos;
             int nRetStep = nStep;
             switch (nStep)
@@ -138,11 +139,15 @@ namespace ZenHandler.Process
                         Globalo.motionManager.transferMachine.NoSocketPos = -1;
                         for (i = 0; i < Globalo.motionManager.SocketSetCount; i++)     //TODO: 4는 설비마다 다름
                         {
-                            if (Globalo.motionManager.GetSocketEjectReq(i) == true)
+                            for (j = 0; j < 4; j++)
                             {
-                                Globalo.motionManager.transferMachine.NoSocketPos = i;      //TODO: 낱개가 아닌 세트로 4or2개 전체 배출
-                                break;
+                                if (Globalo.motionManager.GetSocketReq(i, j) == 1)
+                                {
+                                    Globalo.motionManager.transferMachine.NoSocketPos = i;      //TODO: 낱개가 아닌 세트로 4or2개 전체 배출
+                                    break;
+                                }
                             }
+                            
                         }
                         if (Globalo.motionManager.transferMachine.NoSocketPos >= 0)
                         {
@@ -154,11 +159,15 @@ namespace ZenHandler.Process
                         SocketChk = false;
                         for (i = 0; i < Globalo.motionManager.SocketSetCount; i++) 
                         {
-                            if (Globalo.motionManager.GetSocketLoadReq(i) == true)
+                            for (j = 0; j < 4; j++)
                             {
-                                Globalo.motionManager.transferMachine.NoSocketPos = i;  //TODO: 낱개가 아닌 세트로 4or2개 전체 투입
-                                break;
+                                if (Globalo.motionManager.GetSocketReq(i, j) == 1)
+                                {
+                                    Globalo.motionManager.transferMachine.NoSocketPos = i;  //TODO: 낱개가 아닌 세트로 4or2개 전체 투입
+                                    break;
+                                }
                             }
+                                
                         }
                         if (Globalo.motionManager.transferMachine.NoSocketPos >= 0)
                         {
@@ -223,10 +232,14 @@ namespace ZenHandler.Process
                             SocketChk = false;
                             for (i = 0; i < Globalo.motionManager.SocketSetCount; i++)     //TODO: 4는 설비마다 다름 
                             {
-                                if (Globalo.motionManager.GetSocketEjectReq(i) == true)
+                                for (j = 0; j < 4; j++)
                                 {
-                                    Globalo.motionManager.transferMachine.NoSocketPos = i;
+                                    if (Globalo.motionManager.GetSocketReq(i, j) == 1)
+                                    {
+                                        Globalo.motionManager.transferMachine.NoSocketPos = i;
+                                    }
                                 }
+                                    
                             }
                             if (Globalo.motionManager.transferMachine.NoSocketPos >= 0)
                             {
@@ -1624,7 +1637,18 @@ namespace ZenHandler.Process
                     nRetStep = 2120;
                     break;
                 case 2120:
-                    Globalo.motionManager.transferMachine.TransFer_Z_Move(Machine.TransferMachine.eTeachingPosList.WAIT_POS, true);
+                    bRtn = Globalo.motionManager.transferMachine.TransFer_Z_Move(Machine.TransferMachine.eTeachingPosList.WAIT_POS, true);
+
+                    if (bRtn == false)
+                    {
+                        szLog = $"[READY] TRANSFER Z WAIT_POS MOVE FAIL [STEP : {nStep}]";
+                        Globalo.LogPrint("ManualControl", szLog, Globalo.eMessageName.M_ERROR);
+                        nRetStep *= -1;
+                        break;
+                    }
+
+                    szLog = $"[READY] TRANSFER Z WAIT_POS MOVE [STEP : {nStep}]";
+                    Globalo.LogPrint("ManualControl", szLog);
                     nTimeTick = Environment.TickCount;
                     nRetStep = 2130;
                     break;
@@ -1647,7 +1671,19 @@ namespace ZenHandler.Process
                     
                     break;
                 case 2140:
-                    Globalo.motionManager.transferMachine.TransFer_XY_Move(Machine.TransferMachine.eTeachingPosList.WAIT_POS);
+                    bRtn = Globalo.motionManager.transferMachine.TransFer_XY_Move(Machine.TransferMachine.eTeachingPosList.WAIT_POS);
+
+                    if (bRtn == false)
+                    {
+                        szLog = $"[READY] TRANSFER XY WAIT_POS MOVE FAIL [STEP : {nStep}]";
+                        Globalo.LogPrint("ManualControl", szLog, Globalo.eMessageName.M_ERROR);
+                        nRetStep *= -1;
+                        break;
+                    }
+
+                    szLog = $"[READY] TRANSFER XY WAIT_POS MOVE [STEP : {nStep}]";
+                    Globalo.LogPrint("ManualControl", szLog);
+
                     nTimeTick = Environment.TickCount;
                     nRetStep = 2150;
                     break;

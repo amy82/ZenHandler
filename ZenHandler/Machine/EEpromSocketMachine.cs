@@ -8,17 +8,21 @@ namespace ZenHandler.Machine
 {
     public enum eEEpromSocket : int
     {
-        SOCKET_F_X = 0, SOCKET_B_X
+        BACK_X = 0, FRONT_XY 
     };
+    //SOCKET_F_X = Y실린더 있는 소켓
     public class EEpromSocketMachine : MotionControl.MotorController
     {
+        public event Action<int, int[]> OnSocketCall;   //공급요청
         public int MotorCnt { get; private set; } = 2;
 
         //소켓4개 2세트 = 총 8개
 
         public MotionControl.MotorAxis[] MotorAxes; // 배열 선언
 
-        public string[] axisName = { "Front_X", "Back_X"};
+
+
+        public string[] axisName = {"Back_X", "Front_XY" };
 
         private MotorDefine.eMotorType[] motorType = { MotorDefine.eMotorType.LINEAR, MotorDefine.eMotorType.LINEAR };
         private AXT_MOTION_LEVEL_MODE[] AXT_SET_LIMIT = { AXT_MOTION_LEVEL_MODE.LOW, AXT_MOTION_LEVEL_MODE.LOW };
@@ -40,9 +44,12 @@ namespace ZenHandler.Machine
             "WAIT_POS", "LOAD_POS", "UN_LOAD_POS", "WRITE_POS", "VERIFY_POS"
         };
 
+        public bool[] IsTesting = { false, false };      //검사 진행중
+
         public const string teachingPath = "Teach_EEpromSocket.yaml";
         public const string taskPath = "Task_EEpromSocket.yaml";
         public Data.TeachingConfig teachingConfig = new Data.TeachingConfig();
+
         public SocketProduct socketProduct = new SocketProduct();
 
 
@@ -69,6 +76,7 @@ namespace ZenHandler.Machine
                 {
                     MotorAxes[i].NoUse = true;
                 }
+
             }
 
 
@@ -88,49 +96,128 @@ namespace ZenHandler.Machine
                 socketProduct.SocketInfo_B.Add(new SocketProductInfo());
             }
 
+            
         }
         public override bool TaskSave()
         {
             bool rtn = Data.TaskDataYaml.TaskSave_Socket(socketProduct, taskPath);
             return rtn;
         }
+        public void RaiseProductCall(int index, int[] nReq)//int nReq)
+        {
+            OnSocketCall?.Invoke(index, nReq);
+            
+        }
+
         #region EEprom Socket Machine Io 동작
         public bool GetIsProductInSocket(int GroupNo, int index, bool bFlag, bool bWait = false)      //각 소켓의 제품 유무 확인 센서
         {
             //GroupNo = 앞,뒤 2Set
+            if (ProgramState.ON_LINE_MOTOR == false)
+            {
+                return true;
+            }
             return false;
         }
         public bool ContactUp(int GroupNo, int index, bool bFlag, bool bWait = false)      //컨텍 상승 / 하강
         {
             //GroupNo = 앞,뒤 2Set
+            if (ProgramState.ON_LINE_MOTOR == false)
+            {
+                return true;
+            }
+            return false;
+        }
+        public bool MultiContactUp(int GroupNo, bool bFlag, bool bWait = false)      //컨텍 전체 상승 / 하강
+        {
+            //GroupNo: 0 = Write , 1 = Verify
+            if (ProgramState.ON_LINE_MOTOR == false)
+            {
+                return true;
+            }
+            return false;
+        }
+        public bool MultiContactFor(int GroupNo, bool bFlag, bool bWait = false)      //컨텍 전체 전진 / 후진
+        {
+            //GroupNo: 0 = Write , 1 = Verify
+            if (ProgramState.ON_LINE_MOTOR == false)
+            {
+                return true;
+            }
+            return false;
+        }
+        public bool GetMultiContactUp(int GroupNo, bool bFlag, bool bWait = false)      //컨텍 상승 / 하강 확인 센서
+        {
+            if (ProgramState.ON_LINE_MOTOR == false)
+            {
+                return true;
+            }
+            return false;
+        }
+        public bool GetMultiContactFor(int GroupNo, bool bFlag, bool bWait = false)      //컨텍 전진 / 후진 확인 센서
+        {
+            if (ProgramState.ON_LINE_MOTOR == false)
+            {
+                return true;
+            }
+            return false;
+        }
+        public bool AllContactFor(int GroupNo, int index, bool bFlag, bool bWait = false)      //컨텍 전체 상승 / 하강
+        {
+            //GroupNo = 앞,뒤 2Set
+            if (ProgramState.ON_LINE_MOTOR == false)
+            {
+                return true;
+            }
             return false;
         }
         public bool GetContactUp(int GroupNo, int index, bool bFlag, bool bWait = false)      //컨텍 상승 / 하강 확인 센서
         {
             //GroupNo = 앞,뒤 2Set
+            if (ProgramState.ON_LINE_MOTOR == false)
+            {
+                return true;
+            }
             return false;
         }
         public bool ContactFor(int GroupNo, int index, bool bFlag, bool bWait = false)      //컨텍 전진 / 후진
         {
             //GroupNo = 앞,뒤 2Set
+            if (ProgramState.ON_LINE_MOTOR == false)
+            {
+                return true;
+            }
             return false;
         }
 
         public bool GetContactFor(int GroupNo, int index, bool bFlag, bool bWait = false)      //컨텍 전진 / 후진 확인 센서
         {
             //GroupNo = 앞,뒤 2Set
+            if (ProgramState.ON_LINE_MOTOR == false)
+            {
+                return true;
+            }
             return false;
         }
 
         public bool SocketFor(bool bFlag, bool bWait = false)      //소켓 Y축 실린더 전진 / 후진
         {
             //GroupNo = 앞,뒤 2Set
+            if (ProgramState.ON_LINE_MOTOR == false)
+            {
+                return true;
+            }
             return false;
         }
+
 
         public bool GetSocketFor(bool bFlag, bool bWait = false)      //아래쪽 소켓 Y축 실린더 전진 / 후진 
         {
             //GroupNo = 앞,뒤 2Set
+            if (ProgramState.ON_LINE_MOTOR == false)
+            {
+                return true;
+            }
             return false;
         }
         #endregion
@@ -154,7 +241,35 @@ namespace ZenHandler.Machine
         }
         #region EEPROM Socekt Motor 동작
 
-        public bool ChkMotorPos(eTeachingPosList teachingPos, eEEpromSocket Motor)
+        public bool Socket_X_Move(eTeachingPosList ePos, eEEpromSocket MotorX, bool bWait = true)
+        {
+            if (this.MotorUse == false)
+            {
+                Console.WriteLine("No Use Machine");
+                return true;
+            }
+            bool isSuccess = true;
+            string logStr = "";
+
+            double dPos = this.teachingConfig.Teaching[(int)ePos].Pos[(int)MotorX];     //x Axis
+            try
+            {
+                isSuccess = this.MotorAxes[(int)MotorX].MoveAxis(dPos, AXT_MOTION_ABSREL.POS_ABS_MODE, bWait);
+            }
+            catch (Exception ex)
+            {
+                Globalo.LogPrint("ManualControl", $"Socket_X_Move Exception: {ex.Message}");
+                isSuccess = false;
+            }
+            if (isSuccess == false)
+            {
+                logStr = $"Socket X axis {ePos.ToString() } 이동 실패";
+            }
+
+            return isSuccess;
+        }
+
+        public bool ChkMotorXPos(eTeachingPosList teachingPos, eEEpromSocket Motor)
         {
             if (ProgramState.ON_LINE_MOTOR == false)
             {
@@ -253,7 +368,7 @@ namespace ZenHandler.Machine
                 Globalo.LogPrint("MainForm", "[EEPROM SOCKET] 설비 정지상태가 아닙니다..", Globalo.eMessageName.M_WARNING);
                 return false;
             }
-            if (MotorAxes[(int)Machine.eEEpromSocket.SOCKET_B_X].OrgState == false || MotorAxes[(int)Machine.eEEpromSocket.SOCKET_F_X].OrgState == false)
+            if (MotorAxes[(int)Machine.eEEpromSocket.BACK_X].OrgState == false || MotorAxes[(int)Machine.eEEpromSocket.FRONT_XY].OrgState == false)
             {
                 this.RunState = OperationState.OriginRunning;
                 AutoUnitThread.m_nCurrentStep = 1000;
@@ -314,6 +429,8 @@ namespace ZenHandler.Machine
                 if (AutoUnitThread.GetThreadPause() == true)        //일시 정지 상태인지 확인
                 {
                     AutoUnitThread.m_nCurrentStep = Math.Abs(AutoUnitThread.m_nCurrentStep);
+                    AutoUnitThread.m_nSocketStep[0] = Math.Abs(AutoUnitThread.m_nSocketStep[0]);
+                    AutoUnitThread.m_nSocketStep[1] = Math.Abs(AutoUnitThread.m_nSocketStep[1]);
                     AutoUnitThread.Resume();
                     RunState = OperationState.AutoRunning;
                 }
@@ -325,6 +442,8 @@ namespace ZenHandler.Machine
             else
             {
                 AutoUnitThread.m_nCurrentStep = 3000;
+                AutoUnitThread.m_nSocketStep[0] = 100;
+                AutoUnitThread.m_nSocketStep[1] = 100;
                 AutoUnitThread.m_nEndStep = 10000;
                 AutoUnitThread.m_nStartStep = AutoUnitThread.m_nCurrentStep;
 

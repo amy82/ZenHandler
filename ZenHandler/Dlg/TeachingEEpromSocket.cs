@@ -227,12 +227,12 @@ namespace ZenHandler.Dlg
 
         private void BTN_TEACH_PCB_X_Click(object sender, EventArgs e)
         {
-            changeBtnMotorNo((int)Machine.eEEpromSocket.SOCKET_F_X);
+            changeBtnMotorNo((int)Machine.eEEpromSocket.FRONT_XY);
         }
 
         private void BTN_TEACH_PCB_Y_Click(object sender, EventArgs e)
         {
-            changeBtnMotorNo((int)Machine.eEEpromSocket.SOCKET_B_X);
+            changeBtnMotorNo((int)Machine.eEEpromSocket.BACK_X);
         }
         private void BTN_TEACH_DATA_SAVE_Click(object sender, EventArgs e)
         {
