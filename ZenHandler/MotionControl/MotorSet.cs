@@ -92,7 +92,6 @@ namespace ZenHandler.MotionControl
             RightDown
         }
 
-
         public static MotorDefine.eMotorType[] TransferMotorType = { MotorDefine.eMotorType.LINEAR, MotorDefine.eMotorType.LINEAR, MotorDefine.eMotorType.LINEAR };
         public static AXT_MOTION_LEVEL_MODE[] TransferAXT_SET_LIMIT = { AXT_MOTION_LEVEL_MODE.LOW, AXT_MOTION_LEVEL_MODE.HIGH, AXT_MOTION_LEVEL_MODE.LOW };
         public static AXT_MOTION_LEVEL_MODE[] TransferAXT_SET_SERVO_ALARM = { AXT_MOTION_LEVEL_MODE.HIGH, AXT_MOTION_LEVEL_MODE.HIGH, AXT_MOTION_LEVEL_MODE.LOW };

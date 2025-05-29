@@ -31,10 +31,12 @@ namespace ZenHandler.Machine
     public enum SocketProductState
     {
         Blank = 0,   // 제품 없음
-        Test,        //검사 중
-        Good,       // 양품
+        Writing,     //Write 검사 전
+        Verifying,  //Verify 검사 전
+        Good,       // Write + Verify 둘다 완료
         NG         // 불량
     }
+
     public class ProductInfo
     {
         public int No { get; set; } = 0;
