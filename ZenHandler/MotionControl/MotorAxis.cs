@@ -361,6 +361,10 @@ namespace ZenHandler.MotionControl
                 Console.WriteLine("JogMove no Use");
                 return true;
             }
+            if (ProgramState.ON_LINE_MOTOR == false)
+            {
+                return true;
+            }
             bool isSuccess = false;
             double dCurrPos = 0.0;
             double dVel = 0.0;
@@ -611,6 +615,10 @@ namespace ZenHandler.MotionControl
         }
         public virtual bool GetAmpFault()
         {
+            if (ProgramState.ON_LINE_MOTOR == false)
+            {
+                return false;//true면 알람난 상태라서 false로 리턴
+            }
             uint dwStatus = 0;
             uint dwRetVal = 0;
 

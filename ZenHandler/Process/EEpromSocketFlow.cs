@@ -220,11 +220,7 @@ namespace ZenHandler.Process
             switch (nStep)
             {
                 case 3000:
-                    if (Globalo.motionManager.socketEEpromMachine.IsTesting[0] == true)
-                    {
-                        break;
-                    }
-                    if (Globalo.motionManager.socketEEpromMachine.IsTesting[1] == true)
+                    if (Globalo.motionManager.socketEEpromMachine.IsTesting[0] == true || Globalo.motionManager.socketEEpromMachine.IsTesting[1] == true)
                     {
                         break;
                     }
@@ -237,6 +233,8 @@ namespace ZenHandler.Process
 
                     Globalo.motionManager.socketEEpromMachine.RaiseProductCall(0, socketStateA);         //공급 요청 초기화, Auto_Waiting
                     Globalo.motionManager.socketEEpromMachine.RaiseProductCall(1, socketState_B);        //공급 요청 초기화, Auto_Waiting
+
+                    //TCP 통신 연결 상태도 확인
 
                     //검사는 별도 Task 에서 진행
 
@@ -787,6 +785,13 @@ namespace ZenHandler.Process
                         {
                             szLog = $"[READY] BACK SOCKET {i+1} PRODUCT DETECTED [STEP : {nStep}]";
                             //제품 있는데 BLANK면 알람
+                            if(Globalo.motionManager.socketEEpromMachine.socketProduct.SocketInfo_A[i].State == Machine.SocketProductState.Blank)
+                            {
+                                szLog = $"[READY] X Socket #{i+1} Product status error [STEP : {nStep}]";
+                                Globalo.LogPrint("ManualControl", szLog);
+                                nRetStep *= -1;
+                                break;
+                            }
                         }
                         else
                         {
@@ -811,6 +816,13 @@ namespace ZenHandler.Process
                         {
                             szLog = $"[READY] FRONT SOCKET {i + 1} PRODUCT DETECTED [STEP : {nStep}]";
                             //제품 있는데 BLANK면 알람
+                            if (Globalo.motionManager.socketEEpromMachine.socketProduct.SocketInfo_B[i].State == Machine.SocketProductState.Blank)
+                            {
+                                szLog = $"[READY] Yx Socket #{i + 1} Product status error [STEP : {nStep}]";
+                                Globalo.LogPrint("ManualControl", szLog);
+                                nRetStep *= -1;
+                                break;
+                            }
                         }
                         else
                         {
@@ -824,6 +836,7 @@ namespace ZenHandler.Process
                     break;
 
                 case 2400:
+                    //TODO: 소켓 4개중에서 없으면 괜찮은데, 제품이 있는경우 모두 일치하지 않으면 진행 XXX
                     nRetStep = 2500;
                     break;
                 case 2500:

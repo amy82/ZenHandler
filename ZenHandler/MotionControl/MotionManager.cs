@@ -23,9 +23,9 @@ namespace ZenHandler.MotionControl
 
         //SOCKET MACHINE
         //TODO: Socket 머신 하나두고 , 그 아래 소켓 Set마트 Class 추가?
-        public Machine.AoiSocketMachine socketAoiMachine;           //TODO: 배열로 2개로 나눠?
-        public Machine.EEpromSocketMachine socketEEpromMachine;     //TODO: 배열로 2개로 나눠?
-        public Machine.FwSocketMachine socketFwMachine;             //TODO: 배열로 4개로 나눠?
+        public Machine.AoiSocketMachine socketAoiMachine;
+        public Machine.EEpromSocketMachine socketEEpromMachine;
+        public Machine.FwSocketMachine socketFwMachine;
 
         public int SocketSetCount = 2;      //or 4(fw)
         private bool[] trayEjectRequested = {false , false };

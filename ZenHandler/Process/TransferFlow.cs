@@ -1637,7 +1637,18 @@ namespace ZenHandler.Process
                     nRetStep = 2120;
                     break;
                 case 2120:
-                    Globalo.motionManager.transferMachine.TransFer_Z_Move(Machine.TransferMachine.eTeachingPosList.WAIT_POS, true);
+                    bRtn = Globalo.motionManager.transferMachine.TransFer_Z_Move(Machine.TransferMachine.eTeachingPosList.WAIT_POS, true);
+
+                    if (bRtn == false)
+                    {
+                        szLog = $"[READY] TRANSFER Z WAIT_POS MOVE FAIL [STEP : {nStep}]";
+                        Globalo.LogPrint("ManualControl", szLog, Globalo.eMessageName.M_ERROR);
+                        nRetStep *= -1;
+                        break;
+                    }
+
+                    szLog = $"[READY] TRANSFER Z WAIT_POS MOVE [STEP : {nStep}]";
+                    Globalo.LogPrint("ManualControl", szLog);
                     nTimeTick = Environment.TickCount;
                     nRetStep = 2130;
                     break;
@@ -1660,7 +1671,19 @@ namespace ZenHandler.Process
                     
                     break;
                 case 2140:
-                    Globalo.motionManager.transferMachine.TransFer_XY_Move(Machine.TransferMachine.eTeachingPosList.WAIT_POS);
+                    bRtn = Globalo.motionManager.transferMachine.TransFer_XY_Move(Machine.TransferMachine.eTeachingPosList.WAIT_POS);
+
+                    if (bRtn == false)
+                    {
+                        szLog = $"[READY] TRANSFER XY WAIT_POS MOVE FAIL [STEP : {nStep}]";
+                        Globalo.LogPrint("ManualControl", szLog, Globalo.eMessageName.M_ERROR);
+                        nRetStep *= -1;
+                        break;
+                    }
+
+                    szLog = $"[READY] TRANSFER XY WAIT_POS MOVE [STEP : {nStep}]";
+                    Globalo.LogPrint("ManualControl", szLog);
+
                     nTimeTick = Environment.TickCount;
                     nRetStep = 2150;
                     break;

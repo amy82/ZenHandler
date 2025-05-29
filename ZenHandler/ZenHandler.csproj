@@ -244,6 +244,12 @@
       <DependentUpon>TerminalMsgForm.cs</DependentUpon>
     </Compile>
     <Compile Include="FThread\SocketThread.cs" />
+    <Compile Include="LeeTest.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="LeeTest.Designer.cs">
+      <DependentUpon>LeeTest.cs</DependentUpon>
+    </Compile>
     <Compile Include="MotionControl\FwDioDefine.cs" />
     <Compile Include="MotionControl\EEpromDioDefine.cs" />
     <Compile Include="MotionControl\AoiDioDefine.cs" />
@@ -613,6 +619,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="KeyBoardForm.resx">
       <DependentUpon>KeyBoardForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="LeeTest.resx">
+      <DependentUpon>LeeTest.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="MainForm.resx">
       <DependentUpon>MainForm.cs</DependentUpon>

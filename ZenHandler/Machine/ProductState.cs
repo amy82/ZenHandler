@@ -49,6 +49,15 @@ namespace ZenHandler.Machine
         {
             No = index;
         }
+        public ProductInfo Clone()
+        {
+            return new ProductInfo
+            {
+                No = this.No,
+                BcrLot = this.BcrLot,
+                State = this.State
+            };
+        }
     }
     public class TrayPoint
     {

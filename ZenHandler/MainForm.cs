@@ -558,8 +558,11 @@ namespace ZenHandler  //ApsMotionControl
         {
             if (ProgramState.NORINDA_MODE == true)
             {
-                Globalo.motionManager.socketFwMachine.MultiContactUp(0, new int[] { 1, 1, 1, 1 }, true);
+                // Globalo.motionManager.socketFwMachine.MultiContactUp(0, new int[] { 1, 1, 1, 1 }, true);
                 //Globalo.tcpManager.BcrClient.Send("LON\r");
+
+                LeeTest leeTest = new LeeTest();
+                leeTest.ShowDialog();
                 return;
                 //int[] pickerList = { 1, 1, 1, 1 };
 
