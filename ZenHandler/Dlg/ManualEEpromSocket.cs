@@ -436,47 +436,47 @@ namespace ZenHandler.Dlg
         
         private void button_ManualAoi_Socket_L_Wait_Pos_X_Click(object sender, EventArgs e)
         {
-            Manual_X_Move(Machine.EEpromSocketMachine.eTeachingPosList.WAIT_POS, Machine.eEEpromSocket.SOCKET_B_X);
+            Manual_X_Move(Machine.EEpromSocketMachine.eTeachingPosList.WAIT_POS, Machine.eEEpromSocket.BACK_X);
         }
         private void button_ManualAoi_Socket_L_Load_Pos_X_Click(object sender, EventArgs e)
         {
-            Manual_X_Move(Machine.EEpromSocketMachine.eTeachingPosList.LOAD_POS, Machine.eEEpromSocket.SOCKET_B_X);
+            Manual_X_Move(Machine.EEpromSocketMachine.eTeachingPosList.LOAD_POS, Machine.eEEpromSocket.BACK_X);
         }
         private void button_ManualAoi_Socket_L_Unload_Pos_X_Click(object sender, EventArgs e)
         {
-            Manual_X_Move(Machine.EEpromSocketMachine.eTeachingPosList.UN_LOAD_POS, Machine.eEEpromSocket.SOCKET_B_X);
+            Manual_X_Move(Machine.EEpromSocketMachine.eTeachingPosList.UN_LOAD_POS, Machine.eEEpromSocket.BACK_X);
         }
         private void button_ManualAoi_Socket_L_TestL_Pos_X_Click(object sender, EventArgs e)
         {
-            Manual_X_Move(Machine.EEpromSocketMachine.eTeachingPosList.WRITE_POS, Machine.eEEpromSocket.SOCKET_B_X);
+            Manual_X_Move(Machine.EEpromSocketMachine.eTeachingPosList.WRITE_POS, Machine.eEEpromSocket.BACK_X);
         }
         private void button_ManualAoi_Socket_L_TestR_Pos_X_Click(object sender, EventArgs e)
         {
-            Manual_X_Move(Machine.EEpromSocketMachine.eTeachingPosList.VERIFY_POS, Machine.eEEpromSocket.SOCKET_B_X);
+            Manual_X_Move(Machine.EEpromSocketMachine.eTeachingPosList.VERIFY_POS, Machine.eEEpromSocket.BACK_X);
         }
 
         private void button_ManualAoi_Socket_R_Wait_Pos_X_Click(object sender, EventArgs e)
         {
-            Manual_X_Move(Machine.EEpromSocketMachine.eTeachingPosList.WAIT_POS, Machine.eEEpromSocket.SOCKET_F_X);
+            Manual_X_Move(Machine.EEpromSocketMachine.eTeachingPosList.WAIT_POS, Machine.eEEpromSocket.FRONT_XY);
         }
 
         private void button_ManualAoi_Socket_R_Load_Pos_X_Click(object sender, EventArgs e)
         {
-            Manual_X_Move(Machine.EEpromSocketMachine.eTeachingPosList.LOAD_POS, Machine.eEEpromSocket.SOCKET_F_X);
+            Manual_X_Move(Machine.EEpromSocketMachine.eTeachingPosList.LOAD_POS, Machine.eEEpromSocket.FRONT_XY);
         }
 
         private void button_ManualAoi_Socket_R_Unload_Pos_X_Click(object sender, EventArgs e)
         {
-            Manual_X_Move(Machine.EEpromSocketMachine.eTeachingPosList.UN_LOAD_POS, Machine.eEEpromSocket.SOCKET_F_X);
+            Manual_X_Move(Machine.EEpromSocketMachine.eTeachingPosList.UN_LOAD_POS, Machine.eEEpromSocket.FRONT_XY);
         }
 
         private void button_ManualAoi_Socket_R_TestL_Pos_X_Click(object sender, EventArgs e)
         {
-            Manual_X_Move(Machine.EEpromSocketMachine.eTeachingPosList.WRITE_POS, Machine.eEEpromSocket.SOCKET_F_X);
+            Manual_X_Move(Machine.EEpromSocketMachine.eTeachingPosList.WRITE_POS, Machine.eEEpromSocket.FRONT_XY);
         }
         private void button_ManualEEprom_Socket_R_Verify_Pos_X_Click(object sender, EventArgs e)
         {
-            Manual_X_Move(Machine.EEpromSocketMachine.eTeachingPosList.VERIFY_POS, Machine.eEEpromSocket.SOCKET_F_X);
+            Manual_X_Move(Machine.EEpromSocketMachine.eTeachingPosList.VERIFY_POS, Machine.eEEpromSocket.FRONT_XY);
         }
 
 
@@ -753,7 +753,7 @@ namespace ZenHandler.Dlg
                 Machine.EEpromSocketMachine.eTeachingPosList pos = (Machine.EEpromSocketMachine.eTeachingPosList)index;
 
                 
-                if (Globalo.motionManager.socketEEpromMachine.ChkMotorXPos(pos, Machine.eEEpromSocket.SOCKET_F_X) == true)
+                if (Globalo.motionManager.socketEEpromMachine.ChkMotorXPos(pos, Machine.eEEpromSocket.FRONT_XY) == true)
                 {
                     EEprom_L_MotorX_BtnArr[i].BackColor = ColorTranslator.FromHtml(ButtonColor.MANUAL_BTN_ON);
                 }
@@ -810,7 +810,7 @@ namespace ZenHandler.Dlg
                 Machine.EEpromSocketMachine.eTeachingPosList pos = (Machine.EEpromSocketMachine.eTeachingPosList)index;
 
 
-                if (Globalo.motionManager.socketEEpromMachine.ChkMotorXPos(pos, Machine.eEEpromSocket.SOCKET_B_X) == true)
+                if (Globalo.motionManager.socketEEpromMachine.ChkMotorXPos(pos, Machine.eEEpromSocket.BACK_X) == true)
                 {
                     EEprom_R_MotorX_BtnArr[i].BackColor = ColorTranslator.FromHtml(ButtonColor.MANUAL_BTN_ON);
                 }

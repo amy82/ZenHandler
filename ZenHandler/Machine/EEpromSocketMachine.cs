@@ -8,7 +8,7 @@ namespace ZenHandler.Machine
 {
     public enum eEEpromSocket : int
     {
-        SOCKET_F_X = 0, SOCKET_B_X
+        BACK_X = 0, FRONT_XY 
     };
     //SOCKET_F_X = Y실린더 있는 소켓
     public class EEpromSocketMachine : MotionControl.MotorController
@@ -21,7 +21,7 @@ namespace ZenHandler.Machine
 
         public MotionControl.MotorAxis[] MotorAxes; // 배열 선언
 
-        public string[] axisName = { "Front_X", "Back_X"};
+        public string[] axisName = {"Back_X", "Front_XY" };
 
         private MotorDefine.eMotorType[] motorType = { MotorDefine.eMotorType.LINEAR, MotorDefine.eMotorType.LINEAR };
         private AXT_MOTION_LEVEL_MODE[] AXT_SET_LIMIT = { AXT_MOTION_LEVEL_MODE.LOW, AXT_MOTION_LEVEL_MODE.LOW };
@@ -42,6 +42,8 @@ namespace ZenHandler.Machine
         {
             "WAIT_POS", "LOAD_POS", "UN_LOAD_POS", "WRITE_POS", "VERIFY_POS"
         };
+
+        public bool[] IsTesting = { false, false };      //검사 진행중
 
         public const string teachingPath = "Teach_EEpromSocket.yaml";
         public const string taskPath = "Task_EEpromSocket.yaml";
@@ -318,7 +320,7 @@ namespace ZenHandler.Machine
                 Globalo.LogPrint("MainForm", "[EEPROM SOCKET] 설비 정지상태가 아닙니다..", Globalo.eMessageName.M_WARNING);
                 return false;
             }
-            if (MotorAxes[(int)Machine.eEEpromSocket.SOCKET_B_X].OrgState == false || MotorAxes[(int)Machine.eEEpromSocket.SOCKET_F_X].OrgState == false)
+            if (MotorAxes[(int)Machine.eEEpromSocket.BACK_X].OrgState == false || MotorAxes[(int)Machine.eEEpromSocket.FRONT_XY].OrgState == false)
             {
                 this.RunState = OperationState.OriginRunning;
                 AutoUnitThread.m_nCurrentStep = 1000;

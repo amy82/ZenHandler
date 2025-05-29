@@ -14,42 +14,103 @@ namespace ZenHandler.Process
 
         }
         #region [Auto_Waiting]
-
         public int Auto_Waiting(int nStep)
         {
+            int i = 0;
             string szLog = "";
             bool result = false;
             int nRetStep = nStep;
             switch (nStep)
             {
                 case 3000:
-                    //back 소켓에 제품 상태 확인
-                    //front 소켓에 제품 상태 확인
+                    //대기위치에서 자동 시작 , 실린더는 후진 상태
 
-
-                    //둘다 제품이 없으면 공급 요청
-
-                    //소켓 하나마다 pc 1대
+                    //EEPROM 설비는 소켓 하나마다 pc 1대 - 총 8대
+                    //8대 모두 연결 상태 확인후 진행
 
                     //Back소켓은 좌우로만 이동
                     //Fromt 소켓은 Y실린더 앞위이동 + 좌우 이동
-                    Globalo.motionManager.socketEEpromMachine.RaiseLoadCall(0, 1);         //공급 요청, 0은 공급완료
-                    Globalo.motionManager.socketEEpromMachine.RaiseUnloadCall(0, 1);       //배출 요청, 0은 공급완료
+
+                    if (Globalo.motionManager.socketEEpromMachine.IsTesting[0] == true)
+                    {
+                        break;
+                    }
+                    if (Globalo.motionManager.socketEEpromMachine.IsTesting[1] == true)
+                    {
+                        break;
+                    }
+                    
 
                     Globalo.motionManager.socketEEpromMachine.RaiseLoadCall(0, -1);         //공급 요청 초기화
                     Globalo.motionManager.socketEEpromMachine.RaiseUnloadCall(0, -1);       //배출 요청 초기화
 
-                    //Globalo.motionManager.ClearSocketLoadReq(0);                        //공급 취소
-                    //Globalo.motionManager.ClearSocketUnloadReq(0);                      //배출 취소
-
                     //검사는 별도 Task 에서 진행
 
+                    for (i = 0; i < Globalo.motionManager.socketEEpromMachine.socketProduct.SocketInfo_A.Count; i++)
+                    {
+                        if (Globalo.motionManager.socketEEpromMachine.socketProduct.SocketInfo_A[i].State == Machine.SocketProductState.Test)
+                        {
+                            //하나라도 제품이 있고, 검사 전이면 검사 진행
+                        }
+                        if (Globalo.motionManager.socketEEpromMachine.socketProduct.SocketInfo_A[i].State == Machine.SocketProductState.Good)
+                        {
+                            //검사 완료 제품이 있으면 배출 요청
+                        }
+                        if (Globalo.motionManager.socketEEpromMachine.socketProduct.SocketInfo_A[i].State == Machine.SocketProductState.NG)
+                        {
+                            //검사 완료 제품이 있으면 배출 요청
+                        }
+
+                    }
+
+                    for (i = 0; i < Globalo.motionManager.socketEEpromMachine.socketProduct.SocketInfo_B.Count; i++)
+                    {
+                        if (Globalo.motionManager.socketEEpromMachine.socketProduct.SocketInfo_A[i].State == Machine.SocketProductState.Good)
+                        {
+
+                        }
+                        if (Globalo.motionManager.socketEEpromMachine.socketProduct.SocketInfo_A[i].State == Machine.SocketProductState.NG)
+                        {
+
+                        }
+                        if (Globalo.motionManager.socketEEpromMachine.socketProduct.SocketInfo_A[i].State == Machine.SocketProductState.Test)
+                        {
+
+                        }
+                    }
                     break;
                 case 3100:
+                    //BACK X 소켓 공급요청
+                    Globalo.motionManager.socketEEpromMachine.RaiseLoadCall(0, 1);         //1: 공급 요청, 0은 공급완료
+                    
+                    break;
+                case 3120:
 
                     break;
                 case 3200:
+                    //FRONT XY 소켓 공급요청
+                    Globalo.motionManager.socketEEpromMachine.RaiseUnloadCall(1, 1);       //1: 배출 요청, 0은 공급완료
+                    break;
+                case 3220:
 
+                    break;
+                case 3300:
+                    //BACK X EEPROM WRITE 검사
+                    break;
+                case 3400:
+                    //FRONT XY EEPROM WRITE 검사
+                    break;
+                case 3500:
+                    //BACK X EEPROM __ VERIFY 검사
+                    break;
+                case 3600:
+                    //FRONT XY EEPROM __ VERIFY 검사
+                    break;
+                case 3700:
+                    //BACK X EEPROM 배출 요청
+                    break;
+                case 3800:
+                    //FRONT XY EEPROM 배출 요청
                     break;
                 case 3900:
 
@@ -73,6 +134,9 @@ namespace ZenHandler.Process
                     Globalo.motionManager.socketEEpromMachine.RaiseLoadCall(1, -1);         //#2 Socket 공급 요청 초기화
                     Globalo.motionManager.socketEEpromMachine.RaiseUnloadCall(0, -1);       //#1 Socket 배출 요청 초기화
                     Globalo.motionManager.socketEEpromMachine.RaiseUnloadCall(1, -1);       //#2 Socket 배출 요청 초기화
+
+                    Globalo.motionManager.socketEEpromMachine.IsTesting[0] = false;
+                    Globalo.motionManager.socketEEpromMachine.IsTesting[1] = false;
                     nRetStep = 2020;
                     break;
                 case 2020:
@@ -266,7 +330,7 @@ namespace ZenHandler.Process
                 case 2200:
                     //FRONT SOCKET X 축 대기위치 이동
                     //BACK SOCKET X 축 대기위치 이동
-                    bRtn = Globalo.motionManager.socketEEpromMachine.Socket_X_Move(Machine.EEpromSocketMachine.eTeachingPosList.WAIT_POS, Machine.eEEpromSocket.SOCKET_F_X, false);
+                    bRtn = Globalo.motionManager.socketEEpromMachine.Socket_X_Move(Machine.EEpromSocketMachine.eTeachingPosList.WAIT_POS, Machine.eEEpromSocket.FRONT_XY, false);
 
                     if (bRtn == false)
                     {
@@ -279,7 +343,7 @@ namespace ZenHandler.Process
                     szLog = $"[READY] FRONT SOCKET X WAIT POS MOVE [STEP : {nStep}]";
                     Globalo.LogPrint("ManualControl", szLog);
 
-                    bRtn = Globalo.motionManager.socketEEpromMachine.Socket_X_Move(Machine.EEpromSocketMachine.eTeachingPosList.WAIT_POS, Machine.eEEpromSocket.SOCKET_B_X, false);
+                    bRtn = Globalo.motionManager.socketEEpromMachine.Socket_X_Move(Machine.EEpromSocketMachine.eTeachingPosList.WAIT_POS, Machine.eEEpromSocket.BACK_X, false);
 
                     if (bRtn == false)
                     {
@@ -298,8 +362,8 @@ namespace ZenHandler.Process
                     break;
                 case 2220:
                     //FRONT SOCKET X 축 대기위치 이동 확인
-                    if (Globalo.motionManager.socketEEpromMachine.MotorAxes[(int)Machine.eEEpromSocket.SOCKET_F_X].GetStopAxis() == true &&
-                        Globalo.motionManager.socketEEpromMachine.ChkMotorXPos(Machine.EEpromSocketMachine.eTeachingPosList.WAIT_POS, Machine.eEEpromSocket.SOCKET_F_X))
+                    if (Globalo.motionManager.socketEEpromMachine.MotorAxes[(int)Machine.eEEpromSocket.FRONT_XY].GetStopAxis() == true &&
+                        Globalo.motionManager.socketEEpromMachine.ChkMotorXPos(Machine.EEpromSocketMachine.eTeachingPosList.WAIT_POS, Machine.eEEpromSocket.FRONT_XY))
                     {
                         szLog = $"[READY] FRONT SOCKET WAIT 위치 이동 완료 [STEP : {nStep}]";
                         Globalo.LogPrint("ManualControl", szLog);
@@ -317,8 +381,8 @@ namespace ZenHandler.Process
                     break;
                 case 2240:
                     //BACK SOCKET X 축 대기위치 이동 확인
-                    if (Globalo.motionManager.socketEEpromMachine.MotorAxes[(int)Machine.eEEpromSocket.SOCKET_B_X].GetStopAxis() == true &&
-                        Globalo.motionManager.socketEEpromMachine.ChkMotorXPos(Machine.EEpromSocketMachine.eTeachingPosList.WAIT_POS, Machine.eEEpromSocket.SOCKET_B_X))
+                    if (Globalo.motionManager.socketEEpromMachine.MotorAxes[(int)Machine.eEEpromSocket.BACK_X].GetStopAxis() == true &&
+                        Globalo.motionManager.socketEEpromMachine.ChkMotorXPos(Machine.EEpromSocketMachine.eTeachingPosList.WAIT_POS, Machine.eEEpromSocket.BACK_X))
                     {
                         szLog = $"[READY] BACK SOCKET WAIT 위치 이동 완료 [STEP : {nStep}]";
                         Globalo.LogPrint("ManualControl", szLog);
@@ -469,20 +533,20 @@ namespace ZenHandler.Process
                     }
                     break;
                 case 1160:
-                    if (Globalo.motionManager.socketEEpromMachine.MotorAxes[(int)Machine.eEEpromSocket.SOCKET_F_X].GetStopAxis() == false)
+                    if (Globalo.motionManager.socketEEpromMachine.MotorAxes[(int)Machine.eEEpromSocket.FRONT_XY].GetStopAxis() == false)
                     {
-                        Globalo.motionManager.socketEEpromMachine.MotorAxes[(int)Machine.eEEpromSocket.SOCKET_F_X].Stop();
+                        Globalo.motionManager.socketEEpromMachine.MotorAxes[(int)Machine.eEEpromSocket.FRONT_XY].Stop();
                         break;
                     }
-                    if (Globalo.motionManager.socketEEpromMachine.MotorAxes[(int)Machine.eEEpromSocket.SOCKET_B_X].GetStopAxis() == false)
+                    if (Globalo.motionManager.socketEEpromMachine.MotorAxes[(int)Machine.eEEpromSocket.BACK_X].GetStopAxis() == false)
                     {
-                        Globalo.motionManager.socketEEpromMachine.MotorAxes[(int)Machine.eEEpromSocket.SOCKET_B_X].Stop();
+                        Globalo.motionManager.socketEEpromMachine.MotorAxes[(int)Machine.eEEpromSocket.BACK_X].Stop();
                         break;
                     }
 
                     dSpeed = (15 * -1);      //-1은 왼쪽, 하강 이동
 
-                    bRtn = Globalo.motionManager.socketEEpromMachine.MotorAxes[(int)Machine.eEEpromSocket.SOCKET_F_X].MoveAxisLimit(dSpeed, dAcc, AXT_MOTION_HOME_DETECT.NegEndLimit);
+                    bRtn = Globalo.motionManager.socketEEpromMachine.MotorAxes[(int)Machine.eEEpromSocket.FRONT_XY].MoveAxisLimit(dSpeed, dAcc, AXT_MOTION_HOME_DETECT.NegEndLimit);
                     if (bRtn == false)
                     {
                         szLog = $"[ORIGIN] FRONT SOCKET (-)Limit 위치 구동 실패 [STEP : {nStep}]";
@@ -495,7 +559,7 @@ namespace ZenHandler.Process
 
 
 
-                    bRtn = Globalo.motionManager.socketEEpromMachine.MotorAxes[(int)Machine.eEEpromSocket.SOCKET_B_X].MoveAxisLimit(dSpeed, dAcc, AXT_MOTION_HOME_DETECT.NegEndLimit);
+                    bRtn = Globalo.motionManager.socketEEpromMachine.MotorAxes[(int)Machine.eEEpromSocket.BACK_X].MoveAxisLimit(dSpeed, dAcc, AXT_MOTION_HOME_DETECT.NegEndLimit);
                     if (bRtn == false)
                     {
                         szLog = $"[ORIGIN] BACK SOCKET (-)Limit 위치 구동 실패 [STEP : {nStep}]";
@@ -509,8 +573,8 @@ namespace ZenHandler.Process
                     break;
                 case 1180:
 
-                    if (Globalo.motionManager.socketEEpromMachine.MotorAxes[(int)Machine.eEEpromSocket.SOCKET_F_X].GetStopAxis() == true &&
-                        Globalo.motionManager.socketEEpromMachine.MotorAxes[(int)Machine.eEEpromSocket.SOCKET_F_X].GetNegaSensor() == true)
+                    if (Globalo.motionManager.socketEEpromMachine.MotorAxes[(int)Machine.eEEpromSocket.FRONT_XY].GetStopAxis() == true &&
+                        Globalo.motionManager.socketEEpromMachine.MotorAxes[(int)Machine.eEEpromSocket.FRONT_XY].GetNegaSensor() == true)
                     {
                         szLog = $"[ORIGIN] FRONT SOCKET (-)Limit 위치 이동 완료 [STEP : {nStep}]";
                         Globalo.LogPrint("ManualControl", szLog);
@@ -528,8 +592,8 @@ namespace ZenHandler.Process
 
                     break;
                 case 1200:
-                    if (Globalo.motionManager.socketEEpromMachine.MotorAxes[(int)Machine.eEEpromSocket.SOCKET_B_X].GetStopAxis() == true &&
-                        Globalo.motionManager.socketEEpromMachine.MotorAxes[(int)Machine.eEEpromSocket.SOCKET_B_X].GetNegaSensor() == true)
+                    if (Globalo.motionManager.socketEEpromMachine.MotorAxes[(int)Machine.eEEpromSocket.BACK_X].GetStopAxis() == true &&
+                        Globalo.motionManager.socketEEpromMachine.MotorAxes[(int)Machine.eEEpromSocket.BACK_X].GetNegaSensor() == true)
                     {
                         szLog = $"[ORIGIN] BACK SOCKET (-)Limit 위치 이동 완료 [STEP : {nStep}]";
                         Globalo.LogPrint("ManualControl", szLog);

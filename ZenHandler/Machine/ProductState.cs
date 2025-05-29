@@ -147,9 +147,9 @@ namespace ZenHandler.Machine
     }
     public class SocketProduct//FwSocketProduct
     {
-        public List<SocketProductInfo> SocketInfo_A { get; set; } = new List<SocketProductInfo>();
-        public List<SocketProductInfo> SocketInfo_B { get; set; } = new List<SocketProductInfo>();
+        public List<SocketProductInfo> SocketInfo_A { get; set; } = new List<SocketProductInfo>();      //aoi , eeprom
+        public List<SocketProductInfo> SocketInfo_B { get; set; } = new List<SocketProductInfo>();      //aoi , eeprom
         public List<SocketProductInfo> SocketInfo_C { get; set; } = new List<SocketProductInfo>();
-        public List<SocketProductInfo> SocketInfo_D { get; set; } = new List<SocketProductInfo>();
+        public List<SocketProductInfo> SocketInfo_D { get; set; } = new List<SocketProductInfo>();      //fw all
     }
 }
