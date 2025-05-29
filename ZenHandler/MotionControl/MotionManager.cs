@@ -172,6 +172,7 @@ namespace ZenHandler.MotionControl
             liftMachine.MachineClose();
             socketAoiMachine.MachineClose();
             socketEEpromMachine.MachineClose();
+
             socketFwMachine.MachineClose();
 
         }

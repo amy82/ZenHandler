@@ -179,16 +179,10 @@ namespace ZenHandler.FThread
                     //소켓 2Set * 4 = 8개
                     this.m_nCurrentStep = this.parent.processManager.eepromSocketFlow.Auto_Waiting(this.m_nCurrentStep);
 
-                    if (this.m_nSocketStep[0] > -1)
-                    {
-                        //this.m_nSocketStep[0] = this.parent.processManager.eepromSocketFlow.Auto_Waiting(this.m_nSocketStep[0]);
-                    }
-                    
+                    this.m_nSocketStep[0] = this.parent.processManager.eepromSocketFlow.Auto_X_Socket(this.m_nCurrentStep);
+                    this.m_nSocketStep[1] = this.parent.processManager.eepromSocketFlow.Auto_Yx_Socket(this.m_nCurrentStep);
                 }
-
-                
             }
-            
 
             //EEprom  , Aoi 설비만 Socket 모터 있음 
         }

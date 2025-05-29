@@ -20,6 +20,8 @@ namespace ZenHandler.Machine
 
         public MotionControl.MotorAxis[] MotorAxes; // 배열 선언
 
+
+
         public string[] axisName = {"Back_X", "Front_XY" };
 
         private MotorDefine.eMotorType[] motorType = { MotorDefine.eMotorType.LINEAR, MotorDefine.eMotorType.LINEAR };
@@ -74,6 +76,7 @@ namespace ZenHandler.Machine
                 {
                     MotorAxes[i].NoUse = true;
                 }
+
             }
 
 

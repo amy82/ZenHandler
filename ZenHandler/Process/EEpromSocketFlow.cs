@@ -2,12 +2,17 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using System.Threading;
 using System.Threading.Tasks;
 
 namespace ZenHandler.Process
 {
     public class EEpromSocketFlow
     {
+        public CancellationTokenSource CancelTokenSocket;
+        public ManualResetEventSlim pauseEvent = new ManualResetEventSlim(true);  // true면 동작 가능
+        public Task<int> xSocketTask;
+        private readonly SynchronizationContext _syncContext;
         public int nTimeTick = 0;
         private int[] socketStateA = { -1, -1, -1, -1 };     // 0은 공급완료, 배출 완료, 1: 공급 요청, 2: 양품 배출, 3: NG 배출
         private int[] socketState_B = { -1, -1, -1, -1 };    // 0은 공급완료, 배출 완료, 1: 공급 요청, 2: 양품 배출, 3: NG 배출
@@ -23,6 +28,186 @@ namespace ZenHandler.Process
 
             //Back소켓은 좌우로만 이동
             //Fromt 소켓은 Y실린더 앞위이동 + 좌우 이동
+
+            _syncContext = SynchronizationContext.Current;
+            CancelTokenSocket = new CancellationTokenSource();
+            xSocketTask = Task.FromResult(1);      //<--실제 실행하지않고,즉시 완료된 상태로 반환
+        }
+        public int Auto_X_Socket(int nStep)
+        {
+            int i = 0;
+            string szLog = "";
+            bool result = false;
+            int nRetStep = nStep;
+            switch (nStep)
+            {
+                case 100:
+                    if (Globalo.motionManager.socketEEpromMachine.IsTesting[0] == false)
+                    {
+                        break;
+                    }
+                    //공급 요청 or 배출 요청
+                    if (socketProcessState[0] == Machine.SocketProductState.Verifying)
+                    {
+                        nRetStep = 500;
+                        break;
+                    }
+                    if (socketProcessState[0] == Machine.SocketProductState.Writing)
+                    {
+                        nRetStep = 400;
+                        break;
+                    }
+                    if (socketProcessState[0] == Machine.SocketProductState.Good)
+                    {
+                        nRetStep = 300;
+                        break;
+                    }
+
+                    if (socketProcessState[0] == Machine.SocketProductState.Blank)
+                    {
+                        nRetStep = 200;
+                        break;
+                    }
+                    break;
+                    //
+                    //
+                    //
+                case 200:
+                    //공급 요청
+                    socketStateA = new int[] { 1, 1, 1, 1 };
+                    Globalo.motionManager.socketEEpromMachine.RaiseProductCall(0, socketStateA);        //공급 요청 초기화, Auto_Waiting
+                    break;
+                case 220:
+                    //공급 완료 대기
+                    if (Globalo.motionManager.socketEEpromMachine.GetIsProductInSocket(0, 0, true) == true)
+                    {
+                        if (Globalo.motionManager.GetSocketReq(0, 0) == 0)      //공급완료
+                        {
+                            //Write 진행
+                            socketProcessState[0] = Machine.SocketProductState.Writing;
+
+                            //Y 실린더 확인후 Write 이동 후 진행
+                            nRetStep = 400;
+                            break;
+                        }
+                    }
+
+                    break;
+                    //
+                    //
+                    //
+                case 300:
+                    //배출 요청
+                    break;
+                case 320:
+                    //배출 완료 대기
+                    break;
+                case 340:
+                    //배출 완료
+                    nRetStep = 200;
+                    break;
+                    //
+                    //
+                    //
+                case 400:
+                    //Write 진행
+                    break;
+                case 420:
+                    //Write 완료 대기
+                    break;
+                case 440:
+                    //Write 완료
+                    //Y 실린더 확인후 Verify 이동 후 진행
+                    socketProcessState[0] = Machine.SocketProductState.Verifying;
+                    nRetStep = 500;
+                    break;
+                    //
+                    //
+                    //
+                case 500:
+                    //Verify 진행
+                    break;
+                case 520:
+                    break;
+                case 540:
+                    //Verify 완료 대기
+                    nRetStep = 300;
+                    break;
+                case 560:
+                    //Verify 완료
+                    socketProcessState[0] = Machine.SocketProductState.Good;
+                    socketProcessState[0] = Machine.SocketProductState.NG;
+                    break;
+            }
+
+            return nRetStep;
+        }
+        public int Auto_Yx_Socket(int nStep)
+        {
+            int i = 0;
+            string szLog = "";
+            bool result = false;
+            int nRetStep = nStep;
+            switch (nStep)
+            {
+                case 100:
+                    if (Globalo.motionManager.socketEEpromMachine.IsTesting[1] == false)
+                    {
+                        break;
+                    }
+                    //공급 요청 or 배출 요청
+                    if (socketProcessState[1] == Machine.SocketProductState.Verifying)
+                    {
+
+                    }
+                    if (socketProcessState[1] == Machine.SocketProductState.Writing)
+                    {
+
+                    }
+                    if (socketProcessState[1] == Machine.SocketProductState.Good)
+                    {
+
+                    }
+
+                    if (socketProcessState[1] == Machine.SocketProductState.Blank)
+                    {
+                        nRetStep = 200;
+                        break;
+                    }
+                    
+                    break;
+                case 200:
+                    //공급 요청
+                    socketState_B = new int[] { 1, 1, 1, 1 };
+                    Globalo.motionManager.socketEEpromMachine.RaiseProductCall(1, socketState_B);        //공급 요청 초기화, Auto_Waiting
+                    break;
+                case 220:
+                    //공급 완료 대기
+                    if (Globalo.motionManager.socketEEpromMachine.GetIsProductInSocket(10, 0, true) == true)
+                    {
+                        if (Globalo.motionManager.GetSocketReq(1, 0) == 0)      //공급완료
+                        {
+                            //Write 진행
+                            nRetStep = 400;
+                        }
+                    }
+                    
+                    break;
+                case 300:
+                    //배출 요청
+                    break;
+                case 320:
+                    //배출 완료 대기
+                    break;
+                case 400:
+                    //Write 진행
+                    break;
+                case 500:
+                    //Verify 진행
+                    break;
+            }
+
+            return nRetStep;
         }
         #region [Auto_Waiting]
         public int Auto_Waiting(int nStep)
@@ -148,66 +333,172 @@ namespace ZenHandler.Process
                         }
                     }
 
-                    bool allMinusOne = !socketStateA.Any(v => v != -1);  // 하나라도 -1이 아니면 false
+                    //bool allMinusOne = !socketStateA.Any(v => v != -1);  // 하나라도 -1이 아니면 false
 
-                    bool allSame_A = socketStateA.All(v => v == socketStateA[0]);       //4개가 전부 동일한지 파악
-                    bool allSame_B = socketState_B.All(v => v == socketState_B[0]);     //4개가 전부 동일한지 파악
+                    //bool allSame_A = socketStateA.All(v => v == socketStateA[0]);       //4개가 전부 동일한지 파악
+                    //bool allSame_B = socketState_B.All(v => v == socketState_B[0]);     //4개가 전부 동일한지 파악
 
-                    if (allSame_A == true)
-                    {
-                        
-                    }
-                    else
-                    {
-                        //알람
-                    }
-                    if (allSame_B == true)
-                    {
-                        
-                    }
-                    else
-                    {
-                        //알람
-                    }
-                    break;
-                case 3100:
-                    //BACK X 소켓 공급요청
+                    Globalo.motionManager.socketEEpromMachine.IsTesting[0] = true;      //true로 바꿔야 socket flow 진행 가능
+                    Globalo.motionManager.socketEEpromMachine.IsTesting[1] = true;      //true로 바꿔야 socket flow 진행 가능
 
-                    break;
-                case 3120:
-
-                    break;
-                case 3200:
-                    //FRONT XY 소켓 공급요청
-                    break;
-                case 3220:
-
-                    break;
-                case 3300:
-                    //BACK X EEPROM WRITE 검사
-                    break;
-                case 3400:
-                    //FRONT XY EEPROM WRITE 검사
-                    break;
-                case 3500:
-                    //BACK X EEPROM __ VERIFY 검사
-                    break;
-                case 3600:
-                    //FRONT XY EEPROM __ VERIFY 검사
-                    break;
-                case 3700:
-                    //BACK X EEPROM 배출 요청
-                    break;
-                case 3800:
-                    //FRONT XY EEPROM 배출 요청
-                    break;
-                case 3900:
 
                     break;
             }
 
             return nRetStep;
         }
+
+        //X축 공급 요청 Flow - 완료 ->  제품 없으면 X-Y축 공급 요청 Flow
+        //X축 Write 시작 Flow - x-y축이 제품있고 write완료 상태면 verify 진행 - X축 Write끝나면 Verify 진행
+        //X축 Verify 시작 Flow - X-y축 공급 받았으면 write 시작
+
+        private int X_Socket_LoadReqFlow()
+        {
+            int nRtn = -1;
+
+            bool bRtn = false;
+            int nRetStep = 10;
+            string szLog = "";
+            while (true)
+            {
+                if (CancelTokenSocket.Token.IsCancellationRequested)      //정지시 while 빠져나가는 부분
+                {
+                    Console.WriteLine("Gantry LoadTray Flow cancelled!");
+                    nRtn = -1;
+                    break;
+                }
+                switch (nRetStep)
+                {
+                    case 10:
+                        nRetStep = 20;
+                        break;
+                    case 20:
+                        //X축 공급 요청 후 대기
+                        nRetStep = 40;
+                        break;
+                    case 40:
+                        //공급 완료 확인
+                        //X-Y 소켓에 제품 없으면 공급 요청
+                        nRetStep = 60;
+                        break;
+                    case 60:
+                        //Write 진행
+                        //컨택 상승 
+                        nRetStep = 80;
+                        break;
+                    case 80:
+                        //컨택 상승  확인
+                        nRetStep = 100;
+                        break;
+                    case 100:
+                        //컨택 전진
+                        nRetStep = 120;
+                        break;
+                    case 120:
+                        //컨택 전진 확인
+                        nRetStep = 140;
+                        break;
+                    case 140:
+                        //컨택 하강
+                        nRetStep = 200;
+                        break;
+                    case 160:
+                        //컨택 하강 확인
+                        nRetStep = 200;
+                        break;
+                    case 180:
+                        
+                        nRetStep = 200;
+                        break;
+                    case 200:
+                        //Write 진행  to Tcp Send  4개
+                        nRetStep = 800;
+                        break;
+                    case 220:
+
+                        break;
+                    case 240:
+
+                        break;
+                    case 260:
+
+                        break;
+                    case 280:
+
+                        break;
+                    case 300:
+                        //Write 완료 대기
+                        nRetStep = 800;
+                        break;
+                    case 400:
+                        //컨택 상승
+                        nRetStep = 420;
+                        break;
+                    case 420:
+                        //컨택 상승 확인
+                        nRetStep = 440;
+                        break;
+                    case 440:
+                        //컨택 후진
+                        nRetStep = 460;
+                        break;
+                    case 460:
+                        //컨택 후진 확인
+                        nRetStep = 480;
+                        break;
+                    case 480:
+                        //x-y축 실린더 후진 확인후
+                        //Verify 위치로 이동
+
+                        //
+                        nRetStep = 500;
+                        break;
+                    case 500:
+                        
+                        
+                        nRetStep = 800;
+                        break;
+                    case 600:
+                        nRetStep = 800;
+                        break;
+                    case 800:
+
+                        break;
+                    case 900:
+                        nRetStep = 1000;
+                        break;
+                    default:
+                        break;
+                }
+                if (nRetStep < 0)
+                {
+                    Console.WriteLine("Gantry LoadTray Flow - fail");
+                    break;
+                }
+
+                if (nRetStep == 1000)
+                {
+                    Console.WriteLine("Gantry LoadTray Flow - end");
+                    break;
+                }
+                Thread.Sleep(10);       //TODO: while문안에서는 최소 10ms 꼭 필요
+            }
+            if (nRetStep == 1000)
+            {
+                nRtn = 0;
+                Console.WriteLine("Gantry LoadTray Flow - ok");
+            }
+            else
+            {
+                nRtn = -1;
+                Console.WriteLine("Gantry LoadTray Flow - ng");
+            }
+            return nRtn;
+            
+        }
+        //X-Y축 공급 요청 Flow
+        //X-Y축 Write 시작 Flow
+        //X-Y축 Verify 시작 Flow
         #endregion
         #region [운전 준비]
         public int AutoReady(int nStep)                 //  운전준비(2000 ~ 3000)
