@@ -11,6 +11,7 @@ using System.Windows.Forms;
 using System.IO;
 using System.Threading;
 using System.Globalization;
+using System.Net;
 
 namespace ZenHandler  //ApsMotionControl
 {

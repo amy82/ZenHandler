@@ -16,7 +16,7 @@ namespace ZenHandler.TcpSocket
         //private readonly List<TcpClientHandler> _clients = new List<TcpClientHandler>();
         
         public BarcodeClient BcrClient;
-        private TcpServer _HandlerServer;   //<-----Tester Client1,2,3,4... 이쪽으로 붙기 + Secsgem Client 도
+        public TcpServer _HandlerServer;   //<-----Tester Client1,2,3,4... 이쪽으로 붙기 + Secsgem Client 도
 
         private CancellationTokenSource _cts;
         public TcpManager(string ip, int port)
@@ -37,7 +37,8 @@ namespace ZenHandler.TcpSocket
             Console.WriteLine("TcpManager - OnPgExitCall");
             StopServer();
         }
-        public async void SendMessageToClient(TcpSocket.EquipmentData equipData)//string message)
+
+        public async void SendMessageToClient(TcpSocket.EquipmentData equipData, int clintNum = -1)
         {
             if (_HandlerServer.bClientConnectedState() == false)
             {
@@ -46,7 +47,7 @@ namespace ZenHandler.TcpSocket
             //await _server.SendMessageAsync(message);   //클라이언트 하나만 허용  secGemApp
             //
             string jsonData = JsonConvert.SerializeObject(equipData);
-            await _HandlerServer.BroadcastMessageAsync(jsonData);
+            await _HandlerServer.BroadcastMessageAsync(jsonData, clintNum);
         }
         // 서버 시작
         public async Task StartServerAsync()

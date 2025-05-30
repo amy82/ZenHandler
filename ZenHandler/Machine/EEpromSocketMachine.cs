@@ -76,9 +76,7 @@ namespace ZenHandler.Machine
                 {
                     MotorAxes[i].NoUse = true;
                 }
-
             }
-
 
             socketProduct = Data.TaskDataYaml.TaskLoad_Socket(taskPath);
             if (socketProduct.SocketInfo_A.Count < 1)
@@ -103,7 +101,7 @@ namespace ZenHandler.Machine
             bool rtn = Data.TaskDataYaml.TaskSave_Socket(socketProduct, taskPath);
             return rtn;
         }
-        public void RaiseProductCall(int index, int[] nReq)//int nReq)
+        public void RaiseProductCall(int index, int[] nReq)
         {
             OnSocketCall?.Invoke(index, nReq);
             

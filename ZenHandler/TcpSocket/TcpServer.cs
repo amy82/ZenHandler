@@ -12,16 +12,15 @@ namespace ZenHandler.TcpSocket
 {
     public enum ClientSlotIndex
     {
-        Tester1 = 0,    // IP 뒷자리 1
-        Tester2 = 1,    // IP 뒷자리 2
+        Tester1 = 0,    // IP 뒷자리 1  ex)192.168.100.1
+        Tester2 = 1,    // IP 뒷자리 2  ex)192.168.100.2
         Tester3 = 2,    // IP 뒷자리 3
         Tester4 = 3,    // IP 뒷자리 4
         Tester5 = 4,    // IP 뒷자리 5
         Tester6 = 5,    // IP 뒷자리 6
         Tester7 = 6,    // IP 뒷자리 7
-        Tester8 = 7,    // IP 뒷자리 8
-
-        SecsGem = 10     // IP 뒷자리 100 → 배열엔 5개니까 마지막 인덱스 4
+        Tester8 = 7,    // IP 뒷자리 8 ex)192.168.100.8
+        SecsGem = 8     // IP 뒷자리 100 → 배열엔 5개니까 마지막 인덱스 4  ex)192.168.100.100
     }
     public class TcpServer
     {
@@ -31,10 +30,12 @@ namespace ZenHandler.TcpSocket
 
         //private readonly List<TcpClient> _clientsList = new List<TcpClient>();
         //private Dictionary<int, TcpClient> _clientMap = new Dictionary<int, TcpClient>();
-        private readonly TcpClient[] _clients = new TcpClient[5];
+
+
+        private readonly TcpClient[] _clients = new TcpClient[9];
         private readonly Dictionary<int, ClientSlotIndex> ipToSlotIndex = new Dictionary<int, ClientSlotIndex>
         {
-            { 1, ClientSlotIndex.Tester1 },
+            { 1, ClientSlotIndex.Tester1 },     //여기 앞에 숫자를 ip주소 끝자리와 맞혀야 된다.
             { 2, ClientSlotIndex.Tester2 },
             { 3, ClientSlotIndex.Tester3 },
             { 4, ClientSlotIndex.Tester4 },
@@ -42,7 +43,7 @@ namespace ZenHandler.TcpSocket
             { 6, ClientSlotIndex.Tester6 },
             { 7, ClientSlotIndex.Tester7 },
             { 8, ClientSlotIndex.Tester8 },
-            { 100, ClientSlotIndex.SecsGem }
+            { 40, ClientSlotIndex.SecsGem }//{ 100, ClientSlotIndex.SecsGem }
         };
         //public event Action<string> OnMessageReceived; // 메시지 수신 이벤트
         public event Func<string, Task> OnMessageReceivedAsync; // 비동기 이벤트
@@ -50,7 +51,7 @@ namespace ZenHandler.TcpSocket
         public TcpServer(string ip, int port)
         {
             bConnected = false;
-            _listener = new TcpListener(IPAddress.Parse(ip), port);
+            _listener = new TcpListener(IPAddress.Any, port);//IPAddress.Parse(ip), port);
 
             string logData = $"[tcp] Server Create:{ip} / {port}";
             Globalo.LogPrint("CCdControl", logData);
@@ -68,11 +69,11 @@ namespace ZenHandler.TcpSocket
             }
             try
             {
-                //TcpClient client = _clientsList[0];
                 if (client != null && client.Connected)
                 {
                     byte[] data = Encoding.UTF8.GetBytes(message);
                     await client.GetStream().WriteAsync(data, 0, data.Length);
+
 
                     //Console.WriteLine($"클라이언트에게 전송: {message}");
                 }
@@ -83,12 +84,20 @@ namespace ZenHandler.TcpSocket
             }
         }
         // 🎯 **모든 클라이언트에게 메시지 보내는 함수**
-        public async Task BroadcastMessageAsync(string message)
+        public async Task BroadcastMessageAsync(string message, int ClientNum = -1)
         {
             List<int> disconnectedClientKeys = new List<int>();
+            int i = 0;
 
-            for (int i = 0; i < _clients.Length; i++)
+            for (i = 0; i < _clients.Length; i++)
             {
+                if (ClientNum > -1)
+                {
+                    if (i != ClientNum)
+                    {
+                        continue;
+                    }
+                }
                 var client = _clients[i];
                 if (client != null && client.Connected)
                 {
@@ -100,6 +109,7 @@ namespace ZenHandler.TcpSocket
                     _clients[i] = null;
                 }
             }
+
             //foreach (var kvp in _clientMap) // Key: 클라이언트 ID (ex. IP 뒷자리), Value: TcpClient
             //{
             //    int key = kvp.Key;

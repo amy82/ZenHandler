@@ -30,6 +30,8 @@ namespace ZenHandler.MotionControl
         public int SocketSetCount = 2;      //or 4(fw)
         private bool[] trayEjectRequested = {false , false };
 
+        private int[] Socket_RequestDone = { -1, -1, -1, -1 };      //초기화:-1 , 0:완료 , 1:공급,배출 요청
+
         private int[] socketA_Req_State = {-1, -1, -1, -1 };        //-1 = 초기화 , 0 = 공급 완료, 1 = 공급요청 ,  2 = 배출요청
         private int[] socketB_Requested = { -1, -1, -1, -1 };       //-1 = 초기화 , 0 = 공급 완료, 1 = 공급요청 ,  2 = 배출요청
         private int[] socketC_Requested = { -1, -1, -1, -1 };       //-1 = 초기화 , 0 = 공급 완료, 1 = 공급요청 ,  2 = 배출요청
@@ -125,15 +127,32 @@ namespace ZenHandler.MotionControl
         private void OnSocketLoadReq(int index, int[] nReq)          //소켓에서 투입 요청
         {
             Console.WriteLine($"OnSocketLoadReq - {index},{nReq}");
+            
             if (index == 0)
             {
                 socketA_Req_State = (int[])nReq.Clone();
             }
-            else
+            if (index == 1)
             {
                 socketB_Requested = (int[])nReq.Clone();
             }
-            
+            if (index == 2)
+            {
+                socketC_Requested = (int[])nReq.Clone();
+            }
+            if (index == 3)
+            {
+                socketD_Requested = (int[])nReq.Clone();
+            }
+            Socket_RequestDone[index] = 1;
+        }
+        public int GetSocketDone(int index)     //요청후 완료 됐는지 확인 함수
+        {
+            return Socket_RequestDone[index];
+        }
+        public void InitSocketDone(int index)     //요청후 완료 됐는지 확인 함수
+        {
+            Socket_RequestDone[index] = -1;
         }
         public int[] GetSocketReq(int index)//public int GetSocketEjectReq(int index)
         {
@@ -149,34 +168,13 @@ namespace ZenHandler.MotionControl
             {
                 return socketC_Requested;
             }
-            else
+            if (index == 3)
             {
                 return socketD_Requested;
             }
-            //int nRtn = -1;
-            //if (index == 0)
-            //{
-            //    nRtn = socketA_Requested[no];
-            //}
-            //if (index == 1)
-            //{
-            //    nRtn = socketB_Requested[no];
-            //}
-            //if (index == 2)
-            //{
-            //    nRtn = socketC_Requested[no];
-            //}
-            //else
-            //{
-            //    nRtn = socketD_Requested[no];
-            //}
-            //return nRtn;
+
+            return new int[] { -1, -1, -1, -1 };
         }
-        //public int GetSocketLoadReq(int index)//public int GetSocketLoadReq(int index)
-        //{
-        //    int rtn = socketA_Requested[index];
-        //    return rtn;
-        //}
 
         //---------------------------------------------------------------------------------------------------------
         private void OnPgExit(object sender, EventArgs e)
