@@ -137,17 +137,18 @@ namespace ZenHandler.Process
                         //몇 번 소켓인지 검색 (0 , 1 , 2 , 3)
                         SocketChk = false;
                         Globalo.motionManager.transferMachine.NoSocketPos = -1;
-                        for (i = 0; i < Globalo.motionManager.SocketSetCount; i++)     //TODO: 4는 설비마다 다름
+                        for (i = 0; i < Globalo.motionManager.SocketSetCount; i++)     //TODO: SocketSetCount 개수는 설비마다 다름
                         {
+                            int[] TfsocketState = Globalo.motionManager.GetSocketReq(i);
                             for (j = 0; j < 4; j++)
                             {
-                                if (Globalo.motionManager.GetSocketReq(i, j) == 1)
+                                if (TfsocketState[i] == 1)
                                 {
                                     Globalo.motionManager.transferMachine.NoSocketPos = i;      //TODO: 낱개가 아닌 세트로 4or2개 전체 배출
                                     break;
                                 }
                             }
-                            
+                            //private int[] socketStateA = { -1, -1, -1, -1 };
                         }
                         if (Globalo.motionManager.transferMachine.NoSocketPos >= 0)
                         {
@@ -159,9 +160,10 @@ namespace ZenHandler.Process
                         SocketChk = false;
                         for (i = 0; i < Globalo.motionManager.SocketSetCount; i++) 
                         {
+                            int[] TfsocketState = Globalo.motionManager.GetSocketReq(i);
                             for (j = 0; j < 4; j++)
                             {
-                                if (Globalo.motionManager.GetSocketReq(i, j) == 1)
+                                if (TfsocketState[j] == 1)
                                 {
                                     Globalo.motionManager.transferMachine.NoSocketPos = i;  //TODO: 낱개가 아닌 세트로 4or2개 전체 투입
                                     break;
@@ -232,9 +234,10 @@ namespace ZenHandler.Process
                             SocketChk = false;
                             for (i = 0; i < Globalo.motionManager.SocketSetCount; i++)     //TODO: 4는 설비마다 다름 
                             {
+                                int[] TfsocketState = Globalo.motionManager.GetSocketReq(i);
                                 for (j = 0; j < 4; j++)
                                 {
-                                    if (Globalo.motionManager.GetSocketReq(i, j) == 1)
+                                    if (TfsocketState[j] == 1)
                                     {
                                         Globalo.motionManager.transferMachine.NoSocketPos = i;
                                     }

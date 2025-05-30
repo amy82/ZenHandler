@@ -30,7 +30,7 @@ namespace ZenHandler.MotionControl
         public int SocketSetCount = 2;      //or 4(fw)
         private bool[] trayEjectRequested = {false , false };
 
-        private int[] socketA_Requested = {-1, -1, -1, -1 };        //-1 = 초기화 , 0 = 공급 완료, 1 = 공급요청 ,  2 = 배출요청
+        private int[] socketA_Req_State = {-1, -1, -1, -1 };        //-1 = 초기화 , 0 = 공급 완료, 1 = 공급요청 ,  2 = 배출요청
         private int[] socketB_Requested = { -1, -1, -1, -1 };       //-1 = 초기화 , 0 = 공급 완료, 1 = 공급요청 ,  2 = 배출요청
         private int[] socketC_Requested = { -1, -1, -1, -1 };       //-1 = 초기화 , 0 = 공급 완료, 1 = 공급요청 ,  2 = 배출요청
         private int[] socketD_Requested = { -1, -1, -1, -1 };       //-1 = 초기화 , 0 = 공급 완료, 1 = 공급요청 ,  2 = 배출요청
@@ -127,7 +127,7 @@ namespace ZenHandler.MotionControl
             Console.WriteLine($"OnSocketLoadReq - {index},{nReq}");
             if (index == 0)
             {
-                socketA_Requested = (int[])nReq.Clone();
+                socketA_Req_State = (int[])nReq.Clone();
             }
             else
             {
@@ -135,20 +135,43 @@ namespace ZenHandler.MotionControl
             }
             
         }
-        public int GetSocketReq(int index, int no)//public int GetSocketEjectReq(int index)
+        public int[] GetSocketReq(int index)//public int GetSocketEjectReq(int index)
         {
-            int nRtn = -1;
             if (index == 0)
             {
-                nRtn = socketA_Requested[no];
+                return socketA_Req_State;
+            }
+            if (index == 1)
+            {
+                return socketB_Requested;
+            }
+            if (index == 2)
+            {
+                return socketC_Requested;
             }
             else
             {
-                nRtn = socketB_Requested[no];
+                return socketD_Requested;
             }
-            return nRtn;
+            //int nRtn = -1;
+            //if (index == 0)
+            //{
+            //    nRtn = socketA_Requested[no];
+            //}
+            //if (index == 1)
+            //{
+            //    nRtn = socketB_Requested[no];
+            //}
+            //if (index == 2)
+            //{
+            //    nRtn = socketC_Requested[no];
+            //}
+            //else
+            //{
+            //    nRtn = socketD_Requested[no];
+            //}
+            //return nRtn;
         }
-
         //public int GetSocketLoadReq(int index)//public int GetSocketLoadReq(int index)
         //{
         //    int rtn = socketA_Requested[index];
