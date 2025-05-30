@@ -19,19 +19,26 @@ namespace ZenHandler.Process
     {
         public CancellationTokenSource CancelTokenSocket;
         public ManualResetEventSlim pauseEvent = new ManualResetEventSlim(true);  // true면 동작 가능
+
         public Task<int> xSocketTask;
         private readonly SynchronizationContext _syncContext;
+
         public int[] nSocketTimeTick = { 0, 0 };
+
         public int nTimeTick = 0;
+
         private int[] socketStateA = { -1, -1, -1, -1 };     // 0은 공급완료, 배출 완료, 1: 공급 요청, 2: 양품 배출, 3: NG 배출
         private int[] socketState_B = { -1, -1, -1, -1 };    // 0은 공급완료, 배출 완료, 1: 공급 요청, 2: 양품 배출, 3: NG 배출
 
         private SocketState[] socketProcessState = new SocketState[2];
         private bool[] InterLock = { false, false };
+
+        private bool isWriteBusy = false;                   //Write 사용 유무
+        private bool WritePositionOccupied = false;         //Write 위치 점유
+        private bool isVerifyBusy = false;                  //Verify 사용 유무
+        private bool VerifyPositionOccupied = false;         //Verify 위치 점유
         public EEpromSocketFlow()
         {
-            //대기위치에서 자동 시작 , 실린더는 후진 상태
-
             //EEPROM 설비는 소켓 하나마다 pc 1대 - 총 8대
             //8대 모두 연결 상태 확인후 진행
 
@@ -42,26 +49,7 @@ namespace ZenHandler.Process
             CancelTokenSocket = new CancellationTokenSource();
             xSocketTask = Task.FromResult(1);      //<--실제 실행하지않고,즉시 완료된 상태로 반환
         }
-        private int RtnSocketAll(int[] socketState)
-        {
-            int nRtn = -1;
-            if (socketState.Length < 1)
-            {
-                return -1;
-            }
-
-            int first = socketState[0];
-            for (int i = 1; i < socketState.Length; i++)
-            {
-
-                if (socketStateA[i] != first)
-                {
-                    return -1;
-                }
-            }
-
-            return first; // 모두 같음 (1 또는 2)
-        }
+        
         //-----------------------------------------------------------------------------------------------------------
         //◀ ▶
         //
@@ -92,7 +80,7 @@ namespace ZenHandler.Process
                     //TODO: 한 시퀀스 끝나고 여기 모여서 다시 진행
                     if (socketProcessState[sNum] == SocketState.Write)       //전부다 Verify 완료 될때까지
                     {
-                        Console.WriteLine("Write Start");
+                        Console.WriteLine("x Write Start");
                         
                         nRetStep = 400;
                         break;
@@ -117,14 +105,30 @@ namespace ZenHandler.Process
                         nRetStep = 200;
                         break;
                     }
+
+                    Globalo.motionManager.socketEEpromMachine.IsTesting[sNum] = false;
+                    nRetStep = 100;
                     break;
                 case 200:
                     //공급 요청
                     //TODO: 공급 요청 완료했다는 신호 별도로 받아야될듯 
-                    socketStateA = new int[] { 1, 1, 1, 1 };        //1 = 공급 요청
+                    for (i = 0; i < 4; i++)
+                    {
+                        if (Globalo.motionManager.socketEEpromMachine.GetIsProductInSocket(sNum, i, true) == false)
+                        {
+                            //socketStateA = new int[] { 1, 1, 1, 1 };        //1 = 공급 요청
+                            socketStateA[i] = 1;
+                        }
+                        else
+                        {
+                            socketStateA[i] = -1;
+                        }
+                    }
+                        
                     Globalo.motionManager.socketEEpromMachine.RaiseProductCall(sNum, socketStateA);        //공급 요청 초기화, Auto_Waiting
                     nRetStep = 220;
                     break;
+
                 case 220:
                     //공급 완료 대기
                     if (Globalo.motionManager.GetSocketDone(sNum) == 0)
@@ -144,6 +148,11 @@ namespace ZenHandler.Process
                                     //공급했는 소켓인데 제품이 없으면 알람
                                     Console.WriteLine($"#{i+1} Socket Product Empty err");
                                     bErrChk = true;
+                                    Globalo.motionManager.socketEEpromMachine.socketProduct.SocketInfo_A[i].State = Machine.SocketProductState.Blank;
+                                }
+                                else
+                                {
+                                    Globalo.motionManager.socketEEpromMachine.socketProduct.SocketInfo_A[i].State = Machine.SocketProductState.Writing;
                                 }
                             }
                         }
@@ -154,9 +163,8 @@ namespace ZenHandler.Process
                             nRetStep *= -1;
                             break;
                         }
-                        socketProcessState[sNum] = SocketState.Write;
-
-                        nRetStep = 400;
+                        Globalo.motionManager.socketEEpromMachine.IsTesting[sNum] = false;      //공급 완료 후
+                        nRetStep = 100;
                         break;
                     }
                     break;
@@ -217,6 +225,7 @@ namespace ZenHandler.Process
                     nRetStep = 416;
                     break;
                 case 416:
+                    WritePositionOccupied = true;
                     bRtn = Globalo.motionManager.socketEEpromMachine.Socket_X_Move(Machine.EEpromSocketMachine.eTeachingPosList.WRITE_POS, Machine.eEEpromSocket.BACK_X, false);
 
                     if (bRtn == false)
@@ -355,6 +364,8 @@ namespace ZenHandler.Process
 
                 case 440:
                     //Write 완료 대기
+
+                    
                     nRetStep = 450;
                     break;
   
@@ -435,6 +446,7 @@ namespace ZenHandler.Process
                     nRetStep = 470;
                     break;
                 case 470:
+                    isWriteBusy = false;    //X소켓 Write 완료
                     nRetStep = 100;
                     break;
                 //--------------------------------------------------------------------------------------------------------------------------
@@ -451,6 +463,7 @@ namespace ZenHandler.Process
                     nRetStep = 510;
                     break;
                 case 510:
+                    VerifyPositionOccupied = true;
                     szLog = $"[AUTO] FRONT SOCKET X VERIFY POS MOVE [STEP : {nStep}]";
                     Globalo.LogPrint("ManualControl", szLog);
 
@@ -579,6 +592,7 @@ namespace ZenHandler.Process
                     break;
                 case 550:
                     //Verify 완료 대기
+                    
                     nRetStep = 552;
                     break;
                 case 552:
@@ -663,7 +677,7 @@ namespace ZenHandler.Process
                     break;
                 case 570:
                     //Verify 완료
-                    socketProcessState[sNum] = SocketState.UnLoadReq;   // Machine.SocketProductState.Good; Machine.SocketProductState.NG;
+                    isVerifyBusy = false;
                     nRetStep = 580;
                     break;
                 case 580:
@@ -771,45 +785,7 @@ namespace ZenHandler.Process
         }
 
 
-        private int[] RtnSocketState(int index, List<Machine.SocketProductInfo> socketState)
-        {
-            int i = 0;
-            int[] tempState = { -1, -1, -1, -1 };
-            for (i = 0; i < 4; i++)
-            {
-                if (Globalo.motionManager.socketEEpromMachine.GetIsProductInSocket(index, i, true) == false)
-                {
-                    tempState[i] = 1;        //1 = 공급요청
-                    socketState[i].State = Machine.SocketProductState.Blank;
-                }
-                else
-                {
-                    //있으면 검사 or 배출 요청
-                    if (socketState[i].State == Machine.SocketProductState.Writing)        //Writing 할 차례
-                    {
-                        //write 미완료
-                        tempState[i] = 3;
-                    }
-                    else if (socketState[i].State == Machine.SocketProductState.Verifying)        //verify 할 차례
-                    {
-                        //verify 미완료
-                        tempState[i] = 4;
-                    }
-                    else if (socketState[i].State == Machine.SocketProductState.Good || socketState[i].State == Machine.SocketProductState.NG)
-                    {
-                        //write + verify 완료
-                        tempState[i] = 2; //양품 or 불량 배출 요청
-                    }
-                    else
-                    {
-                        //상태 이상
-                        tempState[i] = 0;
-                    }
-                }
-            }
-
-            return tempState;
-        }
+        
         #region [Auto_Waiting]
 
         public int Auto_Waiting(int nStep)
@@ -822,155 +798,110 @@ namespace ZenHandler.Process
             switch (nStep)
             {
                 case 3000:
-                    if (Globalo.motionManager.socketEEpromMachine.IsTesting[0] == true || Globalo.motionManager.socketEEpromMachine.IsTesting[1] == true)
+
+                    if (Globalo.motionManager.socketEEpromMachine.IsTesting[0] == false)
                     {
-                        break;
-                    }
+                        socketProcessState[0] = SocketState.Wait;
+                        socketStateA = new int[] { -1, -1, -1, -1 };
+                        Globalo.motionManager.socketEEpromMachine.RaiseProductCall(0, socketStateA);         //공급 요청 초기화, Auto_Waiting
 
-                    socketProcessState[0] = SocketState.Wait;// Machine.SocketProductState.Blank;
-                    socketProcessState[1] = SocketState.Wait;//Machine.SocketProductState.Blank;
+                        //-----------------------------------------------------------------------------------------------------------------------------------
+                        //
+                        //
+                        //  A소켓 좌우 이동하는 후면 ◀ ▶
+                        //
+                        //
+                        //-----------------------------------------------------------------------------------------------------------------------------------
+                        socketStateA = RtnSocketState(0, Globalo.motionManager.socketEEpromMachine.socketProduct.SocketInfo_A);
+                        //
+                        //
+                        bool containsWrite3 = Array.Exists(socketStateA, state => state == 3);
+                        bool containsVerify4 = Array.Exists(socketStateA, state => state == 4);
+                        int socketA = RtnSocketAll(socketStateA);
 
-                    socketStateA = new int[] { -1, -1, -1, -1 };
-                    socketState_B = new int[] { -1, -1, -1, -1 };
+                        if (socketA == 1)       //4개 전부 없음
+                        {
+                            if (VerifyPositionOccupied == false)        //verify 영역에서 공급
+                            {
+                                socketProcessState[0] = SocketState.LoadReq;    //공급 요청
+                            }
+                                
+                        }
+                        else if (containsWrite3 == true)
+                        {
+                            if (isWriteBusy == false && WritePositionOccupied == false)
+                            {
+                                isWriteBusy = true;
+                                socketProcessState[0] = SocketState.Write;  //Write 진행 - Write 해야될 제품이 1개 이상 존재
+                            }
+                        }
+                        else if (containsVerify4 == true)
+                        {
+                            if(isVerifyBusy == false && VerifyPositionOccupied == false)
+                            {
+                                isVerifyBusy = true;
+                                socketProcessState[0] = SocketState.Verify; //Verify 진행 - Verify 해야될 제품이 1개 이상 존재
+                            }
+                            
+                        }
+                        else
+                        {
+                            if(VerifyPositionOccupied == false)     //verify 영역에서 배출
+                            {
+                                socketProcessState[0] = SocketState.UnLoadReq;  //배출, 양품 or 불량
+                            }
+                            
+                        }
 
-                    Globalo.motionManager.socketEEpromMachine.RaiseProductCall(0, socketStateA);         //공급 요청 초기화, Auto_Waiting
-                    Globalo.motionManager.socketEEpromMachine.RaiseProductCall(1, socketState_B);        //공급 요청 초기화, Auto_Waiting
-
-                    //TCP 통신 연결 상태도 확인
-
-                    //검사는 별도 Task 에서 진행
-                    //test
-
-
-                    //-----------------------------------------------------------------------------------------------------------------------------------
-                    //
-                    //
-                    //  A소켓 좌우 이동하는 후면 ◀ ▶
-                    //
-                    //
-                    //-----------------------------------------------------------------------------------------------------------------------------------
-                    socketStateA = RtnSocketState(0, Globalo.motionManager.socketEEpromMachine.socketProduct.SocketInfo_A);
-                    //for (i = 0; i < 4; i++)
-                    //{
-                    //    if (Globalo.motionManager.socketEEpromMachine.GetIsProductInSocket(0, i, true) == false)
-                    //    {
-                    //        socketStateA[i] = 1;        //1 = 공급요청
-                    //        Globalo.motionManager.socketEEpromMachine.socketProduct.SocketInfo_A[i].State = Machine.SocketProductState.Blank;
-                    //    }
-                    //    else
-                    //    {
-                    //        //있으면 검사 or 배출 요청
-                    //        if (Globalo.motionManager.socketEEpromMachine.socketProduct.SocketInfo_A[i].State == Machine.SocketProductState.Writing)        //Writing 할 차례
-                    //        {
-                    //            //write 미완료
-                    //            socketStateA[i] = 3;
-                    //        }
-                    //        if (Globalo.motionManager.socketEEpromMachine.socketProduct.SocketInfo_A[i].State == Machine.SocketProductState.Verifying)        //verify 할 차례
-                    //        {
-                    //            //verify 미완료
-                    //            socketStateA[i] = 4;
-                    //        }
-                    //        if (Globalo.motionManager.socketEEpromMachine.socketProduct.SocketInfo_A[i].State == Machine.SocketProductState.Good ||
-                    //            Globalo.motionManager.socketEEpromMachine.socketProduct.SocketInfo_A[i].State == Machine.SocketProductState.NG)
-                    //        {
-                    //            //write + verify 완료
-                    //            socketStateA[i] = 2; //양품 or 불량 배출 요청
-                    //        }
-                    //        else
-                    //        {
-                    //            //상태 이상
-                    //            socketStateA[i] = 0;
-                    //        }
-                    //    }
-                    //}
-                    bool containsWrite3 = Array.Exists(socketStateA, state => state == 3);
-                    bool containsVerify4 = Array.Exists(socketStateA, state => state == 4);
-                    int socketA = RtnSocketAll(socketStateA);
-
-                    if (socketA == 1)       //4개 전부 없음
-                    {
-                        socketProcessState[0] = SocketState.LoadReq;    //공급 요청
-                    }
-                    else if (containsWrite3 == true) //Write 해야될 제품이 1개 이상 존재
-                    {
-                        socketProcessState[0] = SocketState.Write;  //Write 진행
-                    }
-                    else if (containsVerify4 == true)   //Verify 해야될 제품이 1개 이상 존재
-                    {
-                        socketProcessState[0] = SocketState.Verify; //Verify 진행
-                    }
-                    else
-                    {
+                        if(socketProcessState[0] != SocketState.Wait)
+                        {
+                            Globalo.motionManager.socketEEpromMachine.IsTesting[0] = true;      //true로 바꿔야 socket flow 진행 가능
+                        }
                         
-                        socketProcessState[0] = SocketState.UnLoadReq;  //배출, 양품 or 불량
                     }
-
-                    //-----------------------------------------------------------------------------------------------------------------------------------
                     //
+                    //===============================================================================================================================================
                     //
-                    //  B소켓 위,아래 이동하는 전면  ↑↓
-                    //
-                    //
-                    //-----------------------------------------------------------------------------------------------------------------------------------
-                    socketState_B = RtnSocketState(1, Globalo.motionManager.socketEEpromMachine.socketProduct.SocketInfo_B);
-                    //for (i = 0; i < 4; i++)
-                    //{
-                    //    if (Globalo.motionManager.socketEEpromMachine.GetIsProductInSocket(1, i, true) == false)
-                    //    {
-                    //        socketState_B[i] = 1;        //1 = 공급요청
-                    //        Globalo.motionManager.socketEEpromMachine.socketProduct.SocketInfo_B[i].State = Machine.SocketProductState.Blank;
-                    //    }
-                    //    else
-                    //    {
-                    //        //있으면 검사 or 배출 요청
-                    //        if (Globalo.motionManager.socketEEpromMachine.socketProduct.SocketInfo_B[i].State == Machine.SocketProductState.Writing)        //Writing 할 차례
-                    //        {
-                    //            //write 미완료
-                    //            socketState_B[i] = 3;
-                    //        }
-                    //        if (Globalo.motionManager.socketEEpromMachine.socketProduct.SocketInfo_B[i].State == Machine.SocketProductState.Verifying)        //verify 할 차례
-                    //        {
-                    //            //verify 미완료
-                    //            socketState_B[i] = 4;
-                    //        }
-                    //        if (Globalo.motionManager.socketEEpromMachine.socketProduct.SocketInfo_B[i].State == Machine.SocketProductState.Good ||
-                    //            Globalo.motionManager.socketEEpromMachine.socketProduct.SocketInfo_B[i].State == Machine.SocketProductState.NG)
-                    //        {
-                    //            //write + verify 완료
-                    //            socketState_B[i] = 2; //양품 or 불량 배출 요청
-                    //        }
-                    //        else
-                    //        {
-                    //            //상태 이상
-                    //            socketState_B[i] = 0;
-                    //        }
-                    //    }
-                    //}
-
-                    containsWrite3 = Array.Exists(socketState_B, state => state == 3);
-                    containsVerify4 = Array.Exists(socketState_B, state => state == 4);
-                    int socket_B = RtnSocketAll(socketState_B);
-
-                    if (socket_B == 1)       //4개 전부 없음
+                    if (Globalo.motionManager.socketEEpromMachine.IsTesting[1] == false)
                     {
-                        socketProcessState[1] = SocketState.LoadReq;    //공급 요청
-                    }
-                    else if (containsWrite3 == true) //Write 해야될 제품이 1개 이상 존재
-                    {
-                        socketProcessState[1] = SocketState.Write;  //Write 진행
-                    }
-                    else if (containsVerify4 == true)   //Verify 해야될 제품이 1개 이상 존재
-                    {
-                        socketProcessState[1] = SocketState.Verify; //Verify 진행
-                    }
-                    else
-                    {
+                        socketProcessState[1] = SocketState.Wait;
+                        socketState_B = new int[] { -1, -1, -1, -1 };
+                        Globalo.motionManager.socketEEpromMachine.RaiseProductCall(1, socketState_B);        //공급 요청 초기화, Auto_Waiting
 
-                        socketProcessState[1] = SocketState.UnLoadReq;  //배출, 양품 or 불량
-                    }
+                        //-----------------------------------------------------------------------------------------------------------------------------------
+                        //
+                        //
+                        //  B소켓 위,아래 이동하는 전면  ↑↓
+                        //
+                        //
+                        //-----------------------------------------------------------------------------------------------------------------------------------
+                        socketState_B = RtnSocketState(1, Globalo.motionManager.socketEEpromMachine.socketProduct.SocketInfo_B);
+                        //
+                        //
+                        bool containsWrite3 = Array.Exists(socketState_B, state => state == 3);
+                        bool containsVerify4 = Array.Exists(socketState_B, state => state == 4);
 
-                    Globalo.motionManager.socketEEpromMachine.IsTesting[0] = true;      //true로 바꿔야 socket flow 진행 가능
-                    Globalo.motionManager.socketEEpromMachine.IsTesting[1] = true;      //true로 바꿔야 socket flow 진행 가능
+                        int socket_B = RtnSocketAll(socketState_B);
+
+                        if (socket_B == 1)       //4개 전부 없음
+                        {
+                            socketProcessState[1] = SocketState.LoadReq;    //공급 요청
+                        }
+                        else if (containsWrite3 == true)
+                        {
+                            socketProcessState[1] = SocketState.Write;  //Write 진행 - Write 해야될 제품이 1개 이상 존재
+                        }
+                        else if (containsVerify4 == true)
+                        {
+                            socketProcessState[1] = SocketState.Verify; //Verify 진행 - Verify 해야될 제품이 1개 이상 존재
+                        }
+                        else
+                        {
+                            socketProcessState[1] = SocketState.UnLoadReq;  //배출, 양품 or 불량
+                        }
+
+                        Globalo.motionManager.socketEEpromMachine.IsTesting[1] = true;      //true로 바꿔야 socket flow 진행 가능
+                    }
                     break;
             }
 
@@ -1142,8 +1073,11 @@ namespace ZenHandler.Process
                     Globalo.motionManager.socketEEpromMachine.RaiseProductCall(0, new int[] { -1, -1, -1, -1 });         //#1 Socket 요청 초기화 , Ready
                     Globalo.motionManager.socketEEpromMachine.RaiseProductCall(1, new int[] { -1, -1, -1, -1 });         //#2 Socket 요청 초기화 , Ready
 
-                    Globalo.motionManager.socketEEpromMachine.IsTesting[0] = false;
-                    Globalo.motionManager.socketEEpromMachine.IsTesting[1] = false;
+                    Globalo.motionManager.socketEEpromMachine.IsTesting[0] = false; //Ready
+                    Globalo.motionManager.socketEEpromMachine.IsTesting[1] = false; //Ready
+
+                    
+
                     nRetStep = 2020;
                     break;
                 case 2020:
@@ -1477,6 +1411,12 @@ namespace ZenHandler.Process
                     nRetStep = 2900;
                     break;
                 case 2900:
+
+                    isWriteBusy = false;
+                    isVerifyBusy = false;
+                    WritePositionOccupied = false;
+                    VerifyPositionOccupied = true;      //x축 소켓이 점유
+
                     Globalo.motionManager.socketEEpromMachine.RunState = OperationState.Standby;
                     szLog = $"[READY] EEPROM SOCKET 운전준비 완료 [STEP : {nStep}]";
                     Globalo.LogPrint("ManualControl", szLog);
@@ -1791,5 +1731,66 @@ namespace ZenHandler.Process
             return nRetStep;
         }
         #endregion
+
+
+        private int[] RtnSocketState(int index, List<Machine.SocketProductInfo> socketState)
+        {
+            int i = 0;
+            int[] tempState = { -1, -1, -1, -1 };
+            for (i = 0; i < 4; i++)
+            {
+                if (Globalo.motionManager.socketEEpromMachine.GetIsProductInSocket(index, i, true) == false)
+                {
+                    tempState[i] = 1;        //1 = 공급요청
+                    socketState[i].State = Machine.SocketProductState.Blank;
+                }
+                else
+                {
+                    //있으면 검사 or 배출 요청
+                    if (socketState[i].State == Machine.SocketProductState.Writing)        //Writing 할 차례
+                    {
+                        //write 미완료
+                        tempState[i] = 3;
+                    }
+                    else if (socketState[i].State == Machine.SocketProductState.Verifying)        //verify 할 차례
+                    {
+                        //verify 미완료
+                        tempState[i] = 4;
+                    }
+                    else if (socketState[i].State == Machine.SocketProductState.Good || socketState[i].State == Machine.SocketProductState.NG)
+                    {
+                        //write + verify 완료
+                        tempState[i] = 2; //양품 or 불량 배출 요청
+                    }
+                    else
+                    {
+                        //상태 이상
+                        tempState[i] = 0;
+                    }
+                }
+            }
+
+            return tempState;
+        }
+        private int RtnSocketAll(int[] socketState)
+        {
+            int nRtn = -1;
+            if (socketState.Length < 1)
+            {
+                return -1;
+            }
+
+            int first = socketState[0];
+            for (int i = 1; i < socketState.Length; i++)
+            {
+
+                if (socketStateA[i] != first)
+                {
+                    return -1;
+                }
+            }
+
+            return first; // 모두 같음 (1 또는 2)
+        }
     }
 }
