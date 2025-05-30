@@ -885,18 +885,28 @@ namespace ZenHandler.Process
 
                         if (socket_B == 1)       //4개 전부 없음
                         {
+                            //Y실린더 후진이면 가능
                             socketProcessState[1] = SocketState.LoadReq;    //공급 요청
                         }
                         else if (containsWrite3 == true)
                         {
-                            socketProcessState[1] = SocketState.Write;  //Write 진행 - Write 해야될 제품이 1개 이상 존재
+                            if (isWriteBusy == false && WritePositionOccupied == false)
+                            {
+                                socketProcessState[1] = SocketState.Write;  //Write 진행 - Write 해야될 제품이 1개 이상 존재
+                            }
+                                
                         }
                         else if (containsVerify4 == true)
                         {
-                            socketProcessState[1] = SocketState.Verify; //Verify 진행 - Verify 해야될 제품이 1개 이상 존재
+                            if (isVerifyBusy == false && VerifyPositionOccupied == false)
+                            {
+                                socketProcessState[1] = SocketState.Verify; //Verify 진행 - Verify 해야될 제품이 1개 이상 존재
+                            }
+                                
                         }
                         else
                         {
+                            //Y실린더 후진이면 가능
                             socketProcessState[1] = SocketState.UnLoadReq;  //배출, 양품 or 불량
                         }
 
