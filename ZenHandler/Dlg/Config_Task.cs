@@ -305,6 +305,7 @@ namespace ZenHandler.Dlg
         public void GetTaskData()
         {
             int i = 0;
+            int j = 0;
             //운전 설정
             Globalo.yamlManager.configData.DrivingSettings.PinCountUse = hopeCheckBox_PinCountUse.Checked;
 
@@ -365,8 +366,56 @@ namespace ZenHandler.Dlg
             {
                 Globalo.motionManager.liftMachine.trayProduct.LeftTrayLayer = int.Parse(label_ConfigTask_Left_Tray_Layer_Val.Text);
                 Globalo.motionManager.liftMachine.trayProduct.RightTrayLayer = int.Parse(label_ConfigTask_Right_Tray_Layer_Val.Text);
-            }
 
+
+                
+            }
+            for (i = 0; i < SocketStateRow; i++)
+            {
+                for (j = 0; j < 4; j++)
+                {
+                    if (Enum.TryParse(SocketLabel[i, j].Text, out Machine.SocketProductState LoadState))
+                    {
+                        if (i == 0)
+                        {
+                            Globalo.motionManager.socketEEpromMachine.socketProduct.SocketInfo_A[j].State = LoadState;
+                        }
+                        if (i == 1)
+                        {
+                            Globalo.motionManager.socketEEpromMachine.socketProduct.SocketInfo_B[j].State = LoadState;
+                        }
+                        if (i == 2)
+                        {
+                            Globalo.motionManager.socketEEpromMachine.socketProduct.SocketInfo_C[j].State = LoadState;
+                        }
+                        if (i == 3)
+                        {
+                            Globalo.motionManager.socketEEpromMachine.socketProduct.SocketInfo_D[j].State = LoadState;
+                        }
+
+                    }
+                    else
+                    {
+                        // 예외 처리 또는 기본값 설정
+                        if (i == 0)
+                        {
+                            Globalo.motionManager.socketEEpromMachine.socketProduct.SocketInfo_A[j].State = Machine.SocketProductState.Blank;
+                        }
+                        if (i == 1)
+                        {
+                            Globalo.motionManager.socketEEpromMachine.socketProduct.SocketInfo_B[j].State = Machine.SocketProductState.Blank;
+                        }
+                        if (i == 2)
+                        {
+                            Globalo.motionManager.socketEEpromMachine.socketProduct.SocketInfo_C[j].State = Machine.SocketProductState.Blank;
+                        }
+                        if (i == 3)
+                        {
+                            Globalo.motionManager.socketEEpromMachine.socketProduct.SocketInfo_D[j].State = Machine.SocketProductState.Blank;
+                        }
+                    }
+                }
+            }
 
 
             string delaydata = "";
@@ -567,24 +616,28 @@ namespace ZenHandler.Dlg
         private void Btn_ConfigTask_Save_Click(object sender, EventArgs e)
         {
             GetTaskData();
+
             Globalo.motionManager.transferMachine.TaskSave();
             Globalo.yamlManager.taskDataYaml.TaskDataSave();
 
             Globalo.pickerInfo.SetLoadPickerInfo();
             Globalo.pickerInfo.SetUnloadPickerInfo();
-
+            Globalo.socketStateInfo.SetUpdateSocket();
 
             if (Program.PG_SELECT == HANDLER_PG.FW)
             {
                 Globalo.motionManager.magazineHandler.TaskSave();
+                Globalo.motionManager.socketFwMachine.TaskSave();
             }
             else if (Program.PG_SELECT == HANDLER_PG.AOI)
             {
                 Globalo.motionManager.liftMachine.TaskSave();
+                Globalo.motionManager.socketAoiMachine.TaskSave();
             }
             else if (Program.PG_SELECT == HANDLER_PG.EEPROM)
             {
                 Globalo.motionManager.liftMachine.TaskSave();
+                Globalo.motionManager.socketEEpromMachine.TaskSave();
             }
         }
 

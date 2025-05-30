@@ -16,7 +16,12 @@ namespace ZenHandler.TcpSocket
         Tester2 = 1,    // IP 뒷자리 2
         Tester3 = 2,    // IP 뒷자리 3
         Tester4 = 3,    // IP 뒷자리 4
-        SecsGem = 4     // IP 뒷자리 100 → 배열엔 5개니까 마지막 인덱스 4
+        Tester5 = 4,    // IP 뒷자리 5
+        Tester6 = 5,    // IP 뒷자리 6
+        Tester7 = 6,    // IP 뒷자리 7
+        Tester8 = 7,    // IP 뒷자리 8
+
+        SecsGem = 10     // IP 뒷자리 100 → 배열엔 5개니까 마지막 인덱스 4
     }
     public class TcpServer
     {
@@ -33,6 +38,10 @@ namespace ZenHandler.TcpSocket
             { 2, ClientSlotIndex.Tester2 },
             { 3, ClientSlotIndex.Tester3 },
             { 4, ClientSlotIndex.Tester4 },
+            { 5, ClientSlotIndex.Tester5 },
+            { 6, ClientSlotIndex.Tester6 },
+            { 7, ClientSlotIndex.Tester7 },
+            { 8, ClientSlotIndex.Tester8 },
             { 100, ClientSlotIndex.SecsGem }
         };
         //public event Action<string> OnMessageReceived; // 메시지 수신 이벤트
