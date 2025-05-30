@@ -145,6 +145,16 @@ namespace ZenHandler.Machine
         {
             No = index;
         }
+
+        public SocketProductInfo Clone()
+        {
+            return new SocketProductInfo
+            {
+                No = this.No,
+                State = this.State,
+                BcrLot = this.BcrLot
+            };
+        }
     }
     public class AoiSocketProduct
     {

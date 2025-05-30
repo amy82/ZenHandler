@@ -14,6 +14,8 @@ namespace ZenHandler.Dlg
     {
         private Label[] LoadLabel;
         private Label[] UnloadLabel;
+
+        private Label[,] SocketLabel;
         private Controls.DefaultGridView DelayGridView;
         private int GridCol = 2;                                //name , time
         private int[] StartPos = new int[] { 379, 50 };        //Grid Pos
@@ -22,13 +24,56 @@ namespace ZenHandler.Dlg
 
         public List<Machine.ProductInfo> tempLoadInfo { get; set; } = new List<Machine.ProductInfo>();
         public List<Machine.ProductInfo> tempUnloadInfo { get; set; } = new List<Machine.ProductInfo>();
+
+        public List<List<Machine.SocketProductInfo>> tempSocket { get; set; } = new List<List<Machine.SocketProductInfo>>(4);
+
+        private int SocketStateRow = 2;
+        private int socketStateCol = 4;
         public Config_Task()
         {
+            int i = 0;
+            int j = 0;
             InitializeComponent();
+
+            if (Program.PG_SELECT == HANDLER_PG.FW)
+            {
+                SocketStateRow = 4;
+            }
+            else
+            {
+
+            }
+
 
             LoadLabel = new Label[] { label_ConfigTask_Load_P1, label_ConfigTask_Load_P2, label_ConfigTask_Load_P3, label_ConfigTask_Load_P4 };
             UnloadLabel = new Label[] { label_ConfigTask_Unload_P1, label_ConfigTask_Unload_P2, label_ConfigTask_Unload_P3, label_ConfigTask_Unload_P4 };
+            SocketLabel = new Label[4, 4]
+            {
+                {label_ConfigTask_Socket_State_A1, label_ConfigTask_Socket_State_A2, label_ConfigTask_Socket_State_A3, label_ConfigTask_Socket_State_A4},
+                {label_ConfigTask_Socket_State_B1, label_ConfigTask_Socket_State_B2, label_ConfigTask_Socket_State_B3, label_ConfigTask_Socket_State_B4},
+                {label_ConfigTask_Socket_State_C1, label_ConfigTask_Socket_State_C2, label_ConfigTask_Socket_State_C3, label_ConfigTask_Socket_State_C4},
+                {label_ConfigTask_Socket_State_D1, label_ConfigTask_Socket_State_D2, label_ConfigTask_Socket_State_D3, label_ConfigTask_Socket_State_D4}
+            };
 
+            for (i = 0; i < SocketStateRow; i++)
+            {
+                tempSocket.Add(new List<Machine.SocketProductInfo>());
+            }
+
+            if (Program.PG_SELECT != HANDLER_PG.FW)
+            {
+                //소켓 정보 지우기
+                label_ConfigTask_Socket_State_C.Visible = false;
+                label_ConfigTask_Socket_State_D.Visible = false;
+
+                for (i = 2; i < 4; i++)
+                {
+                    for (j = 0; j < 4; j++)
+                    {
+                        SocketLabel[i, j].Visible = false;      //EEPROM , AOI 설비 C,D 타입 안보이게 변경
+                    }
+                }
+            }
             InitDelayGrid();
         }
         public void InitDelayGrid()
@@ -99,6 +144,35 @@ namespace ZenHandler.Dlg
                 }
             }
         }
+        public void ShowSocketData()
+        {
+            int i = 0;
+            int j = 0;
+            //
+            for (i = 0; i < SocketStateRow; i++)
+            {
+                for (j = 0; j < socketStateCol; j++)
+                {
+                    SocketLabel[i,j].Text = tempSocket[i][j].State.ToString();
+
+                    if (tempSocket[i][j].State == Machine.SocketProductState.Good)
+                    {
+                        SocketLabel[i,j].BackColor = Color.Green; 
+                        SocketLabel[i, j].ForeColor = Color.GreenYellow;
+                    }
+                    else if (tempSocket[i][j].State == Machine.SocketProductState.NG)
+                    {
+                        SocketLabel[i, j].BackColor = Color.Red;
+                        SocketLabel[i, j].ForeColor = Color.White;
+                    }
+                    else
+                    {
+                        SocketLabel[i,j].BackColor = Color.White;
+                        SocketLabel[i, j].ForeColor = Color.Black;
+                    }
+                }
+            }
+        }
         public void ShowTaskData()
         {
             int i = 0;
@@ -117,12 +191,38 @@ namespace ZenHandler.Dlg
             tempUnloadInfo.Add(Globalo.motionManager.transferMachine.pickedProduct.UnLoadProductInfo[2].Clone());
             tempUnloadInfo.Add(Globalo.motionManager.transferMachine.pickedProduct.UnLoadProductInfo[3].Clone());
 
+            for (i = 0; i < SocketStateRow; i++)
+            {
+                tempSocket[i].Clear();
+            }
+            
+            foreach (var item in Globalo.motionManager.socketEEpromMachine.socketProduct.SocketInfo_A)
+            {
+                tempSocket[0].Add(item.Clone());
+            }
+            foreach (var item in Globalo.motionManager.socketEEpromMachine.socketProduct.SocketInfo_B)
+            {
+                tempSocket[1].Add(item.Clone());
+            }
+            if (Program.PG_SELECT == HANDLER_PG.FW)
+            {
+                foreach (var item in Globalo.motionManager.socketEEpromMachine.socketProduct.SocketInfo_C)
+                {
+                    tempSocket[2].Add(item.Clone());
+                }
+                foreach (var item in Globalo.motionManager.socketEEpromMachine.socketProduct.SocketInfo_D)
+                {
+                    tempSocket[3].Add(item.Clone());
+                }
+            }
+            
 
 
 
             ShowTaskPicker();
             ShowTrayPos();
             ShowMagazineLayer();
+            ShowSocketData();
         }
         public void ShowMagazineLayer()
         {
@@ -286,6 +386,7 @@ namespace ZenHandler.Dlg
                 //myTeachingGrid.MotorStateRun(true);
             }
             ShowTaskData();
+            
             //myTeachingGrid.ShowTeachingData();
             //TeachResolution(Globalo.motionManager.transferMachine.teachingConfig.Resolution[SelectAxisIndex].ToString("0.#"));
         }
@@ -375,15 +476,6 @@ namespace ZenHandler.Dlg
                     return;
                 }
             }
-            /*
-             Blank = 0,   // 제품 없음    
-        Bcr,
-        Good,       // 양품
-        BcrNg,      // 불량
-        TestNg,
-        Unknown     // 미확인 (필요 시) 
-             */
-
             //Blank, Bcr, Good, BcrNg, TestNg, TestNg_2, TestNg_3, TestNg_4
             //Machine.PickedProductState tempState = Globalo.motionManager.transferMachine.pickedProduct.UnLoadProductInfo[index].State;
 
@@ -506,13 +598,13 @@ namespace ZenHandler.Dlg
                 Globalo.LogPrint("ManualControl", "[INFO] 전체 유닛 정지상태에서 변경 가능합니다.", Globalo.eMessageName.M_WARNING);
                 return;
             }
-            if (Globalo.yamlManager.configData.DrivingSettings.drivingMode == eDrivingMode.NOMAL)
+            if (Globalo.yamlManager.configData.DrivingSettings.drivingMode == eDrivingMode.NORMAL)
             {
                 Globalo.yamlManager.configData.DrivingSettings.drivingMode = eDrivingMode.DRY_RUN;
             }
             else
             {
-                Globalo.yamlManager.configData.DrivingSettings.drivingMode = eDrivingMode.NOMAL;
+                Globalo.yamlManager.configData.DrivingSettings.drivingMode = eDrivingMode.NORMAL;
             }
 
             Btn_ConfigTask_Driving_Mode.Text = Globalo.yamlManager.configData.DrivingSettings.drivingMode.ToString();
@@ -771,6 +863,147 @@ namespace ZenHandler.Dlg
             //Right Magazine5
             Label label = sender as Label;
             SetMagazineLayer(1, 4, label);
+        }
+
+        private void SetSocketState(int Group, int index, Label label, bool UserSet = false)
+        {
+            if (Globalo.motionManager.socketAoiMachine.RunState != OperationState.Stopped &&
+                Globalo.motionManager.socketEEpromMachine.RunState != OperationState.Stopped &&
+                Globalo.motionManager.socketFwMachine.RunState != OperationState.Stopped)
+            {
+                //Socket Unit 정지상태에서만 설정 가능합니다.
+                Globalo.LogPrint("ManualControl", "[INFO] SOCKET UNIT 정지 상태에서 변경 가능합니다.", Globalo.eMessageName.M_WARNING);
+                return;
+            }
+            //Globalo.motionManager.socketEEpromMachine.socketProduct.SocketInfo_A
+            //if (tempSocketA[index].State == Machine.SocketProductState.Blank)
+            //if (Globalo.motionManager.transferMachine.pickedProduct.UnLoadProductInfo[index].State == Machine.PickedProductState.Blank)
+
+
+            var values = (Machine.SocketProductState[])Enum.GetValues(typeof(Machine.SocketProductState));
+            int maxCount = values.Length;
+            int currentIndex = 0;// Array.IndexOf(values, tempSocketA[index].State);
+
+            currentIndex = Array.IndexOf(values, tempSocket[Group][index].State);
+            if (currentIndex < maxCount - 1)
+            {
+                
+                currentIndex++;
+                tempSocket[Group][index].State = values[currentIndex];
+            }
+            else
+            {
+                label.BackColor = Color.White;
+                label.ForeColor = Color.Black;
+                tempSocket[Group][index].State = Machine.SocketProductState.Blank;
+            }
+            if (tempSocket[Group][index].State == Machine.SocketProductState.NG)
+            {
+                label.BackColor = Color.Red;
+                label.ForeColor = Color.White;
+            }
+            if (tempSocket[Group][index].State == Machine.SocketProductState.Good)
+            {
+                label.BackColor = Color.Green;
+                label.ForeColor = Color.GreenYellow;
+            }
+            label.Text = tempSocket[Group][index].State.ToString();
+        }
+
+        private void label_ConfigTask_Socket_State_A1_Click(object sender, EventArgs e)
+        {
+            Label label = sender as Label;
+            SetSocketState(0, 0, label);
+        }
+
+        private void label_ConfigTask_Socket_State_A2_Click(object sender, EventArgs e)
+        {
+            Label label = sender as Label;
+            SetSocketState(0, 1, label);
+        }
+
+        private void label_ConfigTask_Socket_State_A3_Click(object sender, EventArgs e)
+        {
+            Label label = sender as Label;
+            SetSocketState(0, 2, label);
+        }
+
+        private void label_ConfigTask_Socket_State_A4_Click(object sender, EventArgs e)
+        {
+            Label label = sender as Label;
+            SetSocketState(0, 3, label);
+        }
+
+        private void label_ConfigTask_Socket_State_B1_Click(object sender, EventArgs e)
+        {
+            Label label = sender as Label;
+            SetSocketState(1, 0, label);
+        }
+
+        private void label_ConfigTask_Socket_State_B2_Click(object sender, EventArgs e)
+        {
+            Label label = sender as Label;
+            SetSocketState(1, 1, label);
+        }
+
+        private void label_ConfigTask_Socket_State_B3_Click(object sender, EventArgs e)
+        {
+            Label label = sender as Label;
+            SetSocketState(1, 2, label);
+        }
+
+        private void label_ConfigTask_Socket_State_B4_Click(object sender, EventArgs e)
+        {
+            Label label = sender as Label;
+            SetSocketState(1, 3, label);
+        }
+
+        private void label_ConfigTask_Socket_State_C1_Click(object sender, EventArgs e)
+        {
+            Label label = sender as Label;
+            SetSocketState(2, 0, label);
+        }
+
+        private void label_ConfigTask_Socket_State_C2_Click(object sender, EventArgs e)
+        {
+            Label label = sender as Label;
+            SetSocketState(2, 1, label);
+        }
+
+        private void label_ConfigTask_Socket_State_C3_Click(object sender, EventArgs e)
+        {
+            Label label = sender as Label;
+            SetSocketState(2, 2, label);
+        }
+
+        private void label_ConfigTask_Socket_State_C4_Click(object sender, EventArgs e)
+        {
+            Label label = sender as Label;
+            SetSocketState(2, 3, label);
+        }
+
+        private void label_ConfigTask_Socket_State_D1_Click(object sender, EventArgs e)
+        {
+            Label label = sender as Label;
+            SetSocketState(3, 0, label);
+        }
+
+        private void label_ConfigTask_Socket_State_D2_Click(object sender, EventArgs e)
+        {
+            Label label = sender as Label;
+            SetSocketState(3, 1, label);
+        }
+
+        private void label_ConfigTask_Socket_State_D3_Click(object sender, EventArgs e)
+        {
+            Label label = sender as Label;
+            SetSocketState(3, 2, label);
+        }
+
+        private void label_ConfigTask_Socket_State_D4_Click(object sender, EventArgs e)
+        {
+            Label label = sender as Label;
+            SetSocketState(3, 3, label);
         }
     }
 }

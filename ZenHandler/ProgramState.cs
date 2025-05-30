@@ -19,7 +19,7 @@ namespace ZenHandler
     }
     public enum eDrivingMode
     {
-        NOMAL = 0,
+        NORMAL = 0,
         DRY_RUN
     }
     // 글로벌 상태 변수를 관리하는 클래스 정의
