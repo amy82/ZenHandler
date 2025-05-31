@@ -23,7 +23,7 @@ namespace ZenHandler.Process
         private Task<int> Write_Task;
         private Task<int> Verify_Task;
         private int Task_Wait_Write = 1;
-        private int Task_Verify_Write = 1;
+        private int Task_Wait___Verify = 1;
         private readonly SynchronizationContext _syncContext;
 
         public int[] nSocketTimeTick = { 0, 0 };
@@ -77,9 +77,9 @@ namespace ZenHandler.Process
                     {
                         break;
                     }
-                    
                     nRetStep = 120;
                     break;
+
                 case 120:
                     //TODO: 한 시퀀스 끝나고 여기 모여서 다시 진행
                     if (socketProcessState[sNum] == SocketState.Write)       //전부다 Verify 완료 될때까지
@@ -113,9 +113,111 @@ namespace ZenHandler.Process
                     Globalo.motionManager.socketEEpromMachine.IsTesting[sNum] = false;
                     nRetStep = 100;
                     break;
+                //--------------------------------------------------------------------------------------------------------------------------
+                //
+                //
+                //  공급 요청
+                //
+                //
+                //--------------------------------------------------------------------------------------------------------------------------
                 case 200:
+                    nRetStep = 205;
+                    nSocketTimeTick[sNum] = Environment.TickCount;
+                    break;
+                case 205:
+                    //Y 실린더 확인후 Write 이동 후 진행
+                    if (Globalo.motionManager.socketEEpromMachine.GetSocketFor(false) == true)
+                    {
+                        szLog = $"[AUTO] SOCKET CYLINDER BACK CHECK [STEP : {nStep}]";
+                        Globalo.LogPrint("ManualControl", szLog);
+                        nRetStep = 206;
+                    }
+                    else if (Environment.TickCount - nSocketTimeTick[sNum] > MotionControl.MotorSet.IO_TIMEOUT)
+                    {
+                        szLog = $"[AUTO] SOCKET CYLINDER BACK CHECK TIMEOUT[STEP : {nStep}]";
+                        Globalo.LogPrint("ManualControl", szLog, Globalo.eMessageName.M_ERROR);
+                        nRetStep *= -1;
+                        break;
+                    }
+                    break;
+                case 206:
+                    //컨택 실린더 상승 확인 8개 전체
+                    bRtn = Globalo.motionManager.socketEEpromMachine.GetMultiContactUp(0, true);
+                    if (bRtn == false)
+                    {
+                        szLog = $"[READY] WRITE CONTACT UP CHECK FAIL [STEP : {nStep}]";
+                        Globalo.LogPrint("ManualControl", szLog, Globalo.eMessageName.M_ERROR);
+                        nStep *= -1;
+                        break;
+                    }
+                    szLog = $"[READY] WRITE CONTACT UP CHECK [STEP : {nStep}]";
+                    Globalo.LogPrint("ManualControl", szLog);
+
+
+                    bRtn = Globalo.motionManager.socketEEpromMachine.GetMultiContactUp(1, true);
+                    if (bRtn == false)
+                    {
+                        szLog = $"[READY] VERIFY CONTACT UP CHECK FAIL [STEP : {nStep}]";
+                        Globalo.LogPrint("ManualControl", szLog, Globalo.eMessageName.M_ERROR);
+                        nStep *= -1;
+                        break;
+                    }
+
+                    szLog = $"[READY] VERIFY CONTACT UP CHECK [STEP : {nStep}]";
+                    Globalo.LogPrint("ManualControl", szLog);
+
+                    bRtn = Globalo.motionManager.socketEEpromMachine.MultiContactFor(1, false);
+                    if (bRtn == false)
+                    {
+                        szLog = $"[READY] VERIFY CONTACT BACK CHECK FAIL [STEP : {nStep}]";
+                        Globalo.LogPrint("ManualControl", szLog, Globalo.eMessageName.M_ERROR);
+                        nStep *= -1;
+                        break;
+                    }
+
+                    szLog = $"[READY] VERIFY CONTACT CHECK CHECK [STEP : {nStep}]";
+                    Globalo.LogPrint("ManualControl", szLog);
+                    nRetStep = 207;
+                    break;
+                case 207:
+                    bRtn = Globalo.motionManager.socketEEpromMachine.Socket_X_Move(Machine.EEpromSocketMachine.eTeachingPosList.VERIFY_POS, Machine.eEEpromSocket.BACK_X, false);
+
+                    if (bRtn == false)
+                    {
+                        szLog = $"[AUTO] BACK SOCKET X LOAD POS MOVE FAIL [STEP : {nStep}]";
+                        Globalo.LogPrint("ManualControl", szLog, Globalo.eMessageName.M_ERROR);
+                        nRetStep *= -1;
+                        break;
+                    }
+
+                    szLog = $"[AUTO] BACK SOCKET X LOAD POS MOVE [STEP : {nStep}]";
+                    Globalo.LogPrint("ManualControl", szLog);
+
+                    nSocketTimeTick[sNum] = Environment.TickCount;
+                    nRetStep = 208;
+                    break;
+                case 208:
+                    if (Globalo.motionManager.socketEEpromMachine.MotorAxes[(int)Machine.eEEpromSocket.BACK_X].GetStopAxis() == true &&
+                        Globalo.motionManager.socketEEpromMachine.ChkMotorXPos(Machine.EEpromSocketMachine.eTeachingPosList.VERIFY_POS, Machine.eEEpromSocket.BACK_X))
+                    {
+
+                        VerifyPositionOccupied = false;
+                        szLog = $"[AUTO] BACK SOCKET LOAD 위치 이동 완료 [STEP : {nStep}]";
+                        Globalo.LogPrint("ManualControl", szLog);
+                        nRetStep = 210;
+                        break;
+                    }
+                    else if (Environment.TickCount - nSocketTimeTick[sNum] > MotionControl.MotorSet.MOTOR_MOVE_TIMEOUT)
+                    {
+                        szLog = $"[AUTO] BACK SOCKET LOAD 위치 이동 시간 초과 [STEP : {nStep}]";
+                        Globalo.LogPrint("ManualControl", szLog);
+                        nRetStep *= -1;
+                        break;
+                    }
+                    
+                    break;
+                case 210:
                     //공급 요청
-                    //TODO: 공급 요청 완료했다는 신호 별도로 받아야될듯 
                     for (i = 0; i < 4; i++)
                     {
                         if (Globalo.motionManager.socketEEpromMachine.GetIsProductInSocket(sNum, i, true) == false)
@@ -128,14 +230,17 @@ namespace ZenHandler.Process
                             socketStateA[i] = -1;
                         }
                     }
-                        
+
                     Globalo.motionManager.socketEEpromMachine.RaiseProductCall(sNum, socketStateA);        //공급 요청 초기화, Auto_Waiting
 
                     szLog = $"[AUTO] X SOCKET LOAD REQ [{string.Join(", ", socketStateA)}][STEP : {nStep}]";
                     Globalo.LogPrint("ManualControl", szLog);
+
+                    nRetStep = 215;
+                    break;
+                case 215:
                     nRetStep = 220;
                     break;
-
                 case 220:
                     //공급 완료 대기
                     if (Globalo.motionManager.GetSocketDone(sNum) == 0)
@@ -175,22 +280,180 @@ namespace ZenHandler.Process
                         break;
                     }
                     break;
-                    //
-                    //
-                    //
+                //--------------------------------------------------------------------------------------------------------------------------
+                //
+                //
+                //  배출 요청
+                //
+                //
+                //--------------------------------------------------------------------------------------------------------------------------
                 case 300:
                     //배출 요청
+                    nSocketTimeTick[sNum] = Environment.TickCount;
+                    nRetStep = 305;
+                    break;
+                case 305:
+                    //Y 실린더 확인후 Write 이동 후 진행
+                    if (Globalo.motionManager.socketEEpromMachine.GetSocketFor(false) == true)
+                    {
+                        szLog = $"[AUTO] SOCKET CYLINDER BACK CHECK [STEP : {nStep}]";
+                        Globalo.LogPrint("ManualControl", szLog);
+                        nRetStep = 310;
+                    }
+                    else if (Environment.TickCount - nSocketTimeTick[sNum] > MotionControl.MotorSet.IO_TIMEOUT)
+                    {
+                        szLog = $"[AUTO] SOCKET CYLINDER BACK CHECK TIMEOUT[STEP : {nStep}]";
+                        Globalo.LogPrint("ManualControl", szLog, Globalo.eMessageName.M_ERROR);
+                        nRetStep *= -1;
+                        break;
+                    }
+                    break;
+                case 310:
+                    //컨택 실린더 상승 확인 8개 전체
+                    bRtn = Globalo.motionManager.socketEEpromMachine.GetMultiContactUp(0, true);
+                    if (bRtn == false)
+                    {
+                        szLog = $"[READY] WRITE CONTACT UP CHECK FAIL [STEP : {nStep}]";
+                        Globalo.LogPrint("ManualControl", szLog, Globalo.eMessageName.M_ERROR);
+                        nStep *= -1;
+                        break;
+                    }
+                    szLog = $"[READY] WRITE CONTACT UP CHECK [STEP : {nStep}]";
+                    Globalo.LogPrint("ManualControl", szLog);
+
+
+                    bRtn = Globalo.motionManager.socketEEpromMachine.GetMultiContactUp(1, true);
+                    if (bRtn == false)
+                    {
+                        szLog = $"[READY] VERIFY CONTACT UP CHECK FAIL [STEP : {nStep}]";
+                        Globalo.LogPrint("ManualControl", szLog, Globalo.eMessageName.M_ERROR);
+                        nStep *= -1;
+                        break;
+                    }
+
+                    szLog = $"[READY] VERIFY CONTACT UP CHECK [STEP : {nStep}]";
+                    Globalo.LogPrint("ManualControl", szLog);
+
+                    bRtn = Globalo.motionManager.socketEEpromMachine.MultiContactFor(1, false);
+                    if (bRtn == false)
+                    {
+                        szLog = $"[READY] VERIFY CONTACT BACK CHECK FAIL [STEP : {nStep}]";
+                        Globalo.LogPrint("ManualControl", szLog, Globalo.eMessageName.M_ERROR);
+                        nStep *= -1;
+                        break;
+                    }
+
+                    szLog = $"[READY] VERIFY CONTACT CHECK CHECK [STEP : {nStep}]";
+                    Globalo.LogPrint("ManualControl", szLog);
+                    nRetStep = 315;
+                    break;
+                case 315:
+                    bRtn = Globalo.motionManager.socketEEpromMachine.Socket_X_Move(Machine.EEpromSocketMachine.eTeachingPosList.VERIFY_POS, Machine.eEEpromSocket.BACK_X, false);
+
+                    if (bRtn == false)
+                    {
+                        szLog = $"[AUTO] BACK SOCKET X UNLOAD POS MOVE FAIL [STEP : {nStep}]";
+                        Globalo.LogPrint("ManualControl", szLog, Globalo.eMessageName.M_ERROR);
+                        nRetStep *= -1;
+                        break;
+                    }
+
+                    szLog = $"[AUTO] BACK SOCKET X UNLOAD POS MOVE [STEP : {nStep}]";
+                    Globalo.LogPrint("ManualControl", szLog);
+
+                    nSocketTimeTick[sNum] = Environment.TickCount;
+                    nRetStep = 320;
                     break;
                 case 320:
+                    if (Globalo.motionManager.socketEEpromMachine.MotorAxes[(int)Machine.eEEpromSocket.BACK_X].GetStopAxis() == true &&
+                        Globalo.motionManager.socketEEpromMachine.ChkMotorXPos(Machine.EEpromSocketMachine.eTeachingPosList.VERIFY_POS, Machine.eEEpromSocket.BACK_X))
+                    {
+
+                        VerifyPositionOccupied = false;
+                        szLog = $"[AUTO] BACK SOCKET UNLOAD 위치 이동 완료 [STEP : {nStep}]";
+                        Globalo.LogPrint("ManualControl", szLog);
+                        nRetStep = 325;
+                        break;
+                    }
+                    else if (Environment.TickCount - nSocketTimeTick[sNum] > MotionControl.MotorSet.MOTOR_MOVE_TIMEOUT)
+                    {
+                        szLog = $"[AUTO] BACK SOCKET UNLOAD 위치 이동 시간 초과 [STEP : {nStep}]";
+                        Globalo.LogPrint("ManualControl", szLog);
+                        nRetStep *= -1;
+                        break;
+                    }
+                    break;
+                case 325:
+                    //배출 요청
+                    for (i = 0; i < 4; i++)
+                    {
+                        socketStateA[i] = 1;
+                        if (Globalo.motionManager.socketEEpromMachine.GetIsProductInSocket(sNum, i, true) == true)
+                        {
+                            if (Globalo.motionManager.socketEEpromMachine.socketProduct.SocketInfo_A[i].State == Machine.SocketProductState.Good)
+                            {
+                                socketStateA[i] = 2;
+                            }
+                            if (Globalo.motionManager.socketEEpromMachine.socketProduct.SocketInfo_A[i].State == Machine.SocketProductState.NG)
+                            {
+                                socketStateA[i] = 3;
+                            }
+
+                        }
+                    }
+                    //2 = 양품
+                    //3 = 불량
+                    Globalo.motionManager.socketEEpromMachine.RaiseProductCall(sNum, socketStateA);        //배출 요청 초기화, Auto_Waiting
+
+                    szLog = $"[AUTO] X SOCKET UNLOAD REQ [{string.Join(", ", socketStateA)}][STEP : {nStep}]";
+                    Globalo.LogPrint("ManualControl", szLog);
+                    nRetStep = 330;
+                    break;
+                case 330:
                     //배출 완료 대기
+                    if (Globalo.motionManager.GetSocketDone(sNum) == 0)
+                    {
+                        //배출 완료
+                        Globalo.motionManager.InitSocketDone(sNum);             //배출요청 변수 초기화
+                        socketStateA = Globalo.motionManager.GetSocketReq(sNum);    //소켓별 공급 상태 받기
+
+                        //배출완료
+                        bool bErrChk = false;
+                        for (i = 0; i < socketStateA.Length; i++)
+                        {
+                            if (socketStateA[i] == 0)       //0 = 배출완료
+                            {
+                                if (Globalo.motionManager.socketEEpromMachine.GetIsProductInSocket(sNum, i, true) == true)
+                                {
+                                    //배출했는 소켓인데 제품이 없으면 알람
+                                    Console.WriteLine($"#{i + 1} Socket Product Unload Fail");
+                                    bErrChk = true;
+                                }
+                                Globalo.motionManager.socketEEpromMachine.socketProduct.SocketInfo_A[i].State = Machine.SocketProductState.Blank;
+                            }
+                        }
+                        if (bErrChk)
+                        {
+                            szLog = $"[AUTO] SOCKET PRODUCT UNLOAD FAIL[STEP : {nStep}]";
+                            Globalo.LogPrint("ManualControl", szLog, Globalo.eMessageName.M_WARNING);
+                            nRetStep *= -1;
+                            break;
+                        }
+                        nRetStep = 390;
+                        break;
+                    }
                     break;
-                case 340:
-                    //배출 완료
-                    nRetStep = 200;
+                case 390:
+                    Globalo.motionManager.socketEEpromMachine.IsTesting[sNum] = false;      //배출 완료 후
+                    nRetStep = 100;
                     break;
-                    //
-                    //
-                    //
+                //--------------------------------------------------------------------------------------------------------------------------
+                //
+                //
+                //  WRITE
+                //
+                //
+                //--------------------------------------------------------------------------------------------------------------------------
                 case 400:
                     //Write 진행
                     WritePositionOccupied = true;       //#1 SOCKET WRITE 위치 점유
@@ -217,18 +480,32 @@ namespace ZenHandler.Process
                 case 412:
                     //컨택 실린더 상승 확인 8개 전체
                     bRtn = Globalo.motionManager.socketEEpromMachine.GetMultiContactUp(0, true);
-                    if (bRtn)
+                    if (bRtn == false)
                     {
-                        nRetStep = 413;
+                        szLog = $"[READY] WRITE CONTACT UP CHECK FAIL [STEP : {nStep}]";
+                        Globalo.LogPrint("ManualControl", szLog, Globalo.eMessageName.M_ERROR);
+                        nStep *= -1;
+                        break;
                     }
+                    szLog = $"[READY] WRITE CONTACT UP CHECK [STEP : {nStep}]";
+                    Globalo.LogPrint("ManualControl", szLog);
+
+
+                    bRtn = Globalo.motionManager.socketEEpromMachine.GetMultiContactUp(1, true);
+                    if (bRtn == false)
+                    {
+                        szLog = $"[READY] VERIFY CONTACT UP CHECK FAIL [STEP : {nStep}]";
+                        Globalo.LogPrint("ManualControl", szLog, Globalo.eMessageName.M_ERROR);
+                        nStep *= -1;
+                        break;
+                    }
+
+                    szLog = $"[READY] VERIFY CONTACT UP CHECK [STEP : {nStep}]";
+                    Globalo.LogPrint("ManualControl", szLog);
+                    nRetStep = 413;
                     break;
                 case 413:
-                    //컨택 실린더 상승 확인 8개 전체
-                    bRtn = Globalo.motionManager.socketEEpromMachine.GetMultiContactUp(1, true);
-                    if (bRtn)
-                    {
-                        nRetStep = 414;
-                    }
+                    nRetStep = 414;
                     break;
                 case 414:
                     nRetStep = 416;
@@ -360,18 +637,33 @@ namespace ZenHandler.Process
                 case 512:
                     //컨택 실린더 상승 확인 8개 전체
                     bRtn = Globalo.motionManager.socketEEpromMachine.GetMultiContactUp(0, true);
-                    if (bRtn)
+                    if (bRtn == false)
                     {
-                        nRetStep = 513;
+                        szLog = $"[READY] WRITE CONTACT UP CHECK FAIL [STEP : {nStep}]";
+                        Globalo.LogPrint("ManualControl", szLog, Globalo.eMessageName.M_ERROR);
+                        nStep *= -1;
+                        break;
                     }
+                    szLog = $"[READY] WRITE CONTACT UP CHECK [STEP : {nStep}]";
+                    Globalo.LogPrint("ManualControl", szLog);
+
+
+                    bRtn = Globalo.motionManager.socketEEpromMachine.GetMultiContactUp(1, true);
+                    if (bRtn == false)
+                    {
+                        szLog = $"[READY] VERIFY CONTACT UP CHECK FAIL [STEP : {nStep}]";
+                        Globalo.LogPrint("ManualControl", szLog, Globalo.eMessageName.M_ERROR);
+                        nStep *= -1;
+                        break;
+                    }
+
+                    szLog = $"[READY] VERIFY CONTACT UP CHECK [STEP : {nStep}]";
+                    Globalo.LogPrint("ManualControl", szLog);
+
+                    nRetStep = 513;
                     break;
                 case 513:
-                    //컨택 실린더 상승 확인 8개 전체
-                    bRtn = Globalo.motionManager.socketEEpromMachine.GetMultiContactUp(1, true);
-                    if (bRtn)
-                    {
-                        nRetStep = 414;
-                    }
+                    nRetStep = 514;
                     break;
                 case 514:
                     nRetStep = 516;
@@ -422,13 +714,15 @@ namespace ZenHandler.Process
 
                     if (Verify_Task == null || Verify_Task.IsCompleted)
                     {
-                        Task_Verify_Write = 1;
+                        Task_Wait___Verify = 1;
                         Verify_Task = Task.Run(() =>
                         {
-                            Task_Verify_Write = Task_EEpromWrite_Flow(sNum);
-                            Console.WriteLine($"-------------- Task EEpromWrite Flow Task - end {Task_Verify_Write}");
+                            Task_Wait___Verify = Task_EEprom_Verify_Flow(sNum);
 
-                            return Task_Verify_Write;
+
+                            Console.WriteLine($"-------------- Task EEprom Verify Flow Task - end {Task_Wait___Verify}");
+
+                            return Task_Wait___Verify;
                         }, CancelTokenSocket.Token);
 
                         nRetStep = 430;
@@ -443,11 +737,11 @@ namespace ZenHandler.Process
                     }
                     break;
                 case 530:
-                    if (Task_Verify_Write == 1)
+                    if (Task_Wait___Verify == 1)
                     {
                         break;
                     }
-                    if (Task_Verify_Write == -1)       //완료 실패
+                    if (Task_Wait___Verify == -1)       //완료 실패
                     {
                         //#1 Verify 완료
                         nRetStep = -520;
@@ -455,13 +749,11 @@ namespace ZenHandler.Process
                         Globalo.LogPrint("ManualControl", szLog);
                         break;
                     }
-                    if (Task_Verify_Write == 0)       //정상종료
+                    if (Task_Wait___Verify == 0)       //정상종료
                     {
                         //Write 완료
                         szLog = $"[AUTO] #{sNum + 1} SOCKET VERIFY COMPLETE [STEP : {nStep}]";
                         Globalo.LogPrint("ManualControl", szLog);
-
-
 
                         nRetStep = 550;
                         break;
