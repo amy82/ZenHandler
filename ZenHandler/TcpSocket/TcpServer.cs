@@ -46,7 +46,7 @@ namespace ZenHandler.TcpSocket
             { 40, ClientSlotIndex.SecsGem }//{ 100, ClientSlotIndex.SecsGem }
         };
         //public event Action<string> OnMessageReceived; // 메시지 수신 이벤트
-        public event Func<string, Task> OnMessageReceivedAsync; // 비동기 이벤트
+        public event Func<string,int, Task> OnMessageReceivedAsync; // 비동기 이벤트
 
         public TcpServer(string ip, int port)
         {
@@ -179,6 +179,7 @@ namespace ZenHandler.TcpSocket
 
                         if(clientNo == -1)
                         {
+                            Console.WriteLine($"Client Connect Fail:{clientNo}");
                             return;
                         }
                         
@@ -240,7 +241,7 @@ namespace ZenHandler.TcpSocket
                             // ✅ 메시지 수신 시 비동기 이벤트 호출
                             if (OnMessageReceivedAsync != null)
                             {
-                                await OnMessageReceivedAsync.Invoke(receivedData);
+                                await OnMessageReceivedAsync.Invoke(receivedData, clientIndex);
                             }
                         }
                     }

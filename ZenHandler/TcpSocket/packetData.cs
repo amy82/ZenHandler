@@ -29,4 +29,16 @@ namespace ZenHandler.TcpSocket
         public string ErrText { get; set; }
         public List<EquipmentParameterInfo> CommandParameter { get; set; } = new List<EquipmentParameterInfo>();
     }
+    public class MessageWrapper
+    {
+        public string Type { get; set; }
+        public object Data { get; set; }
+    }
+
+    public class SocketTestState
+    {
+        public string Name { get; set; }
+
+        public int[] States { get; set; }
+    }
 }

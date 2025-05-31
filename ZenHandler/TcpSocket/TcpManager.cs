@@ -77,6 +77,47 @@ namespace ZenHandler.TcpSocket
             sendEqipData.ErrText = nAlarmID;
             SendMessageToClient(sendEqipData);
         }
+        private void socketMessageParse(SocketTestState data, int index)        //index = ip뒷자리
+        {
+            int i = 0;
+            int result = -1;
+
+            string SocketName = data.Name;
+            int socketNum = index % 4;      //0,1,2,3 반복
+
+            if (SocketName == "EEPROM")
+            {
+                if (index < 4)
+                {
+                    Globalo.motionManager.socketEEpromMachine.Tester_A_Result[socketNum] = data.States[socketNum];
+                }
+                else
+                {
+                    Globalo.motionManager.socketEEpromMachine.Tester_B_Result[socketNum] = data.States[socketNum];
+                }
+            }
+            else if(SocketName == "FW" || SocketName == "AOI")
+            {
+                if (index == 0)
+                {
+                    Globalo.motionManager.socketEEpromMachine.Tester_A_Result = (int[])data.States.Clone();
+                }
+                if (index == 1)
+                {
+                    Globalo.motionManager.socketEEpromMachine.Tester_B_Result = (int[])data.States.Clone();
+                }
+                if (index == 20)
+                {
+                    Globalo.motionManager.socketEEpromMachine.Tester_C_Result = (int[])data.States.Clone();
+                }
+                if (index == 3)
+                {
+                    Globalo.motionManager.socketEEpromMachine.Tester_D_Result = (int[])data.States.Clone();
+                }
+            }
+
+            
+        }
         private void hostMessageParse(EquipmentData data)
         {
             int i = 0;
@@ -552,7 +593,7 @@ namespace ZenHandler.TcpSocket
         }
 
         // 메시지 수신 시 처리
-        private async Task HandleClientMessageAsync(string receivedData)
+        private async Task HandleClientMessageAsync(string receivedData, int clientIndex)
         {
             //Console.WriteLine($"TcpManager에서 처리한 메시지: {receivedData}");
 
@@ -562,16 +603,33 @@ namespace ZenHandler.TcpSocket
             //    NullValueHandling = NullValueHandling.Ignore
             //};
             //EquipmentData data = JsonConvert.DeserializeObject<EquipmentData>(receivedData, settings);
+
+
             Console.WriteLine($"JSON 데이터 길이: {receivedData.Length}");
             using (StreamReader sr = new StreamReader(new MemoryStream(Encoding.UTF8.GetBytes(receivedData))))
             using (JsonTextReader reader = new JsonTextReader(sr))
             {
                 JsonSerializer serializer = new JsonSerializer();
-                EquipmentData data = serializer.Deserialize<EquipmentData>(reader);
+                var wrapper = serializer.Deserialize<MessageWrapper>(reader);
+
+                switch (wrapper.Type)
+                {
+                    case "EquipmentData":
+                        EquipmentData edata = serializer.Deserialize<EquipmentData>(reader);
+                        hostMessageParse(edata);
+                        break;
+
+                    case "SocketTestState":
+                        //SocketTestState sdata = serializer.Deserialize<SocketTestState>(reader);
+                        SocketTestState socketState = JsonConvert.DeserializeObject<SocketTestState>(wrapper.Data.ToString());
+                        socketMessageParse(socketState, clientIndex);
+                        break;
+                }
+                
 
                 try
                 {
-                    hostMessageParse(data);
+                    
                     await Task.Delay(10); // 가짜 비동기 작업 (예: DB 저장)
                 }
                 catch (Exception ex)

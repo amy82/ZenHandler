@@ -51,6 +51,11 @@ namespace ZenHandler.Machine
         public Data.TeachingConfig teachingConfig = new Data.TeachingConfig();
 
         public SocketProduct socketProduct = new SocketProduct();
+        //Tester Pc와 검사 결과 확인
+        public int[] Tester_A_Result = { -1, -1, -1, -1 };
+        public int[] Tester_B_Result = { -1, -1, -1, -1 };
+        public int[] Tester_C_Result = { -1, -1, -1, -1 };
+        public int[] Tester_D_Result = { -1, -1, -1, -1 };
 
 
         public EEpromSocketMachine()

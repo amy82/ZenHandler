@@ -21,7 +21,7 @@ namespace ZenHandler.TcpSocket
         private readonly int _port;
 
         //public event Action<string> OnMessageReceived;
-        public event Func<string, Task> OnMessageReceivedAsync; // 비동기 이벤트
+        public event Func<string,int, Task> OnMessageReceivedAsync; // 비동기 이벤트
 
         public event Action OnDisconnected;
         public event Action OnReconnecting;
@@ -185,7 +185,7 @@ namespace ZenHandler.TcpSocket
                             // 메시지 수신 시 비동기 이벤트 호출
                             if (OnMessageReceivedAsync != null)
                             {
-                                await OnMessageReceivedAsync.Invoke(receivedData);
+                                await OnMessageReceivedAsync.Invoke(receivedData, 0);
                             }
                         }
                     }
@@ -230,7 +230,7 @@ namespace ZenHandler.TcpSocket
                         // ✅ 메시지 수신 시 비동기 이벤트 호출
                         if (OnMessageReceivedAsync != null)
                         {
-                            await OnMessageReceivedAsync.Invoke(receivedData);
+                            await OnMessageReceivedAsync.Invoke(receivedData, 0);
                         }
                     }
                     else

@@ -37,8 +37,7 @@ namespace ZenHandler.MotionControl
         private int[] socketC_Requested = { -1, -1, -1, -1 };       //-1 = 초기화 , 0 = 공급 완료, 1 = 공급요청 ,  2 = 배출요청
         private int[] socketD_Requested = { -1, -1, -1, -1 };       //-1 = 초기화 , 0 = 공급 완료, 1 = 공급요청 ,  2 = 배출요청
 
-
-
+        
 
         //TODO: Set 라서 4개인데 , 개별이면 달라진다. -
         //펌웨어는 Set 로 요청 - 4개씩 4Set
