@@ -83,20 +83,21 @@ namespace ZenHandler.TcpSocket
             int result = -1;
 
             string SocketName = data.Name;
-            int socketNum = index % 4;      //0,1,2,3 반복
+            
 
-            if (SocketName == "EEPROM")
+            if (SocketName == "EEPROM") //0 ~ 7 개별 pc
             {
+                int pcNum = index % 4;      //0,1,2,3 반복
                 if (index < 4)
                 {
-                    Globalo.motionManager.socketEEpromMachine.Tester_A_Result[socketNum] = data.States[socketNum];
+                    Globalo.motionManager.socketEEpromMachine.Tester_A_Result[pcNum] = data.States[pcNum];
                 }
                 else
                 {
-                    Globalo.motionManager.socketEEpromMachine.Tester_B_Result[socketNum] = data.States[socketNum];
+                    Globalo.motionManager.socketEEpromMachine.Tester_B_Result[pcNum] = data.States[pcNum];
                 }
             }
-            else if(SocketName == "FW" || SocketName == "AOI")
+            else if(SocketName == "FW" || SocketName == "AOI")  //4(fw) or 2(aoi)
             {
                 if (index == 0)
                 {

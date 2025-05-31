@@ -41,4 +41,28 @@ namespace ZenHandler.TcpSocket
 
         public int[] States { get; set; }
     }
+    /*
+     
+        {
+          "Type": "SocketTestState",
+          "Data": {
+            "Name": "EEPROM",
+            "States": [1, 1, 1, 1]
+          }
+        }
+        {
+          "Type": "SocketTestState",
+          "Data": {
+            "Name": "FW",
+            "States": [1, 1, 1, 1]
+          }
+        }
+        {
+          "Type": "SocketTestState",
+          "Data": {
+            "Name": "AOI",
+            "States": [1, 1, 1, 1]
+          }
+        }
+     */
 }
