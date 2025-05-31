@@ -124,8 +124,22 @@ namespace ZenHandler.Machine
             //index = -1 이면 전체 동작?
             return isSuccess;
         }
+        public bool MultiContactFor(int SetNo, bool bFlag, bool bWait = false)
+        {
 
-        public bool MultiContactUp(int SetNo, int[] socketList, bool bFlag, bool bWait = false)
+            return true;
+        }
+        public bool MultiFlipperRotate(int SetNo, bool bFlag, bool bWait = false)
+        {
+
+            return true;
+        }
+        public bool MultiFlipperUp(int SetNo, bool bFlag, bool bWait = false)
+        {
+
+            return true;
+        }
+        public bool MultiContactUp(int SetNo,  bool bFlag, bool bWait = false)//int[] socketList,
         {
             //SetNo = Socket Set A(0), B(1), C(2), D(3)
             bool isSuccess = false;
@@ -142,13 +156,13 @@ namespace ZenHandler.Machine
             {
                 lModuleNo = 7;
             }
-            for (i = 0; i < socketList.Length; i++)
+            for (i = 0; i < 4; i++)//for (i = 0; i < socketList.Length; i++)
             {
-                int nUse = socketList[i];
-                if (nUse == 0)
-                {
-                    continue;
-                }
+                //int nUse = socketList[i];
+                //if (nUse == 0)
+                //{
+                //    continue;
+                //}
 
                 switch (i)
                 {
