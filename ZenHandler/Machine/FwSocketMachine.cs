@@ -139,6 +139,21 @@ namespace ZenHandler.Machine
 
             return true;
         }
+        public bool GetMultiContactUp(int GroupNo, bool bFlag, bool bWait = false)
+        {
+            //GroupNo = 앞2 , 뒤2 4Set
+            return false;
+        }
+        public bool GetMultiContactFor(int GroupNo, bool bFlag, bool bWait = false)
+        {
+            //GroupNo = 앞2 , 뒤2 4Set
+            return false;
+        }
+        public bool GetMultiFlipperUp(int GroupNo, bool bFlag, bool bWait = false)
+        {
+            //GroupNo = 앞2 , 뒤2 4Set
+            return false;
+        }
         public bool MultiContactUp(int SetNo,  bool bFlag, bool bWait = false)//int[] socketList,
         {
             //SetNo = Socket Set A(0), B(1), C(2), D(3)

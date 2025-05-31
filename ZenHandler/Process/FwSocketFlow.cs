@@ -81,61 +81,120 @@ namespace ZenHandler.Process
                         }
                         Thread.Sleep(100);
                     }
-
-
                     break;
                 case 2160:
                     //ALL SOCKET CONTACT 상승 확인
-                    bRtn = Globalo.motionManager.socketEEpromMachine.GetMultiContactUp(0, true);
-                    if (bRtn)
+                    for (i = 0; i < 4; i++)
                     {
-                        szLog = $"[ORG] ALL SOCKET CONTACT UP CEHCK [STEP : {nStep}]";
-                        Globalo.LogPrint("ManualControl", szLog);
-                        nRetStep = 2180;
-                        nTimeTick = Environment.TickCount;
+                        bRtn = Globalo.motionManager.socketFwMachine.GetMultiContactUp(i, true);
+                        if (bRtn)
+                        {
+                            szLog = $"[ORG] {socketName[i]} CONTACT UP CEHCK [STEP : {nStep}]";
+                            Globalo.LogPrint("ManualControl", szLog);
+                            nRetStep = 2180;
+                            nTimeTick = Environment.TickCount;
+                        }
+                        else if (Environment.TickCount - nTimeTick > MotionControl.MotorSet.IO_TIMEOUT)
+                        {
+                            szLog = $"[ORG] {socketName[i]} CONTACT UP CHECK TIMEOUT [STEP : {nStep}]";
+                            Globalo.LogPrint("ManualControl", szLog);
+                            nStep *= -1;
+                            break;
+                        }
+                        Thread.Sleep(100);
                     }
-                    else if (Environment.TickCount - nTimeTick > MotionControl.MotorSet.IO_TIMEOUT)
-                    {
-                        szLog = $"[ORG] ALL SOCKET CONTACT UP CHECK TIMEOUT [STEP : {nStep}]";
-                        Globalo.LogPrint("ManualControl", szLog);
-                        nStep *= -1;
-                        break;
-                    }
+                        
                     break;
                 case 2180:
                     //ALL SOCKET ROTATION 상승 확인
+                    for (i = 0; i < 4; i++)
+                    {
+                        bRtn = Globalo.motionManager.socketFwMachine.GetMultiFlipperUp(i, true);
+                        if (bRtn)
+                        {
+                            szLog = $"[ORG] {socketName[i]} CONTACT UP CEHCK [STEP : {nStep}]";
+                            Globalo.LogPrint("ManualControl", szLog);
+                            
+                            nTimeTick = Environment.TickCount;
+                        }
+                        else if (Environment.TickCount - nTimeTick > MotionControl.MotorSet.IO_TIMEOUT)
+                        {
+                            szLog = $"[ORG] {socketName[i]} CONTACT UP CHECK TIMEOUT [STEP : {nStep}]";
+                            Globalo.LogPrint("ManualControl", szLog);
+                            nStep *= -1;
+                            break;
+                        }
+                        Thread.Sleep(100);
+                    }
+                    nRetStep = 2200;
                     break;
                 case 2200:
                     //ALL SOCKET CONTACT 후진
-                    if (Globalo.motionManager.socketFwMachine.MultiContactFor(0, false) == true)
+                    for (i = 0; i < 4; i++)
                     {
-                        szLog = $"[ORG] ALL SOCKET CONTACT BACK MOTION [STEP : {nStep}]";
-                        Globalo.LogPrint("ManualControl", szLog);
-                        nRetStep = 1020;
+                        if (Globalo.motionManager.socketFwMachine.MultiContactFor(i, false) == true)
+                        {
+                            szLog = $"[ORG] {socketName[i]} CONTACT BACK MOTION [STEP : {nStep}]";
+                            Globalo.LogPrint("ManualControl", szLog);
 
-                        nTimeTick = Environment.TickCount;
+                            nTimeTick = Environment.TickCount;
+                        }
+                        else
+                        {
+                            szLog = $"[ORG] {socketName[i]} CONTACT BACK MOTION FAIL[STEP : {nStep}]";
+                            Globalo.LogPrint("ManualControl", szLog, Globalo.eMessageName.M_WARNING);
+                            nRetStep *= -1;
+                            break;
+                        }
                     }
-                    else
-                    {
-                        szLog = $"[ORG] ALL SOCKET CONTACT BACK MOTION FAIL[STEP : {nStep}]";
-                        Globalo.LogPrint("ManualControl", szLog, Globalo.eMessageName.M_WARNING);
-                        nRetStep *= -1;
-                        break;
-                    }
+                    nRetStep = 2220;
                     break;
                 case 2220:
                     //ALL SOCKET CONTACT 후진 확인
+                    for (i = 0; i < 4; i++)
+                    {
+                        bRtn = Globalo.motionManager.socketFwMachine.GetMultiContactFor(i, false);
+                        if (bRtn)
+                        {
+                            szLog = $"[ORG] {socketName[i]} CONTACT BACK CEHCK [STEP : {nStep}]";
+                            Globalo.LogPrint("ManualControl", szLog);
+                            
+                            nTimeTick = Environment.TickCount;
+                        }
+                        else if (Environment.TickCount - nTimeTick > MotionControl.MotorSet.IO_TIMEOUT)
+                        {
+                            szLog = $"[ORG] {socketName[i]} CONTACT BACK CHECK TIMEOUT [STEP : {nStep}]";
+                            Globalo.LogPrint("ManualControl", szLog);
+                            nStep *= -1;
+                            break;
+                        }
+                        Thread.Sleep(100);
+                    }
+
+                    nRetStep = 2240;
                     break;
                 case 2240:
-
+                    nRetStep = 2260;
                     break;
                 case 2260:
+                    
+                    break;
+                case 2280:
+                    
+                    break;
+                case 2300:
+
+                    break;
+                case 2400:
+
+                    break;
+                case 2500:
                     //ALL SOCKET ROTATION HOME FLIP
                     if (Globalo.motionManager.socketFwMachine.MultiFlipperRotate(0, false) == true)
                     {
                         szLog = $"[ORG] ALL SOCKET FLIPPER HOME MOTION [STEP : {nStep}]";
                         Globalo.LogPrint("ManualControl", szLog);
-                        nRetStep = 1030;
+                        nRetStep = 2520;
 
                         nTimeTick = Environment.TickCount;
                     }
@@ -147,19 +206,8 @@ namespace ZenHandler.Process
                         break;
                     }
                     break;
-                case 2280:
+                case 2520:
                     //ALL SOCKET ROTATION HOME FLIP 확인
-                    break;
-                case 2300:
-
-                    break;
-                case 2400:
-
-                    break;
-                case 2500:
-
-                    break;
-                    
                     break;
                 case 2900:
                     Globalo.motionManager.socketAoiMachine.RunState = OperationState.Standby;
@@ -203,6 +251,9 @@ namespace ZenHandler.Process
                 case 1900:
 
                     //원점 복귀 완료
+                    Globalo.motionManager.socketFwMachine.RunState = OperationState.OriginDone;
+                    szLog = $"[ORIGIN] FW SOCKET UNIT 전체 원점 위치 이동 완료 [STEP : {nStep}]";
+                    Globalo.LogPrint("ManualControl", szLog);
                     nRetStep = 2000;
                     break;
                 default:
