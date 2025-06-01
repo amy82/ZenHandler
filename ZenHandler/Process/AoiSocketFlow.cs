@@ -13,6 +13,26 @@ namespace ZenHandler.Process
         {
 
         }
+        #region [Auto_Waiting]
+
+        public int Auto_Waiting(int nStep)
+        {
+            int i = 0;
+            string szLog = "";
+            bool result = false;
+            int nRetStep = nStep;
+
+            switch (nStep)
+            {
+                case 3000:
+
+                    break;
+            }
+
+            return nRetStep;
+        }
+
+        #endregion
         #region [원점 동작]
         public int HomeProcess(int nStep)                 //  원점(1000 ~ 2000)
         {
@@ -28,6 +48,7 @@ namespace ZenHandler.Process
             switch (nStep)
             {
                 case 1000:
+                    nRetStep = 1100;
                     break;
                 case 1100:
                     //LEFT Z 축 상승
@@ -352,7 +373,158 @@ namespace ZenHandler.Process
             {
                 case 2000:
 
+                    nRetStep = 2100;
+                    break;
+                case 2100:
+                    //Z 축 대기위치
+                    bRtn = Globalo.motionManager.socketAoiMachine.Socket_Z_Move(Machine.AoiSocketMachine.eTeachingAoiPosList.WAIT_POS, Machine.eAoiSocket.SOCKET_L_Z, false);
 
+                    if (bRtn == false)
+                    {
+                        szLog = $"[READY] LEFT SOCKET Z WAIT POS MOVE FAIL [STEP : {nStep}]";
+                        Globalo.LogPrint("ManualControl", szLog, Globalo.eMessageName.M_ERROR);
+                        nRetStep *= -1;
+                        break;
+                    }
+
+                    szLog = $"[READY] LEFT SOCKET Z WAIT POS MOVE [STEP : {nStep}]";
+                    Globalo.LogPrint("ManualControl", szLog);
+                    nRetStep = 2120;
+                    break;
+                case 2120:
+                    bRtn = Globalo.motionManager.socketAoiMachine.Socket_Z_Move(Machine.AoiSocketMachine.eTeachingAoiPosList.WAIT_POS, Machine.eAoiSocket.SOCKET_R_Z, false);
+
+                    if (bRtn == false)
+                    {
+                        szLog = $"[READY] RIGHT SOCKET Z WAIT POS MOVE FAIL [STEP : {nStep}]";
+                        Globalo.LogPrint("ManualControl", szLog, Globalo.eMessageName.M_ERROR);
+                        nRetStep *= -1;
+                        break;
+                    }
+
+                    szLog = $"[READY] RIGHT SOCKET Z WAIT POS MOVE [STEP : {nStep}]";
+                    Globalo.LogPrint("ManualControl", szLog);
+                    nRetStep = 2200;
+
+                    nTimeTick = Environment.TickCount;
+                    break;
+                case 2200:
+                    //Z 축 대기위치 확인
+                    if (Globalo.motionManager.socketAoiMachine.MotorAxes[(int)Machine.eAoiSocket.SOCKET_L_Z].GetStopAxis() == true &&
+                        Globalo.motionManager.socketAoiMachine.ChkMotorPos(Machine.AoiSocketMachine.eTeachingAoiPosList.WAIT_POS, Machine.eAoiSocket.SOCKET_L_Z))
+                    {
+                        szLog = $"[READY] LEFT SOCKET Z WAIT 위치 이동 완료 [STEP : {nStep}]";
+                        Globalo.LogPrint("ManualControl", szLog);
+                        nRetStep = 2220;
+                        nTimeTick = Environment.TickCount;
+                        break;
+                    }
+                    else if (Environment.TickCount - nTimeTick > MotionControl.MotorSet.MOTOR_MOVE_TIMEOUT)
+                    {
+                        szLog = $"[READY] LEFT SOCKET Z WAIT 이동 시간 초과 [STEP : {nStep}]";
+                        Globalo.LogPrint("ManualControl", szLog);
+                        nRetStep *= -1;
+                        break;
+                    }
+                    break;
+                case 2220:
+                    //Z 축 대기위치 확인
+                    if (Globalo.motionManager.socketAoiMachine.MotorAxes[(int)Machine.eAoiSocket.SOCKET_R_Z].GetStopAxis() == true &&
+                        Globalo.motionManager.socketAoiMachine.ChkMotorPos(Machine.AoiSocketMachine.eTeachingAoiPosList.WAIT_POS, Machine.eAoiSocket.SOCKET_R_Z))
+                    {
+                        szLog = $"[READY] RIGHT SOCKET Z WAIT 위치 이동 완료 [STEP : {nStep}]";
+                        Globalo.LogPrint("ManualControl", szLog);
+                        nRetStep = 2300;
+                        nTimeTick = Environment.TickCount;
+                        break;
+                    }
+                    else if (Environment.TickCount - nTimeTick > MotionControl.MotorSet.MOTOR_MOVE_TIMEOUT)
+                    {
+                        szLog = $"[READY] RIGHT SOCKET Z WAIT 이동 시간 초과 [STEP : {nStep}]";
+                        Globalo.LogPrint("ManualControl", szLog);
+                        nRetStep *= -1;
+                        break;
+                    }
+                    
+                    break;
+                case 2300:
+                    //x축 대기 위치 이동
+                    bRtn = Globalo.motionManager.socketAoiMachine.Socket_X_Move(Machine.AoiSocketMachine.eTeachingAoiPosList.WAIT_POS, Machine.eAoiSocket.SOCKET_L_X, false);
+
+                    if (bRtn == false)
+                    {
+                        szLog = $"[READY] LEFT SOCKET X WAIT POS MOVE FAIL [STEP : {nStep}]";
+                        Globalo.LogPrint("ManualControl", szLog, Globalo.eMessageName.M_ERROR);
+                        nRetStep *= -1;
+                        break;
+                    }
+
+                    szLog = $"[READY] LEFT SOCKET X WAIT POS MOVE [STEP : {nStep}]";
+                    Globalo.LogPrint("ManualControl", szLog);
+                    nRetStep = 2320;
+                    break;
+                case 2320:
+                    //x축 대기 위치 이동
+                    bRtn = Globalo.motionManager.socketAoiMachine.Socket_X_Move(Machine.AoiSocketMachine.eTeachingAoiPosList.WAIT_POS, Machine.eAoiSocket.SOCKET_R_X, false);
+
+                    if (bRtn == false)
+                    {
+                        szLog = $"[READY] RIGHT SOCKET X WAIT POS MOVE FAIL [STEP : {nStep}]";
+                        Globalo.LogPrint("ManualControl", szLog, Globalo.eMessageName.M_ERROR);
+                        nRetStep *= -1;
+                        break;
+                    }
+
+                    szLog = $"[READY] RIGHT SOCKET X WAIT POS MOVE [STEP : {nStep}]";
+                    Globalo.LogPrint("ManualControl", szLog);
+                    nRetStep = 2400;
+                    nTimeTick = Environment.TickCount;
+                    break;
+                case 2400:
+                    //x축 대기 위치 이동 확인
+                    if (Globalo.motionManager.socketAoiMachine.MotorAxes[(int)Machine.eAoiSocket.SOCKET_L_X].GetStopAxis() == true &&
+                        Globalo.motionManager.socketAoiMachine.ChkMotorPos(Machine.AoiSocketMachine.eTeachingAoiPosList.WAIT_POS, Machine.eAoiSocket.SOCKET_L_X))
+                    {
+                        szLog = $"[READY] LEFT SOCKET X WAIT 위치 이동 완료 [STEP : {nStep}]";
+                        Globalo.LogPrint("ManualControl", szLog);
+                        nRetStep = 2420;
+                        nTimeTick = Environment.TickCount;
+                        break;
+                    }
+                    else if (Environment.TickCount - nTimeTick > MotionControl.MotorSet.MOTOR_MOVE_TIMEOUT)
+                    {
+                        szLog = $"[READY] LEFT SOCKET X WAIT 이동 시간 초과 [STEP : {nStep}]";
+                        Globalo.LogPrint("ManualControl", szLog);
+                        nRetStep *= -1;
+                        break;
+                    }
+                    break;
+                case 2420:
+                    //x축 대기 위치 이동 확인
+                    if (Globalo.motionManager.socketAoiMachine.MotorAxes[(int)Machine.eAoiSocket.SOCKET_R_X].GetStopAxis() == true &&
+                        Globalo.motionManager.socketAoiMachine.ChkMotorPos(Machine.AoiSocketMachine.eTeachingAoiPosList.WAIT_POS, Machine.eAoiSocket.SOCKET_R_X))
+                    {
+                        szLog = $"[READY] RIGHT SOCKET X WAIT 위치 이동 완료 [STEP : {nStep}]";
+                        Globalo.LogPrint("ManualControl", szLog);
+                        nRetStep = 2500;
+                        nTimeTick = Environment.TickCount;
+                        break;
+                    }
+                    else if (Environment.TickCount - nTimeTick > MotionControl.MotorSet.MOTOR_MOVE_TIMEOUT)
+                    {
+                        szLog = $"[READY] RIGHT SOCKET X WAIT 이동 시간 초과 [STEP : {nStep}]";
+                        Globalo.LogPrint("ManualControl", szLog);
+                        nRetStep *= -1;
+                        break;
+                    }
+                    break;
+                case 2500:
+                    //조명 켜져있는지 확인?
+                    nRetStep = 2600;
+                    break;
+                case 2600:
+
+                    nRetStep = 2900;
                     break;
                 case 2900:
                     Globalo.motionManager.socketAoiMachine.RunState = OperationState.Standby;
@@ -367,5 +539,19 @@ namespace ZenHandler.Process
         #endregion
         
 
+
     }
 }
+//X축 SOCKET_R TEST POS 이동
+//조명 ON
+//Z축 검사 위치 이동
+//TEST1
+//조명 CHANGE
+//TEST2
+
+//X축 SOCKET_L TEST POS 이동
+//조명 ON
+//Z축 검사 위치 이동
+//TEST1
+//조명 CHANGE
+//TEST2

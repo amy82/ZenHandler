@@ -22,8 +22,29 @@ namespace ZenHandler.Process
         {
 
         }
+
+        #region [Auto_Waiting]
+        public int Auto_Waiting(int nStep)
+        {
+            int i = 0;
+            string szLog = "";
+            bool result = false;
+            int nRetStep = nStep;
+
+            switch (nStep)
+            {
+                case 3000:
+
+                    break;
+
+            }
+
+            return nRetStep;
+        }
+        #endregion
+
         #region [운전 준비]
-        
+
         public int AutoReady(int nStep)                 //  운전준비(2000 ~ 3000)
         {
             string szLog = "";
