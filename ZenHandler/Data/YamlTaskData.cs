@@ -315,6 +315,51 @@ namespace ZenHandler.Data
                 return new Machine.SocketProduct();
             }
         }
+
+        //
+        //  Aoi
+        //
+
+        public static bool TaskSave_AoiSocket(Machine.AoiSocketProduct data, string fileName)
+        {
+            string filePath = Path.Combine(CPath.BASE_ENV_PATH, fileName);       //LOT DATA
+            try
+            {
+                Data.YamlManager.SaveYaml(filePath, data);
+                return true;
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine($"Error TaskSave AoiSocket: {ex.Message}");
+                return false;
+            }
+
+        }
+        public static Machine.AoiSocketProduct TaskLoad_AoiSocket(string fileName)
+        {
+            string filePath = Path.Combine(CPath.BASE_ENV_PATH, fileName);       //TRAY DATA
+            try
+            {
+                if (!File.Exists(filePath))
+                {
+                    return new Machine.AoiSocketProduct();
+                }
+
+
+                Machine.AoiSocketProduct data = Data.YamlManager.LoadYaml<Machine.AoiSocketProduct>(filePath);
+                if (data == null)
+                {
+
+                    return new Machine.AoiSocketProduct();
+                }
+                return data;
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine($"Error loading TaskLoad Aoi Socket: {ex.Message}");
+                return new Machine.AoiSocketProduct();
+            }
+        }
         //--------------------------------------------------------------------------------------------------------------
         //--------------------------------------------------------------------------------------------------------------
         //--------------------------------------------------------------------------------------------------------------

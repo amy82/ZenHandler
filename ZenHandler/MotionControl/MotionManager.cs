@@ -69,7 +69,7 @@ namespace ZenHandler.MotionControl
 
 
             socketEEpromMachine.OnSocketCall += OnSocketLoadReq;        //공급, 배출 요청 1 or 2
-
+            socketAoiMachine.OnSocketCall += OnSocketLoadReq;
             bool LoadChk = true;
             LoadChk = transferMachine.teachingConfig.LoadTeach(Machine.TransferMachine.teachingPath, transferMachine.MotorCnt, (int)Machine.TransferMachine.eTeachingPosList.TOTAL_TRANSFER_TEACHING_COUNT);   //TODO: 티칭 개수만큼 불러와야되는데 파일에 없으면 못 불러온다
             transferMachine.MotorUse = LoadChk;

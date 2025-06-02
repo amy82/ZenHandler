@@ -6,12 +6,530 @@ using System.Threading.Tasks;
 
 namespace ZenHandler.Process
 {
+    public enum AoiSocketState
+    {
+        Wait = 0,
+        LoadReq,        // 공급 요청
+        UnLoadReq,     //배출 요청 (양품 + 불량 섞여 있을 수도 있다.)
+        Testring,     //검사 전
+    }
     public class AoiSocketFlow
     {
+        public string[] axisName = { "Left Socekt", "Right Socket" };
         public int nTimeTick = 0;
+
+
+
+        private AoiSocketState[] socketProcessState = new AoiSocketState[2];
+        
+
+        private int[,] socketStates = new int[2, 4]//리턴이 공용이라서 소켓이 2개씩이라서 4개 사용
+        {
+            { -1, -1, -1, -1 },  // 세트 0
+            { -1, -1, -1, -1}   // 세트 1
+        };
         public AoiSocketFlow()
         {
 
+        }
+        //-----------------------------------------------------------------------------------------------------------
+        //◀ ▶
+        //
+        // LEFT 소켓 Flow
+        //
+        //
+        //-----------------------------------------------------------------------------------------------------------
+        public int Auto_Common_Socket(int nStep, int SocketIndex)
+        {
+            int i = 0;
+            string szLog = "";
+            bool result = false;
+            bool bRtn = false;
+            bool bEmptyChk = false;
+            int nRetStep = nStep;
+            const int SocketMaxCnt = 2;
+            int ANum = SocketIndex;
+
+            Machine.eAoiSocket Xmotor = Machine.eAoiSocket.SOCKET_L_X;
+            Machine.eAoiSocket Zmotor = Machine.eAoiSocket.SOCKET_L_Z;
+
+            if (ANum == 0)
+            {
+                Xmotor = Machine.eAoiSocket.SOCKET_L_X;
+                Zmotor = Machine.eAoiSocket.SOCKET_L_Z;
+            }
+            else
+            {
+                Xmotor = Machine.eAoiSocket.SOCKET_R_X;
+                Zmotor = Machine.eAoiSocket.SOCKET_R_Z;
+            }
+
+            switch (nStep)
+            {
+                case 100:
+                    if (Globalo.motionManager.socketEEpromMachine.IsTesting[ANum] == false)
+                    {
+                        break;
+                    }
+                    nRetStep = 120;
+                    break;
+
+                case 120:
+                    if (socketProcessState[ANum] == AoiSocketState.UnLoadReq)        //전부가 검사가 끝났을때 (양품 + NG)
+                    {
+                        Console.WriteLine("Good Unload Req");
+                        nRetStep = 300;
+                        break;
+                    }
+
+                    if (socketProcessState[ANum] == AoiSocketState.LoadReq)   //전부다 비었을때만, 공급 요청
+                    {
+                        Console.WriteLine("Load Req");
+                        nRetStep = 200;
+                        break;
+                    }
+
+                    Globalo.motionManager.socketEEpromMachine.IsTesting[ANum] = false;
+                    nRetStep = 100;
+                    break;
+                //--------------------------------------------------------------------------------------------------------------------------
+                //
+                //
+                //  공급 요청
+                //
+                //
+                //--------------------------------------------------------------------------------------------------------------------------
+                case 200:
+
+                    nRetStep = 205;
+                    break;
+
+                case 205:
+                    nRetStep = 210;
+                    break;
+                case 210:
+                    bRtn = Globalo.motionManager.socketAoiMachine.Socket_Z_Move(Machine.AoiSocketMachine.eTeachingAoiPosList.WAIT_POS, Xmotor, false);
+
+                    if (bRtn == false)
+                    {
+                        szLog = $"[AUTO] {axisName[ANum]} Z WAIT POS MOVE FAIL [STEP : {nStep}]";
+                        Globalo.LogPrint("ManualControl", szLog, Globalo.eMessageName.M_ERROR);
+                        nRetStep *= -1;
+                        break;
+                    }
+
+                    szLog = $"[AUTO] {axisName[ANum]} Z WAIT POS MOVE [STEP : {nStep}]";
+                    Globalo.LogPrint("ManualControl", szLog);
+                    nRetStep = 220;
+                    nTimeTick = Environment.TickCount;
+                    break;
+
+                case 220:
+                    //Z 축 대기위치 확인
+                    if (Globalo.motionManager.socketAoiMachine.MotorAxes[(int)Zmotor].GetStopAxis() == true &&
+                        Globalo.motionManager.socketAoiMachine.ChkMotorPos(Machine.AoiSocketMachine.eTeachingAoiPosList.WAIT_POS, Zmotor))
+                    {
+                        szLog = $"[AUTO] {axisName[ANum]} Z WAIT 위치 이동 완료 [STEP : {nStep}]";
+                        Globalo.LogPrint("ManualControl", szLog);
+                        nRetStep = 230;
+                        nTimeTick = Environment.TickCount;
+                        break;
+                    }
+                    else if (Environment.TickCount - nTimeTick > MotionControl.MotorSet.MOTOR_MOVE_TIMEOUT)
+                    {
+                        szLog = $"[AUTO] {axisName[ANum]} Z WAIT 이동 시간 초과 [STEP : {nStep}]";
+                        Globalo.LogPrint("ManualControl", szLog);
+                        nRetStep *= -1;
+                        break;
+                    }
+                    break;
+                case 230:
+
+                    bRtn = Globalo.motionManager.socketAoiMachine.Socket_X_Move(Machine.AoiSocketMachine.eTeachingAoiPosList.LOAD_POS, Xmotor, false);
+
+                    if (bRtn == false)
+                    {
+                        szLog = $"[AUTO] {axisName[ANum]} LOAD POS MOVE FAIL [STEP : {nStep}]";
+                        Globalo.LogPrint("ManualControl", szLog, Globalo.eMessageName.M_ERROR);
+                        nRetStep *= -1;
+                        break;
+                    }
+
+                    szLog = $"[AUTO] {axisName[ANum]} LOAD POS MOVE [STEP : {nStep}]";
+                    Globalo.LogPrint("ManualControl", szLog);
+                    nRetStep = 235;
+                    nTimeTick = Environment.TickCount;
+                    break;
+                case 235:
+                    if (Globalo.motionManager.socketAoiMachine.MotorAxes[(int)Xmotor].GetStopAxis() == true &&
+                        Globalo.motionManager.socketAoiMachine.ChkMotorPos(Machine.AoiSocketMachine.eTeachingAoiPosList.LOAD_POS, Xmotor))
+                    {
+                        szLog = $"[AUTO] {axisName[ANum]} X LOAD 위치 이동 완료 [STEP : {nStep}]";
+                        Globalo.LogPrint("ManualControl", szLog);
+                        nRetStep = 240;
+                        nTimeTick = Environment.TickCount;
+                        break;
+                    }
+                    else if (Environment.TickCount - nTimeTick > MotionControl.MotorSet.MOTOR_MOVE_TIMEOUT)
+                    {
+                        szLog = $"[AUTO] {axisName[ANum]} X LOAD 이동 시간 초과 [STEP : {nStep}]";
+                        Globalo.LogPrint("ManualControl", szLog);
+                        nRetStep *= -1;
+                        break;
+                    }
+                    break;
+                case 240:
+                    bEmptyChk = true;
+                    int[] socketGroupArr = new int[SocketMaxCnt];
+                    for (i = 0; i < SocketMaxCnt; i++)
+                    {
+                        if (Globalo.motionManager.socketAoiMachine.GetIsProductInSocket(ANum, i, true) == false)
+                        {
+                            //둘다 비어야 공급 요청 가능
+                            socketStates[ANum, i] = 1;
+                        }
+                        else
+                        {
+                            bEmptyChk = false;
+                            socketStates[ANum, i] = -1;
+                        }
+                        socketGroupArr[i] = socketStates[ANum, i];
+                    }
+
+                    if (bEmptyChk)
+                    {
+                        Globalo.motionManager.socketAoiMachine.RaiseProductCall(ANum, socketGroupArr);        //공급 요청 초기화, Auto_Waiting
+
+                        szLog = $"[AUTO] {axisName[ANum]} LOAD REQ [{string.Join(", ", socketGroupArr)}][STEP : {nStep}]";
+                        Globalo.LogPrint("ManualControl", szLog);
+                        nRetStep = 245;
+
+
+                        Globalo.motionManager.socketAoiMachine.RaiseProductCall(ANum, socketGroupArr);        //공급 요청
+                    }
+                    else
+                    {
+                        szLog = $"[AUTO] {axisName[ANum]} EMPTY CHECK FAIL [STEP : {nStep}]";
+                        Globalo.LogPrint("ManualControl", szLog);
+                        nRetStep *= -1;
+                        break;
+                    }
+                    break;
+
+                case 245:
+                    //공급 완료 대기
+                    if (Globalo.motionManager.GetSocketDone(ANum) == 0)
+                    {
+                        //공급 완료
+                        Globalo.motionManager.InitSocketDone(ANum);             //공급요청 변수 초기화
+
+                        int[] group = Globalo.motionManager.GetSocketReq(ANum);    //소켓별 공급 상태 받기
+
+                        for (i = 0; i < group.Length; i++)
+                        {
+                            socketStates[ANum, i] = group[i]; // 세트 0에 대입
+                        }
+
+                        bool bErrChk = false;
+                        for (i = 0; i < SocketMaxCnt; i++)
+                        {
+                           
+                            //공급한 개수만큼 인식이 되는지 체크
+                            if (socketStates[ANum, i] == 1)
+                            {
+                                if (Globalo.motionManager.socketAoiMachine.GetIsProductInSocket(ANum, i, true) == false)
+                                {
+                                    //공급했는 소켓인데 제품이 없으면 알람
+                                    Console.WriteLine($"#{i + 1} Socket Product Empty err");
+                                    bErrChk = true;
+
+                                    if (ANum == 0)
+                                    {
+                                        Globalo.motionManager.socketAoiMachine.socketProduct.SocketInfo_A[i].State = Machine.AoiSocketProductState.Blank;
+                                    }
+                                    else
+                                    {
+                                        Globalo.motionManager.socketAoiMachine.socketProduct.SocketInfo_B[i].State = Machine.AoiSocketProductState.Blank;
+                                    }
+                                    
+                                }
+                                else
+                                {
+                                    if (ANum == 0)
+                                    {
+                                        Globalo.motionManager.socketAoiMachine.socketProduct.SocketInfo_A[i].State = Machine.AoiSocketProductState.Testing;
+                                    }
+                                    else
+                                    {
+                                        Globalo.motionManager.socketAoiMachine.socketProduct.SocketInfo_B[i].State = Machine.AoiSocketProductState.Testing;
+                                    }
+                                    
+                                }
+                            }
+                        }
+
+                        if (bErrChk)
+                        {
+                            szLog = $"[AUTO] {axisName[ANum]} PRODUCT LOAD FAIL[STEP : {nStep}]";
+                            Globalo.LogPrint("ManualControl", szLog, Globalo.eMessageName.M_WARNING);
+                            nRetStep *= -1;
+                            break;
+                        }
+
+                        szLog = $"[AUTO] {axisName[ANum]} PRODUCT LOAD COMPLETE [STEP : {nStep}]";
+                        Globalo.LogPrint("ManualControl", szLog);
+                        nRetStep = 250;
+                    }
+                    break;
+
+                case 250:
+                    
+                    
+                    nRetStep = 290;
+                    break;
+                case 290:
+                    //공급 완료
+                    Globalo.motionManager.socketEEpromMachine.IsTesting[ANum] = false;
+                    nRetStep = 100;
+                    break;
+                //--------------------------------------------------------------------------------------------------------------------------
+                //
+                //
+                //  배출 요청
+                //
+                //
+                //--------------------------------------------------------------------------------------------------------------------------
+                case 300:
+                    //배출 요청
+                    nRetStep = 305;
+                    break;
+
+                case 305:
+                    bRtn = Globalo.motionManager.socketAoiMachine.Socket_Z_Move(Machine.AoiSocketMachine.eTeachingAoiPosList.WAIT_POS, Xmotor, false);
+
+                    if (bRtn == false)
+                    {
+                        szLog = $"[AUTO] {axisName[ANum]} Z WAIT POS MOVE FAIL [STEP : {nStep}]";
+                        Globalo.LogPrint("ManualControl", szLog, Globalo.eMessageName.M_ERROR);
+                        nRetStep *= -1;
+                        break;
+                    }
+
+                    szLog = $"[AUTO] {axisName[ANum]} Z WAIT POS MOVE [STEP : {nStep}]";
+                    Globalo.LogPrint("ManualControl", szLog);
+                    nRetStep = 310;
+                    nTimeTick = Environment.TickCount;
+                    break;
+                case 310:
+                    //Z 축 대기위치 확인
+                    if (Globalo.motionManager.socketAoiMachine.MotorAxes[(int)Zmotor].GetStopAxis() == true &&
+                        Globalo.motionManager.socketAoiMachine.ChkMotorPos(Machine.AoiSocketMachine.eTeachingAoiPosList.WAIT_POS, Zmotor))
+                    {
+                        szLog = $"[AUTO] {axisName[ANum]} Z WAIT 위치 이동 완료 [STEP : {nStep}]";
+                        Globalo.LogPrint("ManualControl", szLog);
+                        nRetStep = 315;
+                        nTimeTick = Environment.TickCount;
+                        break;
+                    }
+                    else if (Environment.TickCount - nTimeTick > MotionControl.MotorSet.MOTOR_MOVE_TIMEOUT)
+                    {
+                        szLog = $"[AUTO] {axisName[ANum]} Z WAIT 이동 시간 초과 [STEP : {nStep}]";
+                        Globalo.LogPrint("ManualControl", szLog);
+                        nRetStep *= -1;
+                        break;
+                    }
+                    break;
+                case 315:
+                    bRtn = Globalo.motionManager.socketAoiMachine.Socket_X_Move(Machine.AoiSocketMachine.eTeachingAoiPosList.UN_LOAD_POS, Xmotor, false);
+
+                    if (bRtn == false)
+                    {
+                        szLog = $"[AUTO] {axisName[ANum]} UNLOAD POS MOVE FAIL [STEP : {nStep}]";
+                        Globalo.LogPrint("ManualControl", szLog, Globalo.eMessageName.M_ERROR);
+                        nRetStep *= -1;
+                        break;
+                    }
+
+                    szLog = $"[AUTO] {axisName[ANum]} UNLOAD POS MOVE [STEP : {nStep}]";
+                    Globalo.LogPrint("ManualControl", szLog);
+                    nRetStep = 320;
+                    nTimeTick = Environment.TickCount;
+                    break;
+                case 320:
+                    if (Globalo.motionManager.socketAoiMachine.MotorAxes[(int)Xmotor].GetStopAxis() == true &&
+                        Globalo.motionManager.socketAoiMachine.ChkMotorPos(Machine.AoiSocketMachine.eTeachingAoiPosList.UN_LOAD_POS, Xmotor))
+                    {
+                        szLog = $"[AUTO] {axisName[ANum]} X LOUNLOADAD 위치 이동 완료 [STEP : {nStep}]";
+                        Globalo.LogPrint("ManualControl", szLog);
+                        nRetStep = 330;
+                        nTimeTick = Environment.TickCount;
+                        break;
+                    }
+                    else if (Environment.TickCount - nTimeTick > MotionControl.MotorSet.MOTOR_MOVE_TIMEOUT)
+                    {
+                        szLog = $"[AUTO] {axisName[ANum]} X UNLOAD 이동 시간 초과 [STEP : {nStep}]";
+                        Globalo.LogPrint("ManualControl", szLog);
+                        nRetStep *= -1;
+                        break;
+                    }
+                    break;
+                case 330:
+                    nRetStep = 340;
+                    break;
+                case 340:
+                    bEmptyChk = true;
+                    int[] socketUnGroup = new int[SocketMaxCnt];
+
+                    for (i = 0; i < SocketMaxCnt; i++)
+                    {
+                        if (Globalo.motionManager.socketAoiMachine.GetIsProductInSocket(ANum, i, true) == true)
+                        {
+                            if (ANum == 0)
+                            {
+                                if (Globalo.motionManager.socketAoiMachine.socketProduct.SocketInfo_A[i].State == Machine.AoiSocketProductState.Good)
+                                {
+                                    socketStates[ANum, i] = 2;
+                                }
+                                if (Globalo.motionManager.socketAoiMachine.socketProduct.SocketInfo_A[i].State == Machine.AoiSocketProductState.NG)
+                                {
+                                    socketStates[ANum, i] = 3;
+                                }
+                            }
+                            else
+                            {
+                                if (Globalo.motionManager.socketAoiMachine.socketProduct.SocketInfo_B[i].State == Machine.AoiSocketProductState.Good)
+                                {
+                                    socketStates[ANum, i] = 2;
+                                }
+                                if (Globalo.motionManager.socketAoiMachine.socketProduct.SocketInfo_B[i].State == Machine.AoiSocketProductState.NG)
+                                {
+                                    socketStates[ANum, i] = 3;
+                                }
+                            }
+                                
+                            
+                        }
+                        socketUnGroup[i] = socketStates[ANum, i];
+                    }
+
+                    if (bEmptyChk)
+                    {
+                        Globalo.motionManager.socketAoiMachine.RaiseProductCall(ANum, socketUnGroup);        //공급 요청 초기화, Auto_Waiting
+
+                        szLog = $"[AUTO] {axisName[ANum]} UNLOAD REQ [{string.Join(", ", socketUnGroup)}][STEP : {nStep}]";
+                        Globalo.LogPrint("ManualControl", szLog);
+                        nRetStep = 345;
+
+                        Globalo.motionManager.socketAoiMachine.RaiseProductCall(ANum, socketUnGroup);        //공급 요청
+                    }
+                    else
+                    {
+                        szLog = $"[AUTO] {axisName[ANum]} EMPTY CHECK FAIL [STEP : {nStep}]";
+                        Globalo.LogPrint("ManualControl", szLog);
+                        nRetStep *= -1;
+                        break;
+                    }
+                    break;
+                case 345:
+                    //배출 완료 대기
+                    if (Globalo.motionManager.GetSocketDone(ANum) == 0)
+                    {
+                        //배출 완료
+                        Globalo.motionManager.InitSocketDone(ANum);             //배출요청 변수 초기화
+                        int[] group = Globalo.motionManager.GetSocketReq(ANum);    //소켓별 배출 상태 받기
+
+                        for (i = 0; i < group.Length; i++)
+                        {
+                            socketStates[ANum, i] = group[i]; // 세트 0에 대입
+                        }
+
+                        //배출완료 확인
+                        bool bErrChk = false;
+
+                        for (i = 0; i < SocketMaxCnt; i++)
+                        {
+                            if (socketStates[ANum, i] == 0)     //배출완료
+                            {
+                                if (Globalo.motionManager.socketAoiMachine.GetIsProductInSocket(ANum, i, true) == true)
+                                {
+                                    Console.WriteLine($"#{i + 1} Socket Product Unload Fail");
+                                    bErrChk = true;
+                                }
+
+                                if (ANum == 0)
+                                {
+                                    Globalo.motionManager.socketAoiMachine.socketProduct.SocketInfo_A[i].State = Machine.AoiSocketProductState.Blank;
+                                }
+                                else
+                                {
+                                    Globalo.motionManager.socketAoiMachine.socketProduct.SocketInfo_B[i].State = Machine.AoiSocketProductState.Blank;
+                                }
+                            }
+                        }
+
+
+                        if (bErrChk)
+                        {
+                            szLog = $"[AUTO] {axisName[ANum]} PRODUCT UNLOAD FAIL[STEP : {nStep}]";
+                            Globalo.LogPrint("ManualControl", szLog, Globalo.eMessageName.M_WARNING);
+                            nRetStep *= -1;
+                            break;
+                        }
+                        nRetStep = 350;
+                        break;
+                    }
+                    break;
+                case 350:
+                    nRetStep = 390;
+                    break;
+                case 390:
+                    Globalo.motionManager.socketEEpromMachine.IsTesting[ANum] = false;      //배출 완료 후
+                    nRetStep = 100;
+                    break;
+                //--------------------------------------------------------------------------------------------------------------------------
+                //
+                //
+                //  AOI 검사 진행
+                //
+                //
+                //--------------------------------------------------------------------------------------------------------------------------
+                case 400:
+
+                    nRetStep = 410;
+                    break;
+            }
+
+            return nRetStep;
+        }
+
+        //-----------------------------------------------------------------------------------------------------------
+        //◀ ▶
+        //
+        // RIGHT 소켓 Flow
+        //
+        //
+        //-----------------------------------------------------------------------------------------------------------
+        public int Auto_Right_Socket(int nStep)
+        {
+            int i = 0;
+            string szLog = "";
+            bool result = false;
+            bool bRtn = false;
+            int nRetStep = nStep;
+            const int RNum = 1;
+
+            switch (nStep)
+            {
+                case 100:
+                    if (Globalo.motionManager.socketEEpromMachine.IsTesting[RNum] == false)
+                    {
+                        break;
+                    }
+                    nRetStep = 120;
+                    break;
+            }
+
+            return nRetStep;
         }
         #region [Auto_Waiting]
 

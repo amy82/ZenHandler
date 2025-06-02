@@ -32,9 +32,16 @@ namespace ZenHandler.Machine
     {
         Blank = 0,   // 제품 없음
         Writing,     //Write 검사 전
-        Verifying,  //Verify 검사 전
-        Good,       // Write + Verify 둘다 완료
-        NG         // 불량
+        Verifying,   //Verify 검사 전
+        Good,        // Write + Verify 둘다 완료
+        NG           // 불량
+    }
+    public enum AoiSocketProductState
+    {
+        Blank = 0,   // 제품 없음
+        Testing,     // Aoi 검사 전
+        Good,        // 양품
+        NG           // 불량
     }
 
     public class ProductInfo
@@ -156,10 +163,32 @@ namespace ZenHandler.Machine
             };
         }
     }
+    public class AoiSocketProductInfo
+    {
+        public int No { get; set; }
+        public AoiSocketProductState State { get; set; } = AoiSocketProductState.Blank;
+        public string BcrLot { get; set; } = "Empty";
+
+        public AoiSocketProductInfo() { }  // <- 이게 없으면 yaml 로드 안됨
+        public AoiSocketProductInfo(int index)
+        {
+            No = index;
+        }
+
+        public AoiSocketProductInfo Clone()
+        {
+            return new AoiSocketProductInfo
+            {
+                No = this.No,
+                State = this.State,
+                BcrLot = this.BcrLot
+            };
+        }
+    }
     public class AoiSocketProduct
     {
-        public List<SocketProductInfo> SocketInfo_A { get; set; } = new List<SocketProductInfo>();
-        public List<SocketProductInfo> SocketInfo_B { get; set; } = new List<SocketProductInfo>();
+        public List<AoiSocketProductInfo> SocketInfo_A { get; set; } = new List<AoiSocketProductInfo>();
+        public List<AoiSocketProductInfo> SocketInfo_B { get; set; } = new List<AoiSocketProductInfo>();
     }
     public class EEpromSocketProduct
     {

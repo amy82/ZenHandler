@@ -416,9 +416,9 @@ namespace ZenHandler.Process
                     {
                         //배출 완료
                         Globalo.motionManager.InitSocketDone(sNum);             //배출요청 변수 초기화
-                        socketStateA = Globalo.motionManager.GetSocketReq(sNum);    //소켓별 공급 상태 받기
+                        socketStateA = Globalo.motionManager.GetSocketReq(sNum);    //소켓별 배출 상태 받기
 
-                        //배출완료
+                        //배출완료 확인
                         bool bErrChk = false;
                         for (i = 0; i < socketStateA.Length; i++)
                         {

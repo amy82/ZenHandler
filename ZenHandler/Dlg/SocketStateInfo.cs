@@ -104,6 +104,7 @@ namespace ZenHandler.Dlg
             }
             Label stateLabel = new Label();
             Machine.SocketProductState sState = new Machine.SocketProductState();
+            Machine.AoiSocketProductState sAoiState = new Machine.AoiSocketProductState();
 
             for (i = 0; i < SocketRow; i++)
             {
@@ -115,13 +116,13 @@ namespace ZenHandler.Dlg
                         {
                             stateLabel = AsplitContainers[j].Panel2.Controls["ASocketState" + (j + 1)] as Label;
                             stateLabel.Text = Globalo.motionManager.socketAoiMachine.socketProduct.SocketInfo_A[j].State.ToString();
-                            sState = Globalo.motionManager.socketAoiMachine.socketProduct.SocketInfo_A[j].State;
+                            sAoiState = Globalo.motionManager.socketAoiMachine.socketProduct.SocketInfo_A[j].State;
                         }
                         else if (i == 1)
                         {
                             stateLabel = BsplitContainers[j].Panel2.Controls["BSocketState" + (j + 1)] as Label;
                             stateLabel.Text = Globalo.motionManager.socketAoiMachine.socketProduct.SocketInfo_B[j].State.ToString();
-                            sState = Globalo.motionManager.socketAoiMachine.socketProduct.SocketInfo_B[j].State;
+                            sAoiState = Globalo.motionManager.socketAoiMachine.socketProduct.SocketInfo_B[j].State;
                         }
                     }
                     if (Program.PG_SELECT == HANDLER_PG.EEPROM)
@@ -166,25 +167,50 @@ namespace ZenHandler.Dlg
                             sState = Globalo.motionManager.socketFwMachine.socketProduct.SocketInfo_D[j].State;
                         }
                     }
-                    
 
 
-
-                    if (sState == Machine.SocketProductState.Good)
+                    if (Program.PG_SELECT == HANDLER_PG.AOI)
                     {
-                        stateLabel.BackColor = Color.Green;
-                        stateLabel.ForeColor = Color.Yellow;
+                        if (sAoiState == Machine.AoiSocketProductState.Good)
+                        {
+                            stateLabel.BackColor = Color.Green;
+                            stateLabel.ForeColor = Color.Yellow;
+                        }
+                        else if (sAoiState == Machine.AoiSocketProductState.NG)
+                        {
+                            stateLabel.BackColor = Color.Red;
+                            stateLabel.ForeColor = Color.Black;
+                        }
+                        else
+                        {
+                            stateLabel.BackColor = Color.White;
+                            stateLabel.ForeColor = Color.Black;
+                        }
                     }
-                    else if (sState == Machine.SocketProductState.NG)
+                    else if (Program.PG_SELECT == HANDLER_PG.EEPROM)
                     {
-                        stateLabel.BackColor = Color.Red;
-                        stateLabel.ForeColor = Color.Black;
+
                     }
                     else
                     {
-                        stateLabel.BackColor = Color.White;
-                        stateLabel.ForeColor = Color.Black;
+                        if (sState == Machine.SocketProductState.Good)
+                        {
+                            stateLabel.BackColor = Color.Green;
+                            stateLabel.ForeColor = Color.Yellow;
+                        }
+                        else if (sState == Machine.SocketProductState.NG)
+                        {
+                            stateLabel.BackColor = Color.Red;
+                            stateLabel.ForeColor = Color.Black;
+                        }
+                        else
+                        {
+                            stateLabel.BackColor = Color.White;
+                            stateLabel.ForeColor = Color.Black;
+                        }
                     }
+
+                        
                 }
             }
 

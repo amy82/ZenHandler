@@ -177,8 +177,8 @@ namespace ZenHandler.FThread
 
                     this.m_nCurrentStep = this.parent.processManager.aoiSocketFlow.Auto_Waiting(this.m_nCurrentStep);
 
-                    //this.m_nSocketStep[0] = this.parent.processManager.aoiSocketFlow.Auto_Left_Socket(this.m_nSocketStep[0]);
-                    //this.m_nSocketStep[1] = this.parent.processManager.aoiSocketFlow.Auto_Right_Socket(this.m_nSocketStep[1]);
+                    this.m_nSocketStep[0] = this.parent.processManager.aoiSocketFlow.Auto_Common_Socket(this.m_nSocketStep[0], 0);
+                    this.m_nSocketStep[1] = this.parent.processManager.aoiSocketFlow.Auto_Common_Socket(this.m_nSocketStep[1], 1);
                 }
                 if (Program.PG_SELECT == HANDLER_PG.EEPROM)
                 {

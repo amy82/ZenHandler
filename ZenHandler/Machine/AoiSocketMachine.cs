@@ -16,6 +16,7 @@ namespace ZenHandler.Machine
     };
     public class AoiSocketMachine : MotionControl.MotorController
     {
+        public event Action<int, int[]> OnSocketCall;   //공급 , 배출요청
         public int MotorCnt { get; private set; } = 4;
 
         //소켓 2개 2세트 = 4개
@@ -49,7 +50,7 @@ namespace ZenHandler.Machine
         public Data.TeachingConfig teachingConfig = new Data.TeachingConfig();
 
 
-        public SocketProduct socketProduct = new SocketProduct();
+        public AoiSocketProduct socketProduct = new AoiSocketProduct();
         public AoiSocketMachine()
         {
             int i = 0;
@@ -73,23 +74,28 @@ namespace ZenHandler.Machine
                 }
             }
 
-            socketProduct = Data.TaskDataYaml.TaskLoad_Socket(taskPath);
+            socketProduct = Data.TaskDataYaml.TaskLoad_AoiSocket(taskPath);
             if (socketProduct.SocketInfo_A.Count < 1)
             {
-                socketProduct.SocketInfo_A.Add(new SocketProductInfo());
-                socketProduct.SocketInfo_A.Add(new SocketProductInfo());
+                socketProduct.SocketInfo_A.Add(new AoiSocketProductInfo());
+                socketProduct.SocketInfo_A.Add(new AoiSocketProductInfo());
             }
             if (socketProduct.SocketInfo_B.Count < 1)
             {
-                socketProduct.SocketInfo_B.Add(new SocketProductInfo());
-                socketProduct.SocketInfo_B.Add(new SocketProductInfo());
+                socketProduct.SocketInfo_B.Add(new AoiSocketProductInfo());
+                socketProduct.SocketInfo_B.Add(new AoiSocketProductInfo());
             }
 
         }
         public override bool TaskSave()
         {
-            bool rtn = Data.TaskDataYaml.TaskSave_Socket(socketProduct, taskPath);
+            bool rtn = Data.TaskDataYaml.TaskSave_AoiSocket(socketProduct, taskPath);
             return rtn;
+        }
+        public void RaiseProductCall(int index, int[] nReq)
+        {
+            OnSocketCall?.Invoke(index, nReq);
+
         }
         public override void MotorDataSet()
         {
