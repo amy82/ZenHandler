@@ -17,11 +17,11 @@ namespace ZenHandler.Process
     {
         public string[] axisName = { "Left Socekt", "Right Socket" };
         public int nTimeTick = 0;
-
-
+        private TcpSocket.MessageWrapper aoiEqipData;
+        private TcpSocket.TesterData tData;
 
         private AoiSocketState[] socketProcessState = new AoiSocketState[2];
-        
+       
 
         private int[,] socketStates = new int[2, 4]//리턴이 공용이라서 소켓이 2개씩이라서 4개 사용
         {
@@ -30,7 +30,8 @@ namespace ZenHandler.Process
         };
         public AoiSocketFlow()
         {
-
+            aoiEqipData = new TcpSocket.MessageWrapper();
+            tData = new TcpSocket.TesterData();
         }
         //-----------------------------------------------------------------------------------------------------------
         //◀ ▶
@@ -435,8 +436,8 @@ namespace ZenHandler.Process
                     if (Globalo.motionManager.GetSocketDone(ANum) == 0)
                     {
                         //배출 완료
-                        Globalo.motionManager.InitSocketDone(ANum);             //배출요청 변수 초기화
-                        int[] group = Globalo.motionManager.GetSocketReq(ANum);    //소켓별 배출 상태 받기
+                        Globalo.motionManager.InitSocketDone(ANum);                 //배출요청 변수 초기화
+                        int[] group = Globalo.motionManager.GetSocketReq(ANum);     //소켓별 배출 상태 받기
 
                         for (i = 0; i < group.Length; i++)
                         {
@@ -495,7 +496,256 @@ namespace ZenHandler.Process
                 //--------------------------------------------------------------------------------------------------------------------------
                 case 400:
 
+                    nRetStep = 405;
+                    break;
+                case 405:
+                    bRtn = Globalo.motionManager.socketAoiMachine.Socket_Z_Move(Machine.AoiSocketMachine.eTeachingAoiPosList.HOUSING_OUT_POS, Xmotor, false);
+
+                    if (bRtn == false)
+                    {
+                        szLog = $"[AUTO] {axisName[ANum]} Z HOUSING OUT POS MOVE FAIL [STEP : {nStep}]";
+                        Globalo.LogPrint("ManualControl", szLog, Globalo.eMessageName.M_ERROR);
+                        nRetStep *= -1;
+                        break;
+                    }
+
+                    szLog = $"[AUTO] {axisName[ANum]} Z HOUSING OUT POS MOVE [STEP : {nStep}]";
+                    Globalo.LogPrint("ManualControl", szLog);
                     nRetStep = 410;
+                    nTimeTick = Environment.TickCount;
+                    break;
+                case 410:
+                    if (Globalo.motionManager.socketAoiMachine.MotorAxes[(int)Zmotor].GetStopAxis() == true &&
+                        Globalo.motionManager.socketAoiMachine.ChkMotorPos(Machine.AoiSocketMachine.eTeachingAoiPosList.HOUSING_OUT_POS, Zmotor))
+                    {
+                        szLog = $"[AUTO] {axisName[ANum]} Z HOUSING OUT POS 이동 완료 [STEP : {nStep}]";
+                        Globalo.LogPrint("ManualControl", szLog);
+                        nRetStep = 415;
+                        nTimeTick = Environment.TickCount;
+                        break;
+                    }
+                    else if (Environment.TickCount - nTimeTick > MotionControl.MotorSet.MOTOR_MOVE_TIMEOUT)
+                    {
+                        szLog = $"[AUTO] {axisName[ANum]} Z HOUSING OUT POS 시간 초과 [STEP : {nStep}]";
+                        Globalo.LogPrint("ManualControl", szLog);
+                        nRetStep *= -1;
+                        break;
+                    }
+                    break;
+                case 415:
+                    bRtn = Globalo.motionManager.socketAoiMachine.Socket_X_Move(Machine.AoiSocketMachine.eTeachingAoiPosList.CAPTURE_R_POS, Xmotor, false);
+
+                    if (bRtn == false)
+                    {
+                        szLog = $"[AUTO] {axisName[ANum]} CAPTURE_R POS MOVE FAIL [STEP : {nStep}]";
+                        Globalo.LogPrint("ManualControl", szLog, Globalo.eMessageName.M_ERROR);
+                        nRetStep *= -1;
+                        break;
+                    }
+
+                    szLog = $"[AUTO] {axisName[ANum]} CAPTURE_R POS MOVE [STEP : {nStep}]";
+                    Globalo.LogPrint("ManualControl", szLog);
+                    nTimeTick = Environment.TickCount;
+                    nRetStep = 420;
+                    break;
+                case 420:
+                    if (Globalo.motionManager.socketAoiMachine.MotorAxes[(int)Xmotor].GetStopAxis() == true &&
+                        Globalo.motionManager.socketAoiMachine.ChkMotorPos(Machine.AoiSocketMachine.eTeachingAoiPosList.CAPTURE_R_POS, Xmotor))
+                    {
+                        szLog = $"[AUTO] {axisName[ANum]} X CAPTURE_R POS 이동 완료 [STEP : {nStep}]";
+                        Globalo.LogPrint("ManualControl", szLog);
+                        nRetStep = 425;
+                        nTimeTick = Environment.TickCount;
+                        break;
+                    }
+                    else if (Environment.TickCount - nTimeTick > MotionControl.MotorSet.MOTOR_MOVE_TIMEOUT)
+                    {
+                        szLog = $"[AUTO] {axisName[ANum]} X CAPTURE_R 이동 시간 초과 [STEP : {nStep}]";
+                        Globalo.LogPrint("ManualControl", szLog);
+                        nRetStep *= -1;
+                        break;
+                    }
+                    break;
+                case 425:
+                    //딜레이
+                    if (Environment.TickCount - nTimeTick > 300)
+                    {
+                        nRetStep = 430;
+                    }
+                    break;
+                case 430:
+                    nRetStep = 440;
+                    break;
+                case 440:
+                    //검사 진행 - Socket Left , Right 인지 = 그 안에서 왼쪽 소켓인지 , 오른쪽 소켓인지
+                    //Tester 입장에서 어떤 소켓인지는 몰라도 될듯.
+
+                    aoiEqipData.Type = "AOI";
+                    tData.Name = "";
+                    tData.Cmd = "CMD_TEST_STEP1";       //RESP_TEST_STEP1  ,  RESP_TEST_STEP2
+                    tData.socketIndex = 0;  //Left - R Socket
+                    aoiEqipData.Data = tData;
+
+                    Globalo.tcpManager.SendMsgToTester(aoiEqipData, ANum); // pc 0 or pc 1
+                    
+                    nRetStep = 442;
+                    break;
+
+                case 442:
+                    //z축 이동 요청?
+                    break;
+                case 444:
+                    //검사 완료 대기
+                    //Left 소켓에 제품 있으면 Capture L위치로 이동 없으면 검사 종료
+                    break;
+                case 446:
+
+                    break;
+                case 448:
+
+                    break;
+                case 450:
+                    
+                    nRetStep = 460;
+                    break;
+                case 460:
+                    
+                    nRetStep = 480;
+                    break;
+                case 480:
+                    //Left 소켓에 제품이 있으면 검사 위치로 이동
+                    //보고 대기
+
+                    //검사 쪽에서 APD만 보고해주면 , SecsGem ---> Handler 로 양불 판정 받으면 될듯
+                    //APD 보고, Lot Complete 보고 대기
+                    nRetStep = 490;
+                    break;
+
+                case 490:
+                    //Z 축 원복
+                    bRtn = Globalo.motionManager.socketAoiMachine.Socket_Z_Move(Machine.AoiSocketMachine.eTeachingAoiPosList.HOUSING_OUT_POS, Xmotor, false);
+
+                    if (bRtn == false)
+                    {
+                        szLog = $"[AUTO] {axisName[ANum]} Z HOUSING OUT POS MOVE FAIL [STEP : {nStep}]";
+                        Globalo.LogPrint("ManualControl", szLog, Globalo.eMessageName.M_ERROR);
+                        nRetStep *= -1;
+                        break;
+                    }
+
+                    szLog = $"[AUTO] {axisName[ANum]} Z HOUSING OUT POS MOVE [STEP : {nStep}]";
+                    Globalo.LogPrint("ManualControl", szLog);
+                    nRetStep = 495;
+                    nTimeTick = Environment.TickCount;
+                    break;
+                case 495:
+                    if (Globalo.motionManager.socketAoiMachine.MotorAxes[(int)Zmotor].GetStopAxis() == true &&
+                        Globalo.motionManager.socketAoiMachine.ChkMotorPos(Machine.AoiSocketMachine.eTeachingAoiPosList.HOUSING_OUT_POS, Zmotor))
+                    {
+                        szLog = $"[AUTO] {axisName[ANum]} Z HOUSING OUT POS 이동 완료 [STEP : {nStep}]";
+                        Globalo.LogPrint("ManualControl", szLog);
+                        nTimeTick = Environment.TickCount;
+
+                        nRetStep = 500;
+                        break;
+                    }
+                    else if (Environment.TickCount - nTimeTick > MotionControl.MotorSet.MOTOR_MOVE_TIMEOUT)
+                    {
+                        szLog = $"[AUTO] {axisName[ANum]} Z HOUSING OUT POS 시간 초과 [STEP : {nStep}]";
+                        Globalo.LogPrint("ManualControl", szLog);
+                        nRetStep *= -1;
+                        break;
+                    }
+                    break;
+                case 500:
+
+                    nRetStep = 505;
+                    break;
+                case 505:
+
+                    nRetStep = 510;
+                    break;
+                case 510:
+
+                    nRetStep = 515;
+                    break;
+                case 515:
+                    bRtn = Globalo.motionManager.socketAoiMachine.Socket_X_Move(Machine.AoiSocketMachine.eTeachingAoiPosList.CAPTURE_L_POS, Xmotor, false);
+
+                    if (bRtn == false)
+                    {
+                        szLog = $"[AUTO] {axisName[ANum]} CAPTURE_L POS MOVE FAIL [STEP : {nStep}]";
+                        Globalo.LogPrint("ManualControl", szLog, Globalo.eMessageName.M_ERROR);
+                        nRetStep *= -1;
+                        break;
+                    }
+
+                    szLog = $"[AUTO] {axisName[ANum]} CAPTURE_L POS MOVE [STEP : {nStep}]";
+                    Globalo.LogPrint("ManualControl", szLog);
+                    nTimeTick = Environment.TickCount;
+                    nRetStep = 520;
+                    break;
+                case 520:
+                    if (Globalo.motionManager.socketAoiMachine.MotorAxes[(int)Xmotor].GetStopAxis() == true &&
+                        Globalo.motionManager.socketAoiMachine.ChkMotorPos(Machine.AoiSocketMachine.eTeachingAoiPosList.CAPTURE_L_POS, Xmotor))
+                    {
+                        szLog = $"[AUTO] {axisName[ANum]} X CAPTURE_L POS 이동 완료 [STEP : {nStep}]";
+                        Globalo.LogPrint("ManualControl", szLog);
+                        nRetStep = 525;
+                        nTimeTick = Environment.TickCount;
+                        break;
+                    }
+                    else if (Environment.TickCount - nTimeTick > MotionControl.MotorSet.MOTOR_MOVE_TIMEOUT)
+                    {
+                        szLog = $"[AUTO] {axisName[ANum]} X CAPTURE_L 이동 시간 초과 [STEP : {nStep}]";
+                        Globalo.LogPrint("ManualControl", szLog);
+                        nRetStep *= -1;
+                        break;
+                    }
+                    
+                    break;
+                case 525:
+                    //딜레이
+                    if (Environment.TickCount - nTimeTick > 300)
+                    {
+                        nRetStep = 530;
+                    }
+                    
+                    break;
+                case 530:
+                    
+                    nRetStep = 535;
+                    break;
+                case 535:
+
+                    nRetStep = 540;
+                    break;
+
+                case 540:
+                    
+                    aoiEqipData.Type = "AOI";
+                    tData.Name = "";
+                    tData.Cmd = "CMD_TEST_STEP1";       //RESP_TEST_STEP1
+                    tData.socketIndex = 1;  //Left - L Socket
+                    aoiEqipData.Data = tData;
+
+                    Globalo.tcpManager.SendMsgToTester(aoiEqipData, ANum); // pc 0 or pc 1
+                    break;
+                case 600:
+                    nRetStep = 700;
+                    break;
+                case 700:
+                    nRetStep = 800;
+                    break;
+                case 800:
+                    //RIGHT , LEFT 제품 APD 보고하고 , Lot Complete 완공까지 하고,
+                    //배출 신호 올 때까지 대기
+                    nRetStep = 900;
+                    break;
+                case 900:
+
+                    Globalo.motionManager.socketEEpromMachine.IsTesting[ANum] = false;      //검사 완료 후
+                    nRetStep = 100;
                     break;
             }
 

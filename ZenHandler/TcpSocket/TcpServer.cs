@@ -28,14 +28,16 @@ namespace ZenHandler.TcpSocket
         //private bool _isRunning;
         private bool bConnected;
 
+        private bool[] bConnectedClient = new bool[10];
+
         //private readonly List<TcpClient> _clientsList = new List<TcpClient>();
         //private Dictionary<int, TcpClient> _clientMap = new Dictionary<int, TcpClient>();
 
 
-        private readonly TcpClient[] _clients = new TcpClient[9];
+        private readonly TcpClient[] _clients = new TcpClient[9];       //EEPROM : 8대 , FW = 4대 , AOI = 2대   + 1(Client)
         private readonly Dictionary<int, ClientSlotIndex> ipToSlotIndex = new Dictionary<int, ClientSlotIndex>
         {
-            { 1, ClientSlotIndex.Tester1 },     //여기 앞에 숫자를 ip주소 끝자리와 맞혀야 된다.
+            { 40, ClientSlotIndex.Tester1 },     //여기 앞에 숫자를 ip주소 끝자리와 맞혀야 된다.
             { 2, ClientSlotIndex.Tester2 },
             { 3, ClientSlotIndex.Tester3 },
             { 4, ClientSlotIndex.Tester4 },
@@ -43,7 +45,7 @@ namespace ZenHandler.TcpSocket
             { 6, ClientSlotIndex.Tester6 },
             { 7, ClientSlotIndex.Tester7 },
             { 8, ClientSlotIndex.Tester8 },
-            { 40, ClientSlotIndex.SecsGem }//{ 100, ClientSlotIndex.SecsGem }
+            { 100, ClientSlotIndex.SecsGem }//{ 100, ClientSlotIndex.SecsGem }
         };
         //public event Action<string> OnMessageReceived; // 메시지 수신 이벤트
         public event Func<string,int, Task> OnMessageReceivedAsync; // 비동기 이벤트
@@ -53,12 +55,17 @@ namespace ZenHandler.TcpSocket
             bConnected = false;
             _listener = new TcpListener(IPAddress.Any, port);//IPAddress.Parse(ip), port);
 
+            for (int i = 0; i < 10; i++)
+            {
+                bConnectedClient[i] = false;
+            }
             string logData = $"[tcp] Server Create:{ip} / {port}";
             Globalo.LogPrint("CCdControl", logData);
         }
-        public bool bClientConnectedState()
+        public bool bClientConnectedState(int index)
         {
-            return bConnected;
+            return bConnectedClient[index];
+            //return bConnected;
         }
         // 🎯 **클라이언트로 메시지 보내는 함수**
         public async Task SendMessageAsync(TcpClient client, string message)

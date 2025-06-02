@@ -40,12 +40,23 @@ namespace ZenHandler.TcpSocket
 
         public async void SendMessageToClient(TcpSocket.EquipmentData equipData, int clintNum = -1)
         {
-            if (_HandlerServer.bClientConnectedState() == false)
+            if (_HandlerServer.bClientConnectedState(clintNum) == false)
             {
                 return;
             }
             //await _server.SendMessageAsync(message);   //클라이언트 하나만 허용  secGemApp
             //
+            string jsonData = JsonConvert.SerializeObject(equipData);
+            await _HandlerServer.BroadcastMessageAsync(jsonData, clintNum);
+        }
+
+        public async void SendMsgToTester(TcpSocket.MessageWrapper equipData, int clintNum = -1)
+        {
+            if (_HandlerServer.bClientConnectedState(clintNum) == false || clintNum == -1)
+            {
+                Console.WriteLine($"bClientConnectedState - {clintNum}");
+                return;
+            }
             string jsonData = JsonConvert.SerializeObject(equipData);
             await _HandlerServer.BroadcastMessageAsync(jsonData, clintNum);
         }
@@ -77,27 +88,48 @@ namespace ZenHandler.TcpSocket
             sendEqipData.ErrText = nAlarmID;
             SendMessageToClient(sendEqipData);
         }
-        private void socketMessageParse(SocketTestState data, int index)        //index = ip뒷자리
+        private void socketMessageParse(TesterData data, int index)        //index = ip뒷자리
         {
             int i = 0;
             int result = -1;
 
             string SocketName = data.Name;
-            
 
-            if (SocketName == "EEPROM") //0 ~ 7 개별 pc
+            if (SocketName == "EEPROM_WRITE") //0 ~ 3 개별 pc
             {
                 int pcNum = index % 4;      //0,1,2,3 반복
                 if (index < 4)
                 {
-                    Globalo.motionManager.socketEEpromMachine.Tester_A_Result[pcNum] = data.States[pcNum];
+                    
                 }
-                else
-                {
-                    Globalo.motionManager.socketEEpromMachine.Tester_B_Result[pcNum] = data.States[pcNum];
-                }
+                Globalo.motionManager.socketEEpromMachine.Tester_A_Result[pcNum] = data.States[pcNum];
             }
-            else if(SocketName == "FW" || SocketName == "AOI")  //4(fw) or 2(aoi)
+            else if (SocketName == "EEPROM_VERIFY") //4 ~ 7 개별 pc
+            {
+                int pcNum = index % 4;      //0,1,2,3 반복
+                if (index < 4)
+                {
+                    
+                }
+                Globalo.motionManager.socketEEpromMachine.Tester_B_Result[pcNum] = data.States[pcNum];
+            }
+            else if (SocketName == "AOI")  //2  (aoi)
+            {
+                if (data.socketIndex < 4 && data.socketIndex > -1)
+                {
+                    if (index == 0)     //LEFT 소켓 - L/R
+                    {
+                        Globalo.motionManager.socketAoiMachine.Tester_A_Result[data.socketIndex] = data.States[data.socketIndex];
+                    }
+
+                    if (index == 1)     //RIGHT 소켓 - L/R
+                    {
+                        Globalo.motionManager.socketAoiMachine.Tester_B_Result[data.socketIndex] = data.States[data.socketIndex];
+                    }
+                }
+                
+            }
+            else if (SocketName == "FW")  //4(fw)
             {
                 if (index == 0)
                 {
@@ -107,7 +139,7 @@ namespace ZenHandler.TcpSocket
                 {
                     Globalo.motionManager.socketEEpromMachine.Tester_B_Result = (int[])data.States.Clone();
                 }
-                if (index == 20)
+                if (index == 2)
                 {
                     Globalo.motionManager.socketEEpromMachine.Tester_C_Result = (int[])data.States.Clone();
                 }
@@ -116,8 +148,6 @@ namespace ZenHandler.TcpSocket
                     Globalo.motionManager.socketEEpromMachine.Tester_D_Result = (int[])data.States.Clone();
                 }
             }
-
-            
         }
         private void hostMessageParse(EquipmentData data)
         {
@@ -129,6 +159,38 @@ namespace ZenHandler.TcpSocket
             Globalo.LogPrint("TcpManager", logData);
 
             //Console.WriteLine($"장비 ID: {data.EQPID}, 레시피 ID: {data.RECIPEID}");
+
+            //통신 예제
+            //REQ_ 요청 (Request)
+            //REQ_INSPECT - 검사 요청
+            //REQ_LOT_START
+            //REQ_APD_REPORT - RESP_LOT_COMPLETE
+
+            //
+            //RESP_ 응답 (Response)
+            //RESP_MOVE_Z : Z축 이동 완료 응답
+            //
+            //NOTI_ 알람 / 통지 (Notification)
+            //NOTI_LOT_END  : LOT 종료 알림
+            //
+            //CMD_  명령(Command_ 제어 지시)
+            //CMD_MOVE_Z    : Z축 이동 명령
+            //CMD_RESET
+            //
+            //STAT_ 상태전송(sTATUS)
+            //STAT_READY
+            //STAT_BUSY
+            //ERR_  에러 알림(
+            //
+            /*
+             {
+              "cmd": "REQ_APD_REPORT",
+              "lotId": "LOT20240601",
+              "socketIndex": 2,
+              "result": "PASS",
+              "timestamp": "2025-06-02T14:21:33"
+            }
+             */
             //>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
             //
             if (data.Command == "APS_LOT_START_CMD")
@@ -230,43 +292,6 @@ namespace ZenHandler.TcpSocket
                 }
             }
 
-            //if (data.Command == CMD_POPUP_MESSAGE.cpFmt_PPReq.ToString())           //XXXX
-            //{
-            //    //설비에서 레시피 파라미터 down Req 했을 때 들어온다.
-            //    //
-            //    //Ask 팝업인지 Show 팝업인지 구분해야된다.
-            //    //
-            //    //팝업 띄워야된다. 2종료
-            //    //1. 변경 할거냐? Yes or No
-            //    //2. _stprintf_s(szLog, SIZE_OF_1K, _T("[%s] RECIPE EMPTY!"), fmtPpCollection->PPID);
-            //    //
-
-            //    string message1 = data.ErrText;
-            //    if (data.ErrCode == "Ask")
-            //    {
-            //        //int result = >MessageBox(_T("Apply Host Recipe Parameter Value?"), _T("Apply Host Recipe Confirm!!!"));
-            //        bool Rtn = false;
-            //        Rtn = Globalo.ShowAskMessageDialog("Apply Host Recipe Parameter Value?");
-            //        if (Rtn)
-            //        {
-            //            //client로 변경했다고 보내줘야된다.
-
-            //            TcpSocket.EquipmentData FmtData = new TcpSocket.EquipmentData();
-            //            FmtData.Command = CMD_POPUP_MESSAGE.cpFmt_PPReq.ToString();
-            //            Globalo.tcpManager.SendMessageToClient(FmtData);
-            //        }
-            //        else
-            //        {
-            //            //아무 것도 한해도 된다.
-            //        }
-            //    }
-            //    else
-            //    {
-            //        //_stprintf_s(szLog, SIZE_OF_1K, _T("[%s] RECIPE EMPTY!"), fmtPpCollection->PPID);
-
-            //        Globalo.LogPrint("ManualCMainFormontrol", message1, Globalo.eMessageName.M_WARNING);
-            //    }
-            //}
             if (data.Command == CMD_POPUP_MESSAGE.cpDefault.ToString())
             {
                 string message1 = data.ErrText;
@@ -620,9 +645,9 @@ namespace ZenHandler.TcpSocket
                         hostMessageParse(edata);
                         break;
 
-                    case "SocketTestState":
+                    case "TesterData":
                         //SocketTestState sdata = serializer.Deserialize<SocketTestState>(reader);
-                        SocketTestState socketState = JsonConvert.DeserializeObject<SocketTestState>(wrapper.Data.ToString());
+                        TesterData socketState = JsonConvert.DeserializeObject<TesterData>(wrapper.Data.ToString());
                         socketMessageParse(socketState, clientIndex);
                         break;
                 }
@@ -637,7 +662,6 @@ namespace ZenHandler.TcpSocket
                 {
                     Console.WriteLine($"hostMessageParse 처리 중 예외 발생: {ex.Message}");
                 }
-
             }
         }
         private void OnMessageReceived(string receivedData)
@@ -665,9 +689,7 @@ namespace ZenHandler.TcpSocket
             //    {
             //        Console.WriteLine($"hostMessageParse 처리 중 예외 발생: {ex.Message}");
             //    }
-
             //}
         }
-        
     }
 }
