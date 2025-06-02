@@ -45,7 +45,14 @@ namespace ZenHandler.TcpSocket
         public int socketIndex { get; set; }    //
         public int[] States { get; set; }       //{ 1, 1, 1, 1}  EEPROM ,AOI는 0번 index만 사용
     }
+    public class SecsData
+    {
+        public string Cmd { get; set; }
+        public string LotId { get; set; }
+        public string[] ApdDataArr { get; set; }
+        public string[] recipeList { get; set; }
 
+    }
 
     //
     //

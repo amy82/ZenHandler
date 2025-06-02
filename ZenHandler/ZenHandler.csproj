@@ -244,6 +244,8 @@
       <DependentUpon>TerminalMsgForm.cs</DependentUpon>
     </Compile>
     <Compile Include="FThread\SocketThread.cs" />
+    <Compile Include="HttpApi\ZenHttpClient.cs" />
+    <Compile Include="HttpApi\ZenHttpServer.cs" />
     <Compile Include="LeeTest.cs">
       <SubType>Form</SubType>
     </Compile>
