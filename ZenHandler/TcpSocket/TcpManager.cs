@@ -133,19 +133,19 @@ namespace ZenHandler.TcpSocket
             {
                 if (index == 0)
                 {
-                    Globalo.motionManager.socketEEpromMachine.Tester_A_Result = (int[])data.States.Clone();
+                    Globalo.motionManager.socketFwMachine.Tester_A_Result = (int[])data.States.Clone();
                 }
                 if (index == 1)
                 {
-                    Globalo.motionManager.socketEEpromMachine.Tester_B_Result = (int[])data.States.Clone();
+                    Globalo.motionManager.socketFwMachine.Tester_B_Result = (int[])data.States.Clone();
                 }
                 if (index == 2)
                 {
-                    Globalo.motionManager.socketEEpromMachine.Tester_C_Result = (int[])data.States.Clone();
+                    Globalo.motionManager.socketFwMachine.Tester_C_Result = (int[])data.States.Clone();
                 }
                 if (index == 3)
                 {
-                    Globalo.motionManager.socketEEpromMachine.Tester_D_Result = (int[])data.States.Clone();
+                    Globalo.motionManager.socketFwMachine.Tester_D_Result = (int[])data.States.Clone();
                 }
             }
         }

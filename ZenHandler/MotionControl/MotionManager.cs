@@ -157,18 +157,19 @@ namespace ZenHandler.MotionControl
         //  소켓 공급 / 배출 요청
         //
         //---------------------------------------------------------------------------------------------------------
-        private void OnSocketLoadReq(SocketReqArgs args)//int index, int[] nReq)          //소켓에서 투입 요청
+        private void OnSocketLoadReq(SocketReqArgs args, int nReq)//int index, int[] nReq)          //소켓에서 투입 요청
         {
-            //Console.WriteLine($"OnSocketLoadReq - {index},{nReq}");
+            //nReq = Transfer은 0 = 0이면 공급완료
+            //nReq = 소켓은 -1 = 공급요청하면서 -1로 바꿈
 
 
-            Console.WriteLine($"OnSocketLoadReq - {args.Index}, {string.Join(",", args.States)}, Barcode: {string.Join(",", args.Barcode)}");
+            Console.WriteLine($"OnSocketLoadReq - {args.Index}, {string.Join(",", args.States)}, Barcode: {string.Join(",", args.Barcode)}, nReq: {nReq}");
             int index = args.Index;
 
             socket_Req_State[index].States = (int[])args.States.Clone();
             socket_Req_State[index].Barcode = (string[])args.Barcode.Clone();
 
-            Socket_RequestDone[args.Index] = 1;
+            Socket_RequestDone[args.Index] = nReq;
         }
         public int GetSocketDone(int index)     //요청후 완료 됐는지 확인 함수
         {

@@ -1760,7 +1760,6 @@ namespace ZenHandler.Process
             switch (nStep)
             {
                 case 3000:
-
                     if (Globalo.motionManager.socketEEpromMachine.IsTesting[0] == false)
                     {
                         socketProcessState[0] = SocketState.Wait;

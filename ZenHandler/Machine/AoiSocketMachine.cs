@@ -17,7 +17,7 @@ namespace ZenHandler.Machine
     public class AoiSocketMachine : MotionControl.MotorController
     {
         //public event Action<int, int[]> OnSocketCall;   //공급 , 배출요청
-        public event Action<MotionControl.SocketReqArgs> OnSocketCall;   //공급 , 배출요청
+        public event Action<MotionControl.SocketReqArgs, int> OnSocketCall;   //공급 , 배출요청
         public int MotorCnt { get; private set; } = 4;
 
         //소켓 2개 2세트 = 4개
@@ -47,7 +47,7 @@ namespace ZenHandler.Machine
         {
             "WAIT_POS", "LOAD_POS", "UN_LOAD_POS", "CAPTURE_L_POS", "CAPTURE_R_POS", "HOUSING_IN_POS", "HOUSING_OUT_POS"
         };
-
+        public bool[] IsTesting = { false, false };      //검사 진행중
         public const string teachingPath = "Teach_AoiSocket.yaml";
         public const string taskPath = "Task_AoiSocket.yaml";
         public Data.TeachingConfig teachingConfig = new Data.TeachingConfig();
@@ -102,7 +102,7 @@ namespace ZenHandler.Machine
         }
         public void RaiseProductCall(MotionControl.SocketReqArgs nReq)
         {
-            OnSocketCall?.Invoke(nReq);
+            OnSocketCall?.Invoke(nReq, -1);
 
         }
         public override void MotorDataSet()
@@ -362,6 +362,8 @@ namespace ZenHandler.Machine
                 if (AutoUnitThread.GetThreadPause() == true)        //일시 정지 상태인지 확인
                 {
                     AutoUnitThread.m_nCurrentStep = Math.Abs(AutoUnitThread.m_nCurrentStep);
+                    AutoUnitThread.m_nSocketStep[0] = Math.Abs(AutoUnitThread.m_nSocketStep[0]);
+                    AutoUnitThread.m_nSocketStep[1] = Math.Abs(AutoUnitThread.m_nSocketStep[1]);
                     AutoUnitThread.Resume();
                     RunState = OperationState.AutoRunning;
                 }
@@ -373,6 +375,8 @@ namespace ZenHandler.Machine
             else
             {
                 AutoUnitThread.m_nCurrentStep = 3000;
+                AutoUnitThread.m_nSocketStep[0] = 100;
+                AutoUnitThread.m_nSocketStep[1] = 100;
                 AutoUnitThread.m_nEndStep = 10000;
                 AutoUnitThread.m_nStartStep = AutoUnitThread.m_nCurrentStep;
 

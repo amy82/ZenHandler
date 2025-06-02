@@ -14,7 +14,7 @@ namespace ZenHandler.Machine
     public class EEpromSocketMachine : MotionControl.MotorController
     {
         //public event Action<int, int[]> OnSocketCall;   //공급요청
-        public event Action<MotionControl.SocketReqArgs> OnSocketCall;   //공급요청
+        public event Action<MotionControl.SocketReqArgs, int> OnSocketCall;   //공급요청
         public int MotorCnt { get; private set; } = 2;
 
         //소켓4개 2세트 = 총 8개
@@ -109,7 +109,7 @@ namespace ZenHandler.Machine
         }
         public void RaiseProductCall(MotionControl.SocketReqArgs nReq)   //int[] nReq)
         {
-            OnSocketCall?.Invoke(nReq);
+            OnSocketCall?.Invoke(nReq, -1);
         }
 
         #region EEprom Socket Machine Io 동작

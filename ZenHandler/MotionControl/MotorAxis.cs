@@ -516,6 +516,10 @@ namespace ZenHandler.MotionControl
         }
         public bool GetPosiSensor()
         {
+            if (ProgramState.ON_LINE_MOTOR == false)
+            {
+                return true;
+            }
             uint dwStatus = 0;
             uint dwRetVal = 0;
             uint dwPositiveLevel = 0;
