@@ -8,7 +8,21 @@ using System.Windows.Forms;
 
 namespace ZenHandler.MotionControl
 {
-    
+    public class SocketReqArgs
+    {
+        public int Index { get; set; }                  // 소켓 인덱스
+        public int[] States { get; set; }               // 요청 상태 배열
+        public string[] Barcode { get; set; }             // 바코드 정보
+        public SocketReqArgs Clone()
+        {
+            return new SocketReqArgs
+            {
+                Index = this.Index,
+                States = (int[])this.States.Clone(),
+                Barcode = (string[])this.Barcode.Clone()
+            };
+        }
+    }
     public class MotionManager
     {
         public IOController ioController;       //io 동작
@@ -32,12 +46,13 @@ namespace ZenHandler.MotionControl
 
         private int[] Socket_RequestDone = { -1, -1, -1, -1 };      //초기화:-1 , 0:완료 , 1:공급,배출 요청
 
-        private int[] socketA_Req_State = {-1, -1, -1, -1 };        //-1 = 초기화 , 0 = 공급 완료, 1 = 공급요청 ,  2 = 배출요청
-        private int[] socketB_Requested = { -1, -1, -1, -1 };       //-1 = 초기화 , 0 = 공급 완료, 1 = 공급요청 ,  2 = 배출요청
-        private int[] socketC_Requested = { -1, -1, -1, -1 };       //-1 = 초기화 , 0 = 공급 완료, 1 = 공급요청 ,  2 = 배출요청
-        private int[] socketD_Requested = { -1, -1, -1, -1 };       //-1 = 초기화 , 0 = 공급 완료, 1 = 공급요청 ,  2 = 배출요청
+        private SocketReqArgs[] socket_Req_State = new SocketReqArgs[4];   //-1 = 초기화 , 0 = 공급 완료, 1 = 공급요청 ,  2 = 배출요청
 
-        
+        //private SocketReqArgs[] socketB_Requested = new SocketReqArgs[4];   //-1 = 초기화 , 0 = 공급 완료, 1 = 공급요청 ,  2 = 배출요청
+        //private SocketReqArgs[] socketC_Requested = new SocketReqArgs[4];   //-1 = 초기화 , 0 = 공급 완료, 1 = 공급요청 ,  2 = 배출요청
+        //private SocketReqArgs[] socketD_Requested = new SocketReqArgs[4];   //-1 = 초기화 , 0 = 공급 완료, 1 = 공급요청 ,  2 = 배출요청
+
+
 
         //TODO: Set 라서 4개인데 , 개별이면 달라진다. -
         //펌웨어는 Set 로 요청 - 4개씩 4Set
@@ -53,7 +68,7 @@ namespace ZenHandler.MotionControl
 
         public MotionManager()
         {
-
+            int i = 0;
             Event.EventManager.PgExitCall += OnPgExit;
             ioController = new IOController();
 
@@ -70,6 +85,7 @@ namespace ZenHandler.MotionControl
 
             socketEEpromMachine.OnSocketCall += OnSocketLoadReq;        //공급, 배출 요청 1 or 2
             socketAoiMachine.OnSocketCall += OnSocketLoadReq;
+
             bool LoadChk = true;
             LoadChk = transferMachine.teachingConfig.LoadTeach(Machine.TransferMachine.teachingPath, transferMachine.MotorCnt, (int)Machine.TransferMachine.eTeachingPosList.TOTAL_TRANSFER_TEACHING_COUNT);   //TODO: 티칭 개수만큼 불러와야되는데 파일에 없으면 못 불러온다
             transferMachine.MotorUse = LoadChk;
@@ -90,7 +106,17 @@ namespace ZenHandler.MotionControl
             {
                 SocketSetCount = 4;
             }
-                
+
+
+            for (i = 0; i < 4; i++)     //for (i = 0; i < socketA_Req_State.Length; i++)
+            {
+                socket_Req_State[i] = new SocketReqArgs
+                {
+                    Index = i,
+                    States = new int[] { -1, -1, -1, -1 },
+                    Barcode = new string[] { string.Empty, string.Empty, string.Empty, string.Empty }
+                };
+            }
             //FwSocket = Teaching 없음
         }
         private void OnTrayChengeReq(MotorSet.TrayPos position)
@@ -123,27 +149,17 @@ namespace ZenHandler.MotionControl
         //  소켓 공급 / 배출 요청
         //
         //---------------------------------------------------------------------------------------------------------
-        private void OnSocketLoadReq(int index, int[] nReq)          //소켓에서 투입 요청
+        private void OnSocketLoadReq(SocketReqArgs args)//int index, int[] nReq)          //소켓에서 투입 요청
         {
-            Console.WriteLine($"OnSocketLoadReq - {index},{nReq}");
-            
-            if (index == 0)
-            {
-                socketA_Req_State = (int[])nReq.Clone();
-            }
-            if (index == 1)
-            {
-                socketB_Requested = (int[])nReq.Clone();
-            }
-            if (index == 2)
-            {
-                socketC_Requested = (int[])nReq.Clone();
-            }
-            if (index == 3)
-            {
-                socketD_Requested = (int[])nReq.Clone();
-            }
-            Socket_RequestDone[index] = 1;
+            //Console.WriteLine($"OnSocketLoadReq - {index},{nReq}");
+
+
+            Console.WriteLine($"OnSocketLoadReq - {args.Index}, {string.Join(",", args.States)}, Barcode: {string.Join(",", args.Barcode)}");
+            int index = args.Index;
+
+            socket_Req_State[index].States = (int[])args.States.Clone();
+            socket_Req_State[index].Barcode = (string[])args.Barcode.Clone();
+            Socket_RequestDone[args.Index] = 1;
         }
         public int GetSocketDone(int index)     //요청후 완료 됐는지 확인 함수
         {
@@ -153,26 +169,10 @@ namespace ZenHandler.MotionControl
         {
             Socket_RequestDone[index] = -1;
         }
-        public int[] GetSocketReq(int index)//public int GetSocketEjectReq(int index)
-        {
-            if (index == 0)
-            {
-                return socketA_Req_State;
-            }
-            if (index == 1)
-            {
-                return socketB_Requested;
-            }
-            if (index == 2)
-            {
-                return socketC_Requested;
-            }
-            if (index == 3)
-            {
-                return socketD_Requested;
-            }
 
-            return new int[] { -1, -1, -1, -1 };
+        public SocketReqArgs GetSocketReq(int index)//public int[] GetSocketReq(int index)
+        {
+            return socket_Req_State[index].Clone();
         }
 
         //---------------------------------------------------------------------------------------------------------

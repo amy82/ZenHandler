@@ -17,7 +17,9 @@ namespace ZenHandler.Machine
     public class TransferMachine : MotionControl.MotorController
     {
         public event Action<MotionControl.MotorSet.TrayPos> OnTrayChangedCall;
-        public event Action<int, int[]> OnSocketReqComplete;
+
+        //public event Action<int, int[]> OnSocketReqComplete;
+        public event Action<MotionControl.SocketReqArgs> OnSocketReqComplete;
         public int MotorCnt { get; private set; } = 3;
         
         public MotionControl.MotorAxis[] MotorAxes; // 배열 선언
@@ -173,7 +175,14 @@ namespace ZenHandler.Machine
         }
         public void CallSocketReqComplete(int index)        //공급 , 배출 완료 
         {
-            OnSocketReqComplete?.Invoke(index, new int[] { 0, 0, 0, 0 });     //공급완료는 0만 가능
+            //var args = new MotionControl.SocketReqArgs
+            //{
+            //    Index = index,
+            //    States = new int[] { 0, 0, 0, 0 },   // 공급 완료일 때는 0만 가능
+            //    Barcode = barcode
+            //};
+            //OnSocketReqComplete?.Invoke(args);
+            //OnSocketReqComplete?.Invoke(index, new int[] { 0, 0, 0, 0 });     //공급완료는 0만 가능
 
         }
         public void LoadTryAdd(int LoadCnt = 1)

@@ -31,8 +31,8 @@ namespace ZenHandler.Process
 
         public int nTimeTick = 0;
 
-        private int[] socketStateA = { -1, -1, -1, -1 };     // 0은 공급완료, 배출 완료, 1: 공급 요청, 2: 양품 배출, 3: NG 배출
-        private int[] socketState_B = { -1, -1, -1, -1 };    // 0은 공급완료, 배출 완료, 1: 공급 요청, 2: 양품 배출, 3: NG 배출
+        private MotionControl.SocketReqArgs[] FlowSocketState = new MotionControl.SocketReqArgs[2]; // = { -1, -1, -1, -1 };     // 0은 공급완료, 배출 완료, 1: 공급 요청, 2: 양품 배출, 3: NG 배출
+        //private int[] socketState_B = { -1, -1, -1, -1 };    // 0은 공급완료, 배출 완료, 1: 공급 요청, 2: 양품 배출, 3: NG 배출
 
         private SocketState[] socketProcessState = new SocketState[2];
         private bool[] InterLock = { false, false };
@@ -43,6 +43,7 @@ namespace ZenHandler.Process
         private bool VerifyPositionOccupied = false;         //Verify 위치 점유
         public EEpromSocketFlow()
         {
+            int i = 0;
             //EEPROM 설비는 소켓 하나마다 pc 1대 - 총 8대
             //8대 모두 연결 상태 확인후 진행
 
@@ -53,6 +54,16 @@ namespace ZenHandler.Process
             CancelTokenSocket = new CancellationTokenSource();
             Write_Task = Task.FromResult(1);      //<--실제 실행하지않고,즉시 완료된 상태로 반환
             Verify_Task = Task.FromResult(1);      //<--실제 실행하지않고,즉시 완료된 상태로 반환
+
+            for (i = 0; i < 2; i++)     //for (i = 0; i < socketA_Req_State.Length; i++)
+            {
+                FlowSocketState[i] = new MotionControl.SocketReqArgs
+                {
+                    Index = i,
+                    States = new int[] { -1, -1, -1, -1 },      //eeprom 4개
+                    Barcode = new string[] { string.Empty, string.Empty, string.Empty, string.Empty }
+                };
+            }
         }
         
         //-----------------------------------------------------------------------------------------------------------
@@ -221,25 +232,28 @@ namespace ZenHandler.Process
                     //공급 요청
                     for (i = 0; i < 4; i++)
                     {
+                        FlowSocketState[sNum].Barcode[i] = String.Empty;
                         if (Globalo.motionManager.socketEEpromMachine.GetIsProductInSocket(sNum, i, true) == false)
                         {
-                            //socketStateA = new int[] { 1, 1, 1, 1 };        //1 = 공급 요청
-                            socketStateA[i] = 1;
+                            //socketStateA[i] = 1;
+                            FlowSocketState[sNum].States[i] = 1;
                         }
                         else
                         {
-                            socketStateA[i] = -1;
+                            //socketStateA[i] = -1;
+                            FlowSocketState[sNum].States[i] = -1;
                         }
                     }
 
-                    Globalo.motionManager.socketEEpromMachine.RaiseProductCall(sNum, socketStateA);        //공급 요청 초기화, Auto_Waiting
+                    Globalo.motionManager.socketEEpromMachine.RaiseProductCall(FlowSocketState[0]);        //공급 요청 초기화, Auto_Waiting
 
-                    szLog = $"[AUTO] X SOCKET LOAD REQ [{string.Join(", ", socketStateA)}][STEP : {nStep}]";
+                    szLog = $"[AUTO] X SOCKET LOAD REQ [{string.Join(", ", FlowSocketState[0].States)}][STEP : {nStep}]";
                     Globalo.LogPrint("ManualControl", szLog);
 
                     nRetStep = 215;
                     break;
                 case 215:
+
                     nRetStep = 220;
                     break;
                 case 220:
@@ -248,13 +262,13 @@ namespace ZenHandler.Process
                     {
                         //공급 완료
                         Globalo.motionManager.InitSocketDone(sNum);             //공급요청 변수 초기화
-                        socketStateA = Globalo.motionManager.GetSocketReq(sNum);    //소켓별 공급 상태 받기
+                        FlowSocketState[sNum] = Globalo.motionManager.GetSocketReq(sNum);    //소켓별 공급 상태 받기
 
                         //공급완료
                         bool bErrChk = false;
-                        for (i = 0; i < socketStateA.Length; i++)
+                        for (i = 0; i < FlowSocketState[sNum].States.Length; i++)
                         {
-                            if (socketStateA[i] == 0)       //0 = 공급완료
+                            if (FlowSocketState[sNum].States[i] == 0)       //0 = 공급완료
                             {
                                 if (Globalo.motionManager.socketEEpromMachine.GetIsProductInSocket(sNum, i, true) == false)
                                 {
@@ -388,25 +402,28 @@ namespace ZenHandler.Process
                     //배출 요청
                     for (i = 0; i < 4; i++)
                     {
-                        socketStateA[i] = 1;
+                        //socketStateA[i] = 1;
+                        FlowSocketState[sNum].States[i] = 1;
                         if (Globalo.motionManager.socketEEpromMachine.GetIsProductInSocket(sNum, i, true) == true)
                         {
                             if (Globalo.motionManager.socketEEpromMachine.socketProduct.SocketInfo_A[i].State == Machine.SocketProductState.Good)
                             {
-                                socketStateA[i] = 2;
+                                //socketStateA[i] = 2;
+                                FlowSocketState[sNum].States[i] = 2;
                             }
                             if (Globalo.motionManager.socketEEpromMachine.socketProduct.SocketInfo_A[i].State == Machine.SocketProductState.NG)
                             {
-                                socketStateA[i] = 3;
+                                //socketStateA[i] = 3;
+                                FlowSocketState[sNum].States[i] = 3;
                             }
 
                         }
                     }
                     //2 = 양품
                     //3 = 불량
-                    Globalo.motionManager.socketEEpromMachine.RaiseProductCall(sNum, socketStateA);        //배출 요청 초기화, Auto_Waiting
+                    Globalo.motionManager.socketEEpromMachine.RaiseProductCall(FlowSocketState[sNum]);        //배출 요청 초기화, Auto_Waiting
 
-                    szLog = $"[AUTO] X SOCKET UNLOAD REQ [{string.Join(", ", socketStateA)}][STEP : {nStep}]";
+                    szLog = $"[AUTO] X SOCKET UNLOAD REQ [{string.Join(", ", FlowSocketState[sNum].States)}][STEP : {nStep}]";
                     Globalo.LogPrint("ManualControl", szLog);
                     nRetStep = 330;
                     break;
@@ -416,13 +433,13 @@ namespace ZenHandler.Process
                     {
                         //배출 완료
                         Globalo.motionManager.InitSocketDone(sNum);             //배출요청 변수 초기화
-                        socketStateA = Globalo.motionManager.GetSocketReq(sNum);    //소켓별 배출 상태 받기
+                        FlowSocketState[sNum] = Globalo.motionManager.GetSocketReq(sNum);    //소켓별 배출 상태 받기
 
                         //배출완료 확인
                         bool bErrChk = false;
-                        for (i = 0; i < socketStateA.Length; i++)
+                        for (i = 0; i < FlowSocketState[sNum].States.Length; i++)
                         {
-                            if (socketStateA[i] == 0)       //0 = 배출완료
+                            if (FlowSocketState[sNum].States[i] == 0)       //0 = 배출완료
                             {
                                 if (Globalo.motionManager.socketEEpromMachine.GetIsProductInSocket(sNum, i, true) == true)
                                 {
@@ -1024,17 +1041,19 @@ namespace ZenHandler.Process
                     {
                         if (Globalo.motionManager.socketEEpromMachine.GetIsProductInSocket(sNum, i, true) == false)
                         {
-                            socketState_B[i] = 1;
+                            //socketState_B[i] = 1;
+                            FlowSocketState[sNum].States[i] = 1;
                         }
                         else
                         {
-                            socketState_B[i] = -1;
+                            //socketState_B[i] = -1;
+                            FlowSocketState[sNum].States[i] = -1;
                         }
                     }
 
-                    Globalo.motionManager.socketEEpromMachine.RaiseProductCall(sNum, socketState_B);        //공급 요청 초기화, Auto_Waiting
+                    Globalo.motionManager.socketEEpromMachine.RaiseProductCall( FlowSocketState[sNum]);        //공급 요청 초기화, Auto_Waiting
 
-                    szLog = $"[AUTO] Yx SOCKET LOAD REQ [{string.Join(", ", socketState_B)}][STEP : {nStep}]";
+                    szLog = $"[AUTO] Yx SOCKET LOAD REQ [{string.Join(", ", FlowSocketState[sNum].States)}][STEP : {nStep}]";
                     Globalo.LogPrint("ManualControl", szLog);
 
                     nRetStep = 215;
@@ -1048,13 +1067,13 @@ namespace ZenHandler.Process
                     {
                         //공급 완료
                         Globalo.motionManager.InitSocketDone(sNum);             //공급요청 변수 초기화
-                        socketState_B = Globalo.motionManager.GetSocketReq(sNum);    //소켓별 공급 상태 받기
+                        FlowSocketState[sNum] = Globalo.motionManager.GetSocketReq(sNum);    //소켓별 공급 상태 받기
 
                         //공급완료
                         bool bErrChk = false;
-                        for (i = 0; i < socketState_B.Length; i++)
+                        for (i = 0; i < FlowSocketState[sNum].States.Length; i++)
                         {
-                            if (socketState_B[i] == 0)       //0 = 공급완료
+                            if (FlowSocketState[sNum].States[i] == 0)       //0 = 공급완료
                             {
                                 if (Globalo.motionManager.socketEEpromMachine.GetIsProductInSocket(sNum, i, true) == false)
                                 {
@@ -1188,25 +1207,25 @@ namespace ZenHandler.Process
                     //배출 요청
                     for (i = 0; i < 4; i++)
                     {
-                        socketState_B[i] = 1;
+                        FlowSocketState[sNum].States[i] = 1;
                         if (Globalo.motionManager.socketEEpromMachine.GetIsProductInSocket(sNum, i, true) == true)
                         {
                             if (Globalo.motionManager.socketEEpromMachine.socketProduct.SocketInfo_B[i].State == Machine.SocketProductState.Good)
                             {
-                                socketState_B[i] = 2;
+                                FlowSocketState[sNum].States[i] = 2;
                             }
                             if (Globalo.motionManager.socketEEpromMachine.socketProduct.SocketInfo_B[i].State == Machine.SocketProductState.NG)
                             {
-                                socketState_B[i] = 3;
+                                FlowSocketState[sNum].States[i] = 3;
                             }
 
                         }
                     }
                     //2 = 양품
                     //3 = 불량
-                    Globalo.motionManager.socketEEpromMachine.RaiseProductCall(sNum, socketState_B);        //배출 요청 초기화, Auto_Waiting
+                    Globalo.motionManager.socketEEpromMachine.RaiseProductCall(FlowSocketState[sNum]);        //배출 요청 초기화, Auto_Waiting
 
-                    szLog = $"[AUTO] Yx SOCKET UNLOAD REQ [{string.Join(", ", socketState_B)}][STEP : {nStep}]";
+                    szLog = $"[AUTO] Yx SOCKET UNLOAD REQ [{string.Join(", ", FlowSocketState[sNum].States)}][STEP : {nStep}]";
                     Globalo.LogPrint("ManualControl", szLog);
                     nRetStep = 330;
                     break;
@@ -1216,13 +1235,13 @@ namespace ZenHandler.Process
                     {
                         //배출 완료
                         Globalo.motionManager.InitSocketDone(sNum);             //배출요청 변수 초기화
-                        socketState_B = Globalo.motionManager.GetSocketReq(sNum);    //소켓별 공급 상태 받기
+                        FlowSocketState[sNum] = Globalo.motionManager.GetSocketReq(sNum);    //소켓별 공급 상태 받기
 
                         //배출완료
                         bool bErrChk = false;
-                        for (i = 0; i < socketState_B.Length; i++)
+                        for (i = 0; i < FlowSocketState[sNum].States.Length; i++)
                         {
-                            if (socketState_B[i] == 0)       //0 = 배출완료
+                            if (FlowSocketState[sNum].States[i] == 0)       //0 = 배출완료
                             {
                                 if (Globalo.motionManager.socketEEpromMachine.GetIsProductInSocket(sNum, i, true) == true)
                                 {
@@ -1743,8 +1762,11 @@ namespace ZenHandler.Process
                     if (Globalo.motionManager.socketEEpromMachine.IsTesting[0] == false)
                     {
                         socketProcessState[0] = SocketState.Wait;
-                        socketStateA = new int[] { -1, -1, -1, -1 };
-                        Globalo.motionManager.socketEEpromMachine.RaiseProductCall(0, socketStateA);         //공급 요청 초기화, Auto_Waiting
+                        FlowSocketState[0].States = new int[] { -1, -1, -1, -1 };
+                        FlowSocketState[0].Barcode = new string[] { string.Empty, string.Empty, string.Empty, string.Empty };
+
+
+                        Globalo.motionManager.socketEEpromMachine.RaiseProductCall(FlowSocketState[0]);         //공급 요청 초기화, Auto_Waiting
 
                         //-----------------------------------------------------------------------------------------------------------------------------------
                         //
@@ -1753,12 +1775,12 @@ namespace ZenHandler.Process
                         //
                         //
                         //-----------------------------------------------------------------------------------------------------------------------------------
-                        socketStateA = RtnSocketState(0, Globalo.motionManager.socketEEpromMachine.socketProduct.SocketInfo_A);
+                        FlowSocketState[0].States = RtnSocketState(0, Globalo.motionManager.socketEEpromMachine.socketProduct.SocketInfo_A);
                         //
                         //
-                        bool containsWrite3 = Array.Exists(socketStateA, state => state == 3);
-                        bool containsVerify4 = Array.Exists(socketStateA, state => state == 4);
-                        int socketA = RtnSocketAll(socketStateA);
+                        bool containsWrite3 = Array.Exists(FlowSocketState[0].States, state => state == 3);
+                        bool containsVerify4 = Array.Exists(FlowSocketState[0].States, state => state == 4);
+                        int socketA = RtnSocketAll(FlowSocketState[0].States);
 
                         if (socketA == 1)       //4개 전부 없음
                         {
@@ -1807,8 +1829,9 @@ namespace ZenHandler.Process
                     if (Globalo.motionManager.socketEEpromMachine.IsTesting[1] == false)
                     {
                         socketProcessState[1] = SocketState.Wait;
-                        socketState_B = new int[] { -1, -1, -1, -1 };
-                        Globalo.motionManager.socketEEpromMachine.RaiseProductCall(1, socketState_B);        //공급 요청 초기화, Auto_Waiting
+                        FlowSocketState[1].States = new int[] { -1, -1, -1, -1 };
+                        FlowSocketState[1].Barcode = new string[] { string.Empty, string.Empty, string.Empty, string.Empty };
+                        Globalo.motionManager.socketEEpromMachine.RaiseProductCall(FlowSocketState[1]);        //공급 요청 초기화, Auto_Waiting
 
                         //-----------------------------------------------------------------------------------------------------------------------------------
                         //
@@ -1817,13 +1840,13 @@ namespace ZenHandler.Process
                         //
                         //
                         //-----------------------------------------------------------------------------------------------------------------------------------
-                        socketState_B = RtnSocketState(1, Globalo.motionManager.socketEEpromMachine.socketProduct.SocketInfo_B);
+                        FlowSocketState[1].States = RtnSocketState(1, Globalo.motionManager.socketEEpromMachine.socketProduct.SocketInfo_B);
                         //
                         //
-                        bool containsWrite3 = Array.Exists(socketState_B, state => state == 3);
-                        bool containsVerify4 = Array.Exists(socketState_B, state => state == 4);
+                        bool containsWrite3 = Array.Exists(FlowSocketState[1].States, state => state == 3);
+                        bool containsVerify4 = Array.Exists(FlowSocketState[1].States, state => state == 4);
 
-                        int socket_B = RtnSocketAll(socketState_B);
+                        int socket_B = RtnSocketAll(FlowSocketState[1].States);
 
                         if (Globalo.motionManager.socketEEpromMachine.GetSocketFor(false) == true)
                         {
@@ -2092,7 +2115,7 @@ namespace ZenHandler.Process
                             Globalo.motionManager.socketEEpromMachine.Tester_A_Result[i] = 0;
                             if (socketIndex == 0)
                             {
-                                if (socketStateA[i] == 0)
+                                if (FlowSocketState[0].States[i] == 0)
                                 {
                                     Globalo.motionManager.socketEEpromMachine.Tester_A_Result[i] = -1;
                                     Globalo.tcpManager.SendMessageToClient(sendEqipData2, i);
@@ -2100,7 +2123,7 @@ namespace ZenHandler.Process
                             }
                             else
                             {
-                                if (socketState_B[i] == 0)
+                                if (FlowSocketState[1].States[i] == 0)
                                 {
                                     Globalo.motionManager.socketEEpromMachine.Tester_A_Result[i] = -1;
                                     Globalo.tcpManager.SendMessageToClient(sendEqipData2, i + 4);
@@ -2486,7 +2509,7 @@ namespace ZenHandler.Process
                             Globalo.motionManager.socketEEpromMachine.Tester_B_Result[i] = 0;
                             if (socketIndex == 0)
                             {
-                                if (socketStateA[i] == 0)
+                                if (FlowSocketState[0].States[i] == 0)
                                 {
                                     Globalo.motionManager.socketEEpromMachine.Tester_B_Result[i] = -1;
                                     Globalo.tcpManager.SendMessageToClient(sendEqipData2, i);
@@ -2494,7 +2517,7 @@ namespace ZenHandler.Process
                             }
                             else
                             {
-                                if (socketState_B[i] == 0)
+                                if (FlowSocketState[1].States[i] == 0)
                                 {
                                     Globalo.motionManager.socketEEpromMachine.Tester_B_Result[i] = -1;
                                     Globalo.tcpManager.SendMessageToClient(sendEqipData2, i + 4);
@@ -2661,8 +2684,13 @@ namespace ZenHandler.Process
             switch (nStep)
             {
                 case 2000:
-                    Globalo.motionManager.socketEEpromMachine.RaiseProductCall(0, new int[] { -1, -1, -1, -1 });         //#1 Socket 요청 초기화 , Ready
-                    Globalo.motionManager.socketEEpromMachine.RaiseProductCall(1, new int[] { -1, -1, -1, -1 });         //#2 Socket 요청 초기화 , Ready
+                    FlowSocketState[0].States = new int[] { -1, -1, -1, -1 };
+                    FlowSocketState[0].Barcode = new string[] { string.Empty, string.Empty, string.Empty, string.Empty };
+                    FlowSocketState[1].States = new int[] { -1, -1, -1, -1 };
+                    FlowSocketState[1].Barcode = new string[] { string.Empty, string.Empty, string.Empty, string.Empty };
+
+                    Globalo.motionManager.socketEEpromMachine.RaiseProductCall(FlowSocketState[0]);         //#1 Socket 요청 초기화 , Ready
+                    Globalo.motionManager.socketEEpromMachine.RaiseProductCall(FlowSocketState[1]);         //#2 Socket 요청 초기화 , Ready
 
                     Globalo.motionManager.socketEEpromMachine.IsTesting[0] = false; //Ready
                     Globalo.motionManager.socketEEpromMachine.IsTesting[1] = false; //Ready
@@ -3503,8 +3531,7 @@ namespace ZenHandler.Process
             int first = socketState[0];
             for (int i = 1; i < socketState.Length; i++)
             {
-
-                if (socketStateA[i] != first)
+                if (socketState[i] != first)
                 {
                     return -1;
                 }

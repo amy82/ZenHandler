@@ -16,7 +16,8 @@ namespace ZenHandler.Machine
     };
     public class AoiSocketMachine : MotionControl.MotorController
     {
-        public event Action<int, int[]> OnSocketCall;   //공급 , 배출요청
+        //public event Action<int, int[]> OnSocketCall;   //공급 , 배출요청
+        public event Action<MotionControl.SocketReqArgs> OnSocketCall;   //공급 , 배출요청
         public int MotorCnt { get; private set; } = 4;
 
         //소켓 2개 2세트 = 4개
@@ -36,6 +37,8 @@ namespace ZenHandler.Machine
         private double[] OrgSecondVel = { 10000.0, 10000.0, 10000.0, 10000.0 };
         private double[] OrgThirdVel = { 5000.0, 5000.0, 5000.0, 5000.0};
 
+        
+
         public enum eTeachingAoiPosList : int
         {
             WAIT_POS = 0, LOAD_POS, UN_LOAD_POS, CAPTURE_L_POS, CAPTURE_R_POS, HOUSING_IN_POS , HOUSING_OUT_POS, TOTAL_AOI_SOCKET_TEACHING_COUNT
@@ -51,10 +54,12 @@ namespace ZenHandler.Machine
 
 
         public AoiSocketProduct socketProduct = new AoiSocketProduct();
-
+        
+        public int[] Tcp_Req_Result = { -1, -1, -1, -1 };
 
         public int[] Tester_A_Result = { -1, -1, -1, -1 };
         public int[] Tester_B_Result = { -1, -1, -1, -1 };
+
         public AoiSocketMachine()
         {
             int i = 0;
@@ -79,6 +84,7 @@ namespace ZenHandler.Machine
             }
 
             socketProduct = Data.TaskDataYaml.TaskLoad_AoiSocket(taskPath);
+
             if (socketProduct.SocketInfo_A.Count < 1)
             {
                 socketProduct.SocketInfo_A.Add(new AoiSocketProductInfo());
@@ -96,9 +102,9 @@ namespace ZenHandler.Machine
             bool rtn = Data.TaskDataYaml.TaskSave_AoiSocket(socketProduct, taskPath);
             return rtn;
         }
-        public void RaiseProductCall(int index, int[] nReq)
+        public void RaiseProductCall(MotionControl.SocketReqArgs nReq)
         {
-            OnSocketCall?.Invoke(index, nReq);
+            OnSocketCall?.Invoke(nReq);
 
         }
         public override void MotorDataSet()

@@ -21,7 +21,8 @@ namespace ZenHandler.Process
         private TcpSocket.TesterData tData;
 
         private AoiSocketState[] socketProcessState = new AoiSocketState[2];
-       
+
+        private MotionControl.SocketReqArgs[] FlowSocketState = new MotionControl.SocketReqArgs[2];
 
         private int[,] socketStates = new int[2, 4]//리턴이 공용이라서 소켓이 2개씩이라서 4개 사용
         {
@@ -30,8 +31,21 @@ namespace ZenHandler.Process
         };
         public AoiSocketFlow()
         {
+            int i = 0;
             aoiEqipData = new TcpSocket.MessageWrapper();
+            aoiEqipData.Type = "AOI";
+
             tData = new TcpSocket.TesterData();
+
+            for (i = 0; i < 2; i++)
+            {
+                FlowSocketState[i] = new MotionControl.SocketReqArgs
+                {
+                    Index = i,
+                    States = new int[] { -1, -1 },      //aoi 2개
+                    Barcode = new string[] { string.Empty, string.Empty }
+                };
+            }
         }
         //-----------------------------------------------------------------------------------------------------------
         //◀ ▶
@@ -199,14 +213,14 @@ namespace ZenHandler.Process
 
                     if (bEmptyChk)
                     {
-                        Globalo.motionManager.socketAoiMachine.RaiseProductCall(ANum, socketGroupArr);        //공급 요청 초기화, Auto_Waiting
+                        Globalo.motionManager.socketAoiMachine.RaiseProductCall(FlowSocketState[ANum]);        //공급 요청 초기화, Auto_Waiting
 
-                        szLog = $"[AUTO] {axisName[ANum]} LOAD REQ [{string.Join(", ", socketGroupArr)}][STEP : {nStep}]";
+                        szLog = $"[AUTO] {axisName[ANum]} LOAD REQ [{string.Join(", ", FlowSocketState[ANum].States)}][STEP : {nStep}]";
                         Globalo.LogPrint("ManualControl", szLog);
                         nRetStep = 245;
 
 
-                        Globalo.motionManager.socketAoiMachine.RaiseProductCall(ANum, socketGroupArr);        //공급 요청
+                        Globalo.motionManager.socketAoiMachine.RaiseProductCall(FlowSocketState[ANum]);        //공급 요청
                     }
                     else
                     {
@@ -224,11 +238,13 @@ namespace ZenHandler.Process
                         //공급 완료
                         Globalo.motionManager.InitSocketDone(ANum);             //공급요청 변수 초기화
 
-                        int[] group = Globalo.motionManager.GetSocketReq(ANum);    //소켓별 공급 상태 받기
+                        //int[] group = Globalo.motionManager.GetSocketReq(ANum);    //소켓별 공급 상태 받기
 
-                        for (i = 0; i < group.Length; i++)
+                        MotionControl.SocketReqArgs group = Globalo.motionManager.GetSocketReq(ANum);    //소켓별 공급 상태 받기
+
+                        for (i = 0; i < group.States.Length; i++)
                         {
-                            socketStates[ANum, i] = group[i]; // 세트 0에 대입
+                            socketStates[ANum, i] = group.States[i]; // 세트 0에 대입
                         }
 
                         bool bErrChk = false;
@@ -415,13 +431,13 @@ namespace ZenHandler.Process
 
                     if (bEmptyChk)
                     {
-                        Globalo.motionManager.socketAoiMachine.RaiseProductCall(ANum, socketUnGroup);        //공급 요청 초기화, Auto_Waiting
+                        Globalo.motionManager.socketAoiMachine.RaiseProductCall(FlowSocketState[ANum]);        //공급 요청 초기화, Auto_Waiting
 
-                        szLog = $"[AUTO] {axisName[ANum]} UNLOAD REQ [{string.Join(", ", socketUnGroup)}][STEP : {nStep}]";
+                        szLog = $"[AUTO] {axisName[ANum]} UNLOAD REQ [{string.Join(", ", FlowSocketState[ANum].States)}][STEP : {nStep}]";
                         Globalo.LogPrint("ManualControl", szLog);
                         nRetStep = 345;
 
-                        Globalo.motionManager.socketAoiMachine.RaiseProductCall(ANum, socketUnGroup);        //공급 요청
+                        Globalo.motionManager.socketAoiMachine.RaiseProductCall(FlowSocketState[ANum]);        //공급 요청
                     }
                     else
                     {
@@ -437,11 +453,11 @@ namespace ZenHandler.Process
                     {
                         //배출 완료
                         Globalo.motionManager.InitSocketDone(ANum);                 //배출요청 변수 초기화
-                        int[] group = Globalo.motionManager.GetSocketReq(ANum);     //소켓별 배출 상태 받기
+                        MotionControl.SocketReqArgs group = Globalo.motionManager.GetSocketReq(ANum);     //소켓별 배출 상태 받기
 
-                        for (i = 0; i < group.Length; i++)
+                        for (i = 0; i < group.States.Length; i++)
                         {
-                            socketStates[ANum, i] = group[i]; // 세트 0에 대입
+                            socketStates[ANum, i] = group.States[i]; // 세트 0에 대입
                         }
 
                         //배출완료 확인
@@ -579,30 +595,57 @@ namespace ZenHandler.Process
                 case 440:
                     //검사 진행 - Socket Left , Right 인지 = 그 안에서 왼쪽 소켓인지 , 오른쪽 소켓인지
                     //Tester 입장에서 어떤 소켓인지는 몰라도 될듯.
+                    Globalo.motionManager.socketAoiMachine.Tcp_Req_Result[ANum] = -1;
 
-                    aoiEqipData.Type = "AOI";
-                    tData.Name = "";
-                    tData.Cmd = "CMD_TEST_STEP1";       //RESP_TEST_STEP1  ,  RESP_TEST_STEP2
-                    tData.socketIndex = 0;  //Left - R Socket
+                    
+                    tData.Name = "??";
+                    tData.LotId = "";
+                    tData.Cmd = "CMD_TEST_STEP1";       //RESP_TEST_STEP1,  RESP_TEST_STEP2
+                    tData.socketIndex = 1;              //Left - R Socket
                     aoiEqipData.Data = tData;
 
                     Globalo.tcpManager.SendMsgToTester(aoiEqipData, ANum); // pc 0 or pc 1
-                    
                     nRetStep = 442;
                     break;
 
                 case 442:
                     //z축 이동 요청?
+                    if (Globalo.motionManager.socketAoiMachine.Tcp_Req_Result[ANum] != -1)       //Step1 검사 대기
+                    {
+                        Globalo.motionManager.socketAoiMachine.Tcp_Req_Result[ANum] = -1;
+                        nRetStep = 444;
+                    }
+                    tData.Name = "??";
+                    tData.Cmd = "CMD_TEST_STEP2";       //RESP_TEST_STEP1,  RESP_TEST_STEP2
+                    aoiEqipData.Data = tData;
+
+                    Globalo.tcpManager.SendMsgToTester(aoiEqipData, ANum); // pc 0 or pc 1
                     break;
                 case 444:
                     //검사 완료 대기
                     //Left 소켓에 제품 있으면 Capture L위치로 이동 없으면 검사 종료
+                    if (Globalo.motionManager.socketAoiMachine.Tcp_Req_Result[ANum] != -1)       //Step2 검사 대기
+                    {
+                        //여기서 양불 판정받기
+                        if (Globalo.motionManager.socketAoiMachine.Tcp_Req_Result[ANum] == 1)
+                        {
+                            //양품
+                            Globalo.motionManager.socketAoiMachine.socketProduct.SocketInfo_A[tData.socketIndex].State = Machine.AoiSocketProductState.Good;
+                        }
+                        else if (Globalo.motionManager.socketAoiMachine.Tcp_Req_Result[ANum] == 2)
+                        {
+                            //ng
+                            Globalo.motionManager.socketAoiMachine.socketProduct.SocketInfo_A[tData.socketIndex].State = Machine.AoiSocketProductState.NG;
+                        }
+                        Globalo.motionManager.socketAoiMachine.Tcp_Req_Result[ANum] = -1;
+                        nRetStep = 446;
+                    }
                     break;
                 case 446:
-
+                    nRetStep = 448;
                     break;
                 case 448:
-
+                    nRetStep = 450;
                     break;
                 case 450:
                     
@@ -722,14 +765,54 @@ namespace ZenHandler.Process
                     break;
 
                 case 540:
-                    
-                    aoiEqipData.Type = "AOI";
-                    tData.Name = "";
-                    tData.Cmd = "CMD_TEST_STEP1";       //RESP_TEST_STEP1
-                    tData.socketIndex = 1;  //Left - L Socket
+
+                    Globalo.motionManager.socketAoiMachine.Tcp_Req_Result[ANum] = -1;
+
+                    tData.Name = "??";
+                    tData.LotId = "";
+                    tData.Cmd = "CMD_TEST_STEP1";       //RESP_TEST_STEP1,  RESP_TEST_STEP2
+                    tData.socketIndex = 0;              //Left - R Socket
                     aoiEqipData.Data = tData;
 
                     Globalo.tcpManager.SendMsgToTester(aoiEqipData, ANum); // pc 0 or pc 1
+
+                    nRetStep = 542;
+                    break;
+                case 542:
+                    if (Globalo.motionManager.socketAoiMachine.Tcp_Req_Result[ANum] != -1)       //Step1 검사 대기
+                    {
+
+                        Globalo.motionManager.socketAoiMachine.Tcp_Req_Result[ANum] = -1;
+                        tData.Name = "??";
+                        tData.Cmd = "CMD_TEST_STEP2";       //RESP_TEST_STEP1,  RESP_TEST_STEP2
+                        aoiEqipData.Data = tData;
+
+                        Globalo.tcpManager.SendMsgToTester(aoiEqipData, ANum); // pc 0 or pc 1
+
+                        nRetStep = 544;
+                    }
+                    break;
+                case 544:
+                    if (Globalo.motionManager.socketAoiMachine.Tcp_Req_Result[ANum] != -1)       //Step2 검사 대기
+                    {
+                        //여기서 양불 판정받기
+                        if (Globalo.motionManager.socketAoiMachine.Tcp_Req_Result[ANum] == 1)
+                        {
+                            //양품
+                            Globalo.motionManager.socketAoiMachine.socketProduct.SocketInfo_A[tData.socketIndex].State = Machine.AoiSocketProductState.Good;
+                        }
+                        else if (Globalo.motionManager.socketAoiMachine.Tcp_Req_Result[ANum] == 2)
+                        {
+                            //ng
+                            Globalo.motionManager.socketAoiMachine.socketProduct.SocketInfo_A[tData.socketIndex].State = Machine.AoiSocketProductState.NG;
+                        }
+                        Globalo.motionManager.socketAoiMachine.Tcp_Req_Result[ANum] = -1;
+                        nRetStep = 546;
+                    }
+                    break;
+
+                case 546:
+
                     break;
                 case 600:
                     nRetStep = 700;
