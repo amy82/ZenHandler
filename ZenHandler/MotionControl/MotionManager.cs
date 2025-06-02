@@ -13,14 +13,27 @@ namespace ZenHandler.MotionControl
         public int Index { get; set; }                  // 소켓 인덱스
         public int[] States { get; set; }               // 요청 상태 배열
         public string[] Barcode { get; set; }             // 바코드 정보
+
+        public SocketReqArgs(int size = 4)
+        {
+            States = new int[size];
+            Barcode = new string[size];
+
+            for (int i = 0; i < size; i++)
+            {
+                States[i] = -1;
+                Barcode[i] = string.Empty;
+            }
+        }
         public SocketReqArgs Clone()
         {
-            return new SocketReqArgs
+            var copy =  new SocketReqArgs(this.States.Length)
             {
                 Index = this.Index,
                 States = (int[])this.States.Clone(),
                 Barcode = (string[])this.Barcode.Clone()
             };
+            return copy;
         }
     }
     public class MotionManager
@@ -47,11 +60,6 @@ namespace ZenHandler.MotionControl
         private int[] Socket_RequestDone = { -1, -1, -1, -1 };      //초기화:-1 , 0:완료 , 1:공급,배출 요청
 
         private SocketReqArgs[] socket_Req_State = new SocketReqArgs[4];   //-1 = 초기화 , 0 = 공급 완료, 1 = 공급요청 ,  2 = 배출요청
-
-        //private SocketReqArgs[] socketB_Requested = new SocketReqArgs[4];   //-1 = 초기화 , 0 = 공급 완료, 1 = 공급요청 ,  2 = 배출요청
-        //private SocketReqArgs[] socketC_Requested = new SocketReqArgs[4];   //-1 = 초기화 , 0 = 공급 완료, 1 = 공급요청 ,  2 = 배출요청
-        //private SocketReqArgs[] socketD_Requested = new SocketReqArgs[4];   //-1 = 초기화 , 0 = 공급 완료, 1 = 공급요청 ,  2 = 배출요청
-
 
 
         //TODO: Set 라서 4개인데 , 개별이면 달라진다. -
@@ -159,13 +167,14 @@ namespace ZenHandler.MotionControl
 
             socket_Req_State[index].States = (int[])args.States.Clone();
             socket_Req_State[index].Barcode = (string[])args.Barcode.Clone();
+
             Socket_RequestDone[args.Index] = 1;
         }
         public int GetSocketDone(int index)     //요청후 완료 됐는지 확인 함수
         {
             return Socket_RequestDone[index];
         }
-        public void InitSocketDone(int index)     //요청후 완료 됐는지 확인 함수
+        public void InitSocketDone(int index)
         {
             Socket_RequestDone[index] = -1;
         }

@@ -244,7 +244,7 @@ namespace ZenHandler.Process
                             FlowSocketState[sNum].States[i] = -1;
                         }
                     }
-
+                    Globalo.motionManager.InitSocketDone(sNum);             //공급요청 변수 초기화
                     Globalo.motionManager.socketEEpromMachine.RaiseProductCall(FlowSocketState[0]);        //공급 요청 초기화, Auto_Waiting
 
                     szLog = $"[AUTO] X SOCKET LOAD REQ [{string.Join(", ", FlowSocketState[0].States)}][STEP : {nStep}]";
@@ -261,7 +261,7 @@ namespace ZenHandler.Process
                     if (Globalo.motionManager.GetSocketDone(sNum) == 0)
                     {
                         //공급 완료
-                        Globalo.motionManager.InitSocketDone(sNum);             //공급요청 변수 초기화
+                        
                         FlowSocketState[sNum] = Globalo.motionManager.GetSocketReq(sNum);    //소켓별 공급 상태 받기
 
                         //공급완료
@@ -421,6 +421,7 @@ namespace ZenHandler.Process
                     }
                     //2 = 양품
                     //3 = 불량
+                    Globalo.motionManager.InitSocketDone(sNum);             //배출요청 변수 초기화
                     Globalo.motionManager.socketEEpromMachine.RaiseProductCall(FlowSocketState[sNum]);        //배출 요청 초기화, Auto_Waiting
 
                     szLog = $"[AUTO] X SOCKET UNLOAD REQ [{string.Join(", ", FlowSocketState[sNum].States)}][STEP : {nStep}]";
@@ -432,7 +433,7 @@ namespace ZenHandler.Process
                     if (Globalo.motionManager.GetSocketDone(sNum) == 0)
                     {
                         //배출 완료
-                        Globalo.motionManager.InitSocketDone(sNum);             //배출요청 변수 초기화
+                        
                         FlowSocketState[sNum] = Globalo.motionManager.GetSocketReq(sNum);    //소켓별 배출 상태 받기
 
                         //배출완료 확인
@@ -1050,7 +1051,7 @@ namespace ZenHandler.Process
                             FlowSocketState[sNum].States[i] = -1;
                         }
                     }
-
+                    Globalo.motionManager.InitSocketDone(sNum);             //공급요청 변수 초기화
                     Globalo.motionManager.socketEEpromMachine.RaiseProductCall( FlowSocketState[sNum]);        //공급 요청 초기화, Auto_Waiting
 
                     szLog = $"[AUTO] Yx SOCKET LOAD REQ [{string.Join(", ", FlowSocketState[sNum].States)}][STEP : {nStep}]";
@@ -1066,7 +1067,7 @@ namespace ZenHandler.Process
                     if (Globalo.motionManager.GetSocketDone(sNum) == 0)
                     {
                         //공급 완료
-                        Globalo.motionManager.InitSocketDone(sNum);             //공급요청 변수 초기화
+                        
                         FlowSocketState[sNum] = Globalo.motionManager.GetSocketReq(sNum);    //소켓별 공급 상태 받기
 
                         //공급완료
@@ -1223,6 +1224,7 @@ namespace ZenHandler.Process
                     }
                     //2 = 양품
                     //3 = 불량
+                    Globalo.motionManager.InitSocketDone(sNum);             //배출요청 변수 초기화
                     Globalo.motionManager.socketEEpromMachine.RaiseProductCall(FlowSocketState[sNum]);        //배출 요청 초기화, Auto_Waiting
 
                     szLog = $"[AUTO] Yx SOCKET UNLOAD REQ [{string.Join(", ", FlowSocketState[sNum].States)}][STEP : {nStep}]";
@@ -1234,7 +1236,7 @@ namespace ZenHandler.Process
                     if (Globalo.motionManager.GetSocketDone(sNum) == 0)
                     {
                         //배출 완료
-                        Globalo.motionManager.InitSocketDone(sNum);             //배출요청 변수 초기화
+                        
                         FlowSocketState[sNum] = Globalo.motionManager.GetSocketReq(sNum);    //소켓별 공급 상태 받기
 
                         //배출완료

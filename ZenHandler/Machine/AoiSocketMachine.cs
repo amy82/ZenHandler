@@ -55,7 +55,7 @@ namespace ZenHandler.Machine
 
         public AoiSocketProduct socketProduct = new AoiSocketProduct();
         
-        public int[] Tcp_Req_Result = { -1, -1, -1, -1 };
+        public int[] Tcp_Req_Result = { -1, -1, -1, -1 };       //
 
         public int[] Tester_A_Result = { -1, -1, -1, -1 };
         public int[] Tester_B_Result = { -1, -1, -1, -1 };
@@ -85,15 +85,13 @@ namespace ZenHandler.Machine
 
             socketProduct = Data.TaskDataYaml.TaskLoad_AoiSocket(taskPath);
 
-            if (socketProduct.SocketInfo_A.Count < 1)
+            for (i = 0; i < 2; i++)
             {
-                socketProduct.SocketInfo_A.Add(new AoiSocketProductInfo());
-                socketProduct.SocketInfo_A.Add(new AoiSocketProductInfo());
-            }
-            if (socketProduct.SocketInfo_B.Count < 1)
-            {
-                socketProduct.SocketInfo_B.Add(new AoiSocketProductInfo());
-                socketProduct.SocketInfo_B.Add(new AoiSocketProductInfo());
+                if (socketProduct.AoiSocketInfo[i].Count < 1)
+                {
+                    socketProduct.AoiSocketInfo[i].Add(new AoiSocketProductInfo());
+                    socketProduct.AoiSocketInfo[i].Add(new AoiSocketProductInfo());
+                }
             }
 
         }

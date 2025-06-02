@@ -187,8 +187,19 @@ namespace ZenHandler.Machine
     }
     public class AoiSocketProduct
     {
-        public List<AoiSocketProductInfo> SocketInfo_A { get; set; } = new List<AoiSocketProductInfo>();
-        public List<AoiSocketProductInfo> SocketInfo_B { get; set; } = new List<AoiSocketProductInfo>();
+        //public List<AoiSocketProductInfo> SocketInfo_A { get; set; } = new List<AoiSocketProductInfo>();
+        //public List<AoiSocketProductInfo> SocketInfo_B { get; set; } = new List<AoiSocketProductInfo>();
+
+
+        public List<AoiSocketProductInfo>[] AoiSocketInfo { get; set; }
+        public AoiSocketProduct()
+        {
+            AoiSocketInfo = new List<AoiSocketProductInfo>[2];
+            for (int i = 0; i < 2; i++)
+            {
+                AoiSocketInfo[i] = new List<AoiSocketProductInfo>();
+            }
+        }
     }
     public class EEpromSocketProduct
     {

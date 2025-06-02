@@ -1013,7 +1013,21 @@ namespace ZenHandler.Process
 
                     break;
                 case 5400:
+                    //공급 완료, 바코드 정보 전달
+                    MotionControl.SocketReqArgs sendProduct = new MotionControl.SocketReqArgs(4);
+                    sendProduct.Index = Globalo.motionManager.transferMachine.NoSocketPos;
 
+                    for (i = 0; i < 4; i++)
+                    {
+                        if (Globalo.motionManager.transferMachine.pickedProduct.LoadProductInfo[i].State == Machine.PickedProductState.Bcr)
+                        {
+                            sendProduct.States[i] = 0;
+                        }
+                        
+                        sendProduct.Barcode[i] = Globalo.motionManager.transferMachine.pickedProduct.LoadProductInfo[i].BcrLot;
+                    }
+
+                    Globalo.motionManager.transferMachine.CallSocketReqComplete(sendProduct);
                     break;
                 case 5500:
 

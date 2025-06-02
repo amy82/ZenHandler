@@ -63,7 +63,7 @@ namespace ZenHandler.Process
             bool bEmptyChk = false;
             int nRetStep = nStep;
             const int SocketMaxCnt = 2;
-            int ANum = SocketIndex;
+            int ANum = SocketIndex;     //SocketIndex = 0 or 1
 
             Machine.eAoiSocket Xmotor = Machine.eAoiSocket.SOCKET_L_X;
             Machine.eAoiSocket Zmotor = Machine.eAoiSocket.SOCKET_L_Z;
@@ -213,6 +213,7 @@ namespace ZenHandler.Process
 
                     if (bEmptyChk)
                     {
+                        Globalo.motionManager.InitSocketDone(ANum);             //공급요청 변수 초기화
                         Globalo.motionManager.socketAoiMachine.RaiseProductCall(FlowSocketState[ANum]);        //공급 요청 초기화, Auto_Waiting
 
                         szLog = $"[AUTO] {axisName[ANum]} LOAD REQ [{string.Join(", ", FlowSocketState[ANum].States)}][STEP : {nStep}]";
@@ -236,7 +237,7 @@ namespace ZenHandler.Process
                     if (Globalo.motionManager.GetSocketDone(ANum) == 0)
                     {
                         //공급 완료
-                        Globalo.motionManager.InitSocketDone(ANum);             //공급요청 변수 초기화
+                        
 
                         //int[] group = Globalo.motionManager.GetSocketReq(ANum);    //소켓별 공급 상태 받기
 
@@ -260,27 +261,14 @@ namespace ZenHandler.Process
                                     Console.WriteLine($"#{i + 1} Socket Product Empty err");
                                     bErrChk = true;
 
-                                    if (ANum == 0)
-                                    {
-                                        Globalo.motionManager.socketAoiMachine.socketProduct.SocketInfo_A[i].State = Machine.AoiSocketProductState.Blank;
-                                    }
-                                    else
-                                    {
-                                        Globalo.motionManager.socketAoiMachine.socketProduct.SocketInfo_B[i].State = Machine.AoiSocketProductState.Blank;
-                                    }
-                                    
+                                    Globalo.motionManager.socketAoiMachine.socketProduct.AoiSocketInfo[ANum][i].BcrLot = string.Empty;
+                                    Globalo.motionManager.socketAoiMachine.socketProduct.AoiSocketInfo[ANum][i].State = Machine.AoiSocketProductState.Blank;
+
                                 }
                                 else
                                 {
-                                    if (ANum == 0)
-                                    {
-                                        Globalo.motionManager.socketAoiMachine.socketProduct.SocketInfo_A[i].State = Machine.AoiSocketProductState.Testing;
-                                    }
-                                    else
-                                    {
-                                        Globalo.motionManager.socketAoiMachine.socketProduct.SocketInfo_B[i].State = Machine.AoiSocketProductState.Testing;
-                                    }
-                                    
+                                    Globalo.motionManager.socketAoiMachine.socketProduct.AoiSocketInfo[ANum][i].BcrLot = group.Barcode[i];
+                                    Globalo.motionManager.socketAoiMachine.socketProduct.AoiSocketInfo[ANum][i].State = Machine.AoiSocketProductState.Testing;
                                 }
                             }
                         }
@@ -395,42 +383,29 @@ namespace ZenHandler.Process
                     break;
                 case 340:
                     bEmptyChk = true;
-                    int[] socketUnGroup = new int[SocketMaxCnt];
 
                     for (i = 0; i < SocketMaxCnt; i++)
                     {
                         if (Globalo.motionManager.socketAoiMachine.GetIsProductInSocket(ANum, i, true) == true)
                         {
-                            if (ANum == 0)
+                            if (Globalo.motionManager.socketAoiMachine.socketProduct.AoiSocketInfo[ANum][i].State == Machine.AoiSocketProductState.Good)
                             {
-                                if (Globalo.motionManager.socketAoiMachine.socketProduct.SocketInfo_A[i].State == Machine.AoiSocketProductState.Good)
-                                {
-                                    socketStates[ANum, i] = 2;
-                                }
-                                if (Globalo.motionManager.socketAoiMachine.socketProduct.SocketInfo_A[i].State == Machine.AoiSocketProductState.NG)
-                                {
-                                    socketStates[ANum, i] = 3;
-                                }
+                                socketStates[ANum, i] = 2;
                             }
-                            else
+                            if (Globalo.motionManager.socketAoiMachine.socketProduct.AoiSocketInfo[ANum][i].State == Machine.AoiSocketProductState.NG)
                             {
-                                if (Globalo.motionManager.socketAoiMachine.socketProduct.SocketInfo_B[i].State == Machine.AoiSocketProductState.Good)
-                                {
-                                    socketStates[ANum, i] = 2;
-                                }
-                                if (Globalo.motionManager.socketAoiMachine.socketProduct.SocketInfo_B[i].State == Machine.AoiSocketProductState.NG)
-                                {
-                                    socketStates[ANum, i] = 3;
-                                }
+                                socketStates[ANum, i] = 3;
                             }
-                                
-                            
+                            FlowSocketState[ANum].Barcode[i] = Globalo.motionManager.socketAoiMachine.socketProduct.AoiSocketInfo[ANum][i].BcrLot;
+
+                            FlowSocketState[ANum].States[i] = socketStates[ANum, i];
                         }
-                        socketUnGroup[i] = socketStates[ANum, i];
+                        
                     }
 
                     if (bEmptyChk)
                     {
+                        Globalo.motionManager.InitSocketDone(ANum);                 //배출요청 변수 초기화
                         Globalo.motionManager.socketAoiMachine.RaiseProductCall(FlowSocketState[ANum]);        //공급 요청 초기화, Auto_Waiting
 
                         szLog = $"[AUTO] {axisName[ANum]} UNLOAD REQ [{string.Join(", ", FlowSocketState[ANum].States)}][STEP : {nStep}]";
@@ -452,7 +427,7 @@ namespace ZenHandler.Process
                     if (Globalo.motionManager.GetSocketDone(ANum) == 0)
                     {
                         //배출 완료
-                        Globalo.motionManager.InitSocketDone(ANum);                 //배출요청 변수 초기화
+                        
                         MotionControl.SocketReqArgs group = Globalo.motionManager.GetSocketReq(ANum);     //소켓별 배출 상태 받기
 
                         for (i = 0; i < group.States.Length; i++)
@@ -473,14 +448,7 @@ namespace ZenHandler.Process
                                     bErrChk = true;
                                 }
 
-                                if (ANum == 0)
-                                {
-                                    Globalo.motionManager.socketAoiMachine.socketProduct.SocketInfo_A[i].State = Machine.AoiSocketProductState.Blank;
-                                }
-                                else
-                                {
-                                    Globalo.motionManager.socketAoiMachine.socketProduct.SocketInfo_B[i].State = Machine.AoiSocketProductState.Blank;
-                                }
+                                Globalo.motionManager.socketAoiMachine.socketProduct.AoiSocketInfo[ANum][i].State = Machine.AoiSocketProductState.Blank;
                             }
                         }
 
@@ -597,11 +565,10 @@ namespace ZenHandler.Process
                     //Tester 입장에서 어떤 소켓인지는 몰라도 될듯.
                     Globalo.motionManager.socketAoiMachine.Tcp_Req_Result[ANum] = -1;
 
-                    
-                    tData.Name = "??";
-                    tData.LotId = "";
                     tData.Cmd = "CMD_TEST_STEP1";       //RESP_TEST_STEP1,  RESP_TEST_STEP2
                     tData.socketIndex = 1;              //Left - R Socket
+                    tData.Name = "??";
+                    tData.LotId = Globalo.motionManager.socketAoiMachine.socketProduct.AoiSocketInfo[ANum][tData.socketIndex].BcrLot;
                     aoiEqipData.Data = tData;
 
                     Globalo.tcpManager.SendMsgToTester(aoiEqipData, ANum); // pc 0 or pc 1
@@ -630,12 +597,12 @@ namespace ZenHandler.Process
                         if (Globalo.motionManager.socketAoiMachine.Tcp_Req_Result[ANum] == 1)
                         {
                             //양품
-                            Globalo.motionManager.socketAoiMachine.socketProduct.SocketInfo_A[tData.socketIndex].State = Machine.AoiSocketProductState.Good;
+                            Globalo.motionManager.socketAoiMachine.socketProduct.AoiSocketInfo[ANum][tData.socketIndex].State = Machine.AoiSocketProductState.Good;
                         }
                         else if (Globalo.motionManager.socketAoiMachine.Tcp_Req_Result[ANum] == 2)
                         {
                             //ng
-                            Globalo.motionManager.socketAoiMachine.socketProduct.SocketInfo_A[tData.socketIndex].State = Machine.AoiSocketProductState.NG;
+                            Globalo.motionManager.socketAoiMachine.socketProduct.AoiSocketInfo[ANum][tData.socketIndex].State = Machine.AoiSocketProductState.NG;
                         }
                         Globalo.motionManager.socketAoiMachine.Tcp_Req_Result[ANum] = -1;
                         nRetStep = 446;
@@ -772,6 +739,7 @@ namespace ZenHandler.Process
                     tData.LotId = "";
                     tData.Cmd = "CMD_TEST_STEP1";       //RESP_TEST_STEP1,  RESP_TEST_STEP2
                     tData.socketIndex = 0;              //Left - R Socket
+                    tData.LotId = Globalo.motionManager.socketAoiMachine.socketProduct.AoiSocketInfo[ANum][tData.socketIndex].BcrLot;
                     aoiEqipData.Data = tData;
 
                     Globalo.tcpManager.SendMsgToTester(aoiEqipData, ANum); // pc 0 or pc 1
@@ -799,12 +767,12 @@ namespace ZenHandler.Process
                         if (Globalo.motionManager.socketAoiMachine.Tcp_Req_Result[ANum] == 1)
                         {
                             //양품
-                            Globalo.motionManager.socketAoiMachine.socketProduct.SocketInfo_A[tData.socketIndex].State = Machine.AoiSocketProductState.Good;
+                            Globalo.motionManager.socketAoiMachine.socketProduct.AoiSocketInfo[ANum][tData.socketIndex].State = Machine.AoiSocketProductState.Good;
                         }
                         else if (Globalo.motionManager.socketAoiMachine.Tcp_Req_Result[ANum] == 2)
                         {
                             //ng
-                            Globalo.motionManager.socketAoiMachine.socketProduct.SocketInfo_A[tData.socketIndex].State = Machine.AoiSocketProductState.NG;
+                            Globalo.motionManager.socketAoiMachine.socketProduct.AoiSocketInfo[ANum][tData.socketIndex].State = Machine.AoiSocketProductState.NG;
                         }
                         Globalo.motionManager.socketAoiMachine.Tcp_Req_Result[ANum] = -1;
                         nRetStep = 546;

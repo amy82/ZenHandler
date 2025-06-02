@@ -165,25 +165,17 @@ namespace ZenHandler.Machine
                     teachingConfig.Teaching[i].Name = TeachName[i];
                 }
             }
-   
-
         }
+
         public void OnTransferBcrReceived(string data)
         {
             CurrentScanBcr = data;
             Console.WriteLine($"On Transfer BcrReceived:({CurrentScanBcr})");
         }
-        public void CallSocketReqComplete(int index)        //공급 , 배출 완료 
+        public void CallSocketReqComplete(MotionControl.SocketReqArgs RespSocket)        //공급 , 배출 완료 
         {
-            //var args = new MotionControl.SocketReqArgs
-            //{
-            //    Index = index,
-            //    States = new int[] { 0, 0, 0, 0 },   // 공급 완료일 때는 0만 가능
-            //    Barcode = barcode
-            //};
-            //OnSocketReqComplete?.Invoke(args);
+            OnSocketReqComplete?.Invoke(RespSocket);
             //OnSocketReqComplete?.Invoke(index, new int[] { 0, 0, 0, 0 });     //공급완료는 0만 가능
-
         }
         public void LoadTryAdd(int LoadCnt = 1)
         {

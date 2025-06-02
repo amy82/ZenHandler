@@ -115,15 +115,13 @@ namespace ZenHandler.Dlg
                         if (i == 0)
                         {
                             stateLabel = AsplitContainers[j].Panel2.Controls["ASocketState" + (j + 1)] as Label;
-                            stateLabel.Text = Globalo.motionManager.socketAoiMachine.socketProduct.SocketInfo_A[j].State.ToString();
-                            sAoiState = Globalo.motionManager.socketAoiMachine.socketProduct.SocketInfo_A[j].State;
                         }
                         else if (i == 1)
                         {
                             stateLabel = BsplitContainers[j].Panel2.Controls["BSocketState" + (j + 1)] as Label;
-                            stateLabel.Text = Globalo.motionManager.socketAoiMachine.socketProduct.SocketInfo_B[j].State.ToString();
-                            sAoiState = Globalo.motionManager.socketAoiMachine.socketProduct.SocketInfo_B[j].State;
                         }
+                        stateLabel.Text = Globalo.motionManager.socketAoiMachine.socketProduct.AoiSocketInfo[i][j].State.ToString();
+                        sAoiState = Globalo.motionManager.socketAoiMachine.socketProduct.AoiSocketInfo[i][j].State;
                     }
                     if (Program.PG_SELECT == HANDLER_PG.EEPROM)
                     {
