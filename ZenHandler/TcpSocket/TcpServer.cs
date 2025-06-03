@@ -37,9 +37,9 @@ namespace ZenHandler.TcpSocket
         private readonly TcpClient[] _clients = new TcpClient[9];       //EEPROM : 8대 , FW = 4대 , AOI = 2대   + 1(Client)
         private readonly Dictionary<int, ClientSlotIndex> ipToSlotIndex = new Dictionary<int, ClientSlotIndex>
         {
-            { 40, ClientSlotIndex.Tester1 },     //여기 앞에 숫자를 ip주소 끝자리와 맞혀야 된다.
+            { 1, ClientSlotIndex.Tester1 },     //여기 앞에 숫자를 ip주소 끝자리와 맞혀야 된다.
             { 2, ClientSlotIndex.Tester2 },
-            { 3, ClientSlotIndex.Tester3 },
+            { 40,ClientSlotIndex.Tester3 },
             { 4, ClientSlotIndex.Tester4 },
             { 5, ClientSlotIndex.Tester5 },
             { 6, ClientSlotIndex.Tester6 },
@@ -113,6 +113,7 @@ namespace ZenHandler.TcpSocket
                 else
                 {
                     // 연결 끊긴 클라이언트 처리
+                    bConnectedClient[i] = false;
                     _clients[i] = null;
                 }
             }
@@ -191,7 +192,7 @@ namespace ZenHandler.TcpSocket
                         }
                         
                         bConnected = true;
-
+                        bConnectedClient[clientNo] = true;
                         logData = $"[tcp] Client Connected";
                         Globalo.LogPrint("CCdControl", logData);
 

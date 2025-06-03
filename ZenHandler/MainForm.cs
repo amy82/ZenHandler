@@ -136,6 +136,7 @@ namespace ZenHandler  //ApsMotionControl
 
 
             Globalo.tcpManager = new TcpSocket.TcpManager("127.0.0.1", 2001);
+
             Globalo.tcpManager.BcrClient.DataReceived += Globalo.motionManager.transferMachine.OnTransferBcrReceived;
             Globalo.mMainPanel.BackColor = ColorTranslator.FromHtml("#F8F3F0");
             Globalo.mCCdPanel.BackColor = ColorTranslator.FromHtml("#F8F3F0");

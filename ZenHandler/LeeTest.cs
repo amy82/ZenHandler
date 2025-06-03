@@ -42,5 +42,20 @@ namespace ZenHandler
             testsp.Barcode[1] = "바코드 2번";
             Globalo.motionManager.transferMachine.CallSocketReqComplete(testsp);
         }
+
+        private void button3_Click(object sender, EventArgs e)
+        {
+            int ANum = 0;
+            TcpSocket.MessageWrapper aoiEqipData = new TcpSocket.MessageWrapper();
+            TcpSocket.TesterData tData = new TcpSocket.TesterData();
+            tData.Cmd = "CMD_TEST_STEP1";       //RESP_TEST_STEP1,  RESP_TEST_STEP2
+            tData.socketIndex = 1 + (ANum * 2);              //Left - R Socket
+            tData.Name = "";
+            tData.LotId = Globalo.motionManager.socketAoiMachine.socketProduct.AoiSocketInfo[ANum][1].BcrLot;
+
+            aoiEqipData.Data = tData;
+
+            Globalo.tcpManager.SendMsgToTester(aoiEqipData, ANum); // pc 0 or pc 1
+        }
     }
 }
