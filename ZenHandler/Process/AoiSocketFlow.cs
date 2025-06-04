@@ -547,9 +547,9 @@ namespace ZenHandler.Process
                     Globalo.motionManager.socketAoiMachine.Tcp_Req_Result[ANum] = -1;
 
                     tData.Cmd = "CMD_TEST_STEP1";       //RESP_TEST_STEP1,  RESP_TEST_STEP2
-                    tData.socketIndex = 1 + (ANum * 2);              //Left - R Socket
+                    tData.socketIndex = 1 + (ANum * 2); //0 or 1 , 2 or 3   ,Left - R Socket
                     tData.Name = "";
-                    tData.LotId = Globalo.motionManager.socketAoiMachine.socketProduct.AoiSocketInfo[ANum][1].BcrLot;
+                    tData.LotId[1] = Globalo.motionManager.socketAoiMachine.socketProduct.AoiSocketInfo[ANum][1].BcrLot;
                     aoiEqipData.Data = tData;
 
                     Globalo.tcpManager.SendMsgToTester(aoiEqipData, ANum); // pc 0 or pc 1
@@ -723,7 +723,7 @@ namespace ZenHandler.Process
                     tData.Name = "";
                     tData.Cmd = "CMD_TEST_STEP1";               //RESP_TEST_STEP1,  RESP_TEST_STEP2
                     tData.socketIndex = 0 + (ANum * 2);         //Left - R Socket
-                    tData.LotId = Globalo.motionManager.socketAoiMachine.socketProduct.AoiSocketInfo[ANum][0].BcrLot;
+                    tData.LotId[0] = Globalo.motionManager.socketAoiMachine.socketProduct.AoiSocketInfo[ANum][0].BcrLot;
                     aoiEqipData.Data = tData;
 
                     Globalo.tcpManager.SendMsgToTester(aoiEqipData, ANum); // pc 0 or pc 1
@@ -753,7 +753,7 @@ namespace ZenHandler.Process
                         //SecsGem로 apd 보고하기
                         tData.Cmd = "CMD_APD";
                         tData.Name = "";
-                        tData.LotId = Globalo.motionManager.socketAoiMachine.socketProduct.AoiSocketInfo[ANum][0].BcrLot;
+                        tData.LotId[0] = Globalo.motionManager.socketAoiMachine.socketProduct.AoiSocketInfo[ANum][0].BcrLot;
                         aoiEqipData.Data = tData;
 
                         Globalo.tcpManager.SendMsgToTester(aoiEqipData, ANum);

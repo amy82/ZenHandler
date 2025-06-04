@@ -68,12 +68,13 @@ namespace ZenHandler
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 12F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
+            this.BackColor = System.Drawing.SystemColors.Info;
             this.ClientSize = new System.Drawing.Size(271, 484);
             this.Controls.Add(this.button3);
             this.Controls.Add(this.button2);
             this.Controls.Add(this.button1);
             this.Name = "LeeTest";
-            this.Text = "LeeTest";
+            this.Text = "HANDLER -test";
             this.ResumeLayout(false);
 
         }

@@ -93,9 +93,9 @@ namespace ZenHandler.TcpSocket
             int i = 0;
             int result = -1;
 
-            string SocketName = data.Name;
+            string dataName = data.Name;
 
-            if (SocketName == "EEPROM_WRITE") //0 ~ 3 개별 pc
+            if (dataName == "EEPROM_WRITE") //0 ~ 3 개별 pc
             {
                 int pcNum = index % 4;      //0,1,2,3 반복
                 if (index < 4)
@@ -104,7 +104,7 @@ namespace ZenHandler.TcpSocket
                 }
                 Globalo.motionManager.socketEEpromMachine.Tester_A_Result[pcNum] = data.States[pcNum];
             }
-            else if (SocketName == "EEPROM_VERIFY") //4 ~ 7 개별 pc
+            else if (dataName == "EEPROM_VERIFY") //4 ~ 7 개별 pc
             {
                 int pcNum = index % 4;      //0,1,2,3 반복
                 if (index < 4)
@@ -113,7 +113,7 @@ namespace ZenHandler.TcpSocket
                 }
                 Globalo.motionManager.socketEEpromMachine.Tester_B_Result[pcNum] = data.States[pcNum];
             }
-            else if (SocketName == "AOI")  //2  (aoi)
+            else if (dataName == "AOI")  //2  (aoi)
             {
                 if (data.socketIndex < 4 && data.socketIndex > -1)
                 {
@@ -129,7 +129,7 @@ namespace ZenHandler.TcpSocket
                 }
                 
             }
-            else if (SocketName == "FW")  //4(fw)
+            else if (dataName == "FW")  //4(fw)
             {
                 if (index == 0)
                 {

@@ -48,11 +48,12 @@ namespace ZenHandler
             int ANum = 0;
             TcpSocket.MessageWrapper aoiEqipData = new TcpSocket.MessageWrapper();
             TcpSocket.TesterData tData = new TcpSocket.TesterData();
-            tData.Cmd = "CMD_TEST_STEP1";       //RESP_TEST_STEP1,  RESP_TEST_STEP2
+            tData.Cmd = "CMD_TEST";       //RESP_TEST_STEP1,  RESP_TEST_STEP2
             tData.socketIndex = 1 + (ANum * 2);              //Left - R Socket
             tData.Name = "";
-            tData.LotId = Globalo.motionManager.socketAoiMachine.socketProduct.AoiSocketInfo[ANum][1].BcrLot;
+            tData.LotId[0] = "bcr1112";// Globalo.motionManager.socketAoiMachine.socketProduct.AoiSocketInfo[ANum][1].BcrLot;
 
+            aoiEqipData.Type = "Tester";
             aoiEqipData.Data = tData;
 
             Globalo.tcpManager.SendMsgToTester(aoiEqipData, ANum); // pc 0 or pc 1

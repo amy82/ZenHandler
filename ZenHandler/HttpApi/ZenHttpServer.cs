@@ -26,7 +26,7 @@ namespace ZenHandler.HttpApi
             var listener = new HttpListener();
             listener.Prefixes.Add("http://+:8080/recipes/");
             listener.Start();
-            Console.WriteLine("레시피 HTTP 서버 시작됨: http://localhost:8080/recipes/");
+            Console.WriteLine("HTTP Server Start: http://localhost:8080/recipes/");
 
             while (true)
             {

@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Globalization;
 using System.Linq;
+using System.Reflection;
 using System.Threading;
 using System.Threading.Tasks;
 using System.Windows.Forms;
@@ -14,8 +15,8 @@ namespace ZenHandler
     }
     static class Program
     {
-        public const string VERSION_INFO = "1.0.0.1";
-        public const string BUILD_DATE = "25-04-16";        //16:00
+        public const string VERSION_INFO = "T1.0.0.1";
+        public const string BUILD_DATE = "25-06-04";            //16:00
         public const HANDLER_PG PG_SELECT = HANDLER_PG.AOI;     //AOI , EEPROM , FW         //MEMO: 여기서 프로그램 선택
         [STAThread]
         static void Main()
@@ -25,21 +26,32 @@ namespace ZenHandler
             //Application.Run(new MainForm());
 
 
-            // 뮤텍스를 생성하여 애플리케이션이 이미 실행 중인지 확인
-            using (Mutex mutex = new Mutex(true, "{Assembly.GetExecutingAssembly().GetName().Name}", out bool isAppAlreadyRunning))
+            string processName = Assembly.GetExecutingAssembly().GetName().Name;
+
+            var processes = System.Diagnostics.Process.GetProcessesByName(processName);
+            if (processes.Length > 1)
             {
-                if (isAppAlreadyRunning)
-                {
-                    // 애플리케이션이 처음 실행될 때
-                    Application.Run(new MainForm());
-                }
-                else
-                {
-                    // 이미 실행 중이면 사용자에게 메시지 표시
-                    MessageBox.Show("이 애플리케이션은 이미 실행 중입니다.", "경고", MessageBoxButtons.OK, MessageBoxIcon.Warning);
-                }
+                //MessageBox.Show("이미 실행 중입니다.", "경고", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                MessageBox.Show($"[{processName}] 애플리케이션은 이미 실행 중입니다.", "경고", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                return;
             }
-            
+            Application.Run(new MainForm());
+
+            // 뮤텍스를 생성하여 애플리케이션이 이미 실행 중인지 확인
+            //using (Mutex mutex = new Mutex(true, "{Assembly.GetExecutingAssembly().GetName().Name}", out bool isAppAlreadyRunning))
+            //{
+            //    if (isAppAlreadyRunning)
+            //    {
+            //        // 애플리케이션이 처음 실행될 때
+            //        Application.Run(new MainForm());
+            //    }
+            //    else
+            //    {
+            //        // 이미 실행 중이면 사용자에게 메시지 표시
+            //        MessageBox.Show("이 애플리케이션은 이미 실행 중입니다.", "경고", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+            //    }
+            //}
+
         }
         public static void SetLanguage(string langCode)
         {
