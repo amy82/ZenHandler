@@ -35,9 +35,10 @@ namespace ZenHandler.TcpSocket
     {
         public string Name { get; set; }
         public string Cmd { get; set; }
-
+        public int Step { get; set; }
+        public int result { get; set; }
         public string[] LotId { get; set; }//"LOT20240601"
-        public int socketIndex { get; set; }    //
+        public int socketNum { get; set; }    //1,2,3,4로 보내야된다.
         public int[] States { get; set; }       //{ 1, 1, 1, 1}  EEPROM ,AOI는 0번 index만 사용
 
         //TESTER  --> H /  REQ_APD_REPORT,

@@ -55,7 +55,7 @@ namespace ZenHandler.Machine
 
         public AoiSocketProduct socketProduct = new AoiSocketProduct();
         
-        public int[] Tcp_Req_Result = { -1, -1, -1, -1 };       //
+        public int[] Test_Req_Result = { -1, -1, -1, -1 };       //
 
         public int[] Tester_A_Result = { -1, -1, -1, -1 };
         public int[] Tester_B_Result = { -1, -1, -1, -1 };

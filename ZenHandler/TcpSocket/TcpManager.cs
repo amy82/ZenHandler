@@ -94,6 +94,8 @@ namespace ZenHandler.TcpSocket
             int result = -1;
 
             string dataName = data.Name;
+            string cmd = data.Cmd;
+            int nStep = data.Step;
 
             if (dataName == "EEPROM_WRITE") //0 ~ 3 개별 pc
             {
@@ -115,16 +117,30 @@ namespace ZenHandler.TcpSocket
             }
             else if (dataName == "AOI")  //2  (aoi)
             {
-                if (data.socketIndex < 4 && data.socketIndex > -1)
+                if (cmd == "RESP_TEST")      //CMD_TEST 보내고 결과 받기
+                {
+                    Globalo.motionManager.socketAoiMachine.Test_Req_Result[data.socketNum - 1] = data.result;
+                    if (nStep == 0)
+                    {
+                        //1차 검사 요청에 대한 리턴
+
+                        
+                    }
+                    if (nStep == 1)
+                    {
+                        //2차 검사 요청에 대한 리턴
+                    }
+                }
+                if (data.socketNum < 4 && data.socketNum > -1)
                 {
                     if (index == 0)     //LEFT 소켓 - L/R
                     {
-                        Globalo.motionManager.socketAoiMachine.Tester_A_Result[data.socketIndex] = data.States[data.socketIndex];
+                        Globalo.motionManager.socketAoiMachine.Tester_A_Result[data.socketNum] = data.States[data.socketNum];
                     }
 
                     if (index == 1)     //RIGHT 소켓 - L/R
                     {
-                        Globalo.motionManager.socketAoiMachine.Tester_B_Result[data.socketIndex] = data.States[data.socketIndex];
+                        Globalo.motionManager.socketAoiMachine.Tester_B_Result[data.socketNum] = data.States[data.socketNum];
                     }
                 }
                 
