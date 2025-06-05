@@ -76,12 +76,12 @@ namespace ZenHandler  //ApsMotionControl
             }
             else if (Program.PG_SELECT == HANDLER_PG.AOI)
             {
-                fileName = string.Format(@"{0}\iomap.xlsx", Application.StartupPath);
+                fileName = string.Format(@"{0}\Aoi_Handler_IoMap_v1.3.xlsx", Application.StartupPath);
             }
             else
             {
                 //eeprom
-                fileName = string.Format(@"{0}\iomap.xlsx", Application.StartupPath);
+                fileName = string.Format(@"{0}\EEprom_Handler_IoMap_v1.3.xlsx", Application.StartupPath);
             }
 
 

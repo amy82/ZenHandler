@@ -16,41 +16,41 @@ namespace ZenHandler.MotionControl
         //----------------------------------------------------------------------------------------------------------------
         public enum DIO_IN_ADDR_CH0 : uint
         {
-            IN0_EMERGENCY1                      = 0x00000001,  //1
-            IN0_EMERGENCY2                      = 0x00000002,
-            IN0_EMERGENCY3                      = 0x00000004,
-            TEMP4                               = 0x00000008,  //4
-            TEMP5                               = 0x00000010,
-            TEMP6                               = 0x00000020,
-            TEMP7                               = 0x00000040,
-            TEMP8                               = 0x00000080,  //8
+            IN0_EMERGENCY1                          = 0x00000001,  //1
+            IN0_EMERGENCY2                          = 0x00000002,
+            IN0_EMERGENCY3                          = 0x00000004,
+            TEMP4                                   = 0x00000008,  //4
+            IN0_LEFT_MAGAZINE_LOAD_MODE             = 0x00000010,
+            IN0_LEFT_MAGAZINE_COMPLETE_MODE         = 0x00000020,
+            IN0_RIGHT_MAGAZINE_LOAD_MODE            = 0x00000040,
+            IN0_RIGHT_MAGAZINE_COMPLETE_MODE        = 0x00000080,  //8
             //
-            IN0_DOOR_UNLOCK_FRONT_L             = 0x00000001,  //9
-            IN0_DOOR_UNLOCK_FRONT_R             = 0x00000002,
-            IN0_DOOR_UNLOCK_BACK_L              = 0x00000004,
-            IN0_DOOR_UNLOCK_BACK_R              = 0x00000008,  //12
-            TEMP13                              = 0x00000010,
-            TEMP14                              = 0x00000020,
-            TEMP15                              = 0x00000040,
-            TEMP16                              = 0x00000080,  //16
+            IN0_DOOR_UNLOCK_FRONT_L                 = 0x00000001,  //9
+            IN0_DOOR_UNLOCK_FRONT_R                 = 0x00000002,
+            IN0_DOOR_UNLOCK_BACK_L                  = 0x00000004,
+            IN0_DOOR_UNLOCK_BACK_R                  = 0x00000008,  //12
+            IN0_LEFT_MAGAZINE_DOOR_LOCK_UP          = 0x00000010,
+            IN0_LEFT_MAGAZINE_DOOR_LOCK_DOWN        = 0x00000020,
+            IN0_RIGHT_MAGAZINE_DOOR_LOCK_UP         = 0x00000040,
+            IN0_RIGHT_MAGAZINE_DOOR_LOCK_DOWN       = 0x00000080,  //16
             //
-            IN0_LEFT_MAGAZINE_LOAD_MODE         = 0x00000001,  //17
-            IN0_LEFT_MAGAZINE_COMPLETE_MODE     = 0x00000002,
-            IN0_RIGHT_MAGAZINE_LOAD_MODE        = 0x00000004,
-            IN0_RIGHT_MAGAZINE_COMPLETE_MODE    = 0x00000008,  //20
-            TEMP21                              = 0x00000010,
-            TEMP22                              = 0x00000020,
-            TEMP23                              = 0x00000040,
-            TEMP24                              = 0x00000080,  //24
+            IN0_LEFT_MAGAZINE_MAGNETIC              = 0x00000001,  //17
+            IN0_RIGHT_MAGAZINE_MAGNETIC             = 0x00000002,
+            IN0_LEFT_NG_DOOR_LOCK_LAMP              = 0x00000004,
+            IN0_LEFT_NG_DOOR_UNLOCK_LAMP            = 0x00000008,  //20
+            IN0_RIGHT_NG_DOOR_LOCK_LAMP             = 0x00000010,
+            IN0_RIGHT_NG_DOOR_UNLOCK_LAMP           = 0x00000020,
+            IN0_LEFT_NG_DOOR_LOCK_UP                = 0x00000040,
+            IN0_LEFT_NG_DOOR_LOCK_DOWN              = 0x00000080,  //24
             //
-            IN0_MAGAZINE_DOCKED1                = 0x00000001,  //25
-            IN0_MAGAZINE_DOCKED2                = 0x00000002,
-            IN0_MAGAZINE_DOCKED3                = 0x00000004,
-            IN0_MAGAZINE_DOCKED4                = 0x00000008,  //28
-            IN0_MAGAZINE_BOTTOM_DETECTED        = 0x00000010,
-            IN0_MAGAZINE_TRAY_DETECTED          = 0x00000020,
-            IN0_NG_TRAY_DETECTED1               = 0x00000040,
-            IN0_NG_TRAY_DETECTED2               = 0x00000080   //32
+            IN0_RIGHT_NG_DOOR_LOCK_UP               = 0x00000001,  //25
+            IN0_RIGHT_NG_DOOR_LOCK_DOWN             = 0x00000002,
+            IN0_LEFT_MAGAZINE_DOCKED1               = 0x00000004,
+            IN0_LEFT_MAGAZINE_BOTTOM_DETECTED       = 0x00000008,  //28
+            IN0_LEFT_MAGAZINE_TRAY_LOAD_DETECTED    = 0x00000010,
+            IN0_LEFT_MAGAZINE_TRAY_REDAY_DETECTED   = 0x00000020,
+            IN0_RIGHT_MAGAZINE_DOCKED1              = 0x00000040,
+            IN0_RIGHT_MAGAZINE_BOTTOM_DETECTED      = 0x00000080   //32
         };
         //----------------------------------------------------------------------------------------------------------------
         //
@@ -60,32 +60,32 @@ namespace ZenHandler.MotionControl
         //----------------------------------------------------------------------------------------------------------------
         public enum DIO_IN_ADDR_CH1 : uint
         {
-            IN2_TRANSFER_LOAD_PICKER_DOWN1          = 0x00000001,  //1
-            IN2_TRANSFER_LOAD_PICKER_DOWN2          = 0x00000002,
-            IN2_TRANSFER_LOAD_PICKER_DOWN3          = 0x00000004,
-            IN2_TRANSFER_LOAD_PICKER_DOWN4          = 0x00000008,  //4
-            IN2_TRANSFER_LOAD_PICKER_UP1            = 0x00000010,
-            IN2_TRANSFER_LOAD_PICKER_UP2            = 0x00000020,
-            IN2_TRANSFER_LOAD_PICKER_UP3            = 0x00000040,
-            IN2_TRANSFER_LOAD_PICKER_UP4            = 0x00000080,  //8
+            IN0_RIGHT_MAGAZINE_TRAY_LOAD_DETECTED       = 0x00000001,  //1
+            IN0_RIGHT_MAGAZINE_TRAY_REDAY_DETECTED      = 0x00000002,
+            IN2_LEFT_NG_TRAY_DETECTED_MAGNETIC          = 0x00000004,
+            IN2_RIGHT_NG_TRAY_DETECTED_MAGNETIC         = 0x00000008,  //4
+            IN2_TRANSFER_LOAD_PICKER_DOWN1              = 0x00000010,
+            IN2_TRANSFER_LOAD_PICKER_DOWN2              = 0x00000020,
+            IN2_TRANSFER_LOAD_PICKER_DOWN3              = 0x00000040,
+            IN2_TRANSFER_LOAD_PICKER_DOWN4              = 0x00000080,  //8
             //
-            IN2_TRANSFER_UNLOAD_PICKER_DOWN1        = 0x00000001,  //9
-            IN2_TRANSFER_UNLOAD_PICKER_DOWN2        = 0x00000002,
-            IN2_TRANSFER_UNLOAD_PICKER_DOWN3        = 0x00000004,
-            IN2_TRANSFER_UNLOAD_PICKER_DOWN4        = 0x00000008,  //12
-            IN2_TRANSFER_UNLOAD_PICKER_UP1          = 0x00000010,
-            IN2_TRANSFER_UNLOAD_PICKER_UP2          = 0x00000020,
-            IN2_TRANSFER_UNLOAD_PICKER_UP3          = 0x00000040,
-            IN2_TRANSFER_UNLOAD_PICKER_UP4          = 0x00000080,  //16
+            IN2_TRANSFER_LOAD_PICKER_UP1                = 0x00000001,  //9
+            IN2_TRANSFER_LOAD_PICKER_UP2                = 0x00000002,
+            IN2_TRANSFER_LOAD_PICKER_UP3                = 0x00000004,
+            IN2_TRANSFER_LOAD_PICKER_UP4                = 0x00000008,  //12
+            IN2_TRANSFER_UNLOAD_PICKER_DOWN1            = 0x00000010,
+            IN2_TRANSFER_UNLOAD_PICKER_DOWN2            = 0x00000020,
+            IN2_TRANSFER_UNLOAD_PICKER_DOWN3            = 0x00000040,
+            IN2_TRANSFER_UNLOAD_PICKER_DOWN4            = 0x00000080,  //16
             //
-            IN2_TRANSFER_LOAD_PICKER_VACUUM_ON1     = 0x00000001,  //17
-            IN2_TRANSFER_LOAD_PICKER_VACUUM_ON2     = 0x00000002,
-            IN2_TRANSFER_LOAD_PICKER_VACUUM_ON3     = 0x00000004,
-            IN2_TRANSFER_LOAD_PICKER_VACUUM_ON4     = 0x00000008,  //20
-            TEMP21 = 0x00000010,
-            TEMP22 = 0x00000020,
-            TEMP23 = 0x00000040,
-            TEMP24 = 0x00000080,            //24
+            IN2_TRANSFER_UNLOAD_PICKER_UP1              = 0x00000001,  //17
+            IN2_TRANSFER_UNLOAD_PICKER_UP2              = 0x00000002,
+            IN2_TRANSFER_UNLOAD_PICKER_UP3              = 0x00000004,
+            IN2_TRANSFER_UNLOAD_PICKER_UP4              = 0x00000008,  //20
+            IN2_TRANSFER_LOAD_PICKER_VACUUM_ON1         = 0x00000010,
+            IN2_TRANSFER_LOAD_PICKER_VACUUM_ON2         = 0x00000020,
+            IN2_TRANSFER_LOAD_PICKER_VACUUM_ON3         = 0x00000040,
+            IN2_TRANSFER_LOAD_PICKER_VACUUM_ON4         = 0x00000080,            //24
             //
             IN2_TRANSFER_UNLOAD_PICKER_GRIP1        = 0x00000001,   //25
             IN2_TRANSFER_UNLOAD_PICKER_GRIP2        = 0x00000002,
@@ -376,41 +376,41 @@ namespace ZenHandler.MotionControl
         //----------------------------------------------------------------------------------------------------------------
         public enum DIO_OUT_ADDR_CH0 : uint
         {
-            OUT1_TOWER_LAMP_Y               = 0x00000001,  //1
-            OUT1_TOWER_LAMP_G               = 0x00000002,
-            OUT1_TOWER_LAMP_R               = 0x00000004,
-            TEMP4                           = 0x00000008,  //4
-            OUT1_BUZZER1                    = 0x00000010,
-            OUT1_BUZZER2                    = 0x00000020,
-            OUT1_BUZZER3                    = 0x00000040,
-            OUT1_BUZZER4                    = 0x00000080,  //8
+            OUT1_TOWER_LAMP_Y                       = 0x00000001,  //1
+            OUT1_TOWER_LAMP_G                       = 0x00000002,
+            OUT1_TOWER_LAMP_R                       = 0x00000004,
+            TEMP4                                   = 0x00000008,  //4
+            OUT1_BUZZER1                            = 0x00000010,
+            OUT1_BUZZER2                            = 0x00000020,
+            OUT1_BUZZER3                            = 0x00000040,
+            OUT1_BUZZER4                            = 0x00000080,  //8
             //
-            OUT1_DOOR_UNLOCK_FRONT_L        = 0x00000001,  //9
-            OUT1_DOOR_UNLOCK_FRONT_R        = 0x00000002,
-            OUT1_DOOR_UNLOCK_BACK_L         = 0x00000004,
-            OUT1_DOOR_UNLOCK_BACK_R         = 0x00000008,  //12
-            TEMP13                          = 0x00000010,
-            TEMP14                          = 0x00000020,
-            TEMP15                          = 0x00000040,
-            TEMP16                          = 0x00000080,  //16
+            OUT1_ALL_DOOR_UNLOCK                    = 0x00000001,  //9
+            TEMP10                                  = 0x00000002,
+            TEMP11                                  = 0x00000004,
+            TEMP12                                  = 0x00000008,  //12
+            OUT1_LEFT_MAGAZINE_DOOR_LOCK_UP         = 0x00000010,
+            OUT1_LEFT_MAGAZINE_DOOR_LOCK_DOWN       = 0x00000020,
+            OUT1_RIGHT_MAGAZINE_DOOR_LOCK_UP        = 0x00000040,
+            OUT1_RIGHT_MAGAZINE_DOOR_LOCK_DOWN      = 0x00000080,  //16
             //
-            OUT1_LOAD_LIFT_LOAD_REQ         = 0x00000001,  //17
-            OUT1_LOAD_LIFT_LOAD_COMPLETE    = 0x00000002,
-            OUT1_UNLOAD_LIFT_LOAD_REQ       = 0x00000004,
-            OUT1_UNLOAD_LIFT_LOAD_COMPLETE  = 0x00000008,  //20
-            TEMP21                          = 0x00000010,
-            TEMP22                          = 0x00000020,
-            TEMP23                          = 0x00000040,
-            TEMP24                          = 0x00000080,  //24
+            OUT1_LEFT_MAGAZINE_LOAD_REQ             = 0x00000001,  //17
+            OUT1_LEFT_MAGAZINE_LOAD_COMPLETE        = 0x00000002,
+            OUT1_RIGHT_MAGAZINE_LOAD_REQ            = 0x00000004,
+            OUT1_RIGHT_MAGAZINE_LOAD_COMPLETE       = 0x00000008,  //20
+            OUT1_LEFT_NG_TRAY_LOCK_LAMP             = 0x00000010,
+            OUT1_LEFT_NG_TRAY_UNLOCK_LAMP           = 0x00000020,
+            OUT1_RIGHT_NG_TRAY_LOCK_LAMP            = 0x00000040,
+            OUT1_RIGHT_NG_TRAY_UNLOCK_LAMP          = 0x00000080,  //24
             //
-            TEMP25                          = 0x00000001,  //25
-            TEMP26                          = 0x00000002,
-            TEMP27                          = 0x00000004,
-            TEMP28                          = 0x00000008,  //28
-            TEMP29                          = 0x00000010,
-            TEMP30                          = 0x00000020,
-            TEMP31                          = 0x00000040,
-            TEMP32                          = 0x00000080   //32
+            OUT1_LEFT_NG_TRAY_LOCK_UP               = 0x00000001,  //25
+            OUT1_LEFT_NG_TRAY_LOCK_DOWN             = 0x00000002,
+            OUT1_RIGHT_NG_TRAY_LOCK_UP              = 0x00000004,
+            OUT1_RIGHT_NG_TRAY_LOCK_DOWN            = 0x00000008,  //28
+            TEMP29                                  = 0x00000010,
+            TEMP30                                  = 0x00000020,
+            TEMP31                                  = 0x00000040,
+            TEMP32                                  = 0x00000080   //32
         };
 
         //----------------------------------------------------------------------------------------------------------------
