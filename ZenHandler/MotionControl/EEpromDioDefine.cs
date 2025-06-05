@@ -243,41 +243,41 @@ namespace ZenHandler.MotionControl
         //----------------------------------------------------------------------------------------------------------------
         public enum DIO_OUT_ADDR_CH0 : uint
         {
-            OUT1_TOWER_LAMP_Y               = 0x00000001,  //1
-            OUT1_TOWER_LAMP_G               = 0x00000002,
-            OUT1_TOWER_LAMP_R               = 0x00000004,
-            TEMP4                           = 0x00000008,  //4
-            OUT1_BUZZER1                    = 0x00000010,
-            OUT1_BUZZER2                    = 0x00000020,
-            OUT1_BUZZER3                    = 0x00000040,
-            OUT1_BUZZER4                    = 0x00000080,  //8
+            OUT1_TOWER_LAMP_Y                       = 0x00000001,  //1
+            OUT1_TOWER_LAMP_G                       = 0x00000002,
+            OUT1_TOWER_LAMP_R                       = 0x00000004,
+            TEMP4                                   = 0x00000008,  //4
+            OUT1_BUZZER1                            = 0x00000010,
+            OUT1_BUZZER2                            = 0x00000020,
+            OUT1_BUZZER3                            = 0x00000040,
+            OUT1_BUZZER4                            = 0x00000080,  //8
             //
-            OUT1_DOOR_UNLOCK_FRONT_L        = 0x00000001,  //9
-            OUT1_DOOR_UNLOCK_FRONT_R        = 0x00000002,
-            OUT1_DOOR_UNLOCK_BACK_L         = 0x00000004,
-            OUT1_DOOR_UNLOCK_BACK_R         = 0x00000008,  //12
-            TEMP13                          = 0x00000010,
-            TEMP14                          = 0x00000020,
-            TEMP15                          = 0x00000040,
-            TEMP16                          = 0x00000080,  //16
+            OUT1_ALL_DOOR_UNLOCK                    = 0x00000001,  //9
+            TEMP10                                  = 0x00000002,
+            TEMP11                                  = 0x00000004,
+            TEMP12                                  = 0x00000008,  //12
+            OUT1_LEFT_LIFT_LOAD_MODE_LAMP           = 0x00000010,
+            OUT1_LEFT_LIFT_COMPLETE_MODE_LAMP       = 0x00000020,
+            OUT1_RIGHT_LIFT_LOAD_MODE_LAMP          = 0x00000040,
+            OUT1_RIGHT_LIFT_COMPLETE_MODE_LAMP      = 0x00000080,  //16
             //
-            OUT1_LOAD_LIFT_LOAD_REQ         = 0x00000001,  //17
-            OUT1_LOAD_LIFT_LOAD_COMPLETE    = 0x00000002,
-            OUT1_UNLOAD_LIFT_LOAD_REQ       = 0x00000004,
-            OUT1_UNLOAD_LIFT_LOAD_COMPLETE  = 0x00000008,  //20
-            TEMP21                          = 0x00000010,
-            TEMP22                          = 0x00000020,
-            TEMP23                          = 0x00000040,
-            TEMP24                          = 0x00000080,  //24
+            OUT1_LIFT_LEFT_DOOR_LOCK_UP             = 0x00000001,  //17
+            OUT1_LIFT_LEFT_DOOR_LOCK_DOWN           = 0x00000002,
+            OUT1_LIFT_RIGHT_DOOR_LOCK_UP            = 0x00000004,
+            OUT1_LIFT_RIGHT_DOOR_LOCK_DOWN          = 0x00000008,  //20
+            TEMP21                                  = 0x00000010,
+            TEMP22                                  = 0x00000020,
+            TEMP23                                  = 0x00000040,
+            TEMP24                                  = 0x00000080,  //24
             //
-            TEMP25                          = 0x00000001,  //25
-            TEMP26                          = 0x00000002,
-            TEMP27                          = 0x00000004,
-            TEMP28                          = 0x00000008,  //28
-            TEMP29                          = 0x00000010,
-            TEMP30                          = 0x00000020,
-            TEMP31                          = 0x00000040,
-            TEMP32                          = 0x00000080   //32
+            OUT1_LEFT_NG_TRAY_LOAD_MODE_LAMP        = 0x00000001,  //25
+            OUT1_LEFT_NG_TRAY_COMPLETE_MODE_LAMP    = 0x00000002,
+            OUT1_RIGHT_NG_TRAY_LOAD_MODE_LAMP       = 0x00000004,
+            OUT1_RIGHT_NG_TRAY_COMPLETE_MODE_LAMP   = 0x00000008,  //28
+            OUT1_NG_TRAY_LEFT_DOOR_LOCK_UP          = 0x00000010,
+            OUT1_NG_TRAY_LEFT_DOOR_LOCK_DOWN        = 0x00000020,
+            OUT1_NG_TRAY_RIGHT_DOOR_LOCK_UP         = 0x00000040,
+            OUT1_NG_TRAY_RIGHT_DOOR_LOCK_DOWN       = 0x00000080   //32
         };
 
         //----------------------------------------------------------------------------------------------------------------
@@ -333,28 +333,28 @@ namespace ZenHandler.MotionControl
         //----------------------------------------------------------------------------------------------------------------
         public enum DIO_OUT_ADDR_CH2 : uint
         {
-            OUT5_FRONT_GANTRY_CLAMP_FOR = 0x00000001,  //1
-            OUT5_FRONT_GANTRY_CLAMP_BACK = 0x00000002,
-            OUT5_BACK_GANTRY_CLAMP_FOR = 0x00000004,
-            OUT5_BACK_GANTRY_CLAMP_BACK = 0x00000008,  //4
-            OUT5_FRONT_GANTRY_CENTRING_FOR = 0x00000010,
-            OUT5_FRONT_GANTRY_CENTRING_BACK = 0x00000020,
-            OUT5_BACK_GANTRY_CENTRING_FOR = 0x00000040,
-            OUT5_BACK_GANTRY_CENTRING_BACK = 0x00000080,  //8
+            OUT5_FRONT_GANTRY_CLAMP_FOR             = 0x00000001,  //1
+            OUT5_FRONT_GANTRY_CLAMP_BACK            = 0x00000002,
+            OUT5_BACK_GANTRY_CLAMP_FOR              = 0x00000004,
+            OUT5_BACK_GANTRY_CLAMP_BACK             = 0x00000008,  //4
+            OUT5_FRONT_GANTRY_CENTRING_FOR          = 0x00000010,
+            OUT5_FRONT_GANTRY_CENTRING_BACK         = 0x00000020,
+            OUT5_BACK_GANTRY_CENTRING_FOR           = 0x00000040,
+            OUT5_BACK_GANTRY_CENTRING_BACK          = 0x00000080,  //8
             //
-            OUT5_TRAY_PUSHER_LEFT_UP = 0x00000001,  //9
-            OUT5_TRAY_PUSHER_LEFT_DOWN = 0x00000002,
-            OUT5_TRAY_PUSHER_RIGHT_UP = 0x00000004,
-            OUT5_TRAY_PUSHER_RIGHT_DOWN = 0x00000008,  //12
-            OUT5_TRAY_PUSHER_LEFT_FOR = 0x00000010,
-            OUT5_TRAY_PUSHER_LEFT_BACK = 0x00000020,
-            OUT5_TRAY_PUSHER_RIGHT_FOR = 0x00000040,
-            OUT5_TRAY_PUSHER_RIGHT_BACK = 0x00000080,  //16
+            OUT5_TRAY_PUSHER_LEFT_UP                = 0x00000001,  //9
+            OUT5_TRAY_PUSHER_LEFT_DOWN              = 0x00000002,
+            OUT5_TRAY_PUSHER_RIGHT_UP               = 0x00000004,
+            OUT5_TRAY_PUSHER_RIGHT_DOWN             = 0x00000008,  //12
+            OUT5_TRAY_PUSHER_LEFT_FOR               = 0x00000010,
+            OUT5_TRAY_PUSHER_LEFT_BACK              = 0x00000020,
+            OUT5_TRAY_PUSHER_RIGHT_FOR              = 0x00000040,
+            OUT5_TRAY_PUSHER_RIGHT_BACK             = 0x00000080,  //16
             //                      
-            OUT5_TRAY_PUSHER_CENTRING_LEFT_FOR = 0x00000001,  //17
-            OUT5_TRAY_PUSHER_CENTRING_LEFT_BACK = 0x00000002,
-            OUT5_TRAY_PUSHER_CENTRING_RIGHT_FOR = 0x00000004,
-            OUT5_TRAY_PUSHER_CENTRING_RIGHT_BACK = 0x00000008,  //20
+            OUT5_TRAY_PUSHER_CENTRING_LEFT_FOR      = 0x00000001,  //17
+            OUT5_TRAY_PUSHER_CENTRING_LEFT_BACK     = 0x00000002,
+            OUT5_TRAY_PUSHER_CENTRING_RIGHT_FOR     = 0x00000004,
+            OUT5_TRAY_PUSHER_CENTRING_RIGHT_BACK    = 0x00000008,  //20
             TEMP21 = 0x00000010,
             TEMP22 = 0x00000020,
             TEMP23 = 0x00000040,
@@ -366,8 +366,8 @@ namespace ZenHandler.MotionControl
             TEMP28 = 0x00000008,  //28
             TEMP29 = 0x00000010,
             TEMP30 = 0x00000020,
-            TEMP31 = 0x00000040,
-            TEMP32 = 0x00000080   //32
+            OUT5_SOCKET_Y_FORWARD                   = 0x00000040,
+            OUT5_SOCKET_Y_BACKWARD                  = 0x00000080   //32
         };
 
         //----------------------------------------------------------------------------------------------------------------
@@ -378,41 +378,41 @@ namespace ZenHandler.MotionControl
         //----------------------------------------------------------------------------------------------------------------
         public enum DIO_OUT_ADDR_CH3 : uint
         {
-            OUT7_A_SOCKET_CONTACT_UP1 = 0x00000001,  //1
-            OUT7_A_SOCKET_CONTACT_UP2 = 0x00000002,
-            OUT7_A_SOCKET_CONTACT_UP3 = 0x00000004,
-            OUT7_A_SOCKET_CONTACT_UP4 = 0x00000008,  //4
-            OUT7_A_SOCKET_CONTACT_DOWN1 = 0x00000010,
-            OUT7_A_SOCKET_CONTACT_DOWN2 = 0x00000020,
-            OUT7_A_SOCKET_CONTACT_DOWN3 = 0x00000040,
-            OUT7_A_SOCKET_CONTACT_DOWN4 = 0x00000080,  //8
+            OUT7_WRITE_SOCKET_CONTACT_UP1           = 0x00000001,  //1
+            OUT7_WRITE_SOCKET_CONTACT_UP2           = 0x00000002,
+            OUT7_WRITE_SOCKET_CONTACT_UP3           = 0x00000004,
+            OUT7_WRITE_SOCKET_CONTACT_UP4           = 0x00000008,  //4
+            OUT7_WRITE_SOCKET_CONTACT_DOWN1         = 0x00000010,
+            OUT7_WRITE_SOCKET_CONTACT_DOWN2         = 0x00000020,
+            OUT7_WRITE_SOCKET_CONTACT_DOWN3         = 0x00000040,
+            OUT7_WRITE_SOCKET_CONTACT_DOWN4         = 0x00000080,  //8
             //
-            OUT7_A_SOCKET_CONTACT_FORWARD1 = 0x00000001,  //9
-            OUT7_A_SOCKET_CONTACT_FORWARD2 = 0x00000002,
-            OUT7_A_SOCKET_CONTACT_FORWARD3 = 0x00000004,
-            OUT7_A_SOCKET_CONTACT_FORWARD4 = 0x00000008,  //12
-            OUT7_A_SOCKET_CONTACT_BACKWARD1 = 0x00000010,
-            OUT7_A_SOCKET_CONTACT_BACKWARD2 = 0x00000020,
-            OUT7_A_SOCKET_CONTACT_BACKWARD3 = 0x00000040,
-            OUT7_A_SOCKET_CONTACT_BACKWARD4 = 0x00000080,  //16
+            OUT7_WRITE_SOCKET_CONTACT_FORWARD1      = 0x00000001,  //9
+            OUT7_WRITE_SOCKET_CONTACT_FORWARD2      = 0x00000002,
+            OUT7_WRITE_SOCKET_CONTACT_FORWARD3      = 0x00000004,
+            OUT7_WRITE_SOCKET_CONTACT_FORWARD4      = 0x00000008,  //12
+            OUT7_WRITE_SOCKET_CONTACT_BACKWARD1     = 0x00000010,
+            OUT7_WRITE_SOCKET_CONTACT_BACKWARD2     = 0x00000020,
+            OUT7_WRITE_SOCKET_CONTACT_BACKWARD3     = 0x00000040,
+            OUT7_WRITE_SOCKET_CONTACT_BACKWARD4     = 0x00000080,  //16
             //                      
-            OUT7_B_SOCKET_CONTACT_UP1 = 0x00000001,  //17
-            OUT7_B_SOCKET_CONTACT_UP2 = 0x00000002,
-            OUT7_B_SOCKET_CONTACT_UP3 = 0x00000004,
-            OUT7_B_SOCKET_CONTACT_UP4 = 0x00000008,  //20
-            OUT7_B_SOCKET_CONTACT_DOWN1 = 0x00000010,
-            OUT7_B_SOCKET_CONTACT_DOWN2 = 0x00000020,
-            OUT7_B_SOCKET_CONTACT_DOWN3 = 0x00000040,
-            OUT7_B_SOCKET_CONTACT_DOWN4 = 0x00000080,  //24
+            OUT7_VERIFY_SOCKET_CONTACT_UP1          = 0x00000001,  //17
+            OUT7_VERIFY_SOCKET_CONTACT_UP2          = 0x00000002,
+            OUT7_VERIFY_SOCKET_CONTACT_UP3          = 0x00000004,
+            OUT7_VERIFY_SOCKET_CONTACT_UP4          = 0x00000008,  //20
+            OUT7_VERIFY_SOCKET_CONTACT_DOWN1        = 0x00000010,
+            OUT7_VERIFY_SOCKET_CONTACT_DOWN2        = 0x00000020,
+            OUT7_VERIFY_SOCKET_CONTACT_DOWN3        = 0x00000040,
+            OUT7_VERIFY_SOCKET_CONTACT_DOWN4        = 0x00000080,  //24
             //
-            OUT7_B_SOCKET_CONTACT_FORWARD1 = 0x00000001,  //25
-            OUT7_B_SOCKET_CONTACT_FORWARD2 = 0x00000002,
-            OUT7_B_SOCKET_CONTACT_FORWARD3 = 0x00000004,
-            OUT7_B_SOCKET_CONTACT_FORWARD4 = 0x00000008,  //28
-            OUT7_B_SOCKET_CONTACT_BACKWARD1 = 0x00000010,
-            OUT7_B_SOCKET_CONTACT_BACKWARD2 = 0x00000020,
-            OUT7_B_SOCKET_CONTACT_BACKWARD3 = 0x00000040,
-            OUT7_B_SOCKET_CONTACT_BACKWARD4 = 0x00000080   //32
+            OUT7_VERIFY_SOCKET_CONTACT_FORWARD1     = 0x00000001,  //25
+            OUT7_VERIFY_SOCKET_CONTACT_FORWARD2     = 0x00000002,
+            OUT7_VERIFY_SOCKET_CONTACT_FORWARD3     = 0x00000004,
+            OUT7_VERIFY_SOCKET_CONTACT_FORWARD4     = 0x00000008,  //28
+            OUT7_VERIFY_SOCKET_CONTACT_BACKWARD1    = 0x00000010,
+            OUT7_VERIFY_SOCKET_CONTACT_BACKWARD2    = 0x00000020,
+            OUT7_VERIFY_SOCKET_CONTACT_BACKWARD3    = 0x00000040,
+            OUT7_VERIFY_SOCKET_CONTACT_BACKWARD4    = 0x00000080   //32
         };
     }//END
 }

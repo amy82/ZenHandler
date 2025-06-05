@@ -175,19 +175,19 @@ namespace ZenHandler.MotionControl
             OUT1_LEFT_SOCKET_BLOW_ON2           = 0x00000002,
             OUT1_RIGHT_SOCKET_BLOW_ON1          = 0x00000004,
             OUT1_RIGHT_SOCKET_BLOW_ON2          = 0x00000008,  //20
-            OUT1_LIFT_LEFT_DOOR_LOCK            = 0x00000010,
-            OUT1_LIFT_LEFT_DOOR_UNLOCK          = 0x00000020,
-            OUT1_LIFT_RIGHT_DOOR_LOCK           = 0x00000040,
-            OUT1_LIFT_RIGHT_DOOR_UNLOCK         = 0x00000080,  //24
+            OUT1_LIFT_LEFT_DOOR_LOCK_UP            = 0x00000010,
+            OUT1_LIFT_LEFT_DOOR_LOCK_DOWN          = 0x00000020,
+            OUT1_LIFT_RIGHT_DOOR_LOCK_UP           = 0x00000040,
+            OUT1_LIFT_RIGHT_DOOR_LOCK_DOWN         = 0x00000080,  //24
             //
             OUT1_LEFT_NG_TRAY_LOAD_MODE_LAMP            = 0x00000001,  //25
             OUT1_LEFT_NG_TRAY_COMPLETE_MODE_LAMP        = 0x00000002,
             OUT1_RIGHT_NG_TRAY_LOAD_MODE_LAMP           = 0x00000004,
             OUT1_RIGHT_NG_TRAY_COMPLETE_MODE_LAMP       = 0x00000008,  //28
-            OUT1_NG_TRAY_LEFT_DOOR_UNLOCK               = 0x00000010,
-            OUT1_NG_TRAY_LEFT_DOOR_LOCK                 = 0x00000020,
-            OUT1_NG_TRAY_RIGHT_DOOR_UNLOCK              = 0x00000040,
-            OUT1_NG_TRAY_RIGHT_DOOR_LOCK                = 0x00000080   //32
+            OUT1_NG_TRAY_LEFT_DOOR_LOCK_UP               = 0x00000010,
+            OUT1_NG_TRAY_LEFT_DOOR_LOCK_DOWN                 = 0x00000020,
+            OUT1_NG_TRAY_RIGHT_DOOR_LOCK_UP              = 0x00000040,
+            OUT1_NG_TRAY_RIGHT_DOOR_LOCK_DOWN                = 0x00000080   //32
         };
         //----------------------------------------------------------------------------------------------------------------
         //
