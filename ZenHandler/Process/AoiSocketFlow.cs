@@ -559,7 +559,6 @@ namespace ZenHandler.Process
 
                 case 442:
 
-                    break;
                     //z축 이동 요청?
 
                     if (Globalo.motionManager.socketAoiMachine.Test_Req_Result[tData.socketNum] == 0)       //Step1 검사 대기
