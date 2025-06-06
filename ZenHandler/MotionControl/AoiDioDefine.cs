@@ -8,6 +8,119 @@ namespace ZenHandler.MotionControl
 {
     public class AoiDioDefine : IDioDefine
     {
+
+        uint GetInGantryClampFor(bool bFlag)
+        {
+            if (bFlag)
+            {
+                return (uint)(DIO_IN_ADDR_CH4.IN0_FRONT_GANTRY_CLAMP_FOR | DIO_IN_ADDR_CH4.IN0_BACK_GANTRY_CLAMP_FOR);
+            }
+            else
+            {
+                return (uint)(DIO_IN_ADDR_CH4.IN0_FRONT_GANTRY_CLAMP_BACK | DIO_IN_ADDR_CH4.IN0_BACK_GANTRY_CLAMP_BACK);
+            }
+        }
+        uint GetOutGantryClampFor(bool bFlag)
+        {
+            if (bFlag)
+            {
+                return (uint)(DIO_OUT_ADDR_CH2.OUT5_FRONT_GANTRY_CLAMP_FOR | DIO_OUT_ADDR_CH2.OUT5_BACK_GANTRY_CLAMP_FOR);
+            }
+            else
+            {
+                return (uint)(DIO_OUT_ADDR_CH2.OUT5_FRONT_GANTRY_CLAMP_BACK | DIO_OUT_ADDR_CH2.OUT5_BACK_GANTRY_CLAMP_BACK);
+            }
+        }
+
+        uint GetInGantryCenteringFor(bool bFlag)
+        {
+            if (bFlag)
+            {
+                return (uint)(DIO_IN_ADDR_CH4.IN0_FRONT_GANTRY_CENTRING_FOR | DIO_IN_ADDR_CH4.IN0_BACK_GANTRY_CENTRING_FOR);
+            }
+            else
+            {
+                return (uint)(DIO_IN_ADDR_CH4.IN0_FRONT_GANTRY_CENTRING_BACK | DIO_IN_ADDR_CH4.IN0_BACK_GANTRY_CENTRING_BACK);
+            }
+        }
+        uint GetOutGantryCenteringFor(bool bFlag)
+        {
+            if (bFlag)
+            {
+                return (uint)(DIO_OUT_ADDR_CH2.OUT5_FRONT_GANTRY_CENTRING_FOR | DIO_OUT_ADDR_CH2.OUT5_BACK_GANTRY_CENTRING_FOR);
+            }
+            else
+            {
+                return (uint)(DIO_OUT_ADDR_CH2.OUT5_FRONT_GANTRY_CENTRING_BACK | DIO_OUT_ADDR_CH2.OUT5_BACK_GANTRY_CENTRING_BACK);
+            }
+        }
+
+        uint GetInTrayPusherUp(bool bFlag)
+        {
+            if (bFlag)
+            {
+                return (uint)(DIO_IN_ADDR_CH4.IN1_TRAY_PUSHER_LEFT_UP | DIO_IN_ADDR_CH4.IN1_TRAY_PUSHER_RIGHT_UP);
+            }
+            else
+            {
+                return (uint)(DIO_IN_ADDR_CH4.IN1_TRAY_PUSHER_LEFT_DOWN | DIO_IN_ADDR_CH4.IN1_TRAY_PUSHER_RIGHT_DOWN);
+            }
+        }
+        uint GetOutTrayPusherUp(bool bFlag)
+        {
+            if (bFlag)
+            {
+                return (uint)(DIO_OUT_ADDR_CH2.OUT5_TRAY_PUSHER_LEFT_UP | DIO_OUT_ADDR_CH2.OUT5_TRAY_PUSHER_RIGHT_UP);
+            }
+            else
+            {
+                return (uint)(DIO_OUT_ADDR_CH2.OUT5_TRAY_PUSHER_LEFT_DOWN | DIO_OUT_ADDR_CH2.OUT5_TRAY_PUSHER_RIGHT_DOWN);
+            }
+        }
+        uint GetInTrayPusherFor(bool bFlag)
+        {
+            if (bFlag)
+            {
+                return (uint)(DIO_IN_ADDR_CH4.IN1_TRAY_PUSHER_LEFT_FOR | DIO_IN_ADDR_CH4.IN1_TRAY_PUSHER_RIGHT_FOR);
+            }
+            else
+            {
+                return (uint)(DIO_IN_ADDR_CH4.IN1_TRAY_PUSHER_LEFT_BACK | DIO_IN_ADDR_CH4.IN1_TRAY_PUSHER_RIGHT_BACK);
+            }
+        }
+        uint GetOutTrayPusherFor(bool bFlag)
+        {
+            if (bFlag)
+            {
+                return (uint)(DIO_OUT_ADDR_CH2.OUT5_TRAY_PUSHER_LEFT_FOR | DIO_OUT_ADDR_CH2.OUT5_TRAY_PUSHER_RIGHT_FOR);
+            }
+            else
+            {
+                return (uint)(DIO_OUT_ADDR_CH2.OUT5_TRAY_PUSHER_LEFT_BACK | DIO_OUT_ADDR_CH2.OUT5_TRAY_PUSHER_RIGHT_BACK);
+            }
+        }
+        uint GetInTrayPusherCentringFor(bool bFlag)
+        {
+            if (bFlag)
+            {
+                return (uint)(DIO_IN_ADDR_CH4.IN2_TRAY_PUSHER_CENTRING_LEFT_FOR | DIO_IN_ADDR_CH4.IN2_TRAY_PUSHER_CENTRING_RIGHT_FOR);
+            }
+            else
+            {
+                return (uint)(DIO_IN_ADDR_CH4.IN2_TRAY_PUSHER_CENTRING_LEFT_BACK | DIO_IN_ADDR_CH4.IN2_TRAY_PUSHER_CENTRING_RIGHT_BACK);
+            }
+        }
+        uint GetOutTrayPusherCentringFor(bool bFlag)
+        {
+            if (bFlag)
+            {
+                return (uint)(DIO_OUT_ADDR_CH2.OUT5_TRAY_PUSHER_CENTRING_LEFT_FOR | DIO_OUT_ADDR_CH2.OUT5_TRAY_PUSHER_CENTRING_RIGHT_FOR);
+            }
+            else
+            {
+                return (uint)(DIO_OUT_ADDR_CH2.OUT5_TRAY_PUSHER_CENTRING_LEFT_BACK | DIO_OUT_ADDR_CH2.OUT5_TRAY_PUSHER_CENTRING_RIGHT_BACK);
+            }
+        }
         public uint GetInContactUpDown(int Group, int index, bool bFlag) { return 0; }
         public uint GetOutContactUpDown(int Group, int index, bool bFlag) { return 0; }
         public uint GetInContactForBack(int Group, int index, bool bFlag) { return 0; }

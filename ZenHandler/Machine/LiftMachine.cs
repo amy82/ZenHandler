@@ -159,6 +159,7 @@ namespace ZenHandler.Machine
             if (bFlag)
             {
                 //uFlagHigh = upValue & (uint)MotionControl.DioDefine.DIO_IN_ADDR_CH0.IN_LENS_GRIP_FOR;
+                uFlagHigh = upValue & Globalo.motionManager._dio.GetInGantryCenteringFor(bFlag);
                 if (uFlagHigh == 1)
                 {
                     return true;
@@ -167,6 +168,7 @@ namespace ZenHandler.Machine
             else
             {
                 //uFlagHigh = upValue & (uint)MotionControl.DioDefine.DIO_IN_ADDR_CH0.IN_LENS_GRIP_BACK;
+                uFlagHigh = upValue & Globalo.motionManager._dio.GetInGantryCenteringFor(bFlag);
                 if (uFlagHigh == 1)
                 {
                     return true;
@@ -188,6 +190,7 @@ namespace ZenHandler.Machine
             if (bFlag)
             {
                 //uFlagHigh = upValue & (uint)MotionControl.DioDefine.DIO_IN_ADDR_CH0.IN_LENS_GRIP_FOR;
+                uFlagHigh = upValue & Globalo.motionManager._dio.GetOutGantryCenteringFor(bFlag);
                 if (uFlagHigh == 1)
                 {
                     return true;
@@ -196,6 +199,7 @@ namespace ZenHandler.Machine
             else
             {
                 //uFlagHigh = upValue & (uint)MotionControl.DioDefine.DIO_IN_ADDR_CH0.IN_LENS_GRIP_BACK;
+                uFlagHigh = upValue & Globalo.motionManager._dio.GetOutGantryCenteringFor(bFlag);
                 if (uFlagHigh == 1)
                 {
                     return true;
@@ -217,6 +221,7 @@ namespace ZenHandler.Machine
             if (bFlag)
             {
                 //uFlagHigh = upValue & (uint)MotionControl.DioDefine.DIO_IN_ADDR_CH0.IN_LENS_GRIP_FOR;
+                uFlagHigh = upValue & Globalo.motionManager._dio.GetInGantryClampFor(bFlag);
                 if (uFlagHigh == 1)
                 {
                     return true;
@@ -225,6 +230,7 @@ namespace ZenHandler.Machine
             else
             {
                 //uFlagHigh = upValue & (uint)MotionControl.DioDefine.DIO_IN_ADDR_CH0.IN_LENS_GRIP_BACK;
+                uFlagHigh = upValue & Globalo.motionManager._dio.GetInGantryClampFor(bFlag);
                 if (uFlagHigh == 1)
                 {
                     return true;
@@ -247,6 +253,7 @@ namespace ZenHandler.Machine
             if (bFlag)
             {
                 //uFlagHigh = upValue & (uint)MotionControl.DioDefine.DIO_IN_ADDR_CH0.IN_LENS_GRIP_FOR;
+                uFlagHigh = upValue & Globalo.motionManager._dio.GetOutGantryClampFor(bFlag);
                 if (uFlagHigh == 1)
                 {
                     return true;
@@ -255,6 +262,7 @@ namespace ZenHandler.Machine
             else
             {
                 //uFlagHigh = upValue & (uint)MotionControl.DioDefine.DIO_IN_ADDR_CH0.IN_LENS_GRIP_BACK;
+                uFlagHigh = upValue & Globalo.motionManager._dio.GetOutGantryClampFor(bFlag);
                 if (uFlagHigh == 1)
                 {
                     return true;
@@ -262,7 +270,7 @@ namespace ZenHandler.Machine
             }
             return false;
         }
-        public bool GetPUsherUp(bool bFlag, bool bWait = false)
+        public bool GetPusherUp(bool bFlag, bool bWait = false)
         {
             if (ProgramState.ON_LINE_MOTOR == false)
             {
@@ -276,6 +284,7 @@ namespace ZenHandler.Machine
             if (bFlag)
             {
                 //uFlagHigh = upValue & (uint)MotionControl.DioDefine.DIO_IN_ADDR_CH0.IN_LENS_GRIP_FOR;
+                uFlagHigh = upValue & Globalo.motionManager._dio.GetInTrayPusherUp(bFlag);
                 if (uFlagHigh == 1)
                 {
                     return true;
@@ -284,6 +293,7 @@ namespace ZenHandler.Machine
             else
             {
                 //uFlagHigh = upValue & (uint)MotionControl.DioDefine.DIO_IN_ADDR_CH0.IN_LENS_GRIP_BACK;
+                uFlagHigh = upValue & Globalo.motionManager._dio.GetInTrayPusherUp(bFlag);
                 if (uFlagHigh == 1)
                 {
                     return true;
@@ -307,11 +317,15 @@ namespace ZenHandler.Machine
             {
                 //uFlagHigh = (uint)MotionControl.DioDefine.DIO_OUT_ADDR_CH0.VACUUM_ON;
                 //uFlagLow = (uint)MotionControl.DioDefine.DIO_OUT_ADDR_CH0.VACUUM_OFF;
+                uFlagHigh = Globalo.motionManager._dio.GetOutTrayPusherUp(true);
+                uFlagLow = Globalo.motionManager._dio.GetOutTrayPusherUp(false);
             }
             else
             {
                 //uFlagHigh = (uint)MotionControl.DioDefine.DIO_OUT_ADDR_CH0.VACUUM_OFF;
                 //uFlagLow = (uint)MotionControl.DioDefine.DIO_OUT_ADDR_CH0.VACUUM_ON;
+                uFlagLow = Globalo.motionManager._dio.GetOutTrayPusherUp(true);
+                uFlagHigh = Globalo.motionManager._dio.GetOutTrayPusherUp(false);
             }
 
             bool Rtn = Globalo.motionManager.ioController.DioWriteOutportByte(lModuleNo, lOffset, uFlagHigh, uFlagLow);
@@ -337,7 +351,7 @@ namespace ZenHandler.Machine
                     int nTimeTick = 0;
                     while (bWait)
                     {
-                        Rtn = GetPUsherUp(bFlag);
+                        Rtn = GetPusherUp(bFlag);
                         if (Rtn == true)
                         {
                             isSuccess = true;
@@ -357,7 +371,7 @@ namespace ZenHandler.Machine
             }
             return isSuccess;
         }
-        public bool GetPUsherFor(bool bFlag, bool bWait = false)
+        public bool GetPusherFor(bool bFlag, bool bWait = false)
         {
             if (ProgramState.ON_LINE_MOTOR == false)
             {
@@ -371,6 +385,7 @@ namespace ZenHandler.Machine
             if (bFlag)
             {
                 //uFlagHigh = upValue & (uint)MotionControl.DioDefine.DIO_IN_ADDR_CH0.IN_LENS_GRIP_FOR;
+                uFlagHigh = upValue & Globalo.motionManager._dio.GetInTrayPusherFor(bFlag);
                 if (uFlagHigh == 1)
                 {
                     return true;
@@ -379,6 +394,7 @@ namespace ZenHandler.Machine
             else
             {
                 //uFlagHigh = upValue & (uint)MotionControl.DioDefine.DIO_IN_ADDR_CH0.IN_LENS_GRIP_BACK;
+                uFlagHigh = upValue & Globalo.motionManager._dio.GetInTrayPusherFor(bFlag);
                 if (uFlagHigh == 1)
                 {
                     return true;
@@ -401,11 +417,17 @@ namespace ZenHandler.Machine
             {
                 //uFlagHigh = (uint)MotionControl.DioDefine.DIO_OUT_ADDR_CH0.VACUUM_ON;
                 //uFlagLow = (uint)MotionControl.DioDefine.DIO_OUT_ADDR_CH0.VACUUM_OFF;
+
+                uFlagHigh = Globalo.motionManager._dio.GetOutTrayPusherFor(true);
+                uFlagLow = Globalo.motionManager._dio.GetOutTrayPusherFor(false);
             }
             else
             {
                 //uFlagHigh = (uint)MotionControl.DioDefine.DIO_OUT_ADDR_CH0.VACUUM_OFF;
                 //uFlagLow = (uint)MotionControl.DioDefine.DIO_OUT_ADDR_CH0.VACUUM_ON;
+
+                uFlagLow = Globalo.motionManager._dio.GetOutTrayPusherFor(true);
+                uFlagHigh = Globalo.motionManager._dio.GetOutTrayPusherFor(false);
             }
 
             bool Rtn = Globalo.motionManager.ioController.DioWriteOutportByte(lModuleNo, lOffset, uFlagHigh, uFlagLow);
@@ -431,7 +453,7 @@ namespace ZenHandler.Machine
                     int nTimeTick = 0;
                     while (bWait)
                     {
-                        Rtn = GetPUsherFor(bFlag);
+                        Rtn = GetPusherFor(bFlag);
                         if (Rtn == true)
                         {
                             isSuccess = true;
@@ -466,11 +488,17 @@ namespace ZenHandler.Machine
             {
                 //uFlagHigh = (uint)MotionControl.DioDefine.DIO_OUT_ADDR_CH0.VACUUM_ON;
                 //uFlagLow = (uint)MotionControl.DioDefine.DIO_OUT_ADDR_CH0.VACUUM_OFF;
+
+                uFlagHigh = Globalo.motionManager._dio.GetOutGantryCenteringFor(true);
+                uFlagLow = Globalo.motionManager._dio.GetOutGantryCenteringFor(false);
             }
             else
             {
                 //uFlagHigh = (uint)MotionControl.DioDefine.DIO_OUT_ADDR_CH0.VACUUM_OFF;
                 //uFlagLow = (uint)MotionControl.DioDefine.DIO_OUT_ADDR_CH0.VACUUM_ON;
+
+                uFlagLow = Globalo.motionManager._dio.GetOutGantryCenteringFor(true);
+                uFlagHigh = Globalo.motionManager._dio.GetOutGantryCenteringFor(false);
             }
 
             bool Rtn = Globalo.motionManager.ioController.DioWriteOutportByte(lModuleNo, lOffset, uFlagHigh, uFlagLow);
@@ -530,6 +558,7 @@ namespace ZenHandler.Machine
             if (bFlag)
             {
                 //uFlagHigh = upValue & (uint)MotionControl.DioDefine.DIO_IN_ADDR_CH0.IN_LENS_GRIP_FOR;
+                uFlagHigh = upValue & Globalo.motionManager._dio.GetInGantryCenteringFor(bFlag);
                 if (uFlagHigh == 1)
                 {
                     return true;
@@ -538,6 +567,7 @@ namespace ZenHandler.Machine
             else
             {
                 //uFlagHigh = upValue & (uint)MotionControl.DioDefine.DIO_IN_ADDR_CH0.IN_LENS_GRIP_BACK;
+                uFlagHigh = upValue & Globalo.motionManager._dio.GetInGantryCenteringFor(bFlag);
                 if (uFlagHigh == 1)
                 {
                     return true;

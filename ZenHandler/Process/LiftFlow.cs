@@ -443,7 +443,7 @@ namespace ZenHandler.Process
                     break;
                 case 2040:
                     //PUSHER  상태 확인
-                    if (Globalo.motionManager.liftMachine.GetPUsherFor(true) == false && Globalo.motionManager.liftMachine.GetPUsherFor(false) == false)
+                    if (Globalo.motionManager.liftMachine.GetPusherFor(true) == false && Globalo.motionManager.liftMachine.GetPusherFor(false) == false)
                     {
                         //PUSHER 전진, 후진 모두 미감지
                         szLog = $"[READY] PUSHER FOR/BACK SENSOR ERR [STEP : {nStep}]";
@@ -451,7 +451,7 @@ namespace ZenHandler.Process
                         nRetStep *= -1;
                         break;
                     }
-                    if (Globalo.motionManager.liftMachine.GetPUsherUp(true) == false && Globalo.motionManager.liftMachine.GetPUsherUp(false) == false)
+                    if (Globalo.motionManager.liftMachine.GetPusherUp(true) == false && Globalo.motionManager.liftMachine.GetPusherUp(false) == false)
                     {
                         //PUSHER 상승, 하강 모두 미감지
                         szLog = $"[READY] PUSHER UP/DOWN SENSOR ERR [STEP : {nStep}]";
@@ -709,7 +709,7 @@ namespace ZenHandler.Process
                     break;
                 case 2125:
                     //PUSHER 하강 / 후진 상태 확인
-                    if (Globalo.motionManager.liftMachine.GetPUsherFor(false) == true)
+                    if (Globalo.motionManager.liftMachine.GetPusherFor(false) == true)
                     {
                         szLog = $"[READY] PUSHER BACK CHECK [STEP : {nStep}]";
                         Globalo.LogPrint("ManualControl", szLog);
@@ -2076,7 +2076,7 @@ namespace ZenHandler.Process
                     case 100:
                         //PUSHER 전진 확인
                         //PUSHER 하강 / 후진 상태 확인
-                        if (Globalo.motionManager.liftMachine.GetPUsherFor(true) == true)
+                        if (Globalo.motionManager.liftMachine.GetPusherFor(true) == true)
                         {
                             szLog = $"[READY] PUSHER FOR CHECK [STEP : {nRetStep}]";
                             Globalo.LogPrint("ManualControl", szLog);
@@ -2108,7 +2108,7 @@ namespace ZenHandler.Process
                         break;
                     case 140:
                         //PUSHER 상승 확인
-                        if (Globalo.motionManager.liftMachine.GetPUsherUp(true) == true)
+                        if (Globalo.motionManager.liftMachine.GetPusherUp(true) == true)
                         {
                             szLog = $"[READY] PUSHER UP CHECK [STEP : {nRetStep}]";
                             Globalo.LogPrint("ManualControl", szLog);
@@ -2409,7 +2409,7 @@ namespace ZenHandler.Process
                         break;
                     case 160:
                         //Pusher 하강 확인
-                        if (Globalo.motionManager.liftMachine.GetPUsherUp(false) == true)
+                        if (Globalo.motionManager.liftMachine.GetPusherUp(false) == true)
                         {
                             szLog = $"[READY] PUSHER DOWN CHECK [STEP : {nRetStep}]";
                             Globalo.LogPrint("ManualControl", szLog);
@@ -2440,7 +2440,7 @@ namespace ZenHandler.Process
                         break;
                     case 200:
                         //Pusher 후진 확인
-                        if (Globalo.motionManager.liftMachine.GetPUsherFor(false) == true)
+                        if (Globalo.motionManager.liftMachine.GetPusherFor(false) == true)
                         {
                             szLog = $"[READY] PUSHER BACK CHECK [STEP : {nRetStep}]";
                             Globalo.LogPrint("ManualControl", szLog);

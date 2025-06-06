@@ -74,5 +74,22 @@ namespace ZenHandler.MotionControl
         uint GetOutRotateGrip(int Group, int index, bool bFlag);
 
         //Lift + Magazine
+        uint GetInGantryClampFor(bool bFlag);
+        uint GetOutGantryClampFor(bool bFlag);
+
+        uint GetInGantryCenteringFor(bool bFlag);
+        uint GetOutGantryCenteringFor(bool bFlag);
+
+        uint GetInTrayPusherUp(bool bFlag);
+        uint GetOutTrayPusherUp(bool bFlag);
+        uint GetInTrayPusherFor(bool bFlag);
+        uint GetOutTrayPusherFor(bool bFlag);
+
+        uint GetInTrayPusherCentringFor(bool bFlag);
+        uint GetOutTrayPusherCentringFor(bool bFlag);
+
+
+        //슬라이드 센서부터 추가해야된다.
+
     }
 }

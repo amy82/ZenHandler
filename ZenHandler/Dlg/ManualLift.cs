@@ -754,7 +754,7 @@ namespace ZenHandler.Dlg
                 LiftIoBtnArr[3].BackColor = ColorTranslator.FromHtml(ButtonColor.MANUAL_BTN_OFF);
             }
             //PUSHER FOR 동작
-            if (Globalo.motionManager.liftMachine.GetPUsherFor(true) == true)
+            if (Globalo.motionManager.liftMachine.GetPusherFor(true) == true)
             {
                 LiftIoBtnArr[4].BackColor = ColorTranslator.FromHtml(ButtonColor.MANUAL_BTN_ON);
             }
@@ -762,7 +762,7 @@ namespace ZenHandler.Dlg
             {
                 LiftIoBtnArr[4].BackColor = ColorTranslator.FromHtml(ButtonColor.MANUAL_BTN_OFF);
             }
-            if (Globalo.motionManager.liftMachine.GetPUsherFor(false) == true)
+            if (Globalo.motionManager.liftMachine.GetPusherFor(false) == true)
             {
                 LiftIoBtnArr[5].BackColor = ColorTranslator.FromHtml(ButtonColor.MANUAL_BTN_ON);
             }
@@ -772,7 +772,7 @@ namespace ZenHandler.Dlg
             }
 
             //PUSHER UP 동작
-            if (Globalo.motionManager.liftMachine.GetPUsherUp(true) == true)
+            if (Globalo.motionManager.liftMachine.GetPusherUp(true) == true)
             {
                 LiftIoBtnArr[6].BackColor = ColorTranslator.FromHtml(ButtonColor.MANUAL_BTN_ON);
             }
@@ -780,7 +780,7 @@ namespace ZenHandler.Dlg
             {
                 LiftIoBtnArr[6].BackColor = ColorTranslator.FromHtml(ButtonColor.MANUAL_BTN_OFF);
             }
-            if (Globalo.motionManager.liftMachine.GetPUsherUp(false) == true)
+            if (Globalo.motionManager.liftMachine.GetPusherUp(false) == true)
             {
                 LiftIoBtnArr[7].BackColor = ColorTranslator.FromHtml(ButtonColor.MANUAL_BTN_ON);
             }
