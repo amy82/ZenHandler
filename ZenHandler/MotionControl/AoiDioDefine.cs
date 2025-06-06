@@ -6,8 +6,141 @@ using System.Threading.Tasks;
 
 namespace ZenHandler.MotionControl
 {
-    public class AoiDioDefine
+    public class AoiDioDefine : IDioDefine
     {
+        public uint GetOutBuzzer(int nType)
+        {
+            switch (nType)
+            {
+                case 0: return (uint)DIO_OUT_ADDR_CH1.OUT0_BUZZER1;
+                case 1: return (uint)DIO_OUT_ADDR_CH1.OUT0_BUZZER2;
+                case 2: return (uint)DIO_OUT_ADDR_CH1.OUT0_BUZZER3;
+                case 3: return (uint)DIO_OUT_ADDR_CH1.OUT0_BUZZER4;
+                default:
+                    // 로그 남기기 (예: LogHelper.Write)
+                    Console.WriteLine($"[Warning] 잘못된 Buzzer 타입 요청됨: {nType}");
+                    //throw new ArgumentOutOfRangeException(nameof(nType), nType, "Invalid Tower Lamp Type");
+                    return 0; // 또는 사용하지 않는 안전한 비트
+            }
+        }
+        public uint GetOutTowerLamp(int nType)
+        {
+            switch (nType)
+            {
+                case 0: return (uint)DIO_OUT_ADDR_CH1.OUT0_TOWER_LAMP_R;
+                case 1: return (uint)DIO_OUT_ADDR_CH1.OUT0_TOWER_LAMP_Y;
+                case 2: return (uint)DIO_OUT_ADDR_CH1.OUT0_TOWER_LAMP_G;
+                default:
+                    // 로그 남기기 (예: LogHelper.Write)
+                    Console.WriteLine($"[Warning] 잘못된 TowerLamp 타입 요청됨: {nType}");
+                    //throw new ArgumentOutOfRangeException(nameof(nType), nType, "Invalid Tower Lamp Type");
+                    return 0; // 또는 사용하지 않는 안전한 비트
+            }
+        }
+        public uint GetOutAllDoor()
+        {
+            return (uint)DIO_OUT_ADDR_CH1.OUT0_ALL_DOOR_UNLOCK;
+        }
+        public uint GetOutLiftDoor(int nType, int index)
+        {
+            if (nType == 0)
+            {
+                switch (index)
+                {
+                    case 0: return (uint)DIO_OUT_ADDR_CH1.OUT2_LIFT_LEFT_DOOR_LOCK_UP;
+                    case 1: return (uint)DIO_OUT_ADDR_CH1.OUT2_LIFT_LEFT_DOOR_LOCK_DOWN;
+                    default:
+                        Console.WriteLine($"[Warning] 잘못된 GetOutLiftDoor 타입 요청됨: {nType}");
+                        return 0; // 또는 사용하지 않는 안전한 비트
+                }
+            }
+            else
+            {
+                switch (index)
+                {
+                    case 0: return (uint)DIO_OUT_ADDR_CH1.OUT2_LIFT_RIGHT_DOOR_LOCK_UP;
+                    case 1: return (uint)DIO_OUT_ADDR_CH1.OUT2_LIFT_RIGHT_DOOR_LOCK_DOWN;
+                    default:
+                        Console.WriteLine($"[Warning] 잘못된 GetOutLiftDoor 타입 요청됨: {nType}");
+                        return 0; // 또는 사용하지 않는 안전한 비트
+                }
+            }
+        }
+        public uint GetOutLiftLamp(int nType, int index)
+        {
+            if (nType == 0)
+            {
+                switch (index)
+                {
+                    case 0: return (uint)DIO_OUT_ADDR_CH1.OUT1_LEFT_LIFT_LOAD_MODE_LAMP;
+                    case 1: return (uint)DIO_OUT_ADDR_CH1.OUT1_LEFT_LIFT_COMPLETE_MODE_LAMP;
+                    default:
+                        Console.WriteLine($"[Warning] 잘못된 GetOutLiftLamp 타입 요청됨: {nType}");
+                        return 0; // 또는 사용하지 않는 안전한 비트
+                }
+            }
+            else
+            {
+                switch (index)
+                {
+                    case 0: return (uint)DIO_OUT_ADDR_CH1.OUT1_RIGHT_LIFT_LOAD_MODE_LAMP;
+                    case 1: return (uint)DIO_OUT_ADDR_CH1.OUT1_RIGHT_LIFT_COMPLETE_MODE_LAMP;
+                    default:
+                        Console.WriteLine($"[Warning] 잘못된 GetOutLiftLamp 타입 요청됨: {nType}");
+                        return 0; // 또는 사용하지 않는 안전한 비트
+                }
+            }
+        }
+        public uint GetOutNgTrayDoor(int nType, int index)
+        {
+            if (nType == 0)
+            {
+                switch (index)
+                {
+                    case 0: return (uint)DIO_OUT_ADDR_CH1.OUT3_NG_TRAY_LEFT_DOOR_LOCK_UP;
+                    case 1: return (uint)DIO_OUT_ADDR_CH1.OUT3_NG_TRAY_LEFT_DOOR_LOCK_DOWN;
+                    default:
+                        Console.WriteLine($"[Warning] 잘못된 GetOutLiftDoor 타입 요청됨: {nType}");
+                        return 0; // 또는 사용하지 않는 안전한 비트
+                }
+            }
+            else
+            {
+                switch (index)
+                {
+                    case 0: return (uint)DIO_OUT_ADDR_CH1.OUT3_NG_TRAY_RIGHT_DOOR_LOCK_UP;
+                    case 1: return (uint)DIO_OUT_ADDR_CH1.OUT3_NG_TRAY_RIGHT_DOOR_LOCK_DOWN;
+                    default:
+                        Console.WriteLine($"[Warning] 잘못된 GetOutLiftDoor 타입 요청됨: {nType}");
+                        return 0; // 또는 사용하지 않는 안전한 비트
+                }
+            }
+        }
+        public uint GetOutNgTrayLamp(int nType, int index)
+        {
+            if (nType == 0)
+            {
+                switch (index)
+                {
+                    case 0: return (uint)DIO_OUT_ADDR_CH1.OUT3_LEFT_NG_TRAY_LOAD_MODE_LAMP;
+                    case 1: return (uint)DIO_OUT_ADDR_CH1.OUT3_LEFT_NG_TRAY_COMPLETE_MODE_LAMP;
+                    default:
+                        Console.WriteLine($"[Warning] 잘못된 GetOutNgTrayLamp 타입 요청됨: {nType}");
+                        return 0; // 또는 사용하지 않는 안전한 비트
+                }
+            }
+            else
+            {
+                switch (index)
+                {
+                    case 0: return (uint)DIO_OUT_ADDR_CH1.OUT3_RIGHT_NG_TRAY_LOAD_MODE_LAMP;
+                    case 1: return (uint)DIO_OUT_ADDR_CH1.OUT3_RIGHT_NG_TRAY_COMPLETE_MODE_LAMP;
+                    default:
+                        Console.WriteLine($"[Warning] 잘못된 GetOutNgTrayLamp 타입 요청됨: {nType}");
+                        return 0; // 또는 사용하지 않는 안전한 비트
+                }
+            }
+        }
         //----------------------------------------------------------------------------------------------------------------
         //
         //  IN CH : 0
@@ -60,41 +193,41 @@ namespace ZenHandler.MotionControl
         //----------------------------------------------------------------------------------------------------------------
         public enum DIO_IN_ADDR_CH1 : uint
         {
-            IN0_A_SOCKET_GOOD_DETECT_L          = 0x00000001,  //1
-            IN0_A_SOCKET_GOOD_DETECT_R          = 0x00000002,
-            IN0_B_SOCKET_GOOD_DETECT_L          = 0x00000004,
-            IN0_B_SOCKET_GOOD_DETECT_R          = 0x00000008,  //4
-            TEMP5                               = 0x00000010,
-            TEMP6                               = 0x00000020,
-            IN0_NG_TRAY_DETECTED1               = 0x00000040,
-            IN0_NG_TRAY_DETECTED2               = 0x00000080,  //8
-            //
-            IN2_TRANSFER_LOAD_PICKER_DOWN1      = 0x00000001,  //9
+            IN2_TRANSFER_LOAD_PICKER_DOWN1      = 0x00000001,  //1
             IN2_TRANSFER_LOAD_PICKER_DOWN2      = 0x00000002,
-            IN2_TRANSFER_LOAD_PICKER_DOWN3      = 0x00000004,
-            IN2_TRANSFER_LOAD_PICKER_DOWN4      = 0x00000008,  //12
-            IN2_TRANSFER_LOAD_PICKER_UP1        = 0x00000010,
-            IN2_TRANSFER_LOAD_PICKER_UP2        = 0x00000020,
-            IN2_TRANSFER_LOAD_PICKER_UP3        = 0x00000040,
-            IN2_TRANSFER_LOAD_PICKER_UP4        = 0x00000080,  //16
-            //
-            IN2_TRANSFER_UNLOAD_PICKER_UP1      = 0x00000001,  //17
-            IN2_TRANSFER_UNLOAD_PICKER_UP2      = 0x00000002,
-            IN2_TRANSFER_UNLOAD_PICKER_UP3      = 0x00000004,
-            IN2_TRANSFER_UNLOAD_PICKER_UP4      = 0x00000008,  //20
+            IN2_TRANSFER_LOAD_PICKER_UP1        = 0x00000004,
+            IN2_TRANSFER_LOAD_PICKER_UP2        = 0x00000008,  //4
             IN2_TRANSFER_UNLOAD_PICKER_DOWN1    = 0x00000010,
             IN2_TRANSFER_UNLOAD_PICKER_DOWN2    = 0x00000020,
-            IN2_TRANSFER_UNLOAD_PICKER_DOWN3    = 0x00000040,
-            IN2_TRANSFER_UNLOAD_PICKER_DOWN4    = 0x00000080,  //24
+            IN2_TRANSFER_UNLOAD_PICKER_UP1      = 0x00000040,
+            IN2_TRANSFER_UNLOAD_PICKER_UP2      = 0x00000080,  //8
             //
-            IN2_TRANSFER_LOAD_PICKER_VACUUM_ON1     = 0x00000001,   //25
+            TEMP9 = 0x00000001,  //9
+            TEMP10 = 0x00000002,
+            TEMP11 = 0x00000004,
+            TEMP12 = 0x00000008,  //12
+            TEMP13 = 0x00000010,
+            TEMP14 = 0x00000020,
+            TEMP15 = 0x00000040,
+            TEMP16 = 0x00000080,  //16
+            //
+            IN2_TRANSFER_LOAD_PICKER_VACUUM_ON1     = 0x00000001,  //17
             IN2_TRANSFER_LOAD_PICKER_VACUUM_ON2     = 0x00000002,
-            IN2_TRANSFER_LOAD_PICKER_VACUUM_ON3     = 0x00000004,
-            IN2_TRANSFER_LOAD_PICKER_VACUUM_ON4     = 0x00000008,   //28
+            TEMP19 = 0x00000004,
+            TEMP20 = 0x00000008,  //20
             IN2_TRANSFER_UNLOAD_PICKER_VACUUM_ON1   = 0x00000010,
             IN2_TRANSFER_UNLOAD_PICKER_VACUUM_ON2   = 0x00000020,
-            IN2_TRANSFER_UNLOAD_PICKER_VACUUM_ON3   = 0x00000040,
-            IN2_TRANSFER_UNLOAD_PICKER_VACUUM_ON4   = 0x00000080    //32
+            TEMP23 = 0x00000040,
+            TEMP24 = 0x00000080,  //24
+            //
+            IN0_A_SOCKET_GOOD_DETECT_L              = 0x00000001,   //25
+            IN0_A_SOCKET_GOOD_DETECT_R              = 0x00000002,
+            IN0_B_SOCKET_GOOD_DETECT_L              = 0x00000004,
+            IN0_B_SOCKET_GOOD_DETECT_R              = 0x00000008,   //28
+            TEMP29 = 0x00000010,
+            TEMP30 = 0x00000020,
+            IN0_NG_TRAY_DETECTED1                   = 0x00000040,
+            IN0_NG_TRAY_DETECTED2                   = 0x00000080    //32
         };
 
 
@@ -151,43 +284,43 @@ namespace ZenHandler.MotionControl
         //
         //
         //----------------------------------------------------------------------------------------------------------------
-        public enum DIO_OUT_ADDR_CH0 : uint
+        public enum DIO_OUT_ADDR_CH1 : uint
         {
-            OUT1_TOWER_LAMP_Y                   = 0x00000001,  //1
-            OUT1_TOWER_LAMP_G                   = 0x00000002,
-            OUT1_TOWER_LAMP_R                   = 0x00000004,
-            OUT1_ALL_DOOR_UNLOCK                = 0x00000008,  //4
-            OUT1_BUZZER1                        = 0x00000010,
-            OUT1_BUZZER2                        = 0x00000020,
-            OUT1_BUZZER3                        = 0x00000040,
-            OUT1_BUZZER4                        = 0x00000080,  //8
+            OUT0_TOWER_LAMP_R                       = 0x00000001,  //1
+            OUT0_TOWER_LAMP_Y                       = 0x00000002,
+            OUT0_TOWER_LAMP_G                       = 0x00000004,
+            OUT0_ALL_DOOR_UNLOCK                    = 0x00000008,  //4
+            OUT0_BUZZER1                            = 0x00000010,
+            OUT0_BUZZER2                            = 0x00000020,
+            OUT0_BUZZER3                            = 0x00000040,
+            OUT0_BUZZER4                            = 0x00000080,  //8
             //
-            OUT1_LEFT_LIFT_LOAD_MODE_LAMP       = 0x00000001,  //9
-            OUT1_LEFT_LIFT_COMPLETE_MODE_LAMP   = 0x00000002,
-            OUT1_RIGHT_LIFT_LOAD_MODE_LAMP      = 0x00000004,
-            OUT1_RIGHT_LIFT_COMPLETE_MODE_LAMP  = 0x00000008,   //12
-            OUT1_LEFT_SOCKET_VACUUM_ON1         = 0x00000010,
-            OUT1_LEFT_SOCKET_VACUUM_ON2         = 0x00000020,
-            OUT1_RIGHT_SOCKET_VACUUM_ON1        = 0x00000040,
-            OUT1_RIGHT_SOCKET_VACUUM_ON2        = 0x00000080,  //16
+            OUT1_LEFT_LIFT_LOAD_MODE_LAMP           = 0x00000001,  //9
+            OUT1_LEFT_LIFT_COMPLETE_MODE_LAMP       = 0x00000002,
+            OUT1_RIGHT_LIFT_LOAD_MODE_LAMP          = 0x00000004,
+            OUT1_RIGHT_LIFT_COMPLETE_MODE_LAMP      = 0x00000008,   //12
+            OUT1_LEFT_SOCKET_VACUUM_ON1             = 0x00000010,
+            OUT1_LEFT_SOCKET_VACUUM_ON2             = 0x00000020,
+            OUT1_RIGHT_SOCKET_VACUUM_ON1            = 0x00000040,
+            OUT1_RIGHT_SOCKET_VACUUM_ON2            = 0x00000080,  //16
             //
-            OUT1_LEFT_SOCKET_BLOW_ON1           = 0x00000001,  //17
-            OUT1_LEFT_SOCKET_BLOW_ON2           = 0x00000002,
-            OUT1_RIGHT_SOCKET_BLOW_ON1          = 0x00000004,
-            OUT1_RIGHT_SOCKET_BLOW_ON2          = 0x00000008,  //20
-            OUT1_LIFT_LEFT_DOOR_LOCK_UP            = 0x00000010,
-            OUT1_LIFT_LEFT_DOOR_LOCK_DOWN          = 0x00000020,
-            OUT1_LIFT_RIGHT_DOOR_LOCK_UP           = 0x00000040,
-            OUT1_LIFT_RIGHT_DOOR_LOCK_DOWN         = 0x00000080,  //24
+            OUT2_LEFT_SOCKET_BLOW_ON1               = 0x00000001,  //17
+            OUT2_LEFT_SOCKET_BLOW_ON2               = 0x00000002,
+            OUT2_RIGHT_SOCKET_BLOW_ON1              = 0x00000004,
+            OUT2_RIGHT_SOCKET_BLOW_ON2              = 0x00000008,  //20
+            OUT2_LIFT_LEFT_DOOR_LOCK_UP             = 0x00000010,
+            OUT2_LIFT_LEFT_DOOR_LOCK_DOWN           = 0x00000020,
+            OUT2_LIFT_RIGHT_DOOR_LOCK_UP            = 0x00000040,
+            OUT2_LIFT_RIGHT_DOOR_LOCK_DOWN          = 0x00000080,  //24
             //
-            OUT1_LEFT_NG_TRAY_LOAD_MODE_LAMP            = 0x00000001,  //25
-            OUT1_LEFT_NG_TRAY_COMPLETE_MODE_LAMP        = 0x00000002,
-            OUT1_RIGHT_NG_TRAY_LOAD_MODE_LAMP           = 0x00000004,
-            OUT1_RIGHT_NG_TRAY_COMPLETE_MODE_LAMP       = 0x00000008,  //28
-            OUT1_NG_TRAY_LEFT_DOOR_LOCK_UP               = 0x00000010,
-            OUT1_NG_TRAY_LEFT_DOOR_LOCK_DOWN                 = 0x00000020,
-            OUT1_NG_TRAY_RIGHT_DOOR_LOCK_UP              = 0x00000040,
-            OUT1_NG_TRAY_RIGHT_DOOR_LOCK_DOWN                = 0x00000080   //32
+            OUT3_LEFT_NG_TRAY_LOAD_MODE_LAMP            = 0x00000001,  //25
+            OUT3_LEFT_NG_TRAY_COMPLETE_MODE_LAMP        = 0x00000002,
+            OUT3_RIGHT_NG_TRAY_LOAD_MODE_LAMP           = 0x00000004,
+            OUT3_RIGHT_NG_TRAY_COMPLETE_MODE_LAMP       = 0x00000008,  //28
+            OUT3_NG_TRAY_LEFT_DOOR_LOCK_UP              = 0x00000010,
+            OUT3_NG_TRAY_LEFT_DOOR_LOCK_DOWN            = 0x00000020,
+            OUT3_NG_TRAY_RIGHT_DOOR_LOCK_UP             = 0x00000040,
+            OUT3_NG_TRAY_RIGHT_DOOR_LOCK_DOWN           = 0x00000080   //32
         };
         //----------------------------------------------------------------------------------------------------------------
         //
@@ -195,7 +328,7 @@ namespace ZenHandler.MotionControl
         //
         //
         //----------------------------------------------------------------------------------------------------------------
-        public enum DIO_OUT_ADDR_CH1 : uint
+        public enum DIO_OUT_ADDR_CH3 : uint
         {
             OUT3_TRANSFER_LOAD_PICKER_DOWN1         = 0x00000001,   //1
             OUT3_TRANSFER_LOAD_PICKER_DOWN2         = 0x00000002,

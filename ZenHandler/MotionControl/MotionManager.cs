@@ -48,6 +48,8 @@ namespace ZenHandler.MotionControl
         public Machine.LiftMachine liftMachine;
 
 
+        private IDioDefine _dio;
+
         //SOCKET MACHINE
         //TODO: Socket 머신 하나두고 , 그 아래 소켓 Set마트 Class 추가?
         public Machine.AoiSocketMachine socketAoiMachine;
@@ -113,8 +115,14 @@ namespace ZenHandler.MotionControl
             if (Program.PG_SELECT == HANDLER_PG.FW)
             {
                 SocketSetCount = 4;
-            }
 
+               
+            }
+            if (Program.PG_SELECT == HANDLER_PG.AOI)
+            {
+                _dio = new AoiDioDefine();
+            }
+            
 
             for (i = 0; i < 4; i++)     //for (i = 0; i < socketA_Req_State.Length; i++)
             {
@@ -149,8 +157,196 @@ namespace ZenHandler.MotionControl
             bool rtn = false;
             rtn = trayEjectRequested[index];
             return rtn;
-
         }
+
+        #region [ 설비 IO 동작 ]
+        //부저
+        public bool setBuzzer(eBuzzer nType)
+        {
+            if (ProgramState.ON_LINE_MOTOR == false)
+            {
+                return true;
+            }
+            int lModuleNo = 1;
+            int lOffset = 0;
+            uint uFlagHigh = 0;
+            uint uFlagLow = 0;
+
+            switch (nType)
+            {
+                case eBuzzer.OFF_BUZZER:
+                    uFlagLow |= _dio.GetOutBuzzer(1);
+                    uFlagLow |= _dio.GetOutBuzzer(2);
+                    uFlagLow |= _dio.GetOutBuzzer(3);
+                    uFlagLow |= _dio.GetOutBuzzer(4);
+                    break;
+                case eBuzzer.BUZZER1:
+                    uFlagHigh |= _dio.GetOutBuzzer(1);
+                    uFlagLow |= _dio.GetOutBuzzer(2);
+                    uFlagLow |= _dio.GetOutBuzzer(3);
+                    uFlagLow |= _dio.GetOutBuzzer(4);
+                    break;
+                case eBuzzer.BUZZER2:
+                    uFlagHigh |= _dio.GetOutBuzzer(2);
+                    uFlagLow |= _dio.GetOutBuzzer(1);
+                    uFlagLow |= _dio.GetOutBuzzer(3);
+                    uFlagLow |= _dio.GetOutBuzzer(4);
+                    break;
+                case eBuzzer.BUZZER3:
+                    uFlagHigh |= _dio.GetOutBuzzer(3);
+                    uFlagLow |= _dio.GetOutBuzzer(1);
+                    uFlagLow |= _dio.GetOutBuzzer(2);
+                    uFlagLow |= _dio.GetOutBuzzer(4);
+                    break;
+                case eBuzzer.BUZZER4:
+                    uFlagHigh |= _dio.GetOutBuzzer(4);
+                    uFlagLow |= _dio.GetOutBuzzer(1);
+                    uFlagLow |= _dio.GetOutBuzzer(2);
+                    uFlagLow |= _dio.GetOutBuzzer(3);
+                    break;
+
+                default:
+                    break;
+            }
+            bool isSuccess = Globalo.motionManager.ioController.DioWriteOutportByte(lModuleNo, lOffset, uFlagHigh, uFlagLow);
+
+            return isSuccess;
+        }
+        public bool setTowerLamp(eTowerLamp nType)
+        {
+            if (ProgramState.ON_LINE_MOTOR == false)
+            {
+                return true;
+            }
+            int lModuleNo = 1;
+            int lOffset = 0;
+            uint uFlagHigh = 0;
+            uint uFlagLow = 0;
+
+            switch (nType)
+            {
+                case eTowerLamp.OFF_LAMP:
+                    uFlagLow |= _dio.GetOutTowerLamp(0);
+                    uFlagLow |= _dio.GetOutTowerLamp(1);
+                    uFlagLow |= _dio.GetOutTowerLamp(2);
+                    break;
+                case eTowerLamp.RED_LAMP:
+                    uFlagHigh |= _dio.GetOutTowerLamp(1);
+                    uFlagLow |= _dio.GetOutTowerLamp(2);
+                    uFlagLow |= _dio.GetOutTowerLamp(3);
+                    break;
+                case eTowerLamp.YELLOW_LAMP:
+                    uFlagHigh |= _dio.GetOutTowerLamp(2);
+                    uFlagLow |= _dio.GetOutTowerLamp(1);
+                    uFlagLow |= _dio.GetOutTowerLamp(3);
+                    break;
+                case eTowerLamp.GREEN_LAMP:
+                    uFlagHigh |= _dio.GetOutTowerLamp(3);
+                    uFlagLow |= _dio.GetOutTowerLamp(1);
+                    uFlagLow |= _dio.GetOutTowerLamp(2);
+                    break;
+                default:
+                    break;
+            }
+
+
+            bool isSuccess = Globalo.motionManager.ioController.DioWriteOutportByte(lModuleNo, lOffset, uFlagHigh, uFlagLow);
+            return isSuccess;
+        }
+        public bool setAllDoorLock(bool bLock)       //전면,후면 Door 
+        {
+            if (ProgramState.ON_LINE_MOTOR == false)
+            {
+                return true;
+            }
+            int lModuleNo = 1;
+            int lOffset = 0;
+            uint uFlagHigh = 0;
+            uint uFlagLow = 0;
+
+
+            if (bLock == true)
+            {
+                uFlagHigh |= _dio.GetOutAllDoor();
+            }
+            else
+            {
+                uFlagLow |= _dio.GetOutAllDoor();
+            }
+
+            bool isSuccess = Globalo.motionManager.ioController.DioWriteOutportByte(lModuleNo, lOffset, uFlagHigh, uFlagLow);
+            return isSuccess;
+        }
+        public bool setLiftDoorLock(int nType, bool bLock)      //LIFT, MAGAZINE 앞 Door
+        {
+            if (ProgramState.ON_LINE_MOTOR == false)
+            {
+                return true;
+            }
+            int lModuleNo = 1;
+            int lOffset = 0;
+            uint uFlagHigh = 0;
+            uint uFlagLow = 0;
+
+            uFlagHigh |= _dio.GetOutLiftDoor(nType, 0);
+            uFlagLow |= _dio.GetOutLiftDoor(nType, 1);
+
+            bool isSuccess = Globalo.motionManager.ioController.DioWriteOutportByte(lModuleNo, lOffset, uFlagHigh, uFlagLow);
+            return isSuccess;
+        }
+        public bool setNgTrayDoorLock(int nType)    //Ng Tray 앞 Door
+        {
+            if (ProgramState.ON_LINE_MOTOR == false)
+            {
+                return true;
+            }
+            int lModuleNo = 1;
+            int lOffset = 0;
+            uint uFlagHigh = 0;
+            uint uFlagLow = 0;
+
+            uFlagHigh |= _dio.GetOutNgTrayDoor(nType, 0);
+            uFlagLow |= _dio.GetOutNgTrayDoor(nType, 1);
+
+            bool isSuccess = Globalo.motionManager.ioController.DioWriteOutportByte(lModuleNo, lOffset, uFlagHigh, uFlagLow);
+            return isSuccess;
+        }
+        public bool setLiftLampOn(int nType)        //LIFT , MAGAZINE
+        {
+            if (ProgramState.ON_LINE_MOTOR == false)
+            {
+                return true;
+            }
+            int lModuleNo = 1;
+            int lOffset = 0;
+            uint uFlagHigh = 0;
+            uint uFlagLow = 0;
+
+            uFlagHigh |= _dio.GetOutLiftLamp(nType, 0);
+            uFlagLow |= _dio.GetOutLiftLamp(nType, 1);
+
+            bool isSuccess = Globalo.motionManager.ioController.DioWriteOutportByte(lModuleNo, lOffset, uFlagHigh, uFlagLow);
+            return isSuccess;
+        }
+        public bool setNgTrayLampOn(int nType)
+        {
+            if (ProgramState.ON_LINE_MOTOR == false)
+            {
+                return true;
+            }
+            int lModuleNo = 1;
+            int lOffset = 0;
+            uint uFlagHigh = 0;
+            uint uFlagLow = 0;
+
+            uFlagHigh |= _dio.GetOutNgTrayLamp(nType, 0);
+            uFlagLow |= _dio.GetOutNgTrayLamp(nType, 1);
+
+            bool isSuccess = Globalo.motionManager.ioController.DioWriteOutportByte(lModuleNo, lOffset, uFlagHigh, uFlagLow);
+            return isSuccess;
+        }
+        //
+        #endregion
         //---------------------------------------------------------------------------------------------------------
         //
         //

@@ -440,6 +440,7 @@
     <Compile Include="Machine\EEpromSocketMachine.cs" />
     <Compile Include="Machine\AoiSocketMachine.cs" />
     <Compile Include="Machine\TrayState.cs" />
+    <Compile Include="MotionControl\IDioDefine.cs" />
     <Compile Include="MotionControl\IOController.cs" />
     <Compile Include="Machine\LiftMachine.cs" />
     <Compile Include="Machine\MagazineHandler.cs" />

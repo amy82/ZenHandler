@@ -135,6 +135,7 @@ namespace ZenHandler.Machine
             //GroupNo = 좌,우 2Set
             return false;
         }
+
         #endregion
 
         #region Aoi Socekt Motor 동작
