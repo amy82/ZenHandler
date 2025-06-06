@@ -158,7 +158,7 @@ namespace ZenHandler.Machine
             uint upValue = Globalo.motionManager.ioController.m_dwDInDict[lModuleNo][lOffset];
             if (bFlag)
             {
-                uFlagHigh = upValue & (uint)MotionControl.DioDefine.DIO_IN_ADDR_CH0.IN_LENS_GRIP_FOR;
+                //uFlagHigh = upValue & (uint)MotionControl.DioDefine.DIO_IN_ADDR_CH0.IN_LENS_GRIP_FOR;
                 if (uFlagHigh == 1)
                 {
                     return true;
@@ -166,7 +166,7 @@ namespace ZenHandler.Machine
             }
             else
             {
-                uFlagHigh = upValue & (uint)MotionControl.DioDefine.DIO_IN_ADDR_CH0.IN_LENS_GRIP_BACK;
+                //uFlagHigh = upValue & (uint)MotionControl.DioDefine.DIO_IN_ADDR_CH0.IN_LENS_GRIP_BACK;
                 if (uFlagHigh == 1)
                 {
                     return true;
@@ -187,7 +187,7 @@ namespace ZenHandler.Machine
             uint upValue = Globalo.motionManager.ioController.m_dwDInDict[lModuleNo][lOffset];
             if (bFlag)
             {
-                uFlagHigh = upValue & (uint)MotionControl.DioDefine.DIO_IN_ADDR_CH0.IN_LENS_GRIP_FOR;
+                //uFlagHigh = upValue & (uint)MotionControl.DioDefine.DIO_IN_ADDR_CH0.IN_LENS_GRIP_FOR;
                 if (uFlagHigh == 1)
                 {
                     return true;
@@ -195,7 +195,7 @@ namespace ZenHandler.Machine
             }
             else
             {
-                uFlagHigh = upValue & (uint)MotionControl.DioDefine.DIO_IN_ADDR_CH0.IN_LENS_GRIP_BACK;
+                //uFlagHigh = upValue & (uint)MotionControl.DioDefine.DIO_IN_ADDR_CH0.IN_LENS_GRIP_BACK;
                 if (uFlagHigh == 1)
                 {
                     return true;
@@ -216,7 +216,7 @@ namespace ZenHandler.Machine
             uint upValue = Globalo.motionManager.ioController.m_dwDInDict[lModuleNo][lOffset];
             if (bFlag)
             {
-                uFlagHigh = upValue & (uint)MotionControl.DioDefine.DIO_IN_ADDR_CH0.IN_LENS_GRIP_FOR;
+                //uFlagHigh = upValue & (uint)MotionControl.DioDefine.DIO_IN_ADDR_CH0.IN_LENS_GRIP_FOR;
                 if (uFlagHigh == 1)
                 {
                     return true;
@@ -224,7 +224,7 @@ namespace ZenHandler.Machine
             }
             else
             {
-                uFlagHigh = upValue & (uint)MotionControl.DioDefine.DIO_IN_ADDR_CH0.IN_LENS_GRIP_BACK;
+                //uFlagHigh = upValue & (uint)MotionControl.DioDefine.DIO_IN_ADDR_CH0.IN_LENS_GRIP_BACK;
                 if (uFlagHigh == 1)
                 {
                     return true;
@@ -246,7 +246,7 @@ namespace ZenHandler.Machine
             uint upValue = Globalo.motionManager.ioController.m_dwDInDict[lModuleNo][lOffset];
             if (bFlag)
             {
-                uFlagHigh = upValue & (uint)MotionControl.DioDefine.DIO_IN_ADDR_CH0.IN_LENS_GRIP_FOR;
+                //uFlagHigh = upValue & (uint)MotionControl.DioDefine.DIO_IN_ADDR_CH0.IN_LENS_GRIP_FOR;
                 if (uFlagHigh == 1)
                 {
                     return true;
@@ -254,7 +254,7 @@ namespace ZenHandler.Machine
             }
             else
             {
-                uFlagHigh = upValue & (uint)MotionControl.DioDefine.DIO_IN_ADDR_CH0.IN_LENS_GRIP_BACK;
+                //uFlagHigh = upValue & (uint)MotionControl.DioDefine.DIO_IN_ADDR_CH0.IN_LENS_GRIP_BACK;
                 if (uFlagHigh == 1)
                 {
                     return true;
@@ -275,7 +275,7 @@ namespace ZenHandler.Machine
             uint upValue = Globalo.motionManager.ioController.m_dwDInDict[lModuleNo][lOffset];
             if (bFlag)
             {
-                uFlagHigh = upValue & (uint)MotionControl.DioDefine.DIO_IN_ADDR_CH0.IN_LENS_GRIP_FOR;
+                //uFlagHigh = upValue & (uint)MotionControl.DioDefine.DIO_IN_ADDR_CH0.IN_LENS_GRIP_FOR;
                 if (uFlagHigh == 1)
                 {
                     return true;
@@ -283,7 +283,7 @@ namespace ZenHandler.Machine
             }
             else
             {
-                uFlagHigh = upValue & (uint)MotionControl.DioDefine.DIO_IN_ADDR_CH0.IN_LENS_GRIP_BACK;
+                //uFlagHigh = upValue & (uint)MotionControl.DioDefine.DIO_IN_ADDR_CH0.IN_LENS_GRIP_BACK;
                 if (uFlagHigh == 1)
                 {
                     return true;
@@ -305,13 +305,13 @@ namespace ZenHandler.Machine
 
             if (bFlag)
             {
-                uFlagHigh = (uint)MotionControl.DioDefine.DIO_OUT_ADDR_CH0.VACUUM_ON;
-                uFlagLow = (uint)MotionControl.DioDefine.DIO_OUT_ADDR_CH0.VACUUM_OFF;
+                //uFlagHigh = (uint)MotionControl.DioDefine.DIO_OUT_ADDR_CH0.VACUUM_ON;
+                //uFlagLow = (uint)MotionControl.DioDefine.DIO_OUT_ADDR_CH0.VACUUM_OFF;
             }
             else
             {
-                uFlagHigh = (uint)MotionControl.DioDefine.DIO_OUT_ADDR_CH0.VACUUM_OFF;
-                uFlagLow = (uint)MotionControl.DioDefine.DIO_OUT_ADDR_CH0.VACUUM_ON;
+                //uFlagHigh = (uint)MotionControl.DioDefine.DIO_OUT_ADDR_CH0.VACUUM_OFF;
+                //uFlagLow = (uint)MotionControl.DioDefine.DIO_OUT_ADDR_CH0.VACUUM_ON;
             }
 
             bool Rtn = Globalo.motionManager.ioController.DioWriteOutportByte(lModuleNo, lOffset, uFlagHigh, uFlagLow);
@@ -370,7 +370,7 @@ namespace ZenHandler.Machine
             uint upValue = Globalo.motionManager.ioController.m_dwDInDict[lModuleNo][lOffset];
             if (bFlag)
             {
-                uFlagHigh = upValue & (uint)MotionControl.DioDefine.DIO_IN_ADDR_CH0.IN_LENS_GRIP_FOR;
+                //uFlagHigh = upValue & (uint)MotionControl.DioDefine.DIO_IN_ADDR_CH0.IN_LENS_GRIP_FOR;
                 if (uFlagHigh == 1)
                 {
                     return true;
@@ -378,7 +378,7 @@ namespace ZenHandler.Machine
             }
             else
             {
-                uFlagHigh = upValue & (uint)MotionControl.DioDefine.DIO_IN_ADDR_CH0.IN_LENS_GRIP_BACK;
+                //uFlagHigh = upValue & (uint)MotionControl.DioDefine.DIO_IN_ADDR_CH0.IN_LENS_GRIP_BACK;
                 if (uFlagHigh == 1)
                 {
                     return true;
@@ -399,13 +399,13 @@ namespace ZenHandler.Machine
 
             if (bFlag)
             {
-                uFlagHigh = (uint)MotionControl.DioDefine.DIO_OUT_ADDR_CH0.VACUUM_ON;
-                uFlagLow = (uint)MotionControl.DioDefine.DIO_OUT_ADDR_CH0.VACUUM_OFF;
+                //uFlagHigh = (uint)MotionControl.DioDefine.DIO_OUT_ADDR_CH0.VACUUM_ON;
+                //uFlagLow = (uint)MotionControl.DioDefine.DIO_OUT_ADDR_CH0.VACUUM_OFF;
             }
             else
             {
-                uFlagHigh = (uint)MotionControl.DioDefine.DIO_OUT_ADDR_CH0.VACUUM_OFF;
-                uFlagLow = (uint)MotionControl.DioDefine.DIO_OUT_ADDR_CH0.VACUUM_ON;
+                //uFlagHigh = (uint)MotionControl.DioDefine.DIO_OUT_ADDR_CH0.VACUUM_OFF;
+                //uFlagLow = (uint)MotionControl.DioDefine.DIO_OUT_ADDR_CH0.VACUUM_ON;
             }
 
             bool Rtn = Globalo.motionManager.ioController.DioWriteOutportByte(lModuleNo, lOffset, uFlagHigh, uFlagLow);
@@ -464,13 +464,13 @@ namespace ZenHandler.Machine
 
             if (bFlag)
             {
-                uFlagHigh = (uint)MotionControl.DioDefine.DIO_OUT_ADDR_CH0.VACUUM_ON;
-                uFlagLow = (uint)MotionControl.DioDefine.DIO_OUT_ADDR_CH0.VACUUM_OFF;
+                //uFlagHigh = (uint)MotionControl.DioDefine.DIO_OUT_ADDR_CH0.VACUUM_ON;
+                //uFlagLow = (uint)MotionControl.DioDefine.DIO_OUT_ADDR_CH0.VACUUM_OFF;
             }
             else
             {
-                uFlagHigh = (uint)MotionControl.DioDefine.DIO_OUT_ADDR_CH0.VACUUM_OFF;
-                uFlagLow = (uint)MotionControl.DioDefine.DIO_OUT_ADDR_CH0.VACUUM_ON;
+                //uFlagHigh = (uint)MotionControl.DioDefine.DIO_OUT_ADDR_CH0.VACUUM_OFF;
+                //uFlagLow = (uint)MotionControl.DioDefine.DIO_OUT_ADDR_CH0.VACUUM_ON;
             }
 
             bool Rtn = Globalo.motionManager.ioController.DioWriteOutportByte(lModuleNo, lOffset, uFlagHigh, uFlagLow);
@@ -529,7 +529,7 @@ namespace ZenHandler.Machine
             uint upValue = Globalo.motionManager.ioController.m_dwDInDict[lModuleNo][lOffset];
             if (bFlag)
             {
-                uFlagHigh = upValue & (uint)MotionControl.DioDefine.DIO_IN_ADDR_CH0.IN_LENS_GRIP_FOR;
+                //uFlagHigh = upValue & (uint)MotionControl.DioDefine.DIO_IN_ADDR_CH0.IN_LENS_GRIP_FOR;
                 if (uFlagHigh == 1)
                 {
                     return true;
@@ -537,7 +537,7 @@ namespace ZenHandler.Machine
             }
             else
             {
-                uFlagHigh = upValue & (uint)MotionControl.DioDefine.DIO_IN_ADDR_CH0.IN_LENS_GRIP_BACK;
+                //uFlagHigh = upValue & (uint)MotionControl.DioDefine.DIO_IN_ADDR_CH0.IN_LENS_GRIP_BACK;
                 if (uFlagHigh == 1)
                 {
                     return true;
@@ -560,11 +560,11 @@ namespace ZenHandler.Machine
 
             if (index == 0)
             {
-                uFlagHigh |= (uint)(MotionControl.DioDefine.DIO_IN_ADDR_CH1.IN_LOAD_PICKER_UP1);
+                //uFlagHigh |= (uint)(MotionControl.DioDefine.DIO_IN_ADDR_CH1.IN_LOAD_PICKER_UP1);
             }
             else
             {
-                uFlagHigh |= (uint)(MotionControl.DioDefine.DIO_IN_ADDR_CH1.IN_LOAD_PICKER_UP2);
+                //uFlagHigh |= (uint)(MotionControl.DioDefine.DIO_IN_ADDR_CH1.IN_LOAD_PICKER_UP2);
             }
 
             uFlagHigh = upValue & uFlagHigh;        //TODO: IO 되는지 확인 필요
@@ -590,11 +590,11 @@ namespace ZenHandler.Machine
 
             if (index == 0)
             {
-                uFlagHigh |= (uint)(MotionControl.DioDefine.DIO_IN_ADDR_CH1.IN_LOAD_PICKER_UP1);
+                //uFlagHigh |= (uint)(MotionControl.DioDefine.DIO_IN_ADDR_CH1.IN_LOAD_PICKER_UP1);
             }
             else
             {
-                uFlagHigh |= (uint)(MotionControl.DioDefine.DIO_IN_ADDR_CH1.IN_LOAD_PICKER_UP2);
+                //uFlagHigh |= (uint)(MotionControl.DioDefine.DIO_IN_ADDR_CH1.IN_LOAD_PICKER_UP2);
             }
 
             uFlagHigh = upValue & uFlagHigh;        //TODO: IO 되는지 확인 필요
@@ -619,11 +619,11 @@ namespace ZenHandler.Machine
 
             if (index == 0)
             {
-                uFlagHigh |= (uint)(MotionControl.DioDefine.DIO_IN_ADDR_CH1.IN_LOAD_PICKER_UP1);
+                //uFlagHigh |= (uint)(MotionControl.DioDefine.DIO_IN_ADDR_CH1.IN_LOAD_PICKER_UP1);
             }
             else
             {
-                uFlagHigh |= (uint)(MotionControl.DioDefine.DIO_IN_ADDR_CH1.IN_LOAD_PICKER_UP2);
+                //uFlagHigh |= (uint)(MotionControl.DioDefine.DIO_IN_ADDR_CH1.IN_LOAD_PICKER_UP2);
             }
 
             uFlagHigh = upValue & uFlagHigh;        //TODO: IO 되는지 확인 필요
@@ -659,11 +659,11 @@ namespace ZenHandler.Machine
 
             if (index == 0)
             {
-                uFlagHigh |= (uint)(MotionControl.DioDefine.DIO_IN_ADDR_CH1.IN_LOAD_PICKER_UP1);
+                //uFlagHigh |= (uint)(MotionControl.DioDefine.DIO_IN_ADDR_CH1.IN_LOAD_PICKER_UP1);
             }
             else
             {
-                uFlagHigh |= (uint)(MotionControl.DioDefine.DIO_IN_ADDR_CH1.IN_LOAD_PICKER_UP2);
+                //uFlagHigh |= (uint)(MotionControl.DioDefine.DIO_IN_ADDR_CH1.IN_LOAD_PICKER_UP2);
             }
 
             uFlagHigh = upValue & uFlagHigh;        //TODO: IO 되는지 확인 필요
@@ -688,11 +688,11 @@ namespace ZenHandler.Machine
 
             if (index == 0)
             {
-                uFlagHigh |= (uint)(MotionControl.DioDefine.DIO_IN_ADDR_CH1.IN_LOAD_PICKER_UP1);
+                //uFlagHigh |= (uint)(MotionControl.DioDefine.DIO_IN_ADDR_CH1.IN_LOAD_PICKER_UP1);
             }
             else
             {
-                uFlagHigh |= (uint)(MotionControl.DioDefine.DIO_IN_ADDR_CH1.IN_LOAD_PICKER_UP2);
+                //uFlagHigh |= (uint)(MotionControl.DioDefine.DIO_IN_ADDR_CH1.IN_LOAD_PICKER_UP2);
             }
 
             uFlagHigh = upValue & uFlagHigh;        //TODO: IO 되는지 확인 필요
@@ -715,7 +715,7 @@ namespace ZenHandler.Machine
             uint upValue = Globalo.motionManager.ioController.m_dwDInDict[lModuleNo][lOffset];
             if (bFlag)
             {
-                uFlagHigh = upValue & (uint)MotionControl.DioDefine.DIO_IN_ADDR_CH0.IN_VACUUM_ON;
+                //uFlagHigh = upValue & (uint)MotionControl.DioDefine.DIO_IN_ADDR_CH0.IN_VACUUM_ON;
                 if (uFlagHigh == 1)
                 {
                     return true;
@@ -723,7 +723,7 @@ namespace ZenHandler.Machine
             }
             else
             {
-                uFlagHigh = upValue & (uint)MotionControl.DioDefine.DIO_IN_ADDR_CH0.IN_VACUUM_ON;
+                //uFlagHigh = upValue & (uint)MotionControl.DioDefine.DIO_IN_ADDR_CH0.IN_VACUUM_ON;
                 if (uFlagHigh == 0)
                 {
                     return true;
@@ -744,7 +744,7 @@ namespace ZenHandler.Machine
             uint upValue = Globalo.motionManager.ioController.m_dwDInDict[lModuleNo][lOffset];
             if (bFlag)
             {
-                uFlagHigh = upValue & (uint)MotionControl.DioDefine.DIO_IN_ADDR_CH0.IN_VACUUM_ON;
+                //uFlagHigh = upValue & (uint)MotionControl.DioDefine.DIO_IN_ADDR_CH0.IN_VACUUM_ON;
                 if (uFlagHigh == 1)
                 {
                     return true;
@@ -752,7 +752,7 @@ namespace ZenHandler.Machine
             }
             else
             {
-                uFlagHigh = upValue & (uint)MotionControl.DioDefine.DIO_IN_ADDR_CH0.IN_VACUUM_ON;
+                //uFlagHigh = upValue & (uint)MotionControl.DioDefine.DIO_IN_ADDR_CH0.IN_VACUUM_ON;
                 if (uFlagHigh == 0)
                 {
                     return true;

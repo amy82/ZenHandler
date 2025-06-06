@@ -8,6 +8,20 @@ namespace ZenHandler.MotionControl
 {
     public class AoiDioDefine : IDioDefine
     {
+        public uint GetInContactUpDown(int Group, int index, bool bFlag) { return 0; }
+        public uint GetOutContactUpDown(int Group, int index, bool bFlag) { return 0; }
+        public uint GetInContactForBack(int Group, int index, bool bFlag) { return 0; }
+        public uint GetOutContactForBack(int Group, int index, bool bFlag) { return 0; }
+
+        public uint GetInRotateUpDown(int Group, int index, bool bFlag) { return 0; }
+        public uint GetOutRotateUpDown(int Group, int index, bool bFlag) { return 0; }
+
+        public uint GetInRotateTurn(int Group, int index, bool bFlag) { return 0; }
+        public uint GetOutRotateTurn(int Group, int index, bool bFlag) { return 0; }
+
+        public uint GetInRotateGrip(int Group, int index, bool bFlag) { return 0; }
+        public uint GetOutRotateGrip(int Group, int index, bool bFlag) { return 0; }
+
         public uint GetInLoadPickerVacuumOn(int index, bool bFlag)
         {
             if (bFlag)

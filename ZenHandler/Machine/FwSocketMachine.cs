@@ -192,52 +192,66 @@ namespace ZenHandler.Machine
                             {
                                 //uFlagHigh |= (uint)(MotionControl.FwDioDefine.DIO_OUT_ADDR_CH2.OUT5_A_SOCKET_CONTACT_UP1);
                                 //uFlagLow |= (uint)(MotionControl.FwDioDefine.DIO_OUT_ADDR_CH2.OUT5_A_SOCKET_CONTACT_DOWN1);
-                                uFlagHigh |= (uint)(MotionControl.FwDioDefine.DIO_OUT_ADDR_CH2.OUT5_A_SOCKET_CONTACT_UP1);
-                                uFlagLow |= (uint)(MotionControl.FwDioDefine.DIO_OUT_ADDR_CH2.OUT5_A_SOCKET_CONTACT_DOWN1);
+                                uFlagHigh |= Globalo.motionManager._dio.GetInContactUpDown(SetNo, i, true);
+                                uFlagLow |= Globalo.motionManager._dio.GetInContactUpDown(SetNo, i, false);
                             }
                             else
                             {
-                                uFlagLow |= (uint)(MotionControl.FwDioDefine.DIO_OUT_ADDR_CH2.OUT5_A_SOCKET_CONTACT_UP1);
-                                uFlagHigh |= (uint)(MotionControl.FwDioDefine.DIO_OUT_ADDR_CH2.OUT5_A_SOCKET_CONTACT_DOWN1);
+                                //uFlagLow |= (uint)(MotionControl.FwDioDefine.DIO_OUT_ADDR_CH2.OUT5_A_SOCKET_CONTACT_UP1);
+                                //uFlagHigh |= (uint)(MotionControl.FwDioDefine.DIO_OUT_ADDR_CH2.OUT5_A_SOCKET_CONTACT_DOWN1);
+                                uFlagLow |= Globalo.motionManager._dio.GetInContactUpDown(SetNo, i, true);
+                                uFlagHigh |= Globalo.motionManager._dio.GetInContactUpDown(SetNo, i, false);
                             }
                         }
                         else if (SetNo == 1)
                         {
                             if (bFlag)
                             {
-                                uFlagHigh |= (uint)(MotionControl.FwDioDefine.DIO_OUT_ADDR_CH2.OUT5_B_SOCKET_CONTACT_UP1);
-                                uFlagLow |= (uint)(MotionControl.FwDioDefine.DIO_OUT_ADDR_CH2.OUT5_B_SOCKET_CONTACT_DOWN1);
+                                //uFlagHigh |= (uint)(MotionControl.FwDioDefine.DIO_OUT_ADDR_CH2.OUT5_B_SOCKET_CONTACT_UP1);
+                                //uFlagLow |= (uint)(MotionControl.FwDioDefine.DIO_OUT_ADDR_CH2.OUT5_B_SOCKET_CONTACT_DOWN1);
+                                uFlagHigh |= Globalo.motionManager._dio.GetInContactUpDown(SetNo, i, true);
+                                uFlagLow |= Globalo.motionManager._dio.GetInContactUpDown(SetNo, i, false);
                             }
                             else
                             {
-                                uFlagLow |= (uint)(MotionControl.FwDioDefine.DIO_OUT_ADDR_CH2.OUT5_B_SOCKET_CONTACT_UP1);
-                                uFlagHigh |= (uint)(MotionControl.FwDioDefine.DIO_OUT_ADDR_CH2.OUT5_B_SOCKET_CONTACT_DOWN1);
+                                //uFlagLow |= (uint)(MotionControl.FwDioDefine.DIO_OUT_ADDR_CH2.OUT5_B_SOCKET_CONTACT_UP1);
+                                //uFlagHigh |= (uint)(MotionControl.FwDioDefine.DIO_OUT_ADDR_CH2.OUT5_B_SOCKET_CONTACT_DOWN1);
+                                uFlagLow |= Globalo.motionManager._dio.GetInContactUpDown(SetNo, i, true);
+                                uFlagHigh |= Globalo.motionManager._dio.GetInContactUpDown(SetNo, i, false);
                             }
                         }
                         else if (SetNo == 2)
                         {
                             if (bFlag)
                             {
-                                uFlagHigh |= (uint)(MotionControl.FwDioDefine.DIO_OUT_ADDR_CH3.OUT7_C_SOCKET_CONTACT_UP1);
-                                uFlagLow |= (uint)(MotionControl.FwDioDefine.DIO_OUT_ADDR_CH3.OUT7_C_SOCKET_CONTACT_DOWN1);
+                                //uFlagHigh |= (uint)(MotionControl.FwDioDefine.DIO_OUT_ADDR_CH3.OUT7_C_SOCKET_CONTACT_UP1);
+                                //uFlagLow |= (uint)(MotionControl.FwDioDefine.DIO_OUT_ADDR_CH3.OUT7_C_SOCKET_CONTACT_DOWN1);
+                                uFlagHigh |= Globalo.motionManager._dio.GetInContactUpDown(SetNo, i, true);
+                                uFlagLow |= Globalo.motionManager._dio.GetInContactUpDown(SetNo, i, false);
                             }
                             else
                             {
-                                uFlagLow |= (uint)(MotionControl.FwDioDefine.DIO_OUT_ADDR_CH3.OUT7_C_SOCKET_CONTACT_UP1);
-                                uFlagHigh |= (uint)(MotionControl.FwDioDefine.DIO_OUT_ADDR_CH3.OUT7_C_SOCKET_CONTACT_DOWN1);
+                                //uFlagLow |= (uint)(MotionControl.FwDioDefine.DIO_OUT_ADDR_CH3.OUT7_C_SOCKET_CONTACT_UP1);
+                                //uFlagHigh |= (uint)(MotionControl.FwDioDefine.DIO_OUT_ADDR_CH3.OUT7_C_SOCKET_CONTACT_DOWN1);
+                                uFlagLow |= Globalo.motionManager._dio.GetInContactUpDown(SetNo, i, true);
+                                uFlagHigh |= Globalo.motionManager._dio.GetInContactUpDown(SetNo, i, false);
                             }
                         }
                         else if (SetNo == 3)
                         {
                             if (bFlag)
                             {
-                                uFlagHigh |= (uint)(MotionControl.FwDioDefine.DIO_OUT_ADDR_CH3.OUT7_D_SOCKET_CONTACT_UP1);
-                                uFlagLow |= (uint)(MotionControl.FwDioDefine.DIO_OUT_ADDR_CH3.OUT7_D_SOCKET_CONTACT_DOWN1);
+                                //uFlagHigh |= (uint)(MotionControl.FwDioDefine.DIO_OUT_ADDR_CH3.OUT7_D_SOCKET_CONTACT_UP1);
+                                //uFlagLow |= (uint)(MotionControl.FwDioDefine.DIO_OUT_ADDR_CH3.OUT7_D_SOCKET_CONTACT_DOWN1);
+                                uFlagHigh |= Globalo.motionManager._dio.GetInContactUpDown(SetNo, i, true);
+                                uFlagLow |= Globalo.motionManager._dio.GetInContactUpDown(SetNo, i, false);
                             }
                             else
                             {
-                                uFlagLow |= (uint)(MotionControl.FwDioDefine.DIO_OUT_ADDR_CH3.OUT7_D_SOCKET_CONTACT_UP1);
-                                uFlagHigh |= (uint)(MotionControl.FwDioDefine.DIO_OUT_ADDR_CH3.OUT7_D_SOCKET_CONTACT_DOWN1);
+                                //uFlagLow |= (uint)(MotionControl.FwDioDefine.DIO_OUT_ADDR_CH3.OUT7_D_SOCKET_CONTACT_UP1);
+                                //uFlagHigh |= (uint)(MotionControl.FwDioDefine.DIO_OUT_ADDR_CH3.OUT7_D_SOCKET_CONTACT_DOWN1);
+                                uFlagLow |= Globalo.motionManager._dio.GetInContactUpDown(SetNo, i, true);
+                                uFlagHigh |= Globalo.motionManager._dio.GetInContactUpDown(SetNo, i, false);
                             }
                         }
 
@@ -248,52 +262,68 @@ namespace ZenHandler.Machine
                         {
                             if (bFlag)
                             {
-                                uFlagHigh |= (uint)(MotionControl.FwDioDefine.DIO_OUT_ADDR_CH2.OUT5_A_SOCKET_CONTACT_UP2);
-                                uFlagLow |= (uint)(MotionControl.FwDioDefine.DIO_OUT_ADDR_CH2.OUT5_A_SOCKET_CONTACT_DOWN2);
+                                //uFlagHigh |= (uint)(MotionControl.FwDioDefine.DIO_OUT_ADDR_CH2.OUT5_A_SOCKET_CONTACT_UP2);
+                                //uFlagLow |= (uint)(MotionControl.FwDioDefine.DIO_OUT_ADDR_CH2.OUT5_A_SOCKET_CONTACT_DOWN2);
+                                uFlagHigh |= Globalo.motionManager._dio.GetInContactUpDown(SetNo, i, true);
+                                uFlagLow |= Globalo.motionManager._dio.GetInContactUpDown(SetNo, i, false);
                             }
                             else
                             {
-                                uFlagLow |= (uint)(MotionControl.FwDioDefine.DIO_OUT_ADDR_CH2.OUT5_A_SOCKET_CONTACT_UP2);
-                                uFlagHigh |= (uint)(MotionControl.FwDioDefine.DIO_OUT_ADDR_CH2.OUT5_A_SOCKET_CONTACT_DOWN2);
+                                //uFlagLow |= (uint)(MotionControl.FwDioDefine.DIO_OUT_ADDR_CH2.OUT5_A_SOCKET_CONTACT_UP2);
+                                //uFlagHigh |= (uint)(MotionControl.FwDioDefine.DIO_OUT_ADDR_CH2.OUT5_A_SOCKET_CONTACT_DOWN2);
+                                uFlagLow |= Globalo.motionManager._dio.GetInContactUpDown(SetNo, i, true);
+                                uFlagHigh |= Globalo.motionManager._dio.GetInContactUpDown(SetNo, i, false);
                             }
                         }
                         else if (SetNo == 1)
                         {
                             if (bFlag)
                             {
-                                uFlagHigh |= (uint)(MotionControl.FwDioDefine.DIO_OUT_ADDR_CH2.OUT5_B_SOCKET_CONTACT_UP2);
-                                uFlagLow |= (uint)(MotionControl.FwDioDefine.DIO_OUT_ADDR_CH2.OUT5_B_SOCKET_CONTACT_DOWN2);
+                                //uFlagHigh |= (uint)(MotionControl.FwDioDefine.DIO_OUT_ADDR_CH2.OUT5_B_SOCKET_CONTACT_UP2);
+                                //uFlagLow |= (uint)(MotionControl.FwDioDefine.DIO_OUT_ADDR_CH2.OUT5_B_SOCKET_CONTACT_DOWN2);
+                                uFlagHigh |= Globalo.motionManager._dio.GetInContactUpDown(SetNo, i, true);
+                                uFlagLow |= Globalo.motionManager._dio.GetInContactUpDown(SetNo, i, false);
                             }
                             else
                             {
-                                uFlagLow |= (uint)(MotionControl.FwDioDefine.DIO_OUT_ADDR_CH2.OUT5_B_SOCKET_CONTACT_UP2);
-                                uFlagHigh |= (uint)(MotionControl.FwDioDefine.DIO_OUT_ADDR_CH2.OUT5_B_SOCKET_CONTACT_DOWN2);
+                                //uFlagLow |= (uint)(MotionControl.FwDioDefine.DIO_OUT_ADDR_CH2.OUT5_B_SOCKET_CONTACT_UP2);
+                                //uFlagHigh |= (uint)(MotionControl.FwDioDefine.DIO_OUT_ADDR_CH2.OUT5_B_SOCKET_CONTACT_DOWN2);
+                                uFlagLow |= Globalo.motionManager._dio.GetInContactUpDown(SetNo, i, true);
+                                uFlagHigh |= Globalo.motionManager._dio.GetInContactUpDown(SetNo, i, false);
                             }
                         }
                         else if (SetNo == 2)
                         {
                             if (bFlag)
                             {
-                                uFlagHigh |= (uint)(MotionControl.FwDioDefine.DIO_OUT_ADDR_CH3.OUT7_C_SOCKET_CONTACT_UP2);
-                                uFlagLow |= (uint)(MotionControl.FwDioDefine.DIO_OUT_ADDR_CH3.OUT7_C_SOCKET_CONTACT_DOWN2);
+                                //uFlagHigh |= (uint)(MotionControl.FwDioDefine.DIO_OUT_ADDR_CH3.OUT7_C_SOCKET_CONTACT_UP2);
+                                //uFlagLow |= (uint)(MotionControl.FwDioDefine.DIO_OUT_ADDR_CH3.OUT7_C_SOCKET_CONTACT_DOWN2);
+                                uFlagHigh |= Globalo.motionManager._dio.GetInContactUpDown(SetNo, i, true);
+                                uFlagLow |= Globalo.motionManager._dio.GetInContactUpDown(SetNo, i, false);
                             }
                             else
                             {
-                                uFlagLow |= (uint)(MotionControl.FwDioDefine.DIO_OUT_ADDR_CH3.OUT7_C_SOCKET_CONTACT_UP2);
-                                uFlagHigh |= (uint)(MotionControl.FwDioDefine.DIO_OUT_ADDR_CH3.OUT7_C_SOCKET_CONTACT_DOWN2);
+                                //uFlagLow |= (uint)(MotionControl.FwDioDefine.DIO_OUT_ADDR_CH3.OUT7_C_SOCKET_CONTACT_UP2);
+                                //uFlagHigh |= (uint)(MotionControl.FwDioDefine.DIO_OUT_ADDR_CH3.OUT7_C_SOCKET_CONTACT_DOWN2);
+                                uFlagLow |= Globalo.motionManager._dio.GetInContactUpDown(SetNo, i, true);
+                                uFlagHigh |= Globalo.motionManager._dio.GetInContactUpDown(SetNo, i, false);
                             }
                         }
                         else if (SetNo == 3)
                         {
                             if (bFlag)
                             {
-                                uFlagHigh |= (uint)(MotionControl.FwDioDefine.DIO_OUT_ADDR_CH3.OUT7_C_SOCKET_CONTACT_UP2);
-                                uFlagLow |= (uint)(MotionControl.FwDioDefine.DIO_OUT_ADDR_CH3.OUT7_C_SOCKET_CONTACT_DOWN2);
+                                //uFlagHigh |= (uint)(MotionControl.FwDioDefine.DIO_OUT_ADDR_CH3.OUT7_C_SOCKET_CONTACT_UP2);
+                                //uFlagLow |= (uint)(MotionControl.FwDioDefine.DIO_OUT_ADDR_CH3.OUT7_C_SOCKET_CONTACT_DOWN2);
+                                uFlagHigh |= Globalo.motionManager._dio.GetInContactUpDown(SetNo, i, true);
+                                uFlagLow |= Globalo.motionManager._dio.GetInContactUpDown(SetNo, i, false);
                             }
                             else
                             {
-                                uFlagLow |= (uint)(MotionControl.FwDioDefine.DIO_OUT_ADDR_CH3.OUT7_C_SOCKET_CONTACT_UP2);
-                                uFlagHigh |= (uint)(MotionControl.FwDioDefine.DIO_OUT_ADDR_CH3.OUT7_C_SOCKET_CONTACT_DOWN2);
+                                //uFlagLow |= (uint)(MotionControl.FwDioDefine.DIO_OUT_ADDR_CH3.OUT7_C_SOCKET_CONTACT_UP2);
+                                //uFlagHigh |= (uint)(MotionControl.FwDioDefine.DIO_OUT_ADDR_CH3.OUT7_C_SOCKET_CONTACT_DOWN2);
+                                uFlagLow |= Globalo.motionManager._dio.GetInContactUpDown(SetNo, i, true);
+                                uFlagHigh |= Globalo.motionManager._dio.GetInContactUpDown(SetNo, i, false);
                             }
                         }
 
@@ -303,52 +333,68 @@ namespace ZenHandler.Machine
                         {
                             if (bFlag)
                             {
-                                uFlagHigh |= (uint)(MotionControl.FwDioDefine.DIO_OUT_ADDR_CH2.OUT5_A_SOCKET_CONTACT_UP3);
-                                uFlagLow |= (uint)(MotionControl.FwDioDefine.DIO_OUT_ADDR_CH2.OUT5_A_SOCKET_CONTACT_DOWN3);
+                                //uFlagHigh |= (uint)(MotionControl.FwDioDefine.DIO_OUT_ADDR_CH2.OUT5_A_SOCKET_CONTACT_UP3);
+                                //uFlagLow |= (uint)(MotionControl.FwDioDefine.DIO_OUT_ADDR_CH2.OUT5_A_SOCKET_CONTACT_DOWN3);
+                                uFlagHigh |= Globalo.motionManager._dio.GetInContactUpDown(SetNo, i, true);
+                                uFlagLow |= Globalo.motionManager._dio.GetInContactUpDown(SetNo, i, false);
                             }
                             else
                             {
-                                uFlagLow |= (uint)(MotionControl.FwDioDefine.DIO_OUT_ADDR_CH2.OUT5_A_SOCKET_CONTACT_UP3);
-                                uFlagHigh |= (uint)(MotionControl.FwDioDefine.DIO_OUT_ADDR_CH2.OUT5_A_SOCKET_CONTACT_DOWN3);
+                                //uFlagLow |= (uint)(MotionControl.FwDioDefine.DIO_OUT_ADDR_CH2.OUT5_A_SOCKET_CONTACT_UP3);
+                                //uFlagHigh |= (uint)(MotionControl.FwDioDefine.DIO_OUT_ADDR_CH2.OUT5_A_SOCKET_CONTACT_DOWN3);
+                                uFlagLow |= Globalo.motionManager._dio.GetInContactUpDown(SetNo, i, true);
+                                uFlagHigh |= Globalo.motionManager._dio.GetInContactUpDown(SetNo, i, false);
                             }
                         }
                         else if (SetNo == 1)
                         {
                             if (bFlag)
                             {
-                                uFlagHigh |= (uint)(MotionControl.FwDioDefine.DIO_OUT_ADDR_CH2.OUT5_A_SOCKET_CONTACT_UP3);
-                                uFlagLow |= (uint)(MotionControl.FwDioDefine.DIO_OUT_ADDR_CH2.OUT5_A_SOCKET_CONTACT_DOWN3);
+                                //uFlagHigh |= (uint)(MotionControl.FwDioDefine.DIO_OUT_ADDR_CH2.OUT5_A_SOCKET_CONTACT_UP3);
+                                //uFlagLow |= (uint)(MotionControl.FwDioDefine.DIO_OUT_ADDR_CH2.OUT5_A_SOCKET_CONTACT_DOWN3);
+                                uFlagHigh |= Globalo.motionManager._dio.GetInContactUpDown(SetNo, i, true);
+                                uFlagLow |= Globalo.motionManager._dio.GetInContactUpDown(SetNo, i, false);
                             }
                             else
                             {
-                                uFlagLow |= (uint)(MotionControl.FwDioDefine.DIO_OUT_ADDR_CH2.OUT5_A_SOCKET_CONTACT_UP3);
-                                uFlagHigh |= (uint)(MotionControl.FwDioDefine.DIO_OUT_ADDR_CH2.OUT5_A_SOCKET_CONTACT_DOWN3);
+                                //uFlagLow |= (uint)(MotionControl.FwDioDefine.DIO_OUT_ADDR_CH2.OUT5_A_SOCKET_CONTACT_UP3);
+                                //uFlagHigh |= (uint)(MotionControl.FwDioDefine.DIO_OUT_ADDR_CH2.OUT5_A_SOCKET_CONTACT_DOWN3);
+                                uFlagLow |= Globalo.motionManager._dio.GetInContactUpDown(SetNo, i, true);
+                                uFlagHigh |= Globalo.motionManager._dio.GetInContactUpDown(SetNo, i, false);
                             }
                         }
                         else if (SetNo == 2)
                         {
                             if (bFlag)
                             {
-                                uFlagHigh |= (uint)(MotionControl.FwDioDefine.DIO_OUT_ADDR_CH3.OUT7_C_SOCKET_CONTACT_UP3);
-                                uFlagLow |= (uint)(MotionControl.FwDioDefine.DIO_OUT_ADDR_CH3.OUT7_C_SOCKET_CONTACT_DOWN3);
+                                //uFlagHigh |= (uint)(MotionControl.FwDioDefine.DIO_OUT_ADDR_CH3.OUT7_C_SOCKET_CONTACT_UP3);
+                                //uFlagLow |= (uint)(MotionControl.FwDioDefine.DIO_OUT_ADDR_CH3.OUT7_C_SOCKET_CONTACT_DOWN3);
+                                uFlagHigh |= Globalo.motionManager._dio.GetInContactUpDown(SetNo, i, true);
+                                uFlagLow |= Globalo.motionManager._dio.GetInContactUpDown(SetNo, i, false);
                             }
                             else
                             {
-                                uFlagLow |= (uint)(MotionControl.FwDioDefine.DIO_OUT_ADDR_CH3.OUT7_C_SOCKET_CONTACT_UP3);
-                                uFlagHigh |= (uint)(MotionControl.FwDioDefine.DIO_OUT_ADDR_CH3.OUT7_C_SOCKET_CONTACT_DOWN3);
+                                //uFlagLow |= (uint)(MotionControl.FwDioDefine.DIO_OUT_ADDR_CH3.OUT7_C_SOCKET_CONTACT_UP3);
+                                //uFlagHigh |= (uint)(MotionControl.FwDioDefine.DIO_OUT_ADDR_CH3.OUT7_C_SOCKET_CONTACT_DOWN3);
+                                uFlagLow |= Globalo.motionManager._dio.GetInContactUpDown(SetNo, i, true);
+                                uFlagHigh |= Globalo.motionManager._dio.GetInContactUpDown(SetNo, i, false);
                             }
                         }
                         else if (SetNo == 3)
                         {
                             if (bFlag)
                             {
-                                uFlagHigh |= (uint)(MotionControl.FwDioDefine.DIO_OUT_ADDR_CH3.OUT7_D_SOCKET_CONTACT_UP3);
-                                uFlagLow |= (uint)(MotionControl.FwDioDefine.DIO_OUT_ADDR_CH3.OUT7_D_SOCKET_CONTACT_DOWN3);
+                                //uFlagHigh |= (uint)(MotionControl.FwDioDefine.DIO_OUT_ADDR_CH3.OUT7_D_SOCKET_CONTACT_UP3);
+                                //uFlagLow |= (uint)(MotionControl.FwDioDefine.DIO_OUT_ADDR_CH3.OUT7_D_SOCKET_CONTACT_DOWN3);
+                                uFlagHigh |= Globalo.motionManager._dio.GetInContactUpDown(SetNo, i, true);
+                                uFlagLow |= Globalo.motionManager._dio.GetInContactUpDown(SetNo, i, false);
                             }
                             else
                             {
-                                uFlagLow |= (uint)(MotionControl.FwDioDefine.DIO_OUT_ADDR_CH3.OUT7_D_SOCKET_CONTACT_UP3);
-                                uFlagHigh |= (uint)(MotionControl.FwDioDefine.DIO_OUT_ADDR_CH3.OUT7_D_SOCKET_CONTACT_DOWN3);
+                                //uFlagLow |= (uint)(MotionControl.FwDioDefine.DIO_OUT_ADDR_CH3.OUT7_D_SOCKET_CONTACT_UP3);
+                                //uFlagHigh |= (uint)(MotionControl.FwDioDefine.DIO_OUT_ADDR_CH3.OUT7_D_SOCKET_CONTACT_DOWN3);
+                                uFlagLow |= Globalo.motionManager._dio.GetInContactUpDown(SetNo, i, true);
+                                uFlagHigh |= Globalo.motionManager._dio.GetInContactUpDown(SetNo, i, false);
                             }
                         }
 
@@ -358,52 +404,68 @@ namespace ZenHandler.Machine
                         {
                             if (bFlag)
                             {
-                                uFlagHigh |= (uint)(MotionControl.FwDioDefine.DIO_OUT_ADDR_CH2.OUT5_A_SOCKET_CONTACT_UP4);
-                                uFlagLow |= (uint)(MotionControl.FwDioDefine.DIO_OUT_ADDR_CH2.OUT5_A_SOCKET_CONTACT_DOWN4);
+                                //uFlagHigh |= (uint)(MotionControl.FwDioDefine.DIO_OUT_ADDR_CH2.OUT5_A_SOCKET_CONTACT_UP4);
+                                //uFlagLow |= (uint)(MotionControl.FwDioDefine.DIO_OUT_ADDR_CH2.OUT5_A_SOCKET_CONTACT_DOWN4);
+                                uFlagHigh |= Globalo.motionManager._dio.GetInContactUpDown(SetNo, i, true);
+                                uFlagLow |= Globalo.motionManager._dio.GetInContactUpDown(SetNo, i, false);
                             }
                             else
                             {
-                                uFlagLow |= (uint)(MotionControl.FwDioDefine.DIO_OUT_ADDR_CH2.OUT5_A_SOCKET_CONTACT_UP4);
-                                uFlagHigh |= (uint)(MotionControl.FwDioDefine.DIO_OUT_ADDR_CH2.OUT5_A_SOCKET_CONTACT_DOWN4);
+                                //uFlagLow |= (uint)(MotionControl.FwDioDefine.DIO_OUT_ADDR_CH2.OUT5_A_SOCKET_CONTACT_UP4);
+                                //uFlagHigh |= (uint)(MotionControl.FwDioDefine.DIO_OUT_ADDR_CH2.OUT5_A_SOCKET_CONTACT_DOWN4);
+                                uFlagLow |= Globalo.motionManager._dio.GetInContactUpDown(SetNo, i, true);
+                                uFlagHigh |= Globalo.motionManager._dio.GetInContactUpDown(SetNo, i, false);
                             }
                         }
                         else if (SetNo == 1)
                         {
                             if (bFlag)
                             {
-                                uFlagHigh |= (uint)(MotionControl.FwDioDefine.DIO_OUT_ADDR_CH2.OUT5_A_SOCKET_CONTACT_UP4);
-                                uFlagLow |= (uint)(MotionControl.FwDioDefine.DIO_OUT_ADDR_CH2.OUT5_A_SOCKET_CONTACT_DOWN4);
+                                //uFlagHigh |= (uint)(MotionControl.FwDioDefine.DIO_OUT_ADDR_CH2.OUT5_A_SOCKET_CONTACT_UP4);
+                                //uFlagLow |= (uint)(MotionControl.FwDioDefine.DIO_OUT_ADDR_CH2.OUT5_A_SOCKET_CONTACT_DOWN4);
+                                uFlagHigh |= Globalo.motionManager._dio.GetInContactUpDown(SetNo, i, true);
+                                uFlagLow |= Globalo.motionManager._dio.GetInContactUpDown(SetNo, i, false);
                             }
                             else
                             {
-                                uFlagLow |= (uint)(MotionControl.FwDioDefine.DIO_OUT_ADDR_CH2.OUT5_A_SOCKET_CONTACT_UP4);
-                                uFlagHigh |= (uint)(MotionControl.FwDioDefine.DIO_OUT_ADDR_CH2.OUT5_A_SOCKET_CONTACT_DOWN4);
+                                //uFlagLow |= (uint)(MotionControl.FwDioDefine.DIO_OUT_ADDR_CH2.OUT5_A_SOCKET_CONTACT_UP4);
+                                //uFlagHigh |= (uint)(MotionControl.FwDioDefine.DIO_OUT_ADDR_CH2.OUT5_A_SOCKET_CONTACT_DOWN4);
+                                uFlagLow |= Globalo.motionManager._dio.GetInContactUpDown(SetNo, i, true);
+                                uFlagHigh |= Globalo.motionManager._dio.GetInContactUpDown(SetNo, i, false);
                             }
                         }
                         else if (SetNo == 2)
                         {
                             if (bFlag)
                             {
-                                uFlagHigh |= (uint)(MotionControl.FwDioDefine.DIO_OUT_ADDR_CH3.OUT7_C_SOCKET_CONTACT_UP4);
-                                uFlagLow |= (uint)(MotionControl.FwDioDefine.DIO_OUT_ADDR_CH3.OUT7_C_SOCKET_CONTACT_DOWN4);
+                                //uFlagHigh |= (uint)(MotionControl.FwDioDefine.DIO_OUT_ADDR_CH3.OUT7_C_SOCKET_CONTACT_UP4);
+                                //uFlagLow |= (uint)(MotionControl.FwDioDefine.DIO_OUT_ADDR_CH3.OUT7_C_SOCKET_CONTACT_DOWN4);
+                                uFlagHigh |= Globalo.motionManager._dio.GetInContactUpDown(SetNo, i, true);
+                                uFlagLow |= Globalo.motionManager._dio.GetInContactUpDown(SetNo, i, false);
                             }
                             else
                             {
-                                uFlagLow |= (uint)(MotionControl.FwDioDefine.DIO_OUT_ADDR_CH3.OUT7_C_SOCKET_CONTACT_UP4);
-                                uFlagHigh |= (uint)(MotionControl.FwDioDefine.DIO_OUT_ADDR_CH3.OUT7_C_SOCKET_CONTACT_DOWN4);
+                                //uFlagLow |= (uint)(MotionControl.FwDioDefine.DIO_OUT_ADDR_CH3.OUT7_C_SOCKET_CONTACT_UP4);
+                                //uFlagHigh |= (uint)(MotionControl.FwDioDefine.DIO_OUT_ADDR_CH3.OUT7_C_SOCKET_CONTACT_DOWN4);
+                                uFlagLow |= Globalo.motionManager._dio.GetInContactUpDown(SetNo, i, true);
+                                uFlagHigh |= Globalo.motionManager._dio.GetInContactUpDown(SetNo, i, false);
                             }
                         }
                         else if (SetNo == 3)
                         {
                             if (bFlag)
                             {
-                                uFlagHigh |= (uint)(MotionControl.FwDioDefine.DIO_OUT_ADDR_CH3.OUT7_D_SOCKET_CONTACT_UP4);
-                                uFlagLow |= (uint)(MotionControl.FwDioDefine.DIO_OUT_ADDR_CH3.OUT7_D_SOCKET_CONTACT_DOWN4);
+                                //uFlagHigh |= (uint)(MotionControl.FwDioDefine.DIO_OUT_ADDR_CH3.OUT7_D_SOCKET_CONTACT_UP4);
+                                //uFlagLow |= (uint)(MotionControl.FwDioDefine.DIO_OUT_ADDR_CH3.OUT7_D_SOCKET_CONTACT_DOWN4);
+                                uFlagHigh |= Globalo.motionManager._dio.GetInContactUpDown(SetNo, i, true);
+                                uFlagLow |= Globalo.motionManager._dio.GetInContactUpDown(SetNo, i, false);
                             }
                             else
                             {
-                                uFlagLow |= (uint)(MotionControl.FwDioDefine.DIO_OUT_ADDR_CH3.OUT7_D_SOCKET_CONTACT_UP4);
-                                uFlagHigh |= (uint)(MotionControl.FwDioDefine.DIO_OUT_ADDR_CH3.OUT7_D_SOCKET_CONTACT_DOWN4);
+                                //uFlagLow |= (uint)(MotionControl.FwDioDefine.DIO_OUT_ADDR_CH3.OUT7_D_SOCKET_CONTACT_UP4);
+                                //uFlagHigh |= (uint)(MotionControl.FwDioDefine.DIO_OUT_ADDR_CH3.OUT7_D_SOCKET_CONTACT_DOWN4);
+                                uFlagLow |= Globalo.motionManager._dio.GetInContactUpDown(SetNo, i, true);
+                                uFlagHigh |= Globalo.motionManager._dio.GetInContactUpDown(SetNo, i, false);
                             }
                         }
 

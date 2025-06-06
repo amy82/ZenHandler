@@ -58,6 +58,21 @@ namespace ZenHandler.MotionControl
         uint GetOutFwUnloadPickerGrip(int index, bool bFlag);
         uint GetInFwUnloadPickerGrip(int index, bool bFlag);
 
+        //Socket
+        uint GetInContactUpDown(int Group, int index, bool bFlag);
+        uint GetOutContactUpDown(int Group, int index, bool bFlag);
+        uint GetInContactForBack(int Group, int index, bool bFlag);
+        uint GetOutContactForBack(int Group, int index, bool bFlag);
 
+        uint GetInRotateUpDown(int Group, int index, bool bFlag);
+        uint GetOutRotateUpDown(int Group, int index, bool bFlag);
+
+        uint GetInRotateTurn(int Group, int index, bool bFlag);
+        uint GetOutRotateTurn(int Group, int index, bool bFlag);
+
+        uint GetInRotateGrip(int Group, int index, bool bFlag);
+        uint GetOutRotateGrip(int Group, int index, bool bFlag);
+
+        //Lift + Magazine
     }
 }
