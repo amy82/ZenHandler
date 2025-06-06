@@ -8,6 +8,66 @@ namespace ZenHandler.MotionControl
 {
     public class AoiDioDefine : IDioDefine
     {
+        public uint GetInLoadPickerUpDown(int index, bool bFlag)
+        {
+            if (bFlag)
+            {
+                switch (index)
+                {
+                    case 0: return (uint)DIO_IN_ADDR_CH1.IN2_TRANSFER_LOAD_PICKER_UP1;
+                    case 1: return (uint)DIO_IN_ADDR_CH1.IN2_TRANSFER_LOAD_PICKER_UP2;
+                    default:
+                        // 로그 남기기 (예: LogHelper.Write)
+                        Console.WriteLine($"[Warning] 잘못된 GetInLoadPickerUpDown 타입 요청됨: {index}");
+                        //throw new ArgumentOutOfRangeException(nameof(nType), nType, "Invalid Tower Lamp Type");
+                        return 0; // 또는 사용하지 않는 안전한 비트
+                }
+            }
+            else
+            {
+                switch (index)
+                {
+                    case 0: return (uint)DIO_IN_ADDR_CH1.IN2_TRANSFER_LOAD_PICKER_DOWN1;
+                    case 1: return (uint)DIO_IN_ADDR_CH1.IN2_TRANSFER_LOAD_PICKER_DOWN2;
+                    default:
+                        // 로그 남기기 (예: LogHelper.Write)
+                        Console.WriteLine($"[Warning] 잘못된 GetInLoadPickerUpDown 타입 요청됨: {index}");
+                        //throw new ArgumentOutOfRangeException(nameof(nType), nType, "Invalid Tower Lamp Type");
+                        return 0; // 또는 사용하지 않는 안전한 비트
+                }
+            }
+            
+        }
+        public uint GetInUnloadPickerUpDown(int index, bool bFlag)
+        {
+            if (bFlag)
+            {
+                switch (index)
+                {
+                    case 0: return (uint)DIO_IN_ADDR_CH1.IN2_TRANSFER_UNLOAD_PICKER_UP1;
+                    case 1: return (uint)DIO_IN_ADDR_CH1.IN2_TRANSFER_UNLOAD_PICKER_UP2;
+                    default:
+                        // 로그 남기기 (예: LogHelper.Write)
+                        Console.WriteLine($"[Warning] 잘못된 GetInUnloadPickerUpDown 타입 요청됨: {index}");
+                        //throw new ArgumentOutOfRangeException(nameof(nType), nType, "Invalid Tower Lamp Type");
+                        return 0; // 또는 사용하지 않는 안전한 비트
+                }
+            }
+            else
+            {
+                switch (index)
+                {
+                    case 0: return (uint)DIO_IN_ADDR_CH1.IN2_TRANSFER_UNLOAD_PICKER_DOWN1;
+                    case 1: return (uint)DIO_IN_ADDR_CH1.IN2_TRANSFER_UNLOAD_PICKER_DOWN2;
+                    default:
+                        // 로그 남기기 (예: LogHelper.Write)
+                        Console.WriteLine($"[Warning] 잘못된 GetInUnloadPickerUpDown 타입 요청됨: {index}");
+                        //throw new ArgumentOutOfRangeException(nameof(nType), nType, "Invalid Tower Lamp Type");
+                        return 0; // 또는 사용하지 않는 안전한 비트
+                }
+            }
+
+        }
         public uint GetOutBuzzer(int nType)
         {
             switch (nType)
@@ -41,6 +101,22 @@ namespace ZenHandler.MotionControl
         {
             return (uint)DIO_OUT_ADDR_CH1.OUT0_ALL_DOOR_UNLOCK;
         }
+        public uint GetInAllDoor(int nType)
+        {
+            switch (nType)
+            {
+                case 0: return (uint)DIO_IN_ADDR_CH0.IN0_DOOR_UNLOCK_FRONT_L;
+                case 1: return (uint)DIO_IN_ADDR_CH0.IN0_DOOR_UNLOCK_FRONT_R;
+                case 2: return (uint)DIO_IN_ADDR_CH0.IN0_DOOR_UNLOCK_BACK_L;
+                case 3: return (uint)DIO_IN_ADDR_CH0.IN0_DOOR_UNLOCK_BACK_R;
+                default:
+                    // 로그 남기기 (예: LogHelper.Write)
+                    Console.WriteLine($"[Warning] 잘못된 GetInAllDoor 타입 요청됨: {nType}");
+                    //throw new ArgumentOutOfRangeException(nameof(nType), nType, "Invalid Tower Lamp Type");
+                    return 0; // 또는 사용하지 않는 안전한 비트
+            }
+
+        }
         public uint GetOutLiftDoor(int nType, int index)
         {
             if (nType == 0)
@@ -62,6 +138,31 @@ namespace ZenHandler.MotionControl
                     case 1: return (uint)DIO_OUT_ADDR_CH1.OUT2_LIFT_RIGHT_DOOR_LOCK_DOWN;
                     default:
                         Console.WriteLine($"[Warning] 잘못된 GetOutLiftDoor 타입 요청됨: {nType}");
+                        return 0; // 또는 사용하지 않는 안전한 비트
+                }
+            }
+        }
+        public uint GetInLiftDoor(int nType, int index)
+        {
+            if (nType == 0)
+            {
+                switch (index)
+                {
+                    case 0: return (uint)DIO_IN_ADDR_CH0.IN0_LIFT_LEFT_DOOR_LOCK_UP;
+                    case 1: return (uint)DIO_IN_ADDR_CH0.IN0_LIFT_LEFT_DOOR_LOCK_DOWN;
+                    default:
+                        Console.WriteLine($"[Warning] 잘못된 GetInLiftDoor 타입 요청됨: {nType}");
+                        return 0; // 또는 사용하지 않는 안전한 비트
+                }
+            }
+            else
+            {
+                switch (index)
+                {
+                    case 0: return (uint)DIO_IN_ADDR_CH0.IN0_LIFT_RIGHT_DOOR_LOCK_UP;
+                    case 1: return (uint)DIO_IN_ADDR_CH0.IN0_LIFT_RIGHT_DOOR_LOCK_DOWN;
+                    default:
+                        Console.WriteLine($"[Warning] 잘못된 GetInLiftDoor 타입 요청됨: {nType}");
                         return 0; // 또는 사용하지 않는 안전한 비트
                 }
             }
@@ -100,7 +201,7 @@ namespace ZenHandler.MotionControl
                     case 0: return (uint)DIO_OUT_ADDR_CH1.OUT3_NG_TRAY_LEFT_DOOR_LOCK_UP;
                     case 1: return (uint)DIO_OUT_ADDR_CH1.OUT3_NG_TRAY_LEFT_DOOR_LOCK_DOWN;
                     default:
-                        Console.WriteLine($"[Warning] 잘못된 GetOutLiftDoor 타입 요청됨: {nType}");
+                        Console.WriteLine($"[Warning] 잘못된 GetOutNgTrayDoor 타입 요청됨: {nType}");
                         return 0; // 또는 사용하지 않는 안전한 비트
                 }
             }
@@ -111,7 +212,32 @@ namespace ZenHandler.MotionControl
                     case 0: return (uint)DIO_OUT_ADDR_CH1.OUT3_NG_TRAY_RIGHT_DOOR_LOCK_UP;
                     case 1: return (uint)DIO_OUT_ADDR_CH1.OUT3_NG_TRAY_RIGHT_DOOR_LOCK_DOWN;
                     default:
-                        Console.WriteLine($"[Warning] 잘못된 GetOutLiftDoor 타입 요청됨: {nType}");
+                        Console.WriteLine($"[Warning] 잘못된 GetOutNgTrayDoor 타입 요청됨: {nType}");
+                        return 0; // 또는 사용하지 않는 안전한 비트
+                }
+            }
+        }
+        public uint GetInNgTrayDoor(int nType, int index)
+        {
+            if (nType == 0)
+            {
+                switch (index)
+                {
+                    case 0: return (uint)DIO_IN_ADDR_CH0.IN0_NG_TRAY_LEFT_DOOR_LOCK_UP;
+                    case 1: return (uint)DIO_IN_ADDR_CH0.IN0_NG_TRAY_LEFT_DOOR_LOCK_DOWN;
+                    default:
+                        Console.WriteLine($"[Warning] 잘못된 GetInNgTrayDoor 타입 요청됨: {nType}");
+                        return 0; // 또는 사용하지 않는 안전한 비트
+                }
+            }
+            else
+            {
+                switch (index)
+                {
+                    case 0: return (uint)DIO_IN_ADDR_CH0.IN0_NG_TRAY_RIGHT_DOOR_LOCK_UP;
+                    case 1: return (uint)DIO_IN_ADDR_CH0.IN0_NG_TRAY_RIGHT_DOOR_LOCK_DOWN;
+                    default:
+                        Console.WriteLine($"[Warning] 잘못된 GetInNgTrayDoor 타입 요청됨: {nType}");
                         return 0; // 또는 사용하지 않는 안전한 비트
                 }
             }

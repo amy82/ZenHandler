@@ -48,7 +48,7 @@ namespace ZenHandler.MotionControl
         public Machine.LiftMachine liftMachine;
 
 
-        private IDioDefine _dio;
+        public IDioDefine _dio;
 
         //SOCKET MACHINE
         //TODO: Socket 머신 하나두고 , 그 아래 소켓 Set마트 Class 추가?
@@ -277,6 +277,32 @@ namespace ZenHandler.MotionControl
             bool isSuccess = Globalo.motionManager.ioController.DioWriteOutportByte(lModuleNo, lOffset, uFlagHigh, uFlagLow);
             return isSuccess;
         }
+        public bool GetAllDoorLock()
+        {
+            if (ProgramState.ON_LINE_MOTOR == false)
+            {
+                return true;
+            }
+            int lModuleNo = 0;
+            int lOffset = 0;
+
+            uint uFlagHigh = 0;
+            uint uFlagState = 0;
+            uint upValue = Globalo.motionManager.ioController.m_dwDInDict[lModuleNo][lOffset];
+
+            uFlagHigh |= _dio.GetInAllDoor(0);
+            uFlagHigh |= _dio.GetInAllDoor(1);
+            uFlagHigh |= _dio.GetInAllDoor(2);
+            uFlagHigh |= _dio.GetInAllDoor(3);
+
+            uFlagState = upValue & uFlagHigh;
+
+            if (uFlagState == 1)
+            {
+                return true;
+            }
+            return false;
+        }
         public bool setLiftDoorLock(int nType, bool bLock)      //LIFT, MAGAZINE 앞 Door
         {
             if (ProgramState.ON_LINE_MOTOR == false)
@@ -292,7 +318,39 @@ namespace ZenHandler.MotionControl
             uFlagLow |= _dio.GetOutLiftDoor(nType, 1);
 
             bool isSuccess = Globalo.motionManager.ioController.DioWriteOutportByte(lModuleNo, lOffset, uFlagHigh, uFlagLow);
+
+
+
             return isSuccess;
+        }
+        public bool getLiftDoorLock(int nType, bool bLock)      //LIFT, MAGAZINE 앞 Door
+        {
+            if (ProgramState.ON_LINE_MOTOR == false)
+            {
+                return true;
+            }
+
+            int lModuleNo = 0;
+            int lOffset = 0;
+            uint uFlagHigh = 0;
+
+            uint upValue = Globalo.motionManager.ioController.m_dwDInDict[lModuleNo][lOffset];
+            if (bLock)
+            {
+                uFlagHigh = upValue & _dio.GetInLiftDoor(nType, 0);
+            }
+            else
+            {
+                uFlagHigh = upValue & _dio.GetInLiftDoor(nType, 1);
+            }
+
+            if (uFlagHigh == 1)
+            {
+                return true;
+            }
+
+
+            return false;
         }
         public bool setNgTrayDoorLock(int nType)    //Ng Tray 앞 Door
         {

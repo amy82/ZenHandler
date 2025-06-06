@@ -305,7 +305,8 @@ namespace ZenHandler.Machine
             {
                 if (bFlag)
                 {
-                    uFlagHigh = upValue & (uint)MotionControl.DioDefine.DIO_IN_ADDR_CH1.IN_LOAD_PICKER_UP1;
+                    //uFlagHigh = upValue & (uint)MotionControl.DioDefine.DIO_IN_ADDR_CH1.IN_LOAD_PICKER_UP1;
+                    uFlagHigh = upValue & Globalo.motionManager._dio.GetInLoadPickerUpDown(0, true);
                     if (uFlagHigh == 1)
                     {
                         return true;
@@ -313,7 +314,8 @@ namespace ZenHandler.Machine
                 }
                 else
                 {
-                    uFlagHigh = upValue & (uint)MotionControl.DioDefine.DIO_IN_ADDR_CH1.IN_LOAD_PICKER_DOWN1;
+                    //uFlagHigh = upValue & (uint)MotionControl.DioDefine.DIO_IN_ADDR_CH1.IN_LOAD_PICKER_DOWN1;
+                    uFlagHigh = upValue & Globalo.motionManager._dio.GetInLoadPickerUpDown(0, false);
                     if (uFlagHigh == 1)
                     {
                         return true;
@@ -324,7 +326,8 @@ namespace ZenHandler.Machine
             {
                 if (bFlag)
                 {
-                    uFlagHigh = upValue & (uint)MotionControl.DioDefine.DIO_IN_ADDR_CH1.IN_LOAD_PICKER_UP2;
+                    //uFlagHigh = upValue & (uint)MotionControl.DioDefine.DIO_IN_ADDR_CH1.IN_LOAD_PICKER_UP2;
+                    uFlagHigh = upValue & Globalo.motionManager._dio.GetInLoadPickerUpDown(1, true);
                     if (uFlagHigh == 1)
                     {
                         return true;
@@ -332,7 +335,8 @@ namespace ZenHandler.Machine
                 }
                 else
                 {
-                    uFlagHigh = upValue & (uint)MotionControl.DioDefine.DIO_IN_ADDR_CH1.IN_LOAD_PICKER_DOWN2;
+                    //uFlagHigh = upValue & (uint)MotionControl.DioDefine.DIO_IN_ADDR_CH1.IN_LOAD_PICKER_DOWN2;
+                    uFlagHigh = upValue & Globalo.motionManager._dio.GetInLoadPickerUpDown(1, false);
                     if (uFlagHigh == 1)
                     {
                         return true;
@@ -343,7 +347,8 @@ namespace ZenHandler.Machine
             {
                 if (bFlag)
                 {
-                    uFlagHigh = upValue & (uint)MotionControl.DioDefine.DIO_IN_ADDR_CH1.IN_LOAD_PICKER_UP3;
+                    //uFlagHigh = upValue & (uint)MotionControl.DioDefine.DIO_IN_ADDR_CH1.IN_LOAD_PICKER_UP3;
+                    uFlagHigh = upValue & upValue & Globalo.motionManager._dio.GetInLoadPickerUpDown(2, true);
                     if (uFlagHigh == 1)
                     {
                         return true;
@@ -351,7 +356,8 @@ namespace ZenHandler.Machine
                 }
                 else
                 {
-                    uFlagHigh = upValue & (uint)MotionControl.DioDefine.DIO_IN_ADDR_CH1.IN_LOAD_PICKER_DOWN3;
+                    //uFlagHigh = upValue & (uint)MotionControl.DioDefine.DIO_IN_ADDR_CH1.IN_LOAD_PICKER_DOWN3;
+                    uFlagHigh = upValue & Globalo.motionManager._dio.GetInLoadPickerUpDown(2, false);
                     if (uFlagHigh == 1)
                     {
                         return true;
@@ -362,7 +368,8 @@ namespace ZenHandler.Machine
             {
                 if (bFlag)
                 {
-                    uFlagHigh = upValue & (uint)MotionControl.DioDefine.DIO_IN_ADDR_CH1.IN_LOAD_PICKER_UP4;
+                    //uFlagHigh = upValue & (uint)MotionControl.DioDefine.DIO_IN_ADDR_CH1.IN_LOAD_PICKER_UP4;
+                    uFlagHigh = upValue & upValue & Globalo.motionManager._dio.GetInLoadPickerUpDown(3, true);
                     if (uFlagHigh == 1)
                     {
                         return true;
@@ -370,7 +377,8 @@ namespace ZenHandler.Machine
                 }
                 else
                 {
-                    uFlagHigh = upValue & (uint)MotionControl.DioDefine.DIO_IN_ADDR_CH1.IN_LOAD_PICKER_DOWN4;
+                    //uFlagHigh = upValue & (uint)MotionControl.DioDefine.DIO_IN_ADDR_CH1.IN_LOAD_PICKER_DOWN4;
+                    uFlagHigh = upValue & Globalo.motionManager._dio.GetInLoadPickerUpDown(3, false);
                     if (uFlagHigh == 1)
                     {
                         return true;
@@ -397,7 +405,8 @@ namespace ZenHandler.Machine
             {
                 if (bFlag)
                 {
-                    uFlagHigh = upValue & (uint)MotionControl.DioDefine.DIO_IN_ADDR_CH1.IN_UNLOAD_PICKER_UP1;
+                    //uFlagHigh = upValue & (uint)MotionControl.DioDefine.DIO_IN_ADDR_CH1.IN_UNLOAD_PICKER_UP1;
+                    uFlagHigh = upValue & Globalo.motionManager._dio.GetInUnloadPickerUpDown(0, true);
                     if (uFlagHigh == 1)
                     {
                         return true;
@@ -405,7 +414,8 @@ namespace ZenHandler.Machine
                 }
                 else
                 {
-                    uFlagHigh = upValue & (uint)MotionControl.DioDefine.DIO_IN_ADDR_CH1.IN_UNLOAD_PICKER_DOWN1;
+                    //uFlagHigh = upValue & (uint)MotionControl.DioDefine.DIO_IN_ADDR_CH1.IN_UNLOAD_PICKER_DOWN1;
+                    uFlagHigh = upValue & Globalo.motionManager._dio.GetInUnloadPickerUpDown(0, false);
                     if (uFlagHigh == 1)
                     {
                         return true;
@@ -416,7 +426,8 @@ namespace ZenHandler.Machine
             {
                 if (bFlag)
                 {
-                    uFlagHigh = upValue & (uint)MotionControl.DioDefine.DIO_IN_ADDR_CH1.IN_UNLOAD_PICKER_UP2;
+                    //uFlagHigh = upValue & (uint)MotionControl.DioDefine.DIO_IN_ADDR_CH1.IN_UNLOAD_PICKER_UP2;
+                    uFlagHigh = upValue & Globalo.motionManager._dio.GetInUnloadPickerUpDown(1, true);
                     if (uFlagHigh == 1)
                     {
                         return true;
@@ -424,7 +435,8 @@ namespace ZenHandler.Machine
                 }
                 else
                 {
-                    uFlagHigh = upValue & (uint)MotionControl.DioDefine.DIO_IN_ADDR_CH1.IN_UNLOAD_PICKER_DOWN2;
+                    //uFlagHigh = upValue & (uint)MotionControl.DioDefine.DIO_IN_ADDR_CH1.IN_UNLOAD_PICKER_DOWN2;
+                    uFlagHigh = upValue & Globalo.motionManager._dio.GetInUnloadPickerUpDown(1, false);
                     if (uFlagHigh == 1)
                     {
                         return true;
@@ -435,7 +447,8 @@ namespace ZenHandler.Machine
             {
                 if (bFlag)
                 {
-                    uFlagHigh = upValue & (uint)MotionControl.DioDefine.DIO_IN_ADDR_CH1.IN_UNLOAD_PICKER_UP3;
+                    //uFlagHigh = upValue & (uint)MotionControl.DioDefine.DIO_IN_ADDR_CH1.IN_UNLOAD_PICKER_UP3;
+                    uFlagHigh = upValue & Globalo.motionManager._dio.GetInUnloadPickerUpDown(2, true);
                     if (uFlagHigh == 1)
                     {
                         return true;
@@ -443,7 +456,8 @@ namespace ZenHandler.Machine
                 }
                 else
                 {
-                    uFlagHigh = upValue & (uint)MotionControl.DioDefine.DIO_IN_ADDR_CH1.IN_UNLOAD_PICKER_DOWN3;
+                    //uFlagHigh = upValue & (uint)MotionControl.DioDefine.DIO_IN_ADDR_CH1.IN_UNLOAD_PICKER_DOWN3;
+                    uFlagHigh = upValue & Globalo.motionManager._dio.GetInUnloadPickerUpDown(2, false);
                     if (uFlagHigh == 1)
                     {
                         return true;
@@ -454,7 +468,8 @@ namespace ZenHandler.Machine
             {
                 if (bFlag)
                 {
-                    uFlagHigh = upValue & (uint)MotionControl.DioDefine.DIO_IN_ADDR_CH1.IN_UNLOAD_PICKER_UP4;
+                    //uFlagHigh = upValue & (uint)MotionControl.DioDefine.DIO_IN_ADDR_CH1.IN_UNLOAD_PICKER_UP4;
+                    uFlagHigh = upValue & Globalo.motionManager._dio.GetInUnloadPickerUpDown(3, true);
                     if (uFlagHigh == 1)
                     {
                         return true;
@@ -462,7 +477,8 @@ namespace ZenHandler.Machine
                 }
                 else
                 {
-                    uFlagHigh = upValue & (uint)MotionControl.DioDefine.DIO_IN_ADDR_CH1.IN_UNLOAD_PICKER_DOWN4;
+                    //uFlagHigh = upValue & (uint)MotionControl.DioDefine.DIO_IN_ADDR_CH1.IN_UNLOAD_PICKER_DOWN4;
+                    uFlagHigh = upValue & Globalo.motionManager._dio.GetInUnloadPickerUpDown(3, false);
                     if (uFlagHigh == 1)
                     {
                         return true;
@@ -473,7 +489,7 @@ namespace ZenHandler.Machine
             return false;
 
         }
-        public bool GetLensGripState(bool bFlag)
+        public bool GetUnloadGripState(int index, bool bFlag)
         {
             if (ProgramState.ON_LINE_MOTOR == false)
             {
@@ -484,22 +500,13 @@ namespace ZenHandler.Machine
 
             uint uFlagHigh = 0;
             uint upValue = Globalo.motionManager.ioController.m_dwDInDict[lModuleNo][lOffset];
-            if (bFlag)
+
+            uFlagHigh = upValue & Globalo.motionManager._dio.GetInFwUnloadPickerGrip(index, bFlag);
+            if (uFlagHigh == 1)
             {
-                uFlagHigh = upValue & (uint)MotionControl.DioDefine.DIO_IN_ADDR_CH0.IN_LENS_GRIP_FOR;
-                if (uFlagHigh == 1)
-                {
-                    return true;
-                }
+                return true;
             }
-            else
-            {
-                uFlagHigh = upValue & (uint)MotionControl.DioDefine.DIO_IN_ADDR_CH0.IN_LENS_GRIP_BACK;
-                if (uFlagHigh == 1)
-                {
-                    return true;
-                }
-            }
+
             return false;
 
         }
@@ -701,11 +708,13 @@ namespace ZenHandler.Machine
                         {
                             if (bFlag)
                             {
-                                uFlagHigh |= (uint)(MotionControl.DioDefine.DIO_IN_ADDR_CH1.IN_UNLOAD_PICKER_UP1);
+                                // uFlagHigh |= (uint)(MotionControl.DioDefine.DIO_IN_ADDR_CH1.IN_UNLOAD_PICKER_UP1);
+                                uFlagHigh |= Globalo.motionManager._dio.GetInUnloadPickerUpDown(i, bFlag);
                             }
                             else
                             {
-                                uFlagHigh |= (uint)(MotionControl.DioDefine.DIO_IN_ADDR_CH1.IN_UNLOAD_PICKER_DOWN1);
+                                //uFlagHigh |= (uint)(MotionControl.DioDefine.DIO_IN_ADDR_CH1.IN_UNLOAD_PICKER_DOWN1);
+                                uFlagHigh |= Globalo.motionManager._dio.GetInUnloadPickerUpDown(i, bFlag);
                             }
                         }
 
@@ -716,11 +725,13 @@ namespace ZenHandler.Machine
                         {
                             if (bFlag)
                             {
-                                uFlagHigh |= (uint)(MotionControl.DioDefine.DIO_IN_ADDR_CH1.IN_UNLOAD_PICKER_UP2);
+                                //uFlagHigh |= (uint)(MotionControl.DioDefine.DIO_IN_ADDR_CH1.IN_UNLOAD_PICKER_UP2);
+                                uFlagHigh |= Globalo.motionManager._dio.GetInUnloadPickerUpDown(i, bFlag);
                             }
                             else
                             {
-                                uFlagHigh |= (uint)(MotionControl.DioDefine.DIO_IN_ADDR_CH1.IN_UNLOAD_PICKER_DOWN2);
+                                //uFlagHigh |= (uint)(MotionControl.DioDefine.DIO_IN_ADDR_CH1.IN_UNLOAD_PICKER_DOWN2);
+                                uFlagHigh |= Globalo.motionManager._dio.GetInUnloadPickerUpDown(i, bFlag);
                             }
                         }
 
@@ -730,11 +741,13 @@ namespace ZenHandler.Machine
                         {
                             if (bFlag)
                             {
-                                uFlagHigh |= (uint)(MotionControl.DioDefine.DIO_IN_ADDR_CH1.IN_UNLOAD_PICKER_UP3);
+                                //uFlagHigh |= (uint)(MotionControl.DioDefine.DIO_IN_ADDR_CH1.IN_UNLOAD_PICKER_UP3);
+                                uFlagHigh |= Globalo.motionManager._dio.GetInUnloadPickerUpDown(i, bFlag);
                             }
                             else
                             {
-                                uFlagHigh |= (uint)(MotionControl.DioDefine.DIO_IN_ADDR_CH1.IN_UNLOAD_PICKER_DOWN3);
+                                //uFlagHigh |= (uint)(MotionControl.DioDefine.DIO_IN_ADDR_CH1.IN_UNLOAD_PICKER_DOWN3);
+                                uFlagHigh |= Globalo.motionManager._dio.GetInUnloadPickerUpDown(i, bFlag);
                             }
                         }
                         break;
@@ -743,11 +756,13 @@ namespace ZenHandler.Machine
                         {
                             if (bFlag)
                             {
-                                uFlagHigh |= (uint)(MotionControl.DioDefine.DIO_IN_ADDR_CH1.IN_UNLOAD_PICKER_UP4);
+                                //uFlagHigh |= (uint)(MotionControl.DioDefine.DIO_IN_ADDR_CH1.IN_UNLOAD_PICKER_UP4);
+                                uFlagHigh |= Globalo.motionManager._dio.GetInUnloadPickerUpDown(i, bFlag);
                             }
                             else
                             {
-                                uFlagHigh |= (uint)(MotionControl.DioDefine.DIO_IN_ADDR_CH1.IN_UNLOAD_PICKER_DOWN4);
+                                //uFlagHigh |= (uint)(MotionControl.DioDefine.DIO_IN_ADDR_CH1.IN_UNLOAD_PICKER_DOWN4);
+                                uFlagHigh |= Globalo.motionManager._dio.GetInUnloadPickerUpDown(i, bFlag);
                             }
                         }
                         break;
@@ -775,7 +790,6 @@ namespace ZenHandler.Machine
         }
         public bool LoadMultiPickerUp(int[] pickerList , bool bFlag, bool bWait = false)
         {
-            
             //pickerList = 1로 들어오는 Picker만 반응하는 방식 xxxxx
             //동작해야되는 피커 번호만 들어옴 동시 동작 개수 만큼
             bool isSuccess = false;
@@ -797,50 +811,68 @@ namespace ZenHandler.Machine
                     case 0:
                         if (bFlag)
                         {
-                            uFlagHigh |= (uint)(MotionControl.DioDefine.DIO_OUT_ADDR_CH1.LOAD_PICKER_UP1);
-                            uFlagLow |= (uint)(MotionControl.DioDefine.DIO_OUT_ADDR_CH1.LOAD_PICKER_DOWN1);
+                            //uFlagHigh |= (uint)(MotionControl.DioDefine.DIO_OUT_ADDR_CH1.LOAD_PICKER_UP1);
+                            //uFlagLow |= (uint)(MotionControl.DioDefine.DIO_OUT_ADDR_CH1.LOAD_PICKER_DOWN1);
+
+                            uFlagHigh |=  Globalo.motionManager._dio.GetOutLoadPickerUpDown(i, true);
+                            uFlagLow |= Globalo.motionManager._dio.GetOutLoadPickerUpDown(i, false);
                         }
                         else
                         {
-                            uFlagLow |= (uint)(MotionControl.DioDefine.DIO_OUT_ADDR_CH1.LOAD_PICKER_UP1);
-                            uFlagHigh |= (uint)(MotionControl.DioDefine.DIO_OUT_ADDR_CH1.LOAD_PICKER_DOWN1);
+                            //uFlagLow |= (uint)(MotionControl.DioDefine.DIO_OUT_ADDR_CH1.LOAD_PICKER_UP1);
+                            //uFlagHigh |= (uint)(MotionControl.DioDefine.DIO_OUT_ADDR_CH1.LOAD_PICKER_DOWN1);
+
+                            uFlagLow |= Globalo.motionManager._dio.GetOutLoadPickerUpDown(i, true);
+                            uFlagHigh |= Globalo.motionManager._dio.GetOutLoadPickerUpDown(i, false);
                         }
 
                         break;
                     case 1:
                         if (bFlag)
                         {
-                            uFlagHigh |= (uint)(MotionControl.DioDefine.DIO_OUT_ADDR_CH1.LOAD_PICKER_UP2);
-                            uFlagLow |= (uint)(MotionControl.DioDefine.DIO_OUT_ADDR_CH1.LOAD_PICKER_DOWN2);
+                            //uFlagHigh |= (uint)(MotionControl.DioDefine.DIO_OUT_ADDR_CH1.LOAD_PICKER_UP2);
+                            //uFlagLow |= (uint)(MotionControl.DioDefine.DIO_OUT_ADDR_CH1.LOAD_PICKER_DOWN2);
+                            uFlagHigh |= Globalo.motionManager._dio.GetOutLoadPickerUpDown(i, true);
+                            uFlagLow |= Globalo.motionManager._dio.GetOutLoadPickerUpDown(i, false);
                         }
                         else
                         {
-                            uFlagLow |= (uint)(MotionControl.DioDefine.DIO_OUT_ADDR_CH1.LOAD_PICKER_UP2);
-                            uFlagHigh |= (uint)(MotionControl.DioDefine.DIO_OUT_ADDR_CH1.LOAD_PICKER_DOWN2);
+                            //uFlagLow |= (uint)(MotionControl.DioDefine.DIO_OUT_ADDR_CH1.LOAD_PICKER_UP2);
+                            //uFlagHigh |= (uint)(MotionControl.DioDefine.DIO_OUT_ADDR_CH1.LOAD_PICKER_DOWN2);
+                            uFlagLow |= Globalo.motionManager._dio.GetOutLoadPickerUpDown(i, true);
+                            uFlagHigh |= Globalo.motionManager._dio.GetOutLoadPickerUpDown(i, false);
                         }
                         break;
                     case 2:
                         if (bFlag)
                         {
-                            uFlagHigh |= (uint)(MotionControl.DioDefine.DIO_OUT_ADDR_CH1.LOAD_PICKER_UP3);
-                            uFlagLow |= (uint)(MotionControl.DioDefine.DIO_OUT_ADDR_CH1.LOAD_PICKER_DOWN3);
+                            //uFlagHigh |= (uint)(MotionControl.DioDefine.DIO_OUT_ADDR_CH1.LOAD_PICKER_UP3);
+                            //uFlagLow |= (uint)(MotionControl.DioDefine.DIO_OUT_ADDR_CH1.LOAD_PICKER_DOWN3);
+                            uFlagHigh |= Globalo.motionManager._dio.GetOutLoadPickerUpDown(i, true);
+                            uFlagLow |= Globalo.motionManager._dio.GetOutLoadPickerUpDown(i, false);
                         }
                         else
                         {
-                            uFlagLow |= (uint)(MotionControl.DioDefine.DIO_OUT_ADDR_CH1.LOAD_PICKER_UP3);
-                            uFlagHigh |= (uint)(MotionControl.DioDefine.DIO_OUT_ADDR_CH1.LOAD_PICKER_DOWN3);
+                            //uFlagLow |= (uint)(MotionControl.DioDefine.DIO_OUT_ADDR_CH1.LOAD_PICKER_UP3);
+                            //uFlagHigh |= (uint)(MotionControl.DioDefine.DIO_OUT_ADDR_CH1.LOAD_PICKER_DOWN3);
+                            uFlagLow |= Globalo.motionManager._dio.GetOutLoadPickerUpDown(i, true);
+                            uFlagHigh |= Globalo.motionManager._dio.GetOutLoadPickerUpDown(i, false);
                         }
                         break;
                     case 3:
                         if (bFlag)
                         {
-                            uFlagHigh |= (uint)(MotionControl.DioDefine.DIO_OUT_ADDR_CH1.LOAD_PICKER_UP4);
-                            uFlagLow |= (uint)(MotionControl.DioDefine.DIO_OUT_ADDR_CH1.LOAD_PICKER_DOWN4);
+                            //uFlagHigh |= (uint)(MotionControl.DioDefine.DIO_OUT_ADDR_CH1.LOAD_PICKER_UP4);
+                            //uFlagLow |= (uint)(MotionControl.DioDefine.DIO_OUT_ADDR_CH1.LOAD_PICKER_DOWN4);
+                            uFlagHigh |= Globalo.motionManager._dio.GetOutLoadPickerUpDown(i, true);
+                            uFlagLow |= Globalo.motionManager._dio.GetOutLoadPickerUpDown(i, false);
                         }
                         else
                         {
-                            uFlagLow |= (uint)(MotionControl.DioDefine.DIO_OUT_ADDR_CH1.LOAD_PICKER_UP4);
-                            uFlagHigh |= (uint)(MotionControl.DioDefine.DIO_OUT_ADDR_CH1.LOAD_PICKER_DOWN4);
+                            //uFlagLow |= (uint)(MotionControl.DioDefine.DIO_OUT_ADDR_CH1.LOAD_PICKER_UP4);
+                            //uFlagHigh |= (uint)(MotionControl.DioDefine.DIO_OUT_ADDR_CH1.LOAD_PICKER_DOWN4);
+                            uFlagLow |= Globalo.motionManager._dio.GetOutLoadPickerUpDown(i, true);
+                            uFlagHigh |= Globalo.motionManager._dio.GetOutLoadPickerUpDown(i, false);
                         }
                         break;
                     default:
@@ -891,13 +923,17 @@ namespace ZenHandler.Machine
                     case 0:
                         if (bFlag)
                         {
-                            uFlagHigh |= (uint)(MotionControl.DioDefine.DIO_OUT_ADDR_CH1.UNLOAD_PICKER_UP1);
-                            uFlagLow |= (uint)(MotionControl.DioDefine.DIO_OUT_ADDR_CH1.UNLOAD_PICKER_DOWN1);
+                            //uFlagHigh |= (uint)(MotionControl.DioDefine.DIO_OUT_ADDR_CH1.UNLOAD_PICKER_UP1);
+                            //uFlagLow |= (uint)(MotionControl.DioDefine.DIO_OUT_ADDR_CH1.UNLOAD_PICKER_DOWN1);
+                            uFlagHigh |= Globalo.motionManager._dio.GetOutUnloadPickerUpDown(i, true);
+                            uFlagLow |= Globalo.motionManager._dio.GetOutUnloadPickerUpDown(i, false);
                         }
                         else
                         {
-                            uFlagLow |= (uint)(MotionControl.DioDefine.DIO_OUT_ADDR_CH1.UNLOAD_PICKER_UP1);
-                            uFlagHigh |= (uint)(MotionControl.DioDefine.DIO_OUT_ADDR_CH1.UNLOAD_PICKER_DOWN1);
+                            //uFlagLow |= (uint)(MotionControl.DioDefine.DIO_OUT_ADDR_CH1.UNLOAD_PICKER_UP1);
+                            //uFlagHigh |= (uint)(MotionControl.DioDefine.DIO_OUT_ADDR_CH1.UNLOAD_PICKER_DOWN1);
+                            uFlagLow |= Globalo.motionManager._dio.GetOutUnloadPickerUpDown(i, true);
+                            uFlagHigh |= Globalo.motionManager._dio.GetOutUnloadPickerUpDown(i, false);
                         }
 
 
@@ -905,38 +941,50 @@ namespace ZenHandler.Machine
                     case 1:
                         if (bFlag)
                         {
-                            uFlagHigh |= (uint)(MotionControl.DioDefine.DIO_OUT_ADDR_CH1.UNLOAD_PICKER_UP2);
-                            uFlagLow |= (uint)(MotionControl.DioDefine.DIO_OUT_ADDR_CH1.UNLOAD_PICKER_DOWN2);
+                            //uFlagHigh |= (uint)(MotionControl.DioDefine.DIO_OUT_ADDR_CH1.UNLOAD_PICKER_UP2);
+                            //uFlagLow |= (uint)(MotionControl.DioDefine.DIO_OUT_ADDR_CH1.UNLOAD_PICKER_DOWN2);
+                            uFlagHigh |= Globalo.motionManager._dio.GetOutUnloadPickerUpDown(i, true);
+                            uFlagLow |= Globalo.motionManager._dio.GetOutUnloadPickerUpDown(i, false);
                         }
                         else
                         {
-                            uFlagLow |= (uint)(MotionControl.DioDefine.DIO_OUT_ADDR_CH1.UNLOAD_PICKER_UP2);
-                            uFlagHigh |= (uint)(MotionControl.DioDefine.DIO_OUT_ADDR_CH1.UNLOAD_PICKER_DOWN2);
+                            //uFlagLow |= (uint)(MotionControl.DioDefine.DIO_OUT_ADDR_CH1.UNLOAD_PICKER_UP2);
+                            //uFlagHigh |= (uint)(MotionControl.DioDefine.DIO_OUT_ADDR_CH1.UNLOAD_PICKER_DOWN2);
+                            uFlagLow |= Globalo.motionManager._dio.GetOutUnloadPickerUpDown(i, true);
+                            uFlagHigh |= Globalo.motionManager._dio.GetOutUnloadPickerUpDown(i, false);
                         }
 
                         break;
                     case 2:
                         if (bFlag)
                         {
-                            uFlagHigh |= (uint)(MotionControl.DioDefine.DIO_OUT_ADDR_CH1.UNLOAD_PICKER_UP3);
-                            uFlagLow |= (uint)(MotionControl.DioDefine.DIO_OUT_ADDR_CH1.UNLOAD_PICKER_DOWN3);
+                            //uFlagHigh |= (uint)(MotionControl.DioDefine.DIO_OUT_ADDR_CH1.UNLOAD_PICKER_UP3);
+                            //uFlagLow |= (uint)(MotionControl.DioDefine.DIO_OUT_ADDR_CH1.UNLOAD_PICKER_DOWN3);
+                            uFlagHigh |= Globalo.motionManager._dio.GetOutUnloadPickerUpDown(i, true);
+                            uFlagLow |= Globalo.motionManager._dio.GetOutUnloadPickerUpDown(i, false);
                         }
                         else
                         {
-                            uFlagLow |= (uint)(MotionControl.DioDefine.DIO_OUT_ADDR_CH1.UNLOAD_PICKER_UP3);
-                            uFlagHigh |= (uint)(MotionControl.DioDefine.DIO_OUT_ADDR_CH1.UNLOAD_PICKER_DOWN3);
+                            //uFlagLow |= (uint)(MotionControl.DioDefine.DIO_OUT_ADDR_CH1.UNLOAD_PICKER_UP3);
+                            //uFlagHigh |= (uint)(MotionControl.DioDefine.DIO_OUT_ADDR_CH1.UNLOAD_PICKER_DOWN3);
+                            uFlagLow |= Globalo.motionManager._dio.GetOutUnloadPickerUpDown(i, true);
+                            uFlagHigh |= Globalo.motionManager._dio.GetOutUnloadPickerUpDown(i, false);
                         }
                         break;
                     case 3:
                         if (bFlag)
                         {
-                            uFlagHigh |= (uint)(MotionControl.DioDefine.DIO_OUT_ADDR_CH1.UNLOAD_PICKER_UP4);
-                            uFlagLow |= (uint)(MotionControl.DioDefine.DIO_OUT_ADDR_CH1.UNLOAD_PICKER_DOWN4);
+                            //uFlagHigh |= (uint)(MotionControl.DioDefine.DIO_OUT_ADDR_CH1.UNLOAD_PICKER_UP4);
+                            //uFlagLow |= (uint)(MotionControl.DioDefine.DIO_OUT_ADDR_CH1.UNLOAD_PICKER_DOWN4);
+                            uFlagHigh |= Globalo.motionManager._dio.GetOutUnloadPickerUpDown(i, true);
+                            uFlagLow |= Globalo.motionManager._dio.GetOutUnloadPickerUpDown(i, false);
                         }
                         else
                         {
-                            uFlagLow |= (uint)(MotionControl.DioDefine.DIO_OUT_ADDR_CH1.UNLOAD_PICKER_UP4);
-                            uFlagHigh |= (uint)(MotionControl.DioDefine.DIO_OUT_ADDR_CH1.UNLOAD_PICKER_DOWN4);
+                            //uFlagLow |= (uint)(MotionControl.DioDefine.DIO_OUT_ADDR_CH1.UNLOAD_PICKER_UP4);
+                            //uFlagHigh |= (uint)(MotionControl.DioDefine.DIO_OUT_ADDR_CH1.UNLOAD_PICKER_DOWN4);
+                            uFlagLow |= Globalo.motionManager._dio.GetOutUnloadPickerUpDown(i, true);
+                            uFlagHigh |= Globalo.motionManager._dio.GetOutUnloadPickerUpDown(i, false);
                         }
                         break;
                     default:
@@ -966,52 +1014,68 @@ namespace ZenHandler.Machine
             {
                 if (bFlag)
                 {
-                    uFlagHigh = (uint)MotionControl.DioDefine.DIO_OUT_ADDR_CH1.LOAD_PICKER_UP1;
-                    uFlagLow = (uint)MotionControl.DioDefine.DIO_OUT_ADDR_CH1.LOAD_PICKER_DOWN1;
+                    //uFlagHigh = (uint)MotionControl.DioDefine.DIO_OUT_ADDR_CH1.LOAD_PICKER_UP1;
+                    //uFlagLow = (uint)MotionControl.DioDefine.DIO_OUT_ADDR_CH1.LOAD_PICKER_DOWN1;
+                    uFlagHigh |= Globalo.motionManager._dio.GetOutLoadPickerUpDown(index, true);
+                    uFlagLow |= Globalo.motionManager._dio.GetOutLoadPickerUpDown(index, false);
                 }
                 else
                 {
-                    uFlagHigh = (uint)MotionControl.DioDefine.DIO_OUT_ADDR_CH1.LOAD_PICKER_DOWN1;
-                    uFlagLow = (uint)MotionControl.DioDefine.DIO_OUT_ADDR_CH1.LOAD_PICKER_UP1;
+                    //uFlagHigh = (uint)MotionControl.DioDefine.DIO_OUT_ADDR_CH1.LOAD_PICKER_DOWN1;
+                    //uFlagLow = (uint)MotionControl.DioDefine.DIO_OUT_ADDR_CH1.LOAD_PICKER_UP1;
+                    uFlagHigh |= Globalo.motionManager._dio.GetOutLoadPickerUpDown(index, false);
+                    uFlagLow |= Globalo.motionManager._dio.GetOutLoadPickerUpDown(index, true);
                 }
             }
             else if (index == 1)
             {
                 if (bFlag)
                 {
-                    uFlagHigh = (uint)MotionControl.DioDefine.DIO_OUT_ADDR_CH1.LOAD_PICKER_UP2;
-                    uFlagLow = (uint)MotionControl.DioDefine.DIO_OUT_ADDR_CH1.LOAD_PICKER_DOWN2;
+                    //uFlagHigh = (uint)MotionControl.DioDefine.DIO_OUT_ADDR_CH1.LOAD_PICKER_UP2;
+                    //uFlagLow = (uint)MotionControl.DioDefine.DIO_OUT_ADDR_CH1.LOAD_PICKER_DOWN2;
+                    uFlagHigh |= Globalo.motionManager._dio.GetOutLoadPickerUpDown(index, true);
+                    uFlagLow |= Globalo.motionManager._dio.GetOutLoadPickerUpDown(index, false);
                 }
                 else
                 {
-                    uFlagHigh = (uint)MotionControl.DioDefine.DIO_OUT_ADDR_CH1.LOAD_PICKER_DOWN2;
-                    uFlagLow = (uint)MotionControl.DioDefine.DIO_OUT_ADDR_CH1.LOAD_PICKER_UP2;
+                    //uFlagHigh = (uint)MotionControl.DioDefine.DIO_OUT_ADDR_CH1.LOAD_PICKER_DOWN2;
+                    //uFlagLow = (uint)MotionControl.DioDefine.DIO_OUT_ADDR_CH1.LOAD_PICKER_UP2;
+                    uFlagHigh |= Globalo.motionManager._dio.GetOutLoadPickerUpDown(index, false);
+                    uFlagLow |= Globalo.motionManager._dio.GetOutLoadPickerUpDown(index, true);
                 }
             }
             else if (index == 2)
             {
                 if (bFlag)
                 {
-                    uFlagHigh = (uint)MotionControl.DioDefine.DIO_OUT_ADDR_CH1.LOAD_PICKER_UP3;
-                    uFlagLow = (uint)MotionControl.DioDefine.DIO_OUT_ADDR_CH1.LOAD_PICKER_DOWN3;
+                    //uFlagHigh = (uint)MotionControl.DioDefine.DIO_OUT_ADDR_CH1.LOAD_PICKER_UP3;
+                    //uFlagLow = (uint)MotionControl.DioDefine.DIO_OUT_ADDR_CH1.LOAD_PICKER_DOWN3;
+                    uFlagHigh |= Globalo.motionManager._dio.GetOutLoadPickerUpDown(index, true);
+                    uFlagLow |= Globalo.motionManager._dio.GetOutLoadPickerUpDown(index, false);
                 }
                 else
                 {
-                    uFlagHigh = (uint)MotionControl.DioDefine.DIO_OUT_ADDR_CH1.LOAD_PICKER_DOWN3;
-                    uFlagLow = (uint)MotionControl.DioDefine.DIO_OUT_ADDR_CH1.LOAD_PICKER_UP3;
+                    //uFlagHigh = (uint)MotionControl.DioDefine.DIO_OUT_ADDR_CH1.LOAD_PICKER_DOWN3;
+                    //uFlagLow = (uint)MotionControl.DioDefine.DIO_OUT_ADDR_CH1.LOAD_PICKER_UP3;
+                    uFlagHigh |= Globalo.motionManager._dio.GetOutLoadPickerUpDown(index, false);
+                    uFlagLow |= Globalo.motionManager._dio.GetOutLoadPickerUpDown(index, true);
                 }
             }
             else if (index == 3)
             {
                 if (bFlag)
                 {
-                    uFlagHigh = (uint)MotionControl.DioDefine.DIO_OUT_ADDR_CH1.LOAD_PICKER_UP4;
-                    uFlagLow = (uint)MotionControl.DioDefine.DIO_OUT_ADDR_CH1.LOAD_PICKER_DOWN4;
+                    //uFlagHigh = (uint)MotionControl.DioDefine.DIO_OUT_ADDR_CH1.LOAD_PICKER_UP4;
+                    //uFlagLow = (uint)MotionControl.DioDefine.DIO_OUT_ADDR_CH1.LOAD_PICKER_DOWN4;
+                    uFlagHigh |= Globalo.motionManager._dio.GetOutLoadPickerUpDown(index, true);
+                    uFlagLow |= Globalo.motionManager._dio.GetOutLoadPickerUpDown(index, false);
                 }
                 else
                 {
-                    uFlagHigh = (uint)MotionControl.DioDefine.DIO_OUT_ADDR_CH1.LOAD_PICKER_DOWN4;
-                    uFlagLow = (uint)MotionControl.DioDefine.DIO_OUT_ADDR_CH1.LOAD_PICKER_UP4;
+                    //uFlagHigh = (uint)MotionControl.DioDefine.DIO_OUT_ADDR_CH1.LOAD_PICKER_DOWN4;
+                    //uFlagLow = (uint)MotionControl.DioDefine.DIO_OUT_ADDR_CH1.LOAD_PICKER_UP4;
+                    uFlagHigh |= Globalo.motionManager._dio.GetOutLoadPickerUpDown(index, false);
+                    uFlagLow |= Globalo.motionManager._dio.GetOutLoadPickerUpDown(index, true);
                 }
             }
             
@@ -1073,13 +1137,17 @@ namespace ZenHandler.Machine
 
             if (bFlag)
             {
-                uFlagHigh = (uint)MotionControl.DioDefine.DIO_OUT_ADDR_CH0.VACUUM_ON;
-                uFlagLow = (uint)MotionControl.DioDefine.DIO_OUT_ADDR_CH0.VACUUM_OFF;
+                //uFlagHigh = (uint)MotionControl.DioDefine.DIO_OUT_ADDR_CH0.VACUUM_ON;
+                //uFlagLow = (uint)MotionControl.DioDefine.DIO_OUT_ADDR_CH0.VACUUM_OFF;
+                uFlagHigh |= Globalo.motionManager._dio.GetInLoadPickerVacuumOn(index, true);
+                uFlagLow |= Globalo.motionManager._dio.GetInLoadPickerVacuumOn(index, false);
             }
             else
             {
-                uFlagHigh = (uint)MotionControl.DioDefine.DIO_OUT_ADDR_CH0.VACUUM_OFF;
-                uFlagLow = (uint)MotionControl.DioDefine.DIO_OUT_ADDR_CH0.VACUUM_ON;
+                //uFlagHigh = (uint)MotionControl.DioDefine.DIO_OUT_ADDR_CH0.VACUUM_OFF;
+                // uFlagLow = (uint)MotionControl.DioDefine.DIO_OUT_ADDR_CH0.VACUUM_ON;
+                uFlagHigh |= Globalo.motionManager._dio.GetInLoadPickerVacuumOn(index, false);
+                uFlagLow |= Globalo.motionManager._dio.GetInLoadPickerVacuumOn(index, true);
             }
 
             bool Rtn = Globalo.motionManager.ioController.DioWriteOutportByte(lModuleNo, lOffset, uFlagHigh, uFlagLow);
@@ -1093,7 +1161,8 @@ namespace ZenHandler.Machine
             {
                 Thread.Sleep(300);
                 //off 일때 파기를 꺼줘야된다.
-                uFlagLow = (uint)MotionControl.DioDefine.DIO_OUT_ADDR_CH0.VACUUM_OFF;
+                //uFlagLow = (uint)MotionControl.DioDefine.DIO_OUT_ADDR_CH0.VACUUM_OFF;
+                uFlagLow = Globalo.motionManager._dio.GetInLoadPickerVacuumOn(index, false);
                 Globalo.motionManager.ioController.DioWriteOutportByte(lModuleNo, lOffset, uFlagLow, false);
                 
             }
@@ -1147,13 +1216,19 @@ namespace ZenHandler.Machine
 
             if (bFlag)
             {
-                uFlagHigh = (uint)MotionControl.DioDefine.DIO_OUT_ADDR_CH0.VACUUM_ON;
-                uFlagLow = (uint)MotionControl.DioDefine.DIO_OUT_ADDR_CH0.VACUUM_OFF;
+                //uFlagHigh = (uint)MotionControl.DioDefine.DIO_OUT_ADDR_CH0.VACUUM_ON;
+                //uFlagLow = (uint)MotionControl.DioDefine.DIO_OUT_ADDR_CH0.VACUUM_OFF;
+
+                uFlagHigh |= Globalo.motionManager._dio.GetOutUnloadPickerVacuumOn(index, true);
+                uFlagLow |= Globalo.motionManager._dio.GetOutUnloadPickerVacuumOn(index, false);
             }
             else
             {
-                uFlagHigh = (uint)MotionControl.DioDefine.DIO_OUT_ADDR_CH0.VACUUM_OFF;
-                uFlagLow = (uint)MotionControl.DioDefine.DIO_OUT_ADDR_CH0.VACUUM_ON;
+                //uFlagHigh = (uint)MotionControl.DioDefine.DIO_OUT_ADDR_CH0.VACUUM_OFF;
+                //uFlagLow = (uint)MotionControl.DioDefine.DIO_OUT_ADDR_CH0.VACUUM_ON;
+
+                uFlagHigh |= Globalo.motionManager._dio.GetOutUnloadPickerVacuumOn(index, true);
+                uFlagLow |= Globalo.motionManager._dio.GetOutUnloadPickerVacuumOn(index, false);
             }
 
             bool Rtn = Globalo.motionManager.ioController.DioWriteOutportByte(lModuleNo, lOffset, uFlagHigh, uFlagLow);
@@ -1200,7 +1275,7 @@ namespace ZenHandler.Machine
             }
             return isSuccess;
         }
-        public bool LensGripOn(int index, bool bFlag, bool bWait = false)
+        public bool UnloadGripOn(int index, bool bFlag, bool bWait = false)
         {
             if (ProgramState.ON_LINE_MOTOR == false)
             {
@@ -1213,14 +1288,16 @@ namespace ZenHandler.Machine
 
             if (bFlag)
             {
-                uFlagHigh = (uint)MotionControl.DioDefine.DIO_OUT_ADDR_CH0.LENS_GRIP_FOR;
-                uFlagLow = (uint)MotionControl.DioDefine.DIO_OUT_ADDR_CH0.LENS_GRIP_BACK;
+                uFlagHigh = Globalo.motionManager._dio.GetOutFwUnloadPickerGrip(index, true);
+                uFlagLow = Globalo.motionManager._dio.GetOutFwUnloadPickerGrip(index, false);
             }
             else
             {
-                uFlagHigh = (uint)MotionControl.DioDefine.DIO_OUT_ADDR_CH0.LENS_GRIP_BACK;
-                uFlagLow = (uint)MotionControl.DioDefine.DIO_OUT_ADDR_CH0.LENS_GRIP_FOR;
+                uFlagHigh = Globalo.motionManager._dio.GetOutFwUnloadPickerGrip(index, false);
+                uFlagLow = Globalo.motionManager._dio.GetOutFwUnloadPickerGrip(index, true);
             }
+
+
 
             bool Rtn = Globalo.motionManager.ioController.DioWriteOutportByte(lModuleNo, lOffset, uFlagHigh, uFlagLow);
             if (Rtn == false)
@@ -1246,7 +1323,7 @@ namespace ZenHandler.Machine
                     int nTimeTick = 0;
                     while (bWait)
                     {
-                        Rtn = GetLensGripState(bFlag);
+                        Rtn = GetUnloadGripState(index, bFlag);
                         if (Rtn == true)
                         {
                             isSuccess = true;

@@ -8,6 +8,245 @@ namespace ZenHandler.MotionControl
 {
     public class FwDioDefine
     {
+        public uint GetInLoadPickerUpDown(int index, bool bFlag)
+        {
+            if (bFlag)
+            {
+                switch (index)
+                {
+                    case 0: return (uint)DIO_IN_ADDR_CH2.IN1_TRANSFER_LOAD_PICKER_UP1;
+                    case 1: return (uint)DIO_IN_ADDR_CH2.IN1_TRANSFER_LOAD_PICKER_UP2;
+                    case 2: return (uint)DIO_IN_ADDR_CH2.IN1_TRANSFER_LOAD_PICKER_UP3;
+                    case 3: return (uint)DIO_IN_ADDR_CH2.IN1_TRANSFER_LOAD_PICKER_UP4;
+                    default:
+                        // 로그 남기기 (예: LogHelper.Write)
+                        Console.WriteLine($"[Warning] 잘못된 GetInLoadPickerUpDown 타입 요청됨: {index}");
+                        //throw new ArgumentOutOfRangeException(nameof(nType), nType, "Invalid Tower Lamp Type");
+                        return 0; // 또는 사용하지 않는 안전한 비트
+                }
+            }
+            else
+            {
+                switch (index)
+                {
+                    case 0: return (uint)DIO_IN_ADDR_CH2.IN0_TRANSFER_LOAD_PICKER_DOWN1;
+                    case 1: return (uint)DIO_IN_ADDR_CH2.IN0_TRANSFER_LOAD_PICKER_DOWN2;
+                    case 2: return (uint)DIO_IN_ADDR_CH2.IN0_TRANSFER_LOAD_PICKER_DOWN3;
+                    case 3: return (uint)DIO_IN_ADDR_CH2.IN0_TRANSFER_LOAD_PICKER_DOWN4;
+                    default:
+                        // 로그 남기기 (예: LogHelper.Write)
+                        Console.WriteLine($"[Warning] 잘못된 GetInLoadPickerUpDown 타입 요청됨: {index}");
+                        //throw new ArgumentOutOfRangeException(nameof(nType), nType, "Invalid Tower Lamp Type");
+                        return 0; // 또는 사용하지 않는 안전한 비트
+                }
+            }
+        }
+        public uint GetInUnloadPickerUpDown(int index, bool bFlag)
+        {
+            if (bFlag)
+            {
+                switch (index)
+                {
+                    case 0: return (uint)DIO_IN_ADDR_CH2.IN2_TRANSFER_UNLOAD_PICKER_UP1;
+                    case 1: return (uint)DIO_IN_ADDR_CH2.IN2_TRANSFER_UNLOAD_PICKER_UP2;
+                    case 2: return (uint)DIO_IN_ADDR_CH2.IN2_TRANSFER_UNLOAD_PICKER_UP3;
+                    case 3: return (uint)DIO_IN_ADDR_CH2.IN2_TRANSFER_UNLOAD_PICKER_UP4;
+                    default:
+                        // 로그 남기기 (예: LogHelper.Write)
+                        Console.WriteLine($"[Warning] 잘못된 GetInUnloadPickerUpDown 타입 요청됨: {index}");
+                        //throw new ArgumentOutOfRangeException(nameof(nType), nType, "Invalid Tower Lamp Type");
+                        return 0; // 또는 사용하지 않는 안전한 비트
+                }
+            }
+            else
+            {
+                switch (index)
+                {
+                    case 0: return (uint)DIO_IN_ADDR_CH2.IN1_TRANSFER_UNLOAD_PICKER_DOWN1;
+                    case 1: return (uint)DIO_IN_ADDR_CH2.IN1_TRANSFER_UNLOAD_PICKER_DOWN2;
+                    case 2: return (uint)DIO_IN_ADDR_CH2.IN1_TRANSFER_UNLOAD_PICKER_DOWN3;
+                    case 3: return (uint)DIO_IN_ADDR_CH2.IN1_TRANSFER_UNLOAD_PICKER_DOWN4;
+                    default:
+                        // 로그 남기기 (예: LogHelper.Write)
+                        Console.WriteLine($"[Warning] 잘못된 GetInUnloadPickerUpDown 타입 요청됨: {index}");
+                        //throw new ArgumentOutOfRangeException(nameof(nType), nType, "Invalid Tower Lamp Type");
+                        return 0; // 또는 사용하지 않는 안전한 비트
+                }
+            }
+        }
+        public uint GetOutLoadPickerUpDown(int index, bool bFlag)
+        {
+            if (bFlag)
+            {
+                switch (index)
+                {
+                    case 0: return (uint)DIO_OUT_ADDR_CH3.OUT0_TRANSFER_LOAD_PICKER_UP1;
+                    case 1: return (uint)DIO_OUT_ADDR_CH3.OUT0_TRANSFER_LOAD_PICKER_UP2;
+                    case 2: return (uint)DIO_OUT_ADDR_CH3.OUT0_TRANSFER_LOAD_PICKER_UP3;
+                    case 3: return (uint)DIO_OUT_ADDR_CH3.OUT0_TRANSFER_LOAD_PICKER_UP4;
+                    default:
+                        // 로그 남기기 (예: LogHelper.Write)
+                        Console.WriteLine($"[Warning] 잘못된 GetOutLoadPickerUpDown 타입 요청됨: {index}");
+                        //throw new ArgumentOutOfRangeException(nameof(nType), nType, "Invalid Tower Lamp Type");
+                        return 0; // 또는 사용하지 않는 안전한 비트
+                }
+            }
+            else
+            {
+                switch (index)
+                {
+                    case 0: return (uint)DIO_OUT_ADDR_CH3.OUT0_TRANSFER_LOAD_PICKER_DOWN1;
+                    case 1: return (uint)DIO_OUT_ADDR_CH3.OUT0_TRANSFER_LOAD_PICKER_DOWN2;
+                    case 2: return (uint)DIO_OUT_ADDR_CH3.OUT0_TRANSFER_LOAD_PICKER_DOWN3;
+                    case 3: return (uint)DIO_OUT_ADDR_CH3.OUT0_TRANSFER_LOAD_PICKER_DOWN4;
+                    default:
+                        // 로그 남기기 (예: LogHelper.Write)
+                        Console.WriteLine($"[Warning] 잘못된 GetOutLoadPickerUpDown 타입 요청됨: {index}");
+                        //throw new ArgumentOutOfRangeException(nameof(nType), nType, "Invalid Tower Lamp Type");
+                        return 0; // 또는 사용하지 않는 안전한 비트
+                }
+            }
+        }
+        public uint GetOutUnloadPickerUpDown(int index, bool bFlag)
+        {
+            if (bFlag)
+            {
+                switch (index)
+                {
+                    case 0: return (uint)DIO_OUT_ADDR_CH3.OUT1_TRANSFER_UNLOAD_PICKER_UP1;
+                    case 1: return (uint)DIO_OUT_ADDR_CH3.OUT1_TRANSFER_UNLOAD_PICKER_UP2;
+                    case 2: return (uint)DIO_OUT_ADDR_CH3.OUT1_TRANSFER_UNLOAD_PICKER_UP3;
+                    case 3: return (uint)DIO_OUT_ADDR_CH3.OUT1_TRANSFER_UNLOAD_PICKER_UP4;
+                    default:
+                        // 로그 남기기 (예: LogHelper.Write)
+                        Console.WriteLine($"[Warning] 잘못된 GetOutUnloadPickerUpDown 타입 요청됨: {index}");
+                        //throw new ArgumentOutOfRangeException(nameof(nType), nType, "Invalid Tower Lamp Type");
+                        return 0; // 또는 사용하지 않는 안전한 비트
+                }
+            }
+            else
+            {
+                switch (index)
+                {
+                    case 0: return (uint)DIO_OUT_ADDR_CH3.OUT1_TRANSFER_UNLOAD_PICKER_DOWN1;
+                    case 1: return (uint)DIO_OUT_ADDR_CH3.OUT1_TRANSFER_UNLOAD_PICKER_DOWN2;
+                    case 2: return (uint)DIO_OUT_ADDR_CH3.OUT1_TRANSFER_UNLOAD_PICKER_DOWN3;
+                    case 3: return (uint)DIO_OUT_ADDR_CH3.OUT1_TRANSFER_UNLOAD_PICKER_DOWN4;
+                    default:
+                        // 로그 남기기 (예: LogHelper.Write)
+                        Console.WriteLine($"[Warning] 잘못된 GetOutUnloadPickerUpDown 타입 요청됨: {index}");
+                        //throw new ArgumentOutOfRangeException(nameof(nType), nType, "Invalid Tower Lamp Type");
+                        return 0; // 또는 사용하지 않는 안전한 비트
+                }
+            }
+        }
+        public uint GetOutLoadPickerVacuumOn(int index, bool bFlag)
+        {
+            if (bFlag)
+            {
+                switch (index)
+                {
+                    case 0: return (uint)DIO_OUT_ADDR_CH3.OUT2_TRANSFER_LOAD_PICKER_VACUUM_ON1;
+                    case 1: return (uint)DIO_OUT_ADDR_CH3.OUT2_TRANSFER_LOAD_PICKER_VACUUM_ON2;
+                    case 2: return (uint)DIO_OUT_ADDR_CH3.OUT2_TRANSFER_LOAD_PICKER_VACUUM_ON3;
+                    case 3: return (uint)DIO_OUT_ADDR_CH3.OUT2_TRANSFER_LOAD_PICKER_VACUUM_ON4;
+                    default:
+                        // 로그 남기기 (예: LogHelper.Write)
+                        Console.WriteLine($"[Warning] 잘못된 GetOutFwUnloadPickerGrip 타입 요청됨: {index}");
+                        //throw new ArgumentOutOfRangeException(nameof(nType), nType, "Invalid Tower Lamp Type");
+                        return 0; // 또는 사용하지 않는 안전한 비트
+                }
+            }
+            else
+            {
+                switch (index)
+                {
+                    case 0: return (uint)DIO_OUT_ADDR_CH3.OUT2_TRANSFER_LOAD_PICKER_BLOW_ON1;
+                    case 1: return (uint)DIO_OUT_ADDR_CH3.OUT2_TRANSFER_LOAD_PICKER_BLOW_ON2;
+                    case 2: return (uint)DIO_OUT_ADDR_CH3.OUT2_TRANSFER_LOAD_PICKER_BLOW_ON3;
+                    case 3: return (uint)DIO_OUT_ADDR_CH3.OUT2_TRANSFER_LOAD_PICKER_BLOW_ON4;
+                    default:
+                        // 로그 남기기 (예: LogHelper.Write)
+                        Console.WriteLine($"[Warning] 잘못된 GetOutFwUnloadPickerGrip 타입 요청됨: {index}");
+                        //throw new ArgumentOutOfRangeException(nameof(nType), nType, "Invalid Tower Lamp Type");
+                        return 0; // 또는 사용하지 않는 안전한 비트
+                }
+            }
+        }
+
+        public uint GetOutUnloadPickerVacuumOn(int index, bool bFlag)
+        {
+            //Fw 설비는 Unload 는 Grip / UnGrip 방식
+            return 0;
+        }
+        public uint GetOutFwUnloadPickerGrip(int index, bool bFlag)
+        {
+            if (bFlag)
+            {
+                switch (index)
+                {
+                    case 0: return (uint)DIO_OUT_ADDR_CH3.OUT3_TRANSFER_UNLOAD_PICKER_GRIP1;
+                    case 1: return (uint)DIO_OUT_ADDR_CH3.OUT3_TRANSFER_UNLOAD_PICKER_GRIP2;
+                    case 2: return (uint)DIO_OUT_ADDR_CH3.OUT3_TRANSFER_UNLOAD_PICKER_GRIP3;
+                    case 3: return (uint)DIO_OUT_ADDR_CH3.OUT3_TRANSFER_UNLOAD_PICKER_GRIP4;
+                    default:
+                        // 로그 남기기 (예: LogHelper.Write)
+                        Console.WriteLine($"[Warning] 잘못된 GetOutFwUnloadPickerGrip 타입 요청됨: {index}");
+                        //throw new ArgumentOutOfRangeException(nameof(nType), nType, "Invalid Tower Lamp Type");
+                        return 0; // 또는 사용하지 않는 안전한 비트
+                }
+            }
+            else
+            {
+                switch (index)
+                {
+                    case 0: return (uint)DIO_OUT_ADDR_CH3.OUT3_TRANSFER_UNLOAD_PICKER_UNGRIP1;
+                    case 1: return (uint)DIO_OUT_ADDR_CH3.OUT3_TRANSFER_UNLOAD_PICKER_UNGRIP2;
+                    case 2: return (uint)DIO_OUT_ADDR_CH3.OUT3_TRANSFER_UNLOAD_PICKER_UNGRIP3;
+                    case 3: return (uint)DIO_OUT_ADDR_CH3.OUT3_TRANSFER_UNLOAD_PICKER_UNGRIP4;
+                    default:
+                        // 로그 남기기 (예: LogHelper.Write)
+                        Console.WriteLine($"[Warning] 잘못된 GetOutFwUnloadPickerGrip 타입 요청됨: {index}");
+                        //throw new ArgumentOutOfRangeException(nameof(nType), nType, "Invalid Tower Lamp Type");
+                        return 0; // 또는 사용하지 않는 안전한 비트
+                }
+            }
+            
+        }
+        public uint GetInFwUnloadPickerGrip(int index, bool bFlag)
+        {
+            if (bFlag)
+            {
+                switch (index)
+                {
+                    case 0: return (uint)DIO_IN_ADDR_CH2.IN3_TRANSFER_UNLOAD_PICKER_GRIP1;
+                    case 1: return (uint)DIO_IN_ADDR_CH2.IN3_TRANSFER_UNLOAD_PICKER_GRIP2;
+                    case 2: return (uint)DIO_IN_ADDR_CH2.IN3_TRANSFER_UNLOAD_PICKER_GRIP3;
+                    case 3: return (uint)DIO_IN_ADDR_CH2.IN3_TRANSFER_UNLOAD_PICKER_GRIP4;
+                    default:
+                        // 로그 남기기 (예: LogHelper.Write)
+                        Console.WriteLine($"[Warning] 잘못된 GetInFwUnloadPickerGrip 타입 요청됨: {nType}");
+                        //throw new ArgumentOutOfRangeException(nameof(nType), nType, "Invalid Tower Lamp Type");
+                        return 0; // 또는 사용하지 않는 안전한 비트
+                }
+            }
+            else
+            {
+                switch (index)
+                {
+                    case 0: return (uint)DIO_IN_ADDR_CH2.IN3_TRANSFER_UNLOAD_PICKER_UNGRIP1;
+                    case 1: return (uint)DIO_IN_ADDR_CH2.IN3_TRANSFER_UNLOAD_PICKER_UNGRIP2;
+                    case 2: return (uint)DIO_IN_ADDR_CH2.IN3_TRANSFER_UNLOAD_PICKER_UNGRIP3;
+                    case 3: return (uint)DIO_IN_ADDR_CH2.IN3_TRANSFER_UNLOAD_PICKER_UNGRIP4;
+                    default:
+                        // 로그 남기기 (예: LogHelper.Write)
+                        Console.WriteLine($"[Warning] 잘못된 GetInFwUnloadPickerGrip 타입 요청됨: {index}");
+                        //throw new ArgumentOutOfRangeException(nameof(nType), nType, "Invalid Tower Lamp Type");
+                        return 0; // 또는 사용하지 않는 안전한 비트
+                }
+            }
+            
+        }
         public uint GetOutBuzzer(int nType)
         {
             switch (nType)
@@ -158,32 +397,32 @@ namespace ZenHandler.MotionControl
             IN0_RIGHT_MAGAZINE_LOAD_MODE            = 0x00000040,
             IN0_RIGHT_MAGAZINE_COMPLETE_MODE        = 0x00000080,  //8
             //
-            IN0_DOOR_UNLOCK_FRONT_L                 = 0x00000001,  //9
-            IN0_DOOR_UNLOCK_FRONT_R                 = 0x00000002,
-            IN0_DOOR_UNLOCK_BACK_L                  = 0x00000004,
-            IN0_DOOR_UNLOCK_BACK_R                  = 0x00000008,  //12
-            IN0_LEFT_MAGAZINE_DOOR_LOCK_UP          = 0x00000010,
-            IN0_LEFT_MAGAZINE_DOOR_LOCK_DOWN        = 0x00000020,
-            IN0_RIGHT_MAGAZINE_DOOR_LOCK_UP         = 0x00000040,
-            IN0_RIGHT_MAGAZINE_DOOR_LOCK_DOWN       = 0x00000080,  //16
+            IN1_DOOR_UNLOCK_FRONT_L                 = 0x00000001,  //9
+            IN1_DOOR_UNLOCK_FRONT_R                 = 0x00000002,
+            IN1_DOOR_UNLOCK_BACK_L                  = 0x00000004,
+            IN1_DOOR_UNLOCK_BACK_R                  = 0x00000008,  //12
+            IN1_LEFT_MAGAZINE_DOOR_LOCK_UP          = 0x00000010,
+            IN1_LEFT_MAGAZINE_DOOR_LOCK_DOWN        = 0x00000020,
+            IN1_RIGHT_MAGAZINE_DOOR_LOCK_UP         = 0x00000040,
+            IN1_RIGHT_MAGAZINE_DOOR_LOCK_DOWN       = 0x00000080,  //16
             //
-            IN0_LEFT_MAGAZINE_MAGNETIC              = 0x00000001,  //17
-            IN0_RIGHT_MAGAZINE_MAGNETIC             = 0x00000002,
-            IN0_LEFT_NG_DOOR_LOCK_LAMP              = 0x00000004,
-            IN0_LEFT_NG_DOOR_UNLOCK_LAMP            = 0x00000008,  //20
-            IN0_RIGHT_NG_DOOR_LOCK_LAMP             = 0x00000010,
-            IN0_RIGHT_NG_DOOR_UNLOCK_LAMP           = 0x00000020,
-            IN0_LEFT_NG_DOOR_LOCK_UP                = 0x00000040,
-            IN0_LEFT_NG_DOOR_LOCK_DOWN              = 0x00000080,  //24
+            IN2_LEFT_MAGAZINE_MAGNETIC              = 0x00000001,  //17
+            IN2_RIGHT_MAGAZINE_MAGNETIC             = 0x00000002,
+            IN2_LEFT_NG_DOOR_LOCK_LAMP              = 0x00000004,
+            IN2_LEFT_NG_DOOR_UNLOCK_LAMP            = 0x00000008,  //20
+            IN2_RIGHT_NG_DOOR_LOCK_LAMP             = 0x00000010,
+            IN2_RIGHT_NG_DOOR_UNLOCK_LAMP           = 0x00000020,
+            IN2_LEFT_NG_DOOR_LOCK_UP                = 0x00000040,
+            IN2_LEFT_NG_DOOR_LOCK_DOWN              = 0x00000080,  //24
             //
-            IN0_RIGHT_NG_DOOR_LOCK_UP               = 0x00000001,  //25
-            IN0_RIGHT_NG_DOOR_LOCK_DOWN             = 0x00000002,
-            IN0_LEFT_MAGAZINE_DOCKED1               = 0x00000004,
-            IN0_LEFT_MAGAZINE_BOTTOM_DETECTED       = 0x00000008,  //28
-            IN0_LEFT_MAGAZINE_TRAY_LOAD_DETECTED    = 0x00000010,
-            IN0_LEFT_MAGAZINE_TRAY_REDAY_DETECTED   = 0x00000020,
-            IN0_RIGHT_MAGAZINE_DOCKED1              = 0x00000040,
-            IN0_RIGHT_MAGAZINE_BOTTOM_DETECTED      = 0x00000080   //32
+            IN3_RIGHT_NG_DOOR_LOCK_UP               = 0x00000001,  //25
+            IN3_RIGHT_NG_DOOR_LOCK_DOWN             = 0x00000002,
+            IN3_LEFT_MAGAZINE_DOCKED1               = 0x00000004,
+            IN3_LEFT_MAGAZINE_BOTTOM_DETECTED       = 0x00000008,  //28
+            IN3_LEFT_MAGAZINE_TRAY_LOAD_DETECTED    = 0x00000010,
+            IN3_LEFT_MAGAZINE_TRAY_REDAY_DETECTED   = 0x00000020,
+            IN3_RIGHT_MAGAZINE_DOCKED1              = 0x00000040,
+            IN3_RIGHT_MAGAZINE_BOTTOM_DETECTED      = 0x00000080   //32
         };
         //----------------------------------------------------------------------------------------------------------------
         //
@@ -191,25 +430,25 @@ namespace ZenHandler.MotionControl
         //
         //
         //----------------------------------------------------------------------------------------------------------------
-        public enum DIO_IN_ADDR_CH1 : uint
+        public enum DIO_IN_ADDR_CH2 : uint
         {
             IN0_RIGHT_MAGAZINE_TRAY_LOAD_DETECTED       = 0x00000001,  //1
             IN0_RIGHT_MAGAZINE_TRAY_REDAY_DETECTED      = 0x00000002,
-            IN2_LEFT_NG_TRAY_DETECTED_MAGNETIC          = 0x00000004,
-            IN2_RIGHT_NG_TRAY_DETECTED_MAGNETIC         = 0x00000008,  //4
-            IN2_TRANSFER_LOAD_PICKER_DOWN1              = 0x00000010,
-            IN2_TRANSFER_LOAD_PICKER_DOWN2              = 0x00000020,
-            IN2_TRANSFER_LOAD_PICKER_DOWN3              = 0x00000040,
-            IN2_TRANSFER_LOAD_PICKER_DOWN4              = 0x00000080,  //8
+            IN0_LEFT_NG_TRAY_DETECTED_MAGNETIC          = 0x00000004,
+            IN0_RIGHT_NG_TRAY_DETECTED_MAGNETIC         = 0x00000008,  //4
+            IN0_TRANSFER_LOAD_PICKER_DOWN1              = 0x00000010,
+            IN0_TRANSFER_LOAD_PICKER_DOWN2              = 0x00000020,
+            IN0_TRANSFER_LOAD_PICKER_DOWN3              = 0x00000040,
+            IN0_TRANSFER_LOAD_PICKER_DOWN4              = 0x00000080,  //8
             //
-            IN2_TRANSFER_LOAD_PICKER_UP1                = 0x00000001,  //9
-            IN2_TRANSFER_LOAD_PICKER_UP2                = 0x00000002,
-            IN2_TRANSFER_LOAD_PICKER_UP3                = 0x00000004,
-            IN2_TRANSFER_LOAD_PICKER_UP4                = 0x00000008,  //12
-            IN2_TRANSFER_UNLOAD_PICKER_DOWN1            = 0x00000010,
-            IN2_TRANSFER_UNLOAD_PICKER_DOWN2            = 0x00000020,
-            IN2_TRANSFER_UNLOAD_PICKER_DOWN3            = 0x00000040,
-            IN2_TRANSFER_UNLOAD_PICKER_DOWN4            = 0x00000080,  //16
+            IN1_TRANSFER_LOAD_PICKER_UP1                = 0x00000001,  //9
+            IN1_TRANSFER_LOAD_PICKER_UP2                = 0x00000002,
+            IN1_TRANSFER_LOAD_PICKER_UP3                = 0x00000004,
+            IN1_TRANSFER_LOAD_PICKER_UP4                = 0x00000008,  //12
+            IN1_TRANSFER_UNLOAD_PICKER_DOWN1            = 0x00000010,
+            IN1_TRANSFER_UNLOAD_PICKER_DOWN2            = 0x00000020,
+            IN1_TRANSFER_UNLOAD_PICKER_DOWN3            = 0x00000040,
+            IN1_TRANSFER_UNLOAD_PICKER_DOWN4            = 0x00000080,  //16
             //
             IN2_TRANSFER_UNLOAD_PICKER_UP1              = 0x00000001,  //17
             IN2_TRANSFER_UNLOAD_PICKER_UP2              = 0x00000002,
@@ -220,14 +459,14 @@ namespace ZenHandler.MotionControl
             IN2_TRANSFER_LOAD_PICKER_VACUUM_ON3         = 0x00000040,
             IN2_TRANSFER_LOAD_PICKER_VACUUM_ON4         = 0x00000080,            //24
             //
-            IN2_TRANSFER_UNLOAD_PICKER_GRIP1        = 0x00000001,   //25
-            IN2_TRANSFER_UNLOAD_PICKER_GRIP2        = 0x00000002,
-            IN2_TRANSFER_UNLOAD_PICKER_GRIP3        = 0x00000004,
-            IN2_TRANSFER_UNLOAD_PICKER_GRIP4        = 0x00000008,   //28
-            IN2_TRANSFER_UNLOAD_PICKER_UNGRIP1      = 0x00000010,
-            IN2_TRANSFER_UNLOAD_PICKER_UNGRIP2      = 0x00000020,
-            IN2_TRANSFER_UNLOAD_PICKER_UNGRIP3      = 0x00000040,
-            IN2_TRANSFER_UNLOAD_PICKER_UNGRIP4      = 0x00000080    //32
+            IN3_TRANSFER_UNLOAD_PICKER_GRIP1            = 0x00000001,   //25
+            IN3_TRANSFER_UNLOAD_PICKER_GRIP2            = 0x00000002,
+            IN3_TRANSFER_UNLOAD_PICKER_GRIP3            = 0x00000004,
+            IN3_TRANSFER_UNLOAD_PICKER_GRIP4            = 0x00000008,   //28
+            IN3_TRANSFER_UNLOAD_PICKER_UNGRIP1          = 0x00000010,
+            IN3_TRANSFER_UNLOAD_PICKER_UNGRIP2          = 0x00000020,
+            IN3_TRANSFER_UNLOAD_PICKER_UNGRIP3          = 0x00000040,
+            IN3_TRANSFER_UNLOAD_PICKER_UNGRIP4          = 0x00000080    //32
         };
 
         //----------------------------------------------------------------------------------------------------------------
@@ -236,43 +475,43 @@ namespace ZenHandler.MotionControl
         //
         //
         //----------------------------------------------------------------------------------------------------------------
-        public enum DIO_IN_ADDR_CH2 : uint
+        public enum DIO_IN_ADDR_CH4 : uint
         {
-            IN4_A_SOCKET_CONTACT_UP1            = 0x00000001,  //1
-            IN4_A_SOCKET_CONTACT_UP2            = 0x00000002,
-            IN4_A_SOCKET_CONTACT_UP3            = 0x00000004,
-            IN4_A_SOCKET_CONTACT_UP4            = 0x00000008,  //4
-            IN4_A_SOCKET_CONTACT_DOWN1          = 0x00000010,
-            IN4_A_SOCKET_CONTACT_DOWN2          = 0x00000020,
-            IN4_A_SOCKET_CONTACT_DOWN3          = 0x00000040,
-            IN4_A_SOCKET_CONTACT_DOWN4          = 0x00000080,  //8
+            IN0_A_SOCKET_CONTACT_UP1            = 0x00000001,  //1
+            IN0_A_SOCKET_CONTACT_UP2            = 0x00000002,
+            IN0_A_SOCKET_CONTACT_UP3            = 0x00000004,
+            IN0_A_SOCKET_CONTACT_UP4            = 0x00000008,  //4
+            IN0_A_SOCKET_CONTACT_DOWN1          = 0x00000010,
+            IN0_A_SOCKET_CONTACT_DOWN2          = 0x00000020,
+            IN0_A_SOCKET_CONTACT_DOWN3          = 0x00000040,
+            IN0_A_SOCKET_CONTACT_DOWN4          = 0x00000080,  //8
             //
-            IN4_A_SOCKET_CONTACT_FORWARD1       = 0x00000001,  //9
-            IN4_A_SOCKET_CONTACT_FORWARD2       = 0x00000002,
-            IN4_A_SOCKET_CONTACT_FORWARD3       = 0x00000004,
-            IN4_A_SOCKET_CONTACT_FORWARD4       = 0x00000008,  //12
-            IN4_A_SOCKET_CONTACT_BACKWARD1      = 0x00000010,
-            IN4_A_SOCKET_CONTACT_BACKWARD2      = 0x00000020,
-            IN4_A_SOCKET_CONTACT_BACKWARD3      = 0x00000040,
-            IN4_A_SOCKET_CONTACT_BACKWARD4      = 0x00000080,  //16
+            IN1_A_SOCKET_CONTACT_FORWARD1       = 0x00000001,  //9
+            IN1_A_SOCKET_CONTACT_FORWARD2       = 0x00000002,
+            IN1_A_SOCKET_CONTACT_FORWARD3       = 0x00000004,
+            IN1_A_SOCKET_CONTACT_FORWARD4       = 0x00000008,  //12
+            IN1_A_SOCKET_CONTACT_BACKWARD1      = 0x00000010,
+            IN1_A_SOCKET_CONTACT_BACKWARD2      = 0x00000020,
+            IN1_A_SOCKET_CONTACT_BACKWARD3      = 0x00000040,
+            IN1_A_SOCKET_CONTACT_BACKWARD4      = 0x00000080,  //16
             //
-            IN4_B_SOCKET_CONTACT_UP1            = 0x00000001,  //17
-            IN4_B_SOCKET_CONTACT_UP2            = 0x00000002,
-            IN4_B_SOCKET_CONTACT_UP3            = 0x00000004,
-            IN4_B_SOCKET_CONTACT_UP4            = 0x00000008,  //20
-            IN4_B_SOCKET_CONTACT_DOWN1          = 0x00000010,
-            IN4_B_SOCKET_CONTACT_DOWN2          = 0x00000020,
-            IN4_B_SOCKET_CONTACT_DOWN3          = 0x00000040,
-            IN4_B_SOCKET_CONTACT_DOWN4          = 0x00000080,            //24
+            IN2_B_SOCKET_CONTACT_UP1            = 0x00000001,  //17
+            IN2_B_SOCKET_CONTACT_UP2            = 0x00000002,
+            IN2_B_SOCKET_CONTACT_UP3            = 0x00000004,
+            IN2_B_SOCKET_CONTACT_UP4            = 0x00000008,  //20
+            IN2_B_SOCKET_CONTACT_DOWN1          = 0x00000010,
+            IN2_B_SOCKET_CONTACT_DOWN2          = 0x00000020,
+            IN2_B_SOCKET_CONTACT_DOWN3          = 0x00000040,
+            IN2_B_SOCKET_CONTACT_DOWN4          = 0x00000080,            //24
             //
-            IN4_B_SOCKET_CONTACT_FORWARD1       = 0x00000001,   //25
-            IN4_B_SOCKET_CONTACT_FORWARD2       = 0x00000002,
-            IN4_B_SOCKET_CONTACT_FORWARD3       = 0x00000004,
-            IN4_B_SOCKET_CONTACT_FORWARD4       = 0x00000008,   //28
-            IN4_B_SOCKET_CONTACT_BACKWARD1      = 0x00000010,
-            IN4_B_SOCKET_CONTACT_BACKWARD2      = 0x00000020,
-            IN4_B_SOCKET_CONTACT_BACKWARD3      = 0x00000040,
-            IN4_B_SOCKET_CONTACT_BACKWARD4      = 0x00000080    //32
+            IN3_B_SOCKET_CONTACT_FORWARD1       = 0x00000001,   //25
+            IN3_B_SOCKET_CONTACT_FORWARD2       = 0x00000002,
+            IN3_B_SOCKET_CONTACT_FORWARD3       = 0x00000004,
+            IN3_B_SOCKET_CONTACT_FORWARD4       = 0x00000008,   //28
+            IN3_B_SOCKET_CONTACT_BACKWARD1      = 0x00000010,
+            IN3_B_SOCKET_CONTACT_BACKWARD2      = 0x00000020,
+            IN3_B_SOCKET_CONTACT_BACKWARD3      = 0x00000040,
+            IN3_B_SOCKET_CONTACT_BACKWARD4      = 0x00000080    //32
         };
 
         //----------------------------------------------------------------------------------------------------------------
@@ -281,43 +520,43 @@ namespace ZenHandler.MotionControl
         //
         //
         //----------------------------------------------------------------------------------------------------------------
-        public enum DIO_IN_ADDR_CH3 : uint
+        public enum DIO_IN_ADDR_CH6 : uint
         {
-            IN6_C_SOCKET_CONTACT_UP1            = 0x00000001,  //1
-            IN6_C_SOCKET_CONTACT_UP2            = 0x00000002,
-            IN6_C_SOCKET_CONTACT_UP3            = 0x00000004,
-            IN6_C_SOCKET_CONTACT_UP4            = 0x00000008,  //4
-            IN6_C_SOCKET_CONTACT_DOWN1          = 0x00000010,
-            IN6_C_SOCKET_CONTACT_DOWN2          = 0x00000020,
-            IN6_C_SOCKET_CONTACT_DOWN3          = 0x00000040,
-            IN6_C_SOCKET_CONTACT_DOWN4          = 0x00000080,  //8
+            IN0_C_SOCKET_CONTACT_UP1            = 0x00000001,  //1
+            IN0_C_SOCKET_CONTACT_UP2            = 0x00000002,
+            IN0_C_SOCKET_CONTACT_UP3            = 0x00000004,
+            IN0_C_SOCKET_CONTACT_UP4            = 0x00000008,  //4
+            IN0_C_SOCKET_CONTACT_DOWN1          = 0x00000010,
+            IN0_C_SOCKET_CONTACT_DOWN2          = 0x00000020,
+            IN0_C_SOCKET_CONTACT_DOWN3          = 0x00000040,
+            IN0_C_SOCKET_CONTACT_DOWN4          = 0x00000080,  //8
             //
-            IN6_C_SOCKET_CONTACT_FORWARD1       = 0x00000001,  //9
-            IN6_C_SOCKET_CONTACT_FORWARD2       = 0x00000002,
-            IN6_C_SOCKET_CONTACT_FORWARD3       = 0x00000004,
-            IN6_C_SOCKET_CONTACT_FORWARD4       = 0x00000008,  //12
-            IN6_C_SOCKET_CONTACT_BACKWARD1      = 0x00000010,
-            IN6_C_SOCKET_CONTACT_BACKWARD2      = 0x00000020,
-            IN6_C_SOCKET_CONTACT_BACKWARD3      = 0x00000040,
-            IN6_C_SOCKET_CONTACT_BACKWARD4      = 0x00000080,  //16
+            IN1_C_SOCKET_CONTACT_FORWARD1       = 0x00000001,  //9
+            IN1_C_SOCKET_CONTACT_FORWARD2       = 0x00000002,
+            IN1_C_SOCKET_CONTACT_FORWARD3       = 0x00000004,
+            IN1_C_SOCKET_CONTACT_FORWARD4       = 0x00000008,  //12
+            IN1_C_SOCKET_CONTACT_BACKWARD1      = 0x00000010,
+            IN1_C_SOCKET_CONTACT_BACKWARD2      = 0x00000020,
+            IN1_C_SOCKET_CONTACT_BACKWARD3      = 0x00000040,
+            IN1_C_SOCKET_CONTACT_BACKWARD4      = 0x00000080,  //16
             //
-            IN6_D_SOCKET_CONTACT_UP1            = 0x00000001,  //17
-            IN6_D_SOCKET_CONTACT_UP2            = 0x00000002,
-            IN6_D_SOCKET_CONTACT_UP3            = 0x00000004,
-            IN6_D_SOCKET_CONTACT_UP4            = 0x00000008,  //20
-            IN6_D_SOCKET_CONTACT_DOWN1          = 0x00000010,
-            IN6_D_SOCKET_CONTACT_DOWN2          = 0x00000020,
-            IN6_D_SOCKET_CONTACT_DOWN3          = 0x00000040,
-            IN6_D_SOCKET_CONTACT_DOWN4          = 0x00000080,            //24
+            IN2_D_SOCKET_CONTACT_UP1            = 0x00000001,  //17
+            IN2_D_SOCKET_CONTACT_UP2            = 0x00000002,
+            IN2_D_SOCKET_CONTACT_UP3            = 0x00000004,
+            IN2_D_SOCKET_CONTACT_UP4            = 0x00000008,  //20
+            IN2_D_SOCKET_CONTACT_DOWN1          = 0x00000010,
+            IN2_D_SOCKET_CONTACT_DOWN2          = 0x00000020,
+            IN2_D_SOCKET_CONTACT_DOWN3          = 0x00000040,
+            IN2_D_SOCKET_CONTACT_DOWN4          = 0x00000080,            //24
             //
-            IN6_D_SOCKET_CONTACT_FORWARD1       = 0x00000001,   //25
-            IN6_D_SOCKET_CONTACT_FORWARD2       = 0x00000002,
-            IN6_D_SOCKET_CONTACT_FORWARD3       = 0x00000004,
-            IN6_D_SOCKET_CONTACT_FORWARD4       = 0x00000008,   //28
-            IN6_D_SOCKET_CONTACT_BACKWARD1      = 0x00000010,
-            IN6_D_SOCKET_CONTACT_BACKWARD2      = 0x00000020,
-            IN6_D_SOCKET_CONTACT_BACKWARD3      = 0x00000040,
-            IN6_D_SOCKET_CONTACT_BACKWARD4      = 0x00000080    //32
+            IN3_D_SOCKET_CONTACT_FORWARD1       = 0x00000001,   //25
+            IN3_D_SOCKET_CONTACT_FORWARD2       = 0x00000002,
+            IN3_D_SOCKET_CONTACT_FORWARD3       = 0x00000004,
+            IN3_D_SOCKET_CONTACT_FORWARD4       = 0x00000008,   //28
+            IN3_D_SOCKET_CONTACT_BACKWARD1      = 0x00000010,
+            IN3_D_SOCKET_CONTACT_BACKWARD2      = 0x00000020,
+            IN3_D_SOCKET_CONTACT_BACKWARD3      = 0x00000040,
+            IN3_D_SOCKET_CONTACT_BACKWARD4      = 0x00000080    //32
         };
 
         //----------------------------------------------------------------------------------------------------------------
@@ -326,39 +565,39 @@ namespace ZenHandler.MotionControl
         //
         //
         //----------------------------------------------------------------------------------------------------------------
-        public enum DIO_IN_ADDR_CH4 : uint
+        public enum DIO_IN_ADDR_CH8 : uint
         {
-            IN8_A_SOCKET_ROTATE_UP1             = 0x00000001,  //1
-            IN8_A_SOCKET_ROTATE_UP2             = 0x00000002,
-            IN8_A_SOCKET_ROTATE_UP3             = 0x00000004,
-            IN8_A_SOCKET_ROTATE_UP4             = 0x00000008,  //4
-            IN8_A_SOCKET_ROTATE_DOWN1           = 0x00000010,
-            IN8_A_SOCKET_ROTATE_DOWN2           = 0x00000020,
-            IN8_A_SOCKET_ROTATE_DOWN3           = 0x00000040,
-            IN8_A_SOCKET_ROTATE_DOWN4           = 0x00000080,  //8
+            IN0_A_SOCKET_ROTATE_UP1             = 0x00000001,  //1
+            IN0_A_SOCKET_ROTATE_UP2             = 0x00000002,
+            IN0_A_SOCKET_ROTATE_UP3             = 0x00000004,
+            IN0_A_SOCKET_ROTATE_UP4             = 0x00000008,  //4
+            IN0_A_SOCKET_ROTATE_DOWN1           = 0x00000010,
+            IN0_A_SOCKET_ROTATE_DOWN2           = 0x00000020,
+            IN0_A_SOCKET_ROTATE_DOWN3           = 0x00000040,
+            IN0_A_SOCKET_ROTATE_DOWN4           = 0x00000080,  //8
             //
-            IN8_A_SOCKET_ROTATE_TURN_LEFT1      = 0x00000001,  //9
-            IN8_A_SOCKET_ROTATE_TURN_LEFT2      = 0x00000002,
-            IN8_A_SOCKET_ROTATE_TURN_LEFT3      = 0x00000004,
-            IN8_A_SOCKET_ROTATE_TURN_LEFT4      = 0x00000008,  //12
-            IN8_A_SOCKET_ROTATE_TURN_HOME1      = 0x00000010,
-            IN8_A_SOCKET_ROTATE_TURN_HOME2      = 0x00000020,
-            IN8_A_SOCKET_ROTATE_TURN_HOME3      = 0x00000040,
-            IN8_A_SOCKET_ROTATE_TURN_HOME4      = 0x00000080,  //16
+            IN1_A_SOCKET_ROTATE_TURN_LEFT1      = 0x00000001,  //9
+            IN1_A_SOCKET_ROTATE_TURN_LEFT2      = 0x00000002,
+            IN1_A_SOCKET_ROTATE_TURN_LEFT3      = 0x00000004,
+            IN1_A_SOCKET_ROTATE_TURN_LEFT4      = 0x00000008,  //12
+            IN1_A_SOCKET_ROTATE_TURN_HOME1      = 0x00000010,
+            IN1_A_SOCKET_ROTATE_TURN_HOME2      = 0x00000020,
+            IN1_A_SOCKET_ROTATE_TURN_HOME3      = 0x00000040,
+            IN1_A_SOCKET_ROTATE_TURN_HOME4      = 0x00000080,  //16
             //
-            IN8_A_SOCKET_ROTATE_GRIP1           = 0x00000001,  //17
-            IN8_A_SOCKET_ROTATE_GRIP2           = 0x00000002,
-            IN8_A_SOCKET_ROTATE_GRIP3           = 0x00000004,
-            IN8_A_SOCKET_ROTATE_GRIP4           = 0x00000008,  //20
-            IN8_A_SOCKET_ROTATE_UNGRIP1         = 0x00000010,
-            IN8_A_SOCKET_ROTATE_UNGRIP2         = 0x00000020,
-            IN8_A_SOCKET_ROTATE_UNGRIP3         = 0x00000040,
-            IN8_A_SOCKET_ROTATE_UNGRIP4         = 0x00000080,            //24
+            IN2_A_SOCKET_ROTATE_GRIP1           = 0x00000001,  //17
+            IN2_A_SOCKET_ROTATE_GRIP2           = 0x00000002,
+            IN2_A_SOCKET_ROTATE_GRIP3           = 0x00000004,
+            IN2_A_SOCKET_ROTATE_GRIP4           = 0x00000008,  //20
+            IN2_A_SOCKET_ROTATE_UNGRIP1         = 0x00000010,
+            IN2_A_SOCKET_ROTATE_UNGRIP2         = 0x00000020,
+            IN2_A_SOCKET_ROTATE_UNGRIP3         = 0x00000040,
+            IN2_A_SOCKET_ROTATE_UNGRIP4         = 0x00000080,            //24
             //
-            IN8_A_SOCKET_VACUUM_ON1             = 0x00000001,   //25
-            IN8_A_SOCKET_VACUUM_ON2             = 0x00000002,
-            IN8_A_SOCKET_VACUUM_ON3             = 0x00000004,
-            IN8_A_SOCKET_VACUUM_ON4             = 0x00000008,   //28
+            IN3_A_SOCKET_VACUUM_ON1             = 0x00000001,   //25
+            IN3_A_SOCKET_VACUUM_ON2             = 0x00000002,
+            IN3_A_SOCKET_VACUUM_ON3             = 0x00000004,
+            IN3_A_SOCKET_VACUUM_ON4             = 0x00000008,   //28
             TEMP29 = 0x00000010,
             TEMP30 = 0x00000020,
             TEMP31 = 0x00000040,
@@ -371,39 +610,39 @@ namespace ZenHandler.MotionControl
         //
         //
         //----------------------------------------------------------------------------------------------------------------
-        public enum DIO_IN_ADDR_CH5 : uint
+        public enum DIO_IN_ADDR_CH10 : uint
         {
-            IN10_B_SOCKET_ROTATE_UP1             = 0x00000001,  //1
-            IN10_B_SOCKET_ROTATE_UP2             = 0x00000002,
-            IN10_B_SOCKET_ROTATE_UP3             = 0x00000004,
-            IN10_B_SOCKET_ROTATE_UP4             = 0x00000008,  //4
-            IN10_B_SOCKET_ROTATE_DOWN1           = 0x00000010,
-            IN10_B_SOCKET_ROTATE_DOWN2           = 0x00000020,
-            IN10_B_SOCKET_ROTATE_DOWN3           = 0x00000040,
-            IN10_B_SOCKET_ROTATE_DOWN4           = 0x00000080,  //8
+            IN0_B_SOCKET_ROTATE_UP1             = 0x00000001,  //1
+            IN0_B_SOCKET_ROTATE_UP2             = 0x00000002,
+            IN0_B_SOCKET_ROTATE_UP3             = 0x00000004,
+            IN0_B_SOCKET_ROTATE_UP4             = 0x00000008,  //4
+            IN0_B_SOCKET_ROTATE_DOWN1           = 0x00000010,
+            IN0_B_SOCKET_ROTATE_DOWN2           = 0x00000020,
+            IN0_B_SOCKET_ROTATE_DOWN3           = 0x00000040,
+            IN0_B_SOCKET_ROTATE_DOWN4           = 0x00000080,  //8
             //
-            IN10_B_SOCKET_ROTATE_TURN_LEFT1      = 0x00000001,  //9
-            IN10_B_SOCKET_ROTATE_TURN_LEFT2      = 0x00000002,
-            IN10_B_SOCKET_ROTATE_TURN_LEFT3      = 0x00000004,
-            IN10_B_SOCKET_ROTATE_TURN_LEFT4      = 0x00000008,  //12
-            IN10_B_SOCKET_ROTATE_TURN_HOME1      = 0x00000010,
-            IN10_B_SOCKET_ROTATE_TURN_HOME2      = 0x00000020,
-            IN10_B_SOCKET_ROTATE_TURN_HOME3      = 0x00000040,
-            IN10_B_SOCKET_ROTATE_TURN_HOME4      = 0x00000080,  //16
+            IN1_B_SOCKET_ROTATE_TURN_LEFT1      = 0x00000001,  //9
+            IN1_B_SOCKET_ROTATE_TURN_LEFT2      = 0x00000002,
+            IN1_B_SOCKET_ROTATE_TURN_LEFT3      = 0x00000004,
+            IN1_B_SOCKET_ROTATE_TURN_LEFT4      = 0x00000008,  //12
+            IN1_B_SOCKET_ROTATE_TURN_HOME1      = 0x00000010,
+            IN1_B_SOCKET_ROTATE_TURN_HOME2      = 0x00000020,
+            IN1_B_SOCKET_ROTATE_TURN_HOME3      = 0x00000040,
+            IN1_B_SOCKET_ROTATE_TURN_HOME4      = 0x00000080,  //16
             //
-            IN10_B_SOCKET_ROTATE_GRIP1           = 0x00000001,  //17
-            IN10_B_SOCKET_ROTATE_GRIP2           = 0x00000002,
-            IN10_B_SOCKET_ROTATE_GRIP3           = 0x00000004,
-            IN10_B_SOCKET_ROTATE_GRIP4           = 0x00000008,  //20
-            IN10_B_SOCKET_ROTATE_UNGRIP1         = 0x00000010,
-            IN10_B_SOCKET_ROTATE_UNGRIP2         = 0x00000020,
-            IN10_B_SOCKET_ROTATE_UNGRIP3         = 0x00000040,
-            IN10_B_SOCKET_ROTATE_UNGRIP4         = 0x00000080,            //24
+            IN2_B_SOCKET_ROTATE_GRIP1           = 0x00000001,  //17
+            IN2_B_SOCKET_ROTATE_GRIP2           = 0x00000002,
+            IN2_B_SOCKET_ROTATE_GRIP3           = 0x00000004,
+            IN2_B_SOCKET_ROTATE_GRIP4           = 0x00000008,  //20
+            IN2_B_SOCKET_ROTATE_UNGRIP1         = 0x00000010,
+            IN2_B_SOCKET_ROTATE_UNGRIP2         = 0x00000020,
+            IN2_B_SOCKET_ROTATE_UNGRIP3         = 0x00000040,
+            IN2_B_SOCKET_ROTATE_UNGRIP4         = 0x00000080,            //24
             //
-            IN10_B_SOCKET_VACUUM_ON1             = 0x00000001,   //25
-            IN10_B_SOCKET_VACUUM_ON2             = 0x00000002,
-            IN10_B_SOCKET_VACUUM_ON3             = 0x00000004,
-            IN10_B_SOCKET_VACUUM_ON4             = 0x00000008,   //28
+            IN3_B_SOCKET_VACUUM_ON1             = 0x00000001,   //25
+            IN3_B_SOCKET_VACUUM_ON2             = 0x00000002,
+            IN3_B_SOCKET_VACUUM_ON3             = 0x00000004,
+            IN3_B_SOCKET_VACUUM_ON4             = 0x00000008,   //28
             TEMP29                               = 0x00000010,
             TEMP30                               = 0x00000020,
             TEMP31                               = 0x00000040,
@@ -416,25 +655,25 @@ namespace ZenHandler.MotionControl
         //
         //
         //----------------------------------------------------------------------------------------------------------------
-        public enum DIO_IN_ADDR_CH6 : uint
+        public enum DIO_IN_ADDR_CH12 : uint
         {
-            IN12_C_SOCKET_ROTATE_UP1             = 0x00000001,  //1
-            IN12_C_SOCKET_ROTATE_UP2             = 0x00000002,
-            IN12_C_SOCKET_ROTATE_UP3             = 0x00000004,
-            IN12_C_SOCKET_ROTATE_UP4             = 0x00000008,  //4
-            IN12_C_SOCKET_ROTATE_DOWN1           = 0x00000010,
-            IN12_C_SOCKET_ROTATE_DOWN2           = 0x00000020,
-            IN12_C_SOCKET_ROTATE_DOWN3           = 0x00000040,
-            IN12_C_SOCKET_ROTATE_DOWN4           = 0x00000080,  //8
+            IN10_C_SOCKET_ROTATE_UP1             = 0x00000001,  //1
+            IN10_C_SOCKET_ROTATE_UP2             = 0x00000002,
+            IN10_C_SOCKET_ROTATE_UP3             = 0x00000004,
+            IN10_C_SOCKET_ROTATE_UP4             = 0x00000008,  //4
+            IN10_C_SOCKET_ROTATE_DOWN1           = 0x00000010,
+            IN10_C_SOCKET_ROTATE_DOWN2           = 0x00000020,
+            IN10_C_SOCKET_ROTATE_DOWN3           = 0x00000040,
+            IN10_C_SOCKET_ROTATE_DOWN4           = 0x00000080,  //8
             //
-            IN12_C_SOCKET_ROTATE_TURN_LEFT1      = 0x00000001,  //9
-            IN12_C_SOCKET_ROTATE_TURN_LEFT2      = 0x00000002,
-            IN12_C_SOCKET_ROTATE_TURN_LEFT3      = 0x00000004,
-            IN12_C_SOCKET_ROTATE_TURN_LEFT4      = 0x00000008,  //12
-            IN12_C_SOCKET_ROTATE_TURN_HOME1      = 0x00000010,
-            IN12_C_SOCKET_ROTATE_TURN_HOME2      = 0x00000020,
-            IN12_C_SOCKET_ROTATE_TURN_HOME3      = 0x00000040,
-            IN12_C_SOCKET_ROTATE_TURN_HOME4      = 0x00000080,  //16
+            IN11_C_SOCKET_ROTATE_TURN_LEFT1      = 0x00000001,  //9
+            IN11_C_SOCKET_ROTATE_TURN_LEFT2      = 0x00000002,
+            IN11_C_SOCKET_ROTATE_TURN_LEFT3      = 0x00000004,
+            IN11_C_SOCKET_ROTATE_TURN_LEFT4      = 0x00000008,  //12
+            IN11_C_SOCKET_ROTATE_TURN_HOME1      = 0x00000010,
+            IN11_C_SOCKET_ROTATE_TURN_HOME2      = 0x00000020,
+            IN11_C_SOCKET_ROTATE_TURN_HOME3      = 0x00000040,
+            IN11_C_SOCKET_ROTATE_TURN_HOME4      = 0x00000080,  //16
             //
             IN12_C_SOCKET_ROTATE_GRIP1           = 0x00000001,  //17
             IN12_C_SOCKET_ROTATE_GRIP2           = 0x00000002,
@@ -445,10 +684,10 @@ namespace ZenHandler.MotionControl
             IN12_C_SOCKET_ROTATE_UNGRIP3         = 0x00000040,
             IN12_C_SOCKET_ROTATE_UNGRIP4         = 0x00000080,            //24
             //
-            IN12_C_SOCKET_VACUUM_ON1             = 0x00000001,   //25
-            IN12_C_SOCKET_VACUUM_ON2             = 0x00000002,
-            IN12_C_SOCKET_VACUUM_ON3             = 0x00000004,
-            IN12_C_SOCKET_VACUUM_ON4             = 0x00000008,   //28
+            IN13_C_SOCKET_VACUUM_ON1             = 0x00000001,   //25
+            IN13_C_SOCKET_VACUUM_ON2             = 0x00000002,
+            IN13_C_SOCKET_VACUUM_ON3             = 0x00000004,
+            IN13_C_SOCKET_VACUUM_ON4             = 0x00000008,   //28
             TEMP29                              = 0x00000010,
             TEMP30                              = 0x00000020,
             TEMP31                              = 0x00000040,
@@ -460,39 +699,39 @@ namespace ZenHandler.MotionControl
         //
         //
         //----------------------------------------------------------------------------------------------------------------
-        public enum DIO_IN_ADDR_CH7 : uint
+        public enum DIO_IN_ADDR_CH14 : uint
         {
-            IN14_D_SOCKET_ROTATE_UP1             = 0x00000001,  //1
-            IN14_D_SOCKET_ROTATE_UP2             = 0x00000002,
-            IN14_D_SOCKET_ROTATE_UP3             = 0x00000004,
-            IN14_D_SOCKET_ROTATE_UP4             = 0x00000008,  //4
-            IN14_D_SOCKET_ROTATE_DOWN1           = 0x00000010,
-            IN14_D_SOCKET_ROTATE_DOWN2           = 0x00000020,
-            IN14_D_SOCKET_ROTATE_DOWN3           = 0x00000040,
-            IN14_D_SOCKET_ROTATE_DOWN4           = 0x00000080,  //8
+            IN10_D_SOCKET_ROTATE_UP1             = 0x00000001,  //1
+            IN10_D_SOCKET_ROTATE_UP2             = 0x00000002,
+            IN10_D_SOCKET_ROTATE_UP3             = 0x00000004,
+            IN10_D_SOCKET_ROTATE_UP4             = 0x00000008,  //4
+            IN10_D_SOCKET_ROTATE_DOWN1           = 0x00000010,
+            IN10_D_SOCKET_ROTATE_DOWN2           = 0x00000020,
+            IN10_D_SOCKET_ROTATE_DOWN3           = 0x00000040,
+            IN10_D_SOCKET_ROTATE_DOWN4           = 0x00000080,  //8
             //
-            IN14_D_SOCKET_ROTATE_TURN_LEFT1      = 0x00000001,  //9
-            IN14_D_SOCKET_ROTATE_TURN_LEFT2      = 0x00000002,
-            IN14_D_SOCKET_ROTATE_TURN_LEFT3      = 0x00000004,
-            IN14_D_SOCKET_ROTATE_TURN_LEFT4      = 0x00000008,  //12
-            IN14_D_SOCKET_ROTATE_TURN_HOME1      = 0x00000010,
-            IN14_D_SOCKET_ROTATE_TURN_HOME2      = 0x00000020,
-            IN14_D_SOCKET_ROTATE_TURN_HOME3      = 0x00000040,
-            IN14_D_SOCKET_ROTATE_TURN_HOME4      = 0x00000080,  //16
+            IN11_D_SOCKET_ROTATE_TURN_LEFT1      = 0x00000001,  //9
+            IN11_D_SOCKET_ROTATE_TURN_LEFT2      = 0x00000002,
+            IN11_D_SOCKET_ROTATE_TURN_LEFT3      = 0x00000004,
+            IN11_D_SOCKET_ROTATE_TURN_LEFT4      = 0x00000008,  //12
+            IN11_D_SOCKET_ROTATE_TURN_HOME1      = 0x00000010,
+            IN11_D_SOCKET_ROTATE_TURN_HOME2      = 0x00000020,
+            IN11_D_SOCKET_ROTATE_TURN_HOME3      = 0x00000040,
+            IN11_D_SOCKET_ROTATE_TURN_HOME4      = 0x00000080,  //16
             //
-            IN14_D_SOCKET_ROTATE_GRIP1           = 0x00000001,  //17
-            IN14_D_SOCKET_ROTATE_GRIP2           = 0x00000002,
-            IN14_D_SOCKET_ROTATE_GRIP3           = 0x00000004,
-            IN14_D_SOCKET_ROTATE_GRIP4           = 0x00000008,  //20
-            IN14_D_SOCKET_ROTATE_UNGRIP1         = 0x00000010,
-            IN14_D_SOCKET_ROTATE_UNGRIP2         = 0x00000020,
-            IN14_D_SOCKET_ROTATE_UNGRIP3         = 0x00000040,
-            IN14_D_SOCKET_ROTATE_UNGRIP4         = 0x00000080,            //24
+            IN12_D_SOCKET_ROTATE_GRIP1           = 0x00000001,  //17
+            IN12_D_SOCKET_ROTATE_GRIP2           = 0x00000002,
+            IN12_D_SOCKET_ROTATE_GRIP3           = 0x00000004,
+            IN12_D_SOCKET_ROTATE_GRIP4           = 0x00000008,  //20
+            IN12_D_SOCKET_ROTATE_UNGRIP1         = 0x00000010,
+            IN12_D_SOCKET_ROTATE_UNGRIP2         = 0x00000020,
+            IN12_D_SOCKET_ROTATE_UNGRIP3         = 0x00000040,
+            IN12_D_SOCKET_ROTATE_UNGRIP4         = 0x00000080,            //24
             //
-            IN14_D_SOCKET_VACUUM_ON1             = 0x00000001,   //25
-            IN14_D_SOCKET_VACUUM_ON2             = 0x00000002,
-            IN14_D_SOCKET_VACUUM_ON3             = 0x00000004,
-            IN14_D_SOCKET_VACUUM_ON4             = 0x00000008,   //28
+            IN13_D_SOCKET_VACUUM_ON1             = 0x00000001,   //25
+            IN13_D_SOCKET_VACUUM_ON2             = 0x00000002,
+            IN13_D_SOCKET_VACUUM_ON3             = 0x00000004,
+            IN13_D_SOCKET_VACUUM_ON4             = 0x00000008,   //28
             TEMP29                               = 0x00000010,
             TEMP30                               = 0x00000020,
             TEMP31                               = 0x00000040,

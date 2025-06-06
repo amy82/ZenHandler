@@ -31,10 +31,33 @@ namespace ZenHandler.MotionControl
         uint GetOutBuzzer(int ntype);
         uint GetOutTowerLamp(int ntype);
         uint GetOutAllDoor();
+        uint GetInAllDoor(int ntype);
 
+        //공용 io - Door , Buzzer , Lamp , Tray
         uint GetOutLiftDoor(int ntype, int index);        //Lift = Magazine, Lift
+        uint GetInLiftDoor(int ntype, int index);        //Lift = Magazine, Lift
+
         uint GetOutNgTrayDoor(int ntype, int index);
+        uint GetInNgTrayDoor(int ntype, int index);
+
         uint GetOutLiftLamp(int ntype, int index);        //Lift = Magazine, Lift
         uint GetOutNgTrayLamp(int ntype, int index);
+
+        //Transfer
+        uint GetInLoadPickerUpDown(int index, bool bFlag);
+        uint GetInUnloadPickerUpDown(int index, bool bFlag);
+        uint GetOutLoadPickerUpDown(int index, bool bFlag);
+        uint GetOutUnloadPickerUpDown(int index, bool bFlag);
+
+        uint GetInLoadPickerVacuumOn(int index, bool bFlag);
+        uint GetOutLoadPickerVacuumOn(int index, bool bFlag);
+
+        uint GetOutUnloadPickerVacuumOn(int index, bool bFlag);
+        uint GetInUnloadPickerVacuumOn(int index, bool bFlag);
+
+        uint GetOutFwUnloadPickerGrip(int index, bool bFlag);
+        uint GetInFwUnloadPickerGrip(int index, bool bFlag);
+
+
     }
 }
