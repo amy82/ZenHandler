@@ -8,8 +8,102 @@ namespace ZenHandler.MotionControl
 {
     public class AoiDioDefine : IDioDefine
     {
-
-        uint GetInGantryClampFor(bool bFlag)
+        public uint GetInTopTouch(int index)
+        {
+            switch (index)
+            {
+                case 0: return (uint)DIO_IN_ADDR_CH4.IN2_LEFT_TOP_STOP_TOUCH;
+                case 1: return (uint)DIO_IN_ADDR_CH4.IN3_RIGHT_TOP_STOP_TOUCH;
+                default:
+                    // 로그 남기기 (예: LogHelper.Write)
+                    Console.WriteLine($"[Warning] 잘못된 GetInTopTouch 타입 요청됨:{index}");
+                    //throw new ArgumentOutOfRangeException(nameof(nType), nType, "Invalid Tower Lamp Type");
+                    return 0; // 또는 사용하지 않는 안전한 비트
+            }
+        }
+        public uint GetInMiddleWait(int index)
+        {
+            switch (index)
+            {
+                case 0: return (uint)DIO_IN_ADDR_CH4.IN2_LEFT_UPPER_WAIT;
+                case 1: return (uint)DIO_IN_ADDR_CH4.IN3_RIGHT_UPPER_WAIT;
+                default:
+                    // 로그 남기기 (예: LogHelper.Write)
+                    Console.WriteLine($"[Warning] 잘못된 GetInMiddleWait 타입 요청됨:{index}");
+                    //throw new ArgumentOutOfRangeException(nameof(nType), nType, "Invalid Tower Lamp Type");
+                    return 0; // 또는 사용하지 않는 안전한 비트
+            }
+        }
+        public uint GetInTraySeated(int index)
+        {
+            switch (index)
+            {
+                case 0: return (uint)DIO_IN_ADDR_CH4.IN2_LEFT_LIFT_TRAY_SEATED;
+                case 1: return (uint)DIO_IN_ADDR_CH4.IN3_RIGHT_LIFT_TRAY_SEATED;
+                default:
+                    // 로그 남기기 (예: LogHelper.Write)
+                    Console.WriteLine($"[Warning] 잘못된 GetInTraySeated 타입 요청됨:{index}");
+                    //throw new ArgumentOutOfRangeException(nameof(nType), nType, "Invalid Tower Lamp Type");
+                    return 0; // 또는 사용하지 않는 안전한 비트
+            }
+        }
+        public uint GetInOnSlide(int index)
+        {
+            switch (index)
+            {
+                case 0: return (uint)DIO_IN_ADDR_CH4.IN2_LEFT_LIFT_SIDE_IN_POS;
+                case 1: return (uint)DIO_IN_ADDR_CH4.IN3_RIGHT_LIFT_SIDE_IN_POS;
+                default:
+                    // 로그 남기기 (예: LogHelper.Write)
+                    Console.WriteLine($"[Warning] 잘못된 GetInOnSlide 타입 요청됨:{index}");
+                    //throw new ArgumentOutOfRangeException(nameof(nType), nType, "Invalid Tower Lamp Type");
+                    return 0; // 또는 사용하지 않는 안전한 비트
+            }
+        }
+        public uint GetInTrayLoad(int index)
+        {
+            switch (index)
+            {
+                case 0: return (uint)DIO_IN_ADDR_CH4.IN3_GANTRY_TRAY_DETECTED;
+                case 1: return (uint)DIO_IN_ADDR_CH4.IN3_PUSHER_TRAY_DETECTED;
+                default:
+                    // 로그 남기기 (예: LogHelper.Write)
+                    Console.WriteLine($"[Warning] 잘못된 GetInOnSlide 타입 요청됨:{index}");
+                    //throw new ArgumentOutOfRangeException(nameof(nType), nType, "Invalid Tower Lamp Type");
+                    return 0; // 또는 사용하지 않는 안전한 비트
+            }
+        }
+        public uint GetInGoodDetect(int Group, int index)
+        {
+            if (Group == 0)
+            {
+                switch (index)
+                {
+                    case 0: return (uint)DIO_IN_ADDR_CH2.IN3_A_SOCKET_GOOD_DETECT_L;
+                    case 1: return (uint)DIO_IN_ADDR_CH2.IN3_A_SOCKET_GOOD_DETECT_R;
+                    default:
+                        // 로그 남기기 (예: LogHelper.Write)
+                        Console.WriteLine($"[Warning] 잘못된 GetInGoodDetect 타입 요청됨:{Group}, {index}");
+                        //throw new ArgumentOutOfRangeException(nameof(nType), nType, "Invalid Tower Lamp Type");
+                        return 0; // 또는 사용하지 않는 안전한 비트
+                }
+            }
+            if (Group == 1)
+            {
+                switch (index)
+                {
+                    case 0: return (uint)DIO_IN_ADDR_CH2.IN3_B_SOCKET_GOOD_DETECT_L;
+                    case 1: return (uint)DIO_IN_ADDR_CH2.IN3_B_SOCKET_GOOD_DETECT_R;
+                    default:
+                        // 로그 남기기 (예: LogHelper.Write)
+                        Console.WriteLine($"[Warning] 잘못된 GetInGoodDetect 타입 요청됨:{Group}, {index}");
+                        //throw new ArgumentOutOfRangeException(nameof(nType), nType, "Invalid Tower Lamp Type");
+                        return 0; // 또는 사용하지 않는 안전한 비트
+                }
+            }
+            return 0; // 또는 사용하지 않는 안전한 비트
+        }
+        public uint GetInGantryClampFor(bool bFlag)
         {
             if (bFlag)
             {
@@ -20,7 +114,7 @@ namespace ZenHandler.MotionControl
                 return (uint)(DIO_IN_ADDR_CH4.IN0_FRONT_GANTRY_CLAMP_BACK | DIO_IN_ADDR_CH4.IN0_BACK_GANTRY_CLAMP_BACK);
             }
         }
-        uint GetOutGantryClampFor(bool bFlag)
+        public uint GetOutGantryClampFor(bool bFlag)
         {
             if (bFlag)
             {
@@ -32,7 +126,7 @@ namespace ZenHandler.MotionControl
             }
         }
 
-        uint GetInGantryCenteringFor(bool bFlag)
+        public uint GetInGantryCenteringFor(bool bFlag)
         {
             if (bFlag)
             {
@@ -43,7 +137,7 @@ namespace ZenHandler.MotionControl
                 return (uint)(DIO_IN_ADDR_CH4.IN0_FRONT_GANTRY_CENTRING_BACK | DIO_IN_ADDR_CH4.IN0_BACK_GANTRY_CENTRING_BACK);
             }
         }
-        uint GetOutGantryCenteringFor(bool bFlag)
+        public uint GetOutGantryCenteringFor(bool bFlag)
         {
             if (bFlag)
             {
@@ -55,7 +149,7 @@ namespace ZenHandler.MotionControl
             }
         }
 
-        uint GetInTrayPusherUp(bool bFlag)
+        public uint GetInTrayPusherUp(bool bFlag)
         {
             if (bFlag)
             {
@@ -66,7 +160,7 @@ namespace ZenHandler.MotionControl
                 return (uint)(DIO_IN_ADDR_CH4.IN1_TRAY_PUSHER_LEFT_DOWN | DIO_IN_ADDR_CH4.IN1_TRAY_PUSHER_RIGHT_DOWN);
             }
         }
-        uint GetOutTrayPusherUp(bool bFlag)
+        public uint GetOutTrayPusherUp(bool bFlag)
         {
             if (bFlag)
             {
@@ -77,7 +171,7 @@ namespace ZenHandler.MotionControl
                 return (uint)(DIO_OUT_ADDR_CH2.OUT5_TRAY_PUSHER_LEFT_DOWN | DIO_OUT_ADDR_CH2.OUT5_TRAY_PUSHER_RIGHT_DOWN);
             }
         }
-        uint GetInTrayPusherFor(bool bFlag)
+        public uint GetInTrayPusherFor(bool bFlag)
         {
             if (bFlag)
             {
@@ -88,7 +182,7 @@ namespace ZenHandler.MotionControl
                 return (uint)(DIO_IN_ADDR_CH4.IN1_TRAY_PUSHER_LEFT_BACK | DIO_IN_ADDR_CH4.IN1_TRAY_PUSHER_RIGHT_BACK);
             }
         }
-        uint GetOutTrayPusherFor(bool bFlag)
+        public uint GetOutTrayPusherFor(bool bFlag)
         {
             if (bFlag)
             {
@@ -99,7 +193,7 @@ namespace ZenHandler.MotionControl
                 return (uint)(DIO_OUT_ADDR_CH2.OUT5_TRAY_PUSHER_LEFT_BACK | DIO_OUT_ADDR_CH2.OUT5_TRAY_PUSHER_RIGHT_BACK);
             }
         }
-        uint GetInTrayPusherCentringFor(bool bFlag)
+        public uint GetInTrayPusherCentringFor(bool bFlag)
         {
             if (bFlag)
             {
@@ -110,7 +204,7 @@ namespace ZenHandler.MotionControl
                 return (uint)(DIO_IN_ADDR_CH4.IN2_TRAY_PUSHER_CENTRING_LEFT_BACK | DIO_IN_ADDR_CH4.IN2_TRAY_PUSHER_CENTRING_RIGHT_BACK);
             }
         }
-        uint GetOutTrayPusherCentringFor(bool bFlag)
+        public uint GetOutTrayPusherCentringFor(bool bFlag)
         {
             if (bFlag)
             {

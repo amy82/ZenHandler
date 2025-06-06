@@ -223,6 +223,16 @@ namespace ZenHandler.Machine
             }
             return false;
         }
+        public bool IsProductDetected(int GroupNo, int index)
+        {
+            if (ProgramState.ON_LINE_MOTOR == false)
+            {
+                return true;
+            }
+            //GroupNo 0 = write , 1 = verify
+
+            return false;
+        }
         #endregion
         public override void MotorDataSet()
         {

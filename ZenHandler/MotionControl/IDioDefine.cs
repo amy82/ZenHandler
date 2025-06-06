@@ -58,6 +58,7 @@ namespace ZenHandler.MotionControl
         uint GetOutFwUnloadPickerGrip(int index, bool bFlag);
         uint GetInFwUnloadPickerGrip(int index, bool bFlag);
 
+        //-----------------------------------------------------------------------
         //Socket
         uint GetInContactUpDown(int Group, int index, bool bFlag);
         uint GetOutContactUpDown(int Group, int index, bool bFlag);
@@ -73,7 +74,9 @@ namespace ZenHandler.MotionControl
         uint GetInRotateGrip(int Group, int index, bool bFlag);
         uint GetOutRotateGrip(int Group, int index, bool bFlag);
 
-        //Lift + Magazine
+        uint GetInGoodDetect(int Group, int index);
+        //-----------------------------------------------------------------------
+        //Lift
         uint GetInGantryClampFor(bool bFlag);
         uint GetOutGantryClampFor(bool bFlag);
 
@@ -88,8 +91,20 @@ namespace ZenHandler.MotionControl
         uint GetInTrayPusherCentringFor(bool bFlag);
         uint GetOutTrayPusherCentringFor(bool bFlag);
 
+        uint GetInTopTouch(int index);
+        uint GetInMiddleWait(int index);
+        uint GetInTraySeated(int index);
+        uint GetInOnSlide(int index);
+        uint GetInTrayLoad(int index);
 
         //슬라이드 센서부터 추가해야된다.
 
+        //-----------------------------------------------------------------------
+        //Magazine
+
+        uint GetInMagazineDocked(int index);
+        uint GetInMagazineBottom(int index);
+        uint GetInMagazineTrayLoad(int index);
+        uint GetInMagazineTrayReady(int index);
     }
 }

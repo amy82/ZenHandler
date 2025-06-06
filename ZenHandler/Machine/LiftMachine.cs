@@ -663,7 +663,7 @@ namespace ZenHandler.Machine
             }
             return false;
         }
-        public bool GetBottomSensor(int index)        //리프트 대기 위치 확인 센서
+        public bool GetBottomSensor(int index)        //- Limit 리프트 대기 위치 확인 센서
         {
             if (ProgramState.ON_LINE_MOTOR == false)
             {

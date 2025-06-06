@@ -726,7 +726,7 @@ namespace ZenHandler.Process
                     break;
                 case 2130:
                     //PUSHER 하강 / 후진 상태 확인
-                    if (Globalo.motionManager.liftMachine.GetPUsherUp(false) == true)
+                    if (Globalo.motionManager.liftMachine.GetPusherUp(false) == true)
                     {
                         szLog = $"[READY] PUSHER DOWN CHECK [STEP : {nStep}]";
                         Globalo.LogPrint("ManualControl", szLog);
