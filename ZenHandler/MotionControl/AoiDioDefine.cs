@@ -8,14 +8,130 @@ namespace ZenHandler.MotionControl
 {
     public class AoiDioDefine : IDioDefine
     {
+        public uint GetInLoadPickerVacuumOn(int index, bool bFlag)
+        {
+            if (bFlag)
+            {
+                switch (index)
+                {
+                    case 0: return (uint)DIO_IN_ADDR_CH2.IN2_TRANSFER_LOAD_PICKER_VACUUM_ON1;
+                    case 1: return (uint)DIO_IN_ADDR_CH2.IN2_TRANSFER_LOAD_PICKER_VACUUM_ON2;
+                    default:
+                        // 로그 남기기 (예: LogHelper.Write)
+                        Console.WriteLine($"[Warning] 잘못된 GetInLoadPickerVacuumOn 타입 요청됨: {index}");
+                        //throw new ArgumentOutOfRangeException(nameof(nType), nType, "Invalid Tower Lamp Type");
+                        return 0; // 또는 사용하지 않는 안전한 비트
+                }
+            }
+            else
+            {
+                switch (index)
+                {
+                    case 0: return (uint)DIO_IN_ADDR_CH2.IN2_TRANSFER_LOAD_PICKER_VACUUM_ON1;
+                    case 1: return (uint)DIO_IN_ADDR_CH2.IN2_TRANSFER_LOAD_PICKER_VACUUM_ON2;
+                    default:
+                        // 로그 남기기 (예: LogHelper.Write)
+                        Console.WriteLine($"[Warning] 잘못된 GetInLoadPickerVacuumOn 타입 요청됨: {index}");
+                        //throw new ArgumentOutOfRangeException(nameof(nType), nType, "Invalid Tower Lamp Type");
+                        return 0; // 또는 사용하지 않는 안전한 비트
+                }
+            }
+        }
+        public uint GetOutLoadPickerVacuumOn(int index, bool bFlag)
+        {
+            if (bFlag)
+            {
+                switch (index)
+                {
+                    case 0: return (uint)DIO_OUT_ADDR_CH3.OUT3_TRANSFER_LOAD_PICKER_VACUUM_ON1;
+                    case 1: return (uint)DIO_OUT_ADDR_CH3.OUT3_TRANSFER_LOAD_PICKER_VACUUM_ON2;
+                    default:
+                        // 로그 남기기 (예: LogHelper.Write)
+                        Console.WriteLine($"[Warning] 잘못된 GetOutLoadPickerVacuumOn 타입 요청됨: {index}");
+                        //throw new ArgumentOutOfRangeException(nameof(nType), nType, "Invalid Tower Lamp Type");
+                        return 0; // 또는 사용하지 않는 안전한 비트
+                }
+            }
+            else
+            {
+                switch (index)
+                {
+                    case 0: return (uint)DIO_OUT_ADDR_CH3.OUT3_TRANSFER_LOAD_PICKER_BLOW_ON1;
+                    case 1: return (uint)DIO_OUT_ADDR_CH3.OUT3_TRANSFER_LOAD_PICKER_BLOW_ON2;
+                    default:
+                        // 로그 남기기 (예: LogHelper.Write)
+                        Console.WriteLine($"[Warning] 잘못된 GetOutLoadPickerVacuumOn 타입 요청됨: {index}");
+                        //throw new ArgumentOutOfRangeException(nameof(nType), nType, "Invalid Tower Lamp Type");
+                        return 0; // 또는 사용하지 않는 안전한 비트
+                }
+            }
+        }
+        public uint GetInUnloadPickerVacuumOn(int index, bool bFlag)
+        {
+            if (bFlag)
+            {
+                switch (index)
+                {
+                    case 0: return (uint)DIO_IN_ADDR_CH2.IN2_TRANSFER_UNLOAD_PICKER_VACUUM_ON1;
+                    case 1: return (uint)DIO_IN_ADDR_CH2.IN2_TRANSFER_UNLOAD_PICKER_VACUUM_ON2;
+                    default:
+                        // 로그 남기기 (예: LogHelper.Write)
+                        Console.WriteLine($"[Warning] 잘못된 GetInLoadPickerVacuumOn 타입 요청됨: {index}");
+                        //throw new ArgumentOutOfRangeException(nameof(nType), nType, "Invalid Tower Lamp Type");
+                        return 0; // 또는 사용하지 않는 안전한 비트
+                }
+            }
+            else
+            {
+                switch (index)
+                {
+                    case 0: return (uint)DIO_IN_ADDR_CH2.IN2_TRANSFER_UNLOAD_PICKER_VACUUM_ON1;
+                    case 1: return (uint)DIO_IN_ADDR_CH2.IN2_TRANSFER_UNLOAD_PICKER_VACUUM_ON2;
+                    default:
+                        // 로그 남기기 (예: LogHelper.Write)
+                        Console.WriteLine($"[Warning] 잘못된 GetInLoadPickerVacuumOn 타입 요청됨: {index}");
+                        //throw new ArgumentOutOfRangeException(nameof(nType), nType, "Invalid Tower Lamp Type");
+                        return 0; // 또는 사용하지 않는 안전한 비트
+                }
+            }
+        }
+        public uint GetOutUnloadPickerVacuumOn(int index, bool bFlag)
+        {
+            if (bFlag)
+            {
+                switch (index)
+                {
+                    case 0: return (uint)DIO_OUT_ADDR_CH3.OUT3_TRANSFER_UNLOAD_PICKER_VACUUM_ON1;
+                    case 1: return (uint)DIO_OUT_ADDR_CH3.OUT3_TRANSFER_UNLOAD_PICKER_VACUUM_ON2;
+                    default:
+                        // 로그 남기기 (예: LogHelper.Write)
+                        Console.WriteLine($"[Warning] 잘못된 GetOutUnloadPickerVacuumOn 타입 요청됨: {index}");
+                        //throw new ArgumentOutOfRangeException(nameof(nType), nType, "Invalid Tower Lamp Type");
+                        return 0; // 또는 사용하지 않는 안전한 비트
+                }
+            }
+            else
+            {
+                switch (index)
+                {
+                    case 0: return (uint)DIO_OUT_ADDR_CH3.OUT3_TRANSFER_UNLOAD_PICKER_BLOW_ON1;
+                    case 1: return (uint)DIO_OUT_ADDR_CH3.OUT3_TRANSFER_UNLOAD_PICKER_BLOW_ON2;
+                    default:
+                        // 로그 남기기 (예: LogHelper.Write)
+                        Console.WriteLine($"[Warning] 잘못된 GetOutUnloadPickerVacuumOn 타입 요청됨: {index}");
+                        //throw new ArgumentOutOfRangeException(nameof(nType), nType, "Invalid Tower Lamp Type");
+                        return 0; // 또는 사용하지 않는 안전한 비트
+                }
+            }
+        }
         public uint GetInLoadPickerUpDown(int index, bool bFlag)
         {
             if (bFlag)
             {
                 switch (index)
                 {
-                    case 0: return (uint)DIO_IN_ADDR_CH1.IN2_TRANSFER_LOAD_PICKER_UP1;
-                    case 1: return (uint)DIO_IN_ADDR_CH1.IN2_TRANSFER_LOAD_PICKER_UP2;
+                    case 0: return (uint)DIO_IN_ADDR_CH2.IN0_TRANSFER_LOAD_PICKER_UP1;
+                    case 1: return (uint)DIO_IN_ADDR_CH2.IN0_TRANSFER_LOAD_PICKER_UP2;
                     default:
                         // 로그 남기기 (예: LogHelper.Write)
                         Console.WriteLine($"[Warning] 잘못된 GetInLoadPickerUpDown 타입 요청됨: {index}");
@@ -27,8 +143,8 @@ namespace ZenHandler.MotionControl
             {
                 switch (index)
                 {
-                    case 0: return (uint)DIO_IN_ADDR_CH1.IN2_TRANSFER_LOAD_PICKER_DOWN1;
-                    case 1: return (uint)DIO_IN_ADDR_CH1.IN2_TRANSFER_LOAD_PICKER_DOWN2;
+                    case 0: return (uint)DIO_IN_ADDR_CH2.IN0_TRANSFER_LOAD_PICKER_DOWN1;
+                    case 1: return (uint)DIO_IN_ADDR_CH2.IN0_TRANSFER_LOAD_PICKER_DOWN2;
                     default:
                         // 로그 남기기 (예: LogHelper.Write)
                         Console.WriteLine($"[Warning] 잘못된 GetInLoadPickerUpDown 타입 요청됨: {index}");
@@ -36,7 +152,6 @@ namespace ZenHandler.MotionControl
                         return 0; // 또는 사용하지 않는 안전한 비트
                 }
             }
-            
         }
         public uint GetInUnloadPickerUpDown(int index, bool bFlag)
         {
@@ -44,8 +159,8 @@ namespace ZenHandler.MotionControl
             {
                 switch (index)
                 {
-                    case 0: return (uint)DIO_IN_ADDR_CH1.IN2_TRANSFER_UNLOAD_PICKER_UP1;
-                    case 1: return (uint)DIO_IN_ADDR_CH1.IN2_TRANSFER_UNLOAD_PICKER_UP2;
+                    case 0: return (uint)DIO_IN_ADDR_CH2.IN0_TRANSFER_UNLOAD_PICKER_UP1;
+                    case 1: return (uint)DIO_IN_ADDR_CH2.IN0_TRANSFER_UNLOAD_PICKER_UP2;
                     default:
                         // 로그 남기기 (예: LogHelper.Write)
                         Console.WriteLine($"[Warning] 잘못된 GetInUnloadPickerUpDown 타입 요청됨: {index}");
@@ -57,8 +172,8 @@ namespace ZenHandler.MotionControl
             {
                 switch (index)
                 {
-                    case 0: return (uint)DIO_IN_ADDR_CH1.IN2_TRANSFER_UNLOAD_PICKER_DOWN1;
-                    case 1: return (uint)DIO_IN_ADDR_CH1.IN2_TRANSFER_UNLOAD_PICKER_DOWN2;
+                    case 0: return (uint)DIO_IN_ADDR_CH2.IN0_TRANSFER_UNLOAD_PICKER_DOWN1;
+                    case 1: return (uint)DIO_IN_ADDR_CH2.IN0_TRANSFER_UNLOAD_PICKER_DOWN2;
                     default:
                         // 로그 남기기 (예: LogHelper.Write)
                         Console.WriteLine($"[Warning] 잘못된 GetInUnloadPickerUpDown 타입 요청됨: {index}");
@@ -66,7 +181,65 @@ namespace ZenHandler.MotionControl
                         return 0; // 또는 사용하지 않는 안전한 비트
                 }
             }
+        }
 
+        public uint GetOutLoadPickerUpDown(int index, bool bFlag)
+        {
+            if (bFlag)
+            {
+                switch (index)
+                {
+                    case 0: return (uint)DIO_OUT_ADDR_CH3.OUT3_TRANSFER_UNLOAD_PICKER_UP1;
+                    case 1: return (uint)DIO_OUT_ADDR_CH3.OUT3_TRANSFER_UNLOAD_PICKER_UP2;
+                    default:
+                        // 로그 남기기 (예: LogHelper.Write)
+                        Console.WriteLine($"[Warning] 잘못된 GetOutLoadPickerUpDown 타입 요청됨: {index}");
+                        //throw new ArgumentOutOfRangeException(nameof(nType), nType, "Invalid Tower Lamp Type");
+                        return 0; // 또는 사용하지 않는 안전한 비트
+                }
+            }
+            else
+            {
+                switch (index)
+                {
+                    case 0: return (uint)DIO_OUT_ADDR_CH3.OUT3_TRANSFER_UNLOAD_PICKER_DOWN1;
+                    case 1: return (uint)DIO_OUT_ADDR_CH3.OUT3_TRANSFER_UNLOAD_PICKER_DOWN2;
+                    default:
+                        // 로그 남기기 (예: LogHelper.Write)
+                        Console.WriteLine($"[Warning] 잘못된 GetOutLoadPickerUpDown 타입 요청됨: {index}");
+                        //throw new ArgumentOutOfRangeException(nameof(nType), nType, "Invalid Tower Lamp Type");
+                        return 0; // 또는 사용하지 않는 안전한 비트
+                }
+            }
+        }
+        public uint GetOutUnloadPickerUpDown(int index, bool bFlag)
+        {
+            if (bFlag)
+            {
+                switch (index)
+                {
+                    case 0: return (uint)DIO_IN_ADDR_CH2.IN0_TRANSFER_UNLOAD_PICKER_UP1;
+                    case 1: return (uint)DIO_IN_ADDR_CH2.IN0_TRANSFER_UNLOAD_PICKER_UP2;
+                    default:
+                        // 로그 남기기 (예: LogHelper.Write)
+                        Console.WriteLine($"[Warning] 잘못된 GetInUnloadPickerUpDown 타입 요청됨: {index}");
+                        //throw new ArgumentOutOfRangeException(nameof(nType), nType, "Invalid Tower Lamp Type");
+                        return 0; // 또는 사용하지 않는 안전한 비트
+                }
+            }
+            else
+            {
+                switch (index)
+                {
+                    case 0: return (uint)DIO_IN_ADDR_CH2.IN0_TRANSFER_UNLOAD_PICKER_DOWN1;
+                    case 1: return (uint)DIO_IN_ADDR_CH2.IN0_TRANSFER_UNLOAD_PICKER_DOWN2;
+                    default:
+                        // 로그 남기기 (예: LogHelper.Write)
+                        Console.WriteLine($"[Warning] 잘못된 GetInUnloadPickerUpDown 타입 요청됨: {index}");
+                        //throw new ArgumentOutOfRangeException(nameof(nType), nType, "Invalid Tower Lamp Type");
+                        return 0; // 또는 사용하지 않는 안전한 비트
+                }
+            }
         }
         public uint GetOutBuzzer(int nType)
         {
@@ -148,8 +321,8 @@ namespace ZenHandler.MotionControl
             {
                 switch (index)
                 {
-                    case 0: return (uint)DIO_IN_ADDR_CH0.IN0_LIFT_LEFT_DOOR_LOCK_UP;
-                    case 1: return (uint)DIO_IN_ADDR_CH0.IN0_LIFT_LEFT_DOOR_LOCK_DOWN;
+                    case 0: return (uint)DIO_IN_ADDR_CH0.IN2_LIFT_LEFT_DOOR_LOCK_UP;
+                    case 1: return (uint)DIO_IN_ADDR_CH0.IN2_LIFT_LEFT_DOOR_LOCK_DOWN;
                     default:
                         Console.WriteLine($"[Warning] 잘못된 GetInLiftDoor 타입 요청됨: {nType}");
                         return 0; // 또는 사용하지 않는 안전한 비트
@@ -159,8 +332,8 @@ namespace ZenHandler.MotionControl
             {
                 switch (index)
                 {
-                    case 0: return (uint)DIO_IN_ADDR_CH0.IN0_LIFT_RIGHT_DOOR_LOCK_UP;
-                    case 1: return (uint)DIO_IN_ADDR_CH0.IN0_LIFT_RIGHT_DOOR_LOCK_DOWN;
+                    case 0: return (uint)DIO_IN_ADDR_CH0.IN2_LIFT_RIGHT_DOOR_LOCK_UP;
+                    case 1: return (uint)DIO_IN_ADDR_CH0.IN2_LIFT_RIGHT_DOOR_LOCK_DOWN;
                     default:
                         Console.WriteLine($"[Warning] 잘못된 GetInLiftDoor 타입 요청됨: {nType}");
                         return 0; // 또는 사용하지 않는 안전한 비트
@@ -223,8 +396,8 @@ namespace ZenHandler.MotionControl
             {
                 switch (index)
                 {
-                    case 0: return (uint)DIO_IN_ADDR_CH0.IN0_NG_TRAY_LEFT_DOOR_LOCK_UP;
-                    case 1: return (uint)DIO_IN_ADDR_CH0.IN0_NG_TRAY_LEFT_DOOR_LOCK_DOWN;
+                    case 0: return (uint)DIO_IN_ADDR_CH0.IN3_NG_TRAY_LEFT_DOOR_LOCK_UP;
+                    case 1: return (uint)DIO_IN_ADDR_CH0.IN3_NG_TRAY_LEFT_DOOR_LOCK_DOWN;
                     default:
                         Console.WriteLine($"[Warning] 잘못된 GetInNgTrayDoor 타입 요청됨: {nType}");
                         return 0; // 또는 사용하지 않는 안전한 비트
@@ -234,8 +407,8 @@ namespace ZenHandler.MotionControl
             {
                 switch (index)
                 {
-                    case 0: return (uint)DIO_IN_ADDR_CH0.IN0_NG_TRAY_RIGHT_DOOR_LOCK_UP;
-                    case 1: return (uint)DIO_IN_ADDR_CH0.IN0_NG_TRAY_RIGHT_DOOR_LOCK_DOWN;
+                    case 0: return (uint)DIO_IN_ADDR_CH0.IN3_NG_TRAY_RIGHT_DOOR_LOCK_UP;
+                    case 1: return (uint)DIO_IN_ADDR_CH0.IN3_NG_TRAY_RIGHT_DOOR_LOCK_DOWN;
                     default:
                         Console.WriteLine($"[Warning] 잘못된 GetInNgTrayDoor 타입 요청됨: {nType}");
                         return 0; // 또는 사용하지 않는 안전한 비트
@@ -267,6 +440,9 @@ namespace ZenHandler.MotionControl
                 }
             }
         }
+
+        public uint GetOutFwUnloadPickerGrip(int index, bool bFlag){return 0;}       //aoi 사용 x
+        public uint GetInFwUnloadPickerGrip(int index, bool bFlag){ return 0;}       //aoi 사용 x
         //----------------------------------------------------------------------------------------------------------------
         //
         //  IN CH : 0
@@ -284,32 +460,32 @@ namespace ZenHandler.MotionControl
             IN0_DOOR_UNLOCK_BACK_L              = 0x00000040,
             IN0_DOOR_UNLOCK_BACK_R              = 0x00000080,  //8
             //
-            IN0_LEFT_LIFT_LOAD_MODE             = 0x00000001,  //9
-            IN0_LEFT_LIFT_COMPLETE_MODE         = 0x00000002,
-            IN0_RIGHT_LIFT_LOAD_MODE            = 0x00000004,
-            IN0_RIGHT_LIFT_COMPLETE_MODE        = 0x00000008,  //12
-            IN0_A_SOCKET_VACUUM_ON1             = 0x00000010,
-            IN0_A_SOCKET_VACUUM_ON2             = 0x00000020,
-            IN0_B_SOCKET_VACUUM_ON1             = 0x00000040,
-            IN0_B_SOCKET_VACUUM_ON2             = 0x00000080,  //16
+            IN1_LEFT_LIFT_LOAD_MODE             = 0x00000001,  //9
+            IN1_LEFT_LIFT_COMPLETE_MODE         = 0x00000002,
+            IN1_RIGHT_LIFT_LOAD_MODE            = 0x00000004,
+            IN1_RIGHT_LIFT_COMPLETE_MODE        = 0x00000008,  //12
+            IN1_A_SOCKET_VACUUM_ON1             = 0x00000010,
+            IN1_A_SOCKET_VACUUM_ON2             = 0x00000020,
+            IN1_B_SOCKET_VACUUM_ON1             = 0x00000040,
+            IN1_B_SOCKET_VACUUM_ON2             = 0x00000080,  //16
             //
-            IN0_LIFT_LEFT_DOOR_LOCK_UP          = 0x00000001,  //17
-            IN0_LIFT_LEFT_DOOR_LOCK_DOWN        = 0x00000002,
-            IN0_LIFT_RIGHT_DOOR_LOCK_UP         = 0x00000004,
-            IN0_LIFT_RIGHT_DOOR_LOCK_DOWN       = 0x00000008,  //20
-            IN0_LEFT_LIFT_DOOR_CLOSE            = 0x00000010,
-            IN0_RIGHT_LIFT_DOOR_CLOSE           = 0x00000020,
+            IN2_LIFT_LEFT_DOOR_LOCK_UP          = 0x00000001,  //17
+            IN2_LIFT_LEFT_DOOR_LOCK_DOWN        = 0x00000002,
+            IN2_LIFT_RIGHT_DOOR_LOCK_UP         = 0x00000004,
+            IN2_LIFT_RIGHT_DOOR_LOCK_DOWN       = 0x00000008,  //20
+            IN2_LEFT_LIFT_DOOR_CLOSE            = 0x00000010,
+            IN2_RIGHT_LIFT_DOOR_CLOSE           = 0x00000020,
             TEMP23                              = 0x00000040,
             TEMP24                              = 0x00000080,  //24
             //
-            IN0_NG_TRAY_LEFT_DOOR_CLOSE         = 0x00000001,  //25
-            IN0_NG_TRAY_LEFT_DOOR_OPEN          = 0x00000002,
-            IN0_NG_TRAY_RIGHT_DOOR_CLOSE        = 0x00000004,
-            IN0_NG_TRAY_RIGHT_DOOR_OPEN         = 0x00000008,  //28
-            IN0_NG_TRAY_LEFT_DOOR_LOCK_UP       = 0x00000010,
-            IN0_NG_TRAY_LEFT_DOOR_LOCK_DOWN     = 0x00000020,
-            IN0_NG_TRAY_RIGHT_DOOR_LOCK_UP      = 0x00000040,
-            IN0_NG_TRAY_RIGHT_DOOR_LOCK_DOWN    = 0x00000080   //32
+            IN3_NG_TRAY_LEFT_DOOR_CLOSE         = 0x00000001,  //25
+            IN3_NG_TRAY_LEFT_DOOR_OPEN          = 0x00000002,
+            IN3_NG_TRAY_RIGHT_DOOR_CLOSE        = 0x00000004,
+            IN3_NG_TRAY_RIGHT_DOOR_OPEN         = 0x00000008,  //28
+            IN3_NG_TRAY_LEFT_DOOR_LOCK_UP       = 0x00000010,
+            IN3_NG_TRAY_LEFT_DOOR_LOCK_DOWN     = 0x00000020,
+            IN3_NG_TRAY_RIGHT_DOOR_LOCK_UP      = 0x00000040,
+            IN3_NG_TRAY_RIGHT_DOOR_LOCK_DOWN    = 0x00000080   //32
         };
         //----------------------------------------------------------------------------------------------------------------
         //
@@ -317,16 +493,16 @@ namespace ZenHandler.MotionControl
         //
         //
         //----------------------------------------------------------------------------------------------------------------
-        public enum DIO_IN_ADDR_CH1 : uint
+        public enum DIO_IN_ADDR_CH2 : uint
         {
-            IN2_TRANSFER_LOAD_PICKER_DOWN1      = 0x00000001,  //1
-            IN2_TRANSFER_LOAD_PICKER_DOWN2      = 0x00000002,
-            IN2_TRANSFER_LOAD_PICKER_UP1        = 0x00000004,
-            IN2_TRANSFER_LOAD_PICKER_UP2        = 0x00000008,  //4
-            IN2_TRANSFER_UNLOAD_PICKER_DOWN1    = 0x00000010,
-            IN2_TRANSFER_UNLOAD_PICKER_DOWN2    = 0x00000020,
-            IN2_TRANSFER_UNLOAD_PICKER_UP1      = 0x00000040,
-            IN2_TRANSFER_UNLOAD_PICKER_UP2      = 0x00000080,  //8
+            IN0_TRANSFER_LOAD_PICKER_DOWN1      = 0x00000001,  //1
+            IN0_TRANSFER_LOAD_PICKER_DOWN2      = 0x00000002,
+            IN0_TRANSFER_LOAD_PICKER_UP1        = 0x00000004,
+            IN0_TRANSFER_LOAD_PICKER_UP2        = 0x00000008,  //4
+            IN0_TRANSFER_UNLOAD_PICKER_DOWN1    = 0x00000010,
+            IN0_TRANSFER_UNLOAD_PICKER_DOWN2    = 0x00000020,
+            IN0_TRANSFER_UNLOAD_PICKER_UP1      = 0x00000040,
+            IN0_TRANSFER_UNLOAD_PICKER_UP2      = 0x00000080,  //8
             //
             TEMP9 = 0x00000001,  //9
             TEMP10 = 0x00000002,
@@ -346,14 +522,14 @@ namespace ZenHandler.MotionControl
             TEMP23 = 0x00000040,
             TEMP24 = 0x00000080,  //24
             //
-            IN0_A_SOCKET_GOOD_DETECT_L              = 0x00000001,   //25
-            IN0_A_SOCKET_GOOD_DETECT_R              = 0x00000002,
-            IN0_B_SOCKET_GOOD_DETECT_L              = 0x00000004,
-            IN0_B_SOCKET_GOOD_DETECT_R              = 0x00000008,   //28
+            IN3_A_SOCKET_GOOD_DETECT_L              = 0x00000001,   //25
+            IN3_A_SOCKET_GOOD_DETECT_R              = 0x00000002,
+            IN3_B_SOCKET_GOOD_DETECT_L              = 0x00000004,
+            IN3_B_SOCKET_GOOD_DETECT_R              = 0x00000008,   //28
             TEMP29 = 0x00000010,
             TEMP30 = 0x00000020,
-            IN0_NG_TRAY_DETECTED1                   = 0x00000040,
-            IN0_NG_TRAY_DETECTED2                   = 0x00000080    //32
+            IN3_NG_TRAY_DETECTED1                   = 0x00000040,
+            IN3_NG_TRAY_DETECTED2                   = 0x00000080    //32
         };
 
 
@@ -363,43 +539,43 @@ namespace ZenHandler.MotionControl
         //
         //
         //----------------------------------------------------------------------------------------------------------------
-        public enum DIO_IN_ADDR_CH2 : uint
+        public enum DIO_IN_ADDR_CH4 : uint
         {
-            IN4_FRONT_GANTRY_CLAMP_FOR              = 0x00000001,  //1
-            IN4_FRONT_GANTRY_CLAMP_BACK             = 0x00000002,
-            IN4_BACK_GANTRY_CLAMP_FOR               = 0x00000004,
-            IN4_BACK_GANTRY_CLAMP_BACK              = 0x00000008,  //4
-            IN4_FRONT_GANTRY_CENTRING_FOR           = 0x00000010,
-            IN4_FRONT_GANTRY_CENTRING_BACK          = 0x00000020,
-            IN4_BACK_GANTRY_CENTRING_FOR            = 0x00000040,
-            IN4_BACK_GANTRY_CENTRING_BACK           = 0x00000080,  //8
+            IN0_FRONT_GANTRY_CLAMP_FOR              = 0x00000001,  //1
+            IN0_FRONT_GANTRY_CLAMP_BACK             = 0x00000002,
+            IN0_BACK_GANTRY_CLAMP_FOR               = 0x00000004,
+            IN0_BACK_GANTRY_CLAMP_BACK              = 0x00000008,  //4
+            IN0_FRONT_GANTRY_CENTRING_FOR           = 0x00000010,
+            IN0_FRONT_GANTRY_CENTRING_BACK          = 0x00000020,
+            IN0_BACK_GANTRY_CENTRING_FOR            = 0x00000040,
+            IN0_BACK_GANTRY_CENTRING_BACK           = 0x00000080,  //8
             //
-            IN4_TRAY_PUSHER_LEFT_UP                 = 0x00000001,  //9
-            IN4_TRAY_PUSHER_LEFT_DOWN               = 0x00000002,
-            IN4_TRAY_PUSHER_RIGHT_UP                = 0x00000004,
-            IN4_TRAY_PUSHER_RIGHT_DOWN              = 0x00000008,  //12
-            IN4_TRAY_PUSHER_LEFT_FOR                = 0x00000010,
-            IN4_TRAY_PUSHER_LEFT_BACK               = 0x00000020,
-            IN4_TRAY_PUSHER_RIGHT_FOR               = 0x00000040,
-            IN4_TRAY_PUSHER_RIGHT_BACK              = 0x00000080,  //16
+            IN1_TRAY_PUSHER_LEFT_UP                 = 0x00000001,  //9
+            IN1_TRAY_PUSHER_LEFT_DOWN               = 0x00000002,
+            IN1_TRAY_PUSHER_RIGHT_UP                = 0x00000004,
+            IN1_TRAY_PUSHER_RIGHT_DOWN              = 0x00000008,  //12
+            IN1_TRAY_PUSHER_LEFT_FOR                = 0x00000010,
+            IN1_TRAY_PUSHER_LEFT_BACK               = 0x00000020,
+            IN1_TRAY_PUSHER_RIGHT_FOR               = 0x00000040,
+            IN1_TRAY_PUSHER_RIGHT_BACK              = 0x00000080,  //16
             //
-            IN4_TRAY_PUSHER_CENTRING_LEFT_FOR       = 0x00000001,  //17
-            IN4_TRAY_PUSHER_CENTRING_LEFT_BACK      = 0x00000002,
-            IN4_TRAY_PUSHER_CENTRING_RIGHT_FOR      = 0x00000004,
-            IN4_TRAY_PUSHER_CENTRING_RIGHT_BACK     = 0x00000008,  //20
-            IN4_LEFT_TOP_STOP_TOUCH                 = 0x00000010,
-            IN4_LEFT_UPPER_WAIT                     = 0x00000020,
-            IN4_LEFT_LIFT_TRAY_SEATED               = 0x00000040,
-            IN4_LEFT_LIFT_SIDE_IN_POS               = 0x00000080,  //24
+            IN2_TRAY_PUSHER_CENTRING_LEFT_FOR       = 0x00000001,  //17
+            IN2_TRAY_PUSHER_CENTRING_LEFT_BACK      = 0x00000002,
+            IN2_TRAY_PUSHER_CENTRING_RIGHT_FOR      = 0x00000004,
+            IN2_TRAY_PUSHER_CENTRING_RIGHT_BACK     = 0x00000008,  //20
+            IN2_LEFT_TOP_STOP_TOUCH                 = 0x00000010,
+            IN2_LEFT_UPPER_WAIT                     = 0x00000020,
+            IN2_LEFT_LIFT_TRAY_SEATED               = 0x00000040,
+            IN2_LEFT_LIFT_SIDE_IN_POS               = 0x00000080,  //24
             //
-            IN4_RIGHT_TOP_STOP_TOUCH                = 0x00000001,   //25
-            IN4_RIGHT_UPPER_WAIT                    = 0x00000002,
-            IN4_RIGHT_LIFT_TRAY_SEATED              = 0x00000004,
-            IN4_RIGHT_LIFT_SIDE_IN_POS              = 0x00000008,   //28
+            IN3_RIGHT_TOP_STOP_TOUCH                = 0x00000001,   //25
+            IN3_RIGHT_UPPER_WAIT                    = 0x00000002,
+            IN3_RIGHT_LIFT_TRAY_SEATED              = 0x00000004,
+            IN3_RIGHT_LIFT_SIDE_IN_POS              = 0x00000008,   //28
             TEMP29                                  = 0x00000010,
             TEMP30                                  = 0x00000020,
-            IN4_GANTRY_TRAY_DETECTED                = 0x00000040,
-            IN4_PUSHER_TRAY_DETECTED                = 0x00000080    //32
+            IN3_GANTRY_TRAY_DETECTED                = 0x00000040,
+            IN3_PUSHER_TRAY_DETECTED                = 0x00000080    //32
         };
 
 

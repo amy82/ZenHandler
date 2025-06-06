@@ -190,6 +190,8 @@ namespace ZenHandler.Machine
                         {
                             if (bFlag)
                             {
+                                //uFlagHigh |= (uint)(MotionControl.FwDioDefine.DIO_OUT_ADDR_CH2.OUT5_A_SOCKET_CONTACT_UP1);
+                                //uFlagLow |= (uint)(MotionControl.FwDioDefine.DIO_OUT_ADDR_CH2.OUT5_A_SOCKET_CONTACT_DOWN1);
                                 uFlagHigh |= (uint)(MotionControl.FwDioDefine.DIO_OUT_ADDR_CH2.OUT5_A_SOCKET_CONTACT_UP1);
                                 uFlagLow |= (uint)(MotionControl.FwDioDefine.DIO_OUT_ADDR_CH2.OUT5_A_SOCKET_CONTACT_DOWN1);
                             }
