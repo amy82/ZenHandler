@@ -50,18 +50,7 @@ namespace ZenHandler.Dlg
             LiftTeach = new TeachingLift();
             AoiSocketTeach = new TeachingAoiSocket();
             EEpromSocketTeach = new TeachingEEpromSocket();
-            if (Program.PG_SELECT == HANDLER_PG.AOI)
-            {
-
-            }
-            if (Program.PG_SELECT == HANDLER_PG.EEPROM)
-            {
-
-            }
-            if (Program.PG_SELECT == HANDLER_PG.FW)
-            {
-
-            }
+            
             TeachCurrentTab = eTeachingBtn.TransferTab;
             TransferTeach.Visible = false;
             MagazineTeach.Visible = false;
@@ -74,8 +63,14 @@ namespace ZenHandler.Dlg
             MachineControl.Add(LiftTeach);
             MachineControl.Add(AoiSocketTeach);
             MachineControl.Add(EEpromSocketTeach);
+            if (Program.PG_SELECT == HANDLER_PG.FW)
+            {
 
-            
+            }
+            else
+            {
+
+            }
             this.Paint += new PaintEventHandler(Form_Paint);
 
             this.Width = _w;
@@ -123,6 +118,7 @@ namespace ZenHandler.Dlg
         }
         public void setInterface()
         {
+            BTN_TEACH_MAGAZINE.Visible = false;
             TeachingTitleLabel.ForeColor = ColorTranslator.FromHtml("#6F6F6F");
 
             BTN_TEACH_TRANSFER.FlatAppearance.BorderColor = ColorTranslator.FromHtml("#BBBBBB");
@@ -155,6 +151,17 @@ namespace ZenHandler.Dlg
             BTN_TEACH_MOVE_PLUS.BackColor = ColorTranslator.FromHtml("#C3A279");
             BTN_TEACH_MOVE_PLUS.ForeColor = Color.White;
 
+
+            if (Program.PG_SELECT == HANDLER_PG.FW)
+            {
+                BTN_TEACH_LIFT.Text = "MAGAZINE";
+                BTN_TEACH_SOCKET.Visible = false;
+            }
+            else
+            {
+                BTN_TEACH_LIFT.Text = "LIFT";
+            }
+           
         }
         
         private void TeachTabControl_SelectedIndexChanged(object sender, EventArgs e)
@@ -545,7 +552,15 @@ namespace ZenHandler.Dlg
 
         private void BTN_TEACH_LIFT_Click(object sender, EventArgs e)
         {
-            TeachingBtnChange(eTeachingBtn.LiftTab);
+            if (Program.PG_SELECT == HANDLER_PG.FW)
+            {
+                TeachingBtnChange(eTeachingBtn.MagazineTab);
+            }
+            else
+            {
+                TeachingBtnChange(eTeachingBtn.LiftTab);
+            }
+            
         }
 
         private void BTN_TEACH_SOCKET_Click(object sender, EventArgs e)

@@ -247,7 +247,7 @@
             this.BTN_TEACH_MAGAZINE.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.BTN_TEACH_MAGAZINE.Font = new System.Drawing.Font("나눔고딕 ExtraBold", 8.999999F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(129)));
             this.BTN_TEACH_MAGAZINE.ForeColor = System.Drawing.Color.White;
-            this.BTN_TEACH_MAGAZINE.Location = new System.Drawing.Point(492, 14);
+            this.BTN_TEACH_MAGAZINE.Location = new System.Drawing.Point(272, 14);
             this.BTN_TEACH_MAGAZINE.Name = "BTN_TEACH_MAGAZINE";
             this.BTN_TEACH_MAGAZINE.Size = new System.Drawing.Size(87, 44);
             this.BTN_TEACH_MAGAZINE.TabIndex = 34;
@@ -261,7 +261,7 @@
             this.BTN_TEACH_TRANSFER.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.BTN_TEACH_TRANSFER.Font = new System.Drawing.Font("나눔고딕 ExtraBold", 8.999999F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(129)));
             this.BTN_TEACH_TRANSFER.ForeColor = System.Drawing.Color.White;
-            this.BTN_TEACH_TRANSFER.Location = new System.Drawing.Point(403, 14);
+            this.BTN_TEACH_TRANSFER.Location = new System.Drawing.Point(492, 14);
             this.BTN_TEACH_TRANSFER.Name = "BTN_TEACH_TRANSFER";
             this.BTN_TEACH_TRANSFER.Size = new System.Drawing.Size(87, 44);
             this.BTN_TEACH_TRANSFER.TabIndex = 33;
@@ -300,7 +300,7 @@
             this.BTN_TEACH_LIFT.Name = "BTN_TEACH_LIFT";
             this.BTN_TEACH_LIFT.Size = new System.Drawing.Size(87, 44);
             this.BTN_TEACH_LIFT.TabIndex = 36;
-            this.BTN_TEACH_LIFT.Text = "LIFT";
+            this.BTN_TEACH_LIFT.Text = "LIFT or M";
             this.BTN_TEACH_LIFT.UseVisualStyleBackColor = false;
             this.BTN_TEACH_LIFT.Click += new System.EventHandler(this.BTN_TEACH_LIFT_Click);
             // 

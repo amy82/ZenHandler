@@ -51,7 +51,7 @@
             this.button_Manual_Magazine.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.button_Manual_Magazine.Font = new System.Drawing.Font("나눔고딕 ExtraBold", 8.999999F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(129)));
             this.button_Manual_Magazine.ForeColor = System.Drawing.Color.White;
-            this.button_Manual_Magazine.Location = new System.Drawing.Point(492, 14);
+            this.button_Manual_Magazine.Location = new System.Drawing.Point(241, 20);
             this.button_Manual_Magazine.Name = "button_Manual_Magazine";
             this.button_Manual_Magazine.Size = new System.Drawing.Size(87, 44);
             this.button_Manual_Magazine.TabIndex = 34;
@@ -65,7 +65,7 @@
             this.button_Manual_Transfer.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.button_Manual_Transfer.Font = new System.Drawing.Font("나눔고딕 ExtraBold", 8.999999F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(129)));
             this.button_Manual_Transfer.ForeColor = System.Drawing.Color.White;
-            this.button_Manual_Transfer.Location = new System.Drawing.Point(403, 14);
+            this.button_Manual_Transfer.Location = new System.Drawing.Point(492, 14);
             this.button_Manual_Transfer.Name = "button_Manual_Transfer";
             this.button_Manual_Transfer.Size = new System.Drawing.Size(87, 44);
             this.button_Manual_Transfer.TabIndex = 33;
@@ -83,7 +83,7 @@
             this.button_Manual_Lift.Name = "button_Manual_Lift";
             this.button_Manual_Lift.Size = new System.Drawing.Size(87, 44);
             this.button_Manual_Lift.TabIndex = 35;
-            this.button_Manual_Lift.Text = "LIFT";
+            this.button_Manual_Lift.Text = "LIFT OR M";
             this.button_Manual_Lift.UseVisualStyleBackColor = false;
             this.button_Manual_Lift.Click += new System.EventHandler(this.button_Manual_Lift_Click);
             // 

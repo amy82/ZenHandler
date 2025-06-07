@@ -19,6 +19,9 @@ namespace ZenHandler.MotionControl
         public Dictionary<int, uint[]> m_dwDInDict = new Dictionary<int, uint[]>();
         public Dictionary<int, uint[]> m_dwDOutDict = new Dictionary<int, uint[]>();        //모듈번호가 1,3,5 순차적이지 않아서 Dictionary 로 변경
 
+
+        public Dictionary<int, uint[]> m_dwEmoDInDict = new Dictionary<int, uint[]>();
+        public Dictionary<int, uint[]> m_dwEmoDOutDict = new Dictionary<int, uint[]>();        //모듈번호가 1,3,5 순차적이지 않아서 Dictionary 로 변경
         //type 1 = 렌즈 그립 In(2) , Out(2)
         //type 2 = 부저 out(4)
         //type 3 = 타워램프 out(3)
@@ -31,6 +34,8 @@ namespace ZenHandler.MotionControl
         {
             m_dwDInDict.Clear();
             m_dwDOutDict.Clear();
+            m_dwEmoDInDict.Clear();
+            m_dwEmoDOutDict.Clear();
         }
         public void Close()
         {
@@ -39,6 +44,7 @@ namespace ZenHandler.MotionControl
         public async void MotionTaskRun()
         {
             await TaskReadDio();
+            await TaskReadEmoDio();
         }
         public async Task<bool> TaskReadDio()
         {
@@ -68,6 +74,60 @@ namespace ZenHandler.MotionControl
                             {
                                 ///ReadByteIn(inModule.Key, i);
                                 ReadDWordIn(inModule.Key);
+                                Thread.Sleep(10);
+                            }
+                        }
+                        Thread.Sleep(10);
+                    }
+                    // 작업 정상 종료
+                }, token);
+            }
+            catch (OperationCanceledException)
+            {
+                Globalo.LogPrint("ManualControl", $"TaskReadDio Cancel");
+            }
+            catch (Exception e)
+            {
+                // 그 외 예외 처리
+                Globalo.LogPrint("ManualControl", $"TaskReadDio Fail-{e.Message}");
+            }
+            finally
+            {
+                // 리소스 정리
+                ctsMotion?.Dispose();  // cts가 null이 아닐 때만 Dispose 호출
+                ////ctsMotion = null;      // cts를 null로 설정하여 다음 작업에서 새로 생성할 수 있게
+            }
+
+            Globalo.LogPrint("ManualControl", $"[TASK] TaskReadDio End");
+            return true;
+        }
+        public async Task<bool> TaskReadEmoDio()
+        {
+            ctsMotion?.Dispose();
+
+            ctsMotion = new CancellationTokenSource();
+            CancellationToken token = ctsMotion.Token;
+
+            //bool isSuccess = false;
+            try
+            {
+                await Task.Run(() =>
+                {
+                    while (true)
+                    {
+                        if (ctsMotion.Token.IsCancellationRequested)
+                        {
+                            break;
+                            //Console.WriteLine("취소 요청 감지됨");
+                            //Globalo.LogPrint("ManualControl", $"취소 요청 감지됨");
+                            //ctsMotion.Token.ThrowIfCancellationRequested(); // 예외 던지기 (catch로 감) 취소 요청 시 예외 발생
+                        }
+                        foreach (var inModule in m_dwDInDict)
+                        {
+                            int subCnt = inModule.Value.Length;
+                            for (int i = 0; i < subCnt; i++)
+                            {
+                                ReadEmoDWordIn(inModule.Key);
                                 Thread.Sleep(10);
                             }
                         }
@@ -190,6 +250,7 @@ namespace ZenHandler.MotionControl
             }
             return false;
         }
+        
         public bool DioWriteOutportByte(int lModuleNo, int nOffset, uint uAddr, bool bSignal)
         {
             //ex) io 신호 하나 on,off
@@ -212,6 +273,45 @@ namespace ZenHandler.MotionControl
             if (uStatus == (uint)AXT_FUNC_RESULT.AXT_RT_SUCCESS)
             {
                 m_dwDOutDict[uModuleID][nOffset] = uValue;
+                return false;
+            }
+            return false;
+        }
+        private bool ReadEmoDWordIn(int nModuleNo)
+        {
+            uint dwInputVal = 0;
+
+            uint uStatus = CAXD.AxdiReadInportDword(nModuleNo, 0, ref dwInputVal);      //emo Signal
+            if (uStatus == (uint)AXT_FUNC_RESULT.AXT_RT_SUCCESS)
+            {
+                m_dwEmoDInDict[nModuleNo][0] = dwInputVal;
+                return true;
+            }
+            return false;
+        }
+
+        public bool DioWriteEmoOutportByte(int nOffset, uint uAddr, bool bSignal)
+        {
+            //ex) io 신호 하나 on,off
+            int lModuleNo = 0;
+            uint uValue = 0;
+
+            uValue = m_dwEmoDOutDict[lModuleNo][nOffset];//buzzer , tower lamp
+
+            if (bSignal)
+            {
+                uValue = uValue | (uAddr);
+            }
+            else
+            {
+                uValue = uValue & ~(uAddr);
+            }
+
+            uint uStatus = CAXD.AxdoWriteOutportByte(lModuleNo, nOffset, uValue);
+
+            if (uStatus == (uint)AXT_FUNC_RESULT.AXT_RT_SUCCESS)
+            {
+                m_dwEmoDOutDict[lModuleNo][nOffset] = uValue;
                 return false;
             }
             return false;
@@ -287,10 +387,11 @@ namespace ZenHandler.MotionControl
                                         m_dwDOutDict.Add(i, new uint[2]);
                                         strData = String.Format("[{0:D2}:{1:D2}] SIO-RDB32RTEX", nBoardNo, i);
                                         break;
-                                        //m_dwDInList.Add(0);
-                                        //m_dwDOutList.Add(new uint[2]);
-                                        //m_dwDInList.Add(0);
-                                        //m_dwDOutList.Add(new uint[4]);
+                                    case AXT_MODULE.AXT_SIO_DB32P:  //BPHR , EMO 별도 IO는 이쪽으로 들어올 것 같음
+                                        m_dwEmoDInDict.Add(i, new uint[1]); //8개 * 1
+                                        m_dwEmoDOutDict.Add(i, new uint[2]);//8개 * 2
+                                        strData = String.Format("[{0:D2}:{1:D2}] SIO-DB32P", nBoardNo, i);
+                                        break;
                                         //case AXT_MODULE.AXT_SIO_DI32: strData = String.Format("[{0:D2}:{1:D2}] SIO-DI32", nBoardNo, i); break;
                                         //case AXT_MODULE.AXT_SIO_DO32P: strData = String.Format("[{0:D2}:{1:D2}] SIO-DO32P", nBoardNo, i); break;
                                         //case AXT_MODULE.AXT_SIO_DB32P: strData = String.Format("[{0:D2}:{1:D2}] SIO-DB32P", nBoardNo, i); break;
@@ -308,19 +409,6 @@ namespace ZenHandler.MotionControl
                                         //case AXT_MODULE.AXT_SIO_DO32T_P: strData = String.Format("[{0:D2}:{1:D2}] SIO-DO32T_P", nBoardNo, i); break;
                                         //case AXT_MODULE.AXT_SIO_RDB32T: strData = String.Format("[{0:D2}:{1:D2}] SIO-RDB32T", nBoardNo, i); break;
                                 }
-                                if (i % 2 == 0)
-                                {
-                                    //eLogSender("Diocontrols", strData);
-                                    //inTxt.Text = strData;
-                                    //inIndexTxt.Text = (mdata.dCurReadModuleCh + 1).ToString() + " / " + nInModuleCount.ToString();
-                                }
-                                else
-                                {
-                                    //eLogSender("Diocontrols", strData);
-                                    //OutTxt.Text = strData;
-                                    //OutIndexTxt.Text = (mdata.dCurOutModuleCh + 1).ToString() + " / " + nOutModuleCount.ToString();
-                                }
-                                //comboModule.Items.Add(strData);
                             }
                         }
                         // ModuleName = strData;

@@ -102,13 +102,23 @@ namespace ZenHandler.Dlg
         }
         public void setInterface()
         {
-
+            button_Manual_Magazine.Visible = false;
             TeachingTitleLabel.ForeColor = ColorTranslator.FromHtml("#6F6F6F");
 
             button_Manual_Transfer.FlatAppearance.BorderColor = ColorTranslator.FromHtml("#BBBBBB");
             button_Manual_Magazine.FlatAppearance.BorderColor = ColorTranslator.FromHtml("#BBBBBB");
             button_Manual_Lift.FlatAppearance.BorderColor = ColorTranslator.FromHtml("#BBBBBB");
             button_Manual_Socket.FlatAppearance.BorderColor = ColorTranslator.FromHtml("#BBBBBB");
+
+            if (Program.PG_SELECT == HANDLER_PG.FW)
+            {
+                button_Manual_Lift.Text = "MAGAZINE";
+            }
+            else
+            {
+                button_Manual_Lift.Text = "LIFT";
+            }
+            //
 
         }
         private void TeachingBtnChange(eManualBtn index)
@@ -224,7 +234,15 @@ namespace ZenHandler.Dlg
         }
         private void button_Manual_Lift_Click(object sender, EventArgs e)
         {
-            TeachingBtnChange(eManualBtn.LiftTab);
+            if (Program.PG_SELECT == HANDLER_PG.FW)
+            {
+                TeachingBtnChange(eManualBtn.MagazineTab);
+            }
+            else
+            {
+                TeachingBtnChange(eManualBtn.LiftTab);
+            }
+            
         }
         private void button_Manual_Socket_Click(object sender, EventArgs e)
         {

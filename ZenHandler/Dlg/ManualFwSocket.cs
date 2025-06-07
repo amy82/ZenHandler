@@ -611,6 +611,7 @@ namespace ZenHandler.Dlg
                 Globalo.LogPrint("ManualControl", "[INFO] CONTACT 하강 상태 사용 불가", Globalo.eMessageName.M_WARNING);
                 return;
             }
+
             Globalo.motionManager.socketFwMachine.RunState = OperationState.Stopped;
             Globalo.motionManager.socketFwMachine.FlipperRotate(Group, index, bFlag);
 

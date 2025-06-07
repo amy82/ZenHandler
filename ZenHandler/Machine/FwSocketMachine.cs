@@ -115,7 +115,10 @@ namespace ZenHandler.Machine
         public bool GetIsContactForward(int GroupNo, int index, bool bFlag, bool bWait = false)      //각 소켓의 푸셔 전/후진 확인 센서
         {
             //GroupNo = 앞2 , 뒤2 4Set
-
+            if (ProgramState.ON_LINE_MOTOR == false)
+            {
+                return true;
+            }
             int i = 0;
             int lModuleNo = 0;
             int lOffset = 0;
@@ -174,6 +177,10 @@ namespace ZenHandler.Machine
         public bool GetIsContactUp(int GroupNo, int index, bool bFlag, bool bWait = false)      //각 소켓의 푸셔 상/하강 확인 센서
         {
             //GroupNo = 앞2 , 뒤2 4Set
+            if (ProgramState.ON_LINE_MOTOR == false)
+            {
+                return true;
+            }
             int i = 0;
             int lModuleNo = 0;
             int lOffset = 0;
@@ -232,6 +239,10 @@ namespace ZenHandler.Machine
         public bool GetIsFlipperTurn(int GroupNo, int index, bool bFlag, bool bWait = false)      //각 소켓의 로테이션 회전 상태 확인
         {
             //GroupNo = 앞2 , 뒤2 4Set
+            if (ProgramState.ON_LINE_MOTOR == false)
+            {
+                return true;
+            }
             int i = 0;
             int lModuleNo = 0;
             int lOffset = 0;
@@ -291,6 +302,10 @@ namespace ZenHandler.Machine
         public bool GetIsFlipperUp(int GroupNo, int index, bool bFlag, bool bWait = false)      //각 소켓의 로테이션 실린더 상/하강 상태
         {
             //GroupNo = 앞2 , 뒤2 4Set
+            if (ProgramState.ON_LINE_MOTOR == false)
+            {
+                return true;
+            }
             int i = 0;
             int lModuleNo = 0;
             int lOffset = 0;
