@@ -117,7 +117,7 @@ namespace ZenHandler.MotionControl
                     case 3: return (uint)DIO_IN_ADDR_CH2.IN3_TRANSFER_UNLOAD_PICKER_VACUUM_ON4;
                     default:
                         // 로그 남기기 (예: LogHelper.Write)
-                        Console.WriteLine($"[Warning] 잘못된 GetInLoadPickerVacuumOn 타입 요청됨: {index}");
+                        Console.WriteLine($"[Warning] 잘못된 GetInUnloadPickerVacuumOn 타입 요청됨: {index}");
                         //throw new ArgumentOutOfRangeException(nameof(nType), nType, "Invalid Tower Lamp Type");
                         return 0; // 또는 사용하지 않는 안전한 비트
                 }
@@ -132,7 +132,7 @@ namespace ZenHandler.MotionControl
                     case 3: return (uint)DIO_IN_ADDR_CH2.IN3_TRANSFER_UNLOAD_PICKER_VACUUM_ON4;
                     default:
                         // 로그 남기기 (예: LogHelper.Write)
-                        Console.WriteLine($"[Warning] 잘못된 GetInLoadPickerVacuumOn 타입 요청됨: {index}");
+                        Console.WriteLine($"[Warning] 잘못된 GetInUnloadPickerVacuumOn 타입 요청됨: {index}");
                         //throw new ArgumentOutOfRangeException(nameof(nType), nType, "Invalid Tower Lamp Type");
                         return 0; // 또는 사용하지 않는 안전한 비트
                 }

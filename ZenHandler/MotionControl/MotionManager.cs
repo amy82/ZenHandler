@@ -39,6 +39,7 @@ namespace ZenHandler.MotionControl
     public class MotionManager
     {
         public IOController ioController;       //io 동작
+        //public IOController emoIoController;    //eoi , buzzer , towerLamp io 사용
 
         public int m_lAxisCounts = 0;                          // 제어 가능한 축갯수 선언 및 초기화
         public bool bConnected = false;
@@ -122,7 +123,15 @@ namespace ZenHandler.MotionControl
             {
                 _dio = new AoiDioDefine();
             }
-            
+            if (Program.PG_SELECT == HANDLER_PG.EEPROM)
+            {
+                _dio = new EEpromDioDefine();
+            }
+            if (Program.PG_SELECT == HANDLER_PG.FW)
+            {
+                _dio = new FwDioDefine();
+            }
+
 
             for (i = 0; i < 4; i++)     //for (i = 0; i < socketA_Req_State.Length; i++)
             {

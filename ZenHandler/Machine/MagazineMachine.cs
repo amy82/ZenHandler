@@ -113,30 +113,122 @@ namespace ZenHandler.Machine
             return rtn;
         }
         #region Magazine Machine Io 동작
-        public bool LeftDoorLock(int index, bool bFlag, bool bWait = false)
-        {
 
-            return false;
-        }
-        public bool RightDoorLock(int index, bool bFlag, bool bWait = false)
-        {
 
-            return false;
-        }
         public bool GetMagazineInPosition(int index, bool bWait = false)       //Magazine 정위치 안착 확인 ,1개 센서, 0 = left , 1 = right
         {
+            if (ProgramState.ON_LINE_MOTOR == false)
+            {
+                return true;
+            }
+            int lModuleNo = 0;
+            int lOffset = 0;
+            if (index == 0)
+            {
+                lModuleNo = 0;
+                lOffset = 2;
+            }
+            else
+            {
+                lModuleNo = 0;
+                lOffset = 3;
+            }
+            uint uFlagHigh = 0;
+            uint upValue = Globalo.motionManager.ioController.m_dwDInDict[lModuleNo][lOffset];
+
+            uFlagHigh = upValue & Globalo.motionManager._dio.GetInMagazineDocked(index);
+            if (uFlagHigh == 1)
+            {
+                return true;
+            }
+
             return false;
         }
         public bool GetTrayUndocked(int index, bool bWait = false)              //Magazine 과 Loader 사이 Tray 감지 0 = left , 1 = right
         {
+            if (ProgramState.ON_LINE_MOTOR == false)
+            {
+                return true;
+            }
+            int lModuleNo = 0;
+            int lOffset = 0;
+            if (index == 0)
+            {
+                lModuleNo = 0;
+                lOffset = 2;
+            }
+            else
+            {
+                lModuleNo = 0;
+                lOffset = 3;
+            }
+            uint uFlagHigh = 0;
+            uint upValue = Globalo.motionManager.ioController.m_dwDInDict[lModuleNo][lOffset];
+
+            uFlagHigh = upValue & Globalo.motionManager._dio.GetInMagazineBottom(index);
+            if (uFlagHigh == 1)
+            {
+                return true;
+            }
+
             return false;
         }
         public bool GetIsTrayOnLoader(int index, bool bWait = false)              //Loader 에 Tray 유무 확인 0 = left , 1 = right
         {
+            if (ProgramState.ON_LINE_MOTOR == false)
+            {
+                return true;
+            }
+            int lModuleNo = 0;
+            int lOffset = 0;
+            if (index == 0)
+            {
+                lModuleNo = 0;
+                lOffset = 2;
+            }
+            else
+            {
+                lModuleNo = 0;
+                lOffset = 3;
+            }
+            uint uFlagHigh = 0;
+            uint upValue = Globalo.motionManager.ioController.m_dwDInDict[lModuleNo][lOffset];
+
+            uFlagHigh = upValue & Globalo.motionManager._dio.GetInMagazineTrayLoad(index);
+            if (uFlagHigh == 1)
+            {
+                return true;
+            }
+
             return false;
         }
         public bool GetIsTrayFrontOfLoader(int index, bool bWait = false)              //Loader 앞쪽에 Tray 감지 센서  - Magazine에서 Tray 빼기전 유무 확인  0 = left , 1 = right
         {
+            if (ProgramState.ON_LINE_MOTOR == false)
+            {
+                return true;
+            }
+            int lModuleNo = 0;
+            int lOffset = 0;
+            if (index == 0)
+            {
+                lModuleNo = 0;
+                lOffset = 2;
+            }
+            else
+            {
+                lModuleNo = 0;
+                lOffset = 3;
+            }
+            uint uFlagHigh = 0;
+            uint upValue = Globalo.motionManager.ioController.m_dwDInDict[lModuleNo][lOffset];
+
+            uFlagHigh = upValue & Globalo.motionManager._dio.GetInMagazineTrayReady(index);
+            if (uFlagHigh == 1)
+            {
+                return true;
+            }
+
             return false;
         }
 
@@ -157,8 +249,6 @@ namespace ZenHandler.Machine
             {
                 return true;
             }
-
-
             return false;
         }
         public bool GetRightInModeButton()          //우측 매거진 투입 대기 버튼
