@@ -6,8 +6,830 @@ using System.Threading.Tasks;
 
 namespace ZenHandler.MotionControl
 {
-    public class EEpromDioDefine
+    public class EEpromDioDefine : IDioDefine
     {
+        public uint GetInMagazineDocked(int index) { return 0; }
+        public uint GetInMagazineBottom(int index) { return 0; }
+        public uint GetInMagazineTrayLoad(int index) { return 0; }
+        public uint GetInMagazineTrayReady(int index) { return 0; }
+        public uint GetInTopTouch(int index)
+        {
+            switch (index)
+            {
+                case 0: return (uint)DIO_IN_ADDR_CH4.IN2_LEFT_TOP_STOP_TOUCH;
+                case 1: return (uint)DIO_IN_ADDR_CH4.IN3_RIGHT_TOP_STOP_TOUCH;
+                default:
+                    // 로그 남기기 (예: LogHelper.Write)
+                    Console.WriteLine($"[Warning] 잘못된 GetInTopTouch 타입 요청됨:{index}");
+                    //throw new ArgumentOutOfRangeException(nameof(nType), nType, "Invalid Tower Lamp Type");
+                    return 0; // 또는 사용하지 않는 안전한 비트
+            }
+        }
+        public uint GetInMiddleWait(int index)
+        {
+            switch (index)
+            {
+                case 0: return (uint)DIO_IN_ADDR_CH4.IN2_LEFT_UPPER_WAIT;
+                case 1: return (uint)DIO_IN_ADDR_CH4.IN3_RIGHT_UPPER_WAIT;
+                default:
+                    // 로그 남기기 (예: LogHelper.Write)
+                    Console.WriteLine($"[Warning] 잘못된 GetInMiddleWait 타입 요청됨:{index}");
+                    //throw new ArgumentOutOfRangeException(nameof(nType), nType, "Invalid Tower Lamp Type");
+                    return 0; // 또는 사용하지 않는 안전한 비트
+            }
+        }
+        public uint GetInTraySeated(int index)
+        {
+            switch (index)
+            {
+                case 0: return (uint)DIO_IN_ADDR_CH4.IN2_LEFT_LIFT_TRAY_SEATED;
+                case 1: return (uint)DIO_IN_ADDR_CH4.IN3_RIGHT_LIFT_TRAY_SEATED;
+                default:
+                    // 로그 남기기 (예: LogHelper.Write)
+                    Console.WriteLine($"[Warning] 잘못된 GetInTraySeated 타입 요청됨:{index}");
+                    //throw new ArgumentOutOfRangeException(nameof(nType), nType, "Invalid Tower Lamp Type");
+                    return 0; // 또는 사용하지 않는 안전한 비트
+            }
+        }
+        public uint GetInOnSlide(int index)
+        {
+            switch (index)
+            {
+                case 0: return (uint)DIO_IN_ADDR_CH4.IN2_LEFT_LIFT_SIDE_IN_POS;
+                case 1: return (uint)DIO_IN_ADDR_CH4.IN3_RIGHT_LIFT_SIDE_IN_POS;
+                default:
+                    // 로그 남기기 (예: LogHelper.Write)
+                    Console.WriteLine($"[Warning] 잘못된 GetInOnSlide 타입 요청됨:{index}");
+                    //throw new ArgumentOutOfRangeException(nameof(nType), nType, "Invalid Tower Lamp Type");
+                    return 0; // 또는 사용하지 않는 안전한 비트
+            }
+        }
+        public uint GetInTrayLoad(int index)
+        {
+            switch (index)
+            {
+                case 0: return (uint)DIO_IN_ADDR_CH4.IN3_GANTRY_TRAY_DETECTED;
+                case 1: return (uint)DIO_IN_ADDR_CH4.IN3_PUSHER_TRAY_DETECTED;
+                default:
+                    // 로그 남기기 (예: LogHelper.Write)
+                    Console.WriteLine($"[Warning] 잘못된 GetInOnSlide 타입 요청됨:{index}");
+                    //throw new ArgumentOutOfRangeException(nameof(nType), nType, "Invalid Tower Lamp Type");
+                    return 0; // 또는 사용하지 않는 안전한 비트
+            }
+        }
+        public uint GetInUnloadPickerVacuumOn(int index, bool bFlag)
+        {
+            if (bFlag)
+            {
+                switch (index)
+                {
+                    case 0: return (uint)DIO_IN_ADDR_CH2.IN3_TRANSFER_UNLOAD_PICKER_VACUUM_ON1;
+                    case 1: return (uint)DIO_IN_ADDR_CH2.IN3_TRANSFER_UNLOAD_PICKER_VACUUM_ON2;
+                    case 2: return (uint)DIO_IN_ADDR_CH2.IN3_TRANSFER_UNLOAD_PICKER_VACUUM_ON3;
+                    case 3: return (uint)DIO_IN_ADDR_CH2.IN3_TRANSFER_UNLOAD_PICKER_VACUUM_ON4;
+                    default:
+                        // 로그 남기기 (예: LogHelper.Write)
+                        Console.WriteLine($"[Warning] 잘못된 GetInLoadPickerVacuumOn 타입 요청됨: {index}");
+                        //throw new ArgumentOutOfRangeException(nameof(nType), nType, "Invalid Tower Lamp Type");
+                        return 0; // 또는 사용하지 않는 안전한 비트
+                }
+            }
+            else
+            {
+                switch (index)
+                {
+                    case 0: return (uint)DIO_IN_ADDR_CH2.IN3_TRANSFER_UNLOAD_PICKER_VACUUM_ON1;
+                    case 1: return (uint)DIO_IN_ADDR_CH2.IN3_TRANSFER_UNLOAD_PICKER_VACUUM_ON2;
+                    case 2: return (uint)DIO_IN_ADDR_CH2.IN3_TRANSFER_UNLOAD_PICKER_VACUUM_ON3;
+                    case 3: return (uint)DIO_IN_ADDR_CH2.IN3_TRANSFER_UNLOAD_PICKER_VACUUM_ON4;
+                    default:
+                        // 로그 남기기 (예: LogHelper.Write)
+                        Console.WriteLine($"[Warning] 잘못된 GetInLoadPickerVacuumOn 타입 요청됨: {index}");
+                        //throw new ArgumentOutOfRangeException(nameof(nType), nType, "Invalid Tower Lamp Type");
+                        return 0; // 또는 사용하지 않는 안전한 비트
+                }
+            }
+        }
+        public uint GetOutUnloadPickerVacuumOn(int index, bool bFlag)
+        {
+            if (bFlag)
+            {
+                switch (index)
+                {
+                    case 0: return (uint)DIO_OUT_ADDR_CH3.OUT3_TRANSFER_UNLOAD_PICKER_VACUUM_ON1;
+                    case 1: return (uint)DIO_OUT_ADDR_CH3.OUT3_TRANSFER_UNLOAD_PICKER_VACUUM_ON2;
+                    case 2: return (uint)DIO_OUT_ADDR_CH3.OUT3_TRANSFER_UNLOAD_PICKER_VACUUM_ON3;
+                    case 3: return (uint)DIO_OUT_ADDR_CH3.OUT3_TRANSFER_UNLOAD_PICKER_VACUUM_ON4;
+                    default:
+                        // 로그 남기기 (예: LogHelper.Write)
+                        Console.WriteLine($"[Warning] 잘못된 GetOutUnloadPickerVacuumOn 타입 요청됨: {index}");
+                        //throw new ArgumentOutOfRangeException(nameof(nType), nType, "Invalid Tower Lamp Type");
+                        return 0; // 또는 사용하지 않는 안전한 비트
+                }
+            }
+            else
+            {
+                switch (index)
+                {
+                    case 0: return (uint)DIO_OUT_ADDR_CH3.OUT3_TRANSFER_UNLOAD_PICKER_BLOW_ON1;
+                    case 1: return (uint)DIO_OUT_ADDR_CH3.OUT3_TRANSFER_UNLOAD_PICKER_BLOW_ON2;
+                    case 2: return (uint)DIO_OUT_ADDR_CH3.OUT3_TRANSFER_UNLOAD_PICKER_BLOW_ON3;
+                    case 3: return (uint)DIO_OUT_ADDR_CH3.OUT3_TRANSFER_UNLOAD_PICKER_BLOW_ON4;
+                    default:
+                        // 로그 남기기 (예: LogHelper.Write)
+                        Console.WriteLine($"[Warning] 잘못된 GetOutUnloadPickerVacuumOn 타입 요청됨: {index}");
+                        //throw new ArgumentOutOfRangeException(nameof(nType), nType, "Invalid Tower Lamp Type");
+                        return 0; // 또는 사용하지 않는 안전한 비트
+                }
+            }
+        }
+        public uint GetOutLoadPickerVacuumOn(int index, bool bFlag)
+        {
+            if (bFlag)
+            {
+                switch (index)
+                {
+                    case 0: return (uint)DIO_OUT_ADDR_CH3.OUT2_TRANSFER_LOAD_PICKER_VACUUM_ON1;
+                    case 1: return (uint)DIO_OUT_ADDR_CH3.OUT2_TRANSFER_LOAD_PICKER_VACUUM_ON2;
+                    case 2: return (uint)DIO_OUT_ADDR_CH3.OUT2_TRANSFER_LOAD_PICKER_VACUUM_ON3;
+                    case 3: return (uint)DIO_OUT_ADDR_CH3.OUT2_TRANSFER_LOAD_PICKER_VACUUM_ON4;
+                    default:
+                        // 로그 남기기 (예: LogHelper.Write)
+                        Console.WriteLine($"[Warning] 잘못된 GetOutLoadPickerVacuumOn 타입 요청됨: {index}");
+                        //throw new ArgumentOutOfRangeException(nameof(nType), nType, "Invalid Tower Lamp Type");
+                        return 0; // 또는 사용하지 않는 안전한 비트
+                }
+            }
+            else
+            {
+                switch (index)
+                {
+                    case 0: return (uint)DIO_OUT_ADDR_CH3.OUT2_TRANSFER_LOAD_PICKER_BLOW_ON1;
+                    case 1: return (uint)DIO_OUT_ADDR_CH3.OUT2_TRANSFER_LOAD_PICKER_BLOW_ON2;
+                    case 2: return (uint)DIO_OUT_ADDR_CH3.OUT2_TRANSFER_LOAD_PICKER_BLOW_ON3;
+                    case 3: return (uint)DIO_OUT_ADDR_CH3.OUT2_TRANSFER_LOAD_PICKER_BLOW_ON4;
+                    default:
+                        // 로그 남기기 (예: LogHelper.Write)
+                        Console.WriteLine($"[Warning] 잘못된 GetOutLoadPickerVacuumOn 타입 요청됨: {index}");
+                        //throw new ArgumentOutOfRangeException(nameof(nType), nType, "Invalid Tower Lamp Type");
+                        return 0; // 또는 사용하지 않는 안전한 비트
+                }
+            }
+        }
+        public uint GetInLoadPickerVacuumOn(int index, bool bFlag)
+        {
+            switch (index)
+            {
+                case 0: return (uint)DIO_IN_ADDR_CH2.IN2_TRANSFER_LOAD_PICKER_VACUUM_ON1;
+                case 1: return (uint)DIO_IN_ADDR_CH2.IN2_TRANSFER_LOAD_PICKER_VACUUM_ON2;
+                case 2: return (uint)DIO_IN_ADDR_CH2.IN2_TRANSFER_LOAD_PICKER_VACUUM_ON3;
+                case 3: return (uint)DIO_IN_ADDR_CH2.IN2_TRANSFER_LOAD_PICKER_VACUUM_ON4;
+                default:
+                    // 로그 남기기 (예: LogHelper.Write)
+                    Console.WriteLine($"[Warning] 잘못된 GetInLoadPickerVacuumOn 타입 요청됨: {index}");
+                    //throw new ArgumentOutOfRangeException(nameof(nType), nType, "Invalid Tower Lamp Type");
+                    return 0; // 또는 사용하지 않는 안전한 비트
+            }
+        }
+        public uint GetOutUnloadPickerUpDown(int index, bool bFlag)
+        {
+            if (bFlag)
+            {
+                switch (index)
+                {
+                    case 0: return (uint)DIO_IN_ADDR_CH2.IN1_TRANSFER_UNLOAD_PICKER_UP1;
+                    case 1: return (uint)DIO_IN_ADDR_CH2.IN1_TRANSFER_UNLOAD_PICKER_UP2;
+                    case 2: return (uint)DIO_IN_ADDR_CH2.IN1_TRANSFER_UNLOAD_PICKER_UP3;
+                    case 3: return (uint)DIO_IN_ADDR_CH2.IN1_TRANSFER_UNLOAD_PICKER_UP4;
+                    default:
+                        // 로그 남기기 (예: LogHelper.Write)
+                        Console.WriteLine($"[Warning] 잘못된 GetInUnloadPickerUpDown 타입 요청됨: {index}");
+                        //throw new ArgumentOutOfRangeException(nameof(nType), nType, "Invalid Tower Lamp Type");
+                        return 0; // 또는 사용하지 않는 안전한 비트
+                }
+            }
+            else
+            {
+                switch (index)
+                {
+                    case 0: return (uint)DIO_IN_ADDR_CH2.IN1_TRANSFER_UNLOAD_PICKER_DOWN1;
+                    case 1: return (uint)DIO_IN_ADDR_CH2.IN1_TRANSFER_UNLOAD_PICKER_DOWN2;
+                    case 2: return (uint)DIO_IN_ADDR_CH2.IN1_TRANSFER_UNLOAD_PICKER_DOWN3;
+                    case 3: return (uint)DIO_IN_ADDR_CH2.IN1_TRANSFER_UNLOAD_PICKER_DOWN4;
+                    default:
+                        // 로그 남기기 (예: LogHelper.Write)
+                        Console.WriteLine($"[Warning] 잘못된 GetInUnloadPickerUpDown 타입 요청됨: {index}");
+                        //throw new ArgumentOutOfRangeException(nameof(nType), nType, "Invalid Tower Lamp Type");
+                        return 0; // 또는 사용하지 않는 안전한 비트
+                }
+            }
+        }
+        public uint GetOutLoadPickerUpDown(int index, bool bFlag)
+        {
+            if (bFlag)
+            {
+                switch (index)
+                {
+                    case 0: return (uint)DIO_OUT_ADDR_CH3.OUT0_TRANSFER_LOAD_PICKER_UP1;
+                    case 1: return (uint)DIO_OUT_ADDR_CH3.OUT0_TRANSFER_LOAD_PICKER_UP2;
+                    case 2: return (uint)DIO_OUT_ADDR_CH3.OUT0_TRANSFER_LOAD_PICKER_UP3;
+                    case 3: return (uint)DIO_OUT_ADDR_CH3.OUT0_TRANSFER_LOAD_PICKER_UP4;
+                    default:
+                        // 로그 남기기 (예: LogHelper.Write)
+                        Console.WriteLine($"[Warning] 잘못된 GetOutLoadPickerUpDown 타입 요청됨: {index}");
+                        //throw new ArgumentOutOfRangeException(nameof(nType), nType, "Invalid Tower Lamp Type");
+                        return 0; // 또는 사용하지 않는 안전한 비트
+                }
+            }
+            else
+            {
+                switch (index)
+                {
+                    case 0: return (uint)DIO_OUT_ADDR_CH3.OUT0_TRANSFER_LOAD_PICKER_DOWN1;
+                    case 1: return (uint)DIO_OUT_ADDR_CH3.OUT0_TRANSFER_LOAD_PICKER_DOWN2;
+                    case 2: return (uint)DIO_OUT_ADDR_CH3.OUT0_TRANSFER_LOAD_PICKER_DOWN3;
+                    case 3: return (uint)DIO_OUT_ADDR_CH3.OUT0_TRANSFER_LOAD_PICKER_DOWN4;
+                    default:
+                        // 로그 남기기 (예: LogHelper.Write)
+                        Console.WriteLine($"[Warning] 잘못된 GetOutLoadPickerUpDown 타입 요청됨: {index}");
+                        //throw new ArgumentOutOfRangeException(nameof(nType), nType, "Invalid Tower Lamp Type");
+                        return 0; // 또는 사용하지 않는 안전한 비트
+                }
+            }
+        }
+        public uint GetInUnloadPickerUpDown(int index, bool bFlag)
+        {
+            if (bFlag)
+            {
+                switch (index)
+                {
+                    case 0: return (uint)DIO_IN_ADDR_CH2.IN1_TRANSFER_UNLOAD_PICKER_UP1;
+                    case 1: return (uint)DIO_IN_ADDR_CH2.IN1_TRANSFER_UNLOAD_PICKER_UP2;
+                    case 2: return (uint)DIO_IN_ADDR_CH2.IN1_TRANSFER_UNLOAD_PICKER_UP3;
+                    case 3: return (uint)DIO_IN_ADDR_CH2.IN1_TRANSFER_UNLOAD_PICKER_UP4;
+                    default:
+                        // 로그 남기기 (예: LogHelper.Write)
+                        Console.WriteLine($"[Warning] 잘못된 GetInUnloadPickerUpDown 타입 요청됨: {index}");
+                        //throw new ArgumentOutOfRangeException(nameof(nType), nType, "Invalid Tower Lamp Type");
+                        return 0; // 또는 사용하지 않는 안전한 비트
+                }
+            }
+            else
+            {
+                switch (index)
+                {
+                    case 0: return (uint)DIO_IN_ADDR_CH2.IN1_TRANSFER_UNLOAD_PICKER_DOWN1;
+                    case 1: return (uint)DIO_IN_ADDR_CH2.IN1_TRANSFER_UNLOAD_PICKER_DOWN2;
+                    case 2: return (uint)DIO_IN_ADDR_CH2.IN1_TRANSFER_UNLOAD_PICKER_DOWN3;
+                    case 3: return (uint)DIO_IN_ADDR_CH2.IN1_TRANSFER_UNLOAD_PICKER_DOWN4;
+                    default:
+                        // 로그 남기기 (예: LogHelper.Write)
+                        Console.WriteLine($"[Warning] 잘못된 GetInUnloadPickerUpDown 타입 요청됨: {index}");
+                        //throw new ArgumentOutOfRangeException(nameof(nType), nType, "Invalid Tower Lamp Type");
+                        return 0; // 또는 사용하지 않는 안전한 비트
+                }
+            }
+        }
+        public uint GetInLoadPickerUpDown(int index, bool bFlag)
+        {
+            if (bFlag)
+            {
+                switch (index)
+                {
+                    case 0: return (uint)DIO_IN_ADDR_CH2.IN0_TRANSFER_LOAD_PICKER_UP1;
+                    case 1: return (uint)DIO_IN_ADDR_CH2.IN0_TRANSFER_LOAD_PICKER_UP2;
+                    case 2: return (uint)DIO_IN_ADDR_CH2.IN0_TRANSFER_LOAD_PICKER_UP3;
+                    case 3: return (uint)DIO_IN_ADDR_CH2.IN0_TRANSFER_LOAD_PICKER_UP4;
+                    default:
+                        // 로그 남기기 (예: LogHelper.Write)
+                        Console.WriteLine($"[Warning] 잘못된 GetInLoadPickerUpDown 타입 요청됨: {index}");
+                        //throw new ArgumentOutOfRangeException(nameof(nType), nType, "Invalid Tower Lamp Type");
+                        return 0; // 또는 사용하지 않는 안전한 비트
+                }
+            }
+            else
+            {
+                switch (index)
+                {
+                    case 0: return (uint)DIO_IN_ADDR_CH2.IN0_TRANSFER_LOAD_PICKER_DOWN1;
+                    case 1: return (uint)DIO_IN_ADDR_CH2.IN0_TRANSFER_LOAD_PICKER_DOWN2;
+                    case 2: return (uint)DIO_IN_ADDR_CH2.IN0_TRANSFER_LOAD_PICKER_DOWN3;
+                    case 3: return (uint)DIO_IN_ADDR_CH2.IN0_TRANSFER_LOAD_PICKER_DOWN4;
+                    default:
+                        // 로그 남기기 (예: LogHelper.Write)
+                        Console.WriteLine($"[Warning] 잘못된 GetInLoadPickerUpDown 타입 요청됨: {index}");
+                        //throw new ArgumentOutOfRangeException(nameof(nType), nType, "Invalid Tower Lamp Type");
+                        return 0; // 또는 사용하지 않는 안전한 비트
+                }
+            }
+        }
+        public uint GetInContactUpDown(int Group, int index, bool bFlag)
+        {
+            if (Group == 0)
+            {
+                if (bFlag)
+                {
+                    switch (index)
+                    {
+                        case 0: return (uint)DIO_IN_ADDR_CH6.IN0_WRITE_SOCKET_CONTACT_UP1;
+                        case 1: return (uint)DIO_IN_ADDR_CH6.IN0_WRITE_SOCKET_CONTACT_UP2;
+                        case 2: return (uint)DIO_IN_ADDR_CH6.IN0_WRITE_SOCKET_CONTACT_UP3;
+                        case 3: return (uint)DIO_IN_ADDR_CH6.IN0_WRITE_SOCKET_CONTACT_UP4;
+                        default:
+                            // 로그 남기기 (예: LogHelper.Write)
+                            Console.WriteLine($"[Warning] 잘못된 GetInContactUpDown 타입 요청됨:{Group}, {index}");
+                            //throw new ArgumentOutOfRangeException(nameof(nType), nType, "Invalid Tower Lamp Type");
+                            return 0; // 또는 사용하지 않는 안전한 비트
+                    }
+                }
+                else
+                {
+                    switch (index)
+                    {
+                        case 0: return (uint)DIO_IN_ADDR_CH6.IN0_WRITE_SOCKET_CONTACT_DOWN1;
+                        case 1: return (uint)DIO_IN_ADDR_CH6.IN0_WRITE_SOCKET_CONTACT_DOWN2;
+                        case 2: return (uint)DIO_IN_ADDR_CH6.IN0_WRITE_SOCKET_CONTACT_DOWN3;
+                        case 3: return (uint)DIO_IN_ADDR_CH6.IN0_WRITE_SOCKET_CONTACT_DOWN4;
+                        default:
+                            // 로그 남기기 (예: LogHelper.Write)
+                            Console.WriteLine($"[Warning] 잘못된 GetInContactUpDown 타입 요청됨:{Group}, {index}");
+                            //throw new ArgumentOutOfRangeException(nameof(nType), nType, "Invalid Tower Lamp Type");
+                            return 0; // 또는 사용하지 않는 안전한 비트
+                    }
+                }
+            }
+            if (Group == 1)
+            {
+                if (bFlag)
+                {
+                    switch (index)
+                    {
+                        case 0: return (uint)DIO_IN_ADDR_CH6.IN2_VERIFY_SOCKET_CONTACT_UP1;
+                        case 1: return (uint)DIO_IN_ADDR_CH6.IN2_VERIFY_SOCKET_CONTACT_UP2;
+                        case 2: return (uint)DIO_IN_ADDR_CH6.IN2_VERIFY_SOCKET_CONTACT_UP3;
+                        case 3: return (uint)DIO_IN_ADDR_CH6.IN2_VERIFY_SOCKET_CONTACT_UP4;
+                        default:
+                            // 로그 남기기 (예: LogHelper.Write)
+                            Console.WriteLine($"[Warning] 잘못된 GetInContactUpDown 타입 요청됨:{Group}, {index}");
+                            //throw new ArgumentOutOfRangeException(nameof(nType), nType, "Invalid Tower Lamp Type");
+                            return 0; // 또는 사용하지 않는 안전한 비트
+                    }
+                }
+                else
+                {
+                    switch (index)
+                    {
+                        case 0: return (uint)DIO_IN_ADDR_CH6.IN2_VERIFY_SOCKET_CONTACT_DOWN1;
+                        case 1: return (uint)DIO_IN_ADDR_CH6.IN2_VERIFY_SOCKET_CONTACT_DOWN2;
+                        case 2: return (uint)DIO_IN_ADDR_CH6.IN2_VERIFY_SOCKET_CONTACT_DOWN3;
+                        case 3: return (uint)DIO_IN_ADDR_CH6.IN2_VERIFY_SOCKET_CONTACT_DOWN4;
+                        default:
+                            // 로그 남기기 (예: LogHelper.Write)
+                            Console.WriteLine($"[Warning] 잘못된 GetInContactUpDown 타입 요청됨:{Group}, {index}");
+                            //throw new ArgumentOutOfRangeException(nameof(nType), nType, "Invalid Tower Lamp Type");
+                            return 0; // 또는 사용하지 않는 안전한 비트
+                    }
+                }
+            }
+           
+            return 0; // 또는 사용하지 않는 안전한 비트
+        }
+        public uint GetOutContactUpDown(int Group, int index, bool bFlag)
+        {
+            if (Group == 0)
+            {
+                if (bFlag)
+                {
+                    switch (index)
+                    {
+                        case 0: return (uint)DIO_OUT_ADDR_CH7.OUT0_WRITE_SOCKET_CONTACT_UP1;
+                        case 1: return (uint)DIO_OUT_ADDR_CH7.OUT0_WRITE_SOCKET_CONTACT_UP2;
+                        case 2: return (uint)DIO_OUT_ADDR_CH7.OUT0_WRITE_SOCKET_CONTACT_UP3;
+                        case 3: return (uint)DIO_OUT_ADDR_CH7.OUT0_WRITE_SOCKET_CONTACT_UP4;
+                        default:
+                            // 로그 남기기 (예: LogHelper.Write)
+                            Console.WriteLine($"[Warning] 잘못된 GetOutContactUpDown 타입 요청됨:{Group}, {index}");
+                            //throw new ArgumentOutOfRangeException(nameof(nType), nType, "Invalid Tower Lamp Type");
+                            return 0; // 또는 사용하지 않는 안전한 비트
+                    }
+                }
+                else
+                {
+                    switch (index)
+                    {
+                        case 0: return (uint)DIO_OUT_ADDR_CH7.OUT0_WRITE_SOCKET_CONTACT_DOWN1;
+                        case 1: return (uint)DIO_OUT_ADDR_CH7.OUT0_WRITE_SOCKET_CONTACT_DOWN2;
+                        case 2: return (uint)DIO_OUT_ADDR_CH7.OUT0_WRITE_SOCKET_CONTACT_DOWN3;
+                        case 3: return (uint)DIO_OUT_ADDR_CH7.OUT0_WRITE_SOCKET_CONTACT_DOWN4;
+                        default:
+                            // 로그 남기기 (예: LogHelper.Write)
+                            Console.WriteLine($"[Warning] 잘못된 GetOutContactUpDown 타입 요청됨:{Group}, {index}");
+                            //throw new ArgumentOutOfRangeException(nameof(nType), nType, "Invalid Tower Lamp Type");
+                            return 0; // 또는 사용하지 않는 안전한 비트
+                    }
+                }
+            }
+            if (Group == 1)
+            {
+                if (bFlag)
+                {
+                    switch (index)
+                    {
+                        case 0: return (uint)DIO_OUT_ADDR_CH7.OUT2_VERIFY_SOCKET_CONTACT_UP1;
+                        case 1: return (uint)DIO_OUT_ADDR_CH7.OUT2_VERIFY_SOCKET_CONTACT_UP2;
+                        case 2: return (uint)DIO_OUT_ADDR_CH7.OUT2_VERIFY_SOCKET_CONTACT_UP3;
+                        case 3: return (uint)DIO_OUT_ADDR_CH7.OUT2_VERIFY_SOCKET_CONTACT_UP4;
+                        default:
+                            // 로그 남기기 (예: LogHelper.Write)
+                            Console.WriteLine($"[Warning] 잘못된 GetOutContactUpDown 타입 요청됨:{Group}, {index}");
+                            //throw new ArgumentOutOfRangeException(nameof(nType), nType, "Invalid Tower Lamp Type");
+                            return 0; // 또는 사용하지 않는 안전한 비트
+                    }
+                }
+                else
+                {
+                    switch (index)
+                    {
+                        case 0: return (uint)DIO_OUT_ADDR_CH7.OUT2_VERIFY_SOCKET_CONTACT_DOWN1;
+                        case 1: return (uint)DIO_OUT_ADDR_CH7.OUT2_VERIFY_SOCKET_CONTACT_DOWN2;
+                        case 2: return (uint)DIO_OUT_ADDR_CH7.OUT2_VERIFY_SOCKET_CONTACT_DOWN3;
+                        case 3: return (uint)DIO_OUT_ADDR_CH7.OUT2_VERIFY_SOCKET_CONTACT_DOWN4;
+                        default:
+                            // 로그 남기기 (예: LogHelper.Write)
+                            Console.WriteLine($"[Warning] 잘못된 GetOutContactUpDown 타입 요청됨:{Group}, {index}");
+                            //throw new ArgumentOutOfRangeException(nameof(nType), nType, "Invalid Tower Lamp Type");
+                            return 0; // 또는 사용하지 않는 안전한 비트
+                    }
+                }
+            }
+            return 0; // 또는 사용하지 않는 안전한 비트
+        }
+        public uint GetInContactForBack(int Group, int index, bool bFlag)
+        {
+            if (Group == 0)
+            {
+                if (bFlag)
+                {
+                    switch (index)
+                    {
+                        case 0: return (uint)DIO_IN_ADDR_CH6.IN1_WRITE_SOCKET_CONTACT_FORWARD1;
+                        case 1: return (uint)DIO_IN_ADDR_CH6.IN1_WRITE_SOCKET_CONTACT_FORWARD2;
+                        case 2: return (uint)DIO_IN_ADDR_CH6.IN1_WRITE_SOCKET_CONTACT_FORWARD3;
+                        case 3: return (uint)DIO_IN_ADDR_CH6.IN1_WRITE_SOCKET_CONTACT_FORWARD4;
+                        default:
+                            // 로그 남기기 (예: LogHelper.Write)
+                            Console.WriteLine($"[Warning] 잘못된 GetInContactUpDown 타입 요청됨:{Group}, {index}");
+                            //throw new ArgumentOutOfRangeException(nameof(nType), nType, "Invalid Tower Lamp Type");
+                            return 0; // 또는 사용하지 않는 안전한 비트
+                    }
+                }
+                else
+                {
+                    switch (index)
+                    {
+                        case 0: return (uint)DIO_IN_ADDR_CH6.IN1_WRITE_SOCKET_CONTACT_BACKWARD1;
+                        case 1: return (uint)DIO_IN_ADDR_CH6.IN1_WRITE_SOCKET_CONTACT_BACKWARD2;
+                        case 2: return (uint)DIO_IN_ADDR_CH6.IN1_WRITE_SOCKET_CONTACT_BACKWARD3;
+                        case 3: return (uint)DIO_IN_ADDR_CH6.IN1_WRITE_SOCKET_CONTACT_BACKWARD4;
+                        default:
+                            // 로그 남기기 (예: LogHelper.Write)
+                            Console.WriteLine($"[Warning] 잘못된 GetInContactUpDown 타입 요청됨:{Group}, {index}");
+                            //throw new ArgumentOutOfRangeException(nameof(nType), nType, "Invalid Tower Lamp Type");
+                            return 0; // 또는 사용하지 않는 안전한 비트
+                    }
+                }
+            }
+            if (Group == 1)
+            {
+                if (bFlag)
+                {
+                    switch (index)
+                    {
+                        case 0: return (uint)DIO_IN_ADDR_CH6.IN3_VERIFY_SOCKET_CONTACT_FORWARD1;
+                        case 1: return (uint)DIO_IN_ADDR_CH6.IN3_VERIFY_SOCKET_CONTACT_FORWARD2;
+                        case 2: return (uint)DIO_IN_ADDR_CH6.IN3_VERIFY_SOCKET_CONTACT_FORWARD3;
+                        case 3: return (uint)DIO_IN_ADDR_CH6.IN3_VERIFY_SOCKET_CONTACT_FORWARD4;
+                        default:
+                            // 로그 남기기 (예: LogHelper.Write)
+                            Console.WriteLine($"[Warning] 잘못된 GetInContactUpDown 타입 요청됨:{Group}, {index}");
+                            //throw new ArgumentOutOfRangeException(nameof(nType), nType, "Invalid Tower Lamp Type");
+                            return 0; // 또는 사용하지 않는 안전한 비트
+                    }
+                }
+                else
+                {
+                    switch (index)
+                    {
+                        case 0: return (uint)DIO_IN_ADDR_CH6.IN3_VERIFY_SOCKET_CONTACT_BACKWARD1;
+                        case 1: return (uint)DIO_IN_ADDR_CH6.IN3_VERIFY_SOCKET_CONTACT_BACKWARD2;
+                        case 2: return (uint)DIO_IN_ADDR_CH6.IN3_VERIFY_SOCKET_CONTACT_BACKWARD3;
+                        case 3: return (uint)DIO_IN_ADDR_CH6.IN3_VERIFY_SOCKET_CONTACT_BACKWARD4;
+                        default:
+                            // 로그 남기기 (예: LogHelper.Write)
+                            Console.WriteLine($"[Warning] 잘못된 GetInContactUpDown 타입 요청됨:{Group}, {index}");
+                            //throw new ArgumentOutOfRangeException(nameof(nType), nType, "Invalid Tower Lamp Type");
+                            return 0; // 또는 사용하지 않는 안전한 비트
+                    }
+                }
+            }
+            
+            return 0; // 또는 사용하지 않는 안전한 비트
+        }
+        public uint GetOutContactForBack(int Group, int index, bool bFlag)
+        {
+            if (Group == 0)
+            {
+                if (bFlag)
+                {
+                    switch (index)
+                    {
+                        case 0: return (uint)DIO_OUT_ADDR_CH7.OUT1_WRITE_SOCKET_CONTACT_FORWARD1;
+                        case 1: return (uint)DIO_OUT_ADDR_CH7.OUT1_WRITE_SOCKET_CONTACT_FORWARD2;
+                        case 2: return (uint)DIO_OUT_ADDR_CH7.OUT1_WRITE_SOCKET_CONTACT_FORWARD3;
+                        case 3: return (uint)DIO_OUT_ADDR_CH7.OUT1_WRITE_SOCKET_CONTACT_FORWARD4;
+                        default:
+                            // 로그 남기기 (예: LogHelper.Write)
+                            Console.WriteLine($"[Warning] 잘못된 GetOutContactUpDown 타입 요청됨:{Group}, {index}");
+                            //throw new ArgumentOutOfRangeException(nameof(nType), nType, "Invalid Tower Lamp Type");
+                            return 0; // 또는 사용하지 않는 안전한 비트
+                    }
+                }
+                else
+                {
+                    switch (index)
+                    {
+                        case 0: return (uint)DIO_OUT_ADDR_CH7.OUT1_WRITE_SOCKET_CONTACT_BACKWARD1;
+                        case 1: return (uint)DIO_OUT_ADDR_CH7.OUT1_WRITE_SOCKET_CONTACT_BACKWARD2;
+                        case 2: return (uint)DIO_OUT_ADDR_CH7.OUT1_WRITE_SOCKET_CONTACT_BACKWARD3;
+                        case 3: return (uint)DIO_OUT_ADDR_CH7.OUT1_WRITE_SOCKET_CONTACT_BACKWARD4;
+                        default:
+                            // 로그 남기기 (예: LogHelper.Write)
+                            Console.WriteLine($"[Warning] 잘못된 GetOutContactUpDown 타입 요청됨:{Group}, {index}");
+                            //throw new ArgumentOutOfRangeException(nameof(nType), nType, "Invalid Tower Lamp Type");
+                            return 0; // 또는 사용하지 않는 안전한 비트
+                    }
+                }
+            }
+            if (Group == 1)
+            {
+                if (bFlag)
+                {
+                    switch (index)
+                    {
+                        case 0: return (uint)DIO_OUT_ADDR_CH7.OUT3_VERIFY_SOCKET_CONTACT_FORWARD1;
+                        case 1: return (uint)DIO_OUT_ADDR_CH7.OUT3_VERIFY_SOCKET_CONTACT_FORWARD2;
+                        case 2: return (uint)DIO_OUT_ADDR_CH7.OUT3_VERIFY_SOCKET_CONTACT_FORWARD3;
+                        case 3: return (uint)DIO_OUT_ADDR_CH7.OUT3_VERIFY_SOCKET_CONTACT_FORWARD4;
+                        default:
+                            // 로그 남기기 (예: LogHelper.Write)
+                            Console.WriteLine($"[Warning] 잘못된 GetOutContactUpDown 타입 요청됨:{Group}, {index}");
+                            //throw new ArgumentOutOfRangeException(nameof(nType), nType, "Invalid Tower Lamp Type");
+                            return 0; // 또는 사용하지 않는 안전한 비트
+                    }
+                }
+                else
+                {
+                    switch (index)
+                    {
+                        case 0: return (uint)DIO_OUT_ADDR_CH7.OUT3_VERIFY_SOCKET_CONTACT_BACKWARD1;
+                        case 1: return (uint)DIO_OUT_ADDR_CH7.OUT3_VERIFY_SOCKET_CONTACT_BACKWARD2;
+                        case 2: return (uint)DIO_OUT_ADDR_CH7.OUT3_VERIFY_SOCKET_CONTACT_BACKWARD3;
+                        case 3: return (uint)DIO_OUT_ADDR_CH7.OUT3_VERIFY_SOCKET_CONTACT_BACKWARD4;
+                        default:
+                            // 로그 남기기 (예: LogHelper.Write)
+                            Console.WriteLine($"[Warning] 잘못된 GetOutContactUpDown 타입 요청됨:{Group}, {index}");
+                            //throw new ArgumentOutOfRangeException(nameof(nType), nType, "Invalid Tower Lamp Type");
+                            return 0; // 또는 사용하지 않는 안전한 비트
+                    }
+                }
+            }
+            
+            return 0; // 또는 사용하지 않는 안전한 비트
+        }
+        public uint GetInGoodDetect(int Group, int index)
+        {
+            if (Group == 0)
+            {
+                switch (index)
+                {
+                    case 0: return (uint)DIO_IN_ADDR_CH0.IN2_WRITE_SOCKET_GOOD_DETECT1;
+                    case 1: return (uint)DIO_IN_ADDR_CH0.IN2_WRITE_SOCKET_GOOD_DETECT2;
+                    case 2: return (uint)DIO_IN_ADDR_CH0.IN2_WRITE_SOCKET_GOOD_DETECT3;
+                    case 3: return (uint)DIO_IN_ADDR_CH0.IN2_WRITE_SOCKET_GOOD_DETECT4;
+                    default:
+                        // 로그 남기기 (예: LogHelper.Write)
+                        Console.WriteLine($"[Warning] 잘못된 GetInGoodDetect 타입 요청됨:{Group}, {index}");
+                        //throw new ArgumentOutOfRangeException(nameof(nType), nType, "Invalid Tower Lamp Type");
+                        return 0; // 또는 사용하지 않는 안전한 비트
+                }
+            }
+            if (Group == 1)
+            {
+                switch (index)
+                {
+                    case 0: return (uint)DIO_IN_ADDR_CH0.IN2_VERIFY_SOCKET_GOOD_DETECT1;
+                    case 1: return (uint)DIO_IN_ADDR_CH0.IN2_VERIFY_SOCKET_GOOD_DETECT2;
+                    case 2: return (uint)DIO_IN_ADDR_CH0.IN2_VERIFY_SOCKET_GOOD_DETECT3;
+                    case 3: return (uint)DIO_IN_ADDR_CH0.IN2_VERIFY_SOCKET_GOOD_DETECT4;
+                    default:
+                        // 로그 남기기 (예: LogHelper.Write)
+                        Console.WriteLine($"[Warning] 잘못된 GetInGoodDetect 타입 요청됨:{Group}, {index}");
+                        //throw new ArgumentOutOfRangeException(nameof(nType), nType, "Invalid Tower Lamp Type");
+                        return 0; // 또는 사용하지 않는 안전한 비트
+                }
+            }
+            
+            return 0; // 또는 사용하지 않는 안전한 비트
+        }
+        public uint GetInRotateUpDown(int Group, int index, bool bFlag) { return 0; }
+        public uint GetOutRotateUpDown(int Group, int index, bool bFlag) { return 0; }
+
+        public uint GetInRotateTurn(int Group, int index, bool bFlag) { return 0; }
+        public uint GetOutRotateTurn(int Group, int index, bool bFlag) { return 0; }
+
+        public uint GetInRotateGrip(int Group, int index, bool bFlag) { return 0; }
+        public uint GetOutRotateGrip(int Group, int index, bool bFlag) { return 0; }
+
+        public uint GetOutFwUnloadPickerGrip(int index, bool bFlag) { return 0; }       //eeprom 사용 x
+        public uint GetInFwUnloadPickerGrip(int index, bool bFlag) { return 0; }       //eeprom 사용 x
+        public uint GetInNgTrayDoor(int nType, int index)
+        {
+            if (nType == 0)
+            {
+                switch (index)
+                {
+                    case 0: return (uint)DIO_IN_ADDR_CH0.IN3_NG_TRAY_LEFT_DOOR_LOCK_UP;
+                    case 1: return (uint)DIO_IN_ADDR_CH0.IN3_NG_TRAY_LEFT_DOOR_LOCK_DOWN;
+                    default:
+                        Console.WriteLine($"[Warning] 잘못된 GetInNgTrayDoor 타입 요청됨: {nType}");
+                        return 0; // 또는 사용하지 않는 안전한 비트
+                }
+            }
+            else
+            {
+                switch (index)
+                {
+                    case 0: return (uint)DIO_IN_ADDR_CH0.IN3_NG_TRAY_RIGHT_DOOR_LOCK_UP;
+                    case 1: return (uint)DIO_IN_ADDR_CH0.IN3_NG_TRAY_RIGHT_DOOR_LOCK_DOWN;
+                    default:
+                        Console.WriteLine($"[Warning] 잘못된 GetInNgTrayDoor 타입 요청됨: {nType}");
+                        return 0; // 또는 사용하지 않는 안전한 비트
+                }
+            }
+        }
+        public uint GetInLiftDoor(int nType, int index)
+        {
+            if (nType == 0)
+            {
+                switch (index)
+                {
+                    case 0: return (uint)DIO_IN_ADDR_CH0.IN1_LIFT_LEFT_DOOR_LOCK_UP;
+                    case 1: return (uint)DIO_IN_ADDR_CH0.IN1_LIFT_LEFT_DOOR_LOCK_DOWN;
+                    default:
+                        Console.WriteLine($"[Warning] 잘못된 GetInLiftDoor 타입 요청됨: {nType}");
+                        return 0; // 또는 사용하지 않는 안전한 비트
+                }
+            }
+            else
+            {
+                switch (index)
+                {
+                    case 0: return (uint)DIO_IN_ADDR_CH0.IN1_LIFT_RIGHT_DOOR_LOCK_UP;
+                    case 1: return (uint)DIO_IN_ADDR_CH0.IN1_LIFT_RIGHT_DOOR_LOCK_DOWN;
+                    default:
+                        Console.WriteLine($"[Warning] 잘못된 GetInLiftDoor 타입 요청됨: {nType}");
+                        return 0; // 또는 사용하지 않는 안전한 비트
+                }
+            }
+        }
+        public uint GetInAllDoor(int nType)
+        {
+            switch (nType)
+            {
+                case 0: return (uint)DIO_IN_ADDR_CH0.IN0_DOOR_UNLOCK_FRONT_L;
+                case 1: return (uint)DIO_IN_ADDR_CH0.IN0_DOOR_UNLOCK_FRONT_R;
+                case 2: return (uint)DIO_IN_ADDR_CH0.IN0_DOOR_UNLOCK_BACK_L;
+                case 3: return (uint)DIO_IN_ADDR_CH0.IN0_DOOR_UNLOCK_BACK_R;
+                default:
+                    // 로그 남기기 (예: LogHelper.Write)
+                    Console.WriteLine($"[Warning] 잘못된 GetInAllDoor 타입 요청됨: {nType}");
+                    //throw new ArgumentOutOfRangeException(nameof(nType), nType, "Invalid Tower Lamp Type");
+                    return 0; // 또는 사용하지 않는 안전한 비트
+            }
+
+        }
+        public uint GetInGantryClampFor(bool bFlag)
+        {
+            if (bFlag)
+            {
+                return (uint)(DIO_IN_ADDR_CH4.IN0_FRONT_GANTRY_CLAMP_FOR | DIO_IN_ADDR_CH4.IN0_BACK_GANTRY_CLAMP_FOR);
+            }
+            else
+            {
+                return (uint)(DIO_IN_ADDR_CH4.IN0_FRONT_GANTRY_CLAMP_BACK | DIO_IN_ADDR_CH4.IN0_BACK_GANTRY_CLAMP_BACK);
+            }
+        }
+        public uint GetOutGantryClampFor(bool bFlag)
+        {
+            if (bFlag)
+            {
+                return (uint)(DIO_OUT_ADDR_CH5.OUT0_FRONT_GANTRY_CLAMP_FOR | DIO_OUT_ADDR_CH5.OUT0_BACK_GANTRY_CLAMP_FOR);
+            }
+            else
+            {
+                return (uint)(DIO_OUT_ADDR_CH5.OUT0_FRONT_GANTRY_CLAMP_BACK | DIO_OUT_ADDR_CH5.OUT0_BACK_GANTRY_CLAMP_BACK);
+            }
+        }
+
+        public uint GetInGantryCenteringFor(bool bFlag)
+        {
+            if (bFlag)
+            {
+                return (uint)(DIO_IN_ADDR_CH4.IN0_FRONT_GANTRY_CENTRING_FOR | DIO_IN_ADDR_CH4.IN0_BACK_GANTRY_CENTRING_FOR);
+            }
+            else
+            {
+                return (uint)(DIO_IN_ADDR_CH4.IN0_FRONT_GANTRY_CENTRING_BACK | DIO_IN_ADDR_CH4.IN0_BACK_GANTRY_CENTRING_BACK);
+            }
+        }
+        public uint GetOutGantryCenteringFor(bool bFlag)
+        {
+            if (bFlag)
+            {
+                return (uint)(DIO_OUT_ADDR_CH5.OUT0_FRONT_GANTRY_CENTRING_FOR | DIO_OUT_ADDR_CH5.OUT0_BACK_GANTRY_CENTRING_FOR);
+            }
+            else
+            {
+                return (uint)(DIO_OUT_ADDR_CH5.OUT0_FRONT_GANTRY_CENTRING_BACK | DIO_OUT_ADDR_CH5.OUT0_BACK_GANTRY_CENTRING_BACK);
+            }
+        }
+
+        public uint GetInTrayPusherUp(bool bFlag)
+        {
+            if (bFlag)
+            {
+                return (uint)(DIO_IN_ADDR_CH4.IN1_TRAY_PUSHER_LEFT_UP | DIO_IN_ADDR_CH4.IN1_TRAY_PUSHER_RIGHT_UP);
+            }
+            else
+            {
+                return (uint)(DIO_IN_ADDR_CH4.IN1_TRAY_PUSHER_LEFT_DOWN | DIO_IN_ADDR_CH4.IN1_TRAY_PUSHER_RIGHT_DOWN);
+            }
+        }
+        public uint GetOutTrayPusherUp(bool bFlag)
+        {
+            if (bFlag)
+            {
+                return (uint)(DIO_OUT_ADDR_CH5.OUT1_TRAY_PUSHER_LEFT_UP | DIO_OUT_ADDR_CH5.OUT1_TRAY_PUSHER_RIGHT_UP);
+            }
+            else
+            {
+                return (uint)(DIO_OUT_ADDR_CH5.OUT1_TRAY_PUSHER_LEFT_DOWN | DIO_OUT_ADDR_CH5.OUT1_TRAY_PUSHER_RIGHT_DOWN);
+            }
+        }
+        public uint GetInTrayPusherFor(bool bFlag)
+        {
+            if (bFlag)
+            {
+                return (uint)(DIO_IN_ADDR_CH4.IN1_TRAY_PUSHER_LEFT_FOR | DIO_IN_ADDR_CH4.IN1_TRAY_PUSHER_RIGHT_FOR);
+            }
+            else
+            {
+                return (uint)(DIO_IN_ADDR_CH4.IN1_TRAY_PUSHER_LEFT_BACK | DIO_IN_ADDR_CH4.IN1_TRAY_PUSHER_RIGHT_BACK);
+            }
+        }
+        public uint GetOutTrayPusherFor(bool bFlag)
+        {
+            if (bFlag)
+            {
+                return (uint)(DIO_OUT_ADDR_CH5.OUT1_TRAY_PUSHER_LEFT_FOR | DIO_OUT_ADDR_CH5.OUT1_TRAY_PUSHER_RIGHT_FOR);
+            }
+            else
+            {
+                return (uint)(DIO_OUT_ADDR_CH5.OUT1_TRAY_PUSHER_LEFT_BACK | DIO_OUT_ADDR_CH5.OUT1_TRAY_PUSHER_RIGHT_BACK);
+            }
+        }
+        public uint GetInTrayPusherCentringFor(bool bFlag)
+        {
+            if (bFlag)
+            {
+                return (uint)(DIO_IN_ADDR_CH4.IN2_TRAY_PUSHER_CENTRING_LEFT_FOR | DIO_IN_ADDR_CH4.IN2_TRAY_PUSHER_CENTRING_RIGHT_FOR);
+            }
+            else
+            {
+                return (uint)(DIO_IN_ADDR_CH4.IN2_TRAY_PUSHER_CENTRING_LEFT_BACK | DIO_IN_ADDR_CH4.IN2_TRAY_PUSHER_CENTRING_RIGHT_BACK);
+            }
+        }
+        public uint GetOutTrayPusherCentringFor(bool bFlag)
+        {
+            if (bFlag)
+            {
+                return (uint)(DIO_OUT_ADDR_CH5.OUT2_TRAY_PUSHER_CENTRING_LEFT_FOR | DIO_OUT_ADDR_CH5.OUT2_TRAY_PUSHER_CENTRING_RIGHT_FOR);
+            }
+            else
+            {
+                return (uint)(DIO_OUT_ADDR_CH5.OUT2_TRAY_PUSHER_CENTRING_LEFT_BACK | DIO_OUT_ADDR_CH5.OUT2_TRAY_PUSHER_CENTRING_RIGHT_BACK);
+            }
+        }
         public uint GetOutBuzzer(int nType)
         {
             switch (nType)

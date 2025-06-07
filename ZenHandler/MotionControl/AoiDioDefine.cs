@@ -236,31 +236,15 @@ namespace ZenHandler.MotionControl
 
         public uint GetInLoadPickerVacuumOn(int index, bool bFlag)
         {
-            if (bFlag)
+            switch (index)
             {
-                switch (index)
-                {
-                    case 0: return (uint)DIO_IN_ADDR_CH2.IN1_TRANSFER_LOAD_PICKER_VACUUM_ON1;
-                    case 1: return (uint)DIO_IN_ADDR_CH2.IN1_TRANSFER_LOAD_PICKER_VACUUM_ON2;
-                    default:
-                        // 로그 남기기 (예: LogHelper.Write)
-                        Console.WriteLine($"[Warning] 잘못된 GetInLoadPickerVacuumOn 타입 요청됨: {index}");
-                        //throw new ArgumentOutOfRangeException(nameof(nType), nType, "Invalid Tower Lamp Type");
-                        return 0; // 또는 사용하지 않는 안전한 비트
-                }
-            }
-            else
-            {
-                switch (index)
-                {
-                    case 0: return (uint)DIO_IN_ADDR_CH2.IN1_TRANSFER_LOAD_PICKER_VACUUM_ON1;
-                    case 1: return (uint)DIO_IN_ADDR_CH2.IN1_TRANSFER_LOAD_PICKER_VACUUM_ON2;
-                    default:
-                        // 로그 남기기 (예: LogHelper.Write)
-                        Console.WriteLine($"[Warning] 잘못된 GetInLoadPickerVacuumOn 타입 요청됨: {index}");
-                        //throw new ArgumentOutOfRangeException(nameof(nType), nType, "Invalid Tower Lamp Type");
-                        return 0; // 또는 사용하지 않는 안전한 비트
-                }
+                case 0: return (uint)DIO_IN_ADDR_CH2.IN1_TRANSFER_LOAD_PICKER_VACUUM_ON1;
+                case 1: return (uint)DIO_IN_ADDR_CH2.IN1_TRANSFER_LOAD_PICKER_VACUUM_ON2;
+                default:
+                    // 로그 남기기 (예: LogHelper.Write)
+                    Console.WriteLine($"[Warning] 잘못된 GetInLoadPickerVacuumOn 타입 요청됨: {index}");
+                    //throw new ArgumentOutOfRangeException(nameof(nType), nType, "Invalid Tower Lamp Type");
+                    return 0; // 또는 사용하지 않는 안전한 비트
             }
         }
         public uint GetOutLoadPickerVacuumOn(int index, bool bFlag)
@@ -415,8 +399,8 @@ namespace ZenHandler.MotionControl
             {
                 switch (index)
                 {
-                    case 0: return (uint)DIO_OUT_ADDR_CH3.OUT0_TRANSFER_UNLOAD_PICKER_UP1;
-                    case 1: return (uint)DIO_OUT_ADDR_CH3.OUT0_TRANSFER_UNLOAD_PICKER_UP2;
+                    case 0: return (uint)DIO_OUT_ADDR_CH3.OUT0_TRANSFER_LOAD_PICKER_UP1;
+                    case 1: return (uint)DIO_OUT_ADDR_CH3.OUT0_TRANSFER_LOAD_PICKER_UP2;
                     default:
                         // 로그 남기기 (예: LogHelper.Write)
                         Console.WriteLine($"[Warning] 잘못된 GetOutLoadPickerUpDown 타입 요청됨: {index}");
@@ -428,8 +412,8 @@ namespace ZenHandler.MotionControl
             {
                 switch (index)
                 {
-                    case 0: return (uint)DIO_OUT_ADDR_CH3.OUT0_TRANSFER_UNLOAD_PICKER_DOWN1;
-                    case 1: return (uint)DIO_OUT_ADDR_CH3.OUT0_TRANSFER_UNLOAD_PICKER_DOWN2;
+                    case 0: return (uint)DIO_OUT_ADDR_CH3.OUT0_TRANSFER_LOAD_PICKER_DOWN1;
+                    case 1: return (uint)DIO_OUT_ADDR_CH3.OUT0_TRANSFER_LOAD_PICKER_DOWN2;
                     default:
                         // 로그 남기기 (예: LogHelper.Write)
                         Console.WriteLine($"[Warning] 잘못된 GetOutLoadPickerUpDown 타입 요청됨: {index}");
