@@ -12,10 +12,10 @@ namespace ZenHandler.MotionControl
         {
             switch (nType)
             {
-                case 0: return (uint)DIO_OUT_ADDR_CH1.OUT0_BUZZER1;
-                case 1: return (uint)DIO_OUT_ADDR_CH1.OUT0_BUZZER2;
-                case 2: return (uint)DIO_OUT_ADDR_CH1.OUT0_BUZZER3;
-                case 3: return (uint)DIO_OUT_ADDR_CH1.OUT0_BUZZER4;
+                case 0: return (uint)DIO_OUT_ADDR_CH.OUT0_BUZZER1;
+                case 1: return (uint)DIO_OUT_ADDR_CH.OUT0_BUZZER2;
+                case 2: return (uint)DIO_OUT_ADDR_CH.OUT0_BUZZER3;
+                case 3: return (uint)DIO_OUT_ADDR_CH.OUT0_BUZZER4;
                 default:
                     // 로그 남기기 (예: LogHelper.Write)
                     Console.WriteLine($"[Warning] 잘못된 Buzzer 타입 요청됨: {nType}");
@@ -27,9 +27,9 @@ namespace ZenHandler.MotionControl
         {
             switch (nType)
             {
-                case 0: return (uint)DIO_OUT_ADDR_CH1.OUT0_TOWER_LAMP_R;
-                case 1: return (uint)DIO_OUT_ADDR_CH1.OUT0_TOWER_LAMP_Y;
-                case 2: return (uint)DIO_OUT_ADDR_CH1.OUT0_TOWER_LAMP_G;
+                case 0: return (uint)DIO_OUT_ADDR_CH.OUT0_TOWER_LAMP_R;
+                case 1: return (uint)DIO_OUT_ADDR_CH.OUT0_TOWER_LAMP_Y;
+                case 2: return (uint)DIO_OUT_ADDR_CH.OUT0_TOWER_LAMP_G;
                 default:
                     // 로그 남기기 (예: LogHelper.Write)
                     Console.WriteLine($"[Warning] 잘못된 TowerLamp 타입 요청됨: {nType}");
@@ -141,6 +141,46 @@ namespace ZenHandler.MotionControl
                 }
             }
         }
+        public enum DIO_IN_ADDR_CH : uint
+        {
+            IN0_EMERGENCY1          = 0x00000001,  //1
+            IN0_EMERGENCY2          = 0x00000002,
+            IN0_EMERGENCY3          = 0x00000004,
+            TEMP4 = 0x00000008,  //4
+            TEMP5 = 0x00000010,
+            TEMP6 = 0x00000020,
+            TEMP7 = 0x00000040,
+            TEMP8 = 0x00000080,  //8
+            //
+            TEMP9 = 0x00000001,  //9
+            TEMP10 = 0x00000002,
+            TEMP11 = 0x00000004,
+            TEMP12 = 0x00000008,  //12
+            TEMP13 = 0x00000010,
+            TEMP14 = 0x00000020,
+            TEMP15 = 0x00000040,
+            TEMP16 = 0x00000080,  //16
+        }
+        public enum DIO_OUT_ADDR_CH : uint
+        {
+            OUT0_TOWER_LAMP_R       = 0x00000001,  //1
+            OUT0_TOWER_LAMP_Y       = 0x00000002,
+            OUT0_TOWER_LAMP_G       = 0x00000004,
+            OUT0_BUZZER1            = 0x00000008,  //4
+            OUT0_BUZZER2            = 0x00000010,
+            OUT0_BUZZER3            = 0x00000020,
+            OUT0_BUZZER4            = 0x00000040,
+            TEMP8 = 0x00000080,  //8
+            //
+            TEMP9 = 0x00000001,  //9
+            TEMP10 = 0x00000002,
+            TEMP11 = 0x00000004,
+            TEMP12 = 0x00000008,  //12
+            TEMP13 = 0x00000010,
+            TEMP14 = 0x00000020,
+            TEMP15 = 0x00000040,
+            TEMP16 = 0x00000080,  //16
+        }
         //----------------------------------------------------------------------------------------------------------------
         //
         //  IN CH : 0
@@ -149,41 +189,41 @@ namespace ZenHandler.MotionControl
         //----------------------------------------------------------------------------------------------------------------
         public enum DIO_IN_ADDR_CH0 : uint
         {
-            IN0_EMERGENCY1                      = 0x00000001,  //1
-            IN0_EMERGENCY2                      = 0x00000002,
-            IN0_EMERGENCY3                      = 0x00000004,
-            TEMP4                               = 0x00000008,  //4
-            TEMP5                               = 0x00000010,
-            TEMP6                               = 0x00000020,
-            TEMP7                               = 0x00000040,
-            TEMP8                               = 0x00000080,  //8
+            IN0_DOOR_UNLOCK_FRONT_L                 = 0x00000001,  //1
+            IN0_DOOR_UNLOCK_FRONT_R                 = 0x00000002,
+            IN0_DOOR_UNLOCK_BACK_L                  = 0x00000004,
+            IN0_DOOR_UNLOCK_BACK_R                  = 0x00000008,  //4
+            IN0_LEFT_LIFT_LOAD_MODE                 = 0x00000010,
+            IN0_LEFT_LIFT_COMPLETE_MODE             = 0x00000020,
+            IN0_RIGHT_LIFT_LOAD_MODE                = 0x00000040,
+            IN0_RIGHT_LIFT_COMPLETE_MODE            = 0x00000080,  //8
             //
-            IN1_DOOR_UNLOCK_FRONT_L             = 0x00000001,  //9
-            IN1_DOOR_UNLOCK_FRONT_R             = 0x00000002,
-            IN1_DOOR_UNLOCK_BACK_L              = 0x00000004,
-            IN1_DOOR_UNLOCK_BACK_R              = 0x00000008,  //12
-            IN1_LEFT_LIFT_LOAD_MODE             = 0x00000010,
-            IN1_LEFT_LIFT_COMPLETE_MODE         = 0x00000020,
-            IN1_RIGHT_LIFT_LOAD_MODE            = 0x00000040,
-            IN1_RIGHT_LIFT_COMPLETE_MODE        = 0x00000080,  //16
+            IN1_LIFT_LEFT_DOOR_LOCK_UP              = 0x00000001,  //9
+            IN1_LIFT_LEFT_DOOR_LOCK_DOWN            = 0x00000002,
+            IN1_LIFT_RIGHT_DOOR_LOCK_UP             = 0x00000004,
+            IN1_LIFT_RIGHT_DOOR_LOCK_DOWN           = 0x00000008,  //12
+            IN1_LEFT_LIFT_DOOR_CLOSE                = 0x00000010,
+            IN1_RIGHT_LIFT_DOOR_CLOSE               = 0x00000020,
+            IN1_NG_TRAY_DETECTED1                   = 0x00000040,
+            IN1_NG_TRAY_DETECTED2                   = 0x00000080,  //16
             //
-            IN2_LIFT_LEFT_DOOR_LOCK_UP          = 0x00000001,  //17
-            IN2_LIFT_LEFT_DOOR_LOCK_DOWN        = 0x00000002,
-            IN2_LIFT_RIGHT_DOOR_LOCK_UP         = 0x00000004,
-            IN2_LIFT_RIGHT_DOOR_LOCK_DOWN       = 0x00000008,  //20
-            IN2_LEFT_LIFT_DOOR_CLOSE            = 0x00000010,
-            IN2_RIGHT_LIFT_DOOR_CLOSE           = 0x00000020,
-            IN2_NG_TRAY_DETECTED1               = 0x00000040,
-            IN2_NG_TRAY_DETECTED2               = 0x00000080,  //24
+            IN2_WRITE_SOCKET_GOOD_DETECT1           = 0x00000001,  //17
+            IN2_WRITE_SOCKET_GOOD_DETECT2           = 0x00000002,
+            IN2_WRITE_SOCKET_GOOD_DETECT3           = 0x00000004,
+            IN2_WRITE_SOCKET_GOOD_DETECT4           = 0x00000008,  //20
+            IN2_VERIFY_SOCKET_GOOD_DETECT1          = 0x00000010,
+            IN2_VERIFY_SOCKET_GOOD_DETECT2          = 0x00000020,
+            IN2_VERIFY_SOCKET_GOOD_DETECT3          = 0x00000040,
+            IN2_VERIFY_SOCKET_GOOD_DETECT4          = 0x00000080,  //24
             //
-            IN3_NG_TRAY_LEFT_DOOR_CLOSE         = 0x00000001,  //25
-            IN3_NG_TRAY_LEFT_DOOR_OPEN          = 0x00000002,
-            IN3_NG_TRAY_RIGHT_DOOR_CLOSE        = 0x00000004,
-            IN3_NG_TRAY_RIGHT_DOOR_OPEN         = 0x00000008,  //28
-            IN3_NG_TRAY_LEFT_DOOR_LOCK_UP       = 0x00000010,
-            IN3_NG_TRAY_LEFT_DOOR_LOCK_DOWN     = 0x00000020,
-            IN3_NG_TRAY_RIGHT_DOOR_LOCK_UP      = 0x00000040,
-            IN3_NG_TRAY_RIGHT_DOOR_LOCK_DOWN    = 0x00000080   //32
+            IN3_NG_TRAY_LEFT_DOOR_CLOSE             = 0x00000001,  //25
+            IN3_NG_TRAY_LEFT_DOOR_OPEN              = 0x00000002,
+            IN3_NG_TRAY_RIGHT_DOOR_CLOSE            = 0x00000004,
+            IN3_NG_TRAY_RIGHT_DOOR_OPEN             = 0x00000008,  //28
+            IN3_NG_TRAY_LEFT_DOOR_LOCK_UP           = 0x00000010,
+            IN3_NG_TRAY_LEFT_DOOR_LOCK_DOWN         = 0x00000020,
+            IN3_NG_TRAY_RIGHT_DOOR_LOCK_UP          = 0x00000040,
+            IN3_NG_TRAY_RIGHT_DOOR_LOCK_DOWN        = 0x00000080   //32
         };
         //----------------------------------------------------------------------------------------------------------------
         //
@@ -320,51 +360,7 @@ namespace ZenHandler.MotionControl
             IN3_VERIFY_SOCKET_CONTACT_BACKWARD4      = 0x00000080    //32
         };
 
-        //----------------------------------------------------------------------------------------------------------------
-        //
-        //  IN CH : 8
-        //
-        //
-        //----------------------------------------------------------------------------------------------------------------
-        public enum DIO_IN_ADDR_CH8 : uint
-        {
-            IN0_WRITE_SOCKET_GOOD_DETECT_1          = 0x00000001,  //1
-            IN0_WRITE_SOCKET_GOOD_DETECT_2          = 0x00000002,
-            IN0_WRITE_SOCKET_GOOD_DETECT_3          = 0x00000004,
-            IN0_WRITE_SOCKET_GOOD_DETECT_4          = 0x00000008,  //4
-            IN0_VERIFY_SOCKET_GOOD_DETECT_1         = 0x00000010,
-            IN0_VERIFY_SOCKET_GOOD_DETECT_2         = 0x00000020,
-            IN0_VERIFY_SOCKET_GOOD_DETECT_3         = 0x00000040,
-            IN0_VERIFY_SOCKET_GOOD_DETECT_4         = 0x00000080,  //8
-            //
-            TEMP9 = 0x00000001,  //9
-            TEMP10 = 0x00000002,
-            TEMP11 = 0x00000004,
-            TEMP12 = 0x00000008,  //12
-            TEMP13 = 0x00000010,
-            TEMP14 = 0x00000020,
-            TEMP15 = 0x00000040,
-            TEMP16 = 0x00000080,  //16
-            //
-            TEMP17 = 0x00000001,  //17
-            TEMP18 = 0x00000002,
-            TEMP19 = 0x00000004,
-            TEMP20 = 0x00000008,  //20
-            TEMP21 = 0x00000010,
-            TEMP22 = 0x00000020,
-            TEMP23 = 0x00000040,
-            TEMP24 = 0x00000080,  //24
-            //
-            TEMP25 = 0x00000001,   //25
-            TEMP26 = 0x00000002,
-            TEMP27 = 0x00000004,
-            TEMP28 = 0x00000008,   //28
-            TEMP29 = 0x00000010,
-            TEMP30 = 0x00000020,
-            TEMP31 = 0x00000040,
-            TEMP32 = 0x00000080    //32
-        };
-
+        
         //
 
 
@@ -376,28 +372,28 @@ namespace ZenHandler.MotionControl
         //----------------------------------------------------------------------------------------------------------------
         public enum DIO_OUT_ADDR_CH1 : uint
         {
-            OUT0_TOWER_LAMP_R                       = 0x00000001,  //1
-            OUT0_TOWER_LAMP_Y                       = 0x00000002,
-            OUT0_TOWER_LAMP_G                       = 0x00000004,
-            OUT0_ALL_DOOR_UNLOCK                    = 0x00000008,  //4
-            OUT0_BUZZER1                            = 0x00000010,
-            OUT0_BUZZER2                            = 0x00000020,
-            OUT0_BUZZER3                            = 0x00000040,
-            OUT0_BUZZER4                            = 0x00000080,  //8
-            //
-            TEMP9                                   = 0x00000001,  //9
-            TEMP10                                  = 0x00000002,
-            TEMP11                                  = 0x00000004,
-            TEMP12                                  = 0x00000008,  //12
+            OUT0_ALL_DOOR_UNLOCK                    = 0x00000001,  //1
+            TEMP2 = 0x00000002,
+            TEMP3 = 0x00000004,
+            TEMP4 = 0x00000008,  //4
             OUT1_LEFT_LIFT_LOAD_MODE_LAMP           = 0x00000010,
             OUT1_LEFT_LIFT_COMPLETE_MODE_LAMP       = 0x00000020,
             OUT1_RIGHT_LIFT_LOAD_MODE_LAMP          = 0x00000040,
-            OUT1_RIGHT_LIFT_COMPLETE_MODE_LAMP      = 0x00000080,  //16
+            OUT1_RIGHT_LIFT_COMPLETE_MODE_LAMP      = 0x00000080,  //8
             //
-            OUT2_LIFT_LEFT_DOOR_LOCK_UP             = 0x00000001,  //17
+            OUT2_LIFT_LEFT_DOOR_LOCK_UP             = 0x00000001,  //9
             OUT2_LIFT_LEFT_DOOR_LOCK_DOWN           = 0x00000002,
             OUT2_LIFT_RIGHT_DOOR_LOCK_UP            = 0x00000004,
-            OUT2_LIFT_RIGHT_DOOR_LOCK_DOWN          = 0x00000008,  //20
+            OUT2_LIFT_RIGHT_DOOR_LOCK_DOWN          = 0x00000008,  //12
+            TEMP13 = 0x00000010,
+            TEMP14 = 0x00000020,
+            TEMP15 = 0x00000040,
+            TEMP16 = 0x00000080,  //16
+            //
+            TEMP17 = 0x00000001,  //17
+            TEMP18 = 0x00000002,
+            TEMP19 = 0x00000004,
+            TEMP20 = 0x00000008,  //20
             TEMP21                                  = 0x00000010,
             TEMP22                                  = 0x00000020,
             TEMP23                                  = 0x00000040,

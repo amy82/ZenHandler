@@ -12,7 +12,7 @@ namespace ZenHandler.MotionControl
         {
             switch (index)
             {
-                case 0: return (uint)DIO_IN_ADDR_CH0.IN3_LEFT_MAGAZINE_DOCKED;
+                case 0: return (uint)DIO_IN_ADDR_CH0.IN2_LEFT_MAGAZINE_DOCKED;
                 case 1: return (uint)DIO_IN_ADDR_CH0.IN3_RIGHT_MAGAZINE_DOCKED;
                 default:
                     // 로그 남기기 (예: LogHelper.Write)
@@ -25,7 +25,7 @@ namespace ZenHandler.MotionControl
         {
             switch (index)
             {
-                case 0: return (uint)DIO_IN_ADDR_CH0.IN3_LEFT_MAGAZINE_BOTTOM_DETECTED;
+                case 0: return (uint)DIO_IN_ADDR_CH0.IN2_LEFT_MAGAZINE_BOTTOM_DETECTED;
                 case 1: return (uint)DIO_IN_ADDR_CH0.IN3_RIGHT_MAGAZINE_BOTTOM_DETECTED;
                 default:
                     // 로그 남기기 (예: LogHelper.Write)
@@ -38,8 +38,8 @@ namespace ZenHandler.MotionControl
         {
             switch (index)
             {
-                case 0: return (uint)DIO_IN_ADDR_CH0.IN3_LEFT_MAGAZINE_TRAY_LOAD_DETECTED;
-                case 1: return (uint)DIO_IN_ADDR_CH2.IN0_RIGHT_MAGAZINE_TRAY_LOAD_DETECTED;
+                case 0: return (uint)DIO_IN_ADDR_CH0.IN2_LEFT_MAGAZINE_TRAY_LOAD_DETECTED;
+                case 1: return (uint)DIO_IN_ADDR_CH0.IN3_RIGHT_MAGAZINE_TRAY_LOAD_DETECTED;
                 default:
                     // 로그 남기기 (예: LogHelper.Write)
                     Console.WriteLine($"[Warning] 잘못된 GetInMagazineDocked 타입 요청됨:{index}");
@@ -51,8 +51,8 @@ namespace ZenHandler.MotionControl
         {
             switch (index)
             {
-                case 0: return (uint)DIO_IN_ADDR_CH0.IN3_LEFT_MAGAZINE_TRAY_REDAY_DETECTED;
-                case 1: return (uint)DIO_IN_ADDR_CH2.IN0_RIGHT_MAGAZINE_TRAY_REDAY_DETECTED;
+                case 0: return (uint)DIO_IN_ADDR_CH0.IN2_LEFT_MAGAZINE_TRAY_REDAY_DETECTED;
+                case 1: return (uint)DIO_IN_ADDR_CH0.IN3_RIGHT_MAGAZINE_TRAY_REDAY_DETECTED;
                 default:
                     // 로그 남기기 (예: LogHelper.Write)
                     Console.WriteLine($"[Warning] 잘못된 GetInMagazineDocked 타입 요청됨:{index}");
@@ -1490,10 +1490,10 @@ namespace ZenHandler.MotionControl
             {
                 switch (index)
                 {
-                    case 0: return (uint)DIO_IN_ADDR_CH2.IN1_TRANSFER_LOAD_PICKER_UP1;
-                    case 1: return (uint)DIO_IN_ADDR_CH2.IN1_TRANSFER_LOAD_PICKER_UP2;
-                    case 2: return (uint)DIO_IN_ADDR_CH2.IN1_TRANSFER_LOAD_PICKER_UP3;
-                    case 3: return (uint)DIO_IN_ADDR_CH2.IN1_TRANSFER_LOAD_PICKER_UP4;
+                    case 0: return (uint)DIO_IN_ADDR_CH2.IN0_TRANSFER_LOAD_PICKER_UP1;
+                    case 1: return (uint)DIO_IN_ADDR_CH2.IN0_TRANSFER_LOAD_PICKER_UP2;
+                    case 2: return (uint)DIO_IN_ADDR_CH2.IN0_TRANSFER_LOAD_PICKER_UP3;
+                    case 3: return (uint)DIO_IN_ADDR_CH2.IN0_TRANSFER_LOAD_PICKER_UP4;
                     default:
                         // 로그 남기기 (예: LogHelper.Write)
                         Console.WriteLine($"[Warning] 잘못된 GetInLoadPickerUpDown 타입 요청됨: {index}");
@@ -1523,10 +1523,10 @@ namespace ZenHandler.MotionControl
             {
                 switch (index)
                 {
-                    case 0: return (uint)DIO_IN_ADDR_CH2.IN2_TRANSFER_UNLOAD_PICKER_UP1;
-                    case 1: return (uint)DIO_IN_ADDR_CH2.IN2_TRANSFER_UNLOAD_PICKER_UP2;
-                    case 2: return (uint)DIO_IN_ADDR_CH2.IN2_TRANSFER_UNLOAD_PICKER_UP3;
-                    case 3: return (uint)DIO_IN_ADDR_CH2.IN2_TRANSFER_UNLOAD_PICKER_UP4;
+                    case 0: return (uint)DIO_IN_ADDR_CH2.IN1_TRANSFER_UNLOAD_PICKER_UP1;
+                    case 1: return (uint)DIO_IN_ADDR_CH2.IN1_TRANSFER_UNLOAD_PICKER_UP2;
+                    case 2: return (uint)DIO_IN_ADDR_CH2.IN1_TRANSFER_UNLOAD_PICKER_UP3;
+                    case 3: return (uint)DIO_IN_ADDR_CH2.IN1_TRANSFER_UNLOAD_PICKER_UP4;
                     default:
                         // 로그 남기기 (예: LogHelper.Write)
                         Console.WriteLine($"[Warning] 잘못된 GetInUnloadPickerUpDown 타입 요청됨: {index}");
@@ -1727,10 +1727,10 @@ namespace ZenHandler.MotionControl
         {
             switch (nType)
             {
-                case 0: return (uint)DIO_OUT_ADDR_CH1.OUT0_BUZZER1;
-                case 1: return (uint)DIO_OUT_ADDR_CH1.OUT0_BUZZER2;
-                case 2: return (uint)DIO_OUT_ADDR_CH1.OUT0_BUZZER3;
-                case 3: return (uint)DIO_OUT_ADDR_CH1.OUT0_BUZZER4;
+                case 0: return (uint)DIO_OUT_ADDR_CH.OUT0_BUZZER1;
+                case 1: return (uint)DIO_OUT_ADDR_CH.OUT0_BUZZER2;
+                case 2: return (uint)DIO_OUT_ADDR_CH.OUT0_BUZZER3;
+                case 3: return (uint)DIO_OUT_ADDR_CH.OUT0_BUZZER4;
                 default:
                     // 로그 남기기 (예: LogHelper.Write)
                     Console.WriteLine($"[Warning] 잘못된 Buzzer 타입 요청됨: {nType}");
@@ -1742,9 +1742,9 @@ namespace ZenHandler.MotionControl
         {
             switch (nType)
             {
-                case 0: return (uint)DIO_OUT_ADDR_CH1.OUT0_TOWER_LAMP_R;
-                case 1: return (uint)DIO_OUT_ADDR_CH1.OUT0_TOWER_LAMP_Y;
-                case 2: return (uint)DIO_OUT_ADDR_CH1.OUT0_TOWER_LAMP_G;
+                case 0: return (uint)DIO_OUT_ADDR_CH.OUT0_TOWER_LAMP_R;
+                case 1: return (uint)DIO_OUT_ADDR_CH.OUT0_TOWER_LAMP_Y;
+                case 2: return (uint)DIO_OUT_ADDR_CH.OUT0_TOWER_LAMP_G;
                 default:
                     // 로그 남기기 (예: LogHelper.Write)
                     Console.WriteLine($"[Warning] 잘못된 TowerLamp 타입 요청됨: {nType}");
@@ -1787,8 +1787,8 @@ namespace ZenHandler.MotionControl
             {
                 switch (index)
                 {
-                    case 0: return (uint)DIO_OUT_ADDR_CH1.OUT2_LEFT_MAGAZINE_LOAD_LAMP;
-                    case 1: return (uint)DIO_OUT_ADDR_CH1.OUT2_LEFT_MAGAZINE_LOAD_COMPLETE_LAMP;
+                    case 0: return (uint)DIO_OUT_ADDR_CH1.OUT0_LEFT_MAGAZINE_LOAD_LAMP;
+                    case 1: return (uint)DIO_OUT_ADDR_CH1.OUT0_LEFT_MAGAZINE_LOAD_COMPLETE_LAMP;
                     default:
                         Console.WriteLine($"[Warning] 잘못된 GetOutLiftLamp 타입 요청됨: {nType}");
                         return 0; // 또는 사용하지 않는 안전한 비트
@@ -1798,8 +1798,8 @@ namespace ZenHandler.MotionControl
             {
                 switch (index)
                 {
-                    case 0: return (uint)DIO_OUT_ADDR_CH1.OUT2_RIGHT_MAGAZINE_LOAD_LAMP;
-                    case 1: return (uint)DIO_OUT_ADDR_CH1.OUT2_RIGHT_MAGAZINE_LOAD_COMPLETE_LAMP;
+                    case 0: return (uint)DIO_OUT_ADDR_CH1.OUT0_RIGHT_MAGAZINE_LOAD_LAMP;
+                    case 1: return (uint)DIO_OUT_ADDR_CH1.OUT0_RIGHT_MAGAZINE_LOAD_COMPLETE_LAMP;
                     default:
                         Console.WriteLine($"[Warning] 잘못된 GetOutLiftLamp 타입 요청됨: {nType}");
                         return 0; // 또는 사용하지 않는 안전한 비트
@@ -1812,8 +1812,8 @@ namespace ZenHandler.MotionControl
             {
                 switch (index)
                 {
-                    case 0: return (uint)DIO_OUT_ADDR_CH1.OUT3_NG_TRAY_LEFT_DOOR_LOCK_UP;   //OUT3_LEFT_NG_TRAY_LOCK_UP
-                    case 1: return (uint)DIO_OUT_ADDR_CH1.OUT3_NG_TRAY_LEFT_DOOR_LOCK_DOWN;
+                    case 0: return (uint)DIO_OUT_ADDR_CH1.OUT2_NG_TRAY_LEFT_DOOR_LOCK_UP;   //OUT3_LEFT_NG_TRAY_LOCK_UP
+                    case 1: return (uint)DIO_OUT_ADDR_CH1.OUT2_NG_TRAY_LEFT_DOOR_LOCK_DOWN;
                     default:
                         Console.WriteLine($"[Warning] 잘못된 GetOutLiftDoor 타입 요청됨: {nType}");
                         return 0; // 또는 사용하지 않는 안전한 비트
@@ -1823,8 +1823,8 @@ namespace ZenHandler.MotionControl
             {
                 switch (index)
                 {
-                    case 0: return (uint)DIO_OUT_ADDR_CH1.OUT3_NG_TRAY_RIGHT_DOOR_LOCK_UP;
-                    case 1: return (uint)DIO_OUT_ADDR_CH1.OUT3_NG_TRAY_RIGHT_DOOR_LOCK_DOWN;
+                    case 0: return (uint)DIO_OUT_ADDR_CH1.OUT2_NG_TRAY_RIGHT_DOOR_LOCK_UP;
+                    case 1: return (uint)DIO_OUT_ADDR_CH1.OUT2_NG_TRAY_RIGHT_DOOR_LOCK_DOWN;
                     default:
                         Console.WriteLine($"[Warning] 잘못된 GetOutLiftDoor 타입 요청됨: {nType}");
                         return 0; // 또는 사용하지 않는 안전한 비트
@@ -1837,8 +1837,8 @@ namespace ZenHandler.MotionControl
             {
                 switch (index)
                 {
-                    case 0: return (uint)DIO_OUT_ADDR_CH1.OUT2_LEFT_NG_TRAY_LOAD_MODE_LAMP;     //OUT2_LEFT_NG_TRAY_LOCK_LAMP
-                    case 1: return (uint)DIO_OUT_ADDR_CH1.OUT2_LEFT_NG_TRAY_COMPLETE_MODE_LAMP;
+                    case 0: return (uint)DIO_OUT_ADDR_CH1.OUT1_LEFT_NG_TRAY_LOAD_MODE_LAMP;     //OUT2_LEFT_NG_TRAY_LOCK_LAMP
+                    case 1: return (uint)DIO_OUT_ADDR_CH1.OUT1_LEFT_NG_TRAY_COMPLETE_MODE_LAMP;
                     default:
                         Console.WriteLine($"[Warning] 잘못된 GetOutNgTrayLamp 타입 요청됨: {nType}");
                         return 0; // 또는 사용하지 않는 안전한 비트
@@ -1848,8 +1848,8 @@ namespace ZenHandler.MotionControl
             {
                 switch (index)
                 {
-                    case 0: return (uint)DIO_OUT_ADDR_CH1.OUT2_RIGHT_NG_TRAY_LOAD_MODE_LAMP;
-                    case 1: return (uint)DIO_OUT_ADDR_CH1.OUT2_RIGHT_NG_TRAY_COMPLETE_MODE_LAMP;
+                    case 0: return (uint)DIO_OUT_ADDR_CH1.OUT1_RIGHT_NG_TRAY_LOAD_MODE_LAMP;
+                    case 1: return (uint)DIO_OUT_ADDR_CH1.OUT1_RIGHT_NG_TRAY_COMPLETE_MODE_LAMP;
                     default:
                         Console.WriteLine($"[Warning] 잘못된 GetOutNgTrayLamp 타입 요청됨: {nType}");
                         return 0; // 또는 사용하지 않는 안전한 비트
@@ -1884,13 +1884,13 @@ namespace ZenHandler.MotionControl
         }
         public enum DIO_OUT_ADDR_CH : uint
         {
-            OUT0_TOWER_LAMP_R   = 0x00000001,  //1
-            OUT0_TOWER_LAMP_Y   = 0x00000002,
-            OUT0_TOWER_LAMP_G   = 0x00000004,
-            OUT0_BUZZER1        = 0x00000008,  //4
-            OUT0_BUZZER2        = 0x00000010,
-            OUT0_BUZZER3        = 0x00000020,
-            OUT0_BUZZER4        = 0x00000040,
+            OUT0_TOWER_LAMP_R           = 0x00000001,  //1
+            OUT0_TOWER_LAMP_Y           = 0x00000002,
+            OUT0_TOWER_LAMP_G           = 0x00000004,
+            OUT0_BUZZER1                = 0x00000008,  //4
+            OUT0_BUZZER2                = 0x00000010,
+            OUT0_BUZZER3                = 0x00000020,
+            OUT0_BUZZER4                = 0x00000040,
             TEMP8 = 0x00000080,  //8
             //
             TEMP9 = 0x00000001,  //9
@@ -1904,10 +1904,10 @@ namespace ZenHandler.MotionControl
         }
         public enum DIO_IN_ADDR_CH0 : uint
         {
-            IN1_DOOR_UNLOCK_FRONT_L                 = 0x00000001,  //1
-            IN1_DOOR_UNLOCK_FRONT_R                 = 0x00000002,
-            IN1_DOOR_UNLOCK_BACK_L                  = 0x00000004,
-            IN1_DOOR_UNLOCK_BACK_R                  = 0x00000008,  //4
+            IN0_DOOR_UNLOCK_FRONT_L                 = 0x00000001,  //1
+            IN0_DOOR_UNLOCK_FRONT_R                 = 0x00000002,
+            IN0_DOOR_UNLOCK_BACK_L                  = 0x00000004,
+            IN0_DOOR_UNLOCK_BACK_R                  = 0x00000008,  //4
             IN0_LEFT_MAGAZINE_LOAD_MODE             = 0x00000010,
             IN0_LEFT_MAGAZINE_COMPLETE_MODE         = 0x00000020,
             IN0_RIGHT_MAGAZINE_LOAD_MODE            = 0x00000040,
@@ -1917,28 +1917,28 @@ namespace ZenHandler.MotionControl
             IN1_LEFT_MAGAZINE_DOOR_LOCK_DOWN        = 0x00000002,
             IN1_RIGHT_MAGAZINE_DOOR_LOCK_UP         = 0x00000004,
             IN1_RIGHT_MAGAZINE_DOOR_LOCK_DOWN       = 0x00000008,  //12
-            IN2_LEFT_NG_DOOR_LOCK_LAMP              = 0x00000010,
-            IN2_LEFT_NG_DOOR_UNLOCK_LAMP            = 0x00000020,
-            IN2_RIGHT_NG_DOOR_LOCK_LAMP             = 0x00000040,
-            IN2_RIGHT_NG_DOOR_UNLOCK_LAMP           = 0x00000080,  //16
+            IN1_LEFT_NG_DOOR_LOCK_LAMP              = 0x00000010,
+            IN1_LEFT_NG_DOOR_UNLOCK_LAMP            = 0x00000020,
+            IN1_RIGHT_NG_DOOR_LOCK_LAMP             = 0x00000040,
+            IN1_RIGHT_NG_DOOR_UNLOCK_LAMP           = 0x00000080,  //16
             //
             IN2_LEFT_NG_DOOR_LOCK_UP                = 0x00000001,  //17
             IN2_LEFT_NG_DOOR_LOCK_DOWN              = 0x00000002,
-            IN3_RIGHT_NG_DOOR_LOCK_UP               = 0x00000004,
-            IN3_RIGHT_NG_DOOR_LOCK_DOWN             = 0x00000008,  //20
-            IN3_LEFT_MAGAZINE_DOCKED                = 0x00000010,
-            IN3_LEFT_MAGAZINE_BOTTOM_DETECTED       = 0x00000020,
-            IN3_LEFT_MAGAZINE_TRAY_LOAD_DETECTED    = 0x00000040,
-            IN3_LEFT_MAGAZINE_TRAY_REDAY_DETECTED   = 0x00000080,  //24
+            IN2_RIGHT_NG_DOOR_LOCK_UP               = 0x00000004,
+            IN2_RIGHT_NG_DOOR_LOCK_DOWN             = 0x00000008,  //20
+            IN2_LEFT_MAGAZINE_DOCKED                = 0x00000010,
+            IN2_LEFT_MAGAZINE_BOTTOM_DETECTED       = 0x00000020,
+            IN2_LEFT_MAGAZINE_TRAY_LOAD_DETECTED    = 0x00000040,
+            IN2_LEFT_MAGAZINE_TRAY_REDAY_DETECTED   = 0x00000080,  //24
             //
             IN3_RIGHT_MAGAZINE_DOCKED               = 0x00000001,  //25
             IN3_RIGHT_MAGAZINE_BOTTOM_DETECTED      = 0x00000002,
-            IN0_RIGHT_MAGAZINE_TRAY_LOAD_DETECTED   = 0x00000004,
-            IN0_RIGHT_MAGAZINE_TRAY_REDAY_DETECTED  = 0x00000008,  //28
-            IN2_LEFT_MAGAZINE_MAGNETIC              = 0x00000010,
-            IN2_RIGHT_MAGAZINE_MAGNETIC             = 0x00000020,
-            IN0_LEFT_NG_TRAY_DETECTED_MAGNETIC      = 0x00000040,
-            IN0_RIGHT_NG_TRAY_DETECTED_MAGNETIC     = 0x00000080   //32
+            IN3_RIGHT_MAGAZINE_TRAY_LOAD_DETECTED   = 0x00000004,
+            IN3_RIGHT_MAGAZINE_TRAY_REDAY_DETECTED  = 0x00000008,  //28
+            IN3_LEFT_MAGAZINE_MAGNETIC              = 0x00000010,
+            IN3_RIGHT_MAGAZINE_MAGNETIC             = 0x00000020,
+            IN3_LEFT_NG_TRAY_DETECTED_MAGNETIC      = 0x00000040,
+            IN3_RIGHT_NG_TRAY_DETECTED_MAGNETIC     = 0x00000080   //32
         };
         //----------------------------------------------------------------------------------------------------------------
         //
@@ -1952,19 +1952,19 @@ namespace ZenHandler.MotionControl
             IN0_TRANSFER_LOAD_PICKER_DOWN2              = 0x00000002,
             IN0_TRANSFER_LOAD_PICKER_DOWN3              = 0x00000004,
             IN0_TRANSFER_LOAD_PICKER_DOWN4              = 0x00000008,  //4
-            IN1_TRANSFER_LOAD_PICKER_UP1                = 0x00000010,
-            IN1_TRANSFER_LOAD_PICKER_UP2                = 0x00000020,
-            IN1_TRANSFER_LOAD_PICKER_UP3                = 0x00000040,
-            IN1_TRANSFER_LOAD_PICKER_UP4                = 0x00000080,  //8
+            IN0_TRANSFER_LOAD_PICKER_UP1                = 0x00000010,
+            IN0_TRANSFER_LOAD_PICKER_UP2                = 0x00000020,
+            IN0_TRANSFER_LOAD_PICKER_UP3                = 0x00000040,
+            IN0_TRANSFER_LOAD_PICKER_UP4                = 0x00000080,  //8
             //
             IN1_TRANSFER_UNLOAD_PICKER_DOWN1            = 0x00000001,  //9
             IN1_TRANSFER_UNLOAD_PICKER_DOWN2            = 0x00000002,
             IN1_TRANSFER_UNLOAD_PICKER_DOWN3            = 0x00000004,
             IN1_TRANSFER_UNLOAD_PICKER_DOWN4            = 0x00000008,  //12
-            IN2_TRANSFER_UNLOAD_PICKER_UP1              = 0x00000010,
-            IN2_TRANSFER_UNLOAD_PICKER_UP2              = 0x00000020,
-            IN2_TRANSFER_UNLOAD_PICKER_UP3              = 0x00000040,
-            IN2_TRANSFER_UNLOAD_PICKER_UP4              = 0x00000080,  //16
+            IN1_TRANSFER_UNLOAD_PICKER_UP1              = 0x00000010,
+            IN1_TRANSFER_UNLOAD_PICKER_UP2              = 0x00000020,
+            IN1_TRANSFER_UNLOAD_PICKER_UP3              = 0x00000040,
+            IN1_TRANSFER_UNLOAD_PICKER_UP4              = 0x00000080,  //16
             //
             IN2_TRANSFER_LOAD_PICKER_VACUUM_ON1         = 0x00000001,  //17
             IN2_TRANSFER_LOAD_PICKER_VACUUM_ON2         = 0x00000002,
@@ -2268,24 +2268,24 @@ namespace ZenHandler.MotionControl
             TEMP2 = 0x00000002,
             TEMP3 = 0x00000004,
             TEMP4 = 0x00000008,  //4
-            OUT2_LEFT_MAGAZINE_LOAD_LAMP                = 0x00000010,
-            OUT2_LEFT_MAGAZINE_LOAD_COMPLETE_LAMP       = 0x00000020,
-            OUT2_RIGHT_MAGAZINE_LOAD_LAMP               = 0x00000040,
-            OUT2_RIGHT_MAGAZINE_LOAD_COMPLETE_LAMP      = 0x00000080,  //8
+            OUT0_LEFT_MAGAZINE_LOAD_LAMP                = 0x00000010,
+            OUT0_LEFT_MAGAZINE_LOAD_COMPLETE_LAMP       = 0x00000020,
+            OUT0_RIGHT_MAGAZINE_LOAD_LAMP               = 0x00000040,
+            OUT0_RIGHT_MAGAZINE_LOAD_COMPLETE_LAMP      = 0x00000080,  //8
             //
             OUT1_LEFT_MAGAZINE_DOOR_LOCK_UP             = 0x00000001,  //9
             OUT1_LEFT_MAGAZINE_DOOR_LOCK_DOWN           = 0x00000002,
             OUT1_RIGHT_MAGAZINE_DOOR_LOCK_UP            = 0x00000004,
             OUT1_RIGHT_MAGAZINE_DOOR_LOCK_DOWN          = 0x00000008,  //12
-            OUT2_LEFT_NG_TRAY_LOAD_MODE_LAMP            = 0x00000010,
-            OUT2_LEFT_NG_TRAY_COMPLETE_MODE_LAMP        = 0x00000020,
-            OUT2_RIGHT_NG_TRAY_LOAD_MODE_LAMP           = 0x00000040,
-            OUT2_RIGHT_NG_TRAY_COMPLETE_MODE_LAMP       = 0x00000080,  //16
+            OUT1_LEFT_NG_TRAY_LOAD_MODE_LAMP            = 0x00000010,
+            OUT1_LEFT_NG_TRAY_COMPLETE_MODE_LAMP        = 0x00000020,
+            OUT1_RIGHT_NG_TRAY_LOAD_MODE_LAMP           = 0x00000040,
+            OUT1_RIGHT_NG_TRAY_COMPLETE_MODE_LAMP       = 0x00000080,  //16
             //
-            OUT3_NG_TRAY_LEFT_DOOR_LOCK_UP              = 0x00000001,  //17
-            OUT3_NG_TRAY_LEFT_DOOR_LOCK_DOWN            = 0x00000002,
-            OUT3_NG_TRAY_RIGHT_DOOR_LOCK_UP             = 0x00000004,
-            OUT3_NG_TRAY_RIGHT_DOOR_LOCK_DOWN           = 0x00000008,  //20
+            OUT2_NG_TRAY_LEFT_DOOR_LOCK_UP              = 0x00000001,  //17
+            OUT2_NG_TRAY_LEFT_DOOR_LOCK_DOWN            = 0x00000002,
+            OUT2_NG_TRAY_RIGHT_DOOR_LOCK_UP             = 0x00000004,
+            OUT2_NG_TRAY_RIGHT_DOOR_LOCK_DOWN           = 0x00000008,  //20
             TEMP21 = 0x00000010,
             TEMP22 = 0x00000020,
             TEMP23 = 0x00000040,
@@ -2471,14 +2471,14 @@ namespace ZenHandler.MotionControl
             OUT2_A_SOCKET_ROTATE_UNGRIP3        = 0x00000040,
             OUT2_A_SOCKET_ROTATE_UNGRIP4        = 0x00000080,  //24
             //
-            TEMP25                              = 0x00000001,  //25
-            TEMP26                              = 0x00000002,
-            TEMP27                              = 0x00000004,
-            TEMP28                              = 0x00000008,  //28
-            TEMP29                              = 0x00000010,
-            TEMP30                              = 0x00000020,
-            TEMP31                              = 0x00000040,
-            TEMP32                              = 0x00000080   //32
+            TEMP25        = 0x00000001,  //25
+            TEMP26        = 0x00000002,
+            TEMP27        = 0x00000004,
+            TEMP28        = 0x00000008,  //28
+            TEMP29        = 0x00000010,
+            TEMP30        = 0x00000020,
+            TEMP31        = 0x00000040,
+            TEMP32        = 0x00000080   //32
         };
 
         //----------------------------------------------------------------------------------------------------------------
@@ -2516,14 +2516,14 @@ namespace ZenHandler.MotionControl
             OUT2_B_SOCKET_ROTATE_UNGRIP3       = 0x00000040,
             OUT2_B_SOCKET_ROTATE_UNGRIP4       = 0x00000080,  //24
             //
-            TEMP25                             = 0x00000001,  //25
-            TEMP26                             = 0x00000002,
-            TEMP27                             = 0x00000004,
-            TEMP28                             = 0x00000008,  //28
-            TEMP29                             = 0x00000010,
-            TEMP30                             = 0x00000020,
-            TEMP31                             = 0x00000040,
-            TEMP32                             = 0x00000080   //32
+            TEMP25         = 0x00000001,  //25
+            TEMP26         = 0x00000002,
+            TEMP27         = 0x00000004,
+            TEMP28         = 0x00000008,  //28
+            TEMP29         = 0x00000010,
+            TEMP30         = 0x00000020,
+            TEMP31         = 0x00000040,
+            TEMP32         = 0x00000080   //32
         };
 
         //----------------------------------------------------------------------------------------------------------------
@@ -2561,14 +2561,14 @@ namespace ZenHandler.MotionControl
             OUT2_C_SOCKET_ROTATE_UNGRIP3       = 0x00000040,
             OUT2_C_SOCKET_ROTATE_UNGRIP4       = 0x00000080,  //24
             //
-            TEMP25                             = 0x00000001,  //25
-            TEMP26                             = 0x00000002,
-            TEMP27                             = 0x00000004,
-            TEMP28                             = 0x00000008,  //28
+            TEMP25         = 0x00000001,  //25
+            TEMP26         = 0x00000002,
+            TEMP27         = 0x00000004,
+            TEMP28         = 0x00000008,  //28
             TEMP29         = 0x00000010,
             TEMP30         = 0x00000020,
             TEMP31         = 0x00000040,
-            TEMP32      = 0x00000080   //32
+            TEMP32         = 0x00000080   //32
         };
 
         //----------------------------------------------------------------------------------------------------------------
@@ -2606,14 +2606,14 @@ namespace ZenHandler.MotionControl
             OUT2_D_SOCKET_ROTATE_UNGRIP3       = 0x00000040,
             OUT2_D_SOCKET_ROTATE_UNGRIP4       = 0x00000080,  //24
             //
-            TEMP25                             = 0x00000001,  //25
-            TEMP26                             = 0x00000002,
-            TEMP27                             = 0x00000004,
-            TEMP28                             = 0x00000008,  //28
-            TEMP29                             = 0x00000010,
-            TEMP30                             = 0x00000020,
-            TEMP31                             = 0x00000040,
-            TEMP32                             = 0x00000080   //32
+            TEMP25            = 0x00000001,  //25
+            TEMP26            = 0x00000002,
+            TEMP27            = 0x00000004,
+            TEMP28            = 0x00000008,  //28
+            TEMP29            = 0x00000010,
+            TEMP30            = 0x00000020,
+            TEMP31            = 0x00000040,
+            TEMP32            = 0x00000080   //32
         };
     }//END
 }
