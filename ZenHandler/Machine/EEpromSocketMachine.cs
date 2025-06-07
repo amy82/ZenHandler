@@ -112,7 +112,8 @@ namespace ZenHandler.Machine
             OnSocketCall?.Invoke(nReq, -1);
         }
 
-        #region EEprom Socket Machine Io 동작
+        #region [EEprom Socket IO 동작]
+
         public bool GetIsProductInSocket(int GroupNo, int index, bool bFlag, bool bWait = false)      //각 소켓의 제품 유무 확인 센서
         {
             //GroupNo = 앞,뒤 2Set
@@ -120,40 +121,193 @@ namespace ZenHandler.Machine
             {
                 return true;
             }
+            int lModuleNo = 0;
+            int lOffset = 2;
+
+            uint uFlagHigh = 0;
+            uint upValue = Globalo.motionManager.ioController.m_dwDInDict[lModuleNo][lOffset];
+
+            uFlagHigh = upValue & Globalo.motionManager._dio.GetInGoodDetect(GroupNo, index);
+            if (uFlagHigh == 1)
+            {
+                return true;
+            }
+
             return false;
         }
         public bool ContactUp(int GroupNo, int index, bool bFlag, bool bWait = false)      //컨텍 상승 / 하강
         {
-            //GroupNo = 앞,뒤 2Set
             if (ProgramState.ON_LINE_MOTOR == false)
             {
                 return true;
             }
-            return false;
+            int lModuleNo = 7;
+            int lOffset = 0;
+            uint uFlagHigh = 0;
+            uint uFlagLow = 0;
+
+            if (bFlag)
+            {
+                uFlagHigh |= Globalo.motionManager._dio.GetOutContactUpDown(GroupNo, index, true);
+                uFlagLow |= Globalo.motionManager._dio.GetOutContactUpDown(GroupNo, index, false);
+            }
+            else
+            {
+                uFlagHigh |= Globalo.motionManager._dio.GetOutContactUpDown(GroupNo, index, false);
+                uFlagLow |= Globalo.motionManager._dio.GetOutContactUpDown(GroupNo, index, true);
+            }
+
+
+            bool Rtn = Globalo.motionManager.ioController.DioWriteOutportByte(lModuleNo, lOffset, uFlagHigh, uFlagLow);
+            if (Rtn == false)
+            {
+                Console.WriteLine($"#{index} ContactUp FAIL");
+                return false;
+            }
+            return true;
         }
         public bool MultiContactUp(int GroupNo, bool bFlag, bool bWait = false)      //컨텍 전체 상승 / 하강
         {
             //GroupNo: 0 = Write , 1 = Verify
-            if (ProgramState.ON_LINE_MOTOR == false)
+            bool isSuccess = false;
+            int lModuleNo = 7;
+            int lOffset = 0;
+            uint uFlagHigh = 0;
+            uint uFlagLow = 0;
+
+            if (bFlag)
             {
-                return true;
+                uFlagHigh |= Globalo.motionManager._dio.GetOutContactUpDown(GroupNo, 0, true);
+                uFlagHigh |= Globalo.motionManager._dio.GetOutContactUpDown(GroupNo, 1, true);
+                uFlagHigh |= Globalo.motionManager._dio.GetOutContactUpDown(GroupNo, 2, true);
+                uFlagHigh |= Globalo.motionManager._dio.GetOutContactUpDown(GroupNo, 3, true);
+
+                uFlagLow |= Globalo.motionManager._dio.GetOutContactUpDown(GroupNo, 0, false);
+                uFlagLow |= Globalo.motionManager._dio.GetOutContactUpDown(GroupNo, 1, false);
+                uFlagLow |= Globalo.motionManager._dio.GetOutContactUpDown(GroupNo, 2, false);
+                uFlagLow |= Globalo.motionManager._dio.GetOutContactUpDown(GroupNo, 3, false);
             }
-            return false;
+            else
+            {
+                uFlagHigh |= Globalo.motionManager._dio.GetOutContactUpDown(GroupNo, 0, false);
+                uFlagHigh |= Globalo.motionManager._dio.GetOutContactUpDown(GroupNo, 1, false);
+                uFlagHigh |= Globalo.motionManager._dio.GetOutContactUpDown(GroupNo, 2, false);
+                uFlagHigh |= Globalo.motionManager._dio.GetOutContactUpDown(GroupNo, 3, false);
+
+                uFlagLow |= Globalo.motionManager._dio.GetOutContactUpDown(GroupNo, 0, true);
+                uFlagLow |= Globalo.motionManager._dio.GetOutContactUpDown(GroupNo, 1, true);
+                uFlagLow |= Globalo.motionManager._dio.GetOutContactUpDown(GroupNo, 2, true);
+                uFlagLow |= Globalo.motionManager._dio.GetOutContactUpDown(GroupNo, 3, true);
+            }
+                
+            isSuccess = Globalo.motionManager.ioController.DioWriteOutportByte(lModuleNo, lOffset, uFlagHigh, uFlagLow);
+            if (isSuccess == false)
+            {
+                Console.WriteLine($" MultiContactUp MOVE FAIL");
+                return isSuccess;
+            }
+
+            return isSuccess;
         }
         public bool MultiContactFor(int GroupNo, bool bFlag, bool bWait = false)      //컨텍 전체 전진 / 후진
         {
             //GroupNo: 0 = Write , 1 = Verify
-            if (ProgramState.ON_LINE_MOTOR == false)
+            bool isSuccess = false;
+            int lModuleNo = 7;
+            int lOffset = 1;
+            uint uFlagHigh = 0;
+            uint uFlagLow = 0;
+
+            if (bFlag)
             {
-                return true;
+                uFlagHigh |= Globalo.motionManager._dio.GetOutContactForBack(GroupNo, 0, true);
+                uFlagHigh |= Globalo.motionManager._dio.GetOutContactForBack(GroupNo, 1, true);
+                uFlagHigh |= Globalo.motionManager._dio.GetOutContactForBack(GroupNo, 2, true);
+                uFlagHigh |= Globalo.motionManager._dio.GetOutContactForBack(GroupNo, 3, true);
+
+                uFlagLow |= Globalo.motionManager._dio.GetOutContactForBack(GroupNo, 0, false);
+                uFlagLow |= Globalo.motionManager._dio.GetOutContactForBack(GroupNo, 1, false);
+                uFlagLow |= Globalo.motionManager._dio.GetOutContactForBack(GroupNo, 2, false);
+                uFlagLow |= Globalo.motionManager._dio.GetOutContactForBack(GroupNo, 3, false);
             }
-            return false;
+            else
+            {
+                uFlagHigh |= Globalo.motionManager._dio.GetOutContactForBack(GroupNo, 0, false);
+                uFlagHigh |= Globalo.motionManager._dio.GetOutContactForBack(GroupNo, 1, false);
+                uFlagHigh |= Globalo.motionManager._dio.GetOutContactForBack(GroupNo, 2, false);
+                uFlagHigh |= Globalo.motionManager._dio.GetOutContactForBack(GroupNo, 3, false);
+
+                uFlagLow |= Globalo.motionManager._dio.GetOutContactForBack(GroupNo, 0, true);
+                uFlagLow |= Globalo.motionManager._dio.GetOutContactForBack(GroupNo, 1, true);
+                uFlagLow |= Globalo.motionManager._dio.GetOutContactForBack(GroupNo, 2, true);
+                uFlagLow |= Globalo.motionManager._dio.GetOutContactForBack(GroupNo, 3, true);
+            }
+
+            isSuccess = Globalo.motionManager.ioController.DioWriteOutportByte(lModuleNo, lOffset, uFlagHigh, uFlagLow);
+            if (isSuccess == false)
+            {
+                Console.WriteLine($" MultiContactUp MOVE FAIL");
+                return isSuccess;
+            }
+
+            return isSuccess;
         }
         public bool GetMultiContactUp(int GroupNo, bool bFlag, bool bWait = false)      //컨텍 상승 / 하강 확인 센서
         {
             if (ProgramState.ON_LINE_MOTOR == false)
             {
                 return true;
+            }
+
+            int i = 0;
+            int lModuleNo = 0;
+            int lOffset = 0;
+
+            if (GroupNo == 0)
+            {
+                lModuleNo = 6;
+                lOffset = 0;
+            }
+            else
+            {
+                lModuleNo = 6;
+                lOffset = 2;
+            }
+            uint uFlagHigh = 0;
+            uint upValue = Globalo.motionManager.ioController.m_dwDInDict[lModuleNo][lOffset];
+
+
+            if (bFlag)
+            {
+                uFlagHigh |= Globalo.motionManager._dio.GetInContactUpDown(GroupNo, 0, true);
+                uFlagHigh |= Globalo.motionManager._dio.GetInContactUpDown(GroupNo, 1, true);
+                uFlagHigh |= Globalo.motionManager._dio.GetInContactUpDown(GroupNo, 2, true);
+                uFlagHigh |= Globalo.motionManager._dio.GetInContactUpDown(GroupNo, 3, true);
+            }
+            else
+            {
+                uFlagHigh |= Globalo.motionManager._dio.GetInContactUpDown(GroupNo, 0, false);
+                uFlagHigh |= Globalo.motionManager._dio.GetInContactUpDown(GroupNo, 1, false);
+                uFlagHigh |= Globalo.motionManager._dio.GetInContactUpDown(GroupNo, 2, false);
+                uFlagHigh |= Globalo.motionManager._dio.GetInContactUpDown(GroupNo, 3, false);
+            }
+
+            
+            if (bFlag)
+            {
+                uFlagHigh = upValue & uFlagHigh;        //TODO: IO 되는지 확인 필요
+                if (uFlagHigh == 1)
+                {
+                    return true;
+                }
+            }
+            else
+            {
+                uFlagHigh = upValue & uFlagHigh;
+                if (uFlagHigh == 0)
+                {
+                    return true;
+                }
             }
             return false;
         }
@@ -163,54 +317,230 @@ namespace ZenHandler.Machine
             {
                 return true;
             }
-            return false;
-        }
-        public bool AllContactFor(int GroupNo, int index, bool bFlag, bool bWait = false)      //컨텍 전체 상승 / 하강
-        {
-            //GroupNo = 앞,뒤 2Set
-            if (ProgramState.ON_LINE_MOTOR == false)
+
+            int i = 0;
+            int lModuleNo = 0;
+            int lOffset = 0;
+
+            if (GroupNo == 0)
             {
-                return true;
+                lModuleNo = 6;
+                lOffset = 1;
+            }
+            else
+            {
+                lModuleNo = 6;
+                lOffset = 3;
+            }
+            uint uFlagHigh = 0;
+            uint upValue = Globalo.motionManager.ioController.m_dwDInDict[lModuleNo][lOffset];
+
+
+            if (bFlag)
+            {
+                uFlagHigh |= Globalo.motionManager._dio.GetInContactForBack(GroupNo, 0, true);
+                uFlagHigh |= Globalo.motionManager._dio.GetInContactForBack(GroupNo, 1, true);
+                uFlagHigh |= Globalo.motionManager._dio.GetInContactForBack(GroupNo, 2, true);
+                uFlagHigh |= Globalo.motionManager._dio.GetInContactForBack(GroupNo, 3, true);
+            }
+            else
+            {
+                uFlagHigh |= Globalo.motionManager._dio.GetInContactForBack(GroupNo, 0, false);
+                uFlagHigh |= Globalo.motionManager._dio.GetInContactForBack(GroupNo, 1, false);
+                uFlagHigh |= Globalo.motionManager._dio.GetInContactForBack(GroupNo, 2, false);
+                uFlagHigh |= Globalo.motionManager._dio.GetInContactForBack(GroupNo, 3, false);
+            }
+
+
+            if (bFlag)
+            {
+                uFlagHigh = upValue & uFlagHigh;        //TODO: IO 되는지 확인 필요
+                if (uFlagHigh == 1)
+                {
+                    return true;
+                }
+            }
+            else
+            {
+                uFlagHigh = upValue & uFlagHigh;
+                if (uFlagHigh == 0)
+                {
+                    return true;
+                }
             }
             return false;
         }
         public bool GetContactUp(int GroupNo, int index, bool bFlag, bool bWait = false)      //컨텍 상승 / 하강 확인 센서
         {
             //GroupNo = 앞,뒤 2Set
-            if (ProgramState.ON_LINE_MOTOR == false)
+            int i = 0;
+            int lModuleNo = 0;
+            int lOffset = 0;
+
+            if (GroupNo == 0)
             {
-                return true;
+                lModuleNo = 6;
+                lOffset = 0;
+            }
+            else
+            {
+                lModuleNo = 6;
+                lOffset = 2;
+            }
+            uint uFlagHigh = 0;
+            uint upValue = Globalo.motionManager.ioController.m_dwDInDict[lModuleNo][lOffset];
+
+
+            if (bFlag)
+            {
+                uFlagHigh |= Globalo.motionManager._dio.GetInContactUpDown(GroupNo, index, true);
+            }
+            else
+            {
+                uFlagHigh |= Globalo.motionManager._dio.GetInContactUpDown(GroupNo, index, false);
+            }
+
+
+            if (bFlag)
+            {
+                uFlagHigh = upValue & uFlagHigh;        //TODO: IO 되는지 확인 필요
+                if (uFlagHigh == 1)
+                {
+                    return true;
+                }
+            }
+            else
+            {
+                uFlagHigh = upValue & uFlagHigh;
+                if (uFlagHigh == 0)
+                {
+                    return true;
+                }
             }
             return false;
         }
         public bool ContactFor(int GroupNo, int index, bool bFlag, bool bWait = false)      //컨텍 전진 / 후진
         {
-            //GroupNo = 앞,뒤 2Set
             if (ProgramState.ON_LINE_MOTOR == false)
             {
                 return true;
             }
-            return false;
+            int lModuleNo = 7;
+            int lOffset = 1;
+            uint uFlagHigh = 0;
+            uint uFlagLow = 0;
+
+            if (GroupNo == 0)       //Write Socket
+            {
+                lModuleNo = 7;
+                lOffset = 1;
+            }
+            if (GroupNo == 1)       //Verify Socket
+            {
+                lModuleNo = 7;
+                lOffset = 3;
+            }
+            if (bFlag)
+            {
+                uFlagHigh |= Globalo.motionManager._dio.GetOutContactForBack(GroupNo, index, true);
+                uFlagLow |= Globalo.motionManager._dio.GetOutContactForBack(GroupNo, index, false);
+            }
+            else
+            {
+                uFlagHigh |= Globalo.motionManager._dio.GetOutContactForBack(GroupNo, index, false);
+                uFlagLow |= Globalo.motionManager._dio.GetOutContactForBack(GroupNo, index, true);
+            }
+
+
+            bool Rtn = Globalo.motionManager.ioController.DioWriteOutportByte(lModuleNo, lOffset, uFlagHigh, uFlagLow);
+            if (Rtn == false)
+            {
+                Console.WriteLine($"#{index} ContactFor FAIL");
+                return false;
+            }
+            return true;
         }
 
         public bool GetContactFor(int GroupNo, int index, bool bFlag, bool bWait = false)      //컨텍 전진 / 후진 확인 센서
         {
             //GroupNo = 앞,뒤 2Set
-            if (ProgramState.ON_LINE_MOTOR == false)
+            int i = 0;
+            int lModuleNo = 0;
+            int lOffset = 0;
+
+            if (GroupNo == 0)
             {
-                return true;
+                lModuleNo = 6;
+                lOffset = 1;
+            }
+            else
+            {
+                lModuleNo = 6;
+                lOffset = 3;
+            }
+            uint uFlagHigh = 0;
+            uint upValue = Globalo.motionManager.ioController.m_dwDInDict[lModuleNo][lOffset];
+
+
+            if (bFlag)
+            {
+                uFlagHigh |= Globalo.motionManager._dio.GetInContactForBack(GroupNo, index, true);
+            }
+            else
+            {
+                uFlagHigh |= Globalo.motionManager._dio.GetInContactForBack(GroupNo, index, false);
+            }
+
+
+            if (bFlag)
+            {
+                uFlagHigh = upValue & uFlagHigh;        //TODO: IO 되는지 확인 필요
+                if (uFlagHigh == 1)
+                {
+                    return true;
+                }
+            }
+            else
+            {
+                uFlagHigh = upValue & uFlagHigh;
+                if (uFlagHigh == 0)
+                {
+                    return true;
+                }
             }
             return false;
         }
 
         public bool SocketFor(bool bFlag, bool bWait = false)      //소켓 Y축 실린더 전진 / 후진
         {
-            //GroupNo = 앞,뒤 2Set
             if (ProgramState.ON_LINE_MOTOR == false)
             {
                 return true;
             }
-            return false;
+            int lModuleNo = 5;
+            int lOffset = 3;
+            uint uFlagHigh = 0;
+            uint uFlagLow = 0;
+
+            if (bFlag)
+            {
+                uFlagHigh |= Globalo.motionManager._dio.GetOutSocketYFor(true);
+                uFlagLow |= Globalo.motionManager._dio.GetOutSocketYFor(false);
+            }
+            else
+            {
+                uFlagHigh |= Globalo.motionManager._dio.GetOutSocketYFor(false);
+                uFlagLow |= Globalo.motionManager._dio.GetOutSocketYFor(true);
+            }
+
+
+            bool Rtn = Globalo.motionManager.ioController.DioWriteOutportByte(lModuleNo, lOffset, uFlagHigh, uFlagLow);
+            if (Rtn == false)
+            {
+                Console.WriteLine($"SocketFor FAIL");
+                return false;
+            }
+            return true;
         }
 
 
@@ -221,18 +551,21 @@ namespace ZenHandler.Machine
             {
                 return true;
             }
-            return false;
-        }
-        public bool IsProductDetected(int GroupNo, int index)
-        {
-            if (ProgramState.ON_LINE_MOTOR == false)
+            int lModuleNo = 4;
+            int lOffset = 3;
+
+            uint uFlagHigh = 0;
+            uint upValue = Globalo.motionManager.ioController.m_dwDInDict[lModuleNo][lOffset];
+
+            uFlagHigh = upValue & Globalo.motionManager._dio.GetInSocketYFor(bFlag);
+            if (uFlagHigh == 1)
             {
                 return true;
             }
-            //GroupNo 0 = write , 1 = verify
 
             return false;
         }
+
         #endregion
         public override void MotorDataSet()
         {

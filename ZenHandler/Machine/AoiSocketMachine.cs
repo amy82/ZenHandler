@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using System.Threading;
 using System.Threading.Tasks;
 
 namespace ZenHandler.Machine
@@ -123,16 +124,89 @@ namespace ZenHandler.Machine
 
 
         }
-        #region Aoi Socket Machine Io 동작
+        #region [Aoi Socket IO 동작]
         public bool GetIsProductInSocket(int GroupNo, int index , bool bFlag , bool bWait = false)      //각 소켓의 제품 유무 확인 센서
         {
-            //GroupNo = 좌,우 2Set
+            if (ProgramState.ON_LINE_MOTOR == false)
+            {
+                return true;
+            }
+            int lModuleNo = 2;
+            int lOffset = 1;
+
+            uint uFlagHigh = 0;
+            uint upValue = Globalo.motionManager.ioController.m_dwDInDict[lModuleNo][lOffset];
+
+            uFlagHigh = upValue & Globalo.motionManager._dio.GetInGoodDetect(GroupNo, index);
+            if (uFlagHigh == 1)
+            {
+                return true;
+            }
+            
             return false;
         }
+        public bool SetVacuumOn(int GroupNo, int index, bool bFlag, bool bWait = false)      //각 소켓의 흡착
+        {
+            if (ProgramState.ON_LINE_MOTOR == false)
+            {
+                return true;
+            }
+            int lModuleNo = 2;
+            int lOffset = 0;
+            uint uFlagHigh = 0;
+            uint uFlagLow = 0;
 
+            if (bFlag)
+            {
+                uFlagHigh |= Globalo.motionManager._dio.GetOutVacuumOn(GroupNo, index, true);
+                uFlagLow |= Globalo.motionManager._dio.GetOutVacuumOn(GroupNo, index, false);
+            }
+            else
+            {
+                uFlagHigh |= Globalo.motionManager._dio.GetOutVacuumOn(GroupNo, index, false);
+                uFlagLow |= Globalo.motionManager._dio.GetOutVacuumOn(GroupNo, index, true);
+            }
+
+            //탈착일때 0.5초 뒤에 Blow 꺼야된다.
+            bool Rtn = Globalo.motionManager.ioController.DioWriteOutportByte(lModuleNo, lOffset, uFlagHigh, uFlagLow);
+            if (Rtn == false)
+            {
+                Console.WriteLine($"#{index} LOAD PICKER MOVE FAIL");
+                return false;
+            }
+
+            Thread.Sleep(500);
+
+            uFlagHigh = 0;
+            uFlagLow |= Globalo.motionManager._dio.GetOutVacuumOn(GroupNo, index, false);
+            Rtn = Globalo.motionManager.ioController.DioWriteOutportByte(lModuleNo, lOffset, uFlagHigh, uFlagLow);
+
+            if (Rtn == false)
+            {
+                Console.WriteLine($"#{index} LOAD PICKER MOVE FAIL");
+                return false;
+            }
+            return true;
+        }
         public bool GetVacuumOn(int GroupNo, int index, bool bFlag, bool bWait = false)      //각 소켓의 흡착 유무 감지
         {
             //GroupNo = 좌,우 2Set
+
+            if (ProgramState.ON_LINE_MOTOR == false)
+            {
+                return true;
+            }
+            int lModuleNo = 0;
+            int lOffset = 2;
+
+            uint uFlagHigh = 0;
+            uint upValue = Globalo.motionManager.ioController.m_dwDInDict[lModuleNo][lOffset];
+
+            uFlagHigh = upValue & Globalo.motionManager._dio.GetInVacuumOn(GroupNo, index);
+            if (uFlagHigh == 1)
+            {
+                return true;
+            }
             return false;
         }
 

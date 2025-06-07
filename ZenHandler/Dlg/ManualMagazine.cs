@@ -175,7 +175,7 @@ namespace ZenHandler.Dlg
         }
 
 
-        private async void Manual_Z_Move(Machine.MagazineHandler.eTeachingPosList ePos)
+        private async void Manual_Z_Move(Machine.MagazineMachine.eTeachingPosList ePos)
         {
             if (Globalo.motionManager.magazineHandler.RunState == OperationState.AutoRunning)
             {
@@ -277,7 +277,7 @@ namespace ZenHandler.Dlg
         }
 
 
-        private async void Manual_Y_Move(Machine.MagazineHandler.eTeachingPosList ePos)
+        private async void Manual_Y_Move(Machine.MagazineMachine.eTeachingPosList ePos)
         {
             if (Globalo.motionManager.magazineHandler.RunState == OperationState.AutoRunning)
             {
@@ -430,31 +430,31 @@ namespace ZenHandler.Dlg
         
         private void button_Manual_Magazine_Wait_Pos_Y_Click(object sender, EventArgs e)
         {
-            Manual_Y_Move(Machine.MagazineHandler.eTeachingPosList.WAIT_POS);
+            Manual_Y_Move(Machine.MagazineMachine.eTeachingPosList.WAIT_POS);
         }
 
         // X,Y BCR SCAN
         private void button_Manual_Transfer_Left_Bcr_Pos_XY_Click(object sender, EventArgs e)
         {
-            Manual_Y_Move(Machine.MagazineHandler.eTeachingPosList.LAYER1);
+            Manual_Y_Move(Machine.MagazineMachine.eTeachingPosList.LAYER1);
         }
         private void button_Manual_Transfer_Right_Bcr_Pos_XY_Click(object sender, EventArgs e)
         {
-            Manual_Y_Move(Machine.MagazineHandler.eTeachingPosList.LAYER2);
+            Manual_Y_Move(Machine.MagazineMachine.eTeachingPosList.LAYER2);
         }
         // X,Y TRAY 제품 로드
         private void BTN_MANUAL_TRANSFER_LEFT_LOAD_POS_XY_Click(object sender, EventArgs e)
         {
-            Manual_Y_Move(Machine.MagazineHandler.eTeachingPosList.LAYER3);
+            Manual_Y_Move(Machine.MagazineMachine.eTeachingPosList.LAYER3);
         }
         private void BTN_MANUAL_TRANSFER_LEFT_UNLOAD_POS_XY_Click(object sender, EventArgs e)
         {
-            Manual_Y_Move(Machine.MagazineHandler.eTeachingPosList.LAYER4);
+            Manual_Y_Move(Machine.MagazineMachine.eTeachingPosList.LAYER4);
         }
         
         private void BTN_MANUAL_TRANSFER_RIGHT_LOAD_POS_XY_Click(object sender, EventArgs e)
         {
-            Manual_Y_Move(Machine.MagazineHandler.eTeachingPosList.LAYER5);
+            Manual_Y_Move(Machine.MagazineMachine.eTeachingPosList.LAYER5);
         }
         
         #endregion
@@ -470,29 +470,29 @@ namespace ZenHandler.Dlg
 
         private void button_Manual_Magazine_Wait_Pos_Z_Click(object sender, EventArgs e)
         {
-            Manual_Z_Move(Machine.MagazineHandler.eTeachingPosList.WAIT_POS);
+            Manual_Z_Move(Machine.MagazineMachine.eTeachingPosList.WAIT_POS);
         }
         //Z BCR
         private void button_Manual_Magazine_Layer1_Pos_Z_Click(object sender, EventArgs e)
         {
-            Manual_Z_Move(Machine.MagazineHandler.eTeachingPosList.LAYER1);
+            Manual_Z_Move(Machine.MagazineMachine.eTeachingPosList.LAYER1);
         }
         private void button_Manual_Magazine_Layer2_Pos_Z_Click(object sender, EventArgs e)
         {
-            Manual_Z_Move(Machine.MagazineHandler.eTeachingPosList.LAYER2);
+            Manual_Z_Move(Machine.MagazineMachine.eTeachingPosList.LAYER2);
         }
         //Z TRAY 제품 로드
         private void button_Manual_Magazine_Layer3_Pos_Z_Click(object sender, EventArgs e)
         {
-            Manual_Z_Move(Machine.MagazineHandler.eTeachingPosList.LAYER3);
+            Manual_Z_Move(Machine.MagazineMachine.eTeachingPosList.LAYER3);
         }
         private void button_Manual_Magazine_Layer4_Pos_Z_Click(object sender, EventArgs e)
         {
-            Manual_Y_Move(Machine.MagazineHandler.eTeachingPosList.LAYER4);
+            Manual_Y_Move(Machine.MagazineMachine.eTeachingPosList.LAYER4);
         }
         private void button_Manual_Magazine_Layer5_Pos_Z_Click(object sender, EventArgs e)
         {
-            Manual_Z_Move(Machine.MagazineHandler.eTeachingPosList.LAYER5);
+            Manual_Z_Move(Machine.MagazineMachine.eTeachingPosList.LAYER5);
         }
         
         #endregion
@@ -520,7 +520,7 @@ namespace ZenHandler.Dlg
             //------------------------------------------------------------------------------------------------------
             for (i = 0; i < Left_MotorY_BtnArr.Length; i++)
             {
-                Machine.MagazineHandler.eTeachingPosList pos = (Machine.MagazineHandler.eTeachingPosList)i;
+                Machine.MagazineMachine.eTeachingPosList pos = (Machine.MagazineMachine.eTeachingPosList)i;
 
                 
                 if (Globalo.motionManager.magazineHandler.ChkYMotorPos(pos, Machine.eMagazine.MAGAZINE_L_Y) == true)
@@ -535,7 +535,7 @@ namespace ZenHandler.Dlg
 
             for (i = 0; i < Left_MotorZ_BtnArr.Length; i++)
             {
-                Machine.MagazineHandler.eTeachingPosList pos = (Machine.MagazineHandler.eTeachingPosList)i;
+                Machine.MagazineMachine.eTeachingPosList pos = (Machine.MagazineMachine.eTeachingPosList)i;
 
                 if (Globalo.motionManager.magazineHandler.ChkZMotorPos(pos, Machine.eMagazine.MAGAZINE_L_Y) == true)
                 {
@@ -588,7 +588,7 @@ namespace ZenHandler.Dlg
             //------------------------------------------------------------------------------------------------------
             for (i = 0; i < Right_MotorY_BtnArr.Length; i++)
             {
-                Machine.MagazineHandler.eTeachingPosList pos = (Machine.MagazineHandler.eTeachingPosList)i;
+                Machine.MagazineMachine.eTeachingPosList pos = (Machine.MagazineMachine.eTeachingPosList)i;
 
 
                 if (Globalo.motionManager.magazineHandler.ChkYMotorPos(pos, Machine.eMagazine.MAGAZINE_R_Y) == true)
@@ -603,7 +603,7 @@ namespace ZenHandler.Dlg
 
             for (i = 0; i < Right_MotorZ_BtnArr.Length; i++)
             {
-                Machine.MagazineHandler.eTeachingPosList pos = (Machine.MagazineHandler.eTeachingPosList)i;
+                Machine.MagazineMachine.eTeachingPosList pos = (Machine.MagazineMachine.eTeachingPosList)i;
 
                 if (Globalo.motionManager.magazineHandler.ChkZMotorPos(pos, Machine.eMagazine.MAGAZINE_R_Y) == true)
                 {

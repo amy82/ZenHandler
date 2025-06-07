@@ -211,7 +211,7 @@ namespace ZenHandler.Process
                     break;
                 case 2500:
                     //ALL SOCKET ROTATION HOME FLIP
-                    if (Globalo.motionManager.socketFwMachine.MultiFlipperRotate(0, false) == true)
+                    if (Globalo.motionManager.socketFwMachine.MultiFlipperTurn(0, false) == true)
                     {
                         szLog = $"[ORG] ALL SOCKET FLIPPER HOME MOTION [STEP : {nStep}]";
                         Globalo.LogPrint("ManualControl", szLog);

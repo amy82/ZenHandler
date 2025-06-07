@@ -1025,7 +1025,7 @@ namespace ZenHandler.Dlg
                 index = i % 4;    //0,1,2,3 반복
                 if (i < 4)
                 {
-                    if (Globalo.motionManager.socketFwMachine.GetIsFlipperRotated(CurrentFwSocket, i, true) == true)
+                    if (Globalo.motionManager.socketFwMachine.GetIsFlipperTurn(CurrentFwSocket, i, true) == true)
                     {
                         Fw_RotateFlipBtnArr[i].BackColor = ColorTranslator.FromHtml(ButtonColor.MANUAL_BTN_ON);
                     }
@@ -1036,7 +1036,7 @@ namespace ZenHandler.Dlg
                 }
                 else
                 {
-                    if (Globalo.motionManager.socketFwMachine.GetIsFlipperRotated(CurrentFwSocket, index, false) == true)
+                    if (Globalo.motionManager.socketFwMachine.GetIsFlipperTurn(CurrentFwSocket, index, false) == true)
                     {
                         Fw_RotateFlipBtnArr[i].BackColor = ColorTranslator.FromHtml(ButtonColor.MANUAL_BTN_ON);
                     }
@@ -1054,7 +1054,7 @@ namespace ZenHandler.Dlg
                 index = i % 4;    //0,1,2,3 반복
                 if (i < 4)
                 {
-                    if (Globalo.motionManager.socketFwMachine.GetIsFlipperRotated(CurrentFwSocket, i, true) == true)
+                    if (Globalo.motionManager.socketFwMachine.GetIsFlipperTurn(CurrentFwSocket, i, true) == true)
                     {
                         Fw_RotateGripBtnArr[i].BackColor = ColorTranslator.FromHtml(ButtonColor.MANUAL_BTN_ON);
                     }
@@ -1065,7 +1065,7 @@ namespace ZenHandler.Dlg
                 }
                 else
                 {
-                    if (Globalo.motionManager.socketFwMachine.GetIsFlipperRotated(CurrentFwSocket, index, false) == true)
+                    if (Globalo.motionManager.socketFwMachine.GetIsFlipperTurn(CurrentFwSocket, index, false) == true)
                     {
                         Fw_RotateGripBtnArr[i].BackColor = ColorTranslator.FromHtml(ButtonColor.MANUAL_BTN_ON);
                     }

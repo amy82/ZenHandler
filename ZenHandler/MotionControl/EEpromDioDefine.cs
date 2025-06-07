@@ -8,10 +8,38 @@ namespace ZenHandler.MotionControl
 {
     public class EEpromDioDefine : IDioDefine
     {
+        public uint GetInSocketYFor(bool bFlag) 
+        {
+            if (bFlag)
+            {
+                return (uint)DIO_IN_ADDR_CH4.IN3_SOCKET_Y_FORWARD ;
+            }
+            else
+            {
+                return (uint)DIO_IN_ADDR_CH4.IN3_SOCKET_Y_BACKWARD;
+            }
+        }
+        public uint GetOutSocketYFor(bool bFlag) 
+        {
+            if (bFlag)
+            {
+                return (uint)DIO_OUT_ADDR_CH5.OUT3_SOCKET_Y_FORWARD;
+            }
+            else
+            {
+                return (uint)DIO_OUT_ADDR_CH5.OUT3_SOCKET_Y_BACKWARD;
+            }
+        }
+
         public uint GetInMagazineDocked(int index) { return 0; }
         public uint GetInMagazineBottom(int index) { return 0; }
         public uint GetInMagazineTrayLoad(int index) { return 0; }
         public uint GetInMagazineTrayReady(int index) { return 0; }
+
+        public uint GetInVacuumOn(int Group, int index) { return 0; }
+        public uint GetOutVacuumOn(int Group, int index, bool bFlag) { return 0; }
+
+
         public uint GetInTopTouch(int index)
         {
             switch (index)
@@ -478,7 +506,7 @@ namespace ZenHandler.MotionControl
                         case 3: return (uint)DIO_IN_ADDR_CH6.IN1_WRITE_SOCKET_CONTACT_FORWARD4;
                         default:
                             // 로그 남기기 (예: LogHelper.Write)
-                            Console.WriteLine($"[Warning] 잘못된 GetInContactUpDown 타입 요청됨:{Group}, {index}");
+                            Console.WriteLine($"[Warning] 잘못된 GetInContactForBack 타입 요청됨:{Group}, {index}");
                             //throw new ArgumentOutOfRangeException(nameof(nType), nType, "Invalid Tower Lamp Type");
                             return 0; // 또는 사용하지 않는 안전한 비트
                     }
@@ -493,7 +521,7 @@ namespace ZenHandler.MotionControl
                         case 3: return (uint)DIO_IN_ADDR_CH6.IN1_WRITE_SOCKET_CONTACT_BACKWARD4;
                         default:
                             // 로그 남기기 (예: LogHelper.Write)
-                            Console.WriteLine($"[Warning] 잘못된 GetInContactUpDown 타입 요청됨:{Group}, {index}");
+                            Console.WriteLine($"[Warning] 잘못된 GetInContactForBack 타입 요청됨:{Group}, {index}");
                             //throw new ArgumentOutOfRangeException(nameof(nType), nType, "Invalid Tower Lamp Type");
                             return 0; // 또는 사용하지 않는 안전한 비트
                     }
@@ -511,7 +539,7 @@ namespace ZenHandler.MotionControl
                         case 3: return (uint)DIO_IN_ADDR_CH6.IN3_VERIFY_SOCKET_CONTACT_FORWARD4;
                         default:
                             // 로그 남기기 (예: LogHelper.Write)
-                            Console.WriteLine($"[Warning] 잘못된 GetInContactUpDown 타입 요청됨:{Group}, {index}");
+                            Console.WriteLine($"[Warning] 잘못된 GetInContactForBack 타입 요청됨:{Group}, {index}");
                             //throw new ArgumentOutOfRangeException(nameof(nType), nType, "Invalid Tower Lamp Type");
                             return 0; // 또는 사용하지 않는 안전한 비트
                     }
@@ -526,7 +554,7 @@ namespace ZenHandler.MotionControl
                         case 3: return (uint)DIO_IN_ADDR_CH6.IN3_VERIFY_SOCKET_CONTACT_BACKWARD4;
                         default:
                             // 로그 남기기 (예: LogHelper.Write)
-                            Console.WriteLine($"[Warning] 잘못된 GetInContactUpDown 타입 요청됨:{Group}, {index}");
+                            Console.WriteLine($"[Warning] 잘못된 GetInContactForBack 타입 요청됨:{Group}, {index}");
                             //throw new ArgumentOutOfRangeException(nameof(nType), nType, "Invalid Tower Lamp Type");
                             return 0; // 또는 사용하지 않는 안전한 비트
                     }

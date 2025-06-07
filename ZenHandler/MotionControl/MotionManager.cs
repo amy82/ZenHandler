@@ -44,7 +44,7 @@ namespace ZenHandler.MotionControl
         public bool bConnected = false;
 
         public Machine.TransferMachine transferMachine;
-        public Machine.MagazineHandler magazineHandler;
+        public Machine.MagazineMachine magazineHandler;
         public Machine.LiftMachine liftMachine;
 
 
@@ -83,7 +83,7 @@ namespace ZenHandler.MotionControl
             ioController = new IOController();
 
             transferMachine = new Machine.TransferMachine();        //TODO: motor , io 모두 설정되고나서 해야될수도
-            magazineHandler = new Machine.MagazineHandler();
+            magazineHandler = new Machine.MagazineMachine();
             liftMachine = new Machine.LiftMachine();
             socketAoiMachine = new Machine.AoiSocketMachine();
             socketEEpromMachine = new Machine.EEpromSocketMachine();
@@ -99,7 +99,7 @@ namespace ZenHandler.MotionControl
             bool LoadChk = true;
             LoadChk = transferMachine.teachingConfig.LoadTeach(Machine.TransferMachine.teachingPath, transferMachine.MotorCnt, (int)Machine.TransferMachine.eTeachingPosList.TOTAL_TRANSFER_TEACHING_COUNT);   //TODO: 티칭 개수만큼 불러와야되는데 파일에 없으면 못 불러온다
             transferMachine.MotorUse = LoadChk;
-            LoadChk = magazineHandler.teachingConfig.LoadTeach(Machine.MagazineHandler.teachingPath, magazineHandler.MotorCnt, (int)Machine.MagazineHandler.eTeachingPosList.TOTAL_MAGAZINE_TEACHING_COUNT);
+            LoadChk = magazineHandler.teachingConfig.LoadTeach(Machine.MagazineMachine.teachingPath, magazineHandler.MotorCnt, (int)Machine.MagazineMachine.eTeachingPosList.TOTAL_MAGAZINE_TEACHING_COUNT);
             magazineHandler.MotorUse = LoadChk;
             LoadChk = liftMachine.teachingConfig.LoadTeach(Machine.LiftMachine.teachingPath, liftMachine.MotorCnt, (int)Machine.LiftMachine.eTeachingPosList.TOTAL_LIFT_TEACHING_COUNT);
             liftMachine.MotorUse = LoadChk;

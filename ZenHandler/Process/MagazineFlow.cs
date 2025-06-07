@@ -943,7 +943,7 @@ namespace ZenHandler.Process
                     //#1 Left Loader 로드 위치로 이동 , 가장 상단
                     //#2 Right Loader 로드 위치로 이동 , 가장 상단
 
-                    bRtn = Globalo.motionManager.magazineHandler.Magazine_Y_Move(Machine.MagazineHandler.eTeachingPosList.WAIT_POS, Machine.eMagazine.MAGAZINE_L_Y, false);
+                    bRtn = Globalo.motionManager.magazineHandler.Magazine_Y_Move(Machine.MagazineMachine.eTeachingPosList.WAIT_POS, Machine.eMagazine.MAGAZINE_L_Y, false);
                     if (bRtn == false)
                     {
                         szLog = $"[READY] LEFT Loader Y WAIT POS MOVE FAIL [STEP : {nStep}]";
@@ -954,7 +954,7 @@ namespace ZenHandler.Process
                     szLog = $"[READY] LEFT Loader Y WAIT POS MOVE [STEP : {nStep}]";
                     Globalo.LogPrint("ManualControl", szLog);
 
-                    bRtn = Globalo.motionManager.magazineHandler.Magazine_Y_Move(Machine.MagazineHandler.eTeachingPosList.WAIT_POS, Machine.eMagazine.MAGAZINE_R_Y, false);
+                    bRtn = Globalo.motionManager.magazineHandler.Magazine_Y_Move(Machine.MagazineMachine.eTeachingPosList.WAIT_POS, Machine.eMagazine.MAGAZINE_R_Y, false);
                     if (bRtn == false)
                     {
                         szLog = $"[READY] RIGHT Loader Y WAIT POS MOVE FAIL [STEP : {nStep}]";
@@ -972,7 +972,7 @@ namespace ZenHandler.Process
                     break;
                 case 2620:
                     if (Globalo.motionManager.magazineHandler.MotorAxes[(int)Machine.eMagazine.MAGAZINE_L_Y].GetStopAxis() == true &&
-                        Globalo.motionManager.magazineHandler.ChkYMotorPos(Machine.MagazineHandler.eTeachingPosList.WAIT_POS, Machine.eMagazine.MAGAZINE_L_Y))
+                        Globalo.motionManager.magazineHandler.ChkYMotorPos(Machine.MagazineMachine.eTeachingPosList.WAIT_POS, Machine.eMagazine.MAGAZINE_L_Y))
                     {
                         szLog = $"[READY] LEFT Loader Y WAIT POS 이동 완료 [STEP : {nStep}]";
                         Globalo.LogPrint("ManualControl", szLog);
@@ -993,7 +993,7 @@ namespace ZenHandler.Process
                     break;
                 case 2640:
                     if (Globalo.motionManager.magazineHandler.MotorAxes[(int)Machine.eMagazine.MAGAZINE_R_Y].GetStopAxis() == true &&
-                        Globalo.motionManager.magazineHandler.ChkYMotorPos(Machine.MagazineHandler.eTeachingPosList.WAIT_POS, Machine.eMagazine.MAGAZINE_R_Y))
+                        Globalo.motionManager.magazineHandler.ChkYMotorPos(Machine.MagazineMachine.eTeachingPosList.WAIT_POS, Machine.eMagazine.MAGAZINE_R_Y))
                     {
                         szLog = $"[READY] RIGHT Loader Y WAIT POS 이동 완료 [STEP : {nStep}]";
                         Globalo.LogPrint("ManualControl", szLog);
@@ -1016,7 +1016,7 @@ namespace ZenHandler.Process
                     nRetStep = 2680;
                     break;
                 case 2680:
-                    bRtn = Globalo.motionManager.magazineHandler.Magazine_Z_Move(Machine.MagazineHandler.eTeachingPosList.TRAY_LOAD_POS, Machine.eMagazine.MAGAZINE_L_Z, 0.0, false);
+                    bRtn = Globalo.motionManager.magazineHandler.Magazine_Z_Move(Machine.MagazineMachine.eTeachingPosList.TRAY_LOAD_POS, Machine.eMagazine.MAGAZINE_L_Z, 0.0, false);
                     if (bRtn == false)
                     {
                         szLog = $"[READY] LEFT Loader Z LOAD POS MOVE FAIL [STEP : {nStep}]";
@@ -1027,7 +1027,7 @@ namespace ZenHandler.Process
                     szLog = $"[READY] LEFT Loader Z LOAD POS MOVE [STEP : {nStep}]";
                     Globalo.LogPrint("ManualControl", szLog);
 
-                    bRtn = Globalo.motionManager.magazineHandler.Magazine_Z_Move(Machine.MagazineHandler.eTeachingPosList.TRAY_LOAD_POS, Machine.eMagazine.MAGAZINE_R_Z, 0.0, false);
+                    bRtn = Globalo.motionManager.magazineHandler.Magazine_Z_Move(Machine.MagazineMachine.eTeachingPosList.TRAY_LOAD_POS, Machine.eMagazine.MAGAZINE_R_Z, 0.0, false);
                     if (bRtn == false)
                     {
                         szLog = $"[READY] RIGHT Loader Z LOAD POS MOVE FAIL [STEP : {nStep}]";
@@ -1042,7 +1042,7 @@ namespace ZenHandler.Process
                     break;
                 case 2700:
                     if (Globalo.motionManager.magazineHandler.MotorAxes[(int)Machine.eMagazine.MAGAZINE_L_Z].GetStopAxis() == true &&
-                        Globalo.motionManager.magazineHandler.ChkZMotorPos(Machine.MagazineHandler.eTeachingPosList.TRAY_LOAD_POS, Machine.eMagazine.MAGAZINE_L_Z))
+                        Globalo.motionManager.magazineHandler.ChkZMotorPos(Machine.MagazineMachine.eTeachingPosList.TRAY_LOAD_POS, Machine.eMagazine.MAGAZINE_L_Z))
                     {
                         szLog = $"[READY] LEFT Loader Z LOAD POS 이동 완료 [STEP : {nStep}]";
                         Globalo.LogPrint("ManualControl", szLog);
@@ -1061,7 +1061,7 @@ namespace ZenHandler.Process
                     break;
                 case 2720:
                     if (Globalo.motionManager.magazineHandler.MotorAxes[(int)Machine.eMagazine.MAGAZINE_R_Z].GetStopAxis() == true &&
-                        Globalo.motionManager.magazineHandler.ChkZMotorPos(Machine.MagazineHandler.eTeachingPosList.TRAY_LOAD_POS, Machine.eMagazine.MAGAZINE_R_Z))
+                        Globalo.motionManager.magazineHandler.ChkZMotorPos(Machine.MagazineMachine.eTeachingPosList.TRAY_LOAD_POS, Machine.eMagazine.MAGAZINE_R_Z))
                     {
                         szLog = $"[READY] RIGHT Loader Z LOAD POS 이동 완료 [STEP : {nStep}]";
                         Globalo.LogPrint("ManualControl", szLog);
@@ -1556,7 +1556,7 @@ namespace ZenHandler.Process
             Machine.eMagazine MotorY;
             Machine.eMagazine MotorZ;
 
-            Machine.MagazineHandler.eTeachingPosList MovePos;
+            Machine.MagazineMachine.eTeachingPosList MovePos;
 
             int LayerIndex = LoadLayer;
             if (MagNum == 0)
@@ -1571,27 +1571,27 @@ namespace ZenHandler.Process
             }
             if (LayerIndex == 0)
             {
-                MovePos = Machine.MagazineHandler.eTeachingPosList.LAYER1;
+                MovePos = Machine.MagazineMachine.eTeachingPosList.LAYER1;
             }
             else if (LayerIndex == 1)
             {
-                MovePos = Machine.MagazineHandler.eTeachingPosList.LAYER2;
+                MovePos = Machine.MagazineMachine.eTeachingPosList.LAYER2;
             }
             else if (LayerIndex == 2)
             {
-                MovePos = Machine.MagazineHandler.eTeachingPosList.LAYER3;
+                MovePos = Machine.MagazineMachine.eTeachingPosList.LAYER3;
             }
             else if (LayerIndex == 3)
             {
-                MovePos = Machine.MagazineHandler.eTeachingPosList.LAYER4;
+                MovePos = Machine.MagazineMachine.eTeachingPosList.LAYER4;
             }
             else if (LayerIndex == 4)
             {
-                MovePos = Machine.MagazineHandler.eTeachingPosList.LAYER5;
+                MovePos = Machine.MagazineMachine.eTeachingPosList.LAYER5;
             }
             else
             {
-                MovePos = Machine.MagazineHandler.eTeachingPosList.WAIT_POS;
+                MovePos = Machine.MagazineMachine.eTeachingPosList.WAIT_POS;
             }
 
 
@@ -1614,7 +1614,7 @@ namespace ZenHandler.Process
                         break;
                     case 40:
                         //Y 대기 위치
-                        bRtn = Globalo.motionManager.magazineHandler.Magazine_Y_Move(Machine.MagazineHandler.eTeachingPosList.WAIT_POS, MotorY, false);
+                        bRtn = Globalo.motionManager.magazineHandler.Magazine_Y_Move(Machine.MagazineMachine.eTeachingPosList.WAIT_POS, MotorY, false);
                         if (bRtn == false)
                         {
                             szLog = $"[READY] {MotorY.ToString()} WAIT POS MOVE FAIL [STEP : {nRetStep}]";
@@ -1630,7 +1630,7 @@ namespace ZenHandler.Process
                     case 60:
                         //Y 대기 위치 확인
                         if (Globalo.motionManager.magazineHandler.MotorAxes[(int)MotorY].GetStopAxis() == true &&
-                        Globalo.motionManager.magazineHandler.ChkYMotorPos(Machine.MagazineHandler.eTeachingPosList.WAIT_POS, MotorY))
+                        Globalo.motionManager.magazineHandler.ChkYMotorPos(Machine.MagazineMachine.eTeachingPosList.WAIT_POS, MotorY))
                         {
                             szLog = $"[READY] {MotorY.ToString()} WAIT POS 이동 완료 [STEP : {nRetStep}]";
                             Globalo.LogPrint("ManualControl", szLog);
@@ -1777,7 +1777,7 @@ namespace ZenHandler.Process
                         break;
                     case 280:
                         //Y 대기 위치
-                        bRtn = Globalo.motionManager.magazineHandler.Magazine_Y_Move(Machine.MagazineHandler.eTeachingPosList.WAIT_POS, MotorY, false);
+                        bRtn = Globalo.motionManager.magazineHandler.Magazine_Y_Move(Machine.MagazineMachine.eTeachingPosList.WAIT_POS, MotorY, false);
                         if (bRtn == false)
                         {
                             szLog = $"[READY] {MotorY.ToString()} WAIT POS MOVE FAIL [STEP : {nRetStep}]";
@@ -1793,7 +1793,7 @@ namespace ZenHandler.Process
                     case 300:
                         //Y 대기 위치 확인
                         if (Globalo.motionManager.magazineHandler.MotorAxes[(int)MotorY].GetStopAxis() == true &&
-                        Globalo.motionManager.magazineHandler.ChkYMotorPos(Machine.MagazineHandler.eTeachingPosList.WAIT_POS, MotorY))
+                        Globalo.motionManager.magazineHandler.ChkYMotorPos(Machine.MagazineMachine.eTeachingPosList.WAIT_POS, MotorY))
                         {
                             szLog = $"[READY] {MotorY.ToString()} WAIT POS 이동 완료 [STEP : {nRetStep}]";
                             Globalo.LogPrint("ManualControl", szLog);
@@ -1847,7 +1847,7 @@ namespace ZenHandler.Process
                         break;
                     case 360:
                         //자동 진행 위치로 상승
-                        bRtn = Globalo.motionManager.magazineHandler.Magazine_Z_Move(Machine.MagazineHandler.eTeachingPosList.TRAY_LOAD_POS, MotorZ, 0.0, false);
+                        bRtn = Globalo.motionManager.magazineHandler.Magazine_Z_Move(Machine.MagazineMachine.eTeachingPosList.TRAY_LOAD_POS, MotorZ, 0.0, false);
                         if (bRtn == false)
                         {
                             szLog = $"[READY] {MotorZ.ToString()} LOAD POS MOVE FAIL [STEP : {nRetStep}]";
@@ -1863,7 +1863,7 @@ namespace ZenHandler.Process
 
                     case 380:
                         if (Globalo.motionManager.magazineHandler.MotorAxes[(int)MotorZ].GetStopAxis() == true &&
-                        Globalo.motionManager.magazineHandler.ChkZMotorPos(Machine.MagazineHandler.eTeachingPosList.TRAY_LOAD_POS, MotorZ, 0.0))
+                        Globalo.motionManager.magazineHandler.ChkZMotorPos(Machine.MagazineMachine.eTeachingPosList.TRAY_LOAD_POS, MotorZ, 0.0))
                         {
                             szLog = $"[READY] {MotorZ.ToString()} LOAD POS 이동 완료 [STEP : {nRetStep}]";
                             Globalo.LogPrint("ManualControl", szLog);
@@ -1934,7 +1934,7 @@ namespace ZenHandler.Process
             Machine.eMagazine MotorY;
             Machine.eMagazine MotorZ;
 
-            Machine.MagazineHandler.eTeachingPosList MovePos;
+            Machine.MagazineMachine.eTeachingPosList MovePos;
 
             int LayerIndex = UnloadLayer;
             if (MagNum == 0)
@@ -1949,27 +1949,27 @@ namespace ZenHandler.Process
             }
             if (LayerIndex == 0)
             {
-                MovePos = Machine.MagazineHandler.eTeachingPosList.LAYER1;
+                MovePos = Machine.MagazineMachine.eTeachingPosList.LAYER1;
             }
             else if (LayerIndex == 1)
             {
-                MovePos = Machine.MagazineHandler.eTeachingPosList.LAYER2;
+                MovePos = Machine.MagazineMachine.eTeachingPosList.LAYER2;
             }
             else if (LayerIndex == 2)
             {
-                MovePos = Machine.MagazineHandler.eTeachingPosList.LAYER3;
+                MovePos = Machine.MagazineMachine.eTeachingPosList.LAYER3;
             }
             else if (LayerIndex == 3)
             {
-                MovePos = Machine.MagazineHandler.eTeachingPosList.LAYER4;
+                MovePos = Machine.MagazineMachine.eTeachingPosList.LAYER4;
             }
             else if (LayerIndex == 4)
             {
-                MovePos = Machine.MagazineHandler.eTeachingPosList.LAYER5;
+                MovePos = Machine.MagazineMachine.eTeachingPosList.LAYER5;
             }
             else
             {
-                MovePos = Machine.MagazineHandler.eTeachingPosList.WAIT_POS;
+                MovePos = Machine.MagazineMachine.eTeachingPosList.WAIT_POS;
             }
 
 
@@ -1992,7 +1992,7 @@ namespace ZenHandler.Process
                         break;
                     case 40:
                         //Y 대기 위치
-                        bRtn = Globalo.motionManager.magazineHandler.Magazine_Y_Move(Machine.MagazineHandler.eTeachingPosList.WAIT_POS, MotorY, false);
+                        bRtn = Globalo.motionManager.magazineHandler.Magazine_Y_Move(Machine.MagazineMachine.eTeachingPosList.WAIT_POS, MotorY, false);
                         if (bRtn == false)
                         {
                             szLog = $"[AUTO] {MotorY.ToString()} WAIT POS MOVE FAIL [STEP : {nRetStep}]";
@@ -2008,7 +2008,7 @@ namespace ZenHandler.Process
                     case 60:
                         //Y 대기 위치 확인
                         if (Globalo.motionManager.magazineHandler.MotorAxes[(int)MotorY].GetStopAxis() == true &&
-                        Globalo.motionManager.magazineHandler.ChkYMotorPos(Machine.MagazineHandler.eTeachingPosList.WAIT_POS, MotorY))
+                        Globalo.motionManager.magazineHandler.ChkYMotorPos(Machine.MagazineMachine.eTeachingPosList.WAIT_POS, MotorY))
                         {
                             szLog = $"[AUTO] {MotorY.ToString()} WAIT POS 이동 완료 [STEP : {nRetStep}]";
                             Globalo.LogPrint("ManualControl", szLog);
@@ -2160,7 +2160,7 @@ namespace ZenHandler.Process
                         break;
                     case 300:
                         //Y 대기 위치
-                        bRtn = Globalo.motionManager.magazineHandler.Magazine_Y_Move(Machine.MagazineHandler.eTeachingPosList.WAIT_POS, MotorY, false);
+                        bRtn = Globalo.motionManager.magazineHandler.Magazine_Y_Move(Machine.MagazineMachine.eTeachingPosList.WAIT_POS, MotorY, false);
                         if (bRtn == false)
                         {
                             szLog = $"[AUTO] {MotorY.ToString()} WAIT POS MOVE FAIL [STEP : {nRetStep}]";
@@ -2176,7 +2176,7 @@ namespace ZenHandler.Process
                     case 320:
                         //Y 대기 위치 확인
                         if (Globalo.motionManager.magazineHandler.MotorAxes[(int)MotorY].GetStopAxis() == true &&
-                        Globalo.motionManager.magazineHandler.ChkYMotorPos(Machine.MagazineHandler.eTeachingPosList.WAIT_POS, MotorY))
+                        Globalo.motionManager.magazineHandler.ChkYMotorPos(Machine.MagazineMachine.eTeachingPosList.WAIT_POS, MotorY))
                         {
                             szLog = $"[AUTO] {MotorY.ToString()} WAIT POS 이동 완료 [STEP : {nRetStep}]";
                             Globalo.LogPrint("ManualControl", szLog);

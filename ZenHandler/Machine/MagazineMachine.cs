@@ -11,7 +11,7 @@ namespace ZenHandler.Machine
     {
         MAGAZINE_L_Y = 0, MAGAZINE_L_Z, MAGAZINE_R_Y, MAGAZINE_R_Z
     };
-    public class MagazineHandler : MotionControl.MotorController
+    public class MagazineMachine : MotionControl.MotorController
     {
         public int MotorCnt { get; private set; } = 4;
 
@@ -58,7 +58,7 @@ namespace ZenHandler.Machine
         public MagazineTray magazineTray = new MagazineTray();
 
         
-        public MagazineHandler()// : base("MagazineHandler")
+        public MagazineMachine()// : base("MagazineHandler")
         {
             int i = 0;
             this.RunState = OperationState.Stopped;

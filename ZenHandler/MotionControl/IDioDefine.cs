@@ -65,6 +65,9 @@ namespace ZenHandler.MotionControl
         uint GetInContactForBack(int Group, int index, bool bFlag);
         uint GetOutContactForBack(int Group, int index, bool bFlag);
 
+        uint GetInSocketYFor(bool bFlag);        //EEPROM 전용
+        uint GetOutSocketYFor(bool bFlag);       //EEPROM 전용
+
         uint GetInRotateUpDown(int Group, int index, bool bFlag);
         uint GetOutRotateUpDown(int Group, int index, bool bFlag);
 
@@ -75,6 +78,9 @@ namespace ZenHandler.MotionControl
         uint GetOutRotateGrip(int Group, int index, bool bFlag);
 
         uint GetInGoodDetect(int Group, int index);
+
+        uint GetInVacuumOn(int Group, int index);
+        uint GetOutVacuumOn(int Group, int index, bool bFlag);
         //-----------------------------------------------------------------------
         //Lift
         uint GetInGantryClampFor(bool bFlag);

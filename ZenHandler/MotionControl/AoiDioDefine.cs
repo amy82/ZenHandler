@@ -8,7 +8,82 @@ namespace ZenHandler.MotionControl
 {
     public class AoiDioDefine : IDioDefine
     {
-
+        public uint GetInSocketYFor(bool bFlag) { return 0; }
+        public uint GetOutSocketYFor(bool bFlag) { return 0; }
+        public uint GetInVacuumOn(int Group, int index) 
+        {
+            if (Group == 0)
+            {
+                switch (index)
+                {
+                    case 0: return (uint)DIO_IN_ADDR_CH0.IN2_A_SOCKET_VACUUM_ON1;
+                    case 1: return (uint)DIO_IN_ADDR_CH0.IN2_A_SOCKET_VACUUM_ON2;
+                    default:
+                        // 로그 남기기 (예: LogHelper.Write)
+                        Console.WriteLine($"[Warning] 잘못된 GetInVacuumOn 타입 요청됨:{index}");
+                        //throw new ArgumentOutOfRangeException(nameof(nType), nType, "Invalid Tower Lamp Type");
+                        return 0; // 또는 사용하지 않는 안전한 비트
+                }
+            }
+            if (Group == 1)
+            {
+                switch (index)
+                {
+                    case 0: return (uint)DIO_IN_ADDR_CH0.IN2_B_SOCKET_VACUUM_ON1;
+                    case 1: return (uint)DIO_IN_ADDR_CH0.IN2_B_SOCKET_VACUUM_ON2;
+                    default:
+                        // 로그 남기기 (예: LogHelper.Write)
+                        Console.WriteLine($"[Warning] 잘못된 GetInVacuumOn 타입 요청됨:{index}");
+                        //throw new ArgumentOutOfRangeException(nameof(nType), nType, "Invalid Tower Lamp Type");
+                        return 0; // 또는 사용하지 않는 안전한 비트
+                }
+            }
+            return 0; // 또는 사용하지 않는 안전한 비트
+        }
+        public uint GetOutVacuumOn(int Group, int index, bool bFlag) 
+        {
+            if (Group == 0)
+            {
+                if (bFlag)
+                {
+                    switch (index)
+                    {
+                        case 0: return (uint)DIO_OUT_ADDR_CH1.OUT2_LEFT_SOCKET_VACUUM_ON1;
+                        case 1: return (uint)DIO_OUT_ADDR_CH1.OUT2_LEFT_SOCKET_VACUUM_ON2;
+                    }
+                }
+                else
+                {
+                    switch (index)
+                    {
+                        case 0: return (uint)DIO_OUT_ADDR_CH1.OUT2_LEFT_SOCKET_BLOW_ON1;
+                        case 1: return (uint)DIO_OUT_ADDR_CH1.OUT2_LEFT_SOCKET_BLOW_ON2;
+                    }
+                }
+                
+            }
+            if (Group == 1)
+            {
+                if (bFlag)
+                {
+                    switch (index)
+                    {
+                        case 0: return (uint)DIO_OUT_ADDR_CH1.OUT2_RIGHT_SOCKET_VACUUM_ON1;
+                        case 1: return (uint)DIO_OUT_ADDR_CH1.OUT2_RIGHT_SOCKET_VACUUM_ON2;
+                    }
+                }
+                else
+                {
+                    switch (index)
+                    {
+                        case 0: return (uint)DIO_OUT_ADDR_CH1.OUT2_RIGHT_SOCKET_BLOW_ON1;
+                        case 1: return (uint)DIO_OUT_ADDR_CH1.OUT2_RIGHT_SOCKET_BLOW_ON2;
+                    }
+                }
+                
+            }
+            return 0; // 또는 사용하지 않는 안전한 비트
+        }
         public uint GetInMagazineDocked(int index) { return 0; }
         public uint GetInMagazineBottom(int index) { return 0; }
         public uint GetInMagazineTrayLoad(int index) { return 0; }

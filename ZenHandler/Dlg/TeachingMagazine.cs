@@ -279,7 +279,7 @@ namespace ZenHandler.Dlg
 
                 Globalo.LogPrint("", "[TEACH] TRANSFER UNIT SAVE");
 
-                Globalo.motionManager.magazineHandler.teachingConfig.SaveTeach(Machine.MagazineHandler.teachingPath);
+                Globalo.motionManager.magazineHandler.teachingConfig.SaveTeach(Machine.MagazineMachine.teachingPath);
 
             }
                 

@@ -443,7 +443,7 @@
     <Compile Include="MotionControl\IDioDefine.cs" />
     <Compile Include="MotionControl\IOController.cs" />
     <Compile Include="Machine\LiftMachine.cs" />
-    <Compile Include="Machine\MagazineHandler.cs" />
+    <Compile Include="Machine\MagazineMachine.cs" />
     <Compile Include="MotionControl\MotionManager.cs" />
     <Compile Include="MotionControl\MotorAxis.cs" />
     <Compile Include="MotionControl\MotorController.cs" />

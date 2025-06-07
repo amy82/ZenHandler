@@ -74,414 +74,993 @@ namespace ZenHandler.Machine
         public bool GetIsProductInSocket(int GroupNo,  int index, bool bFlag, bool bWait = false)      //각 소켓의 제품 유무 확인 센서
         {
             //GroupNo = 앞2 , 뒤2 4Set
+            if (ProgramState.ON_LINE_MOTOR == false)
+            {
+                return true;
+            }
+            int lModuleNo = 0;
+            int lOffset = 0;
+            if (GroupNo == 0)
+            {
+                lModuleNo = 8;
+                lOffset = 3;
+            }
+            if (GroupNo == 1)
+            {
+                lModuleNo = 10;
+                lOffset = 3;
+            }
+            if (GroupNo == 2)
+            {
+                lModuleNo = 12;
+                lOffset = 3;
+            }
+            if (GroupNo == 3)
+            {
+                lModuleNo = 14;
+                lOffset = 3;
+            }
+
+            uint uFlagHigh = 0;
+            uint upValue = Globalo.motionManager.ioController.m_dwDInDict[lModuleNo][lOffset];
+
+            uFlagHigh = upValue & Globalo.motionManager._dio.GetInGoodDetect(GroupNo, index);
+            if (uFlagHigh == 1)
+            {
+                return true;
+            }
+
             return false;
         }
         public bool GetIsContactForward(int GroupNo, int index, bool bFlag, bool bWait = false)      //각 소켓의 푸셔 전/후진 확인 센서
         {
             //GroupNo = 앞2 , 뒤2 4Set
+
+            int i = 0;
+            int lModuleNo = 0;
+            int lOffset = 0;
+            if (GroupNo == 0)
+            {
+                lModuleNo = 4;
+                lOffset = 1;
+            }
+            if (GroupNo == 1)
+            {
+                lModuleNo = 4;
+                lOffset = 3;
+            }
+            if (GroupNo == 2)
+            {
+                lModuleNo = 6;
+                lOffset = 1;
+            }
+            if (GroupNo == 3)
+            {
+                lModuleNo = 6;
+                lOffset = 3;
+            }
+            uint uFlagHigh = 0;
+            uint upValue = Globalo.motionManager.ioController.m_dwDInDict[lModuleNo][lOffset];
+
+
+            if (bFlag)
+            {
+                uFlagHigh |= Globalo.motionManager._dio.GetInContactForBack(GroupNo, index, true);
+            }
+            else
+            {
+                uFlagHigh |= Globalo.motionManager._dio.GetInContactForBack(GroupNo, index, false);
+            }
+
+
+            if (bFlag)
+            {
+                uFlagHigh = upValue & uFlagHigh;        //TODO: IO 되는지 확인 필요
+                if (uFlagHigh == 1)
+                {
+                    return true;
+                }
+            }
+            else
+            {
+                uFlagHigh = upValue & uFlagHigh;
+                if (uFlagHigh == 0)
+                {
+                    return true;
+                }
+            }
             return false;
         }
         public bool GetIsContactUp(int GroupNo, int index, bool bFlag, bool bWait = false)      //각 소켓의 푸셔 상/하강 확인 센서
         {
             //GroupNo = 앞2 , 뒤2 4Set
+            int i = 0;
+            int lModuleNo = 0;
+            int lOffset = 0;
+            if (GroupNo == 0)
+            {
+                lModuleNo = 4;
+                lOffset = 0;
+            }
+            if (GroupNo == 1)
+            {
+                lModuleNo = 4;
+                lOffset = 2;
+            }
+            if (GroupNo == 2)
+            {
+                lModuleNo = 6;
+                lOffset = 0;
+            }
+            if (GroupNo == 3)
+            {
+                lModuleNo = 6;
+                lOffset = 2;
+            }
+            uint uFlagHigh = 0;
+            uint upValue = Globalo.motionManager.ioController.m_dwDInDict[lModuleNo][lOffset];
+
+
+            if (bFlag)
+            {
+                uFlagHigh |= Globalo.motionManager._dio.GetInContactUpDown(GroupNo, index, true);
+            }
+            else
+            {
+                uFlagHigh |= Globalo.motionManager._dio.GetInContactUpDown(GroupNo, index, false);
+            }
+
+
+            if (bFlag)
+            {
+                uFlagHigh = upValue & uFlagHigh;        //TODO: IO 되는지 확인 필요
+                if (uFlagHigh == 1)
+                {
+                    return true;
+                }
+            }
+            else
+            {
+                uFlagHigh = upValue & uFlagHigh;
+                if (uFlagHigh == 0)
+                {
+                    return true;
+                }
+            }
             return false;
         }
-        public bool GetIsFlipperRotated(int GroupNo, int index, bool bFlag, bool bWait = false)      //각 소켓의 로테이션 회전 상태 확인
+        public bool GetIsFlipperTurn(int GroupNo, int index, bool bFlag, bool bWait = false)      //각 소켓의 로테이션 회전 상태 확인
         {
             //GroupNo = 앞2 , 뒤2 4Set
+            int i = 0;
+            int lModuleNo = 0;
+            int lOffset = 0;
+            if (GroupNo == 0)
+            {
+                lModuleNo = 8;
+                lOffset = 1;
+            }
+            if (GroupNo == 1)
+            {
+                lModuleNo = 10;
+                lOffset = 1;
+            }
+
+            if (GroupNo == 2)
+            {
+                lModuleNo = 12;
+                lOffset = 1;
+            }
+            if (GroupNo == 3)
+            {
+                lModuleNo = 14;
+                lOffset = 1;
+            }
+            uint uFlagHigh = 0;
+            uint upValue = Globalo.motionManager.ioController.m_dwDInDict[lModuleNo][lOffset];
+
+
+            if (bFlag)
+            {
+                uFlagHigh |= Globalo.motionManager._dio.GetInRotateTurn(GroupNo, index, true);
+            }
+            else
+            {
+                uFlagHigh |= Globalo.motionManager._dio.GetInContactUpDown(GroupNo, index, false);
+            }
+
+
+            if (bFlag)
+            {
+                uFlagHigh = upValue & uFlagHigh;        //TODO: IO 되는지 확인 필요
+                if (uFlagHigh == 1)
+                {
+                    return true;
+                }
+            }
+            else
+            {
+                uFlagHigh = upValue & uFlagHigh;
+                if (uFlagHigh == 0)
+                {
+                    return true;
+                }
+            }
             return false;
         }
         public bool GetIsFlipperUp(int GroupNo, int index, bool bFlag, bool bWait = false)      //각 소켓의 로테이션 실린더 상/하강 상태
         {
             //GroupNo = 앞2 , 뒤2 4Set
+            int i = 0;
+            int lModuleNo = 0;
+            int lOffset = 0;
+            if (GroupNo == 0)
+            {
+                lModuleNo = 8;
+                lOffset = 0;
+            }
+            if (GroupNo == 1)
+            {
+                lModuleNo = 10;
+                lOffset = 0;
+            }
+
+            if (GroupNo == 2)
+            {
+                lModuleNo = 12;
+                lOffset = 0;
+            }
+            if (GroupNo == 3)
+            {
+                lModuleNo = 14;
+                lOffset = 0;
+            }
+            uint uFlagHigh = 0;
+            uint upValue = Globalo.motionManager.ioController.m_dwDInDict[lModuleNo][lOffset];
+
+
+            if (bFlag)
+            {
+                uFlagHigh |= Globalo.motionManager._dio.GetInRotateUpDown(GroupNo, index, true);
+            }
+            else
+            {
+                uFlagHigh |= Globalo.motionManager._dio.GetInRotateUpDown(GroupNo, index, false);
+            }
+
+
+            if (bFlag)
+            {
+                uFlagHigh = upValue & uFlagHigh;        //TODO: IO 되는지 확인 필요
+                if (uFlagHigh == 1)
+                {
+                    return true;
+                }
+            }
+            else
+            {
+                uFlagHigh = upValue & uFlagHigh;
+                if (uFlagHigh == 0)
+                {
+                    return true;
+                }
+            }
             return false;
         }
 
         public bool FlipperGrip(int GroupNo , int index, bool bFlag, bool bWait = false)        //로테이션 그립 언그립
         {
-            bool isSuccess = false;
-            //index = -1 이면 전체 동작?
-            return isSuccess;
+            if (ProgramState.ON_LINE_MOTOR == false)
+            {
+                return true;
+            }
+            int lModuleNo = 0;
+            int lOffset = 0;
+            if (GroupNo == 0)
+            {
+                lModuleNo = 9;
+                lOffset = 2;
+            }
+            if (GroupNo == 1)
+            {
+                lModuleNo = 11;
+                lOffset = 2;
+            }
+
+            if (GroupNo == 2)
+            {
+                lModuleNo = 13;
+                lOffset = 2;
+            }
+            if (GroupNo == 3)
+            {
+                lModuleNo = 15;
+                lOffset = 2;
+            }
+
+            uint uFlagHigh = 0;
+            uint upValue = Globalo.motionManager.ioController.m_dwDInDict[lModuleNo][lOffset];
+
+            uFlagHigh = upValue & Globalo.motionManager._dio.GetOutRotateGrip(GroupNo, index, bFlag);
+            if (uFlagHigh == 1)
+            {
+                return true;
+            }
+            return false;
         }
         public bool FlipperRotate(int GroupNo, int index, bool bFlag, bool bWait = false)       //로테이션 회전 동작
         {
-            bool isSuccess = false;
-            //index = -1 이면 전체 동작?
-            return isSuccess;
+            if (ProgramState.ON_LINE_MOTOR == false)
+            {
+                return true;
+            }
+            int lModuleNo = 0;
+            int lOffset = 0;
+            if (GroupNo == 0)
+            {
+                lModuleNo = 9;
+                lOffset = 1;
+            }
+            if (GroupNo == 1)
+            {
+                lModuleNo = 11;
+                lOffset = 1;
+            }
+
+            if (GroupNo == 2)
+            {
+                lModuleNo = 13;
+                lOffset = 1;
+            }
+            if (GroupNo == 3)
+            {
+                lModuleNo = 15;
+                lOffset = 1;
+            }
+
+            uint uFlagHigh = 0;
+            uint upValue = Globalo.motionManager.ioController.m_dwDInDict[lModuleNo][lOffset];
+
+            uFlagHigh = upValue & Globalo.motionManager._dio.GetOutRotateTurn(GroupNo, index, bFlag);
+            if (uFlagHigh == 1)
+            {
+                return true;
+            }
+            return false;
         }
         public bool FlipperUp(int GroupNo, int index, bool bFlag, bool bWait = false)       //로테이션 상승,하강 동작
         {
-            bool isSuccess = false;
-            //index = -1 이면 전체 동작?
-            return isSuccess;
+            if (ProgramState.ON_LINE_MOTOR == false)
+            {
+                return true;
+            }
+            int lModuleNo = 0;
+            int lOffset = 0;
+            if (GroupNo == 0)
+            {
+                lModuleNo = 9;
+                lOffset = 0;
+            }
+            if (GroupNo == 1)
+            {
+                lModuleNo = 11;
+                lOffset = 0;
+            }
+
+            if (GroupNo == 2)
+            {
+                lModuleNo = 13;
+                lOffset = 0;
+            }
+            if (GroupNo == 3)
+            {
+                lModuleNo = 15;
+                lOffset = 0;
+            }
+
+            uint uFlagHigh = 0;
+            uint upValue = Globalo.motionManager.ioController.m_dwDInDict[lModuleNo][lOffset];
+
+            uFlagHigh = upValue & Globalo.motionManager._dio.GetOutRotateUpDown(GroupNo, index, bFlag);
+            if (uFlagHigh == 1)
+            {
+                return true;
+            }
+            return false;
         }
 
         public bool ContactPusherUp(int GroupNo, int index, bool bFlag, bool bWait = false)       //컨택 푸셔 상승,하강 동작
         {
-            bool isSuccess = false;
-            //index = -1 이면 전체 동작?
-            return isSuccess;
+            if (ProgramState.ON_LINE_MOTOR == false)
+            {
+                return true;
+            }
+            int lModuleNo = 0;
+            int lOffset = 0;
+            if (GroupNo == 0)
+            {
+                lModuleNo = 5;
+                lOffset = 0;
+            }
+            if (GroupNo == 1)
+            {
+                lModuleNo = 5;
+                lOffset = 2;
+            }
+
+            if (GroupNo == 2)
+            {
+                lModuleNo = 7;
+                lOffset = 0;
+            }
+            if (GroupNo == 3)
+            {
+                lModuleNo = 7;
+                lOffset = 2;
+            }
+
+            uint uFlagHigh = 0;
+            uint upValue = Globalo.motionManager.ioController.m_dwDInDict[lModuleNo][lOffset];
+
+            uFlagHigh = upValue & Globalo.motionManager._dio.GetOutContactUpDown(GroupNo, index, bFlag);
+            if (uFlagHigh == 1)
+            {
+                return true;
+            }
+            return false;
         }
         public bool ContactPusherFor(int GroupNo, int index, bool bFlag, bool bWait = false)       //컨택 푸셔 전진 후진 동작
         {
+            if (ProgramState.ON_LINE_MOTOR == false)
+            {
+                return true;
+            }
+            int lModuleNo = 0;
+            int lOffset = 0;
+            if (GroupNo == 0)
+            {
+                lModuleNo = 5;
+                lOffset = 1;
+            }
+            if (GroupNo == 1)
+            {
+                lModuleNo = 5;
+                lOffset = 3;
+            }
+
+            if (GroupNo == 2)
+            {
+                lModuleNo = 7;
+                lOffset = 1;
+            }
+            if (GroupNo == 3)
+            {
+                lModuleNo = 7;
+                lOffset = 3;
+            }
+
+            uint uFlagHigh = 0;
+            uint upValue = Globalo.motionManager.ioController.m_dwDInDict[lModuleNo][lOffset];
+
+            uFlagHigh = upValue & Globalo.motionManager._dio.GetOutContactForBack(GroupNo, index, bFlag);
+            if (uFlagHigh == 1)
+            {
+                return true;
+            }
+            return false;
+        }
+        public bool MultiContactFor(int GroupNo, bool bFlag, bool bWait = false)
+        {
             bool isSuccess = false;
-            //index = -1 이면 전체 동작?
+            uint uFlagHigh = 0;
+            uint uFlagLow = 0;
+
+            int lModuleNo = 0;
+            int lOffset = 0;
+            if (GroupNo == 0)
+            {
+                lModuleNo = 5;
+                lOffset = 1;
+            }
+            if (GroupNo == 1)
+            {
+                lModuleNo = 5;
+                lOffset = 3;
+            }
+
+            if (GroupNo == 2)
+            {
+                lModuleNo = 7;
+                lOffset = 1;
+            }
+            if (GroupNo == 3)
+            {
+                lModuleNo = 7;
+                lOffset = 3;
+            }
+
+            if (bFlag)
+            {
+                uFlagHigh |= Globalo.motionManager._dio.GetOutContactForBack(GroupNo, 0, true);
+                uFlagHigh |= Globalo.motionManager._dio.GetOutContactForBack(GroupNo, 1, true);
+                uFlagHigh |= Globalo.motionManager._dio.GetOutContactForBack(GroupNo, 2, true);
+                uFlagHigh |= Globalo.motionManager._dio.GetOutContactForBack(GroupNo, 3, true);
+
+                uFlagLow |= Globalo.motionManager._dio.GetOutContactForBack(GroupNo, 0, false);
+                uFlagLow |= Globalo.motionManager._dio.GetOutContactForBack(GroupNo, 1, false);
+                uFlagLow |= Globalo.motionManager._dio.GetOutContactForBack(GroupNo, 2, false);
+                uFlagLow |= Globalo.motionManager._dio.GetOutContactForBack(GroupNo, 3, false);
+            }
+            else
+            {
+                uFlagHigh |= Globalo.motionManager._dio.GetOutContactForBack(GroupNo, 0, false);
+                uFlagHigh |= Globalo.motionManager._dio.GetOutContactForBack(GroupNo, 1, false);
+                uFlagHigh |= Globalo.motionManager._dio.GetOutContactForBack(GroupNo, 2, false);
+                uFlagHigh |= Globalo.motionManager._dio.GetOutContactForBack(GroupNo, 3, false);
+
+                uFlagLow |= Globalo.motionManager._dio.GetOutContactForBack(GroupNo, 0, true);
+                uFlagLow |= Globalo.motionManager._dio.GetOutContactForBack(GroupNo, 1, true);
+                uFlagLow |= Globalo.motionManager._dio.GetOutContactForBack(GroupNo, 2, true);
+                uFlagLow |= Globalo.motionManager._dio.GetOutContactForBack(GroupNo, 3, true);
+            }
+
+            isSuccess = Globalo.motionManager.ioController.DioWriteOutportByte(lModuleNo, lOffset, uFlagHigh, uFlagLow);
+            if (isSuccess == false)
+            {
+                Console.WriteLine($" MultiContactUp MOVE FAIL");
+                return isSuccess;
+            }
+
             return isSuccess;
         }
-        public bool MultiContactFor(int SetNo, bool bFlag, bool bWait = false)
+        public bool MultiFlipperTurn(int GroupNo, bool bFlag, bool bWait = false)
         {
+            bool isSuccess = false;
+            uint uFlagHigh = 0;
+            uint uFlagLow = 0;
 
-            return true;
+            int lModuleNo = 0;
+            int lOffset = 0;
+            if (GroupNo == 0)
+            {
+                lModuleNo = 9;
+                lOffset = 1;
+            }
+            if (GroupNo == 1)
+            {
+                lModuleNo = 11;
+                lOffset = 1;
+            }
+
+            if (GroupNo == 2)
+            {
+                lModuleNo = 13;
+                lOffset = 1;
+            }
+            if (GroupNo == 3)
+            {
+                lModuleNo = 15;
+                lOffset = 1;
+            }
+
+            if (bFlag)
+            {
+                uFlagHigh |= Globalo.motionManager._dio.GetOutRotateTurn(GroupNo, 0, true);
+                uFlagHigh |= Globalo.motionManager._dio.GetOutRotateTurn(GroupNo, 1, true);
+                uFlagHigh |= Globalo.motionManager._dio.GetOutRotateTurn(GroupNo, 2, true);
+                uFlagHigh |= Globalo.motionManager._dio.GetOutRotateTurn(GroupNo, 3, true);
+
+                uFlagLow |= Globalo.motionManager._dio.GetOutRotateTurn(GroupNo, 0, false);
+                uFlagLow |= Globalo.motionManager._dio.GetOutRotateTurn(GroupNo, 1, false);
+                uFlagLow |= Globalo.motionManager._dio.GetOutRotateTurn(GroupNo, 2, false);
+                uFlagLow |= Globalo.motionManager._dio.GetOutRotateTurn(GroupNo, 3, false);
+            }
+            else
+            {
+                uFlagHigh |= Globalo.motionManager._dio.GetOutRotateTurn(GroupNo, 0, false);
+                uFlagHigh |= Globalo.motionManager._dio.GetOutRotateTurn(GroupNo, 1, false);
+                uFlagHigh |= Globalo.motionManager._dio.GetOutRotateTurn(GroupNo, 2, false);
+                uFlagHigh |= Globalo.motionManager._dio.GetOutRotateTurn(GroupNo, 3, false);
+
+                uFlagLow |= Globalo.motionManager._dio.GetOutRotateTurn(GroupNo, 0, true);
+                uFlagLow |= Globalo.motionManager._dio.GetOutRotateTurn(GroupNo, 1, true);
+                uFlagLow |= Globalo.motionManager._dio.GetOutRotateTurn(GroupNo, 2, true);
+                uFlagLow |= Globalo.motionManager._dio.GetOutRotateTurn(GroupNo, 3, true);
+            }
+
+            isSuccess = Globalo.motionManager.ioController.DioWriteOutportByte(lModuleNo, lOffset, uFlagHigh, uFlagLow);
+            if (isSuccess == false)
+            {
+                Console.WriteLine($" MultiContactUp MOVE FAIL");
+                return isSuccess;
+            }
+
+            return isSuccess;
         }
-        public bool MultiFlipperRotate(int SetNo, bool bFlag, bool bWait = false)
+        public bool MultiFlipperUp(int GroupNo, bool bFlag, bool bWait = false)
         {
+            bool isSuccess = false;
+            uint uFlagHigh = 0;
+            uint uFlagLow = 0;
 
-            return true;
+            int lModuleNo = 0;
+            int lOffset = 0;
+            if (GroupNo == 0)
+            {
+                lModuleNo = 9;
+                lOffset = 0;
+            }
+            if (GroupNo == 1)
+            {
+                lModuleNo = 11;
+                lOffset = 0;
+            }
+
+            if (GroupNo == 2)
+            {
+                lModuleNo = 13;
+                lOffset = 0;
+            }
+            if (GroupNo == 3)
+            {
+                lModuleNo = 15;
+                lOffset = 0;
+            }
+
+            if (bFlag)
+            {
+                uFlagHigh |= Globalo.motionManager._dio.GetOutRotateUpDown(GroupNo, 0, true);
+                uFlagHigh |= Globalo.motionManager._dio.GetOutRotateUpDown(GroupNo, 1, true);
+                uFlagHigh |= Globalo.motionManager._dio.GetOutRotateUpDown(GroupNo, 2, true);
+                uFlagHigh |= Globalo.motionManager._dio.GetOutRotateUpDown(GroupNo, 3, true);
+
+                uFlagLow |= Globalo.motionManager._dio.GetOutRotateUpDown(GroupNo, 0, false);
+                uFlagLow |= Globalo.motionManager._dio.GetOutRotateUpDown(GroupNo, 1, false);
+                uFlagLow |= Globalo.motionManager._dio.GetOutRotateUpDown(GroupNo, 2, false);
+                uFlagLow |= Globalo.motionManager._dio.GetOutRotateUpDown(GroupNo, 3, false);
+            }
+            else
+            {
+                uFlagHigh |= Globalo.motionManager._dio.GetOutRotateUpDown(GroupNo, 0, false);
+                uFlagHigh |= Globalo.motionManager._dio.GetOutRotateUpDown(GroupNo, 1, false);
+                uFlagHigh |= Globalo.motionManager._dio.GetOutRotateUpDown(GroupNo, 2, false);
+                uFlagHigh |= Globalo.motionManager._dio.GetOutRotateUpDown(GroupNo, 3, false);
+
+                uFlagLow |= Globalo.motionManager._dio.GetOutRotateUpDown(GroupNo, 0, true);
+                uFlagLow |= Globalo.motionManager._dio.GetOutRotateUpDown(GroupNo, 1, true);
+                uFlagLow |= Globalo.motionManager._dio.GetOutRotateUpDown(GroupNo, 2, true);
+                uFlagLow |= Globalo.motionManager._dio.GetOutRotateUpDown(GroupNo, 3, true);
+            }
+
+            isSuccess = Globalo.motionManager.ioController.DioWriteOutportByte(lModuleNo, lOffset, uFlagHigh, uFlagLow);
+            if (isSuccess == false)
+            {
+                Console.WriteLine($" MultiFlipperUp MOVE FAIL");
+                return isSuccess;
+            }
+
+            return isSuccess;
         }
-        public bool MultiFlipperUp(int SetNo, bool bFlag, bool bWait = false)
-        {
 
-            return true;
+        public bool MultiContactUp(int GroupNo,  bool bFlag, bool bWait = false)//int[] socketList,
+        {
+            bool isSuccess = false;
+            uint uFlagHigh = 0;
+            uint uFlagLow = 0;
+
+            int lModuleNo = 0;
+            int lOffset = 0;
+            if (GroupNo == 0)
+            {
+                lModuleNo = 5;
+                lOffset = 0;
+            }
+            if (GroupNo == 1)
+            {
+                lModuleNo = 5;
+                lOffset = 2;
+            }
+
+            if (GroupNo == 2)
+            {
+                lModuleNo = 7;
+                lOffset = 0;
+            }
+            if (GroupNo == 3)
+            {
+                lModuleNo = 7;
+                lOffset = 2;
+            }
+
+            if (bFlag)
+            {
+                uFlagHigh |= Globalo.motionManager._dio.GetOutContactUpDown(GroupNo, 0, true);
+                uFlagHigh |= Globalo.motionManager._dio.GetOutContactUpDown(GroupNo, 1, true);
+                uFlagHigh |= Globalo.motionManager._dio.GetOutContactUpDown(GroupNo, 2, true);
+                uFlagHigh |= Globalo.motionManager._dio.GetOutContactUpDown(GroupNo, 3, true);
+
+                uFlagLow |= Globalo.motionManager._dio.GetOutContactUpDown(GroupNo, 0, false);
+                uFlagLow |= Globalo.motionManager._dio.GetOutContactUpDown(GroupNo, 1, false);
+                uFlagLow |= Globalo.motionManager._dio.GetOutContactUpDown(GroupNo, 2, false);
+                uFlagLow |= Globalo.motionManager._dio.GetOutContactUpDown(GroupNo, 3, false);
+            }
+            else
+            {
+                uFlagHigh |= Globalo.motionManager._dio.GetOutContactUpDown(GroupNo, 0, false);
+                uFlagHigh |= Globalo.motionManager._dio.GetOutContactUpDown(GroupNo, 1, false);
+                uFlagHigh |= Globalo.motionManager._dio.GetOutContactUpDown(GroupNo, 2, false);
+                uFlagHigh |= Globalo.motionManager._dio.GetOutContactUpDown(GroupNo, 3, false);
+
+                uFlagLow |= Globalo.motionManager._dio.GetOutContactUpDown(GroupNo, 0, true);
+                uFlagLow |= Globalo.motionManager._dio.GetOutContactUpDown(GroupNo, 1, true);
+                uFlagLow |= Globalo.motionManager._dio.GetOutContactUpDown(GroupNo, 2, true);
+                uFlagLow |= Globalo.motionManager._dio.GetOutContactUpDown(GroupNo, 3, true);
+            }
+
+            isSuccess = Globalo.motionManager.ioController.DioWriteOutportByte(lModuleNo, lOffset, uFlagHigh, uFlagLow);
+            if (isSuccess == false)
+            {
+                Console.WriteLine($" MultiFlipperUp MOVE FAIL");
+                return isSuccess;
+            }
+
+            return isSuccess;
         }
         public bool GetMultiContactUp(int GroupNo, bool bFlag, bool bWait = false)
         {
             //GroupNo = 앞2 , 뒤2 4Set
+            int i = 0;
+            int lModuleNo = 0;
+            int lOffset = 0;
+            if (GroupNo == 0)
+            {
+                lModuleNo = 4;
+                lOffset = 0;
+            }
+            if (GroupNo == 1)
+            {
+                lModuleNo = 4;
+                lOffset = 2;
+            }
+            if (GroupNo == 2)
+            {
+                lModuleNo = 6;
+                lOffset = 0;
+            }
+            if (GroupNo == 3)
+            {
+                lModuleNo = 6;
+                lOffset = 2;
+            }
+            uint uFlagHigh = 0;
+            uint upValue = Globalo.motionManager.ioController.m_dwDInDict[lModuleNo][lOffset];
+
+
+            if (bFlag)
+            {
+                uFlagHigh |= Globalo.motionManager._dio.GetInContactUpDown(GroupNo, 0, true);
+                uFlagHigh |= Globalo.motionManager._dio.GetInContactUpDown(GroupNo, 1, true);
+                uFlagHigh |= Globalo.motionManager._dio.GetInContactUpDown(GroupNo, 2, true);
+                uFlagHigh |= Globalo.motionManager._dio.GetInContactUpDown(GroupNo, 3, true);
+            }
+            else
+            {
+                uFlagHigh |= Globalo.motionManager._dio.GetInContactUpDown(GroupNo, 0, false);
+                uFlagHigh |= Globalo.motionManager._dio.GetInContactUpDown(GroupNo, 1, false);
+                uFlagHigh |= Globalo.motionManager._dio.GetInContactUpDown(GroupNo, 2, false);
+                uFlagHigh |= Globalo.motionManager._dio.GetInContactUpDown(GroupNo, 3, false);
+            }
+
+
+            if (bFlag)
+            {
+                uFlagHigh = upValue & uFlagHigh;        //TODO: IO 되는지 확인 필요
+                if (uFlagHigh == 1)
+                {
+                    return true;
+                }
+            }
+            else
+            {
+                uFlagHigh = upValue & uFlagHigh;
+                if (uFlagHigh == 0)
+                {
+                    return true;
+                }
+            }
             return false;
         }
         public bool GetMultiContactFor(int GroupNo, bool bFlag, bool bWait = false)
         {
             //GroupNo = 앞2 , 뒤2 4Set
+            int i = 0;
+            int lModuleNo = 0;
+            int lOffset = 0;
+            if (GroupNo == 0)
+            {
+                lModuleNo = 4;
+                lOffset = 1;
+            }
+            if (GroupNo == 1)
+            {
+                lModuleNo = 4;
+                lOffset = 3;
+            }
+            if (GroupNo == 2)
+            {
+                lModuleNo = 6;
+                lOffset = 1;
+            }
+            if (GroupNo == 3)
+            {
+                lModuleNo = 6;
+                lOffset = 3;
+            }
+            uint uFlagHigh = 0;
+            uint upValue = Globalo.motionManager.ioController.m_dwDInDict[lModuleNo][lOffset];
+
+
+            if (bFlag)
+            {
+                uFlagHigh |= Globalo.motionManager._dio.GetInContactForBack(GroupNo, 0, true);
+                uFlagHigh |= Globalo.motionManager._dio.GetInContactForBack(GroupNo, 1, true);
+                uFlagHigh |= Globalo.motionManager._dio.GetInContactForBack(GroupNo, 2, true);
+                uFlagHigh |= Globalo.motionManager._dio.GetInContactForBack(GroupNo, 3, true);
+            }
+            else
+            {
+                uFlagHigh |= Globalo.motionManager._dio.GetInContactForBack(GroupNo, 0, false);
+                uFlagHigh |= Globalo.motionManager._dio.GetInContactForBack(GroupNo, 1, false);
+                uFlagHigh |= Globalo.motionManager._dio.GetInContactForBack(GroupNo, 2, false);
+                uFlagHigh |= Globalo.motionManager._dio.GetInContactForBack(GroupNo, 3, false);
+            }
+
+
+            if (bFlag)
+            {
+                uFlagHigh = upValue & uFlagHigh;        //TODO: IO 되는지 확인 필요
+                if (uFlagHigh == 1)
+                {
+                    return true;
+                }
+            }
+            else
+            {
+                uFlagHigh = upValue & uFlagHigh;
+                if (uFlagHigh == 0)
+                {
+                    return true;
+                }
+            }
             return false;
         }
         public bool GetMultiFlipperUp(int GroupNo, bool bFlag, bool bWait = false)
         {
             //GroupNo = 앞2 , 뒤2 4Set
-            return false;
-        }
-        public bool MultiContactUp(int SetNo,  bool bFlag, bool bWait = false)//int[] socketList,
-        {
-            //SetNo = Socket Set A(0), B(1), C(2), D(3)
-            bool isSuccess = false;
-            int lModuleNo = 5;
-            int lOffset = 0;
-            uint uFlagHigh = 0;
-            uint uFlagLow = 0;
             int i = 0;
-            if (SetNo == 0 || SetNo == 1)
+            int lModuleNo = 0;
+            int lOffset = 0;
+            if (GroupNo == 0)
             {
-                lModuleNo = 5;
+                lModuleNo = 8;
+                lOffset = 1;
+            }
+            if (GroupNo == 1)
+            {
+                lModuleNo = 10;
+                lOffset = 1;
+            }
+            if (GroupNo == 2)
+            {
+                lModuleNo = 12;
+                lOffset = 1;
+            }
+            if (GroupNo == 3)
+            {
+                lModuleNo = 14;
+                lOffset = 1;
+            }
+            uint uFlagHigh = 0;
+            uint upValue = Globalo.motionManager.ioController.m_dwDInDict[lModuleNo][lOffset];
+
+
+            if (bFlag)
+            {
+                uFlagHigh |= Globalo.motionManager._dio.GetInRotateUpDown(GroupNo, 0, true);
+                uFlagHigh |= Globalo.motionManager._dio.GetInRotateUpDown(GroupNo, 1, true);
+                uFlagHigh |= Globalo.motionManager._dio.GetInRotateUpDown(GroupNo, 2, true);
+                uFlagHigh |= Globalo.motionManager._dio.GetInRotateUpDown(GroupNo, 3, true);
             }
             else
             {
-                lModuleNo = 7;
+                uFlagHigh |= Globalo.motionManager._dio.GetInRotateUpDown(GroupNo, 0, false);
+                uFlagHigh |= Globalo.motionManager._dio.GetInRotateUpDown(GroupNo, 1, false);
+                uFlagHigh |= Globalo.motionManager._dio.GetInRotateUpDown(GroupNo, 2, false);
+                uFlagHigh |= Globalo.motionManager._dio.GetInRotateUpDown(GroupNo, 3, false);
             }
-            for (i = 0; i < 4; i++)//for (i = 0; i < socketList.Length; i++)
+
+
+            if (bFlag)
             {
-                //int nUse = socketList[i];
-                //if (nUse == 0)
-                //{
-                //    continue;
-                //}
-
-                switch (i)
+                uFlagHigh = upValue & uFlagHigh;        //TODO: IO 되는지 확인 필요
+                if (uFlagHigh == 1)
                 {
-                    case 0:
-                        if(SetNo== 0)
-                        {
-                            if (bFlag)
-                            {
-                                //uFlagHigh |= (uint)(MotionControl.FwDioDefine.DIO_OUT_ADDR_CH2.OUT5_A_SOCKET_CONTACT_UP1);
-                                //uFlagLow |= (uint)(MotionControl.FwDioDefine.DIO_OUT_ADDR_CH2.OUT5_A_SOCKET_CONTACT_DOWN1);
-                                uFlagHigh |= Globalo.motionManager._dio.GetInContactUpDown(SetNo, i, true);
-                                uFlagLow |= Globalo.motionManager._dio.GetInContactUpDown(SetNo, i, false);
-                            }
-                            else
-                            {
-                                //uFlagLow |= (uint)(MotionControl.FwDioDefine.DIO_OUT_ADDR_CH2.OUT5_A_SOCKET_CONTACT_UP1);
-                                //uFlagHigh |= (uint)(MotionControl.FwDioDefine.DIO_OUT_ADDR_CH2.OUT5_A_SOCKET_CONTACT_DOWN1);
-                                uFlagLow |= Globalo.motionManager._dio.GetInContactUpDown(SetNo, i, true);
-                                uFlagHigh |= Globalo.motionManager._dio.GetInContactUpDown(SetNo, i, false);
-                            }
-                        }
-                        else if (SetNo == 1)
-                        {
-                            if (bFlag)
-                            {
-                                //uFlagHigh |= (uint)(MotionControl.FwDioDefine.DIO_OUT_ADDR_CH2.OUT5_B_SOCKET_CONTACT_UP1);
-                                //uFlagLow |= (uint)(MotionControl.FwDioDefine.DIO_OUT_ADDR_CH2.OUT5_B_SOCKET_CONTACT_DOWN1);
-                                uFlagHigh |= Globalo.motionManager._dio.GetInContactUpDown(SetNo, i, true);
-                                uFlagLow |= Globalo.motionManager._dio.GetInContactUpDown(SetNo, i, false);
-                            }
-                            else
-                            {
-                                //uFlagLow |= (uint)(MotionControl.FwDioDefine.DIO_OUT_ADDR_CH2.OUT5_B_SOCKET_CONTACT_UP1);
-                                //uFlagHigh |= (uint)(MotionControl.FwDioDefine.DIO_OUT_ADDR_CH2.OUT5_B_SOCKET_CONTACT_DOWN1);
-                                uFlagLow |= Globalo.motionManager._dio.GetInContactUpDown(SetNo, i, true);
-                                uFlagHigh |= Globalo.motionManager._dio.GetInContactUpDown(SetNo, i, false);
-                            }
-                        }
-                        else if (SetNo == 2)
-                        {
-                            if (bFlag)
-                            {
-                                //uFlagHigh |= (uint)(MotionControl.FwDioDefine.DIO_OUT_ADDR_CH3.OUT7_C_SOCKET_CONTACT_UP1);
-                                //uFlagLow |= (uint)(MotionControl.FwDioDefine.DIO_OUT_ADDR_CH3.OUT7_C_SOCKET_CONTACT_DOWN1);
-                                uFlagHigh |= Globalo.motionManager._dio.GetInContactUpDown(SetNo, i, true);
-                                uFlagLow |= Globalo.motionManager._dio.GetInContactUpDown(SetNo, i, false);
-                            }
-                            else
-                            {
-                                //uFlagLow |= (uint)(MotionControl.FwDioDefine.DIO_OUT_ADDR_CH3.OUT7_C_SOCKET_CONTACT_UP1);
-                                //uFlagHigh |= (uint)(MotionControl.FwDioDefine.DIO_OUT_ADDR_CH3.OUT7_C_SOCKET_CONTACT_DOWN1);
-                                uFlagLow |= Globalo.motionManager._dio.GetInContactUpDown(SetNo, i, true);
-                                uFlagHigh |= Globalo.motionManager._dio.GetInContactUpDown(SetNo, i, false);
-                            }
-                        }
-                        else if (SetNo == 3)
-                        {
-                            if (bFlag)
-                            {
-                                //uFlagHigh |= (uint)(MotionControl.FwDioDefine.DIO_OUT_ADDR_CH3.OUT7_D_SOCKET_CONTACT_UP1);
-                                //uFlagLow |= (uint)(MotionControl.FwDioDefine.DIO_OUT_ADDR_CH3.OUT7_D_SOCKET_CONTACT_DOWN1);
-                                uFlagHigh |= Globalo.motionManager._dio.GetInContactUpDown(SetNo, i, true);
-                                uFlagLow |= Globalo.motionManager._dio.GetInContactUpDown(SetNo, i, false);
-                            }
-                            else
-                            {
-                                //uFlagLow |= (uint)(MotionControl.FwDioDefine.DIO_OUT_ADDR_CH3.OUT7_D_SOCKET_CONTACT_UP1);
-                                //uFlagHigh |= (uint)(MotionControl.FwDioDefine.DIO_OUT_ADDR_CH3.OUT7_D_SOCKET_CONTACT_DOWN1);
-                                uFlagLow |= Globalo.motionManager._dio.GetInContactUpDown(SetNo, i, true);
-                                uFlagHigh |= Globalo.motionManager._dio.GetInContactUpDown(SetNo, i, false);
-                            }
-                        }
-
-
-                        break;
-                    case 1:
-                        if (SetNo == 0)
-                        {
-                            if (bFlag)
-                            {
-                                //uFlagHigh |= (uint)(MotionControl.FwDioDefine.DIO_OUT_ADDR_CH2.OUT5_A_SOCKET_CONTACT_UP2);
-                                //uFlagLow |= (uint)(MotionControl.FwDioDefine.DIO_OUT_ADDR_CH2.OUT5_A_SOCKET_CONTACT_DOWN2);
-                                uFlagHigh |= Globalo.motionManager._dio.GetInContactUpDown(SetNo, i, true);
-                                uFlagLow |= Globalo.motionManager._dio.GetInContactUpDown(SetNo, i, false);
-                            }
-                            else
-                            {
-                                //uFlagLow |= (uint)(MotionControl.FwDioDefine.DIO_OUT_ADDR_CH2.OUT5_A_SOCKET_CONTACT_UP2);
-                                //uFlagHigh |= (uint)(MotionControl.FwDioDefine.DIO_OUT_ADDR_CH2.OUT5_A_SOCKET_CONTACT_DOWN2);
-                                uFlagLow |= Globalo.motionManager._dio.GetInContactUpDown(SetNo, i, true);
-                                uFlagHigh |= Globalo.motionManager._dio.GetInContactUpDown(SetNo, i, false);
-                            }
-                        }
-                        else if (SetNo == 1)
-                        {
-                            if (bFlag)
-                            {
-                                //uFlagHigh |= (uint)(MotionControl.FwDioDefine.DIO_OUT_ADDR_CH2.OUT5_B_SOCKET_CONTACT_UP2);
-                                //uFlagLow |= (uint)(MotionControl.FwDioDefine.DIO_OUT_ADDR_CH2.OUT5_B_SOCKET_CONTACT_DOWN2);
-                                uFlagHigh |= Globalo.motionManager._dio.GetInContactUpDown(SetNo, i, true);
-                                uFlagLow |= Globalo.motionManager._dio.GetInContactUpDown(SetNo, i, false);
-                            }
-                            else
-                            {
-                                //uFlagLow |= (uint)(MotionControl.FwDioDefine.DIO_OUT_ADDR_CH2.OUT5_B_SOCKET_CONTACT_UP2);
-                                //uFlagHigh |= (uint)(MotionControl.FwDioDefine.DIO_OUT_ADDR_CH2.OUT5_B_SOCKET_CONTACT_DOWN2);
-                                uFlagLow |= Globalo.motionManager._dio.GetInContactUpDown(SetNo, i, true);
-                                uFlagHigh |= Globalo.motionManager._dio.GetInContactUpDown(SetNo, i, false);
-                            }
-                        }
-                        else if (SetNo == 2)
-                        {
-                            if (bFlag)
-                            {
-                                //uFlagHigh |= (uint)(MotionControl.FwDioDefine.DIO_OUT_ADDR_CH3.OUT7_C_SOCKET_CONTACT_UP2);
-                                //uFlagLow |= (uint)(MotionControl.FwDioDefine.DIO_OUT_ADDR_CH3.OUT7_C_SOCKET_CONTACT_DOWN2);
-                                uFlagHigh |= Globalo.motionManager._dio.GetInContactUpDown(SetNo, i, true);
-                                uFlagLow |= Globalo.motionManager._dio.GetInContactUpDown(SetNo, i, false);
-                            }
-                            else
-                            {
-                                //uFlagLow |= (uint)(MotionControl.FwDioDefine.DIO_OUT_ADDR_CH3.OUT7_C_SOCKET_CONTACT_UP2);
-                                //uFlagHigh |= (uint)(MotionControl.FwDioDefine.DIO_OUT_ADDR_CH3.OUT7_C_SOCKET_CONTACT_DOWN2);
-                                uFlagLow |= Globalo.motionManager._dio.GetInContactUpDown(SetNo, i, true);
-                                uFlagHigh |= Globalo.motionManager._dio.GetInContactUpDown(SetNo, i, false);
-                            }
-                        }
-                        else if (SetNo == 3)
-                        {
-                            if (bFlag)
-                            {
-                                //uFlagHigh |= (uint)(MotionControl.FwDioDefine.DIO_OUT_ADDR_CH3.OUT7_C_SOCKET_CONTACT_UP2);
-                                //uFlagLow |= (uint)(MotionControl.FwDioDefine.DIO_OUT_ADDR_CH3.OUT7_C_SOCKET_CONTACT_DOWN2);
-                                uFlagHigh |= Globalo.motionManager._dio.GetInContactUpDown(SetNo, i, true);
-                                uFlagLow |= Globalo.motionManager._dio.GetInContactUpDown(SetNo, i, false);
-                            }
-                            else
-                            {
-                                //uFlagLow |= (uint)(MotionControl.FwDioDefine.DIO_OUT_ADDR_CH3.OUT7_C_SOCKET_CONTACT_UP2);
-                                //uFlagHigh |= (uint)(MotionControl.FwDioDefine.DIO_OUT_ADDR_CH3.OUT7_C_SOCKET_CONTACT_DOWN2);
-                                uFlagLow |= Globalo.motionManager._dio.GetInContactUpDown(SetNo, i, true);
-                                uFlagHigh |= Globalo.motionManager._dio.GetInContactUpDown(SetNo, i, false);
-                            }
-                        }
-
-                        break;
-                    case 2:
-                        if (SetNo == 0)
-                        {
-                            if (bFlag)
-                            {
-                                //uFlagHigh |= (uint)(MotionControl.FwDioDefine.DIO_OUT_ADDR_CH2.OUT5_A_SOCKET_CONTACT_UP3);
-                                //uFlagLow |= (uint)(MotionControl.FwDioDefine.DIO_OUT_ADDR_CH2.OUT5_A_SOCKET_CONTACT_DOWN3);
-                                uFlagHigh |= Globalo.motionManager._dio.GetInContactUpDown(SetNo, i, true);
-                                uFlagLow |= Globalo.motionManager._dio.GetInContactUpDown(SetNo, i, false);
-                            }
-                            else
-                            {
-                                //uFlagLow |= (uint)(MotionControl.FwDioDefine.DIO_OUT_ADDR_CH2.OUT5_A_SOCKET_CONTACT_UP3);
-                                //uFlagHigh |= (uint)(MotionControl.FwDioDefine.DIO_OUT_ADDR_CH2.OUT5_A_SOCKET_CONTACT_DOWN3);
-                                uFlagLow |= Globalo.motionManager._dio.GetInContactUpDown(SetNo, i, true);
-                                uFlagHigh |= Globalo.motionManager._dio.GetInContactUpDown(SetNo, i, false);
-                            }
-                        }
-                        else if (SetNo == 1)
-                        {
-                            if (bFlag)
-                            {
-                                //uFlagHigh |= (uint)(MotionControl.FwDioDefine.DIO_OUT_ADDR_CH2.OUT5_A_SOCKET_CONTACT_UP3);
-                                //uFlagLow |= (uint)(MotionControl.FwDioDefine.DIO_OUT_ADDR_CH2.OUT5_A_SOCKET_CONTACT_DOWN3);
-                                uFlagHigh |= Globalo.motionManager._dio.GetInContactUpDown(SetNo, i, true);
-                                uFlagLow |= Globalo.motionManager._dio.GetInContactUpDown(SetNo, i, false);
-                            }
-                            else
-                            {
-                                //uFlagLow |= (uint)(MotionControl.FwDioDefine.DIO_OUT_ADDR_CH2.OUT5_A_SOCKET_CONTACT_UP3);
-                                //uFlagHigh |= (uint)(MotionControl.FwDioDefine.DIO_OUT_ADDR_CH2.OUT5_A_SOCKET_CONTACT_DOWN3);
-                                uFlagLow |= Globalo.motionManager._dio.GetInContactUpDown(SetNo, i, true);
-                                uFlagHigh |= Globalo.motionManager._dio.GetInContactUpDown(SetNo, i, false);
-                            }
-                        }
-                        else if (SetNo == 2)
-                        {
-                            if (bFlag)
-                            {
-                                //uFlagHigh |= (uint)(MotionControl.FwDioDefine.DIO_OUT_ADDR_CH3.OUT7_C_SOCKET_CONTACT_UP3);
-                                //uFlagLow |= (uint)(MotionControl.FwDioDefine.DIO_OUT_ADDR_CH3.OUT7_C_SOCKET_CONTACT_DOWN3);
-                                uFlagHigh |= Globalo.motionManager._dio.GetInContactUpDown(SetNo, i, true);
-                                uFlagLow |= Globalo.motionManager._dio.GetInContactUpDown(SetNo, i, false);
-                            }
-                            else
-                            {
-                                //uFlagLow |= (uint)(MotionControl.FwDioDefine.DIO_OUT_ADDR_CH3.OUT7_C_SOCKET_CONTACT_UP3);
-                                //uFlagHigh |= (uint)(MotionControl.FwDioDefine.DIO_OUT_ADDR_CH3.OUT7_C_SOCKET_CONTACT_DOWN3);
-                                uFlagLow |= Globalo.motionManager._dio.GetInContactUpDown(SetNo, i, true);
-                                uFlagHigh |= Globalo.motionManager._dio.GetInContactUpDown(SetNo, i, false);
-                            }
-                        }
-                        else if (SetNo == 3)
-                        {
-                            if (bFlag)
-                            {
-                                //uFlagHigh |= (uint)(MotionControl.FwDioDefine.DIO_OUT_ADDR_CH3.OUT7_D_SOCKET_CONTACT_UP3);
-                                //uFlagLow |= (uint)(MotionControl.FwDioDefine.DIO_OUT_ADDR_CH3.OUT7_D_SOCKET_CONTACT_DOWN3);
-                                uFlagHigh |= Globalo.motionManager._dio.GetInContactUpDown(SetNo, i, true);
-                                uFlagLow |= Globalo.motionManager._dio.GetInContactUpDown(SetNo, i, false);
-                            }
-                            else
-                            {
-                                //uFlagLow |= (uint)(MotionControl.FwDioDefine.DIO_OUT_ADDR_CH3.OUT7_D_SOCKET_CONTACT_UP3);
-                                //uFlagHigh |= (uint)(MotionControl.FwDioDefine.DIO_OUT_ADDR_CH3.OUT7_D_SOCKET_CONTACT_DOWN3);
-                                uFlagLow |= Globalo.motionManager._dio.GetInContactUpDown(SetNo, i, true);
-                                uFlagHigh |= Globalo.motionManager._dio.GetInContactUpDown(SetNo, i, false);
-                            }
-                        }
-
-                        break;
-                    case 3:
-                        if (SetNo == 0)
-                        {
-                            if (bFlag)
-                            {
-                                //uFlagHigh |= (uint)(MotionControl.FwDioDefine.DIO_OUT_ADDR_CH2.OUT5_A_SOCKET_CONTACT_UP4);
-                                //uFlagLow |= (uint)(MotionControl.FwDioDefine.DIO_OUT_ADDR_CH2.OUT5_A_SOCKET_CONTACT_DOWN4);
-                                uFlagHigh |= Globalo.motionManager._dio.GetInContactUpDown(SetNo, i, true);
-                                uFlagLow |= Globalo.motionManager._dio.GetInContactUpDown(SetNo, i, false);
-                            }
-                            else
-                            {
-                                //uFlagLow |= (uint)(MotionControl.FwDioDefine.DIO_OUT_ADDR_CH2.OUT5_A_SOCKET_CONTACT_UP4);
-                                //uFlagHigh |= (uint)(MotionControl.FwDioDefine.DIO_OUT_ADDR_CH2.OUT5_A_SOCKET_CONTACT_DOWN4);
-                                uFlagLow |= Globalo.motionManager._dio.GetInContactUpDown(SetNo, i, true);
-                                uFlagHigh |= Globalo.motionManager._dio.GetInContactUpDown(SetNo, i, false);
-                            }
-                        }
-                        else if (SetNo == 1)
-                        {
-                            if (bFlag)
-                            {
-                                //uFlagHigh |= (uint)(MotionControl.FwDioDefine.DIO_OUT_ADDR_CH2.OUT5_A_SOCKET_CONTACT_UP4);
-                                //uFlagLow |= (uint)(MotionControl.FwDioDefine.DIO_OUT_ADDR_CH2.OUT5_A_SOCKET_CONTACT_DOWN4);
-                                uFlagHigh |= Globalo.motionManager._dio.GetInContactUpDown(SetNo, i, true);
-                                uFlagLow |= Globalo.motionManager._dio.GetInContactUpDown(SetNo, i, false);
-                            }
-                            else
-                            {
-                                //uFlagLow |= (uint)(MotionControl.FwDioDefine.DIO_OUT_ADDR_CH2.OUT5_A_SOCKET_CONTACT_UP4);
-                                //uFlagHigh |= (uint)(MotionControl.FwDioDefine.DIO_OUT_ADDR_CH2.OUT5_A_SOCKET_CONTACT_DOWN4);
-                                uFlagLow |= Globalo.motionManager._dio.GetInContactUpDown(SetNo, i, true);
-                                uFlagHigh |= Globalo.motionManager._dio.GetInContactUpDown(SetNo, i, false);
-                            }
-                        }
-                        else if (SetNo == 2)
-                        {
-                            if (bFlag)
-                            {
-                                //uFlagHigh |= (uint)(MotionControl.FwDioDefine.DIO_OUT_ADDR_CH3.OUT7_C_SOCKET_CONTACT_UP4);
-                                //uFlagLow |= (uint)(MotionControl.FwDioDefine.DIO_OUT_ADDR_CH3.OUT7_C_SOCKET_CONTACT_DOWN4);
-                                uFlagHigh |= Globalo.motionManager._dio.GetInContactUpDown(SetNo, i, true);
-                                uFlagLow |= Globalo.motionManager._dio.GetInContactUpDown(SetNo, i, false);
-                            }
-                            else
-                            {
-                                //uFlagLow |= (uint)(MotionControl.FwDioDefine.DIO_OUT_ADDR_CH3.OUT7_C_SOCKET_CONTACT_UP4);
-                                //uFlagHigh |= (uint)(MotionControl.FwDioDefine.DIO_OUT_ADDR_CH3.OUT7_C_SOCKET_CONTACT_DOWN4);
-                                uFlagLow |= Globalo.motionManager._dio.GetInContactUpDown(SetNo, i, true);
-                                uFlagHigh |= Globalo.motionManager._dio.GetInContactUpDown(SetNo, i, false);
-                            }
-                        }
-                        else if (SetNo == 3)
-                        {
-                            if (bFlag)
-                            {
-                                //uFlagHigh |= (uint)(MotionControl.FwDioDefine.DIO_OUT_ADDR_CH3.OUT7_D_SOCKET_CONTACT_UP4);
-                                //uFlagLow |= (uint)(MotionControl.FwDioDefine.DIO_OUT_ADDR_CH3.OUT7_D_SOCKET_CONTACT_DOWN4);
-                                uFlagHigh |= Globalo.motionManager._dio.GetInContactUpDown(SetNo, i, true);
-                                uFlagLow |= Globalo.motionManager._dio.GetInContactUpDown(SetNo, i, false);
-                            }
-                            else
-                            {
-                                //uFlagLow |= (uint)(MotionControl.FwDioDefine.DIO_OUT_ADDR_CH3.OUT7_D_SOCKET_CONTACT_UP4);
-                                //uFlagHigh |= (uint)(MotionControl.FwDioDefine.DIO_OUT_ADDR_CH3.OUT7_D_SOCKET_CONTACT_DOWN4);
-                                uFlagLow |= Globalo.motionManager._dio.GetInContactUpDown(SetNo, i, true);
-                                uFlagHigh |= Globalo.motionManager._dio.GetInContactUpDown(SetNo, i, false);
-                            }
-                        }
-
-                        break;
-                    default:
-                        break;
+                    return true;
                 }
             }
-            isSuccess = Globalo.motionManager.ioController.DioWriteOutportByte(lModuleNo, lOffset, uFlagHigh, uFlagLow);
-            if (isSuccess == false)
+            else
             {
-                Console.WriteLine($" Multi ContactUp MOVE FAIL");
-                return false;
+                uFlagHigh = upValue & uFlagHigh;
+                if (uFlagHigh == 0)
+                {
+                    return true;
+                }
+            }
+            return false;
+        }
+        public bool GetMultiFlipperTurn(int GroupNo, bool bFlag, bool bWait = false)
+        {
+            //GroupNo = 앞2 , 뒤2 4Set
+            int i = 0;
+            int lModuleNo = 0;
+            int lOffset = 0;
+            if (GroupNo == 0)
+            {
+                lModuleNo = 8;
+                lOffset = 1;
+            }
+            if (GroupNo == 1)
+            {
+                lModuleNo = 10;
+                lOffset = 1;
+            }
+            if (GroupNo == 2)
+            {
+                lModuleNo = 12;
+                lOffset = 1;
+            }
+            if (GroupNo == 3)
+            {
+                lModuleNo = 14;
+                lOffset = 1;
+            }
+            uint uFlagHigh = 0;
+            uint upValue = Globalo.motionManager.ioController.m_dwDInDict[lModuleNo][lOffset];
+
+
+            if (bFlag)
+            {
+                uFlagHigh |= Globalo.motionManager._dio.GetInRotateTurn(GroupNo, 0, true);
+                uFlagHigh |= Globalo.motionManager._dio.GetInRotateTurn(GroupNo, 1, true);
+                uFlagHigh |= Globalo.motionManager._dio.GetInRotateTurn(GroupNo, 2, true);
+                uFlagHigh |= Globalo.motionManager._dio.GetInRotateTurn(GroupNo, 3, true);
+            }
+            else
+            {
+                uFlagHigh |= Globalo.motionManager._dio.GetInRotateTurn(GroupNo, 0, false);
+                uFlagHigh |= Globalo.motionManager._dio.GetInRotateTurn(GroupNo, 1, false);
+                uFlagHigh |= Globalo.motionManager._dio.GetInRotateTurn(GroupNo, 2, false);
+                uFlagHigh |= Globalo.motionManager._dio.GetInRotateTurn(GroupNo, 3, false);
             }
 
-            return true;
+
+            if (bFlag)
+            {
+                uFlagHigh = upValue & uFlagHigh;        //TODO: IO 되는지 확인 필요
+                if (uFlagHigh == 1)
+                {
+                    return true;
+                }
+            }
+            else
+            {
+                uFlagHigh = upValue & uFlagHigh;
+                if (uFlagHigh == 0)
+                {
+                    return true;
+                }
+            }
+            return false;
         }
         #endregion
         public override void MovingStop()

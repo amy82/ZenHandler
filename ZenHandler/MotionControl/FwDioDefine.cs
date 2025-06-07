@@ -8,6 +8,10 @@ namespace ZenHandler.MotionControl
 {
     public class FwDioDefine : IDioDefine
     {
+        public uint GetInSocketYFor(bool bFlag) { return 0; }
+        public uint GetOutSocketYFor(bool bFlag) { return 0; }
+        public uint GetInVacuumOn(int Group, int index) { return 0; }
+        public uint GetOutVacuumOn(int Group, int index, bool bFlag) { return 0; }
         public uint GetInLoadPickerVacuumOn(int index, bool bFlag)
         {
             switch (index)
@@ -512,7 +516,7 @@ namespace ZenHandler.MotionControl
                         case 3: return (uint)DIO_IN_ADDR_CH8.IN1_A_SOCKET_ROTATE_TURN_LEFT4;
                         default:
                             // 로그 남기기 (예: LogHelper.Write)
-                            Console.WriteLine($"[Warning] 잘못된 GetInContactUpDown 타입 요청됨:{Group}, {index}");
+                            Console.WriteLine($"[Warning] 잘못된 GetInRotateTurn 타입 요청됨:{Group}, {index}");
                             //throw new ArgumentOutOfRangeException(nameof(nType), nType, "Invalid Tower Lamp Type");
                             return 0; // 또는 사용하지 않는 안전한 비트
                     }
@@ -527,7 +531,7 @@ namespace ZenHandler.MotionControl
                         case 3: return (uint)DIO_IN_ADDR_CH8.IN1_A_SOCKET_ROTATE_TURN_HOME4;
                         default:
                             // 로그 남기기 (예: LogHelper.Write)
-                            Console.WriteLine($"[Warning] 잘못된 GetInContactUpDown 타입 요청됨:{Group}, {index}");
+                            Console.WriteLine($"[Warning] 잘못된 GetInRotateTurn 타입 요청됨:{Group}, {index}");
                             //throw new ArgumentOutOfRangeException(nameof(nType), nType, "Invalid Tower Lamp Type");
                             return 0; // 또는 사용하지 않는 안전한 비트
                     }
@@ -545,7 +549,7 @@ namespace ZenHandler.MotionControl
                         case 3: return (uint)DIO_IN_ADDR_CH10.IN1_B_SOCKET_ROTATE_TURN_LEFT4;
                         default:
                             // 로그 남기기 (예: LogHelper.Write)
-                            Console.WriteLine($"[Warning] 잘못된 GetInContactUpDown 타입 요청됨:{Group}, {index}");
+                            Console.WriteLine($"[Warning] 잘못된 GetInRotateTurn 타입 요청됨:{Group}, {index}");
                             //throw new ArgumentOutOfRangeException(nameof(nType), nType, "Invalid Tower Lamp Type");
                             return 0; // 또는 사용하지 않는 안전한 비트
                     }
@@ -560,7 +564,7 @@ namespace ZenHandler.MotionControl
                         case 3: return (uint)DIO_IN_ADDR_CH10.IN1_B_SOCKET_ROTATE_TURN_HOME4;
                         default:
                             // 로그 남기기 (예: LogHelper.Write)
-                            Console.WriteLine($"[Warning] 잘못된 GetInContactUpDown 타입 요청됨:{Group}, {index}");
+                            Console.WriteLine($"[Warning] 잘못된 GetInRotateTurn 타입 요청됨:{Group}, {index}");
                             //throw new ArgumentOutOfRangeException(nameof(nType), nType, "Invalid Tower Lamp Type");
                             return 0; // 또는 사용하지 않는 안전한 비트
                     }
@@ -578,7 +582,7 @@ namespace ZenHandler.MotionControl
                         case 3: return (uint)DIO_IN_ADDR_CH12.IN11_C_SOCKET_ROTATE_TURN_LEFT4;
                         default:
                             // 로그 남기기 (예: LogHelper.Write)
-                            Console.WriteLine($"[Warning] 잘못된 GetInContactUpDown 타입 요청됨:{Group}, {index}");
+                            Console.WriteLine($"[Warning] 잘못된 GetInRotateTurn 타입 요청됨:{Group}, {index}");
                             //throw new ArgumentOutOfRangeException(nameof(nType), nType, "Invalid Tower Lamp Type");
                             return 0; // 또는 사용하지 않는 안전한 비트
                     }
@@ -593,7 +597,7 @@ namespace ZenHandler.MotionControl
                         case 3: return (uint)DIO_IN_ADDR_CH12.IN11_C_SOCKET_ROTATE_TURN_HOME4;
                         default:
                             // 로그 남기기 (예: LogHelper.Write)
-                            Console.WriteLine($"[Warning] 잘못된 GetInContactUpDown 타입 요청됨:{Group}, {index}");
+                            Console.WriteLine($"[Warning] 잘못된 GetInRotateTurn 타입 요청됨:{Group}, {index}");
                             //throw new ArgumentOutOfRangeException(nameof(nType), nType, "Invalid Tower Lamp Type");
                             return 0; // 또는 사용하지 않는 안전한 비트
                     }
@@ -611,7 +615,7 @@ namespace ZenHandler.MotionControl
                         case 3: return (uint)DIO_IN_ADDR_CH14.IN11_D_SOCKET_ROTATE_TURN_LEFT4;
                         default:
                             // 로그 남기기 (예: LogHelper.Write)
-                            Console.WriteLine($"[Warning] 잘못된 GetInContactUpDown 타입 요청됨:{Group}, {index}");
+                            Console.WriteLine($"[Warning] 잘못된 GetInRotateTurn 타입 요청됨:{Group}, {index}");
                             //throw new ArgumentOutOfRangeException(nameof(nType), nType, "Invalid Tower Lamp Type");
                             return 0; // 또는 사용하지 않는 안전한 비트
                     }
@@ -626,7 +630,7 @@ namespace ZenHandler.MotionControl
                         case 3: return (uint)DIO_IN_ADDR_CH14.IN11_D_SOCKET_ROTATE_TURN_HOME4;
                         default:
                             // 로그 남기기 (예: LogHelper.Write)
-                            Console.WriteLine($"[Warning] 잘못된 GetInContactUpDown 타입 요청됨:{Group}, {index}");
+                            Console.WriteLine($"[Warning] 잘못된 GetInRotateTurn 타입 요청됨:{Group}, {index}");
                             //throw new ArgumentOutOfRangeException(nameof(nType), nType, "Invalid Tower Lamp Type");
                             return 0; // 또는 사용하지 않는 안전한 비트
                     }
@@ -648,7 +652,7 @@ namespace ZenHandler.MotionControl
                         case 3: return (uint)DIO_OUT_ADDR_CH9.OUT1_A_SOCKET_ROTATE_TURN_LEFT4;
                         default:
                             // 로그 남기기 (예: LogHelper.Write)
-                            Console.WriteLine($"[Warning] 잘못된 GetOutContactUpDown 타입 요청됨:{Group}, {index}");
+                            Console.WriteLine($"[Warning] 잘못된 GetOutRotateTurn 타입 요청됨:{Group}, {index}");
                             //throw new ArgumentOutOfRangeException(nameof(nType), nType, "Invalid Tower Lamp Type");
                             return 0; // 또는 사용하지 않는 안전한 비트
                     }
@@ -663,7 +667,7 @@ namespace ZenHandler.MotionControl
                         case 3: return (uint)DIO_OUT_ADDR_CH9.OUT1_A_SOCKET_ROTATE_TURN_HOME4;
                         default:
                             // 로그 남기기 (예: LogHelper.Write)
-                            Console.WriteLine($"[Warning] 잘못된 GetOutContactUpDown 타입 요청됨:{Group}, {index}");
+                            Console.WriteLine($"[Warning] 잘못된 GetOutRotateTurn 타입 요청됨:{Group}, {index}");
                             //throw new ArgumentOutOfRangeException(nameof(nType), nType, "Invalid Tower Lamp Type");
                             return 0; // 또는 사용하지 않는 안전한 비트
                     }
@@ -681,7 +685,7 @@ namespace ZenHandler.MotionControl
                         case 3: return (uint)DIO_OUT_ADDR_CH11.OUT1_B_SOCKET_ROTATE_TURN_LEFT4;
                         default:
                             // 로그 남기기 (예: LogHelper.Write)
-                            Console.WriteLine($"[Warning] 잘못된 GetOutContactUpDown 타입 요청됨:{Group}, {index}");
+                            Console.WriteLine($"[Warning] 잘못된 GetOutRotateTurn 타입 요청됨:{Group}, {index}");
                             //throw new ArgumentOutOfRangeException(nameof(nType), nType, "Invalid Tower Lamp Type");
                             return 0; // 또는 사용하지 않는 안전한 비트
                     }
@@ -696,7 +700,7 @@ namespace ZenHandler.MotionControl
                         case 3: return (uint)DIO_OUT_ADDR_CH11.OUT1_B_SOCKET_ROTATE_TURN_HOME4;
                         default:
                             // 로그 남기기 (예: LogHelper.Write)
-                            Console.WriteLine($"[Warning] 잘못된 GetOutContactUpDown 타입 요청됨:{Group}, {index}");
+                            Console.WriteLine($"[Warning] 잘못된 GetOutRotateTurn 타입 요청됨:{Group}, {index}");
                             //throw new ArgumentOutOfRangeException(nameof(nType), nType, "Invalid Tower Lamp Type");
                             return 0; // 또는 사용하지 않는 안전한 비트
                     }
@@ -714,7 +718,7 @@ namespace ZenHandler.MotionControl
                         case 3: return (uint)DIO_OUT_ADDR_CH13.OUT1_C_SOCKET_ROTATE_TURN_LEFT4;
                         default:
                             // 로그 남기기 (예: LogHelper.Write)
-                            Console.WriteLine($"[Warning] 잘못된 GetOutContactUpDown 타입 요청됨:{Group}, {index}");
+                            Console.WriteLine($"[Warning] 잘못된 GetOutRotateTurn 타입 요청됨:{Group}, {index}");
                             //throw new ArgumentOutOfRangeException(nameof(nType), nType, "Invalid Tower Lamp Type");
                             return 0; // 또는 사용하지 않는 안전한 비트
                     }
@@ -729,7 +733,7 @@ namespace ZenHandler.MotionControl
                         case 3: return (uint)DIO_OUT_ADDR_CH13.OUT1_C_SOCKET_ROTATE_TURN_HOME4;
                         default:
                             // 로그 남기기 (예: LogHelper.Write)
-                            Console.WriteLine($"[Warning] 잘못된 GetOutContactUpDown 타입 요청됨:{Group}, {index}");
+                            Console.WriteLine($"[Warning] 잘못된 GetOutRotateTurn 타입 요청됨:{Group}, {index}");
                             //throw new ArgumentOutOfRangeException(nameof(nType), nType, "Invalid Tower Lamp Type");
                             return 0; // 또는 사용하지 않는 안전한 비트
                     }
@@ -747,7 +751,7 @@ namespace ZenHandler.MotionControl
                         case 3: return (uint)DIO_OUT_ADDR_CH15.OUT1_D_SOCKET_ROTATE_TURN_LEFT4;
                         default:
                             // 로그 남기기 (예: LogHelper.Write)
-                            Console.WriteLine($"[Warning] 잘못된 GetOutContactUpDown 타입 요청됨:{Group}, {index}");
+                            Console.WriteLine($"[Warning] 잘못된 GetOutRotateTurn 타입 요청됨:{Group}, {index}");
                             //throw new ArgumentOutOfRangeException(nameof(nType), nType, "Invalid Tower Lamp Type");
                             return 0; // 또는 사용하지 않는 안전한 비트
                     }
@@ -762,7 +766,7 @@ namespace ZenHandler.MotionControl
                         case 3: return (uint)DIO_OUT_ADDR_CH15.OUT1_D_SOCKET_ROTATE_TURN_HOME4;
                         default:
                             // 로그 남기기 (예: LogHelper.Write)
-                            Console.WriteLine($"[Warning] 잘못된 GetOutContactUpDown 타입 요청됨:{Group}, {index}");
+                            Console.WriteLine($"[Warning] 잘못된 GetOutRotateTurn 타입 요청됨:{Group}, {index}");
                             //throw new ArgumentOutOfRangeException(nameof(nType), nType, "Invalid Tower Lamp Type");
                             return 0; // 또는 사용하지 않는 안전한 비트
                     }
@@ -920,7 +924,7 @@ namespace ZenHandler.MotionControl
                         case 3: return (uint)DIO_OUT_ADDR_CH9.OUT0_A_SOCKET_ROTATE_UP4;
                         default:
                             // 로그 남기기 (예: LogHelper.Write)
-                            Console.WriteLine($"[Warning] 잘못된 GetOutContactUpDown 타입 요청됨:{Group}, {index}");
+                            Console.WriteLine($"[Warning] 잘못된 GetOutRotateUpDown 타입 요청됨:{Group}, {index}");
                             //throw new ArgumentOutOfRangeException(nameof(nType), nType, "Invalid Tower Lamp Type");
                             return 0; // 또는 사용하지 않는 안전한 비트
                     }
@@ -935,7 +939,7 @@ namespace ZenHandler.MotionControl
                         case 3: return (uint)DIO_OUT_ADDR_CH9.OUT0_A_SOCKET_ROTATE_DOWN4;
                         default:
                             // 로그 남기기 (예: LogHelper.Write)
-                            Console.WriteLine($"[Warning] 잘못된 GetOutContactUpDown 타입 요청됨:{Group}, {index}");
+                            Console.WriteLine($"[Warning] 잘못된 GetOutRotateUpDown 타입 요청됨:{Group}, {index}");
                             //throw new ArgumentOutOfRangeException(nameof(nType), nType, "Invalid Tower Lamp Type");
                             return 0; // 또는 사용하지 않는 안전한 비트
                     }
@@ -953,7 +957,7 @@ namespace ZenHandler.MotionControl
                         case 3: return (uint)DIO_OUT_ADDR_CH11.OUT0_B_SOCKET_ROTATE_UP4;
                         default:
                             // 로그 남기기 (예: LogHelper.Write)
-                            Console.WriteLine($"[Warning] 잘못된 GetOutContactUpDown 타입 요청됨:{Group}, {index}");
+                            Console.WriteLine($"[Warning] 잘못된 GetOutRotateUpDown 타입 요청됨:{Group}, {index}");
                             //throw new ArgumentOutOfRangeException(nameof(nType), nType, "Invalid Tower Lamp Type");
                             return 0; // 또는 사용하지 않는 안전한 비트
                     }
@@ -968,7 +972,7 @@ namespace ZenHandler.MotionControl
                         case 3: return (uint)DIO_OUT_ADDR_CH11.OUT0_B_SOCKET_ROTATE_DOWN4;
                         default:
                             // 로그 남기기 (예: LogHelper.Write)
-                            Console.WriteLine($"[Warning] 잘못된 GetOutContactUpDown 타입 요청됨:{Group}, {index}");
+                            Console.WriteLine($"[Warning] 잘못된 GetOutRotateUpDown 타입 요청됨:{Group}, {index}");
                             //throw new ArgumentOutOfRangeException(nameof(nType), nType, "Invalid Tower Lamp Type");
                             return 0; // 또는 사용하지 않는 안전한 비트
                     }
@@ -986,7 +990,7 @@ namespace ZenHandler.MotionControl
                         case 3: return (uint)DIO_OUT_ADDR_CH13.OUT0_C_SOCKET_ROTATE_UP4;
                         default:
                             // 로그 남기기 (예: LogHelper.Write)
-                            Console.WriteLine($"[Warning] 잘못된 GetOutContactUpDown 타입 요청됨:{Group}, {index}");
+                            Console.WriteLine($"[Warning] 잘못된 GetOutRotateUpDown 타입 요청됨:{Group}, {index}");
                             //throw new ArgumentOutOfRangeException(nameof(nType), nType, "Invalid Tower Lamp Type");
                             return 0; // 또는 사용하지 않는 안전한 비트
                     }
@@ -1001,7 +1005,7 @@ namespace ZenHandler.MotionControl
                         case 3: return (uint)DIO_OUT_ADDR_CH13.OUT0_C_SOCKET_ROTATE_DOWN4;
                         default:
                             // 로그 남기기 (예: LogHelper.Write)
-                            Console.WriteLine($"[Warning] 잘못된 GetOutContactUpDown 타입 요청됨:{Group}, {index}");
+                            Console.WriteLine($"[Warning] 잘못된 GetOutRotateUpDown 타입 요청됨:{Group}, {index}");
                             //throw new ArgumentOutOfRangeException(nameof(nType), nType, "Invalid Tower Lamp Type");
                             return 0; // 또는 사용하지 않는 안전한 비트
                     }
@@ -1019,7 +1023,7 @@ namespace ZenHandler.MotionControl
                         case 3: return (uint)DIO_OUT_ADDR_CH15.OUT0_D_SOCKET_ROTATE_UP4;
                         default:
                             // 로그 남기기 (예: LogHelper.Write)
-                            Console.WriteLine($"[Warning] 잘못된 GetOutContactUpDown 타입 요청됨:{Group}, {index}");
+                            Console.WriteLine($"[Warning] 잘못된 GetOutRotateUpDown 타입 요청됨:{Group}, {index}");
                             //throw new ArgumentOutOfRangeException(nameof(nType), nType, "Invalid Tower Lamp Type");
                             return 0; // 또는 사용하지 않는 안전한 비트
                     }
@@ -1034,7 +1038,7 @@ namespace ZenHandler.MotionControl
                         case 3: return (uint)DIO_OUT_ADDR_CH15.OUT0_D_SOCKET_ROTATE_DOWN4;
                         default:
                             // 로그 남기기 (예: LogHelper.Write)
-                            Console.WriteLine($"[Warning] 잘못된 GetOutContactUpDown 타입 요청됨:{Group}, {index}");
+                            Console.WriteLine($"[Warning] 잘못된 GetOutRotateUpDown 타입 요청됨:{Group}, {index}");
                             //throw new ArgumentOutOfRangeException(nameof(nType), nType, "Invalid Tower Lamp Type");
                             return 0; // 또는 사용하지 않는 안전한 비트
                     }
@@ -1056,7 +1060,7 @@ namespace ZenHandler.MotionControl
                         case 3: return (uint)DIO_IN_ADDR_CH4.IN1_A_SOCKET_CONTACT_FORWARD4;
                         default:
                             // 로그 남기기 (예: LogHelper.Write)
-                            Console.WriteLine($"[Warning] 잘못된 GetInContactUpDown 타입 요청됨:{Group}, {index}");
+                            Console.WriteLine($"[Warning] 잘못된 GetInContactForBack 타입 요청됨:{Group}, {index}");
                             //throw new ArgumentOutOfRangeException(nameof(nType), nType, "Invalid Tower Lamp Type");
                             return 0; // 또는 사용하지 않는 안전한 비트
                     }
@@ -1071,7 +1075,7 @@ namespace ZenHandler.MotionControl
                         case 3: return (uint)DIO_IN_ADDR_CH4.IN1_A_SOCKET_CONTACT_BACKWARD4;
                         default:
                             // 로그 남기기 (예: LogHelper.Write)
-                            Console.WriteLine($"[Warning] 잘못된 GetInContactUpDown 타입 요청됨:{Group}, {index}");
+                            Console.WriteLine($"[Warning] 잘못된 GetInContactForBack 타입 요청됨:{Group}, {index}");
                             //throw new ArgumentOutOfRangeException(nameof(nType), nType, "Invalid Tower Lamp Type");
                             return 0; // 또는 사용하지 않는 안전한 비트
                     }
@@ -1089,7 +1093,7 @@ namespace ZenHandler.MotionControl
                         case 3: return (uint)DIO_IN_ADDR_CH4.IN3_B_SOCKET_CONTACT_FORWARD4;
                         default:
                             // 로그 남기기 (예: LogHelper.Write)
-                            Console.WriteLine($"[Warning] 잘못된 GetInContactUpDown 타입 요청됨:{Group}, {index}");
+                            Console.WriteLine($"[Warning] 잘못된 GetInContactForBack 타입 요청됨:{Group}, {index}");
                             //throw new ArgumentOutOfRangeException(nameof(nType), nType, "Invalid Tower Lamp Type");
                             return 0; // 또는 사용하지 않는 안전한 비트
                     }
@@ -1104,7 +1108,7 @@ namespace ZenHandler.MotionControl
                         case 3: return (uint)DIO_IN_ADDR_CH4.IN3_B_SOCKET_CONTACT_BACKWARD4;
                         default:
                             // 로그 남기기 (예: LogHelper.Write)
-                            Console.WriteLine($"[Warning] 잘못된 GetInContactUpDown 타입 요청됨:{Group}, {index}");
+                            Console.WriteLine($"[Warning] 잘못된 GetInContactForBack 타입 요청됨:{Group}, {index}");
                             //throw new ArgumentOutOfRangeException(nameof(nType), nType, "Invalid Tower Lamp Type");
                             return 0; // 또는 사용하지 않는 안전한 비트
                     }
@@ -1122,7 +1126,7 @@ namespace ZenHandler.MotionControl
                         case 3: return (uint)DIO_IN_ADDR_CH6.IN1_C_SOCKET_CONTACT_FORWARD4;
                         default:
                             // 로그 남기기 (예: LogHelper.Write)
-                            Console.WriteLine($"[Warning] 잘못된 GetInContactUpDown 타입 요청됨:{Group}, {index}");
+                            Console.WriteLine($"[Warning] 잘못된 GetInContactForBack 타입 요청됨:{Group}, {index}");
                             //throw new ArgumentOutOfRangeException(nameof(nType), nType, "Invalid Tower Lamp Type");
                             return 0; // 또는 사용하지 않는 안전한 비트
                     }
@@ -1137,7 +1141,7 @@ namespace ZenHandler.MotionControl
                         case 3: return (uint)DIO_IN_ADDR_CH6.IN1_C_SOCKET_CONTACT_BACKWARD4;
                         default:
                             // 로그 남기기 (예: LogHelper.Write)
-                            Console.WriteLine($"[Warning] 잘못된 GetInContactUpDown 타입 요청됨:{Group}, {index}");
+                            Console.WriteLine($"[Warning] 잘못된 GetInContactForBack 타입 요청됨:{Group}, {index}");
                             //throw new ArgumentOutOfRangeException(nameof(nType), nType, "Invalid Tower Lamp Type");
                             return 0; // 또는 사용하지 않는 안전한 비트
                     }
@@ -1155,7 +1159,7 @@ namespace ZenHandler.MotionControl
                         case 3: return (uint)DIO_IN_ADDR_CH6.IN3_D_SOCKET_CONTACT_FORWARD4;
                         default:
                             // 로그 남기기 (예: LogHelper.Write)
-                            Console.WriteLine($"[Warning] 잘못된 GetInContactUpDown 타입 요청됨:{Group}, {index}");
+                            Console.WriteLine($"[Warning] 잘못된 GetInContactForBack 타입 요청됨:{Group}, {index}");
                             //throw new ArgumentOutOfRangeException(nameof(nType), nType, "Invalid Tower Lamp Type");
                             return 0; // 또는 사용하지 않는 안전한 비트
                     }
@@ -1170,7 +1174,7 @@ namespace ZenHandler.MotionControl
                         case 3: return (uint)DIO_IN_ADDR_CH6.IN3_D_SOCKET_CONTACT_BACKWARD4;
                         default:
                             // 로그 남기기 (예: LogHelper.Write)
-                            Console.WriteLine($"[Warning] 잘못된 GetInContactUpDown 타입 요청됨:{Group}, {index}");
+                            Console.WriteLine($"[Warning] 잘못된 GetInContactForBack 타입 요청됨:{Group}, {index}");
                             //throw new ArgumentOutOfRangeException(nameof(nType), nType, "Invalid Tower Lamp Type");
                             return 0; // 또는 사용하지 않는 안전한 비트
                     }
@@ -1192,7 +1196,7 @@ namespace ZenHandler.MotionControl
                         case 3: return (uint)DIO_OUT_ADDR_CH5.OUT1_A_SOCKET_CONTACT_FORWARD4;
                         default:
                             // 로그 남기기 (예: LogHelper.Write)
-                            Console.WriteLine($"[Warning] 잘못된 GetOutContactUpDown 타입 요청됨:{Group}, {index}");
+                            Console.WriteLine($"[Warning] 잘못된 GetOutContactForBack 타입 요청됨:{Group}, {index}");
                             //throw new ArgumentOutOfRangeException(nameof(nType), nType, "Invalid Tower Lamp Type");
                             return 0; // 또는 사용하지 않는 안전한 비트
                     }
@@ -1207,7 +1211,7 @@ namespace ZenHandler.MotionControl
                         case 3: return (uint)DIO_OUT_ADDR_CH5.OUT1_A_SOCKET_CONTACT_BACKWARD4;
                         default:
                             // 로그 남기기 (예: LogHelper.Write)
-                            Console.WriteLine($"[Warning] 잘못된 GetOutContactUpDown 타입 요청됨:{Group}, {index}");
+                            Console.WriteLine($"[Warning] 잘못된 GetOutContactForBack 타입 요청됨:{Group}, {index}");
                             //throw new ArgumentOutOfRangeException(nameof(nType), nType, "Invalid Tower Lamp Type");
                             return 0; // 또는 사용하지 않는 안전한 비트
                     }
@@ -1225,7 +1229,7 @@ namespace ZenHandler.MotionControl
                         case 3: return (uint)DIO_OUT_ADDR_CH5.OUT3_B_SOCKET_CONTACT_FORWARD4;
                         default:
                             // 로그 남기기 (예: LogHelper.Write)
-                            Console.WriteLine($"[Warning] 잘못된 GetOutContactUpDown 타입 요청됨:{Group}, {index}");
+                            Console.WriteLine($"[Warning] 잘못된 GetOutContactForBack 타입 요청됨:{Group}, {index}");
                             //throw new ArgumentOutOfRangeException(nameof(nType), nType, "Invalid Tower Lamp Type");
                             return 0; // 또는 사용하지 않는 안전한 비트
                     }
@@ -1240,7 +1244,7 @@ namespace ZenHandler.MotionControl
                         case 3: return (uint)DIO_OUT_ADDR_CH5.OUT3_B_SOCKET_CONTACT_BACKWARD4;
                         default:
                             // 로그 남기기 (예: LogHelper.Write)
-                            Console.WriteLine($"[Warning] 잘못된 GetOutContactUpDown 타입 요청됨:{Group}, {index}");
+                            Console.WriteLine($"[Warning] 잘못된 GetOutContactForBack 타입 요청됨:{Group}, {index}");
                             //throw new ArgumentOutOfRangeException(nameof(nType), nType, "Invalid Tower Lamp Type");
                             return 0; // 또는 사용하지 않는 안전한 비트
                     }
@@ -1258,7 +1262,7 @@ namespace ZenHandler.MotionControl
                         case 3: return (uint)DIO_OUT_ADDR_CH7.OUT1_C_SOCKET_CONTACT_FORWARD4;
                         default:
                             // 로그 남기기 (예: LogHelper.Write)
-                            Console.WriteLine($"[Warning] 잘못된 GetOutContactUpDown 타입 요청됨:{Group}, {index}");
+                            Console.WriteLine($"[Warning] 잘못된 GetOutContactForBack 타입 요청됨:{Group}, {index}");
                             //throw new ArgumentOutOfRangeException(nameof(nType), nType, "Invalid Tower Lamp Type");
                             return 0; // 또는 사용하지 않는 안전한 비트
                     }
@@ -1273,7 +1277,7 @@ namespace ZenHandler.MotionControl
                         case 3: return (uint)DIO_OUT_ADDR_CH7.OUT1_C_SOCKET_CONTACT_BACKWARD4;
                         default:
                             // 로그 남기기 (예: LogHelper.Write)
-                            Console.WriteLine($"[Warning] 잘못된 GetOutContactUpDown 타입 요청됨:{Group}, {index}");
+                            Console.WriteLine($"[Warning] 잘못된 GetOutContactForBack 타입 요청됨:{Group}, {index}");
                             //throw new ArgumentOutOfRangeException(nameof(nType), nType, "Invalid Tower Lamp Type");
                             return 0; // 또는 사용하지 않는 안전한 비트
                     }
@@ -1291,7 +1295,7 @@ namespace ZenHandler.MotionControl
                         case 3: return (uint)DIO_OUT_ADDR_CH7.OUT3_D_SOCKET_CONTACT_FORWARD4;
                         default:
                             // 로그 남기기 (예: LogHelper.Write)
-                            Console.WriteLine($"[Warning] 잘못된 GetOutContactUpDown 타입 요청됨:{Group}, {index}");
+                            Console.WriteLine($"[Warning] 잘못된 GetOutContactForBack 타입 요청됨:{Group}, {index}");
                             //throw new ArgumentOutOfRangeException(nameof(nType), nType, "Invalid Tower Lamp Type");
                             return 0; // 또는 사용하지 않는 안전한 비트
                     }
@@ -1306,7 +1310,7 @@ namespace ZenHandler.MotionControl
                         case 3: return (uint)DIO_OUT_ADDR_CH7.OUT3_D_SOCKET_CONTACT_BACKWARD4;
                         default:
                             // 로그 남기기 (예: LogHelper.Write)
-                            Console.WriteLine($"[Warning] 잘못된 GetOutContactUpDown 타입 요청됨:{Group}, {index}");
+                            Console.WriteLine($"[Warning] 잘못된 GetOutContactForBack 타입 요청됨:{Group}, {index}");
                             //throw new ArgumentOutOfRangeException(nameof(nType), nType, "Invalid Tower Lamp Type");
                             return 0; // 또는 사용하지 않는 안전한 비트
                     }
