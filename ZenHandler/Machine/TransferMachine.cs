@@ -29,12 +29,12 @@ namespace ZenHandler.Machine
         private double[] OrgFirstVel = { 20000.0, 20000.0, 20000.0 };   //수치 조심
         private double[] OrgSecondVel = { 10000.0, 10000.0, 5000.0 };
         private double[] OrgThirdVel = { 5000.0, 5000.0, 2500.0 };
+
         public enum eTeachingPosList : int
         {
             WAIT_POS = 0,
             LEFT_TRAY_BCR_POS, RIGHT_TRAY_BCR_POS,
-            LEFT_TRAY_LOAD_POS, LEFT_TRAY_UNLOAD_POS,
-            RIGHT_TRAY_LOAD_POS, RIGHT_TRAY_UNLOAD_POS,
+            LEFT_TRAY_LOAD_POS, LEFT_TRAY_UNLOAD_POS, RIGHT_TRAY_LOAD_POS, RIGHT_TRAY_UNLOAD_POS,
             SOCKET_A_LOAD, SOCKET_A_UNLOAD, SOCKET_B_LOAD, SOCKET_B_UNLOAD, SOCKET_C_LOAD, SOCKET_C_UNLOAD, SOCKET_D_LOAD, SOCKET_D_UNLOAD,
             NG_A_LOAD, NG_A_UNLOAD, NG_B_LOAD, NG_B_UNLOAD,
             TOTAL_TRANSFER_TEACHING_COUNT
@@ -43,8 +43,7 @@ namespace ZenHandler.Machine
         public string[] TeachName = {
             "WAIT_POS",
             "LEFT_TRAY_BCR_POS", "RIGHT_TRAY_BCR_POS",
-            "L_TRAY_LOAD_POS", "L_TRAY_UNLOAD_POS",
-            "R_TRAY_LOAD_POS", "R_TRAY_UNLOAD_POS",
+            "L_TRAY_LOAD_POS", "L_TRAY_UNLOAD_POS", "R_TRAY_LOAD_POS", "R_TRAY_UNLOAD_POS",
             "SOCKET_A_LOAD", "SOCKET_A_UNLOAD", "SOCKET_B_LOAD", "SOCKET_B_UNLOAD","SOCKET_C_LOAD", "SOCKET_C_UNLOAD", "SOCKET_D_LOAD", "SOCKET_D_UNLOAD",
             "NG_A_LOAD", "NG_A_UNLOAD","NG_B_LOAD", "NG_B_UNLOAD"
         };
@@ -86,7 +85,9 @@ namespace ZenHandler.Machine
         public PickedProduct pickedProduct = new PickedProduct();
         public ProductLayout productLayout = new ProductLayout();
 
-        public MotionControl.MotorSet.TrayPos TrayPosition;        //Tray Load 위치 , Lift에서는 Right만 배출 , Magazine는 LEFT , RIGHT 동시 투입/배출
+        public MotionControl.MotorSet.TrayPos TrayPosition;        //Tray Load 위치
+        //Lift에서는 Right만 배출 , Magazine는 LEFT , RIGHT 동시 투입/배출
+
         public int NoSocketPos;     //투입 , 배출요청하는 소켓 index
         public string CurrentScanBcr = "";
         public const int UnLoadCount = 2;
@@ -99,8 +100,6 @@ namespace ZenHandler.Machine
             int i = 0;
             this.RunState = OperationState.Stopped;
             this.MachineName = this.GetType().Name;
-            //MotorAxes = new MotionControl.MotorAxis[] { TransferX, TransferY, TransferZ };
-            //MotorCnt = MotorAxes.Length;
             MotorAxes = new MotionControl.MotorAxis[MotorCnt];
 
             for (i = 0; i < MotorCnt; i++)
