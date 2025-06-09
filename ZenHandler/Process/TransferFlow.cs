@@ -1231,9 +1231,9 @@ namespace ZenHandler.Process
                     Console.WriteLine("[ORIGIN] TRANSFER START");
                     nRetStep = 1050;
                     break;
+
                 case 1050:
                     bRtn = true;
-
                     for (int i = 0; i < Globalo.motionManager.transferMachine.MotorAxes.Length; i++)
                     {
                         if (Globalo.motionManager.transferMachine.MotorAxes[i].AmpEnable() == false)
@@ -1241,6 +1241,7 @@ namespace ZenHandler.Process
                             bRtn = false;
                             szLog = $"[ORIGIN] {Globalo.motionManager.transferMachine.MotorAxes[i].Name} AmpEnable Fail]";
                             Globalo.LogPrint("ManualControl", szLog);
+                            Thread.Sleep(100);
                         }
                     }
                     if (bRtn == false)
@@ -1261,18 +1262,17 @@ namespace ZenHandler.Process
                     else
                     {
                         bRtn = Globalo.motionManager.transferMachine.LoadMultiPickerUp(new int[] { 1, 1, 1, 1 }, true);
-
                     }
                     
                     if (bRtn)
                     {
-                        szLog = $"[ORIGIN] Transfer Load PIcker All Up [STEP : {nStep}]";
+                        szLog = $"[ORIGIN] Transfer Load Picker All Up [STEP : {nStep}]";
                         Globalo.LogPrint("ManualControl", szLog);
                         nRetStep = 1065;
                     }
                     else
                     {
-                        szLog = $"[ORIGIN] Transfer Load PIcker All Up Fail [STEP : {nStep}]";
+                        szLog = $"[ORIGIN] Transfer Load Picker All Up Fail [STEP : {nStep}]";
                         Globalo.LogPrint("ManualControl", szLog, Globalo.eMessageName.M_WARNING);
                         nRetStep *= -1;
                         break;
@@ -1294,7 +1294,7 @@ namespace ZenHandler.Process
                     
                     if (bRtn)
                     {
-                        szLog = $"[ORIGIN] Transfer Unload PIcker All Up [STEP : {nStep}]";
+                        szLog = $"[ORIGIN] Transfer Unload Picker All Up [STEP : {nStep}]";
                         Globalo.LogPrint("ManualControl", szLog);
                         nRetStep = 1070;
 
@@ -1302,7 +1302,7 @@ namespace ZenHandler.Process
                     }
                     else
                     {
-                        szLog = $"[ORIGIN] Transfer Unload PIcker All Up Fail [STEP : {nStep}]";
+                        szLog = $"[ORIGIN] Transfer Unload Picker All Up Fail [STEP : {nStep}]";
                         Globalo.LogPrint("ManualControl", szLog, Globalo.eMessageName.M_WARNING);
                         nRetStep *= -1;
                         break;
@@ -1538,6 +1538,7 @@ namespace ZenHandler.Process
                         nRetStep = 1900;
                         break;
                     }
+                    
                     bRtn = true;
                     for (int i = 0; i < Globalo.motionManager.transferMachine.MotorAxes.Length; i++)
                     {
@@ -1811,9 +1812,6 @@ namespace ZenHandler.Process
 
                     break;
                 case 2100:
-                    nRetStep = 2110;
-                    break;
-                case 2110:
                     nRetStep = 2120;
                     break;
                 case 2120:
@@ -1851,7 +1849,6 @@ namespace ZenHandler.Process
                     
                     break;
                 case 2140:
-                    bRtn = Globalo.motionManager.transferMachine.TransFer_XY_Move(Machine.TransferMachine.eTeachingPosList.WAIT_POS);
 
                     if (bRtn == false)
                     {
@@ -1868,7 +1865,8 @@ namespace ZenHandler.Process
                     nRetStep = 2150;
                     break;
                 case 2150:
-                    if (Globalo.motionManager.transferMachine.MotorAxes[(int)Machine.eTransfer.TRANSFER_X].GetStopAxis() == true && Globalo.motionManager.transferMachine.MotorAxes[(int)Machine.eTransfer.TRANSFER_Y].GetStopAxis() == true &&
+                    if (Globalo.motionManager.transferMachine.MotorAxes[(int)Machine.eTransfer.TRANSFER_X].GetStopAxis() == true && 
+                        Globalo.motionManager.transferMachine.MotorAxes[(int)Machine.eTransfer.TRANSFER_Y].GetStopAxis() == true &&
                         Globalo.motionManager.transferMachine.ChkXYMotorPos(Machine.TransferMachine.eTeachingPosList.WAIT_POS))
                     {
                         szLog = $"[READY] WAIT_POS 위치 이동 완료 [STEP : {nStep}]";
@@ -2026,51 +2024,81 @@ namespace ZenHandler.Process
                             //fw - Grip 상태면 알람
                             if (Program.PG_SELECT == HANDLER_PG.FW)
                             {
-                                bRtn = Globalo.motionManager.transferMachine.GetUnloadGripState(2, true);
+                                bRtn = Globalo.motionManager.transferMachine.GetUnloadGripState(2, false);
+                                if (bRtn == false)
+                                {
+                                    //알람
+                                    szLog = $"[READY] UNLOAD PICKER #3 Product 상태 확인바랍니다.[STEP : {nStep}]";
+                                    Globalo.LogPrint("ManualControl", szLog, Globalo.eMessageName.M_ERROR);
+
+                                    nRetStep *= -1;
+                                    break;
+                                }
+                                else
+                                {
+                                    szLog = $"[READY] UNLOAD PICKER #3 Product EMPTY[STEP : {nStep}]";
+                                    Globalo.LogPrint("ManualControl", szLog);
+                                }
                             }
                             else
                             {
                                 bRtn = Globalo.motionManager.transferMachine.GetUnLoadVacuumState(2, true);
-                            }
-                            if (bRtn == true)
-                            {
-                                //알람
-                                szLog = $"[READY] UNLOAD PICKER #3 Product 상태 확인바랍니다.[STEP : {nStep}]";
-                                Globalo.LogPrint("ManualControl", szLog, Globalo.eMessageName.M_ERROR);
+                                if (bRtn == true)
+                                {
+                                    //알람
+                                    szLog = $"[READY] UNLOAD PICKER #3 Product 상태 확인바랍니다.[STEP : {nStep}]";
+                                    Globalo.LogPrint("ManualControl", szLog, Globalo.eMessageName.M_ERROR);
 
-                                nRetStep *= -1;
-                                break;
+                                    nRetStep *= -1;
+                                    break;
+                                }
+                                else
+                                {
+                                    szLog = $"[READY] UNLOAD PICKER #3 Product EMPTY[STEP : {nStep}]";
+                                    Globalo.LogPrint("ManualControl", szLog);
+                                }
                             }
-                            else
-                            {
-                                szLog = $"[READY] UNLOAD PICKER #3 Product EMPTY[STEP : {nStep}]";
-                                Globalo.LogPrint("ManualControl", szLog);
-                            }
+                            
                         }
                         if (Globalo.motionManager.transferMachine.pickedProduct.UnLoadProductInfo[3].State == Machine.PickedProductState.Blank)
                         {
                             if (Program.PG_SELECT == HANDLER_PG.FW)
                             {
-                                bRtn = Globalo.motionManager.transferMachine.GetUnloadGripState(3, true);
+                                bRtn = Globalo.motionManager.transferMachine.GetUnloadGripState(3, false);  //UnGrip가 아니면
+                                if (bRtn == false)
+                                {
+                                    //알람
+                                    szLog = $"[READY] UNLOAD PICKER #4 Product 상태 확인바랍니다.[STEP : {nStep}]";
+                                    Globalo.LogPrint("ManualControl", szLog, Globalo.eMessageName.M_ERROR);
+
+                                    nRetStep *= -1;
+                                    break;
+                                }
+                                else
+                                {
+                                    szLog = $"[READY] UNLOAD PICKER #4 Product EMPTY[STEP : {nStep}]";
+                                    Globalo.LogPrint("ManualControl", szLog);
+                                }
                             }
                             else
                             {
                                 bRtn = Globalo.motionManager.transferMachine.GetUnLoadVacuumState(3, true);
-                            }
-                            if (bRtn == true)
-                            {
-                                //알람
-                                szLog = $"[READY] UNLOAD PICKER #4 Product 상태 확인바랍니다.[STEP : {nStep}]";
-                                Globalo.LogPrint("ManualControl", szLog, Globalo.eMessageName.M_ERROR);
+                                if (bRtn == true)
+                                {
+                                    //알람
+                                    szLog = $"[READY] UNLOAD PICKER #4 Product 상태 확인바랍니다.[STEP : {nStep}]";
+                                    Globalo.LogPrint("ManualControl", szLog, Globalo.eMessageName.M_ERROR);
 
-                                nRetStep *= -1;
-                                break;
+                                    nRetStep *= -1;
+                                    break;
+                                }
+                                else
+                                {
+                                    szLog = $"[READY] UNLOAD PICKER #4 Product EMPTY[STEP : {nStep}]";
+                                    Globalo.LogPrint("ManualControl", szLog);
+                                }
                             }
-                            else
-                            {
-                                szLog = $"[READY] UNLOAD PICKER #4 Product EMPTY[STEP : {nStep}]";
-                                Globalo.LogPrint("ManualControl", szLog);
-                            }
+                            
                         }
                     }
                         
