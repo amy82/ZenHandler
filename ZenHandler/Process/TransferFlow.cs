@@ -255,18 +255,14 @@ namespace ZenHandler.Process
                         {
                             //bool[] IsTryChanging = { false, false };      //Tray 교체중
                             //bool[] isTrayReadyToLoad = { false, false };  //Tray 로드 완료 상태
-                            int trayIndex = 0;
-                            if (Globalo.motionManager.transferMachine.TrayPosition == MotionControl.MotorSet.TrayPos.Left)
-                            {
-                                trayIndex = 0;
-                            }
-                            else
-                            {
-                                trayIndex = 1;
-                            }
 
-                            if (Globalo.motionManager.magazineHandler.IsTryChanging[trayIndex] == false && 
-                                Globalo.motionManager.magazineHandler.isTrayReadyToLoad[trayIndex] == false &&
+                            ////Globalo.motionManager.magazineHandler.isTrayReadyToLoad[index] = true;      //매거진 머신에서 TRAY 교체 완료후 상황
+                            ////Globalo.motionManager.magazineHandler.IsTryChanging[MagNum] = false;        //매거진 머신에서 TRAY 교체 완료후 상황
+                            ///
+
+
+                            if (Globalo.motionManager.magazineHandler.IsTryChanging[(int)Globalo.motionManager.transferMachine.TrayPosition] == false && 
+                                Globalo.motionManager.magazineHandler.isTrayReadyToLoad[(int)Globalo.motionManager.transferMachine.TrayPosition] == true &&
                                 Globalo.motionManager.magazineHandler.RunState == OperationState.AutoRunning) //TRAY 교체중이 아니고 , 자동운전 중이고, 로드가능한 상태 일때
                             {
                                 nRetStep = 3400;
@@ -287,13 +283,14 @@ namespace ZenHandler.Process
 
                             }
                             //IsMovingTrayOnPusher 는 둘다 체크
-                            if (Globalo.motionManager.liftMachine.IsMovingTrayOnPusher == false && isLiftReplacing == false &&
-                            Globalo.motionManager.liftMachine.IsUnloadingOutputTray == false &&
-                            Globalo.motionManager.liftMachine.RunState == OperationState.AutoRunning) //TRAY 교체중이 아니고 , 자동운전 중이고, 로드가능한 상태 일때
-                            {
-                                nRetStep = 3400;
-                                break;
-                            }
+                            if (Globalo.motionManager.liftMachine.IsMovingTrayOnPusher == false && 
+                                isLiftReplacing == false &&
+                                Globalo.motionManager.liftMachine.IsUnloadingOutputTray == false &&
+                                Globalo.motionManager.liftMachine.RunState == OperationState.AutoRunning) //TRAY 교체중이 아니고 , 자동운전 중이고, 로드가능한 상태 일때
+                                {
+                                    nRetStep = 3400;
+                                    break;
+                                }
                         }
                             
 
@@ -395,6 +392,16 @@ namespace ZenHandler.Process
             bool bRtn = false;
 
             //TODO: LIFT , MAGAZINE 유닛 자동중인지 체크, TRAY 교체 중인지 꼭 체크 
+
+            int pickercount = 4;
+            if (Program.PG_SELECT == HANDLER_PG.AOI)
+            {
+                pickercount = 2;
+            }
+            else
+            {
+                pickercount = 4;
+            }
             switch (nStep)
             {
                 case 4000:
@@ -1073,31 +1080,57 @@ namespace ZenHandler.Process
                     break;
                 case 4900:
                     int NextLoadX = Globalo.motionManager.transferMachine.pickedProduct.LoadTrayPos.X;  //0 -> 1 -> 2 -> 3   1씩 더해진 상황
-                    if (NextLoadX < 0 || NextLoadX > 4)
+
+                    if (NextLoadX < 0 || NextLoadX > pickercount)
                     {
                         szLog = $"[AUTO] BCR POS ERROR - {NextLoadX} [STEP : {nStep}]";
-                        Globalo.LogPrint("TransferUnit", szLog);
+                        Globalo.LogPrint("TransferUnit", szLog, Globalo.eMessageName.M_ERROR);
                         nRetStep *= -1;
                         break;
                     }
                     //피커 4개가 다 로드해야 , 한줄씩은다 로드하고 완료
                     //aoi는 2개
                     //4개 모두다 확인해야된다.
+
                     bool ChkBlank = false;
-                    for (i = NextLoadX; i < 4; i++)
+                    for (i = NextLoadX; i < pickercount; i++)
                     {
                         if (Globalo.motionManager.transferMachine.pickedProduct.LoadProductInfo[i].State == Machine.PickedProductState.Blank)   //TODO : 어떻게 반복할지 확인필요
                         {
                             Console.WriteLine("Blank Index : {i}");
+                            szLog = $"[AUTO] Blank Index : {i} [STEP : {nStep}]";
+                            Globalo.LogPrint("ManualControl", szLog);
                             ChkBlank = true;
                             break;
                         }
                     }
                     LoadPosx = Globalo.motionManager.transferMachine.pickedProduct.LoadTrayPos.X;
+
                     if (ChkBlank == true)
                     {
-                        nRetStep = 4000;        //다음 제품 바코드 스캔후, 제품 로드 , 반복
-                        Console.WriteLine("Bcr Next Index : {LoadPosx}");
+                        if (Program.PG_SELECT == HANDLER_PG.FW)
+                        {
+                            if (Globalo.motionManager.magazineHandler.RunState == OperationState.AutoRunning)       //TODO: LIFT나 MAGIZNE 상태 확인해야될듯
+                            {
+                                nRetStep = 4000;        //다음 제품 바코드 스캔후, 제품 로드 , 반복
+                            }
+                        }
+                        else
+                        {
+                            if (Globalo.motionManager.liftMachine.RunState == OperationState.AutoRunning)
+                            {
+                                nRetStep = 4000;        //다음 제품 바코드 스캔후, 제품 로드 , 반복
+                            }
+                        }
+
+                        if (nRetStep == 4000)
+                        {
+                            Console.WriteLine("Bcr Next Index : {LoadPosx}");
+
+                            szLog = $"[AUTO] Bcr Next Index: {LoadPosx} [STEP : {nStep}]";
+                            Globalo.LogPrint("ManualControl", szLog);
+                        }
+                        
                     }
                     else
                     {

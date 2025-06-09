@@ -146,6 +146,7 @@ namespace ZenHandler.Dlg
                 }
             }
         }
+
         public void SetUpdateLoadTray(TRAY_KIND index)
         {
             int rows = trayClass[(int)index].RowCount;

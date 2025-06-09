@@ -1154,14 +1154,16 @@ namespace ZenHandler.Process
                     //2.Tray 배출 to Magazine
                     //
                     //
-                    if (Globalo.motionManager.GetTrayEjectReq(MotionControl.MotorSet.TrayPos.Left) == true && Globalo.motionManager.magazineHandler.IsTryChanging[(int)eMag.ON_LEFT] == false)
+                    if (Globalo.motionManager.GetTrayEjectReq(MotionControl.MotorSet.TrayPos.Left) == true && 
+                        Globalo.motionManager.magazineHandler.IsTryChanging[(int)eMag.ON_LEFT] == false)
                     {
                         //left 배출 후 로드 요청
                         nRetStep = 3100;
                         break;
                     }
 
-                    if (Globalo.motionManager.GetTrayEjectReq(MotionControl.MotorSet.TrayPos.Right) == true && Globalo.motionManager.magazineHandler.IsTryChanging[(int)eMag.ON_RIGHT] == false)
+                    if (Globalo.motionManager.GetTrayEjectReq(MotionControl.MotorSet.TrayPos.Right) == true && 
+                        Globalo.motionManager.magazineHandler.IsTryChanging[(int)eMag.ON_RIGHT] == false)
                     {
                         //right 배출 후 로드 요청
                         nRetStep = 3200;

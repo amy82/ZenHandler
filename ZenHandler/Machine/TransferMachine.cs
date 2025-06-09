@@ -241,26 +241,39 @@ namespace ZenHandler.Machine
                 this.pickedProduct.UnloadTrayPos.X = 0;
                 this.pickedProduct.UnloadTrayPos.Y++;
             }
-            if (this.pickedProduct.UnloadTrayPos.Y == 1)
+
+            if (Program.PG_SELECT == HANDLER_PG.EEPROM || Program.PG_SELECT == HANDLER_PG.AOI)
             {
-                if(TrayPosition == MotionControl.MotorSet.TrayPos.Left)
+                if (this.pickedProduct.UnloadTrayPos.Y == 1)
                 {
-                    OnTrayChangedCall?.Invoke(TrayPosition);    //Gantry -----> Pusher로 이동 요청
-                    TrayPosition = MotionControl.MotorSet.TrayPos.Right;
+                    if (TrayPosition == MotionControl.MotorSet.TrayPos.Left)
+                    {
+                        OnTrayChangedCall?.Invoke(TrayPosition);    //Gantry -----> Pusher로 이동 요청
+                        TrayPosition = MotionControl.MotorSet.TrayPos.Right;
+                    }
+
                 }
-                
             }
-            if (this.pickedProduct.UnloadTrayPos.Y >= this.productLayout.TotalTrayPos.Y)
+            
+            if (this.pickedProduct.UnloadTrayPos.Y >= this.productLayout.TotalTrayPos.Y)    //TODO: FW 설비의 경우 좌우 메거진 동시 운영이라 따로 체크해야되나?,  this.pickedProduct.UnloadTrayPos
             {
                 this.pickedProduct.UnloadTrayPos.Y = 0;
 
-                Console.WriteLine($"Tray Change req");
-                //Tray 교체 요청
-                if (TrayPosition == MotionControl.MotorSet.TrayPos.Right)
+                Console.WriteLine($"Tray Change req"); //Tray 교체 요청
+
+                if (Program.PG_SELECT == HANDLER_PG.EEPROM || Program.PG_SELECT == HANDLER_PG.AOI)
                 {
-                    OnTrayChangedCall?.Invoke(TrayPosition); // 어떤 트레이 비었는지 전달
-                    TrayPosition = MotionControl.MotorSet.TrayPos.Left;        //우측 배출 요청하고 Gantry 위에서 제품 로드 LEFT 변경
+                    if (TrayPosition == MotionControl.MotorSet.TrayPos.Right)
+                    {
+                        OnTrayChangedCall?.Invoke(TrayPosition); // 어떤 트레이 비었는지 전달
+                        TrayPosition = MotionControl.MotorSet.TrayPos.Left;        //우측 배출 요청하고 Gantry 위에서 제품 로드 LEFT 변경
+                    }
                 }
+                else
+                {
+                    OnTrayChangedCall?.Invoke(TrayPosition); // 어떤 트레이 비었는지 전달      //
+                }
+                //TRANSFER 에서는 교체 요청만하고 , LIFT , MAGAZINE 머신에서 결정하자.
                     
             }
             int nextPosx = this.pickedProduct.UnloadTrayPos.X;
