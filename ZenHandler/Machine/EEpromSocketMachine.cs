@@ -85,7 +85,7 @@ namespace ZenHandler.Machine
             }
 
             socketProduct = Data.TaskDataYaml.TaskLoad_EEpSocket(taskPath);
-            for (i = 0; i < 4; i++)
+            for (i = 0; i < 2; i++)
             {
                 if (socketProduct.EEpromSocketInfo[i].Count < 1)
                 {
