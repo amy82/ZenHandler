@@ -52,11 +52,11 @@ namespace ZenHandler.MotionControl
         uint GetInLoadPickerVacuumOn(int index, bool bFlag);
         uint GetOutLoadPickerVacuumOn(int index, bool bFlag);
 
-        uint GetOutUnloadPickerVacuumOn(int index, bool bFlag);
         uint GetInUnloadPickerVacuumOn(int index, bool bFlag);
+        uint GetOutUnloadPickerVacuumOn(int index, bool bFlag);
 
-        uint GetOutFwUnloadPickerGrip(int index, bool bFlag);
         uint GetInFwUnloadPickerGrip(int index, bool bFlag);
+        uint GetOutFwUnloadPickerGrip(int index, bool bFlag);
 
         //-----------------------------------------------------------------------
         //Socket

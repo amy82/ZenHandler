@@ -1183,9 +1183,20 @@ namespace ZenHandler.Process
             string szLog = "";
             int nRetStep = nStep;
             int socketIndex = -1;
+            int pickercount = 4;
+            bool PickerCheck = false;
             bool bRtn = false;
             int i = 0;
             Machine.TransferMachine.eTeachingPosList Move_Pos = Machine.TransferMachine.eTeachingPosList.WAIT_POS;
+
+            if (Program.PG_SELECT == HANDLER_PG.AOI)
+            {
+                pickercount = 2;
+            }
+            else
+            {
+                pickercount = 4;
+            }
             switch (nStep)
             {
                 case 5000:
@@ -1347,16 +1358,144 @@ namespace ZenHandler.Process
                     nRetStep = 5180;
                     break;
                 case 5180:
-
+                    nRetStep = 5200;
                     break;
                 case 5200:
-
+                    //FW = 4SET 4개씩 - 고정 타입
+                    //AOI = 2SET 2개씩 - X축 모터 위
+                    //EEPROM = 2SET 4개씩 - X축,  Y실린더 +  X축
+                    nRetStep = 5220;
                     break;
-                case 5300:
+                case 5220:
+                    nRetStep = 5240;
+                    break;
+                case 5240:
+                    nRetStep = 5260;
+                    break;
+                case 5260:
+                    nRetStep = 5280;
+                    break;
+                case 5280:
+                    nRetStep = 5300;
+                    break;
 
+                case 5300:
+                    if (Program.PG_SELECT == HANDLER_PG.AOI)
+                    {
+                        bRtn = Globalo.motionManager.transferMachine.LoadMultiPickerUp(new int[] { 1, 1 }, false);
+                    }
+                    else
+                    {
+                        bRtn = Globalo.motionManager.transferMachine.LoadMultiPickerUp(new int[] { 1, 1, 1, 1 }, false);
+
+                    }
+
+                    if (bRtn)
+                    {
+                        szLog = $"[READY] Transfer Load PIcker All Down [STEP : {nStep}]";
+                        Globalo.LogPrint("ManualControl", szLog);
+                        nRetStep = 5320;
+                        nTimeTick = Environment.TickCount;
+                    }
+                    else
+                    {
+                        szLog = $"[READY] Transfer Load PIcker All Down Fail [STEP : {nStep}]";
+                        Globalo.LogPrint("ManualControl", szLog, Globalo.eMessageName.M_WARNING);
+                        nRetStep *= -1;
+                        break;
+                    }
+                    break;
+                case 5320:
+                    if (Program.PG_SELECT == HANDLER_PG.AOI)
+                    {
+                        bRtn = Globalo.motionManager.transferMachine.GetLoadMultiPickerUp(new int[] { 1, 1 }, false);
+                    }
+                    else
+                    {
+                        bRtn = Globalo.motionManager.transferMachine.GetLoadMultiPickerUp(new int[] { 1, 1, 1, 1 }, false);
+
+                    }
+
+                    if (bRtn)
+                    {
+                        szLog = $"[READY] Transfer Load PIcker All Down Complete[STEP : {nStep}]";
+                        Globalo.LogPrint("ManualControl", szLog);
+                        nRetStep = 5340;
+                        nTimeTick = Environment.TickCount;
+                    }
+                    else if (Environment.TickCount - nTimeTick > MotionControl.MotorSet.IO_TIMEOUT)
+                    {
+                        szLog = $"[READY] Transfer Load PIcker All Down Complete Timeout [STEP : {nStep}]";
+                        Globalo.LogPrint("ManualControl", szLog, Globalo.eMessageName.M_WARNING);
+                        nRetStep *= -1;
+                        break;
+                    }
+                    
+                    break;
+                case 5340:
+                    if (Environment.TickCount - nTimeTick > 300)
+                    {
+                        nRetStep = 5360;
+                    }
+                    break;
+                case 5360:
+                    if (Program.PG_SELECT == HANDLER_PG.AOI)
+                    {
+                        bRtn = Globalo.motionManager.transferMachine.LoadMultiVacuumOn(new int[] { 1, 1 }, false);
+                    }
+                    else
+                    {
+                        bRtn = Globalo.motionManager.transferMachine.LoadMultiVacuumOn(new int[] { 1, 1, 1, 1 }, false);
+
+                    }
+
+                    if (bRtn)
+                    {
+                        szLog = $"[READY] Transfer Load PIcker All Vacuum Off [STEP : {nStep}]";
+                        Globalo.LogPrint("ManualControl", szLog);
+                        nRetStep = 5380;
+                        nTimeTick = Environment.TickCount;
+                    }
+                    else
+                    {
+                        szLog = $"[READY] Transfer Load PIcker All Vacuum Off Fail [STEP : {nStep}]";
+                        Globalo.LogPrint("ManualControl", szLog, Globalo.eMessageName.M_WARNING);
+                        nRetStep *= -1;
+                        break;
+                    }
+                    break;
+                case 5380:
+                    if (Program.PG_SELECT == HANDLER_PG.AOI)
+                    {
+                        bRtn = Globalo.motionManager.transferMachine.GetLoadMultiVacuumOn(new int[] { 1, 1 }, false);
+                    }
+                    else
+                    {
+                        bRtn = Globalo.motionManager.transferMachine.GetLoadMultiVacuumOn(new int[] { 1, 1, 1, 1 }, false);
+
+                    }
+
+                    if (bRtn)
+                    {
+                        szLog = $"[READY] Transfer Load PIcker All Vacuum Off Complete[STEP : {nStep}]";
+                        Globalo.LogPrint("ManualControl", szLog);
+                        nRetStep = 5400;
+                        nTimeTick = Environment.TickCount;
+                    }
+                    else if (Environment.TickCount - nTimeTick > MotionControl.MotorSet.IO_TIMEOUT)
+                    {
+                        szLog = $"[READY] Transfer Load PIcker All Down Complete Timeout [STEP : {nStep}]";
+                        Globalo.LogPrint("ManualControl", szLog, Globalo.eMessageName.M_WARNING);
+                        nRetStep *= -1;
+                        break;
+                    }
+                    
                     break;
                 case 5400:
-                    //공급 완료, 바코드 정보 전달
+                    nRetStep = 5500;
+                    break;
+                case 5500:
+                    //공급 완료, 바코드 정보 전달 
                     MotionControl.SocketReqArgs sendProduct = new MotionControl.SocketReqArgs(4);
                     sendProduct.Index = Globalo.motionManager.transferMachine.NoSocketPos;
 
@@ -1370,10 +1509,182 @@ namespace ZenHandler.Process
                         sendProduct.Barcode[i] = Globalo.motionManager.transferMachine.pickedProduct.LoadProductInfo[i].BcrLot;
                     }
 
-                    Globalo.motionManager.transferMachine.CallSocketReqComplete(sendProduct);
+                    Globalo.motionManager.transferMachine.CallSocketReqComplete(sendProduct);   //TODO: 공급 완료 확인 필요
                     break;
-                case 5500:
+                case 5520:
 
+                    break;
+                case 5540:
+
+                    break;
+                case 5560:
+
+                    break;
+                case 5580:
+
+                    break;
+                case 5600:
+                    if (Program.PG_SELECT == HANDLER_PG.AOI)
+                    {
+                        bRtn = Globalo.motionManager.transferMachine.LoadMultiPickerUp(new int[] { 1, 1 }, true);
+                    }
+                    else
+                    {
+                        bRtn = Globalo.motionManager.transferMachine.LoadMultiPickerUp(new int[] { 1, 1, 1, 1 }, true);
+
+                    }
+
+                    if (bRtn)
+                    {
+                        szLog = $"[AUTO] Transfer Load PIcker All Up [STEP : {nStep}]";
+                        Globalo.LogPrint("ManualControl", szLog);
+                        nRetStep = 5620;
+                        nTimeTick = Environment.TickCount;
+                    }
+                    else
+                    {
+                        szLog = $"[AUTO] Transfer Load PIcker All Up Fail [STEP : {nStep}]";
+                        Globalo.LogPrint("ManualControl", szLog, Globalo.eMessageName.M_WARNING);
+                        nRetStep *= -1;
+                        break;
+                    }
+                   
+                    break;
+                case 5620:
+                    if (Program.PG_SELECT == HANDLER_PG.AOI)
+                    {
+                        bRtn = Globalo.motionManager.transferMachine.GetLoadMultiPickerUp(new int[] { 1, 1 }, true);
+                    }
+                    else
+                    {
+                        bRtn = Globalo.motionManager.transferMachine.GetLoadMultiPickerUp(new int[] { 1, 1, 1, 1 }, true);
+
+                    }
+
+                    if (bRtn)
+                    {
+                        szLog = $"[AUTO] Transfer Load PIcker All Up Complete[STEP : {nStep}]";
+                        Globalo.LogPrint("ManualControl", szLog);
+                        nRetStep = 5640;
+                        nTimeTick = Environment.TickCount;
+                    }
+                    else if (Environment.TickCount - nTimeTick > MotionControl.MotorSet.IO_TIMEOUT)
+                    {
+                        szLog = $"[AUTO] Transfer Load PIcker All Up Complete Timeout [STEP : {nStep}]";
+                        Globalo.LogPrint("ManualControl", szLog, Globalo.eMessageName.M_WARNING);
+                        nRetStep *= -1;
+                        break;
+                    }
+                    break;
+                case 5640:
+                    bRtn = Globalo.motionManager.transferMachine.TransFer_Z_Move(Machine.TransferMachine.eTeachingPosList.WAIT_POS);
+
+                    if (bRtn == false)
+                    {
+                        szLog = $"[AUTO] TRANSFER Z WAIT POS MOVE FAIL [STEP : {nStep}]";
+                        Globalo.LogPrint("ManualControl", szLog, Globalo.eMessageName.M_ERROR);
+                        nRetStep *= -1;
+                        break;
+                    }
+                    szLog = $"[AUTO] TRANSFER Z WAIT_POS 이동 [STEP : {nStep}]";
+                    Globalo.LogPrint("ManualControl", szLog);
+
+                    nTimeTick = Environment.TickCount;
+                    nRetStep = 5660;
+                    break;
+                case 5660:
+                    if (Globalo.motionManager.transferMachine.MotorAxes[(int)Machine.eTransfer.TRANSFER_Z].GetStopAxis() == true &&
+                        Globalo.motionManager.transferMachine.ChkZMotorPos(Machine.TransferMachine.eTeachingPosList.WAIT_POS))
+                    {
+                        szLog = $"[AUTO] TRANSFER Z WAIT_POS 이동 완료 [STEP : {nStep}]";
+                        Globalo.LogPrint("ManualControl", szLog);
+                        nRetStep = 5680;
+                        break;
+                    }
+                    else if (Environment.TickCount - nTimeTick > MotionControl.MotorSet.MOTOR_MOVE_TIMEOUT)
+                    {
+                        szLog = $"[AUTO] TRANSFER Z WAIT_POS  이동 시간 초과 [STEP : {nStep}]";
+                        Globalo.LogPrint("ManualControl", szLog);
+                        nRetStep *= -1;
+                        break;
+                    }
+
+                    break;
+                case 5680:
+                    nRetStep = 5700;
+                    break;
+                case 5700:
+                    //배출할 제품 있으면 배출 위치로
+                    PickerCheck = false;
+                    for (i = 0; i < pickercount; i++)
+                    {
+                        if (Globalo.motionManager.transferMachine.pickedProduct.UnLoadProductInfo[i].State == Machine.PickedProductState.TestNg ||      //TODO: SOCKET NG하고 맞혀야된다.
+                            Globalo.motionManager.transferMachine.pickedProduct.UnLoadProductInfo[i].State == Machine.PickedProductState.TestNg2 ||
+                            Globalo.motionManager.transferMachine.pickedProduct.UnLoadProductInfo[i].State == Machine.PickedProductState.TestNg3 ||
+                            Globalo.motionManager.transferMachine.pickedProduct.UnLoadProductInfo[i].State == Machine.PickedProductState.TestNg4)
+                        {
+                            szLog = $"[AUTO] #{i + 1} UnloadPicker State: {Globalo.motionManager.transferMachine.pickedProduct.UnLoadProductInfo[i].State.ToString()}[STEP : {nStep}]";
+                            Globalo.LogPrint("ManualControl", szLog);
+                            PickerCheck = true;
+                            break;
+                        }
+                    }
+                    if (PickerCheck)
+                    {
+                        nRetStep = 8000;        //NG 배출
+                        break;
+                    }
+
+
+                    PickerCheck = false;
+                    for (i = 0; i < pickercount; i++)
+                    {
+                        if (Globalo.motionManager.transferMachine.pickedProduct.UnLoadProductInfo[i].State == Machine.PickedProductState.Good)
+                        {
+                            szLog = $"[AUTO] #{i + 1} UnloadPicker State: {Globalo.motionManager.transferMachine.pickedProduct.UnLoadProductInfo[i].State.ToString()}[STEP : {nStep}]";
+                            Globalo.LogPrint("ManualControl", szLog);
+                            PickerCheck = true;
+                            break;
+                        }
+                    }
+
+                    if (PickerCheck == true)
+                    {
+                        szLog = $"[AUTO] TRANSFER GOOD UNLOAD FLOW [STEP : {nStep}]";
+                        Globalo.LogPrint("ManualControl", szLog);
+                        nRetStep = 7000;
+                        break;
+                    }
+
+                    //배출 피커 언그립 상태가 아니면 NG
+                    //배출 피커 흡착 상태면 NG
+
+                    if (Program.PG_SELECT == HANDLER_PG.AOI)
+                    {
+                        bRtn = Globalo.motionManager.transferMachine.GetUnloadMultiVacuumOn(new int[] { 1, 1 }, false);
+                    }
+                    else
+                    {
+                        bRtn = Globalo.motionManager.transferMachine.GetUnloadMultiGrip(new int[] { 1, 1, 1, 1 }, false);
+
+                    }
+
+                    if (bRtn == false)
+                    {
+                        szLog = $"[READY] Transfer Load PIcker All Vacuum Off Complete[STEP : {nStep}]";
+                        Globalo.LogPrint("ManualControl", szLog);
+                        nRetStep = 5400;
+                        nTimeTick = Environment.TickCount;
+                    }
+                    else if (Environment.TickCount - nTimeTick > MotionControl.MotorSet.IO_TIMEOUT)
+                    {
+                        szLog = $"[READY] Transfer Load PIcker All Down Complete Timeout [STEP : {nStep}]";
+                        Globalo.LogPrint("ManualControl", szLog, Globalo.eMessageName.M_WARNING);
+                        nRetStep *= -1;
+                        break;
+                    }
+
+                    nRetStep = 3000;
                     break;
                 case 5800:
                     nRetStep = 5900;

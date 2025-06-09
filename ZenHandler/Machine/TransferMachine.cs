@@ -440,6 +440,7 @@ namespace ZenHandler.Machine
             return false;
 
         }
+
         public bool GetLoadVacuumState(int index, bool bFlag)
         {
             if (ProgramState.ON_LINE_MOTOR == false)
@@ -575,11 +576,11 @@ namespace ZenHandler.Machine
                 {
                     if (bFlag)
                     {
-                        uFlagHigh |= Globalo.motionManager._dio.GetOutLoadPickerUpDown(i, bFlag);
+                        uFlagHigh |= Globalo.motionManager._dio.GetInLoadPickerUpDown(i, bFlag);
                     }
                     else
                     {
-                        uFlagHigh |= Globalo.motionManager._dio.GetOutLoadPickerUpDown(i, bFlag);
+                        uFlagHigh |= Globalo.motionManager._dio.GetInLoadPickerUpDown(i, bFlag);
                     }
                 }
             }
@@ -790,6 +791,252 @@ namespace ZenHandler.Machine
             }
 
             return isSuccess;
+        }
+        public bool LoadMultiVacuumOn(int[] pickerList, bool bFlag, bool bWait = false)
+        {
+            //pickerList = 1로 들어오는 Picker만 반응하는 방식 xxxxx
+            //동작해야되는 피커 번호만 들어옴 동시 동작 개수 만큼
+            bool isSuccess = false;
+            int lModuleNo = 0;
+            int lOffset = 0;
+            if (Program.PG_SELECT == HANDLER_PG.FW)
+            {
+                lModuleNo = 3;
+                lOffset = 2;
+            }
+            if (Program.PG_SELECT == HANDLER_PG.EEPROM)
+            {
+                lModuleNo = 3;
+                lOffset = 2;
+            }
+            if (Program.PG_SELECT == HANDLER_PG.AOI)
+            {
+                lModuleNo = 3;
+                lOffset = 1;
+            }
+            uint uFlagHigh = 0;
+            uint uFlagLow = 0;
+            int i = 0;
+
+            for (i = 0; i < pickerList.Length; i++)
+            {
+                int nUse = pickerList[i];
+                if (nUse == 0)
+                {
+                    continue;
+                }
+                if (bFlag)
+                {
+                    uFlagHigh |= Globalo.motionManager._dio.GetOutLoadPickerVacuumOn(i, true);
+                    uFlagLow |= Globalo.motionManager._dio.GetOutLoadPickerVacuumOn(i, false);
+                }
+                else
+                {
+                    uFlagLow |= Globalo.motionManager._dio.GetOutLoadPickerVacuumOn(i, true);
+                    uFlagHigh |= Globalo.motionManager._dio.GetOutLoadPickerVacuumOn(i, false);
+                }
+            }
+            isSuccess = Globalo.motionManager.ioController.DioWriteOutportByte(lModuleNo, lOffset, uFlagHigh, uFlagLow);
+            if (isSuccess == false)
+            {
+                Console.WriteLine($" LoadMultiVacuumOn MOVE FAIL");
+                return isSuccess;
+            }
+
+            return isSuccess;
+        }
+        public bool UnloadMultiVacuumOn(int[] pickerList, bool bFlag, bool bWait = false)
+        {
+            //pickerList = 1로 들어오는 Picker만 반응하는 방식 xxxxx
+            //동작해야되는 피커 번호만 들어옴 동시 동작 개수 만큼
+            bool isSuccess = false;
+            int lModuleNo = 0;
+            int lOffset = 0;
+            if (Program.PG_SELECT == HANDLER_PG.FW)
+            {
+                return false;
+            }
+            if (Program.PG_SELECT == HANDLER_PG.EEPROM)
+            {
+                lModuleNo = 3;
+                lOffset = 3;
+            }
+            if (Program.PG_SELECT == HANDLER_PG.AOI)
+            {
+                lModuleNo = 3;
+                lOffset = 1;
+            }
+            uint uFlagHigh = 0;
+            uint uFlagLow = 0;
+            int i = 0;
+
+            for (i = 0; i < pickerList.Length; i++)
+            {
+                int nUse = pickerList[i];
+                if (nUse == 0)
+                {
+                    continue;
+                }
+                if (bFlag)
+                {
+                    uFlagHigh |= Globalo.motionManager._dio.GetOutUnloadPickerVacuumOn(i, true);
+                    uFlagLow |= Globalo.motionManager._dio.GetOutUnloadPickerVacuumOn(i, false);
+                }
+                else
+                {
+                    uFlagLow |= Globalo.motionManager._dio.GetOutUnloadPickerVacuumOn(i, true);
+                    uFlagHigh |= Globalo.motionManager._dio.GetOutUnloadPickerVacuumOn(i, false);
+                }
+            }
+            isSuccess = Globalo.motionManager.ioController.DioWriteOutportByte(lModuleNo, lOffset, uFlagHigh, uFlagLow);
+            if (isSuccess == false)
+            {
+                Console.WriteLine($" LoadMultiVacuumOn MOVE FAIL");
+                return isSuccess;
+            }
+
+            return isSuccess;
+        }
+        public bool GetLoadMultiVacuumOn(int[] pickerList, bool bFlag, bool bWait = false)
+        {
+            if (ProgramState.ON_LINE_MOTOR == false)
+            {
+                return true;
+            }
+            if (pickerList.Length != 4)      //항상 4개
+            {
+                Console.WriteLine("GetLoadMultiPickerUp Length Fail [{pickerList.Length}]");
+                return false;
+            }
+            int i = 0;
+            int lModuleNo = 0;
+            int lOffset = 0;
+            if (Program.PG_SELECT == HANDLER_PG.FW)
+            {
+                lModuleNo = 2;
+                lOffset = 2;
+            }
+            if (Program.PG_SELECT == HANDLER_PG.EEPROM)
+            {
+                lModuleNo = 2;
+                lOffset = 2;
+            }
+            if (Program.PG_SELECT == HANDLER_PG.AOI)
+            {
+                lModuleNo = 2;
+                lOffset = 1;
+            }
+
+
+            uint uFlagHigh = 0;
+            uint upValue = Globalo.motionManager.ioController.m_dwDInDict[lModuleNo][lOffset];
+
+            for (i = 0; i < pickerList.Length; i++)
+            {
+                bool chk = false;
+                if (pickerList[i] == 1)
+                {
+                    chk = true;
+                }
+                if (chk)
+                {
+                    if (bFlag)
+                    {
+                        uFlagHigh |= Globalo.motionManager._dio.GetInLoadPickerVacuumOn(i, bFlag);
+                    }
+                    else
+                    {
+                        uFlagHigh |= Globalo.motionManager._dio.GetInLoadPickerVacuumOn(i, bFlag);
+                    }
+                }
+            }
+            if (bFlag)
+            {
+                uFlagHigh = upValue & uFlagHigh;        //TODO: IO 되는지 확인 필요
+                if (uFlagHigh == 1)
+                {
+                    return true;
+                }
+            }
+            else
+            {
+                uFlagHigh = upValue & uFlagHigh;
+                if (uFlagHigh == 0)
+                {
+                    return true;
+                }
+            }
+            return false;
+        }
+        public bool GetUnloadMultiVacuumOn(int[] pickerList, bool bFlag, bool bWait = false)
+        {
+            if (ProgramState.ON_LINE_MOTOR == false)
+            {
+                return true;
+            }
+            if (pickerList.Length != 4)      //항상 4개
+            {
+                Console.WriteLine("GetLoadMultiPickerUp Length Fail [{pickerList.Length}]");
+                return false;
+            }
+            int i = 0;
+            int lModuleNo = 0;
+            int lOffset = 0;
+            if (Program.PG_SELECT == HANDLER_PG.FW)
+            {
+                return false;
+            }
+            if (Program.PG_SELECT == HANDLER_PG.EEPROM)
+            {
+                lModuleNo = 2;
+                lOffset = 3;
+            }
+            if (Program.PG_SELECT == HANDLER_PG.AOI)
+            {
+                lModuleNo = 2;
+                lOffset = 1;
+            }
+
+
+            uint uFlagHigh = 0;
+            uint upValue = Globalo.motionManager.ioController.m_dwDInDict[lModuleNo][lOffset];
+
+            for (i = 0; i < pickerList.Length; i++)
+            {
+                bool chk = false;
+                if (pickerList[i] == 1)
+                {
+                    chk = true;
+                }
+                if (chk)
+                {
+                    if (bFlag)
+                    {
+                        uFlagHigh |= Globalo.motionManager._dio.GetInUnloadPickerVacuumOn(i, bFlag);
+                    }
+                    else
+                    {
+                        uFlagHigh |= Globalo.motionManager._dio.GetInUnloadPickerVacuumOn(i, bFlag);
+                    }
+                }
+            }
+            if (bFlag)
+            {
+                uFlagHigh = upValue & uFlagHigh;        //TODO: IO 되는지 확인 필요
+                if (uFlagHigh == 1)
+                {
+                    return true;
+                }
+            }
+            else
+            {
+                uFlagHigh = upValue & uFlagHigh;
+                if (uFlagHigh == 0)
+                {
+                    return true;
+                }
+            }
+            return false;
         }
         public bool LoadPickerUp(int index, bool bFlag, bool bWait = false)
         {
@@ -1124,11 +1371,131 @@ namespace ZenHandler.Machine
             }
             return isSuccess;
         }
+        public bool UnloadMultiGripOn(int[] pickerList, bool bFlag, bool bWait = false)
+        {
+            //pickerList = 1로 들어오는 Picker만 반응하는 방식 xxxxx
+            //동작해야되는 피커 번호만 들어옴 동시 동작 개수 만큼
+            bool isSuccess = false;
+            int lModuleNo = 0;
+            int lOffset = 0;
+            if (Program.PG_SELECT == HANDLER_PG.FW)
+            {
+                lModuleNo = 3;
+                lOffset = 2;
+                
+            }
+            if (Program.PG_SELECT == HANDLER_PG.EEPROM)
+            {
+                return false;
+            }
+            if (Program.PG_SELECT == HANDLER_PG.AOI)
+            {
+                return false;
+            }
+            uint uFlagHigh = 0;
+            uint uFlagLow = 0;
+            int i = 0;
+
+            for (i = 0; i < pickerList.Length; i++)
+            {
+                int nUse = pickerList[i];
+                if (nUse == 0)
+                {
+                    continue;
+                }
+                if (bFlag)
+                {
+                    uFlagHigh |= Globalo.motionManager._dio.GetOutFwUnloadPickerGrip(i, true);
+                    uFlagLow |= Globalo.motionManager._dio.GetOutFwUnloadPickerGrip(i, false);
+                }
+                else
+                {
+                    uFlagLow |= Globalo.motionManager._dio.GetOutFwUnloadPickerGrip(i, true);
+                    uFlagHigh |= Globalo.motionManager._dio.GetOutFwUnloadPickerGrip(i, false);
+                }
+            }
+            isSuccess = Globalo.motionManager.ioController.DioWriteOutportByte(lModuleNo, lOffset, uFlagHigh, uFlagLow);
+            if (isSuccess == false)
+            {
+                Console.WriteLine($" LoadMultiVacuumOn MOVE FAIL");
+                return isSuccess;
+            }
+
+            return isSuccess;
+        }
+        public bool GetUnloadMultiGrip(int[] pickerList, bool bFlag, bool bWait = false)
+        {
+            if (ProgramState.ON_LINE_MOTOR == false)
+            {
+                return true;
+            }
+            if (pickerList.Length != 4)      //항상 4개
+            {
+                Console.WriteLine("GetLoadMultiPickerUp Length Fail [{pickerList.Length}]");
+                return false;
+            }
+            int i = 0;
+            int lModuleNo = 0;
+            int lOffset = 0;
+            if (Program.PG_SELECT == HANDLER_PG.FW)
+            {
+                lModuleNo = 2;
+                lOffset = 3;
+            }
+            if (Program.PG_SELECT == HANDLER_PG.EEPROM)
+            {
+                return false;
+            }
+            if (Program.PG_SELECT == HANDLER_PG.AOI)
+            {
+                return false;
+            }
 
 
-#endregion
+            uint uFlagHigh = 0;
+            uint upValue = Globalo.motionManager.ioController.m_dwDInDict[lModuleNo][lOffset];
 
-    #region Transfer Motor 동작
+            for (i = 0; i < pickerList.Length; i++)
+            {
+                bool chk = false;
+                if (pickerList[i] == 1)
+                {
+                    chk = true;
+                }
+                if (chk)
+                {
+                    if (bFlag)
+                    {
+                        uFlagHigh |= Globalo.motionManager._dio.GetInFwUnloadPickerGrip(i, bFlag);
+                    }
+                    else
+                    {
+                        uFlagHigh |= Globalo.motionManager._dio.GetInFwUnloadPickerGrip(i, bFlag);
+                    }
+                }
+            }
+            if (bFlag)
+            {
+                uFlagHigh = upValue & uFlagHigh;        //TODO: IO 되는지 확인 필요
+                if (uFlagHigh == 1)
+                {
+                    return true;
+                }
+            }
+            else
+            {
+                uFlagHigh = upValue & uFlagHigh;
+                if (uFlagHigh == 0)
+                {
+                    return true;
+                }
+            }
+            return false;
+        }
+
+        #endregion
+
+        #region Transfer Motor 동작
         public bool ChkXYMotorPos(eTeachingPosList teachingPos)
         {
             if (ProgramState.ON_LINE_MOTOR == false)
