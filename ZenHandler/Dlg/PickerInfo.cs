@@ -22,14 +22,32 @@ namespace ZenHandler.Dlg
         public PickerInfo()
         {
             InitializeComponent();
+
+            if (Program.PG_SELECT == HANDLER_PG.AOI)
+            {
+                PickerCount = 4;
+            }
+            else
+            {
+                PickerCount = 8;
+            }
             InitPickerGrid();
         }
 
         public void SetLoadPickerInfo()
         {
             int i = 0;
+            int pCnt = 0;
+            if (Program.PG_SELECT == HANDLER_PG.AOI)
+            {
+                pCnt = 2;
+            }
+            else
+            {
+                pCnt = 4;
+            }
 
-            for (i = 0; i < 4; i++)
+            for (i = 0; i < pCnt; i++)
             {
                 dataGridView[1, i].Value = Globalo.motionManager.transferMachine.pickedProduct.LoadProductInfo[i].BcrLot;
 
@@ -67,8 +85,17 @@ namespace ZenHandler.Dlg
         public void SetUnloadPickerInfo()
         {
             int i = 0;
+            int pCnt = 0;
+            if (Program.PG_SELECT == HANDLER_PG.AOI)
+            {
+                pCnt = 2;
+            }
+            else
+            {
+                pCnt = 4;
+            }
 
-            for (i = 0; i < 4; i++)
+            for (i = 0; i < pCnt; i++)
             {
                 dataGridView[1, i + 4].Value = Globalo.motionManager.transferMachine.pickedProduct.UnLoadProductInfo[i].BcrLot;
 
@@ -114,15 +141,25 @@ namespace ZenHandler.Dlg
                 dataGridView.Columns[i].Name = title[i];
             }
             string posName = "";
+            int pCnt = 0;
+            if (Program.PG_SELECT == HANDLER_PG.AOI)
+            {
+                pCnt = 2;
+            }
+            else
+            {
+                pCnt = 4;
+            }
             for (i = 0; i < PickerCount; i++)
             {
-                if (i < 4)
+                if (i < pCnt)
                 {
                     posName = "Load " + (i + 1).ToString();
                 }
                 else
                 {
-                    posName = "UnLoad " + (i%4 + 1).ToString();
+                    //posName = "UnLoad " + (i%4 + 1).ToString();
+                    posName = "UnLoad " + (i % pCnt + 1).ToString();
                 }
                 dataGridView.Rows[i].SetValues(posName);
             }

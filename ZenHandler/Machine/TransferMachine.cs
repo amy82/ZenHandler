@@ -178,13 +178,20 @@ namespace ZenHandler.Machine
         }
         public void LoadTryAdd(int LoadCnt = 1)
         {
+            string szLog = "";
             int currentPosx = this.pickedProduct.LoadTrayPos.X;
             int currentPosy = this.pickedProduct.LoadTrayPos.Y;
 
             int MaxXCount = this.productLayout.TotalTrayPos.X;
             int MaxYCount = this.productLayout.TotalTrayPos.Y;
+
             Console.WriteLine($"Current Load X : {currentPosx} / {MaxXCount}");
             Console.WriteLine($"Current Load Y : {currentPosy} / {MaxYCount}");
+
+            szLog = $"[TrayInfo] Current Load X : {currentPosx} / {MaxXCount}";
+            Globalo.LogPrint("ManualControl", szLog);
+            szLog = $"[TrayInfo] Current Load Y : {currentPosy} / {MaxYCount}";
+            Globalo.LogPrint("ManualControl", szLog);
 
             //배출 위치는 로드하는 위치로 지정?
             //제품 로드하면서 첫 배출 위치를 설정하는 함수
@@ -213,7 +220,13 @@ namespace ZenHandler.Machine
             Console.WriteLine("----------------------------------------------------");
             Console.WriteLine($"Next Load X : {currentPosx} > {nextPosx}");
             Console.WriteLine($"Next Load Y : {currentPosy} > {nextPosy}");
-            
+
+
+            szLog = $"[TrayInfo] Next Load X : {currentPosx} / {nextPosx}";
+            Globalo.LogPrint("ManualControl", szLog);
+            szLog = $"[TrayInfo] Next Load Y : {currentPosy} / {nextPosy}";
+            Globalo.LogPrint("ManualControl", szLog);
+
         }
         public void UnloadTryAdd(int UnloadCnt)
         {

@@ -20,7 +20,7 @@ namespace ZenHandler.Machine
     public enum PickedProductState
     {
         Blank = 0,   // 제품 없음    
-        Bcr,
+        Bcr,        //투입할 제품 로드 상태
         Good,       // 양품
         BcrNg,      // 불량
         TestNg,
