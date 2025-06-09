@@ -36,6 +36,21 @@ namespace ZenHandler.Machine
         Good,        // Write + Verify 둘다 완료
         NG           // 불량
     }
+    public enum FwProductState
+    {
+        Blank = 0,   // 제품 없음
+        Testing,     //fw 다운전
+        Good,        // 양품
+        NG           // 불량
+    }
+    public enum EEpromProductState
+    {
+        Blank = 0,   // 제품 없음
+        Writing,     //Write 검사 전
+        Verifying,   //Verify 검사 전
+        Good,        // Write + Verify 둘다 완료
+        NG           // 불량
+    }
     public enum AoiSocketProductState
     {
         Blank = 0,   // 제품 없음
@@ -185,12 +200,55 @@ namespace ZenHandler.Machine
             };
         }
     }
+    
+
+    public class EEpromSocketProductInfo
+    {
+        public int No { get; set; }
+        public EEpromProductState State { get; set; } = EEpromProductState.Blank;
+        public string BcrLot { get; set; } = "Empty";
+
+        public EEpromSocketProductInfo() { }  // <- 이게 없으면 yaml 로드 안됨
+        public EEpromSocketProductInfo(int index)
+        {
+            No = index;
+        }
+
+        public EEpromSocketProductInfo Clone()
+        {
+            return new EEpromSocketProductInfo
+            {
+                No = this.No,
+                State = this.State,
+                BcrLot = this.BcrLot
+            };
+        }
+    }
+
+    public class FwSocketProductInfo
+    {
+        public int No { get; set; }
+        public FwProductState State { get; set; } = FwProductState.Blank;
+        public string BcrLot { get; set; } = "Empty";
+
+        public FwSocketProductInfo() { }  // <- 이게 없으면 yaml 로드 안됨
+        public FwSocketProductInfo(int index)
+        {
+            No = index;
+        }
+
+        public FwSocketProductInfo Clone()
+        {
+            return new FwSocketProductInfo
+            {
+                No = this.No,
+                State = this.State,
+                BcrLot = this.BcrLot
+            };
+        }
+    }
     public class AoiSocketProduct
     {
-        //public List<AoiSocketProductInfo> SocketInfo_A { get; set; } = new List<AoiSocketProductInfo>();
-        //public List<AoiSocketProductInfo> SocketInfo_B { get; set; } = new List<AoiSocketProductInfo>();
-
-
         public List<AoiSocketProductInfo>[] AoiSocketInfo { get; set; }
         public AoiSocketProduct()
         {
@@ -203,9 +261,30 @@ namespace ZenHandler.Machine
     }
     public class EEpromSocketProduct
     {
-        public List<SocketProductInfo> SocketInfo_A { get; set; } = new List<SocketProductInfo>();
-        public List<SocketProductInfo> SocketInfo_B { get; set; } = new List<SocketProductInfo>();
+        public List<EEpromSocketProductInfo>[] EEpromSocketInfo { get; set; }
+        public EEpromSocketProduct()
+        {
+            EEpromSocketInfo = new List<EEpromSocketProductInfo>[4];
+            for (int i = 0; i < 4; i++)
+            {
+                EEpromSocketInfo[i] = new List<EEpromSocketProductInfo>();
+            }
+        }
     }
+    public class FwSocketProduct
+    {
+        public List<FwSocketProductInfo>[] FwSocketInfo { get; set; }
+        public FwSocketProduct()
+        {
+            FwSocketInfo = new List<FwSocketProductInfo>[4];
+            for (int i = 0; i < 4; i++)
+            {
+                FwSocketInfo[i] = new List<FwSocketProductInfo>();
+            }
+        }
+    }
+
+
     public class SocketProduct//FwSocketProduct
     {
         public List<SocketProductInfo> SocketInfo_A { get; set; } = new List<SocketProductInfo>();      //aoi , eeprom

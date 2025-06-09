@@ -18,7 +18,8 @@ namespace ZenHandler.Machine
         public const string teachingPath = "Teach_FwSocket.yaml";
         public const string taskPath = "Task_FwSocket.yaml";
         //public Data.TeachingConfig teachingConfig = new Data.TeachingConfig();
-        public SocketProduct socketProduct = new SocketProduct();
+
+        public FwSocketProduct socketProduct = new FwSocketProduct();
 
         public int[] Tester_A_Result = { -1, -1, -1, -1 };
         public int[] Tester_B_Result = { -1, -1, -1, -1 };
@@ -31,39 +32,50 @@ namespace ZenHandler.Machine
             this.MachineName = this.GetType().Name;
 
 
-            socketProduct = Data.TaskDataYaml.TaskLoad_Socket(taskPath);
-            if (socketProduct.SocketInfo_A.Count < 1)
+            socketProduct = Data.TaskDataYaml.TaskLoad_FwSocket(taskPath);
+            for (i = 0; i < 4; i++)
             {
-                socketProduct.SocketInfo_A.Add(new SocketProductInfo());
-                socketProduct.SocketInfo_A.Add(new SocketProductInfo());
-                socketProduct.SocketInfo_A.Add(new SocketProductInfo());
-                socketProduct.SocketInfo_A.Add(new SocketProductInfo());
+                if (socketProduct.FwSocketInfo[i].Count < 1)
+                {
+                    socketProduct.FwSocketInfo[i].Add(new FwSocketProductInfo());
+                    socketProduct.FwSocketInfo[i].Add(new FwSocketProductInfo());
+                    socketProduct.FwSocketInfo[i].Add(new FwSocketProductInfo());
+                    socketProduct.FwSocketInfo[i].Add(new FwSocketProductInfo());
+                }
             }
-            if (socketProduct.SocketInfo_B.Count < 1)
-            {
-                socketProduct.SocketInfo_B.Add(new SocketProductInfo());
-                socketProduct.SocketInfo_B.Add(new SocketProductInfo());
-                socketProduct.SocketInfo_B.Add(new SocketProductInfo());
-                socketProduct.SocketInfo_B.Add(new SocketProductInfo());
-            }
-            if (socketProduct.SocketInfo_C.Count < 1)
-            {
-                socketProduct.SocketInfo_C.Add(new SocketProductInfo());
-                socketProduct.SocketInfo_C.Add(new SocketProductInfo());
-                socketProduct.SocketInfo_C.Add(new SocketProductInfo());
-                socketProduct.SocketInfo_C.Add(new SocketProductInfo());
-            }
-            if (socketProduct.SocketInfo_D.Count < 1)
-            {
-                socketProduct.SocketInfo_D.Add(new SocketProductInfo());
-                socketProduct.SocketInfo_D.Add(new SocketProductInfo());
-                socketProduct.SocketInfo_D.Add(new SocketProductInfo());
-                socketProduct.SocketInfo_D.Add(new SocketProductInfo());
-            }
+
+            //if (socketProduct.SocketInfo_A.Count < 1)
+            //{
+            //    socketProduct.SocketInfo_A.Add(new SocketProductInfo());
+            //    socketProduct.SocketInfo_A.Add(new SocketProductInfo());
+            //    socketProduct.SocketInfo_A.Add(new SocketProductInfo());
+            //    socketProduct.SocketInfo_A.Add(new SocketProductInfo());
+            //}
+            //if (socketProduct.SocketInfo_B.Count < 1)
+            //{
+            //    socketProduct.SocketInfo_B.Add(new SocketProductInfo());
+            //    socketProduct.SocketInfo_B.Add(new SocketProductInfo());
+            //    socketProduct.SocketInfo_B.Add(new SocketProductInfo());
+            //    socketProduct.SocketInfo_B.Add(new SocketProductInfo());
+            //}
+            //if (socketProduct.SocketInfo_C.Count < 1)
+            //{
+            //    socketProduct.SocketInfo_C.Add(new SocketProductInfo());
+            //    socketProduct.SocketInfo_C.Add(new SocketProductInfo());
+            //    socketProduct.SocketInfo_C.Add(new SocketProductInfo());
+            //    socketProduct.SocketInfo_C.Add(new SocketProductInfo());
+            //}
+            //if (socketProduct.SocketInfo_D.Count < 1)
+            //{
+            //    socketProduct.SocketInfo_D.Add(new SocketProductInfo());
+            //    socketProduct.SocketInfo_D.Add(new SocketProductInfo());
+            //    socketProduct.SocketInfo_D.Add(new SocketProductInfo());
+            //    socketProduct.SocketInfo_D.Add(new SocketProductInfo());
+            //}
         }
         public override bool TaskSave()
         {
-            bool rtn = Data.TaskDataYaml.TaskSave_Socket(socketProduct, taskPath);
+            bool rtn = Data.TaskDataYaml.TaskSave_FwSocket(socketProduct, taskPath);
             return rtn;
         }
         public override void MotorDataSet()

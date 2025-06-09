@@ -103,7 +103,9 @@ namespace ZenHandler.Dlg
 
             }
             Label stateLabel = new Label();
-            Machine.SocketProductState sState = new Machine.SocketProductState();
+            //Machine.SocketProductState sState = new Machine.SocketProductState();
+            Machine.EEpromProductState sEEpState = new Machine.EEpromProductState();
+            Machine.FwProductState sFwState = new Machine.FwProductState();
             Machine.AoiSocketProductState sAoiState = new Machine.AoiSocketProductState();
 
             for (i = 0; i < SocketRow; i++)
@@ -128,14 +130,14 @@ namespace ZenHandler.Dlg
                         if (i == 0)
                         {
                             stateLabel = AsplitContainers[j].Panel2.Controls["ASocketState" + (j + 1)] as Label;
-                            stateLabel.Text = Globalo.motionManager.socketEEpromMachine.socketProduct.SocketInfo_A[j].State.ToString();
-                            sState = Globalo.motionManager.socketEEpromMachine.socketProduct.SocketInfo_A[j].State;
+                            stateLabel.Text = Globalo.motionManager.socketEEpromMachine.socketProduct.EEpromSocketInfo[0][j].State.ToString();
+                            sEEpState = Globalo.motionManager.socketEEpromMachine.socketProduct.EEpromSocketInfo[0][j].State;
                         }
                         else if (i == 1)
                         {
                             stateLabel = BsplitContainers[j].Panel2.Controls["BSocketState" + (j + 1)] as Label;
-                            stateLabel.Text = Globalo.motionManager.socketEEpromMachine.socketProduct.SocketInfo_B[j].State.ToString();
-                            sState = Globalo.motionManager.socketEEpromMachine.socketProduct.SocketInfo_B[j].State;
+                            stateLabel.Text = Globalo.motionManager.socketEEpromMachine.socketProduct.EEpromSocketInfo[1][j].State.ToString();
+                            sEEpState = Globalo.motionManager.socketEEpromMachine.socketProduct.EEpromSocketInfo[1][j].State;
                         }
                     }
                     if (Program.PG_SELECT == HANDLER_PG.FW)
@@ -143,26 +145,26 @@ namespace ZenHandler.Dlg
                         if (i == 0)
                         {
                             stateLabel = AsplitContainers[j].Panel2.Controls["ASocketState" + (j + 1)] as Label;
-                            stateLabel.Text = Globalo.motionManager.socketFwMachine.socketProduct.SocketInfo_A[j].State.ToString();
-                            sState = Globalo.motionManager.socketFwMachine.socketProduct.SocketInfo_A[j].State;
+                            stateLabel.Text = Globalo.motionManager.socketFwMachine.socketProduct.FwSocketInfo[0][j].State.ToString();
+                            sFwState = Globalo.motionManager.socketFwMachine.socketProduct.FwSocketInfo[0][j].State;
                         }
                         else if (i == 1)
                         {
                             stateLabel = BsplitContainers[j].Panel2.Controls["BSocketState" + (j + 1)] as Label;
-                            stateLabel.Text = Globalo.motionManager.socketFwMachine.socketProduct.SocketInfo_B[j].State.ToString();
-                            sState = Globalo.motionManager.socketFwMachine.socketProduct.SocketInfo_B[j].State;
+                            stateLabel.Text = Globalo.motionManager.socketFwMachine.socketProduct.FwSocketInfo[1][j].State.ToString();
+                            sFwState = Globalo.motionManager.socketFwMachine.socketProduct.FwSocketInfo[1][j].State;
                         }
                         else if (i == 2)
                         {
                             stateLabel = CsplitContainers[j].Panel2.Controls["CSocketState" + (j + 1)] as Label;
-                            stateLabel.Text = Globalo.motionManager.socketFwMachine.socketProduct.SocketInfo_C[j].State.ToString();
-                            sState = Globalo.motionManager.socketFwMachine.socketProduct.SocketInfo_C[j].State;
+                            stateLabel.Text = Globalo.motionManager.socketFwMachine.socketProduct.FwSocketInfo[2][j].State.ToString();
+                            sFwState = Globalo.motionManager.socketFwMachine.socketProduct.FwSocketInfo[2][j].State;
                         }
                         else if (i == 3)
                         {
                             stateLabel = DsplitContainers[j].Panel2.Controls["DSocketState" + (j + 1)] as Label;
-                            stateLabel.Text = Globalo.motionManager.socketFwMachine.socketProduct.SocketInfo_D[j].State.ToString();
-                            sState = Globalo.motionManager.socketFwMachine.socketProduct.SocketInfo_D[j].State;
+                            stateLabel.Text = Globalo.motionManager.socketFwMachine.socketProduct.FwSocketInfo[3][j].State.ToString();
+                            sFwState = Globalo.motionManager.socketFwMachine.socketProduct.FwSocketInfo[3][j].State;
                         }
                     }
 
@@ -187,16 +189,31 @@ namespace ZenHandler.Dlg
                     }
                     else if (Program.PG_SELECT == HANDLER_PG.EEPROM)
                     {
-
-                    }
-                    else
-                    {
-                        if (sState == Machine.SocketProductState.Good)
+                        if (sEEpState == Machine.EEpromProductState.Good)
                         {
                             stateLabel.BackColor = Color.Green;
                             stateLabel.ForeColor = Color.Yellow;
                         }
-                        else if (sState == Machine.SocketProductState.NG)
+                        else if (sEEpState == Machine.EEpromProductState.NG)
+                        {
+                            stateLabel.BackColor = Color.Red;
+                            stateLabel.ForeColor = Color.Black;
+                        }
+                        else
+                        {
+                            stateLabel.BackColor = Color.White;
+                            stateLabel.ForeColor = Color.Black;
+                        }
+                        
+                    }
+                    else
+                    {
+                        if (sFwState == Machine.FwProductState.Good)
+                        {
+                            stateLabel.BackColor = Color.Green;
+                            stateLabel.ForeColor = Color.Yellow;
+                        }
+                        else if (sFwState == Machine.FwProductState.NG)
                         {
                             stateLabel.BackColor = Color.Red;
                             stateLabel.ForeColor = Color.Black;

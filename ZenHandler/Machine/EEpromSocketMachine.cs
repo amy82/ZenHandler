@@ -51,7 +51,7 @@ namespace ZenHandler.Machine
         public const string taskPath = "Task_EEpromSocket.yaml";
         public Data.TeachingConfig teachingConfig = new Data.TeachingConfig();
 
-        public SocketProduct socketProduct = new SocketProduct();
+        public EEpromSocketProduct socketProduct = new EEpromSocketProduct();
         //Tester Pc와 검사 결과 확인
         public int[] Tester_A_Result = { -1, -1, -1, -1 };
         public int[] Tester_B_Result = { -1, -1, -1, -1 };
@@ -84,27 +84,37 @@ namespace ZenHandler.Machine
                 }
             }
 
-            socketProduct = Data.TaskDataYaml.TaskLoad_Socket(taskPath);
-            if (socketProduct.SocketInfo_A.Count < 1)
+            socketProduct = Data.TaskDataYaml.TaskLoad_EEpSocket(taskPath);
+            for (i = 0; i < 4; i++)
             {
-                socketProduct.SocketInfo_A.Add(new SocketProductInfo());
-                socketProduct.SocketInfo_A.Add(new SocketProductInfo());
-                socketProduct.SocketInfo_A.Add(new SocketProductInfo());
-                socketProduct.SocketInfo_A.Add(new SocketProductInfo());
+                if (socketProduct.EEpromSocketInfo[i].Count < 1)
+                {
+                    socketProduct.EEpromSocketInfo[i].Add(new EEpromSocketProductInfo());
+                    socketProduct.EEpromSocketInfo[i].Add(new EEpromSocketProductInfo());
+                    socketProduct.EEpromSocketInfo[i].Add(new EEpromSocketProductInfo());
+                    socketProduct.EEpromSocketInfo[i].Add(new EEpromSocketProductInfo());
+                }
             }
-            if (socketProduct.SocketInfo_B.Count < 1)
-            {
-                socketProduct.SocketInfo_B.Add(new SocketProductInfo());
-                socketProduct.SocketInfo_B.Add(new SocketProductInfo());
-                socketProduct.SocketInfo_B.Add(new SocketProductInfo());
-                socketProduct.SocketInfo_B.Add(new SocketProductInfo());
-            }
+            //if (socketProduct.SocketInfo_A.Count < 1)
+            //{
+            //    socketProduct.SocketInfo_A.Add(new SocketProductInfo());
+            //    socketProduct.SocketInfo_A.Add(new SocketProductInfo());
+            //    socketProduct.SocketInfo_A.Add(new SocketProductInfo());
+            //    socketProduct.SocketInfo_A.Add(new SocketProductInfo());
+            //}
+            //if (socketProduct.SocketInfo_B.Count < 1)
+            //{
+            //    socketProduct.SocketInfo_B.Add(new SocketProductInfo());
+            //    socketProduct.SocketInfo_B.Add(new SocketProductInfo());
+            //    socketProduct.SocketInfo_B.Add(new SocketProductInfo());
+            //    socketProduct.SocketInfo_B.Add(new SocketProductInfo());
+            //}
 
-            
+
         }
         public override bool TaskSave()
         {
-            bool rtn = Data.TaskDataYaml.TaskSave_Socket(socketProduct, taskPath);
+            bool rtn = Data.TaskDataYaml.TaskSave_EEpSocket(socketProduct, taskPath);
             return rtn;
         }
         public void RaiseProductCall(MotionControl.SocketReqArgs nReq)   //int[] nReq)

@@ -27,6 +27,10 @@ namespace ZenHandler.Dlg
 
         public List<List<Machine.SocketProductInfo>> tempSocket { get; set; } = new List<List<Machine.SocketProductInfo>>(4);
 
+        public List<List<Machine.AoiSocketProductInfo>> AoitempSocket { get; set; } = new List<List<Machine.AoiSocketProductInfo>>(2);
+        public List<List<Machine.EEpromSocketProductInfo>> EEptempSocket { get; set; } = new List<List<Machine.EEpromSocketProductInfo>>(2);
+        public List<List<Machine.FwSocketProductInfo>> FwtempSocket { get; set; } = new List<List<Machine.FwSocketProductInfo>>(4);
+
         private int SocketStateRow = 2;
         private int socketStateCol = 4;
         public Config_Task()
@@ -38,12 +42,16 @@ namespace ZenHandler.Dlg
             if (Program.PG_SELECT == HANDLER_PG.FW)
             {
                 SocketStateRow = 4;
+
             }
             else
             {
-
+                SocketStateRow = 2;
             }
-
+            if (Program.PG_SELECT == HANDLER_PG.AOI)
+            {
+                socketStateCol = 2;
+            }
 
             LoadLabel = new Label[] { label_ConfigTask_Load_P1, label_ConfigTask_Load_P2, label_ConfigTask_Load_P3, label_ConfigTask_Load_P4 };
             UnloadLabel = new Label[] { label_ConfigTask_Unload_P1, label_ConfigTask_Unload_P2, label_ConfigTask_Unload_P3, label_ConfigTask_Unload_P4 };
@@ -58,6 +66,9 @@ namespace ZenHandler.Dlg
             for (i = 0; i < SocketStateRow; i++)
             {
                 tempSocket.Add(new List<Machine.SocketProductInfo>());
+                AoitempSocket.Add(new List<Machine.AoiSocketProductInfo>());
+                EEptempSocket.Add(new List<Machine.EEpromSocketProductInfo>());
+                FwtempSocket.Add(new List<Machine.FwSocketProductInfo>());
             }
 
             if (Program.PG_SELECT != HANDLER_PG.FW)
@@ -153,23 +164,27 @@ namespace ZenHandler.Dlg
             {
                 for (j = 0; j < socketStateCol; j++)
                 {
-                    SocketLabel[i,j].Text = tempSocket[i][j].State.ToString();
+                    if (Program.PG_SELECT == HANDLER_PG.FW)
+                    {
+                        SocketLabel[i, j].Text = FwtempSocket[i][j].State.ToString();
 
-                    if (tempSocket[i][j].State == Machine.SocketProductState.Good)
-                    {
-                        SocketLabel[i,j].BackColor = Color.Green; 
-                        SocketLabel[i, j].ForeColor = Color.GreenYellow;
+                        if (FwtempSocket[i][j].State == Machine.FwProductState.Good)
+                        {
+                            SocketLabel[i, j].BackColor = Color.Green;
+                            SocketLabel[i, j].ForeColor = Color.GreenYellow;
+                        }
+                        else if (FwtempSocket[i][j].State == Machine.FwProductState.NG)
+                        {
+                            SocketLabel[i, j].BackColor = Color.Red;
+                            SocketLabel[i, j].ForeColor = Color.White;
+                        }
+                        else
+                        {
+                            SocketLabel[i, j].BackColor = Color.White;
+                            SocketLabel[i, j].ForeColor = Color.Black;
+                        }
                     }
-                    else if (tempSocket[i][j].State == Machine.SocketProductState.NG)
-                    {
-                        SocketLabel[i, j].BackColor = Color.Red;
-                        SocketLabel[i, j].ForeColor = Color.White;
-                    }
-                    else
-                    {
-                        SocketLabel[i,j].BackColor = Color.White;
-                        SocketLabel[i, j].ForeColor = Color.Black;
-                    }
+                        
                 }
             }
         }
@@ -179,8 +194,10 @@ namespace ZenHandler.Dlg
 
             hopeCheckBox_PinCountUse.Checked = Globalo.yamlManager.configData.DrivingSettings.PinCountUse;
             Btn_ConfigTask_Driving_Mode.Text = Globalo.yamlManager.configData.DrivingSettings.drivingMode.ToString();
+
             tempLoadInfo.Clear();
             tempUnloadInfo.Clear();
+
             tempLoadInfo.Add(Globalo.motionManager.transferMachine.pickedProduct.LoadProductInfo[0].Clone());
             tempLoadInfo.Add(Globalo.motionManager.transferMachine.pickedProduct.LoadProductInfo[1].Clone());
             tempLoadInfo.Add(Globalo.motionManager.transferMachine.pickedProduct.LoadProductInfo[2].Clone());
@@ -194,25 +211,56 @@ namespace ZenHandler.Dlg
             for (i = 0; i < SocketStateRow; i++)
             {
                 tempSocket[i].Clear();
+                AoitempSocket[i].Clear();
+                EEptempSocket[i].Clear();
+                FwtempSocket[i].Clear();
+            }
+
+            
+            if (Program.PG_SELECT == HANDLER_PG.AOI)
+            {
+                foreach (var item in Globalo.motionManager.socketAoiMachine.socketProduct.AoiSocketInfo[0])
+                {
+                    AoitempSocket[0].Add(item.Clone());
+                }
+                foreach (var item in Globalo.motionManager.socketAoiMachine.socketProduct.AoiSocketInfo[1])
+                {
+                    AoitempSocket[1].Add(item.Clone());
+                }
+            }
+            if (Program.PG_SELECT == HANDLER_PG.EEPROM)
+            {
+                foreach (var item in Globalo.motionManager.socketEEpromMachine.socketProduct.EEpromSocketInfo[0])
+                {
+                    EEptempSocket[0].Add(item.Clone());
+                }
+                foreach (var item in Globalo.motionManager.socketEEpromMachine.socketProduct.EEpromSocketInfo[1])
+                {
+                    EEptempSocket[1].Add(item.Clone());
+                }
+            }
+            if (Program.PG_SELECT == HANDLER_PG.AOI)
+            {
+
             }
             
-            foreach (var item in Globalo.motionManager.socketEEpromMachine.socketProduct.SocketInfo_A)
-            {
-                tempSocket[0].Add(item.Clone());
-            }
-            foreach (var item in Globalo.motionManager.socketEEpromMachine.socketProduct.SocketInfo_B)
-            {
-                tempSocket[1].Add(item.Clone());
-            }
             if (Program.PG_SELECT == HANDLER_PG.FW)
             {
-                foreach (var item in Globalo.motionManager.socketEEpromMachine.socketProduct.SocketInfo_C)
+                foreach (var item in Globalo.motionManager.socketFwMachine.socketProduct.FwSocketInfo[0])
                 {
-                    tempSocket[2].Add(item.Clone());
+                    FwtempSocket[0].Add(item.Clone());
                 }
-                foreach (var item in Globalo.motionManager.socketEEpromMachine.socketProduct.SocketInfo_D)
+                foreach (var item in Globalo.motionManager.socketFwMachine.socketProduct.FwSocketInfo[1])
                 {
-                    tempSocket[3].Add(item.Clone());
+                    FwtempSocket[1].Add(item.Clone());
+                }
+                foreach (var item in Globalo.motionManager.socketFwMachine.socketProduct.FwSocketInfo[2])
+                {
+                    FwtempSocket[2].Add(item.Clone());
+                }
+                foreach (var item in Globalo.motionManager.socketFwMachine.socketProduct.FwSocketInfo[3])
+                {
+                    FwtempSocket[3].Add(item.Clone());
                 }
             }
             
@@ -372,48 +420,51 @@ namespace ZenHandler.Dlg
             }
             for (i = 0; i < SocketStateRow; i++)
             {
-                for (j = 0; j < 4; j++)
+                for (j = 0; j < socketStateCol; j++)
                 {
-                    if (Enum.TryParse(SocketLabel[i, j].Text, out Machine.SocketProductState LoadState))
+                    if (Program.PG_SELECT == HANDLER_PG.FW)
                     {
-                        if (i == 0)
+                        if (Enum.TryParse(SocketLabel[i, j].Text, out Machine.FwProductState LoadState))
                         {
-                            Globalo.motionManager.socketEEpromMachine.socketProduct.SocketInfo_A[j].State = LoadState;
-                        }
-                        if (i == 1)
-                        {
-                            Globalo.motionManager.socketEEpromMachine.socketProduct.SocketInfo_B[j].State = LoadState;
-                        }
-                        if (i == 2)
-                        {
-                            Globalo.motionManager.socketEEpromMachine.socketProduct.SocketInfo_C[j].State = LoadState;
-                        }
-                        if (i == 3)
-                        {
-                            Globalo.motionManager.socketEEpromMachine.socketProduct.SocketInfo_D[j].State = LoadState;
-                        }
+                            Globalo.motionManager.socketFwMachine.socketProduct.FwSocketInfo[i][j].State = LoadState;
 
+                        }
+                        else
+                        {
+                            // 예외 처리 또는 기본값 설정
+                            Globalo.motionManager.socketFwMachine.socketProduct.FwSocketInfo[i][j].State = Machine.FwProductState.Blank;
+                            
+                        }
                     }
-                    else
+                    if (Program.PG_SELECT == HANDLER_PG.EEPROM)
                     {
-                        // 예외 처리 또는 기본값 설정
-                        if (i == 0)
+                        if (Enum.TryParse(SocketLabel[i, j].Text, out Machine.EEpromProductState LoadState))
                         {
-                            Globalo.motionManager.socketEEpromMachine.socketProduct.SocketInfo_A[j].State = Machine.SocketProductState.Blank;
+                            Globalo.motionManager.socketEEpromMachine.socketProduct.EEpromSocketInfo[i][j].State = LoadState;
+
                         }
-                        if (i == 1)
+                        else
                         {
-                            Globalo.motionManager.socketEEpromMachine.socketProduct.SocketInfo_B[j].State = Machine.SocketProductState.Blank;
-                        }
-                        if (i == 2)
-                        {
-                            Globalo.motionManager.socketEEpromMachine.socketProduct.SocketInfo_C[j].State = Machine.SocketProductState.Blank;
-                        }
-                        if (i == 3)
-                        {
-                            Globalo.motionManager.socketEEpromMachine.socketProduct.SocketInfo_D[j].State = Machine.SocketProductState.Blank;
+                            // 예외 처리 또는 기본값 설정
+                            Globalo.motionManager.socketEEpromMachine.socketProduct.EEpromSocketInfo[i][j].State = Machine.EEpromProductState.Blank;
+                           
                         }
                     }
+                    if (Program.PG_SELECT == HANDLER_PG.AOI)
+                    {
+                        if (Enum.TryParse(SocketLabel[i, j].Text, out Machine.AoiSocketProductState LoadState))
+                        {
+                            Globalo.motionManager.socketAoiMachine.socketProduct.AoiSocketInfo[i][j].State = LoadState;
+
+                        }
+                        else
+                        {
+                            // 예외 처리 또는 기본값 설정
+                            Globalo.motionManager.socketAoiMachine.socketProduct.AoiSocketInfo[i][j].State = Machine.AoiSocketProductState.Blank;
+
+                        }
+                    }
+                    
                 }
             }
 
@@ -935,7 +986,7 @@ namespace ZenHandler.Dlg
 
             var values = (Machine.SocketProductState[])Enum.GetValues(typeof(Machine.SocketProductState));
             int maxCount = values.Length;
-            int currentIndex = 0;// Array.IndexOf(values, tempSocketA[index].State);
+            int currentIndex = 0;       // Array.IndexOf(values, tempSocketA[index].State);
 
             currentIndex = Array.IndexOf(values, tempSocket[Group][index].State);
             if (currentIndex < maxCount - 1)

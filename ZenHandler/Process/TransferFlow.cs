@@ -563,6 +563,8 @@ namespace ZenHandler.Process
                    
                     break;
                 case 4180:
+
+
                     nRetStep = 4200;
                     break;
                 case 4200:
@@ -1034,6 +1036,7 @@ namespace ZenHandler.Process
                 case 4760:
                     nRetStep = 4780;
                     break;
+
                 case 4780:
                     //Z 축 대기 위치이동
                     bRtn = Globalo.motionManager.transferMachine.TransFer_Z_Move(Machine.TransferMachine.eTeachingPosList.WAIT_POS);
@@ -1050,6 +1053,7 @@ namespace ZenHandler.Process
                     nTimeTick = Environment.TickCount;
                     nRetStep = 4800;
                     break;
+
                 case 4800:
                     //Z 축 대기 위치이동 확인
                     if (Globalo.motionManager.transferMachine.MotorAxes[(int)Machine.eTransfer.TRANSFER_Z].GetStopAxis() == true &&
@@ -1067,17 +1071,20 @@ namespace ZenHandler.Process
                         nRetStep *= -1;
                         break;
                     }
-                    
                     break;
+
                 case 4820:
                     nRetStep = 4840;
                     break;
+
                 case 4840:
                     nRetStep = 4860;
                     break;
+
                 case 4860:
                     nRetStep = 4900;
                     break;
+
                 case 4900:
                     int NextLoadX = Globalo.motionManager.transferMachine.pickedProduct.LoadTrayPos.X;  //0 -> 1 -> 2 -> 3   1씩 더해진 상황
 
@@ -1088,6 +1095,7 @@ namespace ZenHandler.Process
                         nRetStep *= -1;
                         break;
                     }
+
                     //피커 4개가 다 로드해야 , 한줄씩은다 로드하고 완료
                     //aoi는 2개
                     //4개 모두다 확인해야된다.
@@ -1104,7 +1112,8 @@ namespace ZenHandler.Process
                             break;
                         }
                     }
-                    LoadPosx = Globalo.motionManager.transferMachine.pickedProduct.LoadTrayPos.X;
+
+                    
 
                     if (ChkBlank == true)
                     {
@@ -1123,6 +1132,7 @@ namespace ZenHandler.Process
                             }
                         }
 
+                        LoadPosx = Globalo.motionManager.transferMachine.pickedProduct.LoadTrayPos.X;
                         if (nRetStep == 4000)
                         {
                             Console.WriteLine("Bcr Next Index : {LoadPosx}");
@@ -1138,6 +1148,7 @@ namespace ZenHandler.Process
                     }
                     break;
             }
+
             return nRetStep;
         }
         #endregion
@@ -2052,7 +2063,7 @@ namespace ZenHandler.Process
                     
                     break;
                 case 2140:
-
+                    bRtn = Globalo.motionManager.transferMachine.TransFer_XY_Move(Machine.TransferMachine.eTeachingPosList.WAIT_POS);
                     if (bRtn == false)
                     {
                         szLog = $"[READY] TRANSFER XY WAIT_POS MOVE FAIL [STEP : {nStep}]";

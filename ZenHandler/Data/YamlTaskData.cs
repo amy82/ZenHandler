@@ -315,7 +315,93 @@ namespace ZenHandler.Data
                 return new Machine.SocketProduct();
             }
         }
+        //
+        //fw
+        //
+        public static bool TaskSave_FwSocket(Machine.FwSocketProduct data, string fileName)
+        {
+            string filePath = Path.Combine(CPath.BASE_ENV_PATH, fileName);       //LOT DATA
+            try
+            {
+                Data.YamlManager.SaveYaml(filePath, data);
+                return true;
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine($"Error TaskSave EEpSocket: {ex.Message}");
+                return false;
+            }
 
+        }
+        public static Machine.FwSocketProduct TaskLoad_FwSocket(string fileName)
+        {
+            string filePath = Path.Combine(CPath.BASE_ENV_PATH, fileName);       //TRAY DATA
+            try
+            {
+                if (!File.Exists(filePath))
+                {
+                    return new Machine.FwSocketProduct();
+                }
+
+
+                Machine.FwSocketProduct data = Data.YamlManager.LoadYaml<Machine.FwSocketProduct>(filePath);
+                if (data == null)
+                {
+
+                    return new Machine.FwSocketProduct();
+                }
+                return data;
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine($"Error loading TaskLoad FwSocket: {ex.Message}");
+                return new Machine.FwSocketProduct();
+            }
+        }
+
+        //
+        //eeprom
+        //
+        public static bool TaskSave_EEpSocket(Machine.EEpromSocketProduct data, string fileName)
+        {
+            string filePath = Path.Combine(CPath.BASE_ENV_PATH, fileName);       //LOT DATA
+            try
+            {
+                Data.YamlManager.SaveYaml(filePath, data);
+                return true;
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine($"Error TaskSave EEpSocket: {ex.Message}");
+                return false;
+            }
+
+        }
+        public static Machine.EEpromSocketProduct TaskLoad_EEpSocket(string fileName)
+        {
+            string filePath = Path.Combine(CPath.BASE_ENV_PATH, fileName);       //TRAY DATA
+            try
+            {
+                if (!File.Exists(filePath))
+                {
+                    return new Machine.EEpromSocketProduct();
+                }
+
+
+                Machine.EEpromSocketProduct data = Data.YamlManager.LoadYaml<Machine.EEpromSocketProduct>(filePath);
+                if (data == null)
+                {
+
+                    return new Machine.EEpromSocketProduct();
+                }
+                return data;
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine($"Error loading TaskLoad EEpromSocket: {ex.Message}");
+                return new Machine.EEpromSocketProduct();
+            }
+        }
         //
         //  Aoi
         //

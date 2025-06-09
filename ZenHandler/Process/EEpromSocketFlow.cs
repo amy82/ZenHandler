@@ -275,11 +275,11 @@ namespace ZenHandler.Process
                                     //공급했는 소켓인데 제품이 없으면 알람
                                     Console.WriteLine($"#{i+1} Socket Product Empty err");
                                     bErrChk = true;
-                                    Globalo.motionManager.socketEEpromMachine.socketProduct.SocketInfo_A[i].State = Machine.SocketProductState.Blank;
+                                    Globalo.motionManager.socketEEpromMachine.socketProduct.EEpromSocketInfo[0][i].State = Machine.EEpromProductState.Blank;
                                 }
                                 else
                                 {
-                                    Globalo.motionManager.socketEEpromMachine.socketProduct.SocketInfo_A[i].State = Machine.SocketProductState.Writing;
+                                    Globalo.motionManager.socketEEpromMachine.socketProduct.EEpromSocketInfo[0][i].State = Machine.EEpromProductState.Writing;
                                 }
                             }
                         }
@@ -406,12 +406,12 @@ namespace ZenHandler.Process
                         FlowSocketState[sNum].States[i] = 1;
                         if (Globalo.motionManager.socketEEpromMachine.GetIsProductInSocket(sNum, i, true) == true)
                         {
-                            if (Globalo.motionManager.socketEEpromMachine.socketProduct.SocketInfo_A[i].State == Machine.SocketProductState.Good)
+                            if (Globalo.motionManager.socketEEpromMachine.socketProduct.EEpromSocketInfo[0][i].State == Machine.EEpromProductState.Good)
                             {
                                 //socketStateA[i] = 2;
                                 FlowSocketState[sNum].States[i] = 2;
                             }
-                            if (Globalo.motionManager.socketEEpromMachine.socketProduct.SocketInfo_A[i].State == Machine.SocketProductState.NG)
+                            if (Globalo.motionManager.socketEEpromMachine.socketProduct.EEpromSocketInfo[0][i].State == Machine.EEpromProductState.NG)
                             {
                                 //socketStateA[i] = 3;
                                 FlowSocketState[sNum].States[i] = 3;
@@ -448,7 +448,7 @@ namespace ZenHandler.Process
                                     Console.WriteLine($"#{i + 1} Socket Product Unload Fail");
                                     bErrChk = true;
                                 }
-                                Globalo.motionManager.socketEEpromMachine.socketProduct.SocketInfo_A[i].State = Machine.SocketProductState.Blank;
+                                Globalo.motionManager.socketEEpromMachine.socketProduct.EEpromSocketInfo[0][i].State = Machine.EEpromProductState.Blank;
                             }
                         }
                         if (bErrChk)
@@ -1081,11 +1081,11 @@ namespace ZenHandler.Process
                                     //공급했는 소켓인데 제품이 없으면 알람
                                     Console.WriteLine($"#{i + 1} Socket Product Empty err");
                                     bErrChk = true;
-                                    Globalo.motionManager.socketEEpromMachine.socketProduct.SocketInfo_B[i].State = Machine.SocketProductState.Blank;
+                                    Globalo.motionManager.socketEEpromMachine.socketProduct.EEpromSocketInfo[1][i].State = Machine.EEpromProductState.Blank;
                                 }
                                 else
                                 {
-                                    Globalo.motionManager.socketEEpromMachine.socketProduct.SocketInfo_B[i].State = Machine.SocketProductState.Writing;
+                                    Globalo.motionManager.socketEEpromMachine.socketProduct.EEpromSocketInfo[1][i].State = Machine.EEpromProductState.Writing;
                                 }
                             }
                         }
@@ -1211,11 +1211,11 @@ namespace ZenHandler.Process
                         FlowSocketState[sNum].States[i] = 1;
                         if (Globalo.motionManager.socketEEpromMachine.GetIsProductInSocket(sNum, i, true) == true)
                         {
-                            if (Globalo.motionManager.socketEEpromMachine.socketProduct.SocketInfo_B[i].State == Machine.SocketProductState.Good)
+                            if (Globalo.motionManager.socketEEpromMachine.socketProduct.EEpromSocketInfo[1][i].State == Machine.EEpromProductState.Good)
                             {
                                 FlowSocketState[sNum].States[i] = 2;
                             }
-                            if (Globalo.motionManager.socketEEpromMachine.socketProduct.SocketInfo_B[i].State == Machine.SocketProductState.NG)
+                            if (Globalo.motionManager.socketEEpromMachine.socketProduct.EEpromSocketInfo[1][i].State == Machine.EEpromProductState.NG)
                             {
                                 FlowSocketState[sNum].States[i] = 3;
                             }
@@ -1251,7 +1251,7 @@ namespace ZenHandler.Process
                                     Console.WriteLine($"#{i + 1} Socket Product Unload Fail");
                                     bErrChk = true;
                                 }
-                                Globalo.motionManager.socketEEpromMachine.socketProduct.SocketInfo_B[i].State = Machine.SocketProductState.Blank;
+                                Globalo.motionManager.socketEEpromMachine.socketProduct.EEpromSocketInfo[1][i].State = Machine.EEpromProductState.Blank;
                             }
                         }
                         if (bErrChk)
@@ -1776,7 +1776,7 @@ namespace ZenHandler.Process
                         //
                         //
                         //-----------------------------------------------------------------------------------------------------------------------------------
-                        FlowSocketState[0].States = RtnSocketState(0, Globalo.motionManager.socketEEpromMachine.socketProduct.SocketInfo_A);
+                        FlowSocketState[0].States = RtnSocketState(0, Globalo.motionManager.socketEEpromMachine.socketProduct.EEpromSocketInfo[0]);
                         //
                         //
                         bool containsWrite3 = Array.Exists(FlowSocketState[0].States, state => state == 3);
@@ -1841,7 +1841,7 @@ namespace ZenHandler.Process
                         //
                         //
                         //-----------------------------------------------------------------------------------------------------------------------------------
-                        FlowSocketState[1].States = RtnSocketState(1, Globalo.motionManager.socketEEpromMachine.socketProduct.SocketInfo_B);
+                        FlowSocketState[1].States = RtnSocketState(1, Globalo.motionManager.socketEEpromMachine.socketProduct.EEpromSocketInfo[1]);
                         //
                         //
                         bool containsWrite3 = Array.Exists(FlowSocketState[1].States, state => state == 3);
@@ -2145,15 +2145,15 @@ namespace ZenHandler.Process
                             {
                                 if (Globalo.motionManager.socketEEpromMachine.Tester_A_Result[i] == 1)  //1 양품
                                 {
-                                    Globalo.motionManager.socketEEpromMachine.socketProduct.SocketInfo_A[i].State = Machine.SocketProductState.Verifying;
+                                    Globalo.motionManager.socketEEpromMachine.socketProduct.EEpromSocketInfo[0][i].State = Machine.EEpromProductState.Verifying;
                                 }
                                 else if (Globalo.motionManager.socketEEpromMachine.Tester_A_Result[i] == 2)  //2 Ng
                                 {
-                                    Globalo.motionManager.socketEEpromMachine.socketProduct.SocketInfo_A[i].State = Machine.SocketProductState.NG;
+                                    Globalo.motionManager.socketEEpromMachine.socketProduct.EEpromSocketInfo[0][i].State = Machine.EEpromProductState.NG;
                                 }
                                 else
                                 {
-                                    Globalo.motionManager.socketEEpromMachine.socketProduct.SocketInfo_A[i].State = Machine.SocketProductState.Blank;
+                                    Globalo.motionManager.socketEEpromMachine.socketProduct.EEpromSocketInfo[0][i].State = Machine.EEpromProductState.Blank;
                                 }
                             }
                             //
@@ -2539,15 +2539,15 @@ namespace ZenHandler.Process
                             {
                                 if (Globalo.motionManager.socketEEpromMachine.Tester_B_Result[i] == 1)  //1 양품
                                 {
-                                    Globalo.motionManager.socketEEpromMachine.socketProduct.SocketInfo_A[i].State = Machine.SocketProductState.Good;
+                                    Globalo.motionManager.socketEEpromMachine.socketProduct.EEpromSocketInfo[0][i].State = Machine.EEpromProductState.Good;
                                 }
                                 else if (Globalo.motionManager.socketEEpromMachine.Tester_B_Result[i] == 2)  //2 Ng
                                 {
-                                    Globalo.motionManager.socketEEpromMachine.socketProduct.SocketInfo_A[i].State = Machine.SocketProductState.NG;
+                                    Globalo.motionManager.socketEEpromMachine.socketProduct.EEpromSocketInfo[0][i].State = Machine.EEpromProductState.NG;
                                 }
                                 else
                                 {
-                                    Globalo.motionManager.socketEEpromMachine.socketProduct.SocketInfo_A[i].State = Machine.SocketProductState.Blank;
+                                    Globalo.motionManager.socketEEpromMachine.socketProduct.EEpromSocketInfo[0][i].State = Machine.EEpromProductState.Blank;
                                 }
                             }
                             //
@@ -2977,7 +2977,7 @@ namespace ZenHandler.Process
                         {
                             szLog = $"[READY] BACK SOCKET {i+1} PRODUCT DETECTED [STEP : {nStep}]";
                             //제품 있는데 BLANK면 알람
-                            if(Globalo.motionManager.socketEEpromMachine.socketProduct.SocketInfo_A[i].State == Machine.SocketProductState.Blank)
+                            if(Globalo.motionManager.socketEEpromMachine.socketProduct.EEpromSocketInfo[0][i].State == Machine.EEpromProductState.Blank)
                             {
                                 szLog = $"[READY] X Socket #{i+1} Product status error [STEP : {nStep}]";
                                 Globalo.LogPrint("ManualControl", szLog);
@@ -2988,7 +2988,7 @@ namespace ZenHandler.Process
                         else
                         {
                             szLog = $"[READY] BACK SOCKET {i + 1} PRODUCT EMPTY [STEP : {nStep}]";
-                            Globalo.motionManager.socketEEpromMachine.socketProduct.SocketInfo_A[i].State = Machine.SocketProductState.Blank;
+                            Globalo.motionManager.socketEEpromMachine.socketProduct.EEpromSocketInfo[0][i].State = Machine.EEpromProductState.Blank;
                             //BLANK로 변경
                         }
                         Globalo.LogPrint("ManualControl", szLog);
@@ -3008,7 +3008,7 @@ namespace ZenHandler.Process
                         {
                             szLog = $"[READY] FRONT SOCKET {i + 1} PRODUCT DETECTED [STEP : {nStep}]";
                             //제품 있는데 BLANK면 알람
-                            if (Globalo.motionManager.socketEEpromMachine.socketProduct.SocketInfo_B[i].State == Machine.SocketProductState.Blank)
+                            if (Globalo.motionManager.socketEEpromMachine.socketProduct.EEpromSocketInfo[1][i].State == Machine.EEpromProductState.Blank)
                             {
                                 szLog = $"[READY] Yx Socket #{i + 1} Product status error [STEP : {nStep}]";
                                 Globalo.LogPrint("ManualControl", szLog);
@@ -3019,7 +3019,7 @@ namespace ZenHandler.Process
                         else
                         {
                             szLog = $"[READY] FRONT SOCKET {i + 1} PRODUCT EMPTY [STEP : {nStep}]";
-                            Globalo.motionManager.socketEEpromMachine.socketProduct.SocketInfo_B[i].State = Machine.SocketProductState.Blank;
+                            Globalo.motionManager.socketEEpromMachine.socketProduct.EEpromSocketInfo[1][i].State = Machine.EEpromProductState.Blank;
                             //BLANK로 변경
                         }
                         Globalo.LogPrint("ManualControl", szLog);
@@ -3482,7 +3482,7 @@ namespace ZenHandler.Process
         #endregion
 
 
-        private int[] RtnSocketState(int index, List<Machine.SocketProductInfo> socketState)
+        private int[] RtnSocketState(int index, List<Machine.EEpromSocketProductInfo> socketState)
         {
             int i = 0;
             int[] tempState = { -1, -1, -1, -1 };
@@ -3491,22 +3491,22 @@ namespace ZenHandler.Process
                 if (Globalo.motionManager.socketEEpromMachine.GetIsProductInSocket(index, i, true) == false)
                 {
                     tempState[i] = 1;        //1 = 공급요청
-                    socketState[i].State = Machine.SocketProductState.Blank;
+                    socketState[i].State = Machine.EEpromProductState.Blank;
                 }
                 else
                 {
                     //있으면 검사 or 배출 요청
-                    if (socketState[i].State == Machine.SocketProductState.Writing)        //Writing 할 차례
+                    if (socketState[i].State == Machine.EEpromProductState.Writing)        //Writing 할 차례
                     {
                         //write 미완료
                         tempState[i] = 3;
                     }
-                    else if (socketState[i].State == Machine.SocketProductState.Verifying)        //verify 할 차례
+                    else if (socketState[i].State == Machine.EEpromProductState.Verifying)        //verify 할 차례
                     {
                         //verify 미완료
                         tempState[i] = 4;
                     }
-                    else if (socketState[i].State == Machine.SocketProductState.Good || socketState[i].State == Machine.SocketProductState.NG)
+                    else if (socketState[i].State == Machine.EEpromProductState.Good || socketState[i].State == Machine.EEpromProductState.NG)
                     {
                         //write + verify 완료
                         tempState[i] = 2; //양품 or 불량 배출 요청
