@@ -21,6 +21,51 @@ namespace ZenHandler.Process
         //
         //  3000
         //
+        public bool CheckNgStateChk()
+        {
+            int i = 0;
+            bool ngChk = false;
+            int pickercount = 0;
+            if (Program.PG_SELECT == HANDLER_PG.AOI)
+            {
+                pickercount = 2;
+            }
+            else
+            {
+                pickercount = 4;
+            }
+
+            for (i = 0; i < pickercount; i++)
+            {
+                if (Program.PG_SELECT == HANDLER_PG.AOI)
+                {
+                    if (Globalo.motionManager.transferMachine.pickedProduct.UnLoadProductInfo[i].AoiResultState == Machine.AoiSocketProductState.NG)
+                    {
+                        ngChk = true;
+                        break;
+                    }
+                }
+                if (Program.PG_SELECT == HANDLER_PG.FW)
+                {
+                    if (Globalo.motionManager.transferMachine.pickedProduct.UnLoadProductInfo[i].FwResultState == Machine.FwProductState.NG)
+                    {
+                        ngChk = true;
+                        break;
+                    }
+                }
+                if (Program.PG_SELECT == HANDLER_PG.EEPROM)
+                {
+                    if (Globalo.motionManager.transferMachine.pickedProduct.UnLoadProductInfo[i].EEpromResultState == Machine.EEpromProductState.NG_Write ||
+                        Globalo.motionManager.transferMachine.pickedProduct.UnLoadProductInfo[i].EEpromResultState == Machine.EEpromProductState.NG_Verify)
+                    {
+                        ngChk = true;
+                        break;
+                    }
+                }
+            }
+            return ngChk;
+        }
+
         #region [TRANSFER 작업 분기]
        
         public int Auto_Waiting(int nStep)
@@ -62,8 +107,7 @@ namespace ZenHandler.Process
                     //1-1.  LIFT , MAGAZINE 유닛, TRAY에서 제품 로드할 수 있는 상태인지 확인
 
                     //소켓의 투입 요청인지 , 배출 요청인지 판단해서 진행
-
-
+                    
                     nRetStep = 3200;
                     break;
                 case 3200:
@@ -72,27 +116,34 @@ namespace ZenHandler.Process
 
                     //BcrNg 바코드 불량은 소켓에 넣었다가 빼야된다.
 
-                    for (i = 0; i < pickercount; i++)
-                    {
-                        if (Globalo.motionManager.transferMachine.pickedProduct.UnLoadProductInfo[i].State == Machine.PickedProductState.TestNg ||
-                            Globalo.motionManager.transferMachine.pickedProduct.UnLoadProductInfo[i].State == Machine.PickedProductState.TestNg2 ||
-                            Globalo.motionManager.transferMachine.pickedProduct.UnLoadProductInfo[i].State == Machine.PickedProductState.TestNg3 ||
-                            Globalo.motionManager.transferMachine.pickedProduct.UnLoadProductInfo[i].State == Machine.PickedProductState.TestNg4)
-                        {
-                            szLog = $"[AUTO] #{i+1} UnloadPicker State: {Globalo.motionManager.transferMachine.pickedProduct.UnLoadProductInfo[i].State.ToString()}[STEP : {nStep}]";
-                            Globalo.LogPrint("ManualControl", szLog);
-                            PickerCheck = true;
-                            break;
-                        }
-                    }
-
-                    if (PickerCheck == true)
+                    if (CheckNgStateChk() == true)      //각 공정별로 ng 항목 전달해야된다.
                     {
                         szLog = $"[AUTO] TRANSFER NG UNLOAD FLOW [STEP : {nStep}]";
                         Globalo.LogPrint("ManualControl", szLog);
                         nRetStep = 8000;
                         break;
                     }
+
+                    //for (i = 0; i < pickercount; i++)
+                    //{
+                    //    if (Globalo.motionManager.transferMachine.pickedProduct.UnLoadProductInfo[i].State == Machine.PickedProductState.TestNg1 ||
+                    //        Globalo.motionManager.transferMachine.pickedProduct.UnLoadProductInfo[i].State == Machine.PickedProductState.TestNg2)
+                    //    {
+                    //        szLog = $"[AUTO] #{i+1} UnloadPicker State: {Globalo.motionManager.transferMachine.pickedProduct.UnLoadProductInfo[i].State.ToString()}[STEP : {nStep}]";
+                    //        Globalo.LogPrint("ManualControl", szLog);
+                    //        PickerCheck = true;
+                    //        break;
+                    //    }
+                    //}
+
+                    //if (PickerCheck == true)
+                    //{
+                    //    szLog = $"[AUTO] TRANSFER NG UNLOAD FLOW [STEP : {nStep}]";
+                    //    Globalo.LogPrint("ManualControl", szLog);
+                    //    nRetStep = 8000;
+                    //    break;
+                    //}
+
                     nRetStep = 3220;
                     break;
                 case 3220:
@@ -1687,10 +1738,8 @@ namespace ZenHandler.Process
                     PickerCheck = false;
                     for (i = 0; i < pickercount; i++)
                     {
-                        if (Globalo.motionManager.transferMachine.pickedProduct.UnLoadProductInfo[i].State == Machine.PickedProductState.TestNg ||      //TODO: SOCKET NG하고 맞혀야된다.
-                            Globalo.motionManager.transferMachine.pickedProduct.UnLoadProductInfo[i].State == Machine.PickedProductState.TestNg2 ||
-                            Globalo.motionManager.transferMachine.pickedProduct.UnLoadProductInfo[i].State == Machine.PickedProductState.TestNg3 ||
-                            Globalo.motionManager.transferMachine.pickedProduct.UnLoadProductInfo[i].State == Machine.PickedProductState.TestNg4)
+                        if (Globalo.motionManager.transferMachine.pickedProduct.UnLoadProductInfo[i].State == Machine.PickedProductState.TestNg1 ||      //TODO: SOCKET NG하고 맞혀야된다.
+                            Globalo.motionManager.transferMachine.pickedProduct.UnLoadProductInfo[i].State == Machine.PickedProductState.TestNg2)
                         {
                             szLog = $"[AUTO] #{i + 1} UnloadPicker State: {Globalo.motionManager.transferMachine.pickedProduct.UnLoadProductInfo[i].State.ToString()}[STEP : {nStep}]";
                             Globalo.LogPrint("ManualControl", szLog);

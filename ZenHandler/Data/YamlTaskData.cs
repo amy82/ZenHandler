@@ -275,46 +275,6 @@ namespace ZenHandler.Data
         //
         //
         //--------------------------------------------------------------------------------------------------------------
-        public static bool TaskSave_Socket(Machine.SocketProduct data, string fileName)
-        {
-            string filePath = Path.Combine(CPath.BASE_ENV_PATH, fileName);       //LOT DATA
-            try
-            {
-                Data.YamlManager.SaveYaml(filePath, data);
-                return true;
-            }
-            catch (Exception ex)
-            {
-                Console.WriteLine($"Error TaskSave_Socket: {ex.Message}");
-                return false;
-            }
-
-        }
-        public static Machine.SocketProduct TaskLoad_Socket(string fileName)
-        {
-            string filePath = Path.Combine(CPath.BASE_ENV_PATH, fileName);       //TRAY DATA
-            try
-            {
-                if (!File.Exists(filePath))
-                {
-                    return new Machine.SocketProduct();
-                }
-
-
-                Machine.SocketProduct data = Data.YamlManager.LoadYaml<Machine.SocketProduct>(filePath);
-                if (data == null)
-                {
-
-                    return new Machine.SocketProduct();
-                }
-                return data;
-            }
-            catch (Exception ex)
-            {
-                Console.WriteLine($"Error loading TaskLoad Socket: {ex.Message}");
-                return new Machine.SocketProduct();
-            }
-        }
         //
         //fw
         //

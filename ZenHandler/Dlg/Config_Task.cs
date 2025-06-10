@@ -25,8 +25,6 @@ namespace ZenHandler.Dlg
         public List<Machine.ProductInfo> tempLoadInfo { get; set; } = new List<Machine.ProductInfo>();
         public List<Machine.ProductInfo> tempUnloadInfo { get; set; } = new List<Machine.ProductInfo>();
 
-        //public List<List<Machine.SocketProductInfo>> tempSocket { get; set; } = new List<List<Machine.SocketProductInfo>>(4);
-
         public List<List<Machine.AoiSocketProductInfo>> AoitempSocket { get; set; } = new List<List<Machine.AoiSocketProductInfo>>(2);
         public List<List<Machine.EEpromSocketProductInfo>> EEptempSocket { get; set; } = new List<List<Machine.EEpromSocketProductInfo>>(2);
         public List<List<Machine.FwSocketProductInfo>> FwtempSocket { get; set; } = new List<List<Machine.FwSocketProductInfo>>(4);
@@ -65,7 +63,6 @@ namespace ZenHandler.Dlg
 
             for (i = 0; i < SocketStateRow; i++)
             {
-                //tempSocket.Add(new List<Machine.SocketProductInfo>());
                 AoitempSocket.Add(new List<Machine.AoiSocketProductInfo>());
                 EEptempSocket.Add(new List<Machine.EEpromSocketProductInfo>());
                 FwtempSocket.Add(new List<Machine.FwSocketProductInfo>());

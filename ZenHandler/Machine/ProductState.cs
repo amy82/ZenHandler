@@ -23,19 +23,8 @@ namespace ZenHandler.Machine
         Bcr,        //투입할 제품 로드 상태
         Good,       // 양품
         BcrNg,      // 불량
-        TestNg,
-        TestNg2,
-        TestNg3,
-        TestNg4
-    }
-    public enum SocketProductState
-    {
-        Blank = 0,   // 제품 없음
-        Writing,     //Write 검사 전
-        Verifying,   //Verify 검사 전
-        Good,        // Write + Verify 둘다 완료
-        NG_Write,           // 불량
-        NG_Verify
+        TestNg1,        //aoi , fw , write
+        TestNg2         //verify
     }
     public enum FwProductState
     {
@@ -50,7 +39,8 @@ namespace ZenHandler.Machine
         Writing,     //Write 검사 전
         Verifying,   //Verify 검사 전
         Good,        // Write + Verify 둘다 완료
-        NG           // 불량
+        NG_Write,           // 불량
+        NG_Verify
     }
     public enum AoiSocketProductState
     {
@@ -66,8 +56,10 @@ namespace ZenHandler.Machine
         public string BcrLot { get; set; } = "";
         public PickedProductState State { get; set; } = PickedProductState.Blank;
 
+        public FwProductState FwResultState { get; set; } = FwProductState.Blank;
+        public EEpromProductState EEpromResultState { get; set; } = EEpromProductState.Blank;
+        public AoiSocketProductState AoiResultState { get; set; } = AoiSocketProductState.Blank;
         public ProductInfo() { }  // <- 이게 필요해!
-
         public ProductInfo(int index)
         {
             No = index;
@@ -157,28 +149,6 @@ namespace ZenHandler.Machine
     //
     //
     // 소켓 안에 있는 제품 상태 정보
-    public class SocketProductInfo
-    {
-        public int No { get; set; }
-        public SocketProductState State { get; set; } = SocketProductState.Blank;
-        public string BcrLot { get; set; } = "Empty";
-
-        public SocketProductInfo() { }  // <- 이게 없으면 yaml 로드 안됨
-        public SocketProductInfo(int index)
-        {
-            No = index;
-        }
-
-        public SocketProductInfo Clone()
-        {
-            return new SocketProductInfo
-            {
-                No = this.No,
-                State = this.State,
-                BcrLot = this.BcrLot
-            };
-        }
-    }
     public class AoiSocketProductInfo
     {
         public int No { get; set; }
@@ -283,14 +253,5 @@ namespace ZenHandler.Machine
                 FwSocketInfo[i] = new List<FwSocketProductInfo>();
             }
         }
-    }
-
-
-    public class SocketProduct//FwSocketProduct
-    {
-        public List<SocketProductInfo> SocketInfo_A { get; set; } = new List<SocketProductInfo>();      //aoi , eeprom
-        public List<SocketProductInfo> SocketInfo_B { get; set; } = new List<SocketProductInfo>();      //aoi , eeprom
-        public List<SocketProductInfo> SocketInfo_C { get; set; } = new List<SocketProductInfo>();
-        public List<SocketProductInfo> SocketInfo_D { get; set; } = new List<SocketProductInfo>();      //fw all
     }
 }
