@@ -441,13 +441,14 @@ namespace ZenHandler.Dlg
             // 
             // Btn_ConfigTask_Driving_Mode
             // 
+            this.Btn_ConfigTask_Driving_Mode.BackColor = System.Drawing.Color.Gainsboro;
             this.Btn_ConfigTask_Driving_Mode.Font = new System.Drawing.Font("나눔고딕 ExtraBold", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(129)));
             this.Btn_ConfigTask_Driving_Mode.Location = new System.Drawing.Point(546, 390);
             this.Btn_ConfigTask_Driving_Mode.Name = "Btn_ConfigTask_Driving_Mode";
             this.Btn_ConfigTask_Driving_Mode.Size = new System.Drawing.Size(161, 52);
             this.Btn_ConfigTask_Driving_Mode.TabIndex = 91;
             this.Btn_ConfigTask_Driving_Mode.Text = "NORMAL";
-            this.Btn_ConfigTask_Driving_Mode.UseVisualStyleBackColor = true;
+            this.Btn_ConfigTask_Driving_Mode.UseVisualStyleBackColor = false;
             this.Btn_ConfigTask_Driving_Mode.Click += new System.EventHandler(this.Btn_ConfigTask_Driving_Mode_Click);
             // 
             // label_ConfigTask_Tray_Pos

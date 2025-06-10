@@ -201,7 +201,7 @@ namespace ZenHandler  //ApsMotionControl
 
             if(Globalo.yamlManager.configData != null)
             {
-                portData = Globalo.yamlManager.configData.SerialPort.Bcr;
+                portData = "COM1"; ;// Globalo.yamlManager.configData.IpAddr.Bcr;
             }
             else
             {

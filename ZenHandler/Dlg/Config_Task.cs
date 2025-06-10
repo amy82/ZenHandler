@@ -697,10 +697,12 @@ namespace ZenHandler.Dlg
             if (Globalo.yamlManager.configData.DrivingSettings.drivingMode == eDrivingMode.NORMAL)
             {
                 Globalo.yamlManager.configData.DrivingSettings.drivingMode = eDrivingMode.DRY_RUN;
+                Btn_ConfigTask_Driving_Mode.BackColor = Color.OrangeRed;
             }
             else
             {
                 Globalo.yamlManager.configData.DrivingSettings.drivingMode = eDrivingMode.NORMAL;
+                Btn_ConfigTask_Driving_Mode.BackColor = Color.Gainsboro;
             }
 
             Btn_ConfigTask_Driving_Mode.Text = Globalo.yamlManager.configData.DrivingSettings.drivingMode.ToString();

@@ -22,6 +22,8 @@ namespace ZenHandler.Machine
 
         public FwSocketProduct socketProduct = new FwSocketProduct();
 
+        public bool[] IsTesting = { false, false, false, false };      //검사 진행중
+
         public int[] Tester_A_Result = { -1, -1, -1, -1 };
         public int[] Tester_B_Result = { -1, -1, -1, -1 };
         public int[] Tester_C_Result = { -1, -1, -1, -1 };
@@ -60,6 +62,7 @@ namespace ZenHandler.Machine
             //Fw Socket Motor xxxx
         }
         #region Fw Socket Machine Io 동작
+
         public bool GetIsProductInSocket(int GroupNo,  int index, bool bFlag, bool bWait = false)      //각 소켓의 제품 유무 확인 센서
         {
             //GroupNo = 앞2 , 뒤2 4Set
@@ -745,6 +748,70 @@ namespace ZenHandler.Machine
 
             return isSuccess;
         }
+        public bool MultiFlipperGrip(int GroupNo, bool bFlag, bool bWait = false)
+        {
+            bool isSuccess = false;
+            uint uFlagHigh = 0;
+            uint uFlagLow = 0;
+
+            int lModuleNo = 0;
+            int lOffset = 0;
+            if (GroupNo == 0)
+            {
+                lModuleNo = 9;
+                lOffset = 2;
+            }
+            if (GroupNo == 1)
+            {
+                lModuleNo = 11;
+                lOffset = 2;
+            }
+
+            if (GroupNo == 2)
+            {
+                lModuleNo = 13;
+                lOffset = 2;
+            }
+            if (GroupNo == 3)
+            {
+                lModuleNo = 15;
+                lOffset = 2;
+            }
+
+            if (bFlag)
+            {
+                uFlagHigh |= Globalo.motionManager._dio.GetOutRotateGrip(GroupNo, 0, true);
+                uFlagHigh |= Globalo.motionManager._dio.GetOutRotateGrip(GroupNo, 1, true);
+                uFlagHigh |= Globalo.motionManager._dio.GetOutRotateGrip(GroupNo, 2, true);
+                uFlagHigh |= Globalo.motionManager._dio.GetOutRotateGrip(GroupNo, 3, true);
+
+                uFlagLow |= Globalo.motionManager._dio.GetOutRotateGrip(GroupNo, 0, false);
+                uFlagLow |= Globalo.motionManager._dio.GetOutRotateGrip(GroupNo, 1, false);
+                uFlagLow |= Globalo.motionManager._dio.GetOutRotateGrip(GroupNo, 2, false);
+                uFlagLow |= Globalo.motionManager._dio.GetOutRotateGrip(GroupNo, 3, false);
+            }
+            else
+            {
+                uFlagHigh |= Globalo.motionManager._dio.GetOutRotateGrip(GroupNo, 0, false);
+                uFlagHigh |= Globalo.motionManager._dio.GetOutRotateGrip(GroupNo, 1, false);
+                uFlagHigh |= Globalo.motionManager._dio.GetOutRotateGrip(GroupNo, 2, false);
+                uFlagHigh |= Globalo.motionManager._dio.GetOutRotateGrip(GroupNo, 3, false);
+
+                uFlagLow |= Globalo.motionManager._dio.GetOutRotateGrip(GroupNo, 0, true);
+                uFlagLow |= Globalo.motionManager._dio.GetOutRotateGrip(GroupNo, 1, true);
+                uFlagLow |= Globalo.motionManager._dio.GetOutRotateGrip(GroupNo, 2, true);
+                uFlagLow |= Globalo.motionManager._dio.GetOutRotateGrip(GroupNo, 3, true);
+            }
+
+            isSuccess = Globalo.motionManager.ioController.DioWriteOutportByte(lModuleNo, lOffset, uFlagHigh, uFlagLow);
+            if (isSuccess == false)
+            {
+                Console.WriteLine($" MultiFlipperUp MOVE FAIL");
+                return isSuccess;
+            }
+
+            return isSuccess;
+        }
 
         public bool MultiContactUp(int GroupNo,  bool bFlag, bool bWait = false)//int[] socketList,
         {
@@ -1066,6 +1133,70 @@ namespace ZenHandler.Machine
             }
             return false;
         }
+        public bool GetMultiFlipperGrip(int GroupNo, bool bFlag, bool bWait = false)
+        {
+            //GroupNo = 앞2 , 뒤2 4Set
+            int i = 0;
+            int lModuleNo = 0;
+            int lOffset = 0;
+            if (GroupNo == 0)
+            {
+                lModuleNo = 8;
+                lOffset = 2;
+            }
+            if (GroupNo == 1)
+            {
+                lModuleNo = 10;
+                lOffset = 2;
+            }
+            if (GroupNo == 2)
+            {
+                lModuleNo = 12;
+                lOffset = 2;
+            }
+            if (GroupNo == 3)
+            {
+                lModuleNo = 14;
+                lOffset = 2;
+            }
+            uint uFlagHigh = 0;
+            uint upValue = Globalo.motionManager.ioController.m_dwDInDict[lModuleNo][lOffset];
+
+
+            if (bFlag)
+            {
+                uFlagHigh |= Globalo.motionManager._dio.GetInRotateGrip(GroupNo, 0, true);
+                uFlagHigh |= Globalo.motionManager._dio.GetInRotateGrip(GroupNo, 1, true);
+                uFlagHigh |= Globalo.motionManager._dio.GetInRotateGrip(GroupNo, 2, true);
+                uFlagHigh |= Globalo.motionManager._dio.GetInRotateGrip(GroupNo, 3, true);
+            }
+            else
+            {
+                uFlagHigh |= Globalo.motionManager._dio.GetInRotateGrip(GroupNo, 0, false);
+                uFlagHigh |= Globalo.motionManager._dio.GetInRotateGrip(GroupNo, 1, false);
+                uFlagHigh |= Globalo.motionManager._dio.GetInRotateGrip(GroupNo, 2, false);
+                uFlagHigh |= Globalo.motionManager._dio.GetInRotateGrip(GroupNo, 3, false);
+            }
+
+
+            if (bFlag)
+            {
+                uFlagHigh = upValue & uFlagHigh;        //TODO: IO 되는지 확인 필요
+                if (uFlagHigh == 1)
+                {
+                    return true;
+                }
+            }
+            else
+            {
+                uFlagHigh = upValue & uFlagHigh;
+                if (uFlagHigh == 0)
+                {
+                    return true;
+                }
+            }
+            return false;
+        }
         #endregion
         public override void MovingStop()
         {
@@ -1195,6 +1326,10 @@ namespace ZenHandler.Machine
                 if (AutoUnitThread.GetThreadPause() == true)        //일시 정지 상태인지 확인
                 {
                     AutoUnitThread.m_nCurrentStep = Math.Abs(AutoUnitThread.m_nCurrentStep);
+                    AutoUnitThread.m_nSocketStep[0] = Math.Abs(AutoUnitThread.m_nSocketStep[0]);
+                    AutoUnitThread.m_nSocketStep[1] = Math.Abs(AutoUnitThread.m_nSocketStep[1]);
+                    AutoUnitThread.m_nSocketStep[2] = Math.Abs(AutoUnitThread.m_nSocketStep[2]);
+                    AutoUnitThread.m_nSocketStep[3] = Math.Abs(AutoUnitThread.m_nSocketStep[3]);
                     AutoUnitThread.Resume();
                     RunState = OperationState.AutoRunning;
                 }
@@ -1206,6 +1341,10 @@ namespace ZenHandler.Machine
             else
             {
                 AutoUnitThread.m_nCurrentStep = 3000;
+                AutoUnitThread.m_nSocketStep[0] = 100;
+                AutoUnitThread.m_nSocketStep[1] = 100;
+                AutoUnitThread.m_nSocketStep[2] = 100;
+                AutoUnitThread.m_nSocketStep[3] = 100;
                 AutoUnitThread.m_nEndStep = 10000;
                 AutoUnitThread.m_nStartStep = AutoUnitThread.m_nCurrentStep;
 

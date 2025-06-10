@@ -57,7 +57,11 @@ namespace ZenHandler.Dlg
             this.label_Config_Ngtray_Max_Count = new System.Windows.Forms.Label();
             this.label_Config_Tray_Max_Layer = new System.Windows.Forms.Label();
             this.label_Config_Tray_Max_Layer_Val = new System.Windows.Forms.Label();
-            this.maskedTextBox_BcrIp = new System.Windows.Forms.MaskedTextBox();
+            this.label_Bcr_Ip1 = new System.Windows.Forms.Label();
+            this.label_Bcr_Ip3 = new System.Windows.Forms.Label();
+            this.label_Bcr_Ip2 = new System.Windows.Forms.Label();
+            this.label_Config_Bcr_Port = new System.Windows.Forms.Label();
+            this.label_Bcr_Port = new System.Windows.Forms.Label();
             this.SuspendLayout();
             // 
             // button_Bcr_DisConnect
@@ -66,7 +70,7 @@ namespace ZenHandler.Dlg
             this.button_Bcr_DisConnect.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.button_Bcr_DisConnect.Font = new System.Drawing.Font("나눔고딕 ExtraBold", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(129)));
             this.button_Bcr_DisConnect.ForeColor = System.Drawing.Color.White;
-            this.button_Bcr_DisConnect.Location = new System.Drawing.Point(593, 117);
+            this.button_Bcr_DisConnect.Location = new System.Drawing.Point(593, 174);
             this.button_Bcr_DisConnect.Name = "button_Bcr_DisConnect";
             this.button_Bcr_DisConnect.Size = new System.Drawing.Size(103, 44);
             this.button_Bcr_DisConnect.TabIndex = 77;
@@ -80,7 +84,7 @@ namespace ZenHandler.Dlg
             this.button_Bcr_Connect.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.button_Bcr_Connect.Font = new System.Drawing.Font("나눔고딕 ExtraBold", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(129)));
             this.button_Bcr_Connect.ForeColor = System.Drawing.Color.White;
-            this.button_Bcr_Connect.Location = new System.Drawing.Point(490, 117);
+            this.button_Bcr_Connect.Location = new System.Drawing.Point(490, 174);
             this.button_Bcr_Connect.Name = "button_Bcr_Connect";
             this.button_Bcr_Connect.Size = new System.Drawing.Size(103, 44);
             this.button_Bcr_Connect.TabIndex = 76;
@@ -95,11 +99,11 @@ namespace ZenHandler.Dlg
             this.label_Config_Bcr.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.label_Config_Bcr.Font = new System.Drawing.Font("나눔고딕", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(129)));
             this.label_Config_Bcr.ForeColor = System.Drawing.Color.Black;
-            this.label_Config_Bcr.Location = new System.Drawing.Point(490, 44);
+            this.label_Config_Bcr.Location = new System.Drawing.Point(490, 50);
             this.label_Config_Bcr.Name = "label_Config_Bcr";
-            this.label_Config_Bcr.Size = new System.Drawing.Size(89, 28);
+            this.label_Config_Bcr.Size = new System.Drawing.Size(203, 28);
             this.label_Config_Bcr.TabIndex = 75;
-            this.label_Config_Bcr.Text = "BCR";
+            this.label_Config_Bcr.Text = "BCR IP ADDRESS";
             this.label_Config_Bcr.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
             // label5
@@ -312,10 +316,11 @@ namespace ZenHandler.Dlg
             this.comboBox_BcrPort.Font = new System.Drawing.Font("나눔고딕", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(129)));
             this.comboBox_BcrPort.FormattingEnabled = true;
             this.comboBox_BcrPort.ItemHeight = 19;
-            this.comboBox_BcrPort.Location = new System.Drawing.Point(582, 44);
+            this.comboBox_BcrPort.Location = new System.Drawing.Point(617, 580);
             this.comboBox_BcrPort.Name = "comboBox_BcrPort";
             this.comboBox_BcrPort.Size = new System.Drawing.Size(114, 27);
             this.comboBox_BcrPort.TabIndex = 108;
+            this.comboBox_BcrPort.Visible = false;
             // 
             // label_ConfigOption_Tray_Max_Count
             // 
@@ -439,19 +444,84 @@ namespace ZenHandler.Dlg
             this.label_Config_Tray_Max_Layer_Val.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             this.label_Config_Tray_Max_Layer_Val.Click += new System.EventHandler(this.label_Config_Left_Tray_Max_Layer_Val_Click);
             // 
-            // maskedTextBox_BcrIp
+            // label_Bcr_Ip1
             // 
-            this.maskedTextBox_BcrIp.Font = new System.Drawing.Font("나눔고딕", 14.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(129)));
-            this.maskedTextBox_BcrIp.Location = new System.Drawing.Point(490, 82);
-            this.maskedTextBox_BcrIp.Name = "maskedTextBox_BcrIp";
-            this.maskedTextBox_BcrIp.Size = new System.Drawing.Size(206, 29);
-            this.maskedTextBox_BcrIp.TabIndex = 119;
+            this.label_Bcr_Ip1.BackColor = System.Drawing.Color.PaleTurquoise;
+            this.label_Bcr_Ip1.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.label_Bcr_Ip1.Font = new System.Drawing.Font("나눔고딕 ExtraBold", 8.999999F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(129)));
+            this.label_Bcr_Ip1.ForeColor = System.Drawing.Color.Black;
+            this.label_Bcr_Ip1.Location = new System.Drawing.Point(491, 78);
+            this.label_Bcr_Ip1.Name = "label_Bcr_Ip1";
+            this.label_Bcr_Ip1.Size = new System.Drawing.Size(60, 40);
+            this.label_Bcr_Ip1.TabIndex = 119;
+            this.label_Bcr_Ip1.Text = "192.168";
+            this.label_Bcr_Ip1.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            // 
+            // label_Bcr_Ip3
+            // 
+            this.label_Bcr_Ip3.BackColor = System.Drawing.Color.White;
+            this.label_Bcr_Ip3.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.label_Bcr_Ip3.Font = new System.Drawing.Font("나눔고딕", 11.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(129)));
+            this.label_Bcr_Ip3.ForeColor = System.Drawing.Color.Black;
+            this.label_Bcr_Ip3.Location = new System.Drawing.Point(623, 78);
+            this.label_Bcr_Ip3.Name = "label_Bcr_Ip3";
+            this.label_Bcr_Ip3.Size = new System.Drawing.Size(70, 40);
+            this.label_Bcr_Ip3.TabIndex = 121;
+            this.label_Bcr_Ip3.Text = "0";
+            this.label_Bcr_Ip3.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            this.label_Bcr_Ip3.Click += new System.EventHandler(this.label_Bcr_Ip3_Click);
+            // 
+            // label_Bcr_Ip2
+            // 
+            this.label_Bcr_Ip2.BackColor = System.Drawing.Color.White;
+            this.label_Bcr_Ip2.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.label_Bcr_Ip2.Font = new System.Drawing.Font("나눔고딕", 11.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(129)));
+            this.label_Bcr_Ip2.ForeColor = System.Drawing.Color.Black;
+            this.label_Bcr_Ip2.Location = new System.Drawing.Point(552, 78);
+            this.label_Bcr_Ip2.Name = "label_Bcr_Ip2";
+            this.label_Bcr_Ip2.Size = new System.Drawing.Size(70, 40);
+            this.label_Bcr_Ip2.TabIndex = 120;
+            this.label_Bcr_Ip2.Text = "0";
+            this.label_Bcr_Ip2.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            this.label_Bcr_Ip2.Click += new System.EventHandler(this.label_Bcr_Ip2_Click);
+            // 
+            // label_Config_Bcr_Port
+            // 
+            this.label_Config_Bcr_Port.BackColor = System.Drawing.SystemColors.Window;
+            this.label_Config_Bcr_Port.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.label_Config_Bcr_Port.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.label_Config_Bcr_Port.Font = new System.Drawing.Font("나눔고딕", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(129)));
+            this.label_Config_Bcr_Port.ForeColor = System.Drawing.Color.Black;
+            this.label_Config_Bcr_Port.Location = new System.Drawing.Point(490, 121);
+            this.label_Config_Bcr_Port.Name = "label_Config_Bcr_Port";
+            this.label_Config_Bcr_Port.Size = new System.Drawing.Size(103, 37);
+            this.label_Config_Bcr_Port.TabIndex = 122;
+            this.label_Config_Bcr_Port.Text = "BCR Port";
+            this.label_Config_Bcr_Port.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            // 
+            // label_Bcr_Port
+            // 
+            this.label_Bcr_Port.BackColor = System.Drawing.Color.White;
+            this.label_Bcr_Port.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.label_Bcr_Port.Font = new System.Drawing.Font("나눔고딕", 11.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(129)));
+            this.label_Bcr_Port.ForeColor = System.Drawing.Color.Black;
+            this.label_Bcr_Port.Location = new System.Drawing.Point(595, 121);
+            this.label_Bcr_Port.Name = "label_Bcr_Port";
+            this.label_Bcr_Port.Size = new System.Drawing.Size(70, 37);
+            this.label_Bcr_Port.TabIndex = 123;
+            this.label_Bcr_Port.Text = "1";
+            this.label_Bcr_Port.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            this.label_Bcr_Port.Click += new System.EventHandler(this.label_Bcr_Port_Click);
             // 
             // Config_Option
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 12F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.Controls.Add(this.maskedTextBox_BcrIp);
+            this.Controls.Add(this.label_Bcr_Port);
+            this.Controls.Add(this.label_Config_Bcr_Port);
+            this.Controls.Add(this.label_Bcr_Ip3);
+            this.Controls.Add(this.label_Bcr_Ip2);
+            this.Controls.Add(this.label_Bcr_Ip1);
             this.Controls.Add(this.label_Config_Tray_Max_Layer_Val);
             this.Controls.Add(this.label_Config_Tray_Max_Layer);
             this.Controls.Add(this.label_Config_Ngtray_Max_Count_Y);
@@ -483,7 +553,6 @@ namespace ZenHandler.Dlg
             this.Name = "Config_Option";
             this.Size = new System.Drawing.Size(770, 900);
             this.ResumeLayout(false);
-            this.PerformLayout();
 
         }
 
@@ -516,6 +585,10 @@ namespace ZenHandler.Dlg
         private System.Windows.Forms.Label label_Config_Ngtray_Max_Count;
         private System.Windows.Forms.Label label_Config_Tray_Max_Layer;
         private System.Windows.Forms.Label label_Config_Tray_Max_Layer_Val;
-        private System.Windows.Forms.MaskedTextBox maskedTextBox_BcrIp;
+        private System.Windows.Forms.Label label_Bcr_Ip1;
+        private System.Windows.Forms.Label label_Bcr_Ip3;
+        private System.Windows.Forms.Label label_Bcr_Ip2;
+        public System.Windows.Forms.Label label_Config_Bcr_Port;
+        private System.Windows.Forms.Label label_Bcr_Port;
     }
 }

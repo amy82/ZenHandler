@@ -22,21 +22,18 @@ namespace ZenHandler.Dlg
         public void setInterface()
         {
             int i = 0;
-            for (i = 0; i < 20; i++)
-            {
-                comboBox_BcrPort.Items.Add("COM" + (i + 1).ToString());
-            }
+            //for (i = 0; i < 20; i++)
+            //{
+            //    comboBox_BcrPort.Items.Add("COM" + (i + 1).ToString());
+            //}
 
             ComboBox_Language.Items.Add("ko");
             ComboBox_Language.Items.Add("en");
             ComboBox_Language.Items.Add("es");
             ComboBox_Language.SelectedIndex = 0;
+            
 
-            maskedTextBox_BcrIp.Mask = "192\\.168\\.255\\.255"; // 0~999 까지
-            maskedTextBox_BcrIp.ValidatingType = typeof(System.Net.IPAddress);
-            maskedTextBox_BcrIp.PromptChar = '_';
-            maskedTextBox_BcrIp.Width = 150;
-            maskedTextBox_BcrIp.Text = "192.168.100.1";
+
 
         }
         private void label_PinCountMax_Click(object sender, EventArgs e)
@@ -63,7 +60,8 @@ namespace ZenHandler.Dlg
         private void button_Bcr_Connect_Click(object sender, EventArgs e)
         {
             //Globalo.serialPortManager.Barcode.Close();
-            Globalo.tcpManager.BcrClient.Connect("192.168.0.15", 9004);
+            //Globalo.tcpManager.BcrClient.Connect("192.168.0.15", 9004);
+            Globalo.tcpManager.BcrClient.Connect(Globalo.yamlManager.configData.IpAddr.BcrIp, Globalo.yamlManager.configData.IpAddr.BcrPort);
             string logData = $"[SERIAL] BCR DISCONNECT";
 
             Globalo.LogPrint("Serial", logData);
@@ -80,11 +78,11 @@ namespace ZenHandler.Dlg
 
             if (connectRtn)
             {
-                logData = $"[SERIAL] BCR CONNECT OK:{Globalo.yamlManager.configData.SerialPort.Bcr}";
+                logData = $"[SERIAL] BCR CONNECT OK:{Globalo.yamlManager.configData.IpAddr.BcrIp}/{Globalo.yamlManager.configData.IpAddr.BcrPort}";
             }
             else
             {
-                logData = $"[SERIAL] BCR CONNECT FAIL:{Globalo.yamlManager.configData.SerialPort.Bcr}";
+                logData = $"[SERIAL] BCR CONNECT FAIL:{Globalo.yamlManager.configData.IpAddr.BcrIp}/{Globalo.yamlManager.configData.IpAddr.BcrPort}";
             }
 
             Globalo.LogPrint("Serial", logData);
@@ -150,20 +148,29 @@ namespace ZenHandler.Dlg
         }
         public void ShowOptionData()
         {
-            string comData = Globalo.yamlManager.configData.SerialPort.Bcr;
-            
-            int index = comboBox_BcrPort.Items.IndexOf(comData);
-            if (index < 0)
-            {
-                comboBox_BcrPort.SelectedIndex = 0;  // 첫 번째 항목 선택
-            }
-            else
-            {
-                comboBox_BcrPort.SelectedIndex = index;
-            }
+            string bcrip = Globalo.yamlManager.configData.IpAddr.BcrIp;
+            string[] parts = bcrip.Split('.');
 
-            comData = Globalo.yamlManager.configData.DrivingSettings.Language;
-            index = ComboBox_Language.Items.IndexOf(comData);
+            label_Bcr_Ip2.Text = int.Parse(parts[2]).ToString();  // 50
+            label_Bcr_Ip3.Text = int.Parse(parts[3]).ToString();  // 1
+
+
+            string bcrport = Globalo.yamlManager.configData.IpAddr.BcrPort.ToString();
+            Globalo.yamlManager.configData.IpAddr.BcrPort = int.Parse(bcrport);
+
+
+            //int index = comboBox_BcrPort.Items.IndexOf(comData);
+            //if (index < 0)
+            //{
+            //    comboBox_BcrPort.SelectedIndex = 0;  // 첫 번째 항목 선택
+            //}
+            //else
+            //{
+            //    comboBox_BcrPort.SelectedIndex = index;
+            //}
+
+            string langData = Globalo.yamlManager.configData.DrivingSettings.Language;
+            int index = ComboBox_Language.Items.IndexOf(langData);
             if (index < 0)
             {
                 ComboBox_Language.SelectedIndex = 0;  // 첫 번째 항목 선택
@@ -193,7 +200,10 @@ namespace ZenHandler.Dlg
         public void GetOptionData()
         {
             //Serial Port
-            Globalo.yamlManager.configData.SerialPort.Bcr = comboBox_BcrPort.Text;
+            string bcrip = "192.168." + label_Bcr_Ip2.Text + "." + label_Bcr_Ip3.Text;
+            string bcrport = label_Bcr_Port.Text;
+            Globalo.yamlManager.configData.IpAddr.BcrIp = bcrip;
+            Globalo.yamlManager.configData.IpAddr.BcrPort = int.Parse(bcrport);
             Globalo.yamlManager.configData.DrivingSettings.Language = ComboBox_Language.Text;
 
             Globalo.yamlManager.configData.DrivingSettings.PinCountMax = int.Parse(label_PinCountMax.Text);
@@ -238,6 +248,7 @@ namespace ZenHandler.Dlg
             GetOptionData();
 
             Globalo.yamlManager.configDataSave();
+
             Data.TaskDataYaml.TaskSave_Layout(Globalo.motionManager.transferMachine.productLayout, Machine.TransferMachine.LayoutPath);
 
             //언어 변경
@@ -306,6 +317,108 @@ namespace ZenHandler.Dlg
         {
             Label clickedLabel = sender as Label;
             ProductMaxCountInput(clickedLabel);
+        }
+
+        private void label_Bcr_Ip2_Click(object sender, EventArgs e)
+        {
+            string labelValue = label_Bcr_Ip2.Text;
+            int decimalValue = 0;
+
+
+            if (int.TryParse(labelValue, out decimalValue))
+            {
+                // 소수점 형식으로 변환
+                string formattedValue = decimalValue.ToString();
+                NumPadForm popupForm = new NumPadForm(formattedValue);
+
+                DialogResult dialogResult = popupForm.ShowDialog();
+
+
+                if (dialogResult == DialogResult.OK)
+                {
+                    if (int.TryParse(popupForm.NumPadResult, out int dNumData))
+                    {
+                        if (dNumData < 0)
+                        {
+                            dNumData = 0;
+                        }
+                        if (dNumData > 255)
+                        {
+                            dNumData = 255;
+                        }
+                        label_Bcr_Ip2.Text = dNumData.ToString();
+                    }
+                        
+                }
+            }
+        }
+
+        private void label_Bcr_Ip3_Click(object sender, EventArgs e)
+        {
+            string labelValue = label_Bcr_Ip3.Text;
+            int decimalValue = 0;
+
+
+            if (int.TryParse(labelValue, out decimalValue))
+            {
+                // 소수점 형식으로 변환
+                string formattedValue = decimalValue.ToString();
+                NumPadForm popupForm = new NumPadForm(formattedValue);
+
+                DialogResult dialogResult = popupForm.ShowDialog();
+
+
+                if (dialogResult == DialogResult.OK)
+                {
+                    if (int.TryParse(popupForm.NumPadResult, out int dNumData))
+                    {
+                        if (dNumData < 0)
+                        {
+                            dNumData = 0;
+                        }
+                        if (dNumData > 255)
+                        {
+                            dNumData = 255;
+                        }
+                        label_Bcr_Ip3.Text = dNumData.ToString();
+                    }
+
+                }
+            }
+        }
+
+        private void label_Bcr_Port_Click(object sender, EventArgs e)
+        {
+            string labelValue = label_Bcr_Port.Text;
+            int decimalValue = 0;
+
+
+            if (int.TryParse(labelValue, out decimalValue))
+            {
+                // 소수점 형식으로 변환
+                string formattedValue = decimalValue.ToString();
+                NumPadForm popupForm = new NumPadForm(formattedValue);
+
+                DialogResult dialogResult = popupForm.ShowDialog();
+
+
+                if (dialogResult == DialogResult.OK)
+                {
+                    if (int.TryParse(popupForm.NumPadResult, out int dNumData))
+                    {
+                        if (dNumData < 5000)
+                        {
+                            dNumData = 5000;
+                        }
+                        if (dNumData > 60000)
+                        {
+                            dNumData = 60000;
+                        }
+                        label_Bcr_Port.Text = dNumData.ToString();
+                    }
+
+                }
+            }
         }
     }
 }

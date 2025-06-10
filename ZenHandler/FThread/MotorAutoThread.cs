@@ -169,7 +169,12 @@ namespace ZenHandler.FThread
                 if (Program.PG_SELECT == HANDLER_PG.FW)
                 {
                     //소켓 4Set * 4 = 16개
-                    //this.m_nCurrentStep = this.parent.processManager.fwSocketFlow.Auto_Waiting(this.m_nCurrentStep);
+                    this.m_nCurrentStep = this.parent.processManager.fwSocketFlow.Auto_Waiting(this.m_nCurrentStep);
+
+                    this.m_nSocketStep[0] = this.parent.processManager.fwSocketFlow.Auto_Common_FwSocket(this.m_nSocketStep[0], 0);
+                    this.m_nSocketStep[1] = this.parent.processManager.fwSocketFlow.Auto_Common_FwSocket(this.m_nSocketStep[1], 1);
+                    this.m_nSocketStep[2] = this.parent.processManager.fwSocketFlow.Auto_Common_FwSocket(this.m_nSocketStep[2], 2);
+                    this.m_nSocketStep[3] = this.parent.processManager.fwSocketFlow.Auto_Common_FwSocket(this.m_nSocketStep[3], 3);
                 }
                 if (Program.PG_SELECT == HANDLER_PG.AOI)
                 {

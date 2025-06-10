@@ -7,22 +7,362 @@ using System.Threading.Tasks;
 
 namespace ZenHandler.Process
 {
+    public enum FwSocketState
+    {
+        Wait = 0,
+        LoadReq,        // 공급 요청
+        UnLoadReq,      //배출 요청 (양품 + 불량 섞여 있을 수도 있다.)
+        Testing,        //검사 전
+    }
     public class FwSocketFlow
     {
         public int nTimeTick = 0;
+
+        //private int[] socketStateA = { -1, -1, -1, -1 };     // 0은 공급완료, 배출 완료, 1: 공급 요청, 2: 양품 배출, 3: NG 배출
+        //private int[] socketState_B = { -1, -1, -1, -1 };    // 0은 공급완료, 배출 완료, 1: 공급 요청, 2: 양품 배출, 3: NG 배출
+        //private int[] socketStateC = { -1, -1, -1, -1 };     // 0은 공급완료, 배출 완료, 1: 공급 요청, 2: 양품 배출, 3: NG 배출
+        //private int[] socketState_D = { -1, -1, -1, -1 };    // 0은 공급완료, 배출 완료, 1: 공급 요청, 2: 양품 배출, 3: NG 배출
+
         public int[] nSocketTimeTick = { 0, 0, 0, 0 };
 
-        private int[] socketStateA = { -1, -1, -1, -1 };     // 0은 공급완료, 배출 완료, 1: 공급 요청, 2: 양품 배출, 3: NG 배출
-        private int[] socketState_B = { -1, -1, -1, -1 };    // 0은 공급완료, 배출 완료, 1: 공급 요청, 2: 양품 배출, 3: NG 배출
-        private int[] socketStateC = { -1, -1, -1, -1 };     // 0은 공급완료, 배출 완료, 1: 공급 요청, 2: 양품 배출, 3: NG 배출
-        private int[] socketState_D = { -1, -1, -1, -1 };    // 0은 공급완료, 배출 완료, 1: 공급 요청, 2: 양품 배출, 3: NG 배출
-
+        private TcpSocket.MessageWrapper fwEqipData;
+        private TcpSocket.TesterData tData;
         private string[] socketName = { "LT SOCKET", "RT SOCKET", "BL SOCKET", "BR SOCKET" };
+
+
+        private FwSocketState[] socketProcessState = new FwSocketState[4];
+        private MotionControl.SocketReqArgs[] FlowSocketState = new MotionControl.SocketReqArgs[4];
         public FwSocketFlow()
         {
+            int i = 0;
+            fwEqipData = new TcpSocket.MessageWrapper();
+            fwEqipData.Type = "FW";
+            tData = new TcpSocket.TesterData();
 
+            for (i = 0; i < 4; i++)
+            {
+                FlowSocketState[i] = new MotionControl.SocketReqArgs
+                {
+                    Index = i,
+                    States = new int[] { -1, -1, -1, -1 },      //FW 4개
+                    Barcode = new string[] { string.Empty, string.Empty, string.Empty, string.Empty }
+                };
+            }
         }
+        public int Auto_Common_FwSocket(int nStep, int SocketIndex)
+        {
+            int i = 0;
+            string szLog = "";
+            bool result = false;
+            bool bRtn = false;
+            bool bEmptyChk = false;
+            int nRetStep = nStep;
+            const int SocketMaxCnt = 4;
+            int FNum = SocketIndex;     //SocketIndex = 0 or 1
+            switch (nStep)
+            {
+                case 100:
+                    if (Globalo.motionManager.socketFwMachine.IsTesting[FNum] == false)
+                    {
+                        break;
+                    }
+                    nRetStep = 120;
+                    break;
+                case 120:
+                    if (socketProcessState[FNum] == FwSocketState.UnLoadReq)        //전부가 검사가 끝났을때 (양품 + NG)
+                    {
+                        Console.WriteLine("Good Unload Req");
+                        nRetStep = 300;
+                        break;
+                    }
+                    if (socketProcessState[FNum] == FwSocketState.Testing)        //검사 진행
+                    {
+                        Console.WriteLine("Test Run");
+                        nRetStep = 400;
+                        break;
+                    }
+                    if (socketProcessState[FNum] == FwSocketState.LoadReq)   //전부다 비었을때만, 공급 요청
+                    {
+                        Console.WriteLine("Load Req");
+                        nRetStep = 200;
+                        break;
+                    }
 
+                    Globalo.motionManager.socketFwMachine.IsTesting[FNum] = false;  //다시 Waiting로 가기위해
+                    nRetStep = 100;
+                    break;
+                //--------------------------------------------------------------------------------------------------------------------------
+                //
+                //
+                //  공급 요청
+                //
+                //
+                //--------------------------------------------------------------------------------------------------------------------------
+                case 200:
+                    nRetStep = 205;
+                    break;
+                case 205:
+                    if (Globalo.motionManager.socketFwMachine.MultiContactUp(FNum, true) == true)
+                    {
+                        szLog = $"[AUTO] {socketName[FNum]} CONTACT UP MOTION [STEP : {nStep}]";
+                        Globalo.LogPrint("ManualControl", szLog);
+                        nRetStep = 210;
+                        nSocketTimeTick[FNum] = Environment.TickCount;
+                    }
+                    else
+                    {
+                        szLog = $"[AUTO] {socketName[FNum]} CONTACT UP MOTION FAIL[STEP : {nStep}]";
+                        Globalo.LogPrint("ManualControl", szLog, Globalo.eMessageName.M_WARNING);
+                        nRetStep *= -1;
+                        break;
+                    }
+                    break;
+                case 210:
+                    bRtn = Globalo.motionManager.socketFwMachine.GetMultiContactUp(i, true);
+                    if (bRtn)
+                    {
+                        szLog = $"[AUTO] {socketName[i]} CONTACT UP CEHCK [STEP : {nStep}]";
+                        Globalo.LogPrint("ManualControl", szLog);
+                        nRetStep = 215;
+                    }
+                    else if (Environment.TickCount - nSocketTimeTick[FNum] > MotionControl.MotorSet.IO_TIMEOUT)
+                    {
+                        szLog = $"[AUTO] {socketName[i]} CONTACT UP CHECK TIMEOUT [STEP : {nStep}]";
+                        Globalo.LogPrint("ManualControl", szLog);
+                        nStep *= -1;
+                        break;
+                    }
+                    break;
+                case 215:
+                    nRetStep = 230;
+                    break;
+                case 230:
+                    nRetStep = 240;
+                    break;
+                case 240:
+                    bEmptyChk = true;
+                    for (i = 0; i < SocketMaxCnt; i++)
+                    {
+                        if (Globalo.motionManager.socketFwMachine.GetIsProductInSocket(FNum, i, true) == false)
+                        {
+                            //둘다 비어야 공급 요청 가능
+                            FlowSocketState[FNum].States[i] = 1;
+                        }
+                        else
+                        {
+                            bEmptyChk = false;
+                            FlowSocketState[FNum].States[i] = -1;
+                        }
+                    }
+                    if (bEmptyChk)
+                    {
+                        Globalo.motionManager.InitSocketDone(FNum);             //공급요청 변수 초기화
+                        Globalo.motionManager.socketFwMachine.RaiseProductCall(FlowSocketState[FNum]);        //공급 요청 초기화, Auto_Waiting
+
+                        szLog = $"[AUTO] {socketName[FNum]} LOAD REQ [{string.Join(", ", FlowSocketState[FNum].States)}][STEP : {nStep}]";
+                        Globalo.LogPrint("ManualControl", szLog);
+                        nRetStep = 220;
+
+                    }
+                    else
+                    {
+                        szLog = $"[AUTO] {socketName[FNum]} EMPTY CHECK FAIL [STEP : {nStep}]";
+                        Globalo.LogPrint("ManualControl", szLog);
+                        nRetStep *= -1;
+                        break;
+                    }
+                    break;
+                case 245:
+                    //공급 완료 대기
+                    if (Globalo.motionManager.GetSocketDone(FNum) == 0)
+                    {
+                        //공급 완료
+                        MotionControl.SocketReqArgs group = Globalo.motionManager.GetSocketReq(FNum);    //소켓별 공급 상태 받기
+
+                        bool bErrChk = false;
+                        for (i = 0; i < SocketMaxCnt; i++)
+                        {
+
+                            //공급한 개수만큼 인식이 되는지 체크
+                            if (group.States[i] == 0)//if (socketStates[ANum, i] == 1)
+                            {
+                                if (Globalo.motionManager.socketFwMachine.GetIsProductInSocket(FNum, i, true) == false)
+                                {
+                                    //공급했는 소켓인데 제품이 없으면 알람
+                                    Console.WriteLine($"#{i + 1} Socket Product Empty err");
+                                    bErrChk = true;
+
+                                    Globalo.motionManager.socketFwMachine.socketProduct.FwSocketInfo[FNum][i].BcrLot = string.Empty;
+                                    Globalo.motionManager.socketFwMachine.socketProduct.FwSocketInfo[FNum][i].State = Machine.FwProductState.Blank;
+
+                                }
+                                else
+                                {
+                                    Globalo.motionManager.socketFwMachine.socketProduct.FwSocketInfo[FNum][i].BcrLot = group.Barcode[i];
+                                    Globalo.motionManager.socketFwMachine.socketProduct.FwSocketInfo[FNum][i].State = Machine.FwProductState.Testing;
+                                }
+                            }
+                        }
+
+                        if (bErrChk)
+                        {
+                            szLog = $"[AUTO] {socketName[FNum]} PRODUCT LOAD FAIL[STEP : {nStep}]";
+                            Globalo.LogPrint("ManualControl", szLog, Globalo.eMessageName.M_WARNING);
+                            nRetStep *= -1;
+                            break;
+                        }
+
+                        szLog = $"[AUTO] {socketName[FNum]} PRODUCT LOAD COMPLETE [STEP : {nStep}]";
+                        Globalo.LogPrint("ManualControl", szLog);
+                        nRetStep = 250;
+                    }
+                    break;
+                case 250:
+
+                    nRetStep = 255;
+                    break;
+                case 255:
+
+                    nRetStep = 260;
+                    break;
+                case 260:
+                    if (Globalo.motionManager.socketFwMachine.MultiFlipperGrip(FNum, true) == true)
+                    {
+                        szLog = $"[ORG] {socketName[FNum]} FLIPPER GRIP MOTION [STEP : {nStep}]";
+                        Globalo.LogPrint("ManualControl", szLog);
+                        nRetStep = 265;
+                        nSocketTimeTick[FNum] = Environment.TickCount;
+                    }
+                    else
+                    {
+                        szLog = $"[ORG] {socketName[FNum]} FLIPPER GRIP MOTION FAIL[STEP : {nStep}]";
+                        Globalo.LogPrint("ManualControl", szLog, Globalo.eMessageName.M_WARNING);
+                        nRetStep *= -1;
+                        break;
+                    }
+                    
+                    break;
+                case 265:
+                    bRtn = Globalo.motionManager.socketFwMachine.GetMultiFlipperGrip(FNum, true);
+                    if (bRtn)
+                    {
+                        szLog = $"[AUTO] {socketName[FNum]} FLIPPER GRIP CEHCK [STEP : {nStep}]";
+                        Globalo.LogPrint("ManualControl", szLog);
+                        nRetStep = 290;
+                    }
+                    else if (Environment.TickCount - nSocketTimeTick[FNum] > MotionControl.MotorSet.IO_TIMEOUT)
+                    {
+                        szLog = $"[AUTO] {socketName[FNum]} FLIPPER GRIP CHECK TIMEOUT [STEP : {nStep}]";
+                        Globalo.LogPrint("ManualControl", szLog);
+                        nStep *= -1;
+                        break;
+                    }
+                    
+                    break;
+                case 290:
+                    //제품 그립 -> 컨택 전진 -> 컨택 하강 - > 공급완료
+                    Globalo.motionManager.socketFwMachine.IsTesting[FNum] = false;
+                    nRetStep = 100;
+                    break;
+                //--------------------------------------------------------------------------------------------------------------------------
+                //
+                //
+                //  배출 요청
+                //
+                //
+                //--------------------------------------------------------------------------------------------------------------------------
+                case 300:
+
+                    break;
+                case 320:
+
+                    break;
+                case 340:
+                    //그립된 채로, 로테이션 상승 -> Turn -> 로테이션 하강 -> UnGrip -> 배출 요청 
+                    break;
+                //--------------------------------------------------------------------------------------------------------------------------
+                //
+                //
+                //  Firmware Download 진행
+                //
+                //
+                //--------------------------------------------------------------------------------------------------------------------------
+                case 400:
+
+                    break;
+                case 420:
+
+                    break;
+                case 440:
+                    //컨택 전진 -> 컨택 하강 -> firmware download 진행 -> 완료 -> 컨택 상승 -> 컨택 후진 -> 로테이션 상승 - > 로테이션 턴 -> 하강 -> UNGRIP
+                    break;
+                case 500:
+                    break;
+                case 600:
+                    break;
+                case 700:
+                    break;
+                case 900:
+
+                    Globalo.motionManager.socketFwMachine.IsTesting[FNum] = false;      //검사 완료 후
+                    nRetStep = 100;
+                    break;
+            }
+            return nRetStep;
+        }
+        private int[] RtnFwSocketState(int index, List<Machine.FwSocketProductInfo> socketState)
+        {
+            int i = 0;
+            int[] tempState = { -1, -1, -1, -1 };
+            for (i = 0; i < 4; i++)
+            {
+                if (Globalo.motionManager.socketFwMachine.GetIsProductInSocket(index, i, true) == false)
+                {
+                    tempState[i] = 1;        //1 = 공급요청
+                    socketState[i].State = Machine.FwProductState.Blank;
+                }
+                else
+                {
+                    //있으면 검사 or 배출 요청
+                    if (socketState[i].State == Machine.FwProductState.Testing)        //검사 할 차례
+                    {
+                        //검사 전
+                        tempState[i] = 3;
+                    }
+                    else if (socketState[i].State == Machine.FwProductState.Good || socketState[i].State == Machine.FwProductState.NG)
+                    {
+                        //검사 완료
+                        tempState[i] = 2; //양품 or 불량 배출 요청
+                    }
+                    else
+                    {
+                        //상태 이상
+                        tempState[i] = 0;
+                    }
+                }
+            }
+
+            return tempState;
+        }
+        private int RtnSocketAll(int[] socketState)
+        {
+            int nRtn = -1;
+            if (socketState.Length < 1)
+            {
+                return -1;
+            }
+
+            int first = socketState[0];
+            for (int i = 1; i < socketState.Length; i++)
+            {
+                if (socketState[i] != first)
+                {
+                    return -1;
+                }
+            }
+
+            return first; // 모두 같음 (1 또는 2)
+        }
         #region [Auto_Waiting]
         public int Auto_Waiting(int nStep)
         {
@@ -34,7 +374,49 @@ namespace ZenHandler.Process
             switch (nStep)
             {
                 case 3000:
+                    for (i = 0; i < 4; i++)
+                    {
+                        if (Globalo.motionManager.socketFwMachine.IsTesting[i] == false)
+                        {
+                            socketProcessState[i] = FwSocketState.Wait;
+                            FlowSocketState[i].States = new int[] { -1, -1, -1, -1 };
+                            FlowSocketState[i].Barcode = new string[] { string.Empty, string.Empty, string.Empty, string.Empty };
 
+                            Globalo.motionManager.socketFwMachine.RaiseProductCall(FlowSocketState[i]);         //공급 요청 초기화, Auto_Waiting
+
+                            FlowSocketState[i].States = RtnFwSocketState(i, Globalo.motionManager.socketFwMachine.socketProduct.FwSocketInfo[i]);
+
+
+                            //1개라도 검사 안된게 있으면 검사 진행
+                            //1개라도 검사 완료된 제품이 있으면 배출 요청
+                            //아무 것도 없으면 공급 요청
+
+                            bool containdTest3 = Array.Exists(FlowSocketState[i].States, state => state == 3);      //3을 하나라도 포함하고 있는지
+                            bool containdTest2 = Array.Exists(FlowSocketState[i].States, state => state == 2);      //2 하나라도 포함하고 있는지
+                            int socketAll = RtnSocketAll(FlowSocketState[i].States);
+
+                            if (socketAll == 1)       //2개 전부 없음
+                            {
+                                //공급 요청
+                                socketProcessState[i] = FwSocketState.LoadReq;         //공급 요청
+                            }
+                            else if (containdTest3)
+                            {
+                                //검사 진행
+                                socketProcessState[i] = FwSocketState.Testing;         //AOI 검사 진행
+                            }
+                            else if (containdTest2)
+                            {
+                                //배출
+                                socketProcessState[i] = FwSocketState.UnLoadReq;       //배출 요청
+                            }
+                            if (socketProcessState[i] != FwSocketState.Wait)
+                            {
+                                Globalo.motionManager.socketFwMachine.IsTesting[i] = true;
+                            }
+                        }
+                    }
+  
                     break;
 
             }
@@ -390,8 +772,8 @@ namespace ZenHandler.Process
                     //소켓에 제품 투입 -> Grip -> 컨택 -> fw검사 - > 컨택 빠지고 -> 로테이트 상승 -> 회전 -> 하강 - > UnGrip
 
 
-                    Globalo.motionManager.socketAoiMachine.RunState = OperationState.Standby;
-                    szLog = $"[READY] AOI SOCKET 운전준비 완료 [STEP : {nStep}]";
+                    Globalo.motionManager.socketFwMachine.RunState = OperationState.Standby;
+                    szLog = $"[READY] FW SOCKET 운전준비 완료 [STEP : {nStep}]";
                     Globalo.LogPrint("ManualControl", szLog);
                     nRetStep = 3000;
                     break;

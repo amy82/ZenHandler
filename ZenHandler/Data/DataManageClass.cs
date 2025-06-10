@@ -71,7 +71,7 @@ namespace ZenHandler.Data
         public const string yamlFilePathTask = "taskData.yaml";
         public const string yamlFilePathTray = "trayData.yaml";
         public const string yamlFilePathSecGem = "SecGemData.yaml";
-        public const string yamlFilePathConfig = "equip_config.yaml";
+        public const string yamlFilePathConfig = "Handler_config.yaml";
         public const string yamlFilePathImage = "imageData.yaml";
         public const string yamlFilePathUgc = "ugcFilePath.yaml";
         public const string yamlFilePathRecipe = "Recipe.yaml";

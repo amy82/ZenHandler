@@ -18,6 +18,8 @@ namespace ZenHandler.Process
         public string[] axisName = { "Left Socekt", "Right Socket" };
 
         public int nTimeTick = 0;
+
+        public int[] nSocketTimeTick = { 0, 0 };
         private TcpSocket.MessageWrapper aoiEqipData;
         private TcpSocket.TesterData tData;
         private AoiSocketState[] socketProcessState = new AoiSocketState[2];
@@ -135,7 +137,7 @@ namespace ZenHandler.Process
                     szLog = $"[AUTO] {axisName[ANum]} Z WAIT POS MOVE [STEP : {nStep}]";
                     Globalo.LogPrint("ManualControl", szLog);
                     nRetStep = 220;
-                    nTimeTick = Environment.TickCount;
+                    nSocketTimeTick[ANum] = Environment.TickCount;
                     break;
 
                 case 220:
@@ -146,10 +148,10 @@ namespace ZenHandler.Process
                         szLog = $"[AUTO] {axisName[ANum]} Z WAIT 위치 이동 완료 [STEP : {nStep}]";
                         Globalo.LogPrint("ManualControl", szLog);
                         nRetStep = 230;
-                        nTimeTick = Environment.TickCount;
+                        nSocketTimeTick[ANum] = Environment.TickCount;
                         break;
                     }
-                    else if (Environment.TickCount - nTimeTick > MotionControl.MotorSet.MOTOR_MOVE_TIMEOUT)
+                    else if (Environment.TickCount - nSocketTimeTick[ANum] > MotionControl.MotorSet.MOTOR_MOVE_TIMEOUT)
                     {
                         szLog = $"[AUTO] {axisName[ANum]} Z WAIT 이동 시간 초과 [STEP : {nStep}]";
                         Globalo.LogPrint("ManualControl", szLog);
@@ -172,7 +174,7 @@ namespace ZenHandler.Process
                     szLog = $"[AUTO] {axisName[ANum]} LOAD POS MOVE [STEP : {nStep}]";
                     Globalo.LogPrint("ManualControl", szLog);
                     nRetStep = 235;
-                    nTimeTick = Environment.TickCount;
+                    nSocketTimeTick[ANum] = Environment.TickCount;
                     break;
                 case 235:
                     if (Globalo.motionManager.socketAoiMachine.MotorAxes[(int)Xmotor].GetStopAxis() == true &&
@@ -181,10 +183,10 @@ namespace ZenHandler.Process
                         szLog = $"[AUTO] {axisName[ANum]} X LOAD 위치 이동 완료 [STEP : {nStep}]";
                         Globalo.LogPrint("ManualControl", szLog);
                         nRetStep = 240;
-                        nTimeTick = Environment.TickCount;
+                        nSocketTimeTick[ANum] = Environment.TickCount;
                         break;
                     }
-                    else if (Environment.TickCount - nTimeTick > MotionControl.MotorSet.MOTOR_MOVE_TIMEOUT)
+                    else if (Environment.TickCount - nSocketTimeTick[ANum] > MotionControl.MotorSet.MOTOR_MOVE_TIMEOUT)
                     {
                         szLog = $"[AUTO] {axisName[ANum]} X LOAD 이동 시간 초과 [STEP : {nStep}]";
                         Globalo.LogPrint("ManualControl", szLog);
@@ -307,7 +309,7 @@ namespace ZenHandler.Process
                     szLog = $"[AUTO] {axisName[ANum]} Z WAIT POS MOVE [STEP : {nStep}]";
                     Globalo.LogPrint("ManualControl", szLog);
                     nRetStep = 310;
-                    nTimeTick = Environment.TickCount;
+                    nSocketTimeTick[ANum] = Environment.TickCount;
                     break;
                 case 310:
                     //Z 축 대기위치 확인
@@ -317,10 +319,10 @@ namespace ZenHandler.Process
                         szLog = $"[AUTO] {axisName[ANum]} Z WAIT 위치 이동 완료 [STEP : {nStep}]";
                         Globalo.LogPrint("ManualControl", szLog);
                         nRetStep = 315;
-                        nTimeTick = Environment.TickCount;
+                        nSocketTimeTick[ANum] = Environment.TickCount;
                         break;
                     }
-                    else if (Environment.TickCount - nTimeTick > MotionControl.MotorSet.MOTOR_MOVE_TIMEOUT)
+                    else if (Environment.TickCount - nSocketTimeTick[ANum] > MotionControl.MotorSet.MOTOR_MOVE_TIMEOUT)
                     {
                         szLog = $"[AUTO] {axisName[ANum]} Z WAIT 이동 시간 초과 [STEP : {nStep}]";
                         Globalo.LogPrint("ManualControl", szLog);
@@ -342,7 +344,7 @@ namespace ZenHandler.Process
                     szLog = $"[AUTO] {axisName[ANum]} UNLOAD POS MOVE [STEP : {nStep}]";
                     Globalo.LogPrint("ManualControl", szLog);
                     nRetStep = 320;
-                    nTimeTick = Environment.TickCount;
+                    nSocketTimeTick[ANum] = Environment.TickCount;
                     break;
                 case 320:
                     if (Globalo.motionManager.socketAoiMachine.MotorAxes[(int)Xmotor].GetStopAxis() == true &&
@@ -351,10 +353,10 @@ namespace ZenHandler.Process
                         szLog = $"[AUTO] {axisName[ANum]} X LOUNLOADAD 위치 이동 완료 [STEP : {nStep}]";
                         Globalo.LogPrint("ManualControl", szLog);
                         nRetStep = 330;
-                        nTimeTick = Environment.TickCount;
+                        nSocketTimeTick[ANum] = Environment.TickCount;
                         break;
                     }
-                    else if (Environment.TickCount - nTimeTick > MotionControl.MotorSet.MOTOR_MOVE_TIMEOUT)
+                    else if (Environment.TickCount - nSocketTimeTick[ANum] > MotionControl.MotorSet.MOTOR_MOVE_TIMEOUT)
                     {
                         szLog = $"[AUTO] {axisName[ANum]} X UNLOAD 이동 시간 초과 [STEP : {nStep}]";
                         Globalo.LogPrint("ManualControl", szLog);
@@ -473,7 +475,7 @@ namespace ZenHandler.Process
                     szLog = $"[AUTO] {axisName[ANum]} Z HOUSING OUT POS MOVE [STEP : {nStep}]";
                     Globalo.LogPrint("ManualControl", szLog);
                     nRetStep = 410;
-                    nTimeTick = Environment.TickCount;
+                    nSocketTimeTick[ANum] = Environment.TickCount;
                     break;
                 case 410:
                     if (Globalo.motionManager.socketAoiMachine.MotorAxes[(int)Zmotor].GetStopAxis() == true &&
@@ -482,10 +484,10 @@ namespace ZenHandler.Process
                         szLog = $"[AUTO] {axisName[ANum]} Z HOUSING OUT POS 이동 완료 [STEP : {nStep}]";
                         Globalo.LogPrint("ManualControl", szLog);
                         nRetStep = 415;
-                        nTimeTick = Environment.TickCount;
+                        nSocketTimeTick[ANum] = Environment.TickCount;
                         break;
                     }
-                    else if (Environment.TickCount - nTimeTick > MotionControl.MotorSet.MOTOR_MOVE_TIMEOUT)
+                    else if (Environment.TickCount - nSocketTimeTick[ANum] > MotionControl.MotorSet.MOTOR_MOVE_TIMEOUT)
                     {
                         szLog = $"[AUTO] {axisName[ANum]} Z HOUSING OUT POS 시간 초과 [STEP : {nStep}]";
                         Globalo.LogPrint("ManualControl", szLog);
@@ -506,7 +508,7 @@ namespace ZenHandler.Process
 
                     szLog = $"[AUTO] {axisName[ANum]} CAPTURE_R POS MOVE [STEP : {nStep}]";
                     Globalo.LogPrint("ManualControl", szLog);
-                    nTimeTick = Environment.TickCount;
+                    nSocketTimeTick[ANum] = Environment.TickCount;
                     nRetStep = 420;
                     break;
                 case 420:
@@ -516,10 +518,10 @@ namespace ZenHandler.Process
                         szLog = $"[AUTO] {axisName[ANum]} X CAPTURE_R POS 이동 완료 [STEP : {nStep}]";
                         Globalo.LogPrint("ManualControl", szLog);
                         nRetStep = 425;
-                        nTimeTick = Environment.TickCount;
+                        nSocketTimeTick[ANum] = Environment.TickCount;
                         break;
                     }
-                    else if (Environment.TickCount - nTimeTick > MotionControl.MotorSet.MOTOR_MOVE_TIMEOUT)
+                    else if (Environment.TickCount - nSocketTimeTick[ANum] > MotionControl.MotorSet.MOTOR_MOVE_TIMEOUT)
                     {
                         szLog = $"[AUTO] {axisName[ANum]} X CAPTURE_R 이동 시간 초과 [STEP : {nStep}]";
                         Globalo.LogPrint("ManualControl", szLog);
@@ -529,7 +531,7 @@ namespace ZenHandler.Process
                     break;
                 case 425:
                     //딜레이
-                    if (Environment.TickCount - nTimeTick > 300)
+                    if (Environment.TickCount - nSocketTimeTick[ANum] > 300)
                     {
                         nRetStep = 430;
                     }
@@ -632,7 +634,7 @@ namespace ZenHandler.Process
                     szLog = $"[AUTO] {axisName[ANum]} Z HOUSING OUT POS MOVE [STEP : {nStep}]";
                     Globalo.LogPrint("ManualControl", szLog);
                     nRetStep = 495;
-                    nTimeTick = Environment.TickCount;
+                    nSocketTimeTick[ANum] = Environment.TickCount;
                     break;
                 case 495:
                     if (Globalo.motionManager.socketAoiMachine.MotorAxes[(int)Zmotor].GetStopAxis() == true &&
@@ -640,12 +642,12 @@ namespace ZenHandler.Process
                     {
                         szLog = $"[AUTO] {axisName[ANum]} Z HOUSING OUT POS 이동 완료 [STEP : {nStep}]";
                         Globalo.LogPrint("ManualControl", szLog);
-                        nTimeTick = Environment.TickCount;
+                        nSocketTimeTick[ANum] = Environment.TickCount;
 
                         nRetStep = 500;
                         break;
                     }
-                    else if (Environment.TickCount - nTimeTick > MotionControl.MotorSet.MOTOR_MOVE_TIMEOUT)
+                    else if (Environment.TickCount - nSocketTimeTick[ANum] > MotionControl.MotorSet.MOTOR_MOVE_TIMEOUT)
                     {
                         szLog = $"[AUTO] {axisName[ANum]} Z HOUSING OUT POS 시간 초과 [STEP : {nStep}]";
                         Globalo.LogPrint("ManualControl", szLog);
@@ -678,7 +680,7 @@ namespace ZenHandler.Process
 
                     szLog = $"[AUTO] {axisName[ANum]} CAPTURE_L POS MOVE [STEP : {nStep}]";
                     Globalo.LogPrint("ManualControl", szLog);
-                    nTimeTick = Environment.TickCount;
+                    nSocketTimeTick[ANum] = Environment.TickCount;
                     nRetStep = 520;
                     break;
                 case 520:
@@ -688,10 +690,10 @@ namespace ZenHandler.Process
                         szLog = $"[AUTO] {axisName[ANum]} X CAPTURE_L POS 이동 완료 [STEP : {nStep}]";
                         Globalo.LogPrint("ManualControl", szLog);
                         nRetStep = 525;
-                        nTimeTick = Environment.TickCount;
+                        nSocketTimeTick[ANum] = Environment.TickCount;
                         break;
                     }
-                    else if (Environment.TickCount - nTimeTick > MotionControl.MotorSet.MOTOR_MOVE_TIMEOUT)
+                    else if (Environment.TickCount - nSocketTimeTick[ANum] > MotionControl.MotorSet.MOTOR_MOVE_TIMEOUT)
                     {
                         szLog = $"[AUTO] {axisName[ANum]} X CAPTURE_L 이동 시간 초과 [STEP : {nStep}]";
                         Globalo.LogPrint("ManualControl", szLog);
@@ -702,7 +704,7 @@ namespace ZenHandler.Process
                     break;
                 case 525:
                     //딜레이
-                    if (Environment.TickCount - nTimeTick > 300)
+                    if (Environment.TickCount - nSocketTimeTick[ANum] > 300)
                     {
                         nRetStep = 530;
                     }

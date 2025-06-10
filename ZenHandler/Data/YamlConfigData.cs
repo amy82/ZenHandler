@@ -6,9 +6,10 @@ using System.Threading.Tasks;
 
 namespace ZenHandler.Data
 {
-    public class _SerialPort
+    public class _IpAddr
     {
-        public string Bcr { get; set; }
+        public string BcrIp { get; set; }
+        public int BcrPort { get; set; }
     }
 
     public class _DrivingSettings
@@ -21,7 +22,7 @@ namespace ZenHandler.Data
     }
     public class ConfigData
     {
-        public _SerialPort SerialPort { get; set; }
+        public _IpAddr IpAddr { get; set; }
         public _DrivingSettings DrivingSettings { get; set; }
     }
 }
