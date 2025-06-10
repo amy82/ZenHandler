@@ -179,6 +179,7 @@ namespace ZenHandler.Machine
         public void LoadTryAdd(int LoadCnt = 1)
         {
             string szLog = "";
+
             int currentPosx = this.pickedProduct.LoadTrayPos.X;
             int currentPosy = this.pickedProduct.LoadTrayPos.Y;
 
@@ -187,6 +188,7 @@ namespace ZenHandler.Machine
 
             Console.WriteLine($"Current Load X : {currentPosx} / {MaxXCount}");
             Console.WriteLine($"Current Load Y : {currentPosy} / {MaxYCount}");
+
 
             szLog = $"[TrayInfo] Current Load X : {currentPosx} / {MaxXCount}";
             Globalo.LogPrint("ManualControl", szLog);
@@ -215,7 +217,6 @@ namespace ZenHandler.Machine
             }
             int nextPosx = this.pickedProduct.LoadTrayPos.X;
             int nextPosy = this.pickedProduct.LoadTrayPos.Y;
-
 
             Console.WriteLine("----------------------------------------------------");
             Console.WriteLine($"Next Load X : {currentPosx} > {nextPosx}");

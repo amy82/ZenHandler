@@ -411,7 +411,8 @@ namespace ZenHandler.Process
                                 //socketStateA[i] = 2;
                                 FlowSocketState[sNum].States[i] = 2;
                             }
-                            if (Globalo.motionManager.socketEEpromMachine.socketProduct.EEpromSocketInfo[0][i].State == Machine.EEpromProductState.NG)
+                            if (Globalo.motionManager.socketEEpromMachine.socketProduct.EEpromSocketInfo[0][i].State == Machine.EEpromProductState.NG_Write ||
+                                Globalo.motionManager.socketEEpromMachine.socketProduct.EEpromSocketInfo[0][i].State == Machine.EEpromProductState.NG_Verify)
                             {
                                 //socketStateA[i] = 3;
                                 FlowSocketState[sNum].States[i] = 3;
@@ -1215,7 +1216,8 @@ namespace ZenHandler.Process
                             {
                                 FlowSocketState[sNum].States[i] = 2;
                             }
-                            if (Globalo.motionManager.socketEEpromMachine.socketProduct.EEpromSocketInfo[1][i].State == Machine.EEpromProductState.NG)
+                            if (Globalo.motionManager.socketEEpromMachine.socketProduct.EEpromSocketInfo[1][i].State == Machine.EEpromProductState.NG_Write ||
+                                Globalo.motionManager.socketEEpromMachine.socketProduct.EEpromSocketInfo[1][i].State == Machine.EEpromProductState.NG_Verify)
                             {
                                 FlowSocketState[sNum].States[i] = 3;
                             }
@@ -2149,7 +2151,7 @@ namespace ZenHandler.Process
                                 }
                                 else if (Globalo.motionManager.socketEEpromMachine.Tester_A_Result[i] == 2)  //2 Ng
                                 {
-                                    Globalo.motionManager.socketEEpromMachine.socketProduct.EEpromSocketInfo[0][i].State = Machine.EEpromProductState.NG;
+                                    Globalo.motionManager.socketEEpromMachine.socketProduct.EEpromSocketInfo[0][i].State = Machine.EEpromProductState.NG_Write;
                                 }
                                 else
                                 {
@@ -2543,7 +2545,7 @@ namespace ZenHandler.Process
                                 }
                                 else if (Globalo.motionManager.socketEEpromMachine.Tester_B_Result[i] == 2)  //2 Ng
                                 {
-                                    Globalo.motionManager.socketEEpromMachine.socketProduct.EEpromSocketInfo[0][i].State = Machine.EEpromProductState.NG;
+                                    Globalo.motionManager.socketEEpromMachine.socketProduct.EEpromSocketInfo[0][i].State = Machine.EEpromProductState.NG_Verify;
                                 }
                                 else
                                 {
@@ -3502,7 +3504,8 @@ namespace ZenHandler.Process
                         //verify 미완료
                         tempState[i] = 4;
                     }
-                    else if (socketState[i].State == Machine.EEpromProductState.Good || socketState[i].State == Machine.EEpromProductState.NG)
+                    else if (socketState[i].State == Machine.EEpromProductState.Good ||
+                        socketState[i].State == Machine.EEpromProductState.NG_Write || socketState[i].State == Machine.EEpromProductState.NG_Verify)
                     {
                         //write + verify 완료
                         tempState[i] = 2; //양품 or 불량 배출 요청

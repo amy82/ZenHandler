@@ -24,15 +24,11 @@ namespace ZenHandler
 
             for (i = 0; i < 4; i++)
             {
-                Console.WriteLine($"i = {i}");
-                for (j = 0; j < 4; j++)
-                {
-                    Console.WriteLine($"j = {j}");
-                    if (j == 2)
-                    {
-                        break;
-                    }
-                }
+                Console.WriteLine($"i = {i / 2}, {i % 2}, {i % 4}");
+                //i = 0, 0, 0
+                //i = 0, 1, 1
+                //i = 1, 0, 2
+                //i = 1, 1, 3
             }
         }
 

@@ -1021,7 +1021,8 @@ namespace ZenHandler.Dlg
                     label.ForeColor = Color.Black;
                     EEptempSocket[Group][index].State = Machine.EEpromProductState.Blank;
                 }
-                if (EEptempSocket[Group][index].State == Machine.EEpromProductState.NG)
+                if (EEptempSocket[Group][index].State == Machine.EEpromProductState.NG_Write ||
+                    EEptempSocket[Group][index].State == Machine.EEpromProductState.NG_Verify)
                 {
                     label.BackColor = Color.Red;
                     label.ForeColor = Color.White;

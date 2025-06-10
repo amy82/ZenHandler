@@ -193,7 +193,7 @@ namespace ZenHandler.Dlg
                             stateLabel.BackColor = Color.Green;
                             stateLabel.ForeColor = Color.Yellow;
                         }
-                        else if (sEEpState == Machine.EEpromProductState.NG)
+                        else if (sEEpState == Machine.EEpromProductState.NG_Write || sEEpState == Machine.EEpromProductState.NG_Verify)
                         {
                             stateLabel.BackColor = Color.Red;
                             stateLabel.ForeColor = Color.Black;
