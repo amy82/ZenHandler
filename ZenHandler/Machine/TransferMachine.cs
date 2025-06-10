@@ -95,6 +95,7 @@ namespace ZenHandler.Machine
         //public Dio cylinder;
         //픽업 툴 4개 실린더 Dio 로 지정?
 
+
         public TransferMachine()//: base("Machine")
         {
             int i = 0;
@@ -109,6 +110,7 @@ namespace ZenHandler.Machine
                 axisName[i], MotionControl.MotorSet.TransferMotorType[i], 
                 MaxSpeeds[i], MotionControl.MotorSet.TransferAXT_SET_LIMIT[i], MotionControl.MotorSet.TransferAXT_SET_SERVO_ALARM[i], OrgFirstVel[i], OrgSecondVel[i], OrgThirdVel[i],
                 MotionControl.MotorSet.TransferMOTOR_HOME_SENSOR[i], MotionControl.MotorSet.TransferMOTOR_HOME_DIR[i]);
+
 
                 //초기 셋 다른 곳에서 다시 해줘야될 듯
                 MotorAxes[i].setMotorParameter(10.0, 0.1, 0.1, 1000.0);//(double vel , double acc , double dec , double resol)
@@ -130,9 +132,11 @@ namespace ZenHandler.Machine
             }
 
             pickedProduct = Data.TaskDataYaml.TaskLoad_Transfer(taskPath);
+
             productLayout = Data.TaskDataYaml.TaskLoad_Layout(LayoutPath);
 
             TrayPosition = MotionControl.MotorSet.TrayPos.Right;        //init
+
 
             uphStartTime = DateTime.Now;
             //double elapsedMinutes = (DateTime.Now - uphStartTime).TotalSeconds;//TotalMinutes;

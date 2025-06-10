@@ -613,9 +613,8 @@ namespace ZenHandler.Dlg
             }
 
             Globalo.motionManager.socketFwMachine.RunState = OperationState.Stopped;
-            Globalo.motionManager.socketFwMachine.FlipperRotate(Group, index, bFlag);
 
-
+            Globalo.motionManager.socketFwMachine.FlipperTurn(Group, index, bFlag);
         }
 
         private void ManualRotatorGrip(int Group, int index, bool bFlag)

@@ -31,7 +31,9 @@ namespace ZenHandler.Machine
         Blank = 0,   // 제품 없음
         Testing,     //fw 다운전
         Good,        // 양품
-        NG           // 불량
+        NG,           // 불량
+        GoodTurn,       //<--필요한가
+        NGTurn              //<---필요한가
     }
     public enum EEpromProductState
     {

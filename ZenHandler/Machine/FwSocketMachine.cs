@@ -392,7 +392,7 @@ namespace ZenHandler.Machine
             }
             return false;
         }
-        public bool FlipperRotate(int GroupNo, int index, bool bFlag, bool bWait = false)       //로테이션 회전 동작
+        public bool FlipperTurn(int GroupNo, int index, bool bFlag, bool bWait = false)       //로테이션 회전 동작
         {
             if (ProgramState.ON_LINE_MOTOR == false)
             {

@@ -343,8 +343,7 @@ namespace ZenHandler.Data
         }
         public static T LoadYaml<T>(string filePath)
         {
-            var deserializer = new DeserializerBuilder()
-                .Build();
+            var deserializer = new DeserializerBuilder().Build();
 
             using (var reader = new StreamReader(filePath))
             {

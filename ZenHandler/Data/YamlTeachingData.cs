@@ -28,6 +28,8 @@ namespace ZenHandler.Data
         public List<double> Resolution { get; set; } = new List<double>();
         public List<TeachingPos> Teaching { get; set; } = new List<TeachingPos>();
 
+
+
         public bool LoadTeach(string fileName, int axisCount, int teachCnt)      //티칭 분리
         {
             string filePath = Path.Combine(CPath.BASE_ENV_PATH, fileName);
@@ -38,6 +40,8 @@ namespace ZenHandler.Data
                     Globalo.LogPrint("LoadTeach", $"[Teaching] { fileName} Load Fail", Globalo.eMessageName.M_ERROR);
                     return false;
                 }
+
+
                 var Loaded = Data.YamlManager.LoadYaml<TeachingConfig>(filePath);
 
                 if (Loaded == null)
@@ -92,6 +96,7 @@ namespace ZenHandler.Data
                 return false;
             }
         }
+
         public bool SaveTeach(string fileName)
         {
             string filePath = Path.Combine(CPath.BASE_ENV_PATH, fileName);
