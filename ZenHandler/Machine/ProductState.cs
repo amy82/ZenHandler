@@ -34,7 +34,8 @@ namespace ZenHandler.Machine
         Writing,     //Write 검사 전
         Verifying,   //Verify 검사 전
         Good,        // Write + Verify 둘다 완료
-        NG           // 불량
+        NG_Write,           // 불량
+        NG_Verify
     }
     public enum FwProductState
     {

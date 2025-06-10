@@ -17,8 +17,7 @@ namespace ZenHandler.Machine
     };
     public class AoiSocketMachine : MotionControl.MotorController
     {
-        //public event Action<int, int[]> OnSocketCall;   //공급 , 배출요청
-        public event Action<MotionControl.SocketReqArgs, int> OnSocketCall;   //공급 , 배출요청
+        public event Action<MotionControl.SocketReqArgs, int> OnAoiSocketCall;   //Aoi 공급 , 배출요청
         public int MotorCnt { get; private set; } = 4;
 
         //소켓 2개 2세트 = 4개
@@ -103,7 +102,7 @@ namespace ZenHandler.Machine
         }
         public void RaiseProductCall(MotionControl.SocketReqArgs nReq)
         {
-            OnSocketCall?.Invoke(nReq, -1);
+            OnAoiSocketCall?.Invoke(nReq, -1);
 
         }
         public override void MotorDataSet()

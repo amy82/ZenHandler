@@ -2994,10 +2994,6 @@ namespace ZenHandler.Process
                         Globalo.LogPrint("ManualControl", szLog);
                     }
 
-
-                    //socketProcessState[0] = Machine.SocketProductState.Blank;
-                    //socketProcessState[1] = Machine.SocketProductState.Blank;
-
                     nRetStep = 2300;
                     break;
                 case 2300:

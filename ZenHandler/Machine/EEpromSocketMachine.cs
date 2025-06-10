@@ -13,8 +13,7 @@ namespace ZenHandler.Machine
     //SOCKET_F_X = Y실린더 있는 소켓
     public class EEpromSocketMachine : MotionControl.MotorController
     {
-        //public event Action<int, int[]> OnSocketCall;   //공급요청
-        public event Action<MotionControl.SocketReqArgs, int> OnSocketCall;   //공급요청
+        public event Action<MotionControl.SocketReqArgs, int> OnEEpromSocketCall;   //EEprom 공급요청
         public int MotorCnt { get; private set; } = 2;
 
         //소켓4개 2세트 = 총 8개
@@ -95,31 +94,15 @@ namespace ZenHandler.Machine
                     socketProduct.EEpromSocketInfo[i].Add(new EEpromSocketProductInfo());
                 }
             }
-            //if (socketProduct.SocketInfo_A.Count < 1)
-            //{
-            //    socketProduct.SocketInfo_A.Add(new SocketProductInfo());
-            //    socketProduct.SocketInfo_A.Add(new SocketProductInfo());
-            //    socketProduct.SocketInfo_A.Add(new SocketProductInfo());
-            //    socketProduct.SocketInfo_A.Add(new SocketProductInfo());
-            //}
-            //if (socketProduct.SocketInfo_B.Count < 1)
-            //{
-            //    socketProduct.SocketInfo_B.Add(new SocketProductInfo());
-            //    socketProduct.SocketInfo_B.Add(new SocketProductInfo());
-            //    socketProduct.SocketInfo_B.Add(new SocketProductInfo());
-            //    socketProduct.SocketInfo_B.Add(new SocketProductInfo());
-            //}
-
-
         }
         public override bool TaskSave()
         {
             bool rtn = Data.TaskDataYaml.TaskSave_EEpSocket(socketProduct, taskPath);
             return rtn;
         }
-        public void RaiseProductCall(MotionControl.SocketReqArgs nReq)   //int[] nReq)
+        public void RaiseProductCall(MotionControl.SocketReqArgs nReq)
         {
-            OnSocketCall?.Invoke(nReq, -1);
+            OnEEpromSocketCall?.Invoke(nReq, -1);
         }
 
         #region [EEprom Socket IO 동작]

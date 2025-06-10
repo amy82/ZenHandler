@@ -103,7 +103,6 @@ namespace ZenHandler.Dlg
 
             }
             Label stateLabel = new Label();
-            //Machine.SocketProductState sState = new Machine.SocketProductState();
             Machine.EEpromProductState sEEpState = new Machine.EEpromProductState();
             Machine.FwProductState sFwState = new Machine.FwProductState();
             Machine.AoiSocketProductState sAoiState = new Machine.AoiSocketProductState();

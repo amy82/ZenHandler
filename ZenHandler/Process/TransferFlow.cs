@@ -71,6 +71,7 @@ namespace ZenHandler.Process
                     PickerCheck = false;
 
                     //BcrNg 바코드 불량은 소켓에 넣었다가 빼야된다.
+
                     for (i = 0; i < pickercount; i++)
                     {
                         if (Globalo.motionManager.transferMachine.pickedProduct.UnLoadProductInfo[i].State == Machine.PickedProductState.TestNg ||
@@ -161,7 +162,7 @@ namespace ZenHandler.Process
                     }
 
 
-                    if (PickerCheck == true)
+                    if (PickerCheck == true)        //투입할 제품이 있는 상황
                     {
                         //----------------------------------------------------------------------------------------------------------------
                         //
@@ -178,13 +179,19 @@ namespace ZenHandler.Process
                         {
                             MotionControl.SocketReqArgs TfsocketState = Globalo.motionManager.GetSocketReq(i);      //소켓 SET 수  
                             //TODO: 제품을 0,1,2,3 총 4개를 들었는데 소켓에서 0,2,3 총 3개만 투입 요청이 있을 때는 어떻게?
-                            for (j = 0; j < pickercount; j++)
+
+                            int scnt = TfsocketState.States.Length;
+                            for (j = 0; j < scnt; j++)      //for (j = 0; j < pickercount; j++)
                             {
-                                if (TfsocketState.States[j] == 2)       //2 배출 요청
+                                if (TfsocketState.States[j] == 2 || TfsocketState.States[j] == 3)       //2: 양품 배출 요청, 3: 불량 배출 요청
                                 {
                                     Globalo.motionManager.transferMachine.NoSocketPos = i;      //TODO: 낱개가 아닌 세트로 4or2개 전체 배출
                                     break;
                                 }
+                            }
+                            if (Globalo.motionManager.transferMachine.NoSocketPos > -1)
+                            {
+                                break;
                             }
                         }
 
@@ -204,28 +211,37 @@ namespace ZenHandler.Process
                         //
                         //
                         SocketChk = false;
-                        Globalo.motionManager.transferMachine.NoSocketPos = -1;
+                        Globalo.motionManager.transferMachine.NoSocketPos = -1; //세트 구분 A:0, B:1 , C:2 , D:3
 
-                        for (i = 0; i < Globalo.motionManager.SocketSetCount; i++) 
+                        for (i = 0; i < Globalo.motionManager.SocketSetCount; i++)      //i = 세트로 검색 Fw:4 , eeprom , aoi:2
                         {
                             MotionControl.SocketReqArgs TfsocketState = Globalo.motionManager.GetSocketReq(i);
-                            for (j = 0; j < pickercount; j++)
+
+                            int scnt = TfsocketState.States.Length;
+
+                            for (j = 0; j < scnt; j++)      //for (j = 0; j < pickercount; j++)
                             {
-                                if (TfsocketState.States[j] == 1)   //1 투입 요청
+                                if (TfsocketState.States[j] == 1)   //1이면 소켓에서 투입 요청
                                 {
                                     Globalo.motionManager.transferMachine.NoSocketPos = i;  //TODO: 낱개가 아닌 세트로 4or2개 전체 투입
                                     break;
                                 }
                             }
+                            if (Globalo.motionManager.transferMachine.NoSocketPos > -1)
+                            {
+                                break;
+                            }
                         }
                         if (Globalo.motionManager.transferMachine.NoSocketPos > -1)
                         {
-                            szLog = $"[AUTO] TRANSFER SOCKET LOAD FLOW [STEP : {nStep}]";
+                            szLog = $"[AUTO] TRANSFER SOCKET LOAD FLOW :{Globalo.motionManager.transferMachine.NoSocketPos}[STEP : {nStep}]";
                             Globalo.LogPrint("ManualControl", szLog);
                             nRetStep = 5000;
                             break;
                         }
                     }
+
+
 
                     nRetStep = 3300;        //여기서만 아래로 이동 - Barcode Scan
                     break;
@@ -292,8 +308,7 @@ namespace ZenHandler.Process
 
                             }
                             //IsMovingTrayOnPusher 는 둘다 체크
-                            if (Globalo.motionManager.liftMachine.IsMovingTrayOnPusher == false && 
-                                isLiftReplacing == false &&
+                            if (Globalo.motionManager.liftMachine.IsMovingTrayOnPusher == false && isLiftReplacing == false &&
                                 Globalo.motionManager.liftMachine.IsUnloadingOutputTray == false &&
                                 Globalo.motionManager.liftMachine.RunState == OperationState.AutoRunning) //TRAY 교체중이 아니고 , 자동운전 중이고, 로드가능한 상태 일때
                                 {
@@ -1182,6 +1197,7 @@ namespace ZenHandler.Process
                         nRetStep *= -1;
                         break;
                     }
+
                     szLog = $"[AUTO] TRANSFER Z WAIT_POS 이동 [STEP : {nStep}]";
                     Globalo.LogPrint("ManualControl", szLog);
 
@@ -1662,7 +1678,6 @@ namespace ZenHandler.Process
                         nRetStep *= -1;
                         break;
                     }
-
                     break;
                 case 5680:
                     nRetStep = 5700;

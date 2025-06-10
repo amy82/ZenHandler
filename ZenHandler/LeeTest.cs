@@ -19,7 +19,21 @@ namespace ZenHandler
 
         private void button1_Click(object sender, EventArgs e)
         {
+            int i = 0;
+            int j = 0;
 
+            for (i = 0; i < 4; i++)
+            {
+                Console.WriteLine($"i = {i}");
+                for (j = 0; j < 4; j++)
+                {
+                    Console.WriteLine($"j = {j}");
+                    if (j == 2)
+                    {
+                        break;
+                    }
+                }
+            }
         }
 
         private void button2_Click(object sender, EventArgs e)

@@ -25,7 +25,7 @@ namespace ZenHandler.Dlg
         public List<Machine.ProductInfo> tempLoadInfo { get; set; } = new List<Machine.ProductInfo>();
         public List<Machine.ProductInfo> tempUnloadInfo { get; set; } = new List<Machine.ProductInfo>();
 
-        public List<List<Machine.SocketProductInfo>> tempSocket { get; set; } = new List<List<Machine.SocketProductInfo>>(4);
+        //public List<List<Machine.SocketProductInfo>> tempSocket { get; set; } = new List<List<Machine.SocketProductInfo>>(4);
 
         public List<List<Machine.AoiSocketProductInfo>> AoitempSocket { get; set; } = new List<List<Machine.AoiSocketProductInfo>>(2);
         public List<List<Machine.EEpromSocketProductInfo>> EEptempSocket { get; set; } = new List<List<Machine.EEpromSocketProductInfo>>(2);
@@ -65,7 +65,7 @@ namespace ZenHandler.Dlg
 
             for (i = 0; i < SocketStateRow; i++)
             {
-                tempSocket.Add(new List<Machine.SocketProductInfo>());
+                //tempSocket.Add(new List<Machine.SocketProductInfo>());
                 AoitempSocket.Add(new List<Machine.AoiSocketProductInfo>());
                 EEptempSocket.Add(new List<Machine.EEpromSocketProductInfo>());
                 FwtempSocket.Add(new List<Machine.FwSocketProductInfo>());
@@ -210,7 +210,7 @@ namespace ZenHandler.Dlg
 
             for (i = 0; i < SocketStateRow; i++)
             {
-                tempSocket[i].Clear();
+                //tempSocket[i].Clear();
                 AoitempSocket[i].Clear();
                 EEptempSocket[i].Clear();
                 FwtempSocket[i].Clear();
@@ -239,11 +239,6 @@ namespace ZenHandler.Dlg
                     EEptempSocket[1].Add(item.Clone());
                 }
             }
-            if (Program.PG_SELECT == HANDLER_PG.AOI)
-            {
-
-            }
-            
             if (Program.PG_SELECT == HANDLER_PG.FW)
             {
                 foreach (var item in Globalo.motionManager.socketFwMachine.socketProduct.FwSocketInfo[0])
@@ -979,39 +974,98 @@ namespace ZenHandler.Dlg
                 Globalo.LogPrint("ManualControl", "[INFO] SOCKET UNIT 정지 상태에서 변경 가능합니다.", Globalo.eMessageName.M_WARNING);
                 return;
             }
-            //Globalo.motionManager.socketEEpromMachine.socketProduct.SocketInfo_A
-            //if (tempSocketA[index].State == Machine.SocketProductState.Blank)
-            //if (Globalo.motionManager.transferMachine.pickedProduct.UnLoadProductInfo[index].State == Machine.PickedProductState.Blank)
 
+            
+            if (Program.PG_SELECT == HANDLER_PG.AOI)
+            {
+                var values = (Machine.AoiSocketProductState[])Enum.GetValues(typeof(Machine.AoiSocketProductState));
+                int maxCount = values.Length;
+                int currentIndex = 0;
+                currentIndex = Array.IndexOf(values, AoitempSocket[Group][index].State);
+                if (currentIndex < maxCount - 1)
+                {
 
-            var values = (Machine.SocketProductState[])Enum.GetValues(typeof(Machine.SocketProductState));
-            int maxCount = values.Length;
-            int currentIndex = 0;       // Array.IndexOf(values, tempSocketA[index].State);
+                    currentIndex++;
+                    AoitempSocket[Group][index].State = values[currentIndex];
+                }
+                else
+                {
+                    label.BackColor = Color.White;
+                    label.ForeColor = Color.Black;
+                    AoitempSocket[Group][index].State = Machine.AoiSocketProductState.Blank;
+                }
+                if (AoitempSocket[Group][index].State == Machine.AoiSocketProductState.NG)
+                {
+                    label.BackColor = Color.Red;
+                    label.ForeColor = Color.White;
+                }
+                if (AoitempSocket[Group][index].State == Machine.AoiSocketProductState.Good)
+                {
+                    label.BackColor = Color.Green;
+                    label.ForeColor = Color.GreenYellow;
+                }
+                label.Text = AoitempSocket[Group][index].State.ToString();
+            }
+            if (Program.PG_SELECT == HANDLER_PG.EEPROM)
+            {
+                var values = (Machine.EEpromProductState[])Enum.GetValues(typeof(Machine.EEpromProductState));
+                int maxCount = values.Length;
+                int currentIndex = 0;
+                currentIndex = Array.IndexOf(values, EEptempSocket[Group][index].State);
+                if (currentIndex < maxCount - 1)
+                {
 
-            currentIndex = Array.IndexOf(values, tempSocket[Group][index].State);
-            if (currentIndex < maxCount - 1)
-            {
-                
-                currentIndex++;
-                tempSocket[Group][index].State = values[currentIndex];
+                    currentIndex++;
+                    EEptempSocket[Group][index].State = values[currentIndex];
+                }
+                else
+                {
+                    label.BackColor = Color.White;
+                    label.ForeColor = Color.Black;
+                    EEptempSocket[Group][index].State = Machine.EEpromProductState.Blank;
+                }
+                if (EEptempSocket[Group][index].State == Machine.EEpromProductState.NG)
+                {
+                    label.BackColor = Color.Red;
+                    label.ForeColor = Color.White;
+                }
+                if (EEptempSocket[Group][index].State == Machine.EEpromProductState.Good)
+                {
+                    label.BackColor = Color.Green;
+                    label.ForeColor = Color.GreenYellow;
+                }
+                label.Text = EEptempSocket[Group][index].State.ToString();
             }
-            else
+            if (Program.PG_SELECT == HANDLER_PG.FW)
             {
-                label.BackColor = Color.White;
-                label.ForeColor = Color.Black;
-                tempSocket[Group][index].State = Machine.SocketProductState.Blank;
+                var values = (Machine.FwProductState[])Enum.GetValues(typeof(Machine.FwProductState));
+                int maxCount = values.Length;
+                int currentIndex = 0;
+                currentIndex = Array.IndexOf(values, FwtempSocket[Group][index].State);
+                if (currentIndex < maxCount - 1)
+                {
+
+                    currentIndex++;
+                    FwtempSocket[Group][index].State = values[currentIndex];
+                }
+                else
+                {
+                    label.BackColor = Color.White;
+                    label.ForeColor = Color.Black;
+                    FwtempSocket[Group][index].State = Machine.FwProductState.Blank;
+                }
+                if (FwtempSocket[Group][index].State == Machine.FwProductState.NG)
+                {
+                    label.BackColor = Color.Red;
+                    label.ForeColor = Color.White;
+                }
+                if (FwtempSocket[Group][index].State == Machine.FwProductState.Good)
+                {
+                    label.BackColor = Color.Green;
+                    label.ForeColor = Color.GreenYellow;
+                }
+                label.Text = FwtempSocket[Group][index].State.ToString();
             }
-            if (tempSocket[Group][index].State == Machine.SocketProductState.NG)
-            {
-                label.BackColor = Color.Red;
-                label.ForeColor = Color.White;
-            }
-            if (tempSocket[Group][index].State == Machine.SocketProductState.Good)
-            {
-                label.BackColor = Color.Green;
-                label.ForeColor = Color.GreenYellow;
-            }
-            label.Text = tempSocket[Group][index].State.ToString();
         }
 
         private void label_ConfigTask_Socket_State_A1_Click(object sender, EventArgs e)

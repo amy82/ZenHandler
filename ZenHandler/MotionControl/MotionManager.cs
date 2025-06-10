@@ -89,13 +89,14 @@ namespace ZenHandler.MotionControl
             socketAoiMachine = new Machine.AoiSocketMachine();
             socketEEpromMachine = new Machine.EEpromSocketMachine();
             socketFwMachine = new Machine.FwSocketMachine();
-
-            transferMachine.OnTrayChangedCall += OnTrayChengeReq;
-            transferMachine.OnSocketReqComplete += OnSocketLoadReq;     //공급, 배출 완료 0으로 변경
-
-
-            socketEEpromMachine.OnSocketCall += OnSocketLoadReq;        //공급, 배출 요청 1 or 2
-            socketAoiMachine.OnSocketCall += OnSocketLoadReq;
+            //
+            transferMachine.OnTrayChangedCall += OnTrayChengeReq;       //TRAY
+            //
+            transferMachine.OnSocketReqComplete += OnSocketLoadReq;        //SOCKET:: 공급, 배출 완료 0으로 변경
+            //
+            socketEEpromMachine.OnEEpromSocketCall += OnSocketLoadReq;     //SOCKET:: 공급, 배출 요청 1 or 2
+            socketAoiMachine.OnAoiSocketCall += OnSocketLoadReq;           //SOCKET:: 
+            socketFwMachine.OnFwSocketCall += OnSocketLoadReq;             //SOCKET:: 
 
             bool LoadChk = true;
             LoadChk = transferMachine.teachingConfig.LoadTeach(Machine.TransferMachine.teachingPath, transferMachine.MotorCnt, (int)Machine.TransferMachine.eTeachingPosList.TOTAL_TRANSFER_TEACHING_COUNT);   //TODO: 티칭 개수만큼 불러와야되는데 파일에 없으면 못 불러온다
@@ -116,9 +117,12 @@ namespace ZenHandler.MotionControl
             if (Program.PG_SELECT == HANDLER_PG.FW)
             {
                 SocketSetCount = 4;
-
-               
             }
+            else
+            {
+                SocketSetCount = 2;     //EEPROM = 4개 2세트 , AOI = 2개 2세트
+            }
+
             if (Program.PG_SELECT == HANDLER_PG.AOI)
             {
                 _dio = new AoiDioDefine();
@@ -133,17 +137,63 @@ namespace ZenHandler.MotionControl
             }
 
 
-            for (i = 0; i < 4; i++)     //for (i = 0; i < socketA_Req_State.Length; i++)
+            for (i = 0; i < SocketSetCount; i++)     //for (i = 0; i < socketA_Req_State.Length; i++)
             {
-                socket_Req_State[i] = new SocketReqArgs
+                if (Program.PG_SELECT == HANDLER_PG.AOI)
                 {
-                    Index = i,
-                    States = new int[] { -1, -1, -1, -1 },
-                    Barcode = new string[] { string.Empty, string.Empty, string.Empty, string.Empty }
-                };
+                    socket_Req_State[i] = new SocketReqArgs
+                    {
+                        Index = i,
+                        States = new int[] { -1, -1},
+                        Barcode = new string[] { string.Empty, string.Empty}
+                    };
+                }
+                else
+                {
+                    socket_Req_State[i] = new SocketReqArgs
+                    {
+                        Index = i,
+                        States = new int[] { -1, -1, -1, -1 },
+                        Barcode = new string[] { string.Empty, string.Empty, string.Empty, string.Empty }
+                    };
+                }
+                    
             }
             //FwSocket = Teaching 없음
         }
+        //---------------------------------------------------------------------------------------------------------
+        //
+        //
+        //  소켓 공급 / 배출 요청
+        //
+        //---------------------------------------------------------------------------------------------------------
+        private void OnSocketLoadReq(SocketReqArgs args, int nReq)      //소켓에서 투입 요청
+        {
+            Console.WriteLine($"OnSocketLoadReq - {args.Index}, {string.Join(",", args.States)}, Barcode: {string.Join(",", args.Barcode)}, nReq: {nReq}");
+            //nReq = Transfer은 0 = 0이면 공급완료
+            //nReq = 소켓은 -1 = 공급요청하면서 -1로 바꿈
+
+            int index = args.Index;
+
+            socket_Req_State[index].States = (int[])args.States.Clone();
+            socket_Req_State[index].Barcode = (string[])args.Barcode.Clone();
+            Socket_RequestDone[args.Index] = nReq;
+        }
+
+        public int GetSocketDone(int index)     //요청후 완료 됐는지 확인 함수
+        {
+            return Socket_RequestDone[index];
+        }
+        public void InitSocketDone(int index)
+        {
+            Socket_RequestDone[index] = -1;
+        }
+
+        public SocketReqArgs GetSocketReq(int index)
+        {
+            return socket_Req_State[index].Clone();
+        }
+
         private void OnTrayChengeReq(MotorSet.TrayPos position)
         {
             Console.WriteLine($"ToLiftUnitTrayChenge - {position}");
@@ -414,40 +464,7 @@ namespace ZenHandler.MotionControl
         }
         //
         #endregion
-        //---------------------------------------------------------------------------------------------------------
-        //
-        //
-        //  소켓 공급 / 배출 요청
-        //
-        //---------------------------------------------------------------------------------------------------------
-        private void OnSocketLoadReq(SocketReqArgs args, int nReq)//int index, int[] nReq)          //소켓에서 투입 요청
-        {
-            //nReq = Transfer은 0 = 0이면 공급완료
-            //nReq = 소켓은 -1 = 공급요청하면서 -1로 바꿈
-
-
-            Console.WriteLine($"OnSocketLoadReq - {args.Index}, {string.Join(",", args.States)}, Barcode: {string.Join(",", args.Barcode)}, nReq: {nReq}");
-            int index = args.Index;
-
-            socket_Req_State[index].States = (int[])args.States.Clone();
-            socket_Req_State[index].Barcode = (string[])args.Barcode.Clone();
-
-            Socket_RequestDone[args.Index] = nReq;
-        }
-        public int GetSocketDone(int index)     //요청후 완료 됐는지 확인 함수
-        {
-            return Socket_RequestDone[index];
-        }
-        public void InitSocketDone(int index)
-        {
-            Socket_RequestDone[index] = -1;
-        }
-
-        public SocketReqArgs GetSocketReq(int index)//public int[] GetSocketReq(int index)
-        {
-            return socket_Req_State[index].Clone();
-        }
-
+        
         //---------------------------------------------------------------------------------------------------------
         private void OnPgExit(object sender, EventArgs e)
         {

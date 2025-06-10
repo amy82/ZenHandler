@@ -8,6 +8,7 @@ namespace ZenHandler.Machine
 {
     public class FwSocketMachine : MotionControl.MotorController
     {
+        public event Action<MotionControl.SocketReqArgs, int> OnFwSocketCall;   //Fw 공급요청
         public int MotorCnt { get; private set; } = 0;
 
         //실린더 전후진 4개
@@ -44,39 +45,15 @@ namespace ZenHandler.Machine
                 }
             }
 
-            //if (socketProduct.SocketInfo_A.Count < 1)
-            //{
-            //    socketProduct.SocketInfo_A.Add(new SocketProductInfo());
-            //    socketProduct.SocketInfo_A.Add(new SocketProductInfo());
-            //    socketProduct.SocketInfo_A.Add(new SocketProductInfo());
-            //    socketProduct.SocketInfo_A.Add(new SocketProductInfo());
-            //}
-            //if (socketProduct.SocketInfo_B.Count < 1)
-            //{
-            //    socketProduct.SocketInfo_B.Add(new SocketProductInfo());
-            //    socketProduct.SocketInfo_B.Add(new SocketProductInfo());
-            //    socketProduct.SocketInfo_B.Add(new SocketProductInfo());
-            //    socketProduct.SocketInfo_B.Add(new SocketProductInfo());
-            //}
-            //if (socketProduct.SocketInfo_C.Count < 1)
-            //{
-            //    socketProduct.SocketInfo_C.Add(new SocketProductInfo());
-            //    socketProduct.SocketInfo_C.Add(new SocketProductInfo());
-            //    socketProduct.SocketInfo_C.Add(new SocketProductInfo());
-            //    socketProduct.SocketInfo_C.Add(new SocketProductInfo());
-            //}
-            //if (socketProduct.SocketInfo_D.Count < 1)
-            //{
-            //    socketProduct.SocketInfo_D.Add(new SocketProductInfo());
-            //    socketProduct.SocketInfo_D.Add(new SocketProductInfo());
-            //    socketProduct.SocketInfo_D.Add(new SocketProductInfo());
-            //    socketProduct.SocketInfo_D.Add(new SocketProductInfo());
-            //}
         }
         public override bool TaskSave()
         {
             bool rtn = Data.TaskDataYaml.TaskSave_FwSocket(socketProduct, taskPath);
             return rtn;
+        }
+        public void RaiseProductCall(MotionControl.SocketReqArgs nReq)   //int[] nReq)
+        {
+            OnFwSocketCall?.Invoke(nReq, -1);
         }
         public override void MotorDataSet()
         {
