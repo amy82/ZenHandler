@@ -64,7 +64,7 @@ namespace ZenHandler  //ApsMotionControl
             Globalo.yamlManager.configDataLoad();
             Globalo.yamlManager.taskDataYaml.TaskDataLoad();
 
-            Globalo.yamlManager.RecipeYamlListLoad();
+            //Globalo.yamlManager.RecipeYamlListLoad();
 
             Globalo.motionManager = new MotionControl.MotionManager();
             Globalo.motionManager.AllMotorParameterSet();
