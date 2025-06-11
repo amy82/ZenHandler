@@ -707,7 +707,7 @@ namespace ZenHandler.Machine
             for (i = 0; i < pickerList.Length; i++)
             {
                 int nUse = pickerList[i];
-                if(nUse == 0)
+                if (nUse != 1)
                 {
                     continue;
                 }
@@ -772,7 +772,7 @@ namespace ZenHandler.Machine
             for (i = 0; i < pickerList.Length; i++)
             {
                 int nUse = pickerList[i];
-                if (nUse == 0)
+                if (nUse != 1)
                 {
                     continue;
                 }
@@ -826,7 +826,7 @@ namespace ZenHandler.Machine
             for (i = 0; i < pickerList.Length; i++)
             {
                 int nUse = pickerList[i];
-                if (nUse == 0)
+                if (nUse != 1)
                 {
                     continue;
                 }
@@ -878,7 +878,7 @@ namespace ZenHandler.Machine
             for (i = 0; i < pickerList.Length; i++)
             {
                 int nUse = pickerList[i];
-                if (nUse == 0)
+                if (nUse != 1)
                 {
                     continue;
                 }
@@ -1404,7 +1404,7 @@ namespace ZenHandler.Machine
             for (i = 0; i < pickerList.Length; i++)
             {
                 int nUse = pickerList[i];
-                if (nUse == 0)
+                if (nUse != 1)
                 {
                     continue;
                 }
@@ -1501,33 +1501,7 @@ namespace ZenHandler.Machine
         #endregion
 
         #region Transfer Motor 동작
-        public bool ChkXYMotorPos(eTeachingPosList teachingPos)
-        {
-            if (ProgramState.ON_LINE_MOTOR == false)
-            {
-                return true;
-            }
-
-            double dXPos = 0.0;
-            double dYPos = 0.0;
-            double currentXPos = 0.0;
-            double currentYPos = 0.0;
-
-
-            dXPos = this.teachingConfig.Teaching[(int)teachingPos].Pos[(int)eTransfer.TRANSFER_X];
-            dYPos = this.teachingConfig.Teaching[(int)teachingPos].Pos[(int)eTransfer.TRANSFER_Y];
-
-
-            currentXPos = MotorAxes[(int)eTransfer.TRANSFER_X].EncoderPos;
-            currentYPos = MotorAxes[(int)eTransfer.TRANSFER_Y].EncoderPos;
-
-            if (dXPos == currentXPos && dYPos == currentYPos)
-            {
-                return true;
-            }
-
-            return false;
-        }
+        
         public bool ChkZMotorPos(eTeachingPosList teachingPos)
         {
             if (ProgramState.ON_LINE_MOTOR == false)
@@ -1608,6 +1582,98 @@ namespace ZenHandler.Machine
 
             return isSuccess;
         }
+
+        public bool ChkXYMotorPos(eTeachingPosList ePos, int TrayX = 0, int TrayY = 0)
+        {
+            if (ProgramState.ON_LINE_MOTOR == false)
+            {
+                return true;
+            }
+
+            string logStr = string.Empty;
+
+            double[] dMultiTeachPos = { 0.0, 0.0 };
+            double[] dMultiCurrentPos = { 0.0, 0.0 };
+            double[] dOffsetPos = { 0.0, 0.0 };
+
+            int PickerNo = TrayX;
+            if (PickerNo < 0 || PickerNo > 3)
+            {
+                logStr = $"Transfer Picker Index Err";
+                Globalo.LogPrint("ManualControl", logStr);
+                return false;
+            }
+
+            dMultiTeachPos[0] = this.teachingConfig.Teaching[(int)ePos].Pos[(int)eTransfer.TRANSFER_X]; //TODO: OFFSET 적용 필요
+            dMultiTeachPos[1] = this.teachingConfig.Teaching[(int)ePos].Pos[(int)eTransfer.TRANSFER_Y];
+
+            dMultiCurrentPos[0] = MotorAxes[(int)eTransfer.TRANSFER_X].EncoderPos;
+            dMultiCurrentPos[1] = MotorAxes[(int)eTransfer.TRANSFER_Y].EncoderPos;
+
+
+            if (ePos == eTeachingPosList.LEFT_TRAY_BCR_POS || ePos == eTeachingPosList.RIGHT_TRAY_BCR_POS)
+            {
+                //바코드 스캔 위치
+                //
+                dOffsetPos[0] = (this.productLayout.TrayGap.GapX * TrayX); //( X 간격 * 가로 위치)  10.0 곱하기 (0, 1, 2, 3)
+                dOffsetPos[1] = (this.productLayout.TrayGap.GapY * TrayY);//( Y 간격 * 세로 위치)  10.0 곱하기 (0 ~ 전체 Tray Y 개수)
+            }
+            else if (ePos == eTeachingPosList.LEFT_TRAY_LOAD_POS || ePos == eTeachingPosList.RIGHT_TRAY_LOAD_POS)
+            {
+                //TRAY 위 제품 로드 위치 - 1번 피커부터 바깥부터, Tray 간격 1칸 + 피커 1칸 간격 씩 이동
+                //
+                dOffsetPos[0] = (this.productLayout.TrayGap.GapX * TrayX) + this.productLayout.LoadTrayOffset[PickerNo].OffsetX;
+                dOffsetPos[1] = (this.productLayout.TrayGap.GapY * TrayY) + this.productLayout.LoadTrayOffset[PickerNo].OffsetY;
+            }
+            else if (ePos == eTeachingPosList.LEFT_TRAY_UNLOAD_POS || ePos == eTeachingPosList.RIGHT_TRAY_UNLOAD_POS)
+            {
+                //MEMO: FW 모델은 TRAY 에 배출할때 무조건 하나씩 배출해야된다. - 간섭 , 피커 4개 동시 하강 안됨
+                //TRAY 위 제품 배출 위치 - 티칭위치가 각자 바로 피커 하강해도 되는 위치라서 Tray 간격은 필요 없을듯 
+                //
+                dOffsetPos[0] = this.productLayout.UnLoadTrayOffset[PickerNo].OffsetX;
+                dOffsetPos[1] = this.productLayout.UnLoadTrayOffset[PickerNo].OffsetY;
+                //dOffsetPos[0] = (Globalo.motionManager.transferMachine.productLayout.TrayGap.GapX * TrayX) + Globalo.motionManager.transferMachine.productLayout.UnLoadTrayOffset[PickerNo].OffsetX;
+                //dOffsetPos[1] = (Globalo.motionManager.transferMachine.productLayout.TrayGap.GapY * TrayY) + Globalo.motionManager.transferMachine.productLayout.UnLoadTrayOffset[PickerNo].OffsetY;
+            }
+            else if (ePos == eTeachingPosList.SOCKET_A_LOAD || ePos == eTeachingPosList.SOCKET_B_LOAD ||
+                ePos == eTeachingPosList.SOCKET_C_LOAD || ePos == eTeachingPosList.SOCKET_D_LOAD)
+            {
+                //Socket에 제품 투입 / 배출 위치
+                //Socket쪽에는 피커 전체 동시 동작 Fx = 4 , EE = 4 , Aoi = 2
+                //
+                dOffsetPos[0] = (this.productLayout.SocketGap.GapX * TrayX) + this.productLayout.LoadTrayOffset[PickerNo].OffsetX;
+                dOffsetPos[1] = (this.productLayout.SocketGap.GapY * TrayY) + this.productLayout.LoadTrayOffset[PickerNo].OffsetY;
+            }
+            else if (ePos == eTeachingPosList.SOCKET_A_UNLOAD || ePos == eTeachingPosList.SOCKET_B_UNLOAD ||
+                ePos == eTeachingPosList.SOCKET_C_UNLOAD || ePos == eTeachingPosList.SOCKET_D_UNLOAD)
+            {
+                //Socket에 제품 투입 / 배출 위치
+                //
+                dOffsetPos[0] = (this.productLayout.SocketGap.GapX * TrayX) + this.productLayout.UnLoadTrayOffset[PickerNo].OffsetX;
+                dOffsetPos[1] = (this.productLayout.SocketGap.GapY * TrayY) + this.productLayout.UnLoadTrayOffset[PickerNo].OffsetY;
+            }
+            else if (ePos == eTeachingPosList.NG_A_UNLOAD || ePos == eTeachingPosList.NG_B_UNLOAD)
+            {
+                //MEMO: Ng는 전모델 픽업 하나씩 내려놔야된다.
+                dOffsetPos[0] = (this.productLayout.NgGap.GapX * TrayX) + this.productLayout.NgOffset[PickerNo].OffsetX;
+                dOffsetPos[1] = (this.productLayout.NgGap.GapY * TrayY) + this.productLayout.NgOffset[PickerNo].OffsetY;
+            }
+            else
+            {
+                dOffsetPos[0] = 0.0;
+                dOffsetPos[1] = 0.0;
+            }
+
+            dMultiTeachPos[0] += dOffsetPos[0];
+            dMultiTeachPos[1] += dOffsetPos[1];
+
+            if (dMultiTeachPos[0] == dMultiCurrentPos[0] && dMultiTeachPos[1] == dMultiCurrentPos[1])
+            {
+                return true;
+            }
+
+            return false;
+        }
         public bool TransFer_XY_Move(eTeachingPosList ePos, int TrayX = 0, int TrayY = 0,  bool bWait = true)  //Picket Index , Tray or Socekt or Ng , 
         {
             //TODO: PickerNo 는 없애고 CountX로 써도될듯 확인필요.
@@ -1675,7 +1741,7 @@ namespace ZenHandler.Machine
             }
             else if (ePos == eTeachingPosList.LEFT_TRAY_UNLOAD_POS || ePos == eTeachingPosList.RIGHT_TRAY_UNLOAD_POS)
             {
-                //MEMO: FW 모델은 TRAY 에 배출할때 무조건 하나씩 배출해야된다.
+                //MEMO: FW 모델은 TRAY 에 배출할때 무조건 하나씩 배출해야된다. - 간섭 , 피커 4개 동시 하강 안됨
                 //TRAY 위 제품 배출 위치 - 티칭위치가 각자 바로 피커 하강해도 되는 위치라서 Tray 간격은 필요 없을듯 
                 //
                 dOffsetPos[0] = this.productLayout.UnLoadTrayOffset[PickerNo].OffsetX;
