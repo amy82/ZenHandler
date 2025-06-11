@@ -120,7 +120,7 @@ namespace ZenHandler.Machine
                     MotorAxes[i].NoUse = true;
                 }
             }
-            for (i = 0; i < 4; i++)
+            for (i = 0; i < 4; i++)     //TODO: AOI는 두개?
             {
                 pickedProduct.LoadProductInfo.Add(new ProductInfo(i));
                 pickedProduct.UnLoadProductInfo.Add(new ProductInfo(i));

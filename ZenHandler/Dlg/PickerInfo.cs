@@ -97,25 +97,25 @@ namespace ZenHandler.Dlg
 
             for (i = 0; i < pCnt; i++)
             {
-                dataGridView[1, i + 4].Value = Globalo.motionManager.transferMachine.pickedProduct.UnLoadProductInfo[i].BcrLot;
+                dataGridView[1, i + pCnt].Value = Globalo.motionManager.transferMachine.pickedProduct.UnLoadProductInfo[i].BcrLot;
 
                 if (Globalo.motionManager.transferMachine.pickedProduct.UnLoadProductInfo[i].State == Machine.PickedProductState.Blank)
                 {
-                    dataGridView[2, i + 4].Style.BackColor = Color.White;
+                    dataGridView[2, i + pCnt].Style.BackColor = Color.White;
                 }
                 else if (Globalo.motionManager.transferMachine.pickedProduct.UnLoadProductInfo[i].State == Machine.PickedProductState.Bcr)
                 {
-                    dataGridView[2, i + 4].Style.BackColor = Color.Yellow;
+                    dataGridView[2, i + pCnt].Style.BackColor = Color.Yellow;
                 }
                 else if (Globalo.motionManager.transferMachine.pickedProduct.UnLoadProductInfo[i].State == Machine.PickedProductState.Good)
                 {
-                    dataGridView[2, i + 4].Style.BackColor = Color.LightGreen;
+                    dataGridView[2, i + pCnt].Style.BackColor = Color.LightGreen;
                 }
                 else
                 {
-                    dataGridView[2, i + 4].Style.BackColor = Color.Red;
+                    dataGridView[2, i + pCnt].Style.BackColor = Color.Red;
                 }
-                dataGridView[2, i + 4].Value = Globalo.motionManager.transferMachine.pickedProduct.UnLoadProductInfo[i].State;
+                dataGridView[2, i + pCnt].Value = Globalo.motionManager.transferMachine.pickedProduct.UnLoadProductInfo[i].State;
             }
 
             //dataGridView

@@ -150,7 +150,8 @@ namespace ZenHandler.Dlg
 
             else if (manualBtnTab == eManualBtn.MagazineTab)
             {
-                button_Manual_Magazine.BackColor = ColorTranslator.FromHtml("#FFB230");
+                //button_Manual_Magazine.BackColor = ColorTranslator.FromHtml("#FFB230");       //<--사용안함
+                button_Manual_Lift.BackColor = ColorTranslator.FromHtml("#FFB230");
                 manualMagazine.Visible = true;
                 manualTransfer.Visible = false;
                 manualLift.Visible = false;

@@ -2024,9 +2024,9 @@ namespace ZenHandler.Process
                         //Gantry 센터링 후진
                         //GANTRY CENTRING 전진 동작
                         //
-                        if (Globalo.motionManager.liftMachine.GantryCenteringFor(true) == true)
+                        if (Globalo.motionManager.liftMachine.GantryCenteringFor(false) == true)
                         {
-                            szLog = $"[READY] GANTRY CENTRING FOR MOTION [STEP : {nRetStep}]";
+                            szLog = $"[READY] GANTRY CENTRING BACK MOTION [STEP : {nRetStep}]";
                             Globalo.LogPrint("ManualControl", szLog);
                             nRetStep = 70;
 

@@ -490,7 +490,8 @@ namespace ZenHandler.Dlg
 
             if (TeachCurrentTab == eTeachingBtn.MagazineTab)
             {
-                BTN_TEACH_MAGAZINE.BackColor = ColorTranslator.FromHtml("#FFB230");
+                //BTN_TEACH_MAGAZINE.BackColor = ColorTranslator.FromHtml("#FFB230");       //사용안함
+                BTN_TEACH_LIFT.BackColor = ColorTranslator.FromHtml("#FFB230");
                 MagazineTeach.showPanel();
                 TransferTeach.hidePanel();
                 LiftTeach.hidePanel();
