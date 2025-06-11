@@ -599,7 +599,7 @@ namespace ZenHandler  //ApsMotionControl
                 //배출 시뮬레이션
                 int UnloadPosx = Globalo.motionManager.transferMachine.pickedProduct.UnloadTrayPos.X;
                 int UnloadPosy = Globalo.motionManager.transferMachine.pickedProduct.UnloadTrayPos.Y;
-                int Cnt =  Machine.TransferMachine.UnLoadCount;      //  <--- 배출 개수  ex) 2개
+                int Cnt = Globalo.motionManager.transferMachine.UnLoadCount;      //  <--- 배출 개수  ex) 2개
 
                 int StartIndex = UnloadPosx;//// UnloadPosx % Cnt;
                 int EndIndex = UnloadPosx + Cnt;/// - StartIndex;

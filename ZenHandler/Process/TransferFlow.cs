@@ -2633,8 +2633,17 @@ namespace ZenHandler.Process
             int UnloadPosx = 0;
             int UnloadPosy = 0;
             int nRetStep = nStep;
+            int pickercount = 0;
             Machine.TransferMachine.eTeachingPosList Move_Pos;
             bool bRtn = false;
+            if (Program.PG_SELECT == HANDLER_PG.AOI)
+            {
+                pickercount = 2;
+            }
+            else
+            {
+                pickercount = 4;
+            }
 
             switch (nStep)
             {
@@ -2860,10 +2869,24 @@ namespace ZenHandler.Process
                     //TODO: UNLOAD PICKER 동시 하강??
 
                     //TODO: NG TRAY 먼저 갔다 오도록 처리하겟지만 양품만 하강하도록 필요??
-                    UnloadPosx = Globalo.motionManager.transferMachine.pickedProduct.UnloadTrayPos.X;
+                    //다 내려도 될듯..확인필요
+                    if (Program.PG_SELECT == HANDLER_PG.AOI)
+                    {
+                        UnloadPosx = 0;// Globalo.motionManager.transferMachine.pickedProduct.UnloadTrayPos.X;  //aoi 는 0 or 2??
+                        if (Globalo.motionManager.transferMachine.pickedProduct.UnloadTrayPos.X > 1)
+                        {
+                            UnloadPosx = 2;
+                        }
+                    }
+                    else
+                    {
+                        UnloadPosx = 0;// Globalo.motionManager.transferMachine.pickedProduct.UnloadTrayPos.X; 
+                    }
+                    
+
                     UnloadPosy = Globalo.motionManager.transferMachine.pickedProduct.UnloadTrayPos.Y;
 
-                    int CntUnload = Machine.TransferMachine.UnLoadCount;            //1 or 2 or 4 개씩만 배출 /    3 = xxxxx
+                    int CntUnload = pickercount;/// Globalo.motionManager.transferMachine.UnLoadCount;            //1 or 2 or 4 개씩만 배출 /    3 = xxxxx
 
                     int StartIndex = UnloadPosx;                // % CntUnload;
                     int EndIndex = UnloadPosx + CntUnload;      /// - UnloadCnt;
@@ -2872,9 +2895,17 @@ namespace ZenHandler.Process
                         EndIndex = 4;
                     }
 
-                    int[] UnloadPicker = { -1, -1, -1, -1 };
+                    int[] UnloadPicker;     // = { -1, -1, -1, -1 };
+                    if (Program.PG_SELECT == HANDLER_PG.AOI)
+                    {
+                        UnloadPicker = new int[] { -1, -1 };
+                    }
+                    else
+                    {
+                        UnloadPicker = new int[] { -1, -1, -1, -1 };
+                    }
                     //
-                    for (i = StartIndex; i < EndIndex; i++)
+                    for (i = 0; i < pickercount; i++)       //for (i = StartIndex; i < EndIndex; i++)
                     {
                         if (Program.PG_SELECT == HANDLER_PG.AOI)
                         {
@@ -2903,11 +2934,12 @@ namespace ZenHandler.Process
 
                     if (Program.PG_SELECT == HANDLER_PG.AOI)
                     {
-                        bRtn = Globalo.motionManager.transferMachine.UnloadMultiPickerUp(new int[] { 1, 1 }, false);
+                        
+                        bRtn = Globalo.motionManager.transferMachine.UnloadMultiPickerUp(UnloadPicker, false);
                     }
                     else
                     {
-                        bRtn = Globalo.motionManager.transferMachine.UnloadMultiPickerUp(new int[] { 1, 1, 1, 1 }, false);
+                        bRtn = Globalo.motionManager.transferMachine.UnloadMultiPickerUp(UnloadPicker, false);
 
                     }
 
@@ -3042,8 +3074,30 @@ namespace ZenHandler.Process
             }
             return nRetStep;
         }
+
+        public int Auto_FwUnLoadInTray(int nStep)       //펌웨어 배출할때는 4개 동시에 안되고 하나씩 배출 가능, Tray 간격때문,1번 배출->이동-> 다음 배출
+        {
+            string szLog = "";
+            int i = 0;
+            int UnloadPosx = 0;
+            int UnloadPosy = 0;
+            int nRetStep = nStep;
+            int pickercount = 4;
+
+            Machine.TransferMachine.eTeachingPosList Move_Pos;
+            bool bRtn = false;
+
+            switch (nStep)
+            {
+                case 7000:
+                    nRetStep = 7020;
+                    break;
+
+            }
+            return nRetStep;
+        }
         #region [TRANSFER Home 원점 동작]
-        
+
         public int HomeProcess(int nStep)                 //  원점(1000 ~ 2000)
         {
             uint duState = 0;

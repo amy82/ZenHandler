@@ -101,12 +101,16 @@ namespace ZenHandler.MotionControl
             bool LoadChk = true;
             LoadChk = transferMachine.teachingConfig.LoadTeach(Machine.TransferMachine.teachingPath, transferMachine.MotorCnt, (int)Machine.TransferMachine.eTeachingPosList.TOTAL_TRANSFER_TEACHING_COUNT);   //TODO: 티칭 개수만큼 불러와야되는데 파일에 없으면 못 불러온다
             transferMachine.MotorUse = LoadChk;
+
             LoadChk = magazineHandler.teachingConfig.LoadTeach(Machine.MagazineMachine.teachingPath, magazineHandler.MotorCnt, (int)Machine.MagazineMachine.eTeachingPosList.TOTAL_MAGAZINE_TEACHING_COUNT);
             magazineHandler.MotorUse = LoadChk;
+
             LoadChk = liftMachine.teachingConfig.LoadTeach(Machine.LiftMachine.teachingPath, liftMachine.MotorCnt, (int)Machine.LiftMachine.eTeachingPosList.TOTAL_LIFT_TEACHING_COUNT);
             liftMachine.MotorUse = LoadChk;
+
             LoadChk = socketAoiMachine.teachingConfig.LoadTeach(Machine.AoiSocketMachine.teachingPath, socketAoiMachine.MotorCnt, (int)Machine.AoiSocketMachine.eTeachingAoiPosList.TOTAL_AOI_SOCKET_TEACHING_COUNT);
             socketAoiMachine.MotorUse = LoadChk;
+
             LoadChk = socketEEpromMachine.teachingConfig.LoadTeach(Machine.EEpromSocketMachine.teachingPath, socketEEpromMachine.MotorCnt, (int)Machine.EEpromSocketMachine.eTeachingPosList.TOTAL_SOCKET_TEACHING_COUNT);
             socketEEpromMachine.MotorUse = LoadChk;
 

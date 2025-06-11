@@ -15,8 +15,8 @@ namespace ZenHandler.TcpSocket
         private readonly SynchronizationContext _syncContext;
         //private readonly List<TcpClientHandler> _clients = new List<TcpClientHandler>();
         
-        public BarcodeClient BcrClient;
-        public TcpServer _HandlerServer;   //<-----Tester Client1,2,3,4... 이쪽으로 붙기 + Secsgem Client 도
+        public BarcodeClient BcrClient;     //<--- 바코드 연결
+        public TcpServer _HandlerServer;    //<-----Tester Client1,2,3,4,5,6,7,8... 이쪽으로 붙기 + Secsgem Client 도
 
         private CancellationTokenSource _cts;
         public TcpManager(string ip, int port)
@@ -76,7 +76,7 @@ namespace ZenHandler.TcpSocket
         {
             TcpSocket.EquipmentData sendEqipData = new TcpSocket.EquipmentData();
             sendEqipData.Command = "APS_ALARM_CMD";
-            if (nAlarmID == "1001" || nAlarmID == "1003" || nAlarmID == "1004" || nAlarmID == "1007")
+            if (nAlarmID == "1001" || nAlarmID == "1003" || nAlarmID == "1004" || nAlarmID == "1007")//수정필요
             {
                 sendEqipData.ErrCode = "H";
             }
@@ -102,18 +102,18 @@ namespace ZenHandler.TcpSocket
                 int pcNum = index % 4;      //0,1,2,3 반복
                 if (index < 4)
                 {
-                    
+                    Globalo.motionManager.socketEEpromMachine.Tester_A_Result[pcNum] = data.States[pcNum];
                 }
-                Globalo.motionManager.socketEEpromMachine.Tester_A_Result[pcNum] = data.States[pcNum];
+                
             }
             else if (dataName == "EEPROM_VERIFY") //4 ~ 7 개별 pc
             {
                 int pcNum = index % 4;      //0,1,2,3 반복
                 if (index < 4)
                 {
-                    
+                    Globalo.motionManager.socketEEpromMachine.Tester_B_Result[pcNum] = data.States[pcNum];
                 }
-                Globalo.motionManager.socketEEpromMachine.Tester_B_Result[pcNum] = data.States[pcNum];
+                
             }
             else if (dataName == "AOI")  //2  (aoi)
             {
@@ -122,13 +122,11 @@ namespace ZenHandler.TcpSocket
                     Globalo.motionManager.socketAoiMachine.Test_Req_Result[data.socketNum - 1] = data.result;
                     if (nStep == 0)
                     {
-                        //1차 검사 요청에 대한 리턴
-
-                        
+                        //1차 검사 요청에 대한 리턴 ? 2차때Z축 이동 후 측정할수도 있어서
                     }
                     if (nStep == 1)
                     {
-                        //2차 검사 요청에 대한 리턴
+                        //2차 검사 요청에 대한 리턴, 
                     }
                 }
                 if (data.socketNum < 4 && data.socketNum > -1)

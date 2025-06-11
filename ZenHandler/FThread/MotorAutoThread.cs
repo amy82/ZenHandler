@@ -51,7 +51,15 @@ namespace ZenHandler.FThread
             }
             else if (this.m_nCurrentStep >= 7000 && this.m_nCurrentStep < 8000)
             {
-                this.m_nCurrentStep = this.parent.processManager.transferFlow.Auto_UnLoadInTray(this.m_nCurrentStep);           //제품 TRAY 배출
+                if (Program.PG_SELECT == HANDLER_PG.FW)
+                {
+                    this.m_nCurrentStep = this.parent.processManager.transferFlow.Auto_FwUnLoadInTray(this.m_nCurrentStep);           //제품 TRAY 배출, 1개씩 배출해야돼서 분리
+                }
+                else
+                {
+                    this.m_nCurrentStep = this.parent.processManager.transferFlow.Auto_UnLoadInTray(this.m_nCurrentStep);           //제품 TRAY 배출
+                }
+                    
             }
             else if (this.m_nCurrentStep >= 8000 && this.m_nCurrentStep < 9000)
             {

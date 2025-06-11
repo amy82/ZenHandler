@@ -90,7 +90,7 @@ namespace ZenHandler.Machine
 
         public int NoSocketPos;     //투입 , 배출요청하는 소켓 index
         public string CurrentScanBcr = "";
-        public const int UnLoadCount = 2;
+        public int UnLoadCount = 4;
         //TODO:  픽업 상태 로드 4개 , 배출 4개 / blank , LOAD , BCR OK , PASS , NG(DEFECT 1 , 2 , 3 , 4)
         //public Dio cylinder;
         //픽업 툴 4개 실린더 Dio 로 지정?
@@ -202,6 +202,9 @@ namespace ZenHandler.Machine
             //배출 위치는 로드하는 위치로 지정?
             //제품 로드하면서 첫 배출 위치를 설정하는 함수
 
+
+            //TODO: Unload  수정필요  첫번째 로드한 위치가 필요..
+            //Y 한줄씩?
             this.pickedProduct.UnloadTrayPos.X = currentPosx;      //TODO: 배출 위치는 어떻게 관리? Y축 라인으로 해야할듯
             this.pickedProduct.UnloadTrayPos.Y = currentPosy;
             //
@@ -740,7 +743,7 @@ namespace ZenHandler.Machine
                     return true;
                 }
             }
-            if (pickerList.Length != 4)      //항상 4개
+            if (pickerList.Length != 4)      //항상 4개 ,AOI는 2개
             {
                 Console.WriteLine("UnloadMultiPickerUp Length Fail [{pickerList.Length}]");
                 return false;
