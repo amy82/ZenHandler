@@ -28,12 +28,21 @@ namespace ZenHandler.Machine
         public int[] Tester_B_Result = { -1, -1, -1, -1 };
         public int[] Tester_C_Result = { -1, -1, -1, -1 };
         public int[] Tester_D_Result = { -1, -1, -1, -1 };
+
+        public int[][] Tester_Result_All;
+
         public FwSocketMachine()
         {
             int i = 0;
             this.RunState = OperationState.Stopped;
             this.MachineName = this.GetType().Name;
-
+            Tester_Result_All = new int[][]
+            {
+                Tester_A_Result,
+                Tester_B_Result,
+                Tester_C_Result,
+                Tester_D_Result
+            };
 
             socketProduct = Data.TaskDataYaml.TaskLoad_FwSocket(taskPath);
             for (i = 0; i < 4; i++)
