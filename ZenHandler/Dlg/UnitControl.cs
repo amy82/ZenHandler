@@ -52,6 +52,34 @@ namespace ZenHandler.Dlg
             blinkTimer = new Timer();
             blinkTimer.Interval = 500; // 0.5초 간격으로 깜빡
             blinkTimer.Tick += BlinkTimer_Tick;
+
+
+            if (Program.PG_SELECT == HANDLER_PG.FW)
+            {
+                label_LiftUnit_Title.Visible = false;
+                BTN_LIFT_UNIT_READY.Visible = false;
+                BTN_LIFT_UNIT_AUTORUN.Visible = false;
+                BTN_LIFT_UNIT_STOP.Visible = false;
+                BTN_LIFT_UNIT_PAUSE.Visible = false;
+                label_LiftUnit_Step.Visible = false;
+                label_LiftUnit_Step_Val.Visible = false;
+                label_LiftUnit_State.Visible = false;
+                label_LiftUnit_State_Val.Visible = false;
+            }
+            else
+            {
+                label_MagazineUnit_Title.Visible = false;
+                BTN_MAGAZINE_UNIT_READY.Visible = false;
+                BTN_MAGAZINE_UNIT_AUTORUN.Visible = false;
+                BTN_MAGAZINE_UNIT_STOP.Visible = false;
+                BTN_MAGAZINE_UNIT_PAUSE.Visible = false;
+                label_MagazineUnit_Step.Visible = false;
+                label_MagazineUnit_Step_Val.Visible = false;
+                label_MagazineUnit_State.Visible = false;
+                label_MagazineUnit_State_Val.Visible = false;
+            }
+
+
         }
         private void OnPgExit(object sender, EventArgs e)
         {

@@ -30,7 +30,7 @@ namespace ZenHandler.Dlg
         private void InitializeComponent()
         {
             this.label3 = new System.Windows.Forms.Label();
-            this.label2 = new System.Windows.Forms.Label();
+            this.label_LiftUnit_Title = new System.Windows.Forms.Label();
             this.label1 = new System.Windows.Forms.Label();
             this.BTN_TRANSFER_UNIT_READY = new System.Windows.Forms.Button();
             this.BTN_TRANSFER_UNIT_AUTORUN = new System.Windows.Forms.Button();
@@ -44,7 +44,7 @@ namespace ZenHandler.Dlg
             this.BTN_SOCKET_UNIT_STOP = new System.Windows.Forms.Button();
             this.BTN_SOCKET_UNIT_AUTORUN = new System.Windows.Forms.Button();
             this.BTN_SOCKET_UNIT_READY = new System.Windows.Forms.Button();
-            this.label4 = new System.Windows.Forms.Label();
+            this.label_MagazineUnit_Title = new System.Windows.Forms.Label();
             this.BTN_MAGAZINE_UNIT_PAUSE = new System.Windows.Forms.Button();
             this.BTN_MAGAZINE_UNIT_STOP = new System.Windows.Forms.Button();
             this.BTN_MAGAZINE_UNIT_AUTORUN = new System.Windows.Forms.Button();
@@ -72,24 +72,24 @@ namespace ZenHandler.Dlg
             this.label3.BackColor = System.Drawing.Color.Peru;
             this.label3.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(129)));
             this.label3.ForeColor = System.Drawing.Color.Black;
-            this.label3.Location = new System.Drawing.Point(59, 326);
+            this.label3.Location = new System.Drawing.Point(403, 43);
             this.label3.Name = "label3";
             this.label3.Size = new System.Drawing.Size(314, 23);
             this.label3.TabIndex = 56;
             this.label3.Text = "SOCKET UNIT";
             this.label3.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
-            // label2
+            // label_LiftUnit_Title
             // 
-            this.label2.BackColor = System.Drawing.Color.Peru;
-            this.label2.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(129)));
-            this.label2.ForeColor = System.Drawing.Color.Black;
-            this.label2.Location = new System.Drawing.Point(398, 43);
-            this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(314, 23);
-            this.label2.TabIndex = 55;
-            this.label2.Text = "LIFT UNIT";
-            this.label2.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            this.label_LiftUnit_Title.BackColor = System.Drawing.Color.Peru;
+            this.label_LiftUnit_Title.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(129)));
+            this.label_LiftUnit_Title.ForeColor = System.Drawing.Color.Black;
+            this.label_LiftUnit_Title.Location = new System.Drawing.Point(59, 326);
+            this.label_LiftUnit_Title.Name = "label_LiftUnit_Title";
+            this.label_LiftUnit_Title.Size = new System.Drawing.Size(314, 23);
+            this.label_LiftUnit_Title.TabIndex = 55;
+            this.label_LiftUnit_Title.Text = "LIFT UNIT";
+            this.label_LiftUnit_Title.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
             // label1
             // 
@@ -165,7 +165,7 @@ namespace ZenHandler.Dlg
             this.BTN_LIFT_UNIT_PAUSE.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.BTN_LIFT_UNIT_PAUSE.Font = new System.Drawing.Font("맑은 고딕", 11.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(129)));
             this.BTN_LIFT_UNIT_PAUSE.ForeColor = System.Drawing.Color.Black;
-            this.BTN_LIFT_UNIT_PAUSE.Location = new System.Drawing.Point(503, 155);
+            this.BTN_LIFT_UNIT_PAUSE.Location = new System.Drawing.Point(164, 438);
             this.BTN_LIFT_UNIT_PAUSE.Name = "BTN_LIFT_UNIT_PAUSE";
             this.BTN_LIFT_UNIT_PAUSE.Size = new System.Drawing.Size(100, 85);
             this.BTN_LIFT_UNIT_PAUSE.TabIndex = 65;
@@ -179,7 +179,7 @@ namespace ZenHandler.Dlg
             this.BTN_LIFT_UNIT_STOP.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.BTN_LIFT_UNIT_STOP.Font = new System.Drawing.Font("맑은 고딕", 11.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(129)));
             this.BTN_LIFT_UNIT_STOP.ForeColor = System.Drawing.Color.Black;
-            this.BTN_LIFT_UNIT_STOP.Location = new System.Drawing.Point(402, 155);
+            this.BTN_LIFT_UNIT_STOP.Location = new System.Drawing.Point(63, 438);
             this.BTN_LIFT_UNIT_STOP.Name = "BTN_LIFT_UNIT_STOP";
             this.BTN_LIFT_UNIT_STOP.Size = new System.Drawing.Size(100, 85);
             this.BTN_LIFT_UNIT_STOP.TabIndex = 64;
@@ -193,7 +193,7 @@ namespace ZenHandler.Dlg
             this.BTN_LIFT_UNIT_AUTORUN.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.BTN_LIFT_UNIT_AUTORUN.Font = new System.Drawing.Font("맑은 고딕", 11.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(129)));
             this.BTN_LIFT_UNIT_AUTORUN.ForeColor = System.Drawing.Color.Black;
-            this.BTN_LIFT_UNIT_AUTORUN.Location = new System.Drawing.Point(503, 69);
+            this.BTN_LIFT_UNIT_AUTORUN.Location = new System.Drawing.Point(164, 352);
             this.BTN_LIFT_UNIT_AUTORUN.Name = "BTN_LIFT_UNIT_AUTORUN";
             this.BTN_LIFT_UNIT_AUTORUN.Size = new System.Drawing.Size(100, 85);
             this.BTN_LIFT_UNIT_AUTORUN.TabIndex = 63;
@@ -207,7 +207,7 @@ namespace ZenHandler.Dlg
             this.BTN_LIFT_UNIT_READY.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.BTN_LIFT_UNIT_READY.Font = new System.Drawing.Font("맑은 고딕", 11.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(129)));
             this.BTN_LIFT_UNIT_READY.ForeColor = System.Drawing.Color.Black;
-            this.BTN_LIFT_UNIT_READY.Location = new System.Drawing.Point(402, 69);
+            this.BTN_LIFT_UNIT_READY.Location = new System.Drawing.Point(63, 352);
             this.BTN_LIFT_UNIT_READY.Name = "BTN_LIFT_UNIT_READY";
             this.BTN_LIFT_UNIT_READY.Size = new System.Drawing.Size(100, 85);
             this.BTN_LIFT_UNIT_READY.TabIndex = 62;
@@ -221,7 +221,7 @@ namespace ZenHandler.Dlg
             this.BTN_SOCKET_UNIT_PAUSE.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.BTN_SOCKET_UNIT_PAUSE.Font = new System.Drawing.Font("맑은 고딕", 11.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(129)));
             this.BTN_SOCKET_UNIT_PAUSE.ForeColor = System.Drawing.Color.Maroon;
-            this.BTN_SOCKET_UNIT_PAUSE.Location = new System.Drawing.Point(164, 438);
+            this.BTN_SOCKET_UNIT_PAUSE.Location = new System.Drawing.Point(508, 155);
             this.BTN_SOCKET_UNIT_PAUSE.Name = "BTN_SOCKET_UNIT_PAUSE";
             this.BTN_SOCKET_UNIT_PAUSE.Size = new System.Drawing.Size(100, 85);
             this.BTN_SOCKET_UNIT_PAUSE.TabIndex = 69;
@@ -235,7 +235,7 @@ namespace ZenHandler.Dlg
             this.BTN_SOCKET_UNIT_STOP.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.BTN_SOCKET_UNIT_STOP.Font = new System.Drawing.Font("맑은 고딕", 11.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(129)));
             this.BTN_SOCKET_UNIT_STOP.ForeColor = System.Drawing.Color.Maroon;
-            this.BTN_SOCKET_UNIT_STOP.Location = new System.Drawing.Point(63, 438);
+            this.BTN_SOCKET_UNIT_STOP.Location = new System.Drawing.Point(407, 155);
             this.BTN_SOCKET_UNIT_STOP.Name = "BTN_SOCKET_UNIT_STOP";
             this.BTN_SOCKET_UNIT_STOP.Size = new System.Drawing.Size(100, 85);
             this.BTN_SOCKET_UNIT_STOP.TabIndex = 68;
@@ -249,7 +249,7 @@ namespace ZenHandler.Dlg
             this.BTN_SOCKET_UNIT_AUTORUN.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.BTN_SOCKET_UNIT_AUTORUN.Font = new System.Drawing.Font("맑은 고딕", 11.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(129)));
             this.BTN_SOCKET_UNIT_AUTORUN.ForeColor = System.Drawing.Color.Maroon;
-            this.BTN_SOCKET_UNIT_AUTORUN.Location = new System.Drawing.Point(164, 352);
+            this.BTN_SOCKET_UNIT_AUTORUN.Location = new System.Drawing.Point(508, 69);
             this.BTN_SOCKET_UNIT_AUTORUN.Name = "BTN_SOCKET_UNIT_AUTORUN";
             this.BTN_SOCKET_UNIT_AUTORUN.Size = new System.Drawing.Size(100, 85);
             this.BTN_SOCKET_UNIT_AUTORUN.TabIndex = 67;
@@ -263,7 +263,7 @@ namespace ZenHandler.Dlg
             this.BTN_SOCKET_UNIT_READY.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.BTN_SOCKET_UNIT_READY.Font = new System.Drawing.Font("맑은 고딕", 11.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(129)));
             this.BTN_SOCKET_UNIT_READY.ForeColor = System.Drawing.Color.Maroon;
-            this.BTN_SOCKET_UNIT_READY.Location = new System.Drawing.Point(63, 352);
+            this.BTN_SOCKET_UNIT_READY.Location = new System.Drawing.Point(407, 69);
             this.BTN_SOCKET_UNIT_READY.Name = "BTN_SOCKET_UNIT_READY";
             this.BTN_SOCKET_UNIT_READY.Size = new System.Drawing.Size(100, 85);
             this.BTN_SOCKET_UNIT_READY.TabIndex = 66;
@@ -271,17 +271,17 @@ namespace ZenHandler.Dlg
             this.BTN_SOCKET_UNIT_READY.UseVisualStyleBackColor = false;
             this.BTN_SOCKET_UNIT_READY.Click += new System.EventHandler(this.BTN_SOCKET_UNIT_READY_Click);
             // 
-            // label4
+            // label_MagazineUnit_Title
             // 
-            this.label4.BackColor = System.Drawing.Color.Peru;
-            this.label4.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(129)));
-            this.label4.ForeColor = System.Drawing.Color.Black;
-            this.label4.Location = new System.Drawing.Point(398, 326);
-            this.label4.Name = "label4";
-            this.label4.Size = new System.Drawing.Size(314, 23);
-            this.label4.TabIndex = 70;
-            this.label4.Text = "MAGAZINE UNIT";
-            this.label4.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            this.label_MagazineUnit_Title.BackColor = System.Drawing.Color.Peru;
+            this.label_MagazineUnit_Title.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(129)));
+            this.label_MagazineUnit_Title.ForeColor = System.Drawing.Color.Black;
+            this.label_MagazineUnit_Title.Location = new System.Drawing.Point(398, 326);
+            this.label_MagazineUnit_Title.Name = "label_MagazineUnit_Title";
+            this.label_MagazineUnit_Title.Size = new System.Drawing.Size(314, 23);
+            this.label_MagazineUnit_Title.TabIndex = 70;
+            this.label_MagazineUnit_Title.Text = "MAGAZINE UNIT";
+            this.label_MagazineUnit_Title.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
             // BTN_MAGAZINE_UNIT_PAUSE
             // 
@@ -385,7 +385,7 @@ namespace ZenHandler.Dlg
             // 
             this.label_LiftUnit_State_Val.BackColor = System.Drawing.Color.White;
             this.label_LiftUnit_State_Val.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.label_LiftUnit_State_Val.Location = new System.Drawing.Point(609, 154);
+            this.label_LiftUnit_State_Val.Location = new System.Drawing.Point(270, 437);
             this.label_LiftUnit_State_Val.Name = "label_LiftUnit_State_Val";
             this.label_LiftUnit_State_Val.Size = new System.Drawing.Size(103, 22);
             this.label_LiftUnit_State_Val.TabIndex = 82;
@@ -396,7 +396,7 @@ namespace ZenHandler.Dlg
             // 
             this.label_LiftUnit_State.AutoSize = true;
             this.label_LiftUnit_State.Font = new System.Drawing.Font("나눔고딕", 8.999999F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(129)));
-            this.label_LiftUnit_State.Location = new System.Drawing.Point(611, 138);
+            this.label_LiftUnit_State.Location = new System.Drawing.Point(272, 421);
             this.label_LiftUnit_State.Name = "label_LiftUnit_State";
             this.label_LiftUnit_State.Size = new System.Drawing.Size(43, 14);
             this.label_LiftUnit_State.TabIndex = 81;
@@ -406,7 +406,7 @@ namespace ZenHandler.Dlg
             // 
             this.label_LiftUnit_Step.AutoSize = true;
             this.label_LiftUnit_Step.Font = new System.Drawing.Font("나눔고딕", 8.999999F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(129)));
-            this.label_LiftUnit_Step.Location = new System.Drawing.Point(611, 83);
+            this.label_LiftUnit_Step.Location = new System.Drawing.Point(272, 366);
             this.label_LiftUnit_Step.Name = "label_LiftUnit_Step";
             this.label_LiftUnit_Step.Size = new System.Drawing.Size(39, 14);
             this.label_LiftUnit_Step.TabIndex = 80;
@@ -416,7 +416,7 @@ namespace ZenHandler.Dlg
             // 
             this.label_LiftUnit_Step_Val.BackColor = System.Drawing.Color.White;
             this.label_LiftUnit_Step_Val.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.label_LiftUnit_Step_Val.Location = new System.Drawing.Point(609, 101);
+            this.label_LiftUnit_Step_Val.Location = new System.Drawing.Point(270, 384);
             this.label_LiftUnit_Step_Val.Name = "label_LiftUnit_Step_Val";
             this.label_LiftUnit_Step_Val.Size = new System.Drawing.Size(103, 22);
             this.label_LiftUnit_Step_Val.TabIndex = 79;
@@ -427,7 +427,7 @@ namespace ZenHandler.Dlg
             // 
             this.label_SocketUnit_State_Val.BackColor = System.Drawing.Color.White;
             this.label_SocketUnit_State_Val.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.label_SocketUnit_State_Val.Location = new System.Drawing.Point(275, 438);
+            this.label_SocketUnit_State_Val.Location = new System.Drawing.Point(619, 155);
             this.label_SocketUnit_State_Val.Name = "label_SocketUnit_State_Val";
             this.label_SocketUnit_State_Val.Size = new System.Drawing.Size(103, 22);
             this.label_SocketUnit_State_Val.TabIndex = 86;
@@ -438,7 +438,7 @@ namespace ZenHandler.Dlg
             // 
             this.label_SocketUnit_State.AutoSize = true;
             this.label_SocketUnit_State.Font = new System.Drawing.Font("나눔고딕", 8.999999F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(129)));
-            this.label_SocketUnit_State.Location = new System.Drawing.Point(277, 422);
+            this.label_SocketUnit_State.Location = new System.Drawing.Point(621, 139);
             this.label_SocketUnit_State.Name = "label_SocketUnit_State";
             this.label_SocketUnit_State.Size = new System.Drawing.Size(43, 14);
             this.label_SocketUnit_State.TabIndex = 85;
@@ -448,7 +448,7 @@ namespace ZenHandler.Dlg
             // 
             this.label_SocketUnit_Step.AutoSize = true;
             this.label_SocketUnit_Step.Font = new System.Drawing.Font("나눔고딕", 8.999999F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(129)));
-            this.label_SocketUnit_Step.Location = new System.Drawing.Point(277, 367);
+            this.label_SocketUnit_Step.Location = new System.Drawing.Point(621, 84);
             this.label_SocketUnit_Step.Name = "label_SocketUnit_Step";
             this.label_SocketUnit_Step.Size = new System.Drawing.Size(39, 14);
             this.label_SocketUnit_Step.TabIndex = 84;
@@ -458,7 +458,7 @@ namespace ZenHandler.Dlg
             // 
             this.label_SocketUnit_Step_Val.BackColor = System.Drawing.Color.White;
             this.label_SocketUnit_Step_Val.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.label_SocketUnit_Step_Val.Location = new System.Drawing.Point(275, 385);
+            this.label_SocketUnit_Step_Val.Location = new System.Drawing.Point(619, 102);
             this.label_SocketUnit_Step_Val.Name = "label_SocketUnit_Step_Val";
             this.label_SocketUnit_Step_Val.Size = new System.Drawing.Size(103, 22);
             this.label_SocketUnit_Step_Val.TabIndex = 83;
@@ -532,7 +532,7 @@ namespace ZenHandler.Dlg
             this.Controls.Add(this.BTN_MAGAZINE_UNIT_STOP);
             this.Controls.Add(this.BTN_MAGAZINE_UNIT_AUTORUN);
             this.Controls.Add(this.BTN_MAGAZINE_UNIT_READY);
-            this.Controls.Add(this.label4);
+            this.Controls.Add(this.label_MagazineUnit_Title);
             this.Controls.Add(this.BTN_SOCKET_UNIT_PAUSE);
             this.Controls.Add(this.BTN_SOCKET_UNIT_STOP);
             this.Controls.Add(this.BTN_SOCKET_UNIT_AUTORUN);
@@ -546,7 +546,7 @@ namespace ZenHandler.Dlg
             this.Controls.Add(this.BTN_TRANSFER_UNIT_AUTORUN);
             this.Controls.Add(this.BTN_TRANSFER_UNIT_READY);
             this.Controls.Add(this.label3);
-            this.Controls.Add(this.label2);
+            this.Controls.Add(this.label_LiftUnit_Title);
             this.Controls.Add(this.label1);
             this.Name = "UnitControl";
             this.Size = new System.Drawing.Size(770, 564);
@@ -558,7 +558,7 @@ namespace ZenHandler.Dlg
         #endregion
 
         private System.Windows.Forms.Label label3;
-        private System.Windows.Forms.Label label2;
+        private System.Windows.Forms.Label label_LiftUnit_Title;
         private System.Windows.Forms.Label label1;
         private System.Windows.Forms.Button BTN_TRANSFER_UNIT_READY;
         private System.Windows.Forms.Button BTN_TRANSFER_UNIT_AUTORUN;
@@ -572,7 +572,7 @@ namespace ZenHandler.Dlg
         private System.Windows.Forms.Button BTN_SOCKET_UNIT_STOP;
         private System.Windows.Forms.Button BTN_SOCKET_UNIT_AUTORUN;
         private System.Windows.Forms.Button BTN_SOCKET_UNIT_READY;
-        private System.Windows.Forms.Label label4;
+        private System.Windows.Forms.Label label_MagazineUnit_Title;
         private System.Windows.Forms.Button BTN_MAGAZINE_UNIT_PAUSE;
         private System.Windows.Forms.Button BTN_MAGAZINE_UNIT_STOP;
         private System.Windows.Forms.Button BTN_MAGAZINE_UNIT_AUTORUN;
