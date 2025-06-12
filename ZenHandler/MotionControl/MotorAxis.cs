@@ -660,7 +660,6 @@ namespace ZenHandler.MotionControl
         }
         public virtual bool AmpFaultReset()
         {
-
             uint duLevel = 0;
             CAXM.AxmMoveStop(this.m_lAxisNo, this.Deceleration);
             CAXM.AxmSignalServoOn(this.m_lAxisNo, (uint)AXT_USE.DISABLE);

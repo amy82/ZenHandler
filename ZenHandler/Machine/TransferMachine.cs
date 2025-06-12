@@ -132,10 +132,8 @@ namespace ZenHandler.Machine
             }
 
             pickedProduct = Data.TaskDataYaml.TaskLoad_Transfer(taskPath);
-
             productLayout = Data.TaskDataYaml.TaskLoad_Layout(LayoutPath);
-
-            TrayPosition = MotionControl.MotorSet.TrayPos.Right;        //init
+            TrayPosition = MotionControl.MotorSet.TrayPos.Right;            //init
 
 
             uphStartTime = DateTime.Now;

@@ -192,10 +192,14 @@ namespace ZenHandler.TcpSocket
              */
             //>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
             //
-            if (data.Command == "APS_LOT_START_CMD")    //TODO: 이때 검사 pc로 보내야될 값 , 받아서 바코드 Lot과 함께 전달해야된다.
+            //
+            if (data.Command == "APS_LOT_START_CMD")
             {
+                //TODO: 이때 검사 pc로 보내야될 값 , 받아서 바코드 Lot과 함께 전달해야된다.
                 //착공 진행 신호
                 Globalo.taskWork.bRecv_Client_LotStart = data.Judge;   //Only 0 = ok
+                Globalo.taskWork.SpecialDataParameter = data.CommandParameter.Select(item => item.DeepCopy()).ToList();
+
             }
             else if (data.Command == "APS_LOT_COMPLETE_CMD")
             {
@@ -640,7 +644,8 @@ namespace ZenHandler.TcpSocket
                 switch (wrapper.Type)
                 {
                     case "EquipmentData":
-                        EquipmentData edata = serializer.Deserialize<EquipmentData>(reader);
+                        //EquipmentData edata = serializer.Deserialize<EquipmentData>(reader);
+                        EquipmentData edata = JsonConvert.DeserializeObject<EquipmentData>(wrapper.Data.ToString());
                         hostMessageParse(edata);
                         break;
 

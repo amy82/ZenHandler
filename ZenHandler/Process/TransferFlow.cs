@@ -844,7 +844,6 @@ namespace ZenHandler.Process
                         //nRetStep *= -1;
                         //break;
                     }
-
                     break;
                 case 4340:
                     //z 축 대기 위치로 이동
@@ -887,7 +886,7 @@ namespace ZenHandler.Process
                         //ok
                         szLog = $"[AUTO] OBJECT_ID_REPORT Acknowledge [STEP : {nRetStep}]";
                         Globalo.LogPrint("LotProcess", szLog);
-                        nRetStep = 4400;
+                        nRetStep = 4390;
                         Globalo.taskWork.bRecv_Client_LotStart = -1;        //착공 완료 여부
                     }
                     else if (Globalo.taskWork.bRecv_Client_ObjectIdReport == 1)
@@ -925,9 +924,13 @@ namespace ZenHandler.Process
                     if (Globalo.taskWork.bRecv_Client_LotStart == 0)        //0일때만 정상 착공 상태
                     {
                         Globalo.tcpManager.BcrClient.bRecvBcrScan = false;
+
+                        //Globalo.taskWork.SpecialDataParameter / <------여기에 담았음
+                        //TODO: 이때 Special Data 받아서 검사쪽으로 보내야된다.
+
                         szLog = $"[AUTO] LOT START COMPLETE [STEP : {nRetStep}]";
                         Globalo.LogPrint("LotProcess", szLog);
-                        nRetStep = 4840;
+                        nRetStep = 4400;
                         break;
                     }
                     else if (Globalo.taskWork.bRecv_Client_LotStart == 1)       //LGIT_PP_SELECT   - 레시피가 다른 경우
@@ -1338,6 +1341,7 @@ namespace ZenHandler.Process
                     LoadPosx = Globalo.motionManager.transferMachine.pickedProduct.LoadTrayPos.X;
 
                     Globalo.motionManager.transferMachine.pickedProduct.LoadProductInfo[LoadPosx].BcrLot = Globalo.motionManager.transferMachine.CurrentScanBcr;       //Bcr Scan ,Load
+                    Globalo.motionManager.transferMachine.pickedProduct.LoadProductInfo[LoadPosx].specialData = Globalo.taskWork.SpecialDataParameter.Select(item => item.DeepCopy()).ToList();
 
                     if (Globalo.motionManager.transferMachine.CurrentScanBcr.Length < 1)
                     {
@@ -1347,7 +1351,7 @@ namespace ZenHandler.Process
                     {
                         Globalo.motionManager.transferMachine.pickedProduct.LoadProductInfo[LoadPosx].State = Machine.PickedProductState.Bcr;       //Bcr Scan ,Load
                     }
-                        
+                    
 
 
                     Globalo.pickerInfo.SetLoadPickerInfo();                 //피커 상태 Display
@@ -1925,7 +1929,7 @@ namespace ZenHandler.Process
                         }
                         
                         sendProduct.Barcode[i] = Globalo.motionManager.transferMachine.pickedProduct.LoadProductInfo[i].BcrLot;
-
+                        sendProduct.testDataList[i] = Globalo.motionManager.transferMachine.pickedProduct.LoadProductInfo[i].specialData.Select(item => item.DeepCopy()).ToList();
                         Globalo.motionManager.transferMachine.pickedProduct.LoadProductInfo[i].State = Machine.PickedProductState.Blank;
                     }
 

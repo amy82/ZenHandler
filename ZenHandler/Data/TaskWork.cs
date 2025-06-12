@@ -36,7 +36,7 @@ namespace ZenHandler.Data
         public int bRecv_Client_CtTimeOut;          //CT TimeOUt 신호
         public string CtTimeOutValue;
 
-
+        public List<TcpSocket.EquipmentParameterInfo> SpecialDataParameter { get; set; } = new List<TcpSocket.EquipmentParameterInfo>();
         public List<string> vSensorIniList = new List<string>();
 
         

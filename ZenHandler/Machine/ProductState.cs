@@ -57,10 +57,14 @@ namespace ZenHandler.Machine
         public int No { get; set; } = 0;
         public string BcrLot { get; set; } = "";
         public PickedProductState State { get; set; } = PickedProductState.Blank;
+        //Mes에서 받은 Special Data 보관해야되나?
+        public List<TcpSocket.EquipmentParameterInfo> specialData { get; set; } = new List<TcpSocket.EquipmentParameterInfo>();     //eeprom , fw 설비 ::검사쪽으로 전달해야될 data
+        public FwProductState FwResultState { get; set; } = FwProductState.Blank;                   //ng항목이 달라서 추가
+        public EEpromProductState EEpromResultState { get; set; } = EEpromProductState.Blank;       //ng항목이 달라서 추가
+        public AoiSocketProductState AoiResultState { get; set; } = AoiSocketProductState.Blank;    //ng항목이 달라서 추가
 
-        public FwProductState FwResultState { get; set; } = FwProductState.Blank;
-        public EEpromProductState EEpromResultState { get; set; } = EEpromProductState.Blank;
-        public AoiSocketProductState AoiResultState { get; set; } = AoiSocketProductState.Blank;
+
+
         public ProductInfo() { }  // <- 이게 필요해!
         public ProductInfo(int index)
         {
@@ -85,7 +89,7 @@ namespace ZenHandler.Machine
     // 트랜스퍼나 피커가 들고 있는 제품 정보
     public class PickedProduct
     {
-        public List<ProductInfo> LoadProductInfo { get; set; } = new List<ProductInfo>();       //TODO: 항상 4개가 돼야된다.
+        public List<ProductInfo> LoadProductInfo { get; set; } = new List<ProductInfo>();       //TODO: 항상 4개가 돼야된다., aoi는 2개
         public List<ProductInfo> UnLoadProductInfo { get; set; } = new List<ProductInfo>();
 
         public TrayPoint LoadTrayPos { get; set; } = new TrayPoint();       //투입, 배출 는 같이 쓰면되려나?  L,R 나눠야 될지?

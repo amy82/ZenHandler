@@ -91,6 +91,7 @@ namespace ZenHandler.Machine
             // 갠트리 구동을 설정한다.
             int m_lAxisNoMaster = (int)eLift.GANTRYX_L;
             int m_lAxisNoSlave = (int)eLift.GANTRYX_R;       // Gantry Master/Slave 축 번호 선언 초기화
+
             uint duSlaveHmUse = 0;      // TRUE : 마스터 홈센서를 찾은 후 슬레이브 홈센서도 찾음
             double dSlaveHmOffset = 0;       // 마스터와 슬레이브 홈센서들간의 Offset
             double dSlaveHmRange = 10;       // 원점 검색시 마스터 홈센서와 슬레이브 홈센서간의 오차 한계
