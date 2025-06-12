@@ -1929,7 +1929,7 @@ namespace ZenHandler.Process
                         }
                         
                         sendProduct.Barcode[i] = Globalo.motionManager.transferMachine.pickedProduct.LoadProductInfo[i].BcrLot;
-                        sendProduct.testDataList[i] = Globalo.motionManager.transferMachine.pickedProduct.LoadProductInfo[i].specialData.Select(item => item.DeepCopy()).ToList();
+                        sendProduct.specialData[i] = Globalo.motionManager.transferMachine.pickedProduct.LoadProductInfo[i].specialData.Select(item => item.DeepCopy()).ToList();
                         Globalo.motionManager.transferMachine.pickedProduct.LoadProductInfo[i].State = Machine.PickedProductState.Blank;
                     }
 

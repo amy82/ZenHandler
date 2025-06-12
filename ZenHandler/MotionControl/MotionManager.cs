@@ -13,18 +13,18 @@ namespace ZenHandler.MotionControl
         public int Index { get; set; }                  // 소켓 인덱스
         public int[] States { get; set; }               // 요청 상태 배열
         public string[] Barcode { get; set; }             // 바코드 정보
-        public List<TcpSocket.EquipmentParameterInfo>[] testDataList { get; set; }
+        public List<TcpSocket.EquipmentParameterInfo>[] specialData { get; set; }
 
         public SocketReqArgs(int size = 4)
         {
             States = new int[size];
             Barcode = new string[size];
-            testDataList = new List<TcpSocket.EquipmentParameterInfo>[4];
+            specialData = new List<TcpSocket.EquipmentParameterInfo>[4];
             for (int i = 0; i < size; i++)
             {
                 States[i] = -1;
                 Barcode[i] = string.Empty;
-                testDataList[i] = new List<TcpSocket.EquipmentParameterInfo>();
+                specialData[i] = new List<TcpSocket.EquipmentParameterInfo>();
             }
         }
         public SocketReqArgs Clone()

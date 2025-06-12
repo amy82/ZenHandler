@@ -280,6 +280,8 @@ namespace ZenHandler.Process
                                 else
                                 {
                                     Globalo.motionManager.socketEEpromMachine.socketProduct.EEpromSocketInfo[0][i].State = Machine.EEpromProductState.Writing;
+                                    Globalo.motionManager.socketEEpromMachine.socketProduct.EEpromSocketInfo[0][i].BcrLot = FlowSocketState[sNum].Barcode[i];
+                                    Globalo.motionManager.socketEEpromMachine.socketProduct.EEpromSocketInfo[0][i].specialData = FlowSocketState[sNum].specialData[i].Select(item => item.DeepCopy()).ToList();
                                 }
                             }
                         }
@@ -450,6 +452,8 @@ namespace ZenHandler.Process
                                     bErrChk = true;
                                 }
                                 Globalo.motionManager.socketEEpromMachine.socketProduct.EEpromSocketInfo[0][i].State = Machine.EEpromProductState.Blank;
+                                Globalo.motionManager.socketEEpromMachine.socketProduct.EEpromSocketInfo[0][i].BcrLot = string.Empty;
+                                Globalo.motionManager.socketEEpromMachine.socketProduct.EEpromSocketInfo[0][i].specialData.Clear();
                             }
                         }
                         if (bErrChk)
@@ -1087,6 +1091,8 @@ namespace ZenHandler.Process
                                 else
                                 {
                                     Globalo.motionManager.socketEEpromMachine.socketProduct.EEpromSocketInfo[1][i].State = Machine.EEpromProductState.Writing;
+                                    Globalo.motionManager.socketEEpromMachine.socketProduct.EEpromSocketInfo[1][i].BcrLot = FlowSocketState[sNum].Barcode[i];
+                                    Globalo.motionManager.socketEEpromMachine.socketProduct.EEpromSocketInfo[1][i].specialData = FlowSocketState[sNum].specialData[i].Select(item => item.DeepCopy()).ToList();
                                 }
                             }
                         }
@@ -1903,7 +1909,8 @@ namespace ZenHandler.Process
             int nStep = 10;
             int nTaskTimeTick = 0;
             string szLog = "";
-            const int sTaskNum = 0;
+            int wNum = socketIndex;
+            const int sWTaskNum = 0;     //0 = Write
             while (true)
             {
                 if (CancelTokenSocket.Token.IsCancellationRequested)      //정지시 while 빠져나가는 부분
@@ -1922,7 +1929,7 @@ namespace ZenHandler.Process
                         nStep = 15;
                         break;
                     case 15:
-                        bRtn = Globalo.motionManager.socketEEpromMachine.GetMultiContactUp(0, true);
+                        bRtn = Globalo.motionManager.socketEEpromMachine.GetMultiContactUp(sWTaskNum, true);
                         if (bRtn == false)
                         {
                             szLog = $"[READY] WRITE CONTACT UP CHECK FAIL [STEP : {nStep}]";
@@ -1933,7 +1940,7 @@ namespace ZenHandler.Process
                         nStep = 20;
                         break;
                     case 20:
-                        if (socketIndex == 0)
+                        if (wNum == 0)
                         {
                             //소켓 x축 Write 위치인지 확인
                             if (Globalo.motionManager.socketEEpromMachine.ChkMotorXPos(Machine.EEpromSocketMachine.eTeachingPosList.WRITE_POS, Machine.eEEpromSocket.BACK_X) == false)
@@ -1981,7 +1988,7 @@ namespace ZenHandler.Process
                         nStep = 30;
                         break;
                     case 30:
-                        bRtn = Globalo.motionManager.socketEEpromMachine.MultiContactUp(sTaskNum, true);
+                        bRtn = Globalo.motionManager.socketEEpromMachine.MultiContactUp(sWTaskNum, true);
                         if (bRtn)
                         {
                             szLog = $"[AUTO] WRITE CONTACT UP [STEP : {nStep}]";
@@ -1999,7 +2006,7 @@ namespace ZenHandler.Process
                         break;
                     case 40:
                         //컨택 상승 확인
-                        bRtn = Globalo.motionManager.socketEEpromMachine.GetMultiContactUp(sTaskNum, true);
+                        bRtn = Globalo.motionManager.socketEEpromMachine.GetMultiContactUp(sWTaskNum, true);
                         if (bRtn)
                         {
                             szLog = $"[AUTO] WRITE CONTACT UP CEHCK [STEP : {nStep}]";
@@ -2018,7 +2025,7 @@ namespace ZenHandler.Process
                         break;
                     case 60:
                         //컨택 전진
-                        bRtn = Globalo.motionManager.socketEEpromMachine.MultiContactFor(sTaskNum, true);
+                        bRtn = Globalo.motionManager.socketEEpromMachine.MultiContactFor(sWTaskNum, true);
                         if (bRtn)
                         {
                             szLog = $"[AUTO] WRITE CONTACT FOR [STEP : {nStep}]";
@@ -2037,7 +2044,7 @@ namespace ZenHandler.Process
                         break;
                     case 80:
                         //컨택 전진 확인
-                        bRtn = Globalo.motionManager.socketEEpromMachine.GetMultiContactFor(sTaskNum, true);
+                        bRtn = Globalo.motionManager.socketEEpromMachine.GetMultiContactFor(sWTaskNum, true);
                         if (bRtn)
                         {
                             szLog = $"[AUTO] WRITE CONTACT FOR CEHCK [STEP : {nStep}]";
@@ -2063,7 +2070,7 @@ namespace ZenHandler.Process
                         break;
                     case 120:
                         //컨택 하강
-                        bRtn = Globalo.motionManager.socketEEpromMachine.MultiContactUp(sTaskNum, false);
+                        bRtn = Globalo.motionManager.socketEEpromMachine.MultiContactUp(sWTaskNum, false);
                         if (bRtn)
                         {
                             szLog = $"[AUTO] WRITE CONTACT DOWN [STEP : {nStep}]";
@@ -2082,7 +2089,7 @@ namespace ZenHandler.Process
                         break;
                     case 140:
                         //컨택 하강 확인
-                        bRtn = Globalo.motionManager.socketEEpromMachine.GetMultiContactUp(sTaskNum, false);
+                        bRtn = Globalo.motionManager.socketEEpromMachine.GetMultiContactUp(sWTaskNum, false);
                         if (bRtn)
                         {
                             szLog = $"[AUTO] WRITE CONTACT DOWN CEHCK [STEP : {nStep}]";
@@ -2110,18 +2117,26 @@ namespace ZenHandler.Process
                         //Client Send
 
                         //WRITE 진행
-                        TcpSocket.EquipmentData sendEqipData2 = new TcpSocket.EquipmentData();
-                        sendEqipData2.Command = "WRITE_GO";
 
                         for (i = 0; i < 4; i++)     //for (i = 0; i < socketStateA.Length; i++)
                         {
+                            TcpSocket.MessageWrapper EqipData = new TcpSocket.MessageWrapper();
+                            EqipData.Type = "Tester";
+
+                            TcpSocket.TesterData tData = new TcpSocket.TesterData();
+                            tData.Cmd = "WRITE_GO";
+                            tData.LotId[0] = Globalo.motionManager.socketEEpromMachine.socketProduct.EEpromSocketInfo[wNum][i].BcrLot;  //tData.LotId[0]  - 소켓 하나에 pc한대
+                            tData.CommandParameter = Globalo.motionManager.socketEEpromMachine.socketProduct.EEpromSocketInfo[wNum][i].specialData.Select(item => item.DeepCopy()).ToList();
+                            EqipData.Data = tData;
+
                             Globalo.motionManager.socketEEpromMachine.Tester_A_Result[i] = 0;
-                            if (socketIndex == 0)
+                            if (wNum == 0)
                             {
                                 if (FlowSocketState[0].States[i] == 0)
                                 {
                                     Globalo.motionManager.socketEEpromMachine.Tester_A_Result[i] = -1;
-                                    Globalo.tcpManager.SendMessageToClient(sendEqipData2, i);
+                                    Globalo.tcpManager.SendMsgToTester(EqipData, i);
+                                    //Globalo.tcpManager.SendMessageToClient(sendEqipData2, i);
                                 }
                             }
                             else
@@ -2129,7 +2144,8 @@ namespace ZenHandler.Process
                                 if (FlowSocketState[1].States[i] == 0)
                                 {
                                     Globalo.motionManager.socketEEpromMachine.Tester_A_Result[i] = -1;
-                                    Globalo.tcpManager.SendMessageToClient(sendEqipData2, i + 4);
+                                    Globalo.tcpManager.SendMsgToTester(EqipData, i + 4);
+                                    //Globalo.tcpManager.SendMessageToClient(sendEqipData2, i + 4);
                                 }
                             }
                         }
@@ -2147,15 +2163,15 @@ namespace ZenHandler.Process
                             {
                                 if (Globalo.motionManager.socketEEpromMachine.Tester_A_Result[i] == 1)  //1 양품
                                 {
-                                    Globalo.motionManager.socketEEpromMachine.socketProduct.EEpromSocketInfo[0][i].State = Machine.EEpromProductState.Verifying;
+                                    Globalo.motionManager.socketEEpromMachine.socketProduct.EEpromSocketInfo[wNum][i].State = Machine.EEpromProductState.Verifying;
                                 }
                                 else if (Globalo.motionManager.socketEEpromMachine.Tester_A_Result[i] == 2)  //2 Ng
                                 {
-                                    Globalo.motionManager.socketEEpromMachine.socketProduct.EEpromSocketInfo[0][i].State = Machine.EEpromProductState.NG_Write;
+                                    Globalo.motionManager.socketEEpromMachine.socketProduct.EEpromSocketInfo[wNum][i].State = Machine.EEpromProductState.NG_Write;
                                 }
                                 else
                                 {
-                                    Globalo.motionManager.socketEEpromMachine.socketProduct.EEpromSocketInfo[0][i].State = Machine.EEpromProductState.Blank;
+                                    Globalo.motionManager.socketEEpromMachine.socketProduct.EEpromSocketInfo[wNum][i].State = Machine.EEpromProductState.Blank;
                                 }
                             }
                             //
@@ -2169,7 +2185,7 @@ namespace ZenHandler.Process
                         break;
                     case 300:
                         //Write 컨택 상승
-                        bRtn = Globalo.motionManager.socketEEpromMachine.MultiContactUp(sTaskNum, true);
+                        bRtn = Globalo.motionManager.socketEEpromMachine.MultiContactUp(sWTaskNum, true);
                         if (bRtn)
                         {
                             szLog = $"[AUTO] WRITE CONTACT UP [STEP : {nStep}]";
@@ -2189,7 +2205,7 @@ namespace ZenHandler.Process
                         break;
                     case 320:
                         //컨택 상승 확인
-                        bRtn = Globalo.motionManager.socketEEpromMachine.GetMultiContactUp(sTaskNum, true);
+                        bRtn = Globalo.motionManager.socketEEpromMachine.GetMultiContactUp(sWTaskNum, true);
                         if (bRtn)
                         {
                             szLog = $"[AUTO] WRITE CONTACT UP CEHCK [STEP : {nStep}]";
@@ -2207,7 +2223,7 @@ namespace ZenHandler.Process
                         break;
                     case 340:
                         //컨택 후진
-                        bRtn = Globalo.motionManager.socketEEpromMachine.MultiContactFor(sTaskNum, false);
+                        bRtn = Globalo.motionManager.socketEEpromMachine.MultiContactFor(sWTaskNum, false);
                         if (bRtn)
                         {
                             szLog = $"[AUTO] WRITE CONTACT BACK [STEP : {nStep}]";
@@ -2226,7 +2242,7 @@ namespace ZenHandler.Process
                         break;
                     case 360:
                         //컨택 후진 확인
-                        bRtn = Globalo.motionManager.socketEEpromMachine.GetMultiContactFor(sTaskNum, false);
+                        bRtn = Globalo.motionManager.socketEEpromMachine.GetMultiContactFor(sWTaskNum, false);
                         if (bRtn)
                         {
                             szLog = $"[AUTO] WRITE CONTACT BACK CEHCK [STEP : {nStep}]";
@@ -2297,6 +2313,7 @@ namespace ZenHandler.Process
             int nStep = 10;
             int nTaskTimeTick = 0;
             string szLog = "";
+            int vNum = socketIndex;
             const int sVTaskNum = 1;     //1 = Verify
             while (true)
             {
@@ -2316,7 +2333,7 @@ namespace ZenHandler.Process
                         nStep = 15;
                         break;
                     case 15:
-                        bRtn = Globalo.motionManager.socketEEpromMachine.GetMultiContactUp(1, true);
+                        bRtn = Globalo.motionManager.socketEEpromMachine.GetMultiContactUp(sVTaskNum, true);
                         if (bRtn == false)
                         {
                             szLog = $"[READY] VERIFY CONTACT UP CHECK FAIL [STEP : {nStep}]";
@@ -2327,7 +2344,7 @@ namespace ZenHandler.Process
                         nStep = 20;
                         break;
                     case 20:
-                        if (socketIndex == 0)
+                        if (vNum == 0)
                         {
                             //소켓 x축 Verify 위치인지 확인
                             if (Globalo.motionManager.socketEEpromMachine.ChkMotorXPos(Machine.EEpromSocketMachine.eTeachingPosList.VERIFY_POS, Machine.eEEpromSocket.BACK_X) == false)
@@ -2503,19 +2520,28 @@ namespace ZenHandler.Process
                         //Write Start
                         //Client Send
 
-                        //WRITE 진행
-                        TcpSocket.EquipmentData sendEqipData2 = new TcpSocket.EquipmentData();
-                        sendEqipData2.Command = "VERIFY_GO";
+                        //TcpSocket.EquipmentData sendEqipData2 = new TcpSocket.EquipmentData();
+                        //sendEqipData2.Command = "VERIFY_GO";
+
+                        TcpSocket.MessageWrapper vEqipData = new TcpSocket.MessageWrapper();
+                        vEqipData.Type = "Tester";
+
+                        TcpSocket.TesterData tData = new TcpSocket.TesterData();
+                        tData.Cmd = "VERIFY_GO";
+                        tData.LotId[0] = Globalo.motionManager.socketEEpromMachine.socketProduct.EEpromSocketInfo[vNum][i].BcrLot;
+                        tData.CommandParameter = Globalo.motionManager.socketEEpromMachine.socketProduct.EEpromSocketInfo[vNum][i].specialData.Select(item => item.DeepCopy()).ToList();
+                        vEqipData.Data = tData;
 
                         for (i = 0; i < 4; i++)     //for (i = 0; i < socketStateA.Length; i++)
                         {
                             Globalo.motionManager.socketEEpromMachine.Tester_B_Result[i] = 0;
-                            if (socketIndex == 0)
+                            if (vNum == 0)
                             {
                                 if (FlowSocketState[0].States[i] == 0)
                                 {
                                     Globalo.motionManager.socketEEpromMachine.Tester_B_Result[i] = -1;
-                                    Globalo.tcpManager.SendMessageToClient(sendEqipData2, i);
+                                    //Globalo.tcpManager.SendMessageToClient(sendEqipData2, i);
+                                    Globalo.tcpManager.SendMsgToTester(vEqipData, i);
                                 }
                             }
                             else
@@ -2523,7 +2549,8 @@ namespace ZenHandler.Process
                                 if (FlowSocketState[1].States[i] == 0)
                                 {
                                     Globalo.motionManager.socketEEpromMachine.Tester_B_Result[i] = -1;
-                                    Globalo.tcpManager.SendMessageToClient(sendEqipData2, i + 4);
+                                    //Globalo.tcpManager.SendMessageToClient(sendEqipData2, i + 4);
+                                    Globalo.tcpManager.SendMsgToTester(vEqipData, i + 4);
                                 }
                             }
                         }
@@ -2541,15 +2568,15 @@ namespace ZenHandler.Process
                             {
                                 if (Globalo.motionManager.socketEEpromMachine.Tester_B_Result[i] == 1)  //1 양품
                                 {
-                                    Globalo.motionManager.socketEEpromMachine.socketProduct.EEpromSocketInfo[0][i].State = Machine.EEpromProductState.Good;
+                                    Globalo.motionManager.socketEEpromMachine.socketProduct.EEpromSocketInfo[vNum][i].State = Machine.EEpromProductState.Good;
                                 }
                                 else if (Globalo.motionManager.socketEEpromMachine.Tester_B_Result[i] == 2)  //2 Ng
                                 {
-                                    Globalo.motionManager.socketEEpromMachine.socketProduct.EEpromSocketInfo[0][i].State = Machine.EEpromProductState.NG_Verify;
+                                    Globalo.motionManager.socketEEpromMachine.socketProduct.EEpromSocketInfo[vNum][i].State = Machine.EEpromProductState.NG_Verify;
                                 }
                                 else
                                 {
-                                    Globalo.motionManager.socketEEpromMachine.socketProduct.EEpromSocketInfo[0][i].State = Machine.EEpromProductState.Blank;
+                                    Globalo.motionManager.socketEEpromMachine.socketProduct.EEpromSocketInfo[vNum][i].State = Machine.EEpromProductState.Blank;
                                 }
                             }
                             //

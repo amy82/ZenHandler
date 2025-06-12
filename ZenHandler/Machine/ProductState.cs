@@ -76,7 +76,12 @@ namespace ZenHandler.Machine
             {
                 No = this.No,
                 BcrLot = this.BcrLot,
-                State = this.State
+                State = this.State,
+                specialData = this.specialData,
+                FwResultState = this.FwResultState,
+                EEpromResultState = this.EEpromResultState,
+                AoiResultState = this.AoiResultState
+
             };
         }
     }
@@ -184,7 +189,7 @@ namespace ZenHandler.Machine
         public int No { get; set; }
         public EEpromProductState State { get; set; } = EEpromProductState.Blank;
         public string BcrLot { get; set; } = "Empty";
-
+        public List<TcpSocket.EquipmentParameterInfo> specialData { get; set; } = new List<TcpSocket.EquipmentParameterInfo>();
         public EEpromSocketProductInfo() { }  // <- 이게 없으면 yaml 로드 안됨
         public EEpromSocketProductInfo(int index)
         {
@@ -197,7 +202,9 @@ namespace ZenHandler.Machine
             {
                 No = this.No,
                 State = this.State,
-                BcrLot = this.BcrLot
+                BcrLot = this.BcrLot,
+                specialData = this.specialData
+
             };
         }
     }
@@ -207,7 +214,7 @@ namespace ZenHandler.Machine
         public int No { get; set; }
         public FwProductState State { get; set; } = FwProductState.Blank;
         public string BcrLot { get; set; } = "Empty";
-
+        public List<TcpSocket.EquipmentParameterInfo> specialData { get; set; } = new List<TcpSocket.EquipmentParameterInfo>();
         public FwSocketProductInfo() { }  // <- 이게 없으면 yaml 로드 안됨
         public FwSocketProductInfo(int index)
         {
@@ -220,7 +227,8 @@ namespace ZenHandler.Machine
             {
                 No = this.No,
                 State = this.State,
-                BcrLot = this.BcrLot
+                BcrLot = this.BcrLot,
+                specialData = this.specialData
             };
         }
     }
