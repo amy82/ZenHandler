@@ -94,7 +94,7 @@ namespace ZenHandler.Dlg
             // 
             // label_Config_Bcr
             // 
-            this.label_Config_Bcr.BackColor = System.Drawing.SystemColors.Window;
+            this.label_Config_Bcr.BackColor = System.Drawing.Color.LightGray;
             this.label_Config_Bcr.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.label_Config_Bcr.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.label_Config_Bcr.Font = new System.Drawing.Font("나눔고딕", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(129)));
@@ -446,13 +446,13 @@ namespace ZenHandler.Dlg
             // 
             // label_Bcr_Ip1
             // 
-            this.label_Bcr_Ip1.BackColor = System.Drawing.Color.PaleTurquoise;
+            this.label_Bcr_Ip1.BackColor = System.Drawing.Color.LightGray;
             this.label_Bcr_Ip1.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.label_Bcr_Ip1.Font = new System.Drawing.Font("나눔고딕 ExtraBold", 8.999999F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(129)));
             this.label_Bcr_Ip1.ForeColor = System.Drawing.Color.Black;
             this.label_Bcr_Ip1.Location = new System.Drawing.Point(491, 78);
             this.label_Bcr_Ip1.Name = "label_Bcr_Ip1";
-            this.label_Bcr_Ip1.Size = new System.Drawing.Size(60, 40);
+            this.label_Bcr_Ip1.Size = new System.Drawing.Size(72, 40);
             this.label_Bcr_Ip1.TabIndex = 119;
             this.label_Bcr_Ip1.Text = "192.168";
             this.label_Bcr_Ip1.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
@@ -463,9 +463,9 @@ namespace ZenHandler.Dlg
             this.label_Bcr_Ip3.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.label_Bcr_Ip3.Font = new System.Drawing.Font("나눔고딕", 11.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(129)));
             this.label_Bcr_Ip3.ForeColor = System.Drawing.Color.Black;
-            this.label_Bcr_Ip3.Location = new System.Drawing.Point(623, 78);
+            this.label_Bcr_Ip3.Location = new System.Drawing.Point(628, 78);
             this.label_Bcr_Ip3.Name = "label_Bcr_Ip3";
-            this.label_Bcr_Ip3.Size = new System.Drawing.Size(70, 40);
+            this.label_Bcr_Ip3.Size = new System.Drawing.Size(65, 40);
             this.label_Bcr_Ip3.TabIndex = 121;
             this.label_Bcr_Ip3.Text = "0";
             this.label_Bcr_Ip3.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
@@ -477,9 +477,9 @@ namespace ZenHandler.Dlg
             this.label_Bcr_Ip2.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.label_Bcr_Ip2.Font = new System.Drawing.Font("나눔고딕", 11.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(129)));
             this.label_Bcr_Ip2.ForeColor = System.Drawing.Color.Black;
-            this.label_Bcr_Ip2.Location = new System.Drawing.Point(552, 78);
+            this.label_Bcr_Ip2.Location = new System.Drawing.Point(563, 78);
             this.label_Bcr_Ip2.Name = "label_Bcr_Ip2";
-            this.label_Bcr_Ip2.Size = new System.Drawing.Size(70, 40);
+            this.label_Bcr_Ip2.Size = new System.Drawing.Size(65, 40);
             this.label_Bcr_Ip2.TabIndex = 120;
             this.label_Bcr_Ip2.Text = "0";
             this.label_Bcr_Ip2.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
@@ -492,7 +492,7 @@ namespace ZenHandler.Dlg
             this.label_Config_Bcr_Port.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.label_Config_Bcr_Port.Font = new System.Drawing.Font("나눔고딕", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(129)));
             this.label_Config_Bcr_Port.ForeColor = System.Drawing.Color.Black;
-            this.label_Config_Bcr_Port.Location = new System.Drawing.Point(490, 121);
+            this.label_Config_Bcr_Port.Location = new System.Drawing.Point(490, 119);
             this.label_Config_Bcr_Port.Name = "label_Config_Bcr_Port";
             this.label_Config_Bcr_Port.Size = new System.Drawing.Size(103, 37);
             this.label_Config_Bcr_Port.TabIndex = 122;
@@ -505,9 +505,9 @@ namespace ZenHandler.Dlg
             this.label_Bcr_Port.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.label_Bcr_Port.Font = new System.Drawing.Font("나눔고딕", 11.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(129)));
             this.label_Bcr_Port.ForeColor = System.Drawing.Color.Black;
-            this.label_Bcr_Port.Location = new System.Drawing.Point(595, 121);
+            this.label_Bcr_Port.Location = new System.Drawing.Point(595, 119);
             this.label_Bcr_Port.Name = "label_Bcr_Port";
-            this.label_Bcr_Port.Size = new System.Drawing.Size(70, 37);
+            this.label_Bcr_Port.Size = new System.Drawing.Size(98, 37);
             this.label_Bcr_Port.TabIndex = 123;
             this.label_Bcr_Port.Text = "1";
             this.label_Bcr_Port.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
