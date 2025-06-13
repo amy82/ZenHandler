@@ -302,7 +302,7 @@ namespace ZenHandler.Process
                                 }
                             }
                         }
-
+                        Globalo.motionManager.socketFwMachine.TaskSave();
                         if (bErrChk)
                         {
                             szLog = $"[AUTO] {socketName[FNum]} PRODUCT LOAD FAIL[STEP : {nStep}]";
@@ -556,10 +556,12 @@ namespace ZenHandler.Process
                                 }
 
                                 Globalo.motionManager.socketFwMachine.socketProduct.FwSocketInfo[FNum][i].State = Machine.FwProductState.Blank;
+                                Globalo.motionManager.socketFwMachine.socketProduct.FwSocketInfo[FNum][i].BcrLot = string.Empty;
+                                Globalo.motionManager.socketFwMachine.socketProduct.FwSocketInfo[FNum][i].specialData.Clear();
                             }
                         }
 
-
+                        Globalo.motionManager.socketFwMachine.TaskSave();
                         if (bErrChk)
                         {
                             szLog = $"[AUTO] {socketName[FNum]} PRODUCT UNLOAD FAIL[STEP : {nStep}]";
@@ -705,17 +707,14 @@ namespace ZenHandler.Process
                     //TcpSocket.EquipmentData sendEqipData = new TcpSocket.EquipmentData();
                     //sendEqipData.Command = "FW_GO";
 
-                    
-                    for (i = 0; i < 4; i++)
+                    TcpSocket.MessageWrapper EqipData = new TcpSocket.MessageWrapper();
+                    EqipData.Type = "Tester";
+                    TcpSocket.TesterData tData = new TcpSocket.TesterData();
+                    for (i = 0; i < 4; i++) //fw는 pc가 1대
                     {
-                        TcpSocket.MessageWrapper EqipData = new TcpSocket.MessageWrapper();
-                        EqipData.Type = "Tester";
-
-                        TcpSocket.TesterData tData = new TcpSocket.TesterData();
                         tData.Cmd = "FW_GO";
                         tData.LotId[i] = Globalo.motionManager.socketFwMachine.socketProduct.FwSocketInfo[FNum][i].BcrLot;
-                        tData.CommandParameter = Globalo.motionManager.socketFwMachine.socketProduct.FwSocketInfo[FNum][i].specialData.Select(item => item.DeepCopy()).ToList();
-                        EqipData.Data = tData;
+                        tData.specialData[i] = Globalo.motionManager.socketFwMachine.socketProduct.FwSocketInfo[FNum][i].specialData.Select(item => item.DeepCopy()).ToList();
 
                         Globalo.motionManager.socketFwMachine.Tester_Result_All[FNum][i] = 0;
 
@@ -725,9 +724,11 @@ namespace ZenHandler.Process
                             Globalo.motionManager.socketFwMachine.Tester_Result_All[FNum][i] = -1;
    
                             //Globalo.tcpManager.SendMessageToClient(sendEqipData, FNum);
-                            Globalo.tcpManager.SendMsgToTester(EqipData, FNum);
+                            
                         }
                     }
+                    EqipData.Data = tData;
+                    Globalo.tcpManager.SendMsgToTester(EqipData, FNum);
                     nRetStep = 440;
                     break;
                 case 440:
@@ -758,6 +759,8 @@ namespace ZenHandler.Process
                                 Globalo.motionManager.socketFwMachine.socketProduct.FwSocketInfo[0][i].State = Machine.FwProductState.Blank;
                             }
                         }
+
+                        Globalo.motionManager.socketFwMachine.TaskSave();
                     }
                     nRetStep = 600;
                     break;

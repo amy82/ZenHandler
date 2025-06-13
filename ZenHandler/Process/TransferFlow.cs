@@ -1933,7 +1933,20 @@ namespace ZenHandler.Process
                         Globalo.motionManager.transferMachine.pickedProduct.LoadProductInfo[i].State = Machine.PickedProductState.Blank;
                     }
 
-                    Globalo.motionManager.transferMachine.CallSocketReqComplete(sendProduct);   //TODO: 공급 완료 확인 필요
+                    Globalo.motionManager.transferMachine.CallSocketReqComplete(sendProduct);   //TODO: 공급 완료 확인 필요  , 이렇게 하지말고 바로 소켓으로 보내야되나
+
+                    if (Program.PG_SELECT == HANDLER_PG.AOI)
+                    {
+                    }
+                    if (Program.PG_SELECT == HANDLER_PG.FW)
+                    {
+                    }
+                    if (Program.PG_SELECT == HANDLER_PG.EEPROM)
+                    {
+                    }
+                    //Globalo.motionManager.socketAoiMachine.socketProduct.AoiSocketInfo[ANum][i].State
+                    //Globalo.motionManager.socketFwMachine.socketProduct.FwSocketInfo[FNum][i].State 
+                    //Globalo.motionManager.socketEEpromMachine.socketProduct.EEpromSocketInfo[0][i].State
 
                     nRetStep = 5520;
                     break;

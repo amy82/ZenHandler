@@ -51,8 +51,23 @@ namespace ZenHandler.TcpSocket
         public string[] LotId { get; set; }//"LOT20240601"
         public int socketNum { get; set; }    //1,2,3,4로 보내야된다.
         public int[] States { get; set; }       //{ 1, 1, 1, 1}  EEPROM ,AOI는 0번 index만 사용
-        public List<EquipmentParameterInfo> CommandParameter { get; set; } = new List<EquipmentParameterInfo>();
+        //public List<EquipmentParameterInfo> CommandParameter { get; set; } = new List<EquipmentParameterInfo>();
 
+        public List<TcpSocket.EquipmentParameterInfo>[] specialData { get; set; }
+        public TesterData()
+        {
+            States = new int[4];
+            LotId = new string[4];
+            specialData = new List<TcpSocket.EquipmentParameterInfo>[4];
+
+            for (int i = 0; i < 4; i++)
+            {
+                LotId[i] = string.Empty;
+                States[i] = -1;
+                specialData[i] = new List<EquipmentParameterInfo>();
+            }
+                
+        }
         //TESTER  --> H /  REQ_APD_REPORT,
         //HANDLER --> T /  RESP_APD_REPORT,
         //TESTER  --> H /  CMD_Z_MOVE_STEP1, CMD_Z_MOVE_STEP2,

@@ -18,7 +18,6 @@ namespace ZenHandler.Machine
     {
         public event Action<MotionControl.MotorSet.TrayPos> OnTrayChangedCall;
 
-        //public event Action<int, int[]> OnSocketReqComplete;
         public event Action<MotionControl.SocketReqArgs, int> OnSocketReqComplete;
         public int MotorCnt { get; private set; } = 3;
         
@@ -176,7 +175,6 @@ namespace ZenHandler.Machine
         public void CallSocketReqComplete(MotionControl.SocketReqArgs RespSocket)        //공급 , 배출 완료 
         {
             OnSocketReqComplete?.Invoke(RespSocket, 0);
-            //OnSocketReqComplete?.Invoke(index, new int[] { 0, 0, 0, 0 });     //공급완료는 0만 가능
         }
         public void LoadTryAdd(int LoadCnt = 1)
         {

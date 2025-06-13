@@ -260,7 +260,7 @@ namespace ZenHandler.Process
                                 }
                             }
                         }
-
+                        Globalo.motionManager.socketAoiMachine.TaskSave();
                         if (bErrChk)
                         {
                             szLog = $"[AUTO] {axisName[ANum]} PRODUCT LOAD FAIL[STEP : {nStep}]";
@@ -428,10 +428,11 @@ namespace ZenHandler.Process
                                 }
 
                                 Globalo.motionManager.socketAoiMachine.socketProduct.AoiSocketInfo[ANum][i].State = Machine.AoiSocketProductState.Blank;
+                                Globalo.motionManager.socketAoiMachine.socketProduct.AoiSocketInfo[ANum][i].BcrLot = string.Empty;
                             }
                         }
 
-
+                        Globalo.motionManager.socketAoiMachine.TaskSave();
                         if (bErrChk)
                         {
                             szLog = $"[AUTO] {axisName[ANum]} PRODUCT UNLOAD FAIL[STEP : {nStep}]";

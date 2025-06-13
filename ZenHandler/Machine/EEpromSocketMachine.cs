@@ -365,6 +365,10 @@ namespace ZenHandler.Machine
         }
         public bool GetContactUp(int GroupNo, int index, bool bFlag, bool bWait = false)      //컨텍 상승 / 하강 확인 센서
         {
+            if (ProgramState.ON_LINE_MOTOR == false)
+            {
+                return true;
+            }
             //GroupNo = 앞,뒤 2Set
             int i = 0;
             int lModuleNo = 0;
@@ -456,6 +460,10 @@ namespace ZenHandler.Machine
 
         public bool GetContactFor(int GroupNo, int index, bool bFlag, bool bWait = false)      //컨텍 전진 / 후진 확인 센서
         {
+            if (ProgramState.ON_LINE_MOTOR == false)
+            {
+                return true;
+            }
             //GroupNo = 앞,뒤 2Set
             int i = 0;
             int lModuleNo = 0;

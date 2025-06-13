@@ -285,6 +285,7 @@ namespace ZenHandler.Process
                                 }
                             }
                         }
+                        Globalo.motionManager.socketEEpromMachine.TaskSave();
                         if (bErrChk)
                         {
                             szLog = $"[AUTO] SOCKET PRODUCT LOAD FAIL[STEP : {nStep}]";
@@ -292,6 +293,8 @@ namespace ZenHandler.Process
                             nRetStep *= -1;
                             break;
                         }
+
+
                         Globalo.motionManager.socketEEpromMachine.IsTesting[sNum] = false;      //공급 완료 후
                         nRetStep = 100;
                         break;
@@ -456,6 +459,7 @@ namespace ZenHandler.Process
                                 Globalo.motionManager.socketEEpromMachine.socketProduct.EEpromSocketInfo[0][i].specialData.Clear();
                             }
                         }
+                        Globalo.motionManager.socketEEpromMachine.TaskSave();
                         if (bErrChk)
                         {
                             szLog = $"[AUTO] SOCKET PRODUCT UNLOAD FAIL[STEP : {nStep}]";
@@ -1096,6 +1100,7 @@ namespace ZenHandler.Process
                                 }
                             }
                         }
+                        Globalo.motionManager.socketEEpromMachine.TaskSave();
                         if (bErrChk)
                         {
                             szLog = $"[AUTO] SOCKET PRODUCT LOAD FAIL[STEP : {nStep}]";
@@ -1260,8 +1265,12 @@ namespace ZenHandler.Process
                                     bErrChk = true;
                                 }
                                 Globalo.motionManager.socketEEpromMachine.socketProduct.EEpromSocketInfo[1][i].State = Machine.EEpromProductState.Blank;
+                                Globalo.motionManager.socketEEpromMachine.socketProduct.EEpromSocketInfo[1][i].BcrLot = string.Empty;
+                                Globalo.motionManager.socketEEpromMachine.socketProduct.EEpromSocketInfo[1][i].specialData.Clear();
+
                             }
                         }
+                        Globalo.motionManager.socketEEpromMachine.TaskSave();
                         if (bErrChk)
                         {
                             szLog = $"[AUTO] Yx SOCKET PRODUCT UNLOAD FAIL[STEP : {nStep}]";
@@ -2126,7 +2135,7 @@ namespace ZenHandler.Process
                             TcpSocket.TesterData tData = new TcpSocket.TesterData();
                             tData.Cmd = "WRITE_GO";
                             tData.LotId[0] = Globalo.motionManager.socketEEpromMachine.socketProduct.EEpromSocketInfo[wNum][i].BcrLot;  //tData.LotId[0]  - 소켓 하나에 pc한대
-                            tData.CommandParameter = Globalo.motionManager.socketEEpromMachine.socketProduct.EEpromSocketInfo[wNum][i].specialData.Select(item => item.DeepCopy()).ToList();
+                            tData.specialData[0] = Globalo.motionManager.socketEEpromMachine.socketProduct.EEpromSocketInfo[wNum][i].specialData.Select(item => item.DeepCopy()).ToList();
                             EqipData.Data = tData;
 
                             Globalo.motionManager.socketEEpromMachine.Tester_A_Result[i] = 0;
@@ -2174,6 +2183,8 @@ namespace ZenHandler.Process
                                     Globalo.motionManager.socketEEpromMachine.socketProduct.EEpromSocketInfo[wNum][i].State = Machine.EEpromProductState.Blank;
                                 }
                             }
+
+                            Globalo.motionManager.socketEEpromMachine.TaskSave();
                             //
                             //Globalo.motionManager.socketEEpromMachine.socketProduct.SocketInfo_A
                             nStep = 260;
@@ -2529,7 +2540,7 @@ namespace ZenHandler.Process
                         TcpSocket.TesterData tData = new TcpSocket.TesterData();
                         tData.Cmd = "VERIFY_GO";
                         tData.LotId[0] = Globalo.motionManager.socketEEpromMachine.socketProduct.EEpromSocketInfo[vNum][i].BcrLot;
-                        tData.CommandParameter = Globalo.motionManager.socketEEpromMachine.socketProduct.EEpromSocketInfo[vNum][i].specialData.Select(item => item.DeepCopy()).ToList();
+                        tData.specialData[0] = Globalo.motionManager.socketEEpromMachine.socketProduct.EEpromSocketInfo[vNum][i].specialData.Select(item => item.DeepCopy()).ToList();
                         vEqipData.Data = tData;
 
                         for (i = 0; i < 4; i++)     //for (i = 0; i < socketStateA.Length; i++)
@@ -2579,6 +2590,7 @@ namespace ZenHandler.Process
                                     Globalo.motionManager.socketEEpromMachine.socketProduct.EEpromSocketInfo[vNum][i].State = Machine.EEpromProductState.Blank;
                                 }
                             }
+                            Globalo.motionManager.socketEEpromMachine.TaskSave();
                             //
                             nStep = 260;
                         }
